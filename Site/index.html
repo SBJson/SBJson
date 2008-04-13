@@ -39,16 +39,18 @@ following main methods:</p>
 -[NSDictionary JSON];
 </pre></dt>
 
-<dd>Returns an NSSTring containing JSON text representing the
-receiver. (See <a href="#mapping">note</a> on mapping NSDictionary
-instances to JSON objects.)</dd>
+<dd>Return NSStrings containing a JSON representation of the receiver.
+(See <a href="#mappings">note</a> on mapping NSDictionary instances to
+JSON objects.)</dd>
 
 <dt><pre>
 -[NSString objectFromJSON];
 </pre></dt>
 
-<dd>Returns either an NSArray or NSDictionary representing the JSON it
-contains.</dd>
+<dd>Decodes the JSON in the receiver and returns either an NSArray or
+NSDictionary. Will throw an error if the receiver does not contain
+valid JSON text.</dd>
+
 </dl>
 
 
@@ -57,9 +59,8 @@ contains.</dd>
 <p>Strictly speaking <strong>JSON must have exactly one top-level
 container</strong>. (Either an array or an object.) Nulls, numbers,
 booleans and strings cannot be represented in strict JSON on their
-own. It can be quite convenient to <em>pretend</em> that such
-fragments are valid JSON and the following methods will let you do
-so:</p>
+own. It can however be quite convenient to <em>pretend</em> that such
+fragments are valid JSON. The following methods will let you do so:</p>
 
 <dl>
 <dt><pre>
@@ -69,18 +70,17 @@ so:</p>
 </pre>
 </dt>
 
-<dd>Each of these methods will return an NSString containing their
-JSON representations. The method added to NSNumber will, if it holds
-a boolean value, return the string "true" or "false". (See <a
-href="#mapping">note</a>.)</dd>
+<dd>Returns an NSString containing a JSON text fragment representating
+the receiver. The method added to NSNumber will, if it holds a boolean
+value, return the string "true" or "false". (See <a
+href="#mappings">note</a>.)</dd>
 
 <dt><pre>
 -[NSString objectFromJSONFragment];
 </pre></dt>
 
-<dd>This method works similarly to the <code>-objectFromJSON</code>
-method. It can return NSNull, NSNumber or NSString objects depending
-on the content of the string. </dd>
+<dd>Returns an instance of NSArray, NSDictionary, NSNull, NSNumber or
+NSString depending on the content of the string. </dd>
 
 </dl>
 
