@@ -2,26 +2,33 @@ body {  width: 40em;
         margin: 2em;
         margin-left: auto;
         margin-right: auto;
-        font-size: 1em;
+        font-size: 0.9em;
         font-family: Verdana, Arial, sans-serif;
 }
 h1, h2 {
-    color: #990000;
+    color: #060;
 }
 h1 {
     font-size: 1.6em;
     text-align: center;
 }
 h2 { font-size: 1.2em }
+
 code, pre { 
     font-size: 1.14em;
 }
 #toc, code, pre {
-    background: #FFFF99;
+    background: #9f9;
 }
 pre { padding: 1em; }
 
-a:hover { background:#999999; }
+#toc a {
+    color: #363;
+}
+#toc a:hover {
+    background:#393;
+    color: #afa;
+}
 
 #toc {
     border-bottom: 1px solid black;
