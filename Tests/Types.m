@@ -111,6 +111,11 @@
     }
 }
 
+- (void)testStringsWithEscapedSlashes
+{
+    eqo([@"\"\\/test\\/path\"" JSONFragmentValue], @"/test/path");
+    eqo([@"\"\\\\/test\\\\/path\"" JSONFragmentValue], @"\\/test\\/path");
+}
 
 - (void)testStringsWithUnicodeEscapes
 {
