@@ -39,7 +39,17 @@
     
     id d = [o objectAtIndex:1];
     eqo([d valueForKey:@"Longitude"], [NSNumber numberWithDouble:-122.026020]);
-    
 }
+
+- (void)testExamples
+{
+    for (int i = 1; i < 6; i++) {
+        NSString *name = [NSString stringWithFormat:@"json.org/ex%u.json", i];
+        id o = [self objFromFileNamed:name];
+        STAssertTrue([o isKindOfClass:[NSDictionary class]], @"Expected dictionary");
+        eqo([[o JSONString] objectFromJSON], o);
+    }
+}
+
 
 @end
