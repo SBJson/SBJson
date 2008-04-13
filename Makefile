@@ -33,7 +33,7 @@ dist: distclean site
 	cp -r _site dmg/Documentation
 	hdiutil create -fs HFS+ -volname $(RELEASENAME) -srcfolder dmg $(DMG)
 
-upload-dist: dist upload-site
+upload-dist: dist
 	curl --head $(DMGURL) 2>/dev/null | grep -q "404 Not Found" || false
 	scp $(DMG) $(UP)
 
