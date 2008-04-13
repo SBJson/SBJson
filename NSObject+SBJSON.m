@@ -86,8 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 @end
 
-@implementation NSDictionary (NSDictionary_SBJSON)
-
+@implementation NSDictionary (NSObject_SBJSON)
 - (NSString *)JSONStringFragment
 {
     NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[self count]];
@@ -102,10 +101,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
     return [NSString stringWithFormat:@"{%@}", [tmp componentsJoinedByString:@","]];
 }
+@end
 
+@implementation NSDictionary (NSDictionary_SBJSON)
 - (NSString *)JSONString
 {
     return [self JSONStringFragment];
 }
-
 @end
