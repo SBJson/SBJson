@@ -16,7 +16,6 @@ h2 { font-size: 1.2em }
 
 /* Fancy styling for the TOC */
 #toc {
-    background: #9f9;
     border-bottom: 1px solid black;
     border-top: 1px solid black;
     margin: 0;
@@ -45,7 +44,7 @@ h2 { font-size: 1.2em }
 }
 
 /* Code snippets */
-code, pre {
+#toc, code, pre {
     background: #9f9;
 }
 code, pre { 
