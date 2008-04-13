@@ -119,6 +119,11 @@
     as = [arr JSONString];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01,null]");
     eqo([as objectFromJSON], arr);
+    
+    arr = [NSArray arrayWithObjects:@"", [NSNull null], [NSNull null], @"1", nil];
+    as = [arr JSONString];
+    eqo(as, @"[\"\",null,null,\"1\"]");
+    eqo([as objectFromJSON], arr);
 }
 
 - (void)test05dictionaries
