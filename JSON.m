@@ -42,6 +42,31 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSString *)toJSONString:(id)x
 {
-    return [x description];
+    if (!x || [x isKindOfClass:[NSNull class]])
+        return @"null";
+    if ([x isKindOfClass:[NSNumber class]])
+        return [x stringValue];
+    if ([x isKindOfClass:[NSString class]])
+        return [NSString stringWithFormat:@"\"%@\"", x];   // XXX needs escaping
+    if ([x isKindOfClass:[NSArray class]]) {
+        NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[x count]];
+        for (int i = 0; i < [x count]; i++)
+            [tmp addObject:[self toJSONString:[x objectAtIndex:i]]];
+        return [NSString stringWithFormat:@"[%@]", [tmp componentsJoinedByString:@","]];
+    }
+    if ([x isKindOfClass:[NSDictionary class]]) {
+        NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[x count]];
+        NSArray *keys = [[x allKeys] sortedArrayUsingSelector:@selector(compare:)];
+        for (int i = 0; i < [keys count]; i++) {
+            NSString *key = [keys objectAtIndex:i];
+            [tmp addObject:[NSString stringWithFormat:@"%@:%@",
+                [self toJSONString:key], [self toJSONString:[x objectForKey:key]]]];
+        }
+        return [NSString stringWithFormat:@"{%@}", [tmp componentsJoinedByString:@","]];
+    }
+    
+    [NSException raise:@"unsupported-type"
+                format:@"I don't know about the type of %@", x];
 }
+
 @end
