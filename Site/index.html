@@ -182,11 +182,10 @@ same strings that Marc Lehmann used when comparing <a
 href="http://search.cpan.org/dist/JSON-XS/XS.pm#SPEED">JSON::XS</a> to
 its competitors.</p>
 
-<p>Originally this was a fairly close race, with SBJSON being slightly
-faster (except for decoding of the long string, where it was a lot
-faster: see note below). Then out of the blue Jens Alfke emailed me a
-couple of patches providing a serious performance boost: almost 11x for
-encoding and a good 5x for decoding the long string. </p>
+<p>Originally this was a close race with my framework being slightly
+in the lead. Then out of the blue Jens Alfke emailed me a couple of
+patches providing a serious performance boost: almost 11x for encoding
+and a good 5x for decoding the long string. </p>
 
 <pre>
 Short string
@@ -200,10 +199,9 @@ BSJSONAdditions |    70.459 |     3.748 |
 SBJSON          |   707.180 |   586.490 |
 </pre>
 
-<p>Note that BSJSONAdditions supports embedded C-style comments, while
-my library does not. Comments are not part of the JSON spec but are
-valid JavaScript and can be very handy if you use JSON for
-configuration files. Nevertheless, SBJSON strictly adheres to the
+<p>BSJSONAdditions' parser allows you to embed C-style comments in the
+JSON text. Though this can be very handy for configuration files, for
+example, SBJSON does not support them as they are not part of the JSON
 spec.</p>
 
 <h2 id="resources">Resources</h2>
