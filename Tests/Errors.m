@@ -32,8 +32,9 @@
     tn([@"[1,," objectFromJSON], @"enovalue");
 
     tn([@"{\"a\":1,," objectFromJSON], @"enovalue");
+    tn([@"{\"a\":1," objectFromJSON], @"enovalue");
     tn([@"{\"a\":}" objectFromJSON], @"enovalue");
-//    tn([@"{\"a\":" objectFromJSON], @"enovalue");
+    tn([@"{\"a\":" objectFromJSON], @"enovalue");
 }
 
 - (void)testMissingSeparator
@@ -43,7 +44,7 @@
 
 - (void)testDictionaryKey
 {
-//    tn([@"{" objectFromJSON], @"enovalue");
+    tn([@"{" objectFromJSON], @"enovalue");
     tn([@"{a" objectFromJSON], @"enovalue");
     tn([@"{null" objectFromJSON], @"enostring");
     tn([@"{false" objectFromJSON], @"enostring");

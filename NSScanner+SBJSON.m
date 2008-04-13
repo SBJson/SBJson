@@ -149,7 +149,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if ([self scanString:@"}" intoString:nil])
         return YES;
 
-    for (;;) {
+    while (![self isAtEnd]) {
         id key, value;
         if (![self scanJSONString:&key]) {
             if ([self scanJSONObject:&key])
