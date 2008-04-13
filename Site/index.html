@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>A JSON Cocoa framework for Mac OS X</title>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+</head>
+
+<body>
+
+<h1>JSON Cocoa Framework</h1>
+
+<p>This JSON framework does not add any stand-alone classes. It is a
+collection of categories that adds methods to existing classes.
+Importing <code>&lt;JSON/JSON.h&gt;</code> and linking against the
+framework adds the following methods:</p>
+
+<ul>
+
+<li>
+<pre>
+-(id)objectFromJSON;
+-(id)objectFromJSONFragment;
+</pre>
+
+<p>Added to NSString. These return the Objective-C data structure
+described by the JSON text held within the string.</p>
+
+</li>
+
+<li>
+<pre>
+-(NSString*)JSONString;
+</pre>
+
+<p>Added to NSArray and NSDictionary. This returns JSON text
+describing the (possibly nested) data structure. In JSON the keys of a
+dictionary (aka "object") <strong>must</strong> be strings. In
+Objective-C they need not be, but this method will fail otherwise.</p>
+
+</li>
+
+<li>
+<pre>
+-(NSString*)JSONStringFragment;
+</pre>
+
+<p>Added to the NSNull, NSNumber & NSString classes.</p>
+
+</li>
+</ul>
+
+<p>JSON has to be encapsulated by an array or dictionary, so a
+fragment is not valid JSON on its own. Pretending it is can be quite
+convenient, hence the methods to deal with fragments.</p>
+
+<h2>Resources</h2>
+
+<ul>
+<li><a href="news.xml">News</a> (RSS).</li>
+<li><a href="__DMGURL__">JSON embedded framework</a> disk image.</li>
+<li>Subversion: <a href="http://svn.brautaset.org/JSON/trunk">http://svn.brautaset.org/JSON/trunk</a>.</li>
+<li>Guide to <a href="http://blog.brautaset.org/2007/09/22/embedding-cocoa-frameworks/">embedding frameworks in Cocoa</a>.</li>
+<li>Feedback and bug reports to <a href="mailto:stig@brautaset.org">Stig Brautaset</a>.</li>
+<li><a href="http://json.org/">Introducing JSON</a>.</li>
+<li><a href="http://www.ietf.org/rfc/rfc4627.txt?number=4627">RFC4627</a>.</li>
+</ul>
+
+
+</body>
+</html>
+
+<h2>Apologies</h2>
+
+<p>This page is all the documentation that exists at the moment. The code is pretty stable and well tested though.</p>
