@@ -10,13 +10,19 @@
         <item>
             <title>Version 1.2.0</title>
             <description><![CDATA[
-                <p>Took two patches from Greg Bolsinga. One to make
-                the framework depend only on Foundation (and not on
-                AppKit) and another that added a static library for
-                use on the iPhone.</p>
-                <p>I also rewrote the parser to be a lot cleaner and a
-                bit faster for short input. This also fixed a
-                <em>bizarre</em> bug found by David Zhao.</p>
+                <p>This release has seen the parser being rewritten to
+                be a lot cleaner and about 10&ndash;20% faster at
+                decoding short input strings. </p>
+                <p>Applied a patch from Greg Bolsinga to make the
+                framework no longer link against AppKit, thus really
+                making it a Foundation framework rather than Cocoa
+                framework.</p>
+                <p>Applied another patch from Greg Bolsinga that adds
+                another target to create a static library for use on
+                the iPhone. (You will have to build this from source
+                yourself, at the time being.)</p>
+                <p>Fixed a <em>bizarre</em> bug, reported by David Zhao,
+                where strings would not always be decoded properly.</p>
             ]]></description>
             <pubDate>Tue, Mar 18 2008 22:14:07 GMT</pubDate>
             <enclosure url='http://code.brautaset.org/JSON/files/JSON_1.2.0.dmg' 
