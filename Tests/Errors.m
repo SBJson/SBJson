@@ -82,9 +82,9 @@
 - (void)testBrokenSurrogatePairs
 {
 //    @"\"\\uD834\\uDD1E\"" is the Unicode surrogate pairs for g-clef
-    tn([@"\"\\uD834foo\"" objectFromJSON], @"no_low_surrogate_char");
-    tn([@"\"\\uD834\\u001E\"" objectFromJSON], @"expected_low_surrogate");
-    tn([@"\"\\uDD1E\"" objectFromJSON], @"no_high_surrogate_char");
+    tn([@"\"\\uD834foo\"" objectFromJSONFragment], @"no_low_surrogate_char");
+    tn([@"\"\\uD834\\u001E\"" objectFromJSONFragment], @"expected_low_surrogate");
+    tn([@"\"\\uDD1E\"" objectFromJSONFragment], @"no_high_surrogate_char");
 }
 
 - (void)testNonsupportedObject
@@ -94,12 +94,12 @@
 
 - (void)testObjectFromFragment
 {
-    tn([@"true" objectFromJSON], @"enoobject");
-    tn([@"false" objectFromJSON], @"enoobject");
-    tn([@"null" objectFromJSON], @"enoobject");
-    tn([@"1" objectFromJSON], @"enoobject");
-    tn([@"1.0" objectFromJSON], @"enoobject");
-    tn([@"\"string\"" objectFromJSON], @"enoobject");
+    tn([@"true" objectFromJSON], @"enojson");
+    tn([@"false" objectFromJSON], @"enojson");
+    tn([@"null" objectFromJSON], @"enojson");
+    tn([@"1" objectFromJSON], @"enojson");
+    tn([@"1.0" objectFromJSON], @"enojson");
+    tn([@"\"string\"" objectFromJSON], @"enojson");
 }
 
 

@@ -177,7 +177,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         
     for (;;) {
         id o;
-        if (![self scanJSON:&o])
+        if (![self scanJSONValue:&o])
             [NSException raise:@"enovalue" format:@"Expected array element"];
 
         [(NSMutableArray *)*array addObject:o];
@@ -209,7 +209,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     for (;;) {
         id key, value;
         if (![self scanJSONString:&key]) {
-            if ([self scanJSON:&key])
+            if ([self scanJSONValue:&key])
                 [NSException raise:@"enostring"
                             format:@"Dictionary key must be a string"];
             [NSException raise:@"enovalue"
@@ -220,7 +220,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             [NSException raise:@"enoseparator"
                         format:@"Expected key-value separator"];
 
-        if (![self scanJSON:&value])
+        if (![self scanJSONValue:&value])
             [NSException raise:@"enovalue"
                         format:@"Expected dictionary value"];
 
@@ -241,7 +241,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return NO;
 }
 
-- (BOOL)scanJSON:(NSObject **)object
+- (BOOL)scanJSONValue:(NSObject **)object
 {
     if ([self scanJSONNull:(NSNull **)object])
         return YES;

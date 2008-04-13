@@ -37,6 +37,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (BOOL)scanJSONNumber:(NSNumber **)x;
 - (BOOL)scanJSONArray:(NSArray **)x;
 - (BOOL)scanJSONDictionary:(NSDictionary **)x;
-- (BOOL)scanJSON:(NSObject **)x;
+- (BOOL)scanJSONValue:(NSObject **)x;
 
 @end

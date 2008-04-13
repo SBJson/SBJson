@@ -33,24 +33,30 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @implementation NSString (NSString_SBJSON)
 
-- (id)objectFromJSONFragment
+- (id)objectFromJSON
 {
     NSScanner *scanner = [NSScanner scannerWithString:self];
     id o;
-    if ([scanner scanJSON:&o])
+
+    if ([scanner scanJSONDictionary:&o])
+        return o;
+    if ([scanner scanJSONArray:&o])
         return o;
 
     [NSException raise:@"enojson"
                 format:@"Failed to parse '%@' as JSON", self];
 }
 
-- (id)objectFromJSON
+- (id)objectFromJSONFragment
 {
-    id o = [self objectFromJSONFragment];
-    if (![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]])
-        [NSException raise:@"enoobject"
-                    format:@"Valid JSON fragment, but not full JSON"];
-    return o;
+    NSScanner *scanner = [NSScanner scannerWithString:self];
+    id o;
+
+    if ([scanner scanJSONValue:&o])
+        return o;
+
+    [NSException raise:@"enofragment"
+                format:@"Failed to parse '%@' as a JSON fragment", self];
 }
 
 @end
