@@ -13,10 +13,31 @@ h1 {
     text-align: center;
 }
 h2 { font-size: 1.2em }
-code, pre {
+code, pre { 
     font-size: 1.14em;
+}
+#toc, code, pre {
     background: #FFFF99;
 }
 pre { padding: 1em; }
 
 a:hover { background:#999999; }
+
+#toc {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+#toc ul {
+    font: 0.9em Verdana, sans-serif;
+    margin: 0.5em;
+    padding: 0 1em 0 1em;
+}
+#toc li {
+    list-style: none;
+    display: inline;
+    margin: 0;
+    padding: 0 2px 0 2px;
+}

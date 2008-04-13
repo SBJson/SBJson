@@ -10,11 +10,24 @@
 
 <h1>JSON Objective-C Framework</h1>
 
+<div id="toc">
+<ul>
+<li><a href="#usage">Basic usage</a></li>
+<li><a href="#fragments">Working with JSON fragments</a></li>
+<li><a href="#mappings">Mapping JSON types to Objective-C</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#performance">Performance</a></li>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#feedback">Feedback</a></li>
+</ul>
+</div>
+
 <p>JSON (JavaScript Object Notation) is a lightweight data-interchange
 format. This framework contains a collection of categories adding full
 JSON support to existing Cocoa classes.</p>
 
-<h2>Adding JSON support to Objective-C</h2>
+
+<h2 id="usage">Basic usage</h2>
 
 <p>Linking to the <a href="__DMGURL__">JSON</a> framework and
 importing the <code>&lt;JSON/JSON.h&gt;</code> header provides the
@@ -32,7 +45,8 @@ NSDictionary instances to JSON objects.) The method added to NSString
 returns either an NSArray or NSDictionary representing the JSON it
 contains.</p>
 
-<h2>JSON fragments</h2>
+
+<h2 id="fragments">Working with JSON fragments</h2>
 
 <p>Strictly speaking JSON must have <strong>exactly one</strong>
 top-level container. (Either an array or an object.) Nulls, numbers,
@@ -51,7 +65,8 @@ so:</p>
 <p>They work as you would expect from reading about the <em>real</em>
 JSON methods above.</p>
 
-<h2>Mapping between JSON and Objective-C types</h2>
+
+<h2 id="mappings">Mapping between JSON and Objective-C types</h2>
 
 <p>Here's how the distinct JSON types map to Objective-C types.</p>
 
@@ -84,22 +99,25 @@ simpler to implement the parser that way.)</li>
 
 </ol>
 
-<h2>Limitations</h2>
+
+<h2 id="limitations">Limitations</h2>
 
 <p>As of version 0.1 this framework is limited to parse strict JSON.
 (Other than the above mentioned support for JSON fragments.) The
 produced JSON is very terse, with no optional whitespace added. This
 is planned for a future version.</p>
 
-<h2>Performance</h2>
+
+<h2 id="performance">A note on performance</h2>
 
 <p>At the moment no work has gone into performance. <em>Correctness
 first, speed later</em> has very much been a motivation. That does not
 mean that the code is horribly slow, however. A deeply nested 400k
-JSON file I had lying arond was parsed 10 times in around 3
-seconds. </p>
+JSON file I had lying arond was parsed 10 times in around 3 seconds.
+</p>
 
-<h2>Resources</h2>
+
+<h2 id="resources">Resources</h2>
 
 <ul>
 <li><a href="news.xml">News</a> (RSS).</li>
@@ -111,15 +129,15 @@ seconds. </p>
 </ul>
 
 
-</body>
-</html>
-
-<h2>Feedback / praise / bug reports</h2>
+<h2 id="feedback">Feedback / praise / bug reports</h2>
 
 <p>Email <a href="mailto:stig@brautaset.org">Stig Brautaset</a> please.</li>
 
 
-<h2>Apologies</h2>
+<h2 id="apologies">Apologies</h2>
 
 <p>This page is just about all the documentation that exists at the
 moment. The code is pretty stable and well tested though.</p>
+
+</body>
+</html>
