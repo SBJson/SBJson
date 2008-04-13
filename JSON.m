@@ -28,6 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import "JSON.h"
+#import "NSScanner+SBJSON.h"
 
 @interface JSON (JSONPrivate)
 - (id)fromJSONWithScanner:(NSScanner *)scanner;
@@ -97,13 +98,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (id)fromJSONWithScanner:(NSScanner *)scanner
 {
+    id *o;
+    if ([scanner scanJSONNull:&o])
+        return o;
+    if ([scanner scanJSONBool:&o])
+        return o;
+
     NSDecimal decimal;
-    if ([scanner scanString:@"null" intoString:nil])
-        return [NSNull null];
-    if ([scanner scanString:@"true" intoString:nil])
-        return [NSNumber numberWithBool:YES];
-    if ([scanner scanString:@"false" intoString:nil])
-        return [NSNumber numberWithBool:NO];
     if ([scanner scanDecimal:&decimal])
         return [NSDecimalNumber decimalNumberWithDecimal:decimal];
 

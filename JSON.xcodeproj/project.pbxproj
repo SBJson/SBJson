@@ -11,6 +11,8 @@
 		53D2299D0C96129800276605 /* JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D2299B0C96129800276605 /* JSON.m */; };
 		53D229A20C9612E000276605 /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D229A10C9612E000276605 /* Types.m */; };
 		53D229AD0C961B9900276605 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D229810C96121600276605 /* JSON.framework */; };
+		E757163F0C96A8B50084A449 /* NSScanner+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E757163D0C96A8B50084A449 /* NSScanner+SBJSON.h */; };
+		E75716400C96A8B50084A449 /* NSScanner+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E757163E0C96A8B50084A449 /* NSScanner+SBJSON.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -18,7 +20,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 53D229730C9611FF00276605 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 53D229800C96121600276605 /* JSON */;
+			remoteGlobalIDString = 53D229800C96121600276605;
 			remoteInfo = JSON;
 		};
 /* End PBXContainerItemProxy section */
@@ -32,6 +34,8 @@
 		53D2299B0C96129800276605 /* JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSON.m; sourceTree = "<group>"; };
 		53D229A00C9612E000276605 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		53D229A10C9612E000276605 /* Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Types.m; sourceTree = "<group>"; };
+		E757163D0C96A8B50084A449 /* NSScanner+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+SBJSON.h"; sourceTree = "<group>"; };
+		E757163E0C96A8B50084A449 /* NSScanner+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+SBJSON.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 			children = (
 				53D2299A0C96129800276605 /* JSON.h */,
 				53D2299B0C96129800276605 /* JSON.m */,
+				E757163D0C96A8B50084A449 /* NSScanner+SBJSON.h */,
+				E757163E0C96A8B50084A449 /* NSScanner+SBJSON.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -99,6 +105,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53D2299C0C96129800276605 /* JSON.h in Headers */,
+				E757163F0C96A8B50084A449 /* NSScanner+SBJSON.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53D2299D0C96129800276605 /* JSON.m in Sources */,
+				E75716400C96A8B50084A449 /* NSScanner+SBJSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
