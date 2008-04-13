@@ -79,9 +79,9 @@
     tn([@"**" objectFromJSON], @"enojson");
 }
 
-- (void)testBrokenUnicode
+- (void)testBrokenSurrogatePairs
 {
-//    @"\"\\uD834\\uDD1E\"" is g-clef 
+//    @"\"\\uD834\\uDD1E\"" is the Unicode surrogate pairs for g-clef
     tn([@"\"\\uD834foo\"" objectFromJSON], @"no_low_surrogate_char");
     tn([@"\"\\uD834\\u001E\"" objectFromJSON], @"expected_low_surrogate");
     tn([@"\"\\uDD1E\"" objectFromJSON], @"no_high_surrogate_char");
