@@ -56,10 +56,10 @@
 
 - (void)testDictionaryToJSON
 {
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNull null]] JSON], @"enostring");
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNumber numberWithInt:1]] JSON], @"enostring");
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSArray array]] JSON], @"enostring");
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSDictionary dictionary]] JSON], @"enostring");
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNull null]] JSONRepresentation], @"enostring");
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNumber numberWithInt:1]] JSONRepresentation], @"enostring");
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSArray array]] JSONRepresentation], @"enostring");
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSDictionary dictionary]] JSONRepresentation], @"enostring");
 }
 
 - (void)testSingleQuotedString

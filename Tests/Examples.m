@@ -47,7 +47,7 @@
         NSString *name = [NSString stringWithFormat:@"json.org/ex%u.json", i];
         id o = [self objFromFileNamed:name];
         STAssertTrue([o isKindOfClass:[NSDictionary class]], @"Expected dictionary");
-        eqo([[o JSON] objectFromJSON], o);
+        eqo([[o JSONRepresentation] objectFromJSON], o);
     }
 }
 

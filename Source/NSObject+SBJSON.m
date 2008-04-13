@@ -87,7 +87,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @end
 
 @implementation NSArray (NSArray_SBJSON)
-- (NSString *)JSON
+- (NSString *)JSONRepresentation
 {
     return [self JSONFragment];
 }
@@ -111,7 +111,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @end
 
 @implementation NSDictionary (NSDictionary_SBJSON)
-- (NSString *)JSON
+- (NSString *)JSONRepresentation
 {
     return [self JSONFragment];
 }

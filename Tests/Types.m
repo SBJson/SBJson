@@ -141,22 +141,22 @@
 - (void)testArray
 {
     id arr = [@"fi fo fa fum" componentsSeparatedByString:@" "];
-    id as = [arr JSON];
+    id as = [arr JSONRepresentation];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\"]");
     eqo([as objectFromJSON], arr);
     
     arr = [arr arrayByAddingObject:[NSNumber numberWithDouble:0.01]];
-    as = [arr JSON];
+    as = [arr JSONRepresentation];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01]");
     eqo([as objectFromJSON], arr);
     
     arr = [arr arrayByAddingObject:[NSNull null]];
-    as = [arr JSON];
+    as = [arr JSONRepresentation];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01,null]");
     eqo([as objectFromJSON], arr);
     
     arr = [NSArray arrayWithObjects:@"", [NSNull null], [NSNull null], @"1", nil];
-    as = [arr JSON];
+    as = [arr JSONRepresentation];
     eqo(as, @"[\"\",null,null,\"1\"]");
     eqo([as objectFromJSON], arr);
 }
@@ -167,13 +167,13 @@
         [NSNumber numberWithInt:3], @"three",
         @"blue", @"colour",
         nil];
-    id ds = [dict JSON];
+    id ds = [dict JSONRepresentation];
     eqo(ds, @"{\"colour\":\"blue\",\"three\":3}");
     eqo([ds objectFromJSON], dict);
 
     dict = [dict mutableCopy];
     [dict setObject:[NSNull null] forKey:@"null"];
-    ds = [dict JSON];
+    ds = [dict JSONRepresentation];
     eqo(ds, @"{\"colour\":\"blue\",\"null\":null,\"three\":3}");
     eqo([ds objectFromJSON], dict);
 }
@@ -187,7 +187,7 @@
                     [NSNumber numberWithInt:-1], @"minus", nil], nil], nil],
         @"top",
         nil];
-    id ds = [dict JSON];
+    id ds = [dict JSONRepresentation];
     eqo(ds, @"{\"top\":[[{\"minus\":-1}]]}");
     eqo([ds objectFromJSON], dict);
 }
