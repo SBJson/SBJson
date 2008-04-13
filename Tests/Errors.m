@@ -63,7 +63,9 @@
 
 - (void)testGarbage
 {
-//    tn([@"" objectFromJSON], @"enojson");
+    tn([@"\"" objectFromJSON], @"enojson");
+    tn([@"\"hello" objectFromJSON], @"enojson");
+    tn([@"" objectFromJSON], @"enojson");
     tn([@"**" objectFromJSON], @"enojson");
 }
 

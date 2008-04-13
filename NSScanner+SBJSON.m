@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     unsigned loc = [self scanLocation];
     NSString *str = [self string];
     
-    if ('"' != [str characterAtIndex:loc])
+    if (![str length] || '"' != [str characterAtIndex:loc])
         return NO;
     
     *x = [NSMutableString stringWithCapacity:[str length]-loc];
@@ -94,7 +94,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         }
         [(NSMutableString *)*x appendString:c];
     }
-    return NO;
+
+    [NSException raise:@"enojson"
+                format:@"Malformed JSON string (no close quote)"];
 }
 
 - (BOOL)scanJSONNumber:(NSNumber **)x
