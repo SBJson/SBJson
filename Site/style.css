@@ -6,7 +6,7 @@ body {  width: 40em;
         font-family: Verdana, Arial, sans-serif;
 }
 h1, h2 {
-    color: #921;
+    color: #990000;
 }
 h1 {
     font-size: 1.6em;
@@ -15,6 +15,8 @@ h1 {
 h2 { font-size: 1.2em }
 code, pre {
     font-size: 1.14em;
-    background: yellow;
+    background: #FFFF99;
 }
-a:hover { background:#888; }
+pre { padding: 1em; }
+
+a:hover { background:#999999; }
