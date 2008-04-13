@@ -81,12 +81,12 @@
 
 - (void)testJSONCheckerFail
 {
+    id opts = [NSDictionary dictionaryWithObject:@"19" forKey:@"MaxDepth"];
     id o;
     for (int i = 1; i < 34; i++) {
-        if (i == 18) continue;
         NSString *name = [NSString stringWithFormat:@"JSONChecker/fail%u.json", i];
         NSString *json = [self exampleFromFile:name];
-        STAssertThrows(o = [json JSONValue], @"test %@ (%@) returned: %@", name, json, o);
+        STAssertThrows(o = [json JSONValueWithOptions:opts], @"test %@ (%@) returned: %@", name, json, o);
     }
 }
 

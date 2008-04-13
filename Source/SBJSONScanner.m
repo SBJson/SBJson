@@ -53,6 +53,7 @@ NSString *const enocolon  = @"enocolon";
 NSString *const enostring = @"enostring";
 NSString *const enovalue  = @"enovalue";
 NSString *const enojson   = @"enojson";
+NSString *const etoodeep  = @"depth";
 
 NSString *const etrue   = @"etrue";
 NSString *const efalse  = @"efalse";
@@ -81,8 +82,15 @@ static char ctrl[0x22];
 {
     if (self = [super init]) {
         start = c = [s UTF8String];
+        depth = 0;
+        [self setMaxDepth:512];
     }
     return self;
+}
+
+- (void)setMaxDepth:(unsigned)x
+{
+    maxDepth = x;
 }
 
 - (void)raise:(NSString *)e format:(NSString *)msg
@@ -179,29 +187,33 @@ static char ctrl[0x22];
 
 - (BOOL)scanRestOfArray:(NSMutableArray **)o
 {
+    if (++depth > maxDepth)
+        [self raise:etoodeep format:@"Nested too deep"];
+    
     *o = [NSMutableArray arrayWithCapacity:8];
     
     skipWhitespace();
-    if (*c == ']' && c++)
+    if (*c == ']' && c++) {
+        depth--;
         return YES;
+    }
     
     do {
         id v;
-        if (![self scanValue:&v]) {
+        if (![self scanValue:&v])
             [self raise:enovalue format:@"Expected value while parsing array"];
-            return NO;
-        }
         
         [*o addObject:v];
         
         skipWhitespace();
-        if (*c == ']' && c++)
+        if (*c == ']' && c++) {
+            depth--;
             return YES;
+        }
         
     } while (*c == ',' && c++);
 
     [self raise:enocomma format:@"Expected , or ] while parsing array"];
-    return NO;
 }
 
 - (BOOL)scanDictionary:(NSDictionary **)o
@@ -215,43 +227,43 @@ static char ctrl[0x22];
 
 - (BOOL)scanRestOfDictionary:(NSMutableDictionary **)o
 {
-    skipWhitespace();
+    if (++depth > maxDepth)
+        [self raise:etoodeep format:@"Nested too deep"];
+
     *o = [NSMutableDictionary dictionaryWithCapacity:7];
     
-    if (*c == '}' && c++)
+    skipWhitespace();
+    if (*c == '}' && c++) {
+        depth--;
         return YES;
+    }    
     
     do {
         id k, v;
 
         skipWhitespace();
-        if (!(*c == '\"' && c++ && [self scanRestOfString:&k])) {
+        if (!(*c == '\"' && c++ && [self scanRestOfString:&k]))
             [self raise:enostring format:@"Expected string for dictionary key"];
-            return NO;
-        }
         
         skipWhitespace();
-        if (*c != ':') {
+        if (*c != ':')
             [self raise:enocolon format:@"Expected ':' separating dictionary pair"];
-            return NO;
-        }
 
         c++;
-        if (![self scanValue:&v]) {
+        if (![self scanValue:&v])
             [self raise:enovalue format:@"Expected value part of dictionary pair"];
-            return NO;            
-        }
 
         [*o setObject:v forKey:k];
 
         skipWhitespace();
-        if (*c == '}' && c++)
+        if (*c == '}' && c++) {
+            depth--;
             return YES;
+        }
         
     } while (*c == ',' && c++);
     
     [self raise:enocomma format:@"Expected , or } while parsing dictionary"];
-    return NO;
 }
 
 - (BOOL)scanRestOfString:(NSMutableString **)o

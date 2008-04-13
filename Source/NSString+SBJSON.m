@@ -35,9 +35,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (id)JSONValue
 {
-    id o;
+    return [self JSONValueWithOptions:nil];
+}
 
+- (id)JSONValueWithOptions:(NSDictionary *)opts
+{
     SBJSONScanner *scanner = [[[SBJSONScanner alloc] initWithString:self] autorelease];
+    if (opts) {
+        id opt = [opts objectForKey:@"MaxDepth"];
+        if (opt)
+            [scanner setMaxDepth:[opt intValue]];
+    }
+
+    id o;
     if ([scanner scanDictionary:&o] && [scanner isAtEnd])
         return o;
     if ([scanner scanArray:&o] && [scanner isAtEnd])

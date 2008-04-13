@@ -33,6 +33,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @interface SBJSONScanner : NSObject {
     const char *start;
     const char *c;
+    
+    unsigned depth;
+    unsigned maxDepth;
 }
 
 - (id)initWithString:(NSString *)s;
@@ -43,5 +46,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (BOOL)scanValue:(NSObject **)o;
 
 - (BOOL)isAtEnd;
+
+- (void)setMaxDepth:(unsigned)x;
 
 @end

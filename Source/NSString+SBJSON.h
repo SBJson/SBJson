@@ -32,4 +32,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @interface NSString (NSString_SBJSON)
 - (id)JSONFragmentValue;
 - (id)JSONValue;
+- (id)JSONValueWithOptions:(NSDictionary *)opts;
 @end
