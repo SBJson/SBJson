@@ -87,5 +87,9 @@
     tn([@"\"\\uDD1E\"" objectFromJSON], @"no_high_surrogate_char");
 }
 
+- (void)testNonsupportedObject
+{
+    tn([[NSDate date] JSONStringFragment], @"unsupported");
+}
 
 @end
