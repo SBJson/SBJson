@@ -114,6 +114,9 @@
         // e-acute with upper-case hex
         [NSString stringWithFormat:@"%C", 0xe9],  @"\"\\u00E9\"",
 
+        // G-clef (UTF16 surrogate pair)
+        [NSString stringWithFormat:@"%C", 0x1D11E],  @"\"\\uD834\\uDD1E\"",
+
         nil];
 
     NSEnumerator *enumerator = [dict keyEnumerator];
