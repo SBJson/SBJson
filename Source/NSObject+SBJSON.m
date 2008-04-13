@@ -41,7 +41,7 @@ static opts_t defaults(NSDictionary *x)
     y.maxdepth = 512;
     setOpt(y.before, x, @"SpaceBefore");
     setOpt(y.after, x, @"SpaceAfter");
-    setOpt(y.indent, x, @"Indent");
+    setOpt(y.indent, x, @"MultiLine");
     setOpt(y.before = y.after = y.indent, x, @"Pretty");
     return y;
 }

@@ -31,7 +31,7 @@
 {
     NSString *ss = @"{\"a\":1,\"b\":2}";
     NSString *sn = @"{\"a\":{\"x\":1,\"xx\":11},\"b\":{\"y\":2,\"yy\":22}}";
-    NSArray *opts = [@"SpaceBefore SpaceAfter Indent Pretty" componentsSeparatedByString:@" "];
+    NSArray *opts = [@"SpaceBefore SpaceAfter MultiLine Pretty" componentsSeparatedByString:@" "];
     for (int i = 0; i < [opts count]; i++) {
         NSDictionary *args = dict([opts objectAtIndex:i], num(0));
         eqo([simple JSONRepresentationWithOptions:args], ss);
@@ -66,7 +66,7 @@
 
 - (void)testIndent
 {
-    id args = dict(@"Indent", num(1));
+    id args = dict(@"MultiLine", num(1));
     eqo([simple JSONRepresentationWithOptions:args], @"{\n  \"a\":1,\n  \"b\":2\n}");
     eqo([nested JSONRepresentationWithOptions:args],
         @"{\n  \"a\":{\n    \"x\":1,\n    \"xx\":11\n  },\n  \"b\":{\n    \"y\":2,\n    \"yy\":22\n  }\n}");
