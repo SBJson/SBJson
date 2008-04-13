@@ -30,96 +30,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "JSON.h"
 #import "NSScanner+SBJSON.h"
 
-@interface JSON (JSONPrivate)
-- (id)fromJSONWithScanner:(NSScanner *)scanner;
-- (id)arrayFromJSONWithScanner:(NSScanner *)scanner;
-- (id)dictionaryFromJSONWithScanner:(NSScanner *)scanner;
-@end
-
 @implementation JSON
-
-- (id)arrayFromJSONWithScanner:(NSScanner *)scanner
-{
-    NSMutableArray *array = [NSMutableArray array];
-    
-    if (![scanner scanString:@"]" intoString:nil]) {
-        for (;;) {
-            id o = [self fromJSONWithScanner:scanner];
-            if (!o)
-                [NSException raise:@"no-element" format:@"Expected array element"];
-
-            [array addObject:o];
-
-            if ([scanner scanString:@"]" intoString:nil])
-                break;
-
-            if (![scanner scanString:@"," intoString:nil])
-                [NSException raise:@"expected-comma"
-                            format:@", or ] expected while parsing array: %@ (%@)",
-                                [scanner string], array];
-        }
-    }
-
-    return array;
-}
-
-- (id)dictionaryFromJSONWithScanner:(NSScanner *)scanner
-{
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-
-    if (![scanner scanString:@"}" intoString:nil]) {
-        for (;;) {
-            id key = [self fromJSONWithScanner:scanner];
-            if (!key)
-                [NSException raise:@"no-key" format:@"Expected dictionary key"];
-
-            if (![scanner scanString:@":" intoString:nil])
-                [NSException raise:@"no-separator" format:@"Expected key-value separator"];
-
-            id value = [self fromJSONWithScanner:scanner];
-            if (!value)
-                [NSException raise:@"no-value" format:@"Expected dictionary value"];
-
-            [dictionary setObject:value forKey:key];
-
-            if ([scanner scanString:@"}" intoString:nil])
-                break;
-
-            if (![scanner scanString:@"," intoString:nil])
-                [NSException raise:@"expected-comma"
-                            format:@", or } expected while parsing dictionary: %@ (%@)",
-                                [scanner string], dictionary];
-        }
-    }
-
-    return dictionary;
-}
-
-
-- (id)fromJSONWithScanner:(NSScanner *)scanner
-{
-    id o;
-    if ([scanner scanJSONNull:&o])
-        return o;
-    if ([scanner scanJSONBool:&o])
-        return o;
-    if ([scanner scanJSONString:&o])
-        return o;
-    if ([scanner scanJSONNumber:&o])
-        return o;
-
-    // Composites.
-    if ([scanner scanString:@"[" intoString:nil])
-        return [self arrayFromJSONWithScanner:scanner];
-    if ([scanner scanString:@"{" intoString:nil])
-        return [self dictionaryFromJSONWithScanner:scanner];
-
-    return @"I suck";
-}
 
 - (id)fromJSONString:(NSString *)js
 {
-    return [self fromJSONWithScanner:[NSScanner scannerWithString:js]];
+    NSScanner *scanner = [NSScanner scannerWithString:js];
+    id o;
+    if ([scanner scanJSONObject:&o])
+        return o;
+
+    [NSException raise:@"json-error" format:@"Failed to parse '%@' as JSON", js];
 }
 
 - (NSString *)escapedStringWithScanner:(NSScanner *)scanner

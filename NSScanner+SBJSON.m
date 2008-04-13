@@ -74,4 +74,79 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return NO;
 }
 
+- (BOOL)scanJSONArray:(NSArray **)array
+{
+    if ([self scanString:@"[" intoString:nil]) {
+        *array = [NSMutableArray array];
+        if ([self scanString:@"]" intoString:nil])
+            return YES;
+            
+        for (;;) {
+            id o;
+            if (![self scanJSONObject:&o])
+                [NSException raise:@"no-element" format:@"Expected array element"];
+
+            [(NSMutableArray *)*array addObject:o];
+
+            if ([self scanString:@"]" intoString:nil])
+                return YES;
+
+            if (![self scanString:@"," intoString:nil])
+                [NSException raise:@"expected-comma"
+                            format:@", or ] expected while parsing array: %@ (%@)",
+                                [self string], array];
+        }
+    }
+    return NO;
+}
+
+- (BOOL)scanJSONDictionary:(NSDictionary **)dictionary
+{
+    if ([self scanString:@"{" intoString:nil]) {
+        *dictionary = [NSMutableDictionary dictionary];
+        if ([self scanString:@"}" intoString:nil])
+            return YES;
+            
+        for (;;) {
+            id key, value;
+            if (![self scanJSONObject:&key])    // XXX this should be string?
+                [NSException raise:@"no-key" format:@"Expected dictionary key"];
+
+            if (![self scanString:@":" intoString:nil])
+                [NSException raise:@"no-separator" format:@"Expected key-value separator"];
+
+            if (![self scanJSONObject:&value])
+                [NSException raise:@"no-value" format:@"Expected dictionary value"];
+
+            [(NSMutableDictionary *)*dictionary setObject:value forKey:key];
+
+            if ([self scanString:@"}" intoString:nil])
+                return YES;
+
+            if (![self scanString:@"," intoString:nil])
+                [NSException raise:@"expected-comma"
+                            format:@", or } expected while parsing dictionary: %@ (%@)",
+                                [self string], dictionary];
+        }
+    }
+    return NO;
+}
+
+- (BOOL)scanJSONObject:(NSObject **)object
+{
+    if ([self scanJSONNull:(NSNull **)object])
+        return YES;
+    if ([self scanJSONBool:(NSNumber **)object])
+        return YES;
+    if ([self scanJSONString:(NSString **)object])
+        return YES;
+    if ([self scanJSONNumber:(NSNumber **)object])
+        return YES;
+    if ([self scanJSONArray:(NSArray **)object])
+        return YES;
+    if ([self scanJSONDictionary:(NSDictionary **)object])
+        return YES;
+    return NO;
+}
+
 @end
