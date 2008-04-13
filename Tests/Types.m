@@ -47,6 +47,15 @@
 {
     testBool(@"true", YES);
     testBool(@"false", NO);
+
+    id bools = [self splitString:@"false true false true"];
+    for (id b; b = [bools nextObject]; ) {
+        id bl = [json fromJSONString:b];
+        STAssertTrue([bl isKindOfClass:[NSNumber class]], nil);
+/* not yet...
+        eqo([json toJSONString:bl], b);
+*/
+    }
 }
 
 - (void)test02numbers
@@ -58,6 +67,7 @@
     testInt(@"2.5", 2);
     testFloat(@"2.5", 2.5);
     testFloat(@"-333e+0", -333);
+    testFloat(@"-333e+3", -333000);
     testFloat(@"+666e-1", 66.6);
 
     id nums = [self splitString:@"-4 4 0.0001 10000 -9999 99.99 98877665544332211009988776655443322110"];
