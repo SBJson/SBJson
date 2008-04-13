@@ -84,6 +84,21 @@ simpler to implement the parser that way.)</li>
 
 </ol>
 
+<h2>Limitations</h2>
+
+<p>As of version 0.1 this framework is limited to parse strict JSON.
+(Other than the above mentioned support for JSON fragments.) The
+produced JSON is very terse, with no optional whitespace added. This
+is planned for a future version.</p>
+
+<h2>Performance</h2>
+
+<p>At the moment no work has gone into performance. <em>Correctness
+first, speed later</em> has very much been a motivation. That does not
+mean that the code is horribly slow, however. A deeply nested 400k
+JSON file I had lying arond was parsed 10 times in around 3
+seconds. </p>
+
 <h2>Resources</h2>
 
 <ul>
