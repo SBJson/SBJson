@@ -99,9 +99,9 @@
         eqo([key objectFromJSON], val);
         eqo([val JSONString], key);
 
-        // Now do a double round-trip (if we pass the above, this should be fine too)
-//        eqo([[key JSONString] objectFromJSON], key);
-//        eqo([[val objectFromJSON] JSONString], val);
+        // Now do a double round-trip
+        eqo([[val JSONString] objectFromJSON], val);
+        eqo([[key objectFromJSON] JSONString], key);
     }
 }
 
