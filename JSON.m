@@ -132,17 +132,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSString *)escapedStringWithScanner:(NSScanner *)scanner
 {
+    NSCharacterSet *ctrl = [NSCharacterSet controlCharacterSet];
+    NSCharacterSet *slashanddquote = [NSCharacterSet characterSetWithCharactersInString:@"\\\""];
+    NSMutableCharacterSet *escapees = [ctrl mutableCopy];
+    [escapees formUnionWithCharacterSet:slashanddquote];
+    
     NSString *tmp;
-    [scanner scanUpToString:@"\\" intoString:&tmp];
+    if ([scanner scanUpToCharactersFromSet:escapees intoString:&tmp] && [scanner isAtEnd])
+        return tmp;
+
+    // Scan control characters until we're passed them.
+    NSString *s = [scanner string];
+    unsigned idx = [scanner scanLocation];
+    while (![scanner isAtEnd] && [escapees characterIsMember:[s characterAtIndex:idx]]) {
+        tmp = [tmp stringByAppendingFormat:@"\\%@", [s substringWithRange:NSMakeRange(idx, 1)]];
+        [scanner setScanLocation:++idx];
+    }
     if ([scanner isAtEnd])
         return tmp;
 
-    if ([scanner scanString:@"\"" intoString:nil])
-        return [tmp stringByAppendingFormat:@"\\\"%@", [self escapedStringWithScanner:scanner]];
-    if ([scanner scanString:@"\\" intoString:nil])
-        return [tmp stringByAppendingFormat:@"\\\\%@", [self escapedStringWithScanner:scanner]];
-
-    return @"I am dumb";
+//    NSLog(@"%@ => '%@' -> '%@'", [scanner string], tmp, [[scanner string] substringFromIndex:idx]);
+    return [tmp stringByAppendingString:[self escapedStringWithScanner:scanner]];
 }
 
 - (NSString *)toJSONString:(id)x
@@ -151,9 +161,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         return @"null";
     if ([x isKindOfClass:[NSNumber class]])
         return [x stringValue];
-    if ([x isKindOfClass:[NSString class]])
-        return [NSString stringWithFormat:@"\"%@\"", 
-            [self escapedStringWithScanner:[NSScanner scannerWithString:x]]];   // XXX needs escaping
+    if ([x isKindOfClass:[NSString class]]) {
+        NSCharacterSet *skipSet = [NSCharacterSet new];
+        NSScanner *scanner = [NSScanner scannerWithString:x];
+        [scanner setCharactersToBeSkipped:skipSet];
+        return [NSString stringWithFormat:@"\"%@\"", [self escapedStringWithScanner:scanner]];
+    }
     if ([x isKindOfClass:[NSArray class]]) {
         NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[x count]];
         for (int i = 0; i < [x count]; i++)

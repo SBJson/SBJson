@@ -65,14 +65,32 @@
         eqo([json toJSONString:[json fromJSONString:n]], n);
 }
 
-- (void)Xtest03strings
+- (void)test03strings
 {
-    id strings = [NSArray arrayWithObjects:
-        @"foo", @"foo\"bar", @"foo\\bar", @"\n", nil];
+    id dict = [NSDictionary dictionaryWithObjectsAndKeys:
+        @"\"foo\"",                         @"foo",
+        @"\"foo\\\"bar\"",                  @"foo\"bar",
+        @"\"foo\\\\bar\"",                  @"foo\\bar",
+        @"\"quote\\\" again\"",             @"quote\" again",
+        @"\"quote\\\"\"",                   @"quote\"",
+        @"\" spaces  \"",                   @" spaces  ",
+
+/* These don't work yet...
+        @"\"\\ttabs\\t\\t\"",               @"\ttabs\t\t",
+        @"\"\\\\ \\\" \\\\ \\\"\"",         @"\\ \" \\ \"",
+        @"\"\\\n\"",                        @"\n",
+*/
+        nil];
+    
+    NSEnumerator *enumerator = [dict keyEnumerator];
+    for (NSString *key; key = [enumerator nextObject]; ) {
+        NSString *val = [dict objectForKey:key];
+//        NSLog(@"'%@' => '%@'", key, val);
+//        eqo([json fromJSONString:val], key);
+        eqo([json toJSONString:key], val);
         
-    strings = [strings objectEnumerator];
-    for (id s; s = [strings nextObject]; )
-        eqo([json fromJSONString:[json toJSONString:s]], s);
+//        eqo([json fromJSONString:[json toJSONString:s]], s);
+    }
 }
 
 - (void)test04arrays
