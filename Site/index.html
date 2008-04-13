@@ -181,7 +181,7 @@ escaped). This is planned in a later version. </p>
 <h2 id="performance">A note on performance</h2>
 
 <p><em>Correctness first, speed later</em> has very much been the angle
-of attack. That does not necessarily mean that the code is horribly
+of attack when creating this framework. That does not necessarily mean that the code is horribly
 slow, however. Below are some initial measurements comparing this
 library and Blake Seely's BSJSONAdditions. I used the same strings that
 Marc Lehmann used when comparing <a
@@ -207,6 +207,9 @@ difference in speed is pronounced. This difference in decoding speed is
 likely to be in part because BSJSONAdditions supports embedded C-style
 comments, while my library does not. (Comments are not part of the JSON
 spec, but are valid JavaScript.)</p>
+
+<p>(Note that both our libraries puts up a really bad show compared to
+all the Perl modules Marc measured. A bit embarrassing that...)</p>
 
 <h2 id="resources">Resources</h2>
 
