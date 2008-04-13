@@ -1,0 +1,19 @@
+Initial measurements comparing this library and BSJSONAdditions. The
+difference in encoding speed is quite small, particularly for short
+strings. For decoding, particularly for long strings, the difference
+in speed is pronounced.
+
+The difference in decoding speed might be because BSJSONAdditions
+supports embedded C-style comments. (Comments are not part of the JSON
+spec, but are valid JavaScript.)
+
+Short string
+                |    encode |    decode |
+BSJSONAdditions | 10488.776 |  4133.938 |
+SBJSON          | 10868.857 |  7198.440 |
+
+
+Long (~12k) string
+                |    encode |    decode |
+BSJSONAdditions |    70.459 |     3.748 |
+SBJSON          |    82.957 |   107.455 |
