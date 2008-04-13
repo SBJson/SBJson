@@ -40,19 +40,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (id)JSONValueWithOptions:(NSDictionary *)opts
 {
-    SBJSONScanner *scanner = [[[SBJSONScanner alloc] initWithString:self] autorelease];
+    id o;
+
+    SBJSONScanner *scanner = [[SBJSONScanner alloc] initWithString:self];
     if (opts) {
         id opt = [opts objectForKey:@"MaxDepth"];
         if (opt)
             [scanner setMaxDepth:[opt intValue]];
     }
 
-    id o;
-    if ([scanner scanDictionary:&o] && [scanner isAtEnd])
+    BOOL success = ([scanner scanDictionary:&o] || [scanner scanArray:&o]) && [scanner isAtEnd];
+    [scanner release];
+
+    if (success)
         return o;
-    if ([scanner scanArray:&o] && [scanner isAtEnd])
-        return o;
-    
+
     [NSException raise:@"enojson"
                 format:@"Failed to parse '%@' as JSON", self];
 }
@@ -61,8 +63,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 {
     id o;
 
-    SBJSONScanner *scanner = [[[SBJSONScanner alloc] initWithString:self] autorelease];
-    if ([scanner scanValue:&o] && [scanner isAtEnd])
+    SBJSONScanner *scanner = [[SBJSONScanner alloc] initWithString:self];
+    BOOL success = [scanner scanValue:&o] && [scanner isAtEnd];
+    [scanner release];
+
+    if (success)
         return o;
     
     [NSException raise:@"enofragment"
