@@ -1,5 +1,5 @@
 NAME=JSON
-VERSION=0.1
+VERSION=0.2
 
 RELEASENAME=$(NAME)_$(VERSION)
 DMG=$(RELEASENAME).dmg
@@ -16,8 +16,8 @@ upload-site: site
 	curl --head $(DMGURL) 2>/dev/null | grep -q "200 OK" 
 	rsync -ruv --delete _site/ --exclude files stig@brautaset.org:code/$(NAME)/
 
-dmg: site
-	rm -rf dmg $(DMG)
+dist: site
+	chmod -R +w dmg; rm -rf dmg $(DMG)
 	setCFBundleVersion.pl $(VERSION) JSON-Info.plist
 	xcodebuild -target $(NAME) clean
 	xcodebuild -target Tests
@@ -28,7 +28,7 @@ dmg: site
 	cp -r _site dmg/Documentation
 	hdiutil create -fs HFS+ -volname $(RELEASENAME) -srcfolder dmg $(DMG)
 
-upload-dmg: dmg
+upload-dist: dist
 	curl --head $(DMGURL) 2>/dev/null | grep -q "404 Not Found" || false
 	scp $(DMG) $(UP)
 

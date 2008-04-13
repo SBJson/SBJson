@@ -3,12 +3,40 @@
     xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"> 
     <channel> 
         <title>A JSON framework for Cocoa.</title> 
-        <link>http://code.brautaset/JSON/news.xml</link> 
+        <link>http://code.brautaset/JSON</link> 
         <description>Most recent changes with links to updates.</description> 
         <language>en</language> 
 
         <item> 
-            <title>JSON 0.1</title> 
+            <title>Cocoa JSON Framework v0.2&mdash;now with pretty-printing!</title> 
+            <description><![CDATA[
+
+            <p>You can now optionally produce human-readable JSON!
+            There is a new method that takes options to control the
+            formatting.</p>
+
+            <p>The public methods were renamed to jive better with
+            existing Cocoa conventions. The affected methods are as
+            follows:</p>
+
+            <ul>
+                <li>-JSONString             was renamed -JSONRepresentation</li>
+                <li>-JSONStringFragment     was renamed -JSONFragment</li>
+                <li>-objectFromJSON         was renamed -JSONValue</li>
+                <li>-objectFromJSONFragment was renamed -JSONFragmentValue</li>
+            </ul>
+            
+            <p>See the <a href="http://code.brautaset.org/JSON/">website</a>
+            for up-to-date documentation.</p>
+
+            ]]></description> 
+            <pubDate>Sat, Sept 29 2007 13:06:00 BST</pubDate>
+            <enclosure url="http://code.brautaset.org/JSON/files/JSON_0.2.dmg"
+                 length="23868" type="application/octet-stream"/> 
+        </item> 
+
+        <item> 
+            <title>Cocoa JSON Framework v0.1</title> 
             <description><![CDATA[
                 <p>Initial release.</p>
             ]]></description> 
