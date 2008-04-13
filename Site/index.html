@@ -10,10 +10,15 @@
 
 <h1>JSON Objective-C Framework</h1>
 
-<p>This framework contains a collection of categories on existing
-Cocoa classes that together provide full JSON support. Importing the
-<code>&lt;JSON/JSON.h&gt;</code> header provides the following main
-methods:</p>
+<p>JSON (JavaScript Object Notation) is a lightweight data-interchange
+format. This framework contains a collection of categories adding full
+JSON support to existing Cocoa classes.</p>
+
+<h2>Adding JSON support to Objective-C</h2>
+
+<p>Linking to the <a href="__DMGURL__">JSON</a> framework and
+importing the <code>&lt;JSON/JSON.h&gt;</code> header provides the
+following main methods:</p>
 
 <pre>
 -[NSArray JSONString];
@@ -21,11 +26,20 @@ methods:</p>
 -[NSString objectFromJSON];
 </pre>
 
-<p>Strictly speaking JSON has to have at least one top-level container
-(array or object/dictionary). Nulls, numbers, booleans and strings
-cannot be represented in strict JSON on their own. It can be quite
-convenient to <strong>pretend</strong> that such JSON fragments are
-valid JSON and the following methods will let you do so:</p>
+<p>The methods added to NSArray and NSDictionary returns an NSString
+containing their JSON representations. (See note below on mapping
+NSDictionary instances to JSON objects.) The method added to NSString
+returns either an NSArray or NSDictionary representing the JSON it
+contains.</p>
+
+<h2>JSON fragments</h2>
+
+<p>Strictly speaking JSON must have <strong>exactly one</strong>
+top-level container. (Either an array or an object.) Nulls, numbers,
+booleans and strings cannot be represented in strict JSON on their
+own. It can be quite convenient to <em>pretend</em> that such
+fragments are valid JSON and the following methods will let you do
+so:</p>
 
 <pre>
 -[NSNull JSONStringFragment];
@@ -34,31 +48,41 @@ valid JSON and the following methods will let you do so:</p>
 -[NSString objectFromJSONFragment];
 </pre>
 
+<p>They work as you would expect from reading about the <em>real</em>
+JSON methods above.</p>
+
 <h2>Mapping between JSON and Objective-C types</h2>
 
 <p>Here's how the distinct JSON types map to Objective-C types.</p>
 
 <pre>
-Object  <=> NSDictionary
+Object  <=> NSDictionary[1]
 Array   <=> NSArray
 String  <=> NSString
 Null    <=> NSNull
-Boolean <=> NSNumber[*]
-Number  <=  NSNumber[*]
-Number   => NSDecimalNumber[*]
+Boolean <=> NSNumber[2]
+Number  <=  NSNumber[3]
+Number   => NSDecimalNumber[4]
 </pre>
 
-<p>Going <strong>from</strong> JSON boolean "true" and "false" turn
-into NSNumber instances (created with +numberWithBool:), while normal
-numbers turn into NSDecimalNumber instances. Going <strong>to</strong>
-JSON is a bit more subtle. If the instance was created with
-+numberWithBool: it will be represented by the JSON fragment "true" or
-"false". Otherwise, it will be represented by a normal number.</p>
+<ol>
 
-<p>Note that in JSON the keys of a dictionary/object
-<strong>must</strong> be strings. In Objective-C they need not be, but
-attempting to convert a dictionary with non-string keys into JSON will
-throw an exception.</p>
+<li>In JSON the keys of an object <strong>must</strong> be strings.
+NSDictionary keys need not be, but attempting to convert an
+NSDictionary with non-string keys into JSON will throw an
+exception.</li>
+
+<li>The JSON boolean "true" and "false" values are represented by
+NSNumber instances created with the +numberWithBool: method.</li>
+
+<li>Any NSNumber instance <strong>other than</strong> the previously
+mentioned booleans will be converted to a JSON number the way you
+would expect.</li>
+
+<li>JSON numbers turn into NSDecimalNumber instances. (Because it was
+simpler to implement the parser that way.)</li>
+
+</ol>
 
 <h2>Resources</h2>
 
