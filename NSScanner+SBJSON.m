@@ -56,11 +56,42 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (BOOL)scanJSONString:(NSString **)x
 {
-    // XXX - this is not good enough. We need to deal with escaping.
-    if ([self scanString:@"\"" intoString:nil])
-        if ([self scanUpToString:@"\"" intoString:x])
-            if ([self scanString:@"\"" intoString:nil])
-                return YES;
+    unsigned loc = [self scanLocation];
+    NSString *str = [self string];
+    
+    if ('"' != [str characterAtIndex:loc])
+        return NO;
+    
+    *x = [NSMutableString stringWithCapacity:[str length]-loc];
+    while (++loc < [str length]) {
+        unichar uc = [str characterAtIndex:loc];
+        
+        if ('"' == uc) {
+            [self setScanLocation:loc+1];
+            return TRUE;
+        }
+        
+        if ('\\' != uc) {
+            [(NSMutableString *)*x appendFormat:@"%C", uc];
+            continue;
+        }
+
+        // Grab the next char after this one.
+        uc = [str characterAtIndex:++loc];
+        id c;
+        switch (uc) {
+            case '\\':  c = @"\\";  break;
+            case '"':   c = @"\"";  break;
+            case 'b':   c = @"\b";  break;
+            case 'n':   c = @"\n";  break;
+            case 'r':   c = @"\r";  break;
+            case 't':   c = @"\t";  break;
+            case 'f':   c = @"\f";  break;
+            default:    [NSException raise:@"malformed"
+                                    format:@"Found character '%C' in %@", uc, str];
+        }
+        [(NSMutableString *)*x appendString:c];
+    }
     return NO;
 }
 

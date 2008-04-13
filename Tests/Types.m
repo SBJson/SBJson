@@ -69,30 +69,39 @@
 
 - (void)test03strings
 {
-    id dict = [NSDictionary dictionaryWithObjectsAndKeys:
-        @"\"foo\"",                         @"foo",
-        @"\"foo\\\"bar\"",                  @"foo\"bar",
-        @"\"foo\\\\bar\"",                  @"foo\\bar",
-        @"\"quote\\\" again\"",             @"quote\" again",
-        @"\"quote\\\"\"",                   @"quote\"",
-        @"\" spaces  \"",                   @" spaces  ",
-        @"\"\\\ttabs\\\t\\\t\"",            @"\ttabs\t\t",
-        @"\"\\\\ \\\" \\\\ \\\"\"",         @"\\ \" \\ \"",
-        @"\"\\\n\"",                        @"\n",
-        @"\"\\\r\"",                        @"\r",
-        @"\"\\\r\\\n\"",                    @"\r\n",
-        @"\"\\\b\"",                        @"\b",
-        @"\"\\\f\"",                        @"\f",
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+        @" spaces  ",               @"\" spaces  \"",
+        @"\\ \" \\ \"",             @"\"\\\\ \\\" \\\\ \\\"\"",
+        @"\b",                      @"\"\\b\"",
+        @"\f",                      @"\"\\f\"",
+        @"\n",                      @"\"\\n\"",
+        @"\r",                      @"\"\\r\"",
+        @"\r\n",                    @"\"\\r\\n\"",
+        @"\t",                      @"\"\\t\"",
+        @"\ttabs\t\t",              @"\"\\ttabs\\t\\t\"",
+        @"foo",                     @"\"foo\"",
+        @"foo\"",                   @"\"foo\\\"\"",
+        @"foo\"\"bar",              @"\"foo\\\"\\\"bar\"",
+        @"foo\"bar",                @"\"foo\\\"bar\"",
+        @"foo\\",                   @"\"foo\\\\\"",
+        @"foo\\\\bar",              @"\"foo\\\\\\\\bar\"",
+        @"foo\\bar",                @"\"foo\\\\bar\"",
+        @"foobar",                  @"\"foobar\"",
+        @"with internal   spaces",  @"\"with internal   spaces\"",
         nil];
-    
+
     NSEnumerator *enumerator = [dict keyEnumerator];
     for (NSString *key; key = [enumerator nextObject]; ) {
         NSString *val = [dict objectForKey:key];
-//        NSLog(@"'%@' => '%@'", key, val);
-//        eqo([val objectFromJSON], key);
-        eqo([key JSONString], val);
-        
-//        eqo([[s JSONString objectFromJSON]], s);
+        // NSLog(@"'%@' => '%@'", key, val);
+
+        // Simple round trip
+        eqo([key objectFromJSON], val);
+        eqo([val JSONString], key);
+
+        // Now do a double round-trip (if we pass the above, this should be fine too)
+//        eqo([[key JSONString] objectFromJSON], key);
+//        eqo([[val objectFromJSON] JSONString], val);
     }
 }
 
