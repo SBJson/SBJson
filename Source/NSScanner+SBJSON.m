@@ -197,7 +197,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return NO;
 }
 
-- (BOOL)scanJSONDictionary:(NSDictionary **)dictionary
+- (BOOL)scanJSONObject:(NSDictionary **)dictionary
 {
     if (![self scanString:@"{" intoString:nil])
         return NO;
@@ -253,7 +253,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         return YES;
     if ([self scanJSONArray:(NSArray **)object])
         return YES;
-    if ([self scanJSONDictionary:(NSDictionary **)object])
+    if ([self scanJSONObject:(NSDictionary **)object])
         return YES;
     return NO;
 }

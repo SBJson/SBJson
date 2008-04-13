@@ -38,7 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSScanner *scanner = [NSScanner scannerWithString:self];
     id o;
 
-    if ([scanner scanJSONDictionary:&o])
+    if ([scanner scanJSONObject:&o])
         return o;
     if ([scanner scanJSONArray:&o])
         return o;
