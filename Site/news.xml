@@ -11,9 +11,8 @@
             <title>Cocoa JSON Framework v0.2&mdash;now with pretty-printing!</title> 
             <description><![CDATA[
 
-            <p>You can now optionally produce human-readable JSON!
-            There is a new method that takes options to control the
-            formatting.</p>
+            <p>You can now produce human-readable JSON! There is a new
+            method that takes options to control the formatting.</p>
 
             <p>The public methods were renamed to jive better with
             existing Cocoa conventions. The affected methods are as
