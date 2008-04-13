@@ -79,6 +79,12 @@
     tn([@"**" JSONValue], @"enojson");
 }
 
+- (void)testUnescapedControlChar
+{
+    for (unsigned i = 0; i < 0x20; i++)
+        tn(([[NSString stringWithFormat:@"\"%C\"", i] JSONFragmentValue]), @"ctrlchar");
+}
+
 - (void)testBrokenSurrogatePairs
 {
 //    @"\"\\uD834\\uDD1E\"" is the Unicode surrogate pairs for g-clef

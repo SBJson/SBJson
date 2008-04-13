@@ -111,6 +111,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     *x = [NSMutableString stringWithCapacity:[str length]-loc];
     while (++loc < [str length]) {
         unichar uc = [str characterAtIndex:loc];
+
+        // Control characters _must_ be escaped.
+        if (0x20 > uc)
+            [NSException raise:@"ctrlchar"
+                        format:@"Found unescaped control char %x in JSON", uc];
         
         if ('"' == uc) {
             // End of the string.
