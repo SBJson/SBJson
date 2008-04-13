@@ -2,10 +2,28 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"> 
     <channel> 
-        <title>A JSON framework for Cocoa.</title> 
+        <title>Cocoa JSON framework news</title> 
         <link>http://code.brautaset/JSON</link> 
         <description>Most recent changes with links to updates.</description> 
         <language>en</language> 
+
+        <item>
+            <title>Cocoa JSON Framework v1!</title>
+            <description><![CDATA[
+            <p>This fixes the known bug in the number parsing. (It was
+            a little too lenient about what it accepted for numeric
+            input.) </p>
+            
+            <p>I'm bumping the framework to version 1 now that it
+            passes all the tests of the <a
+            href="http://json.org/JSON_checker/">JSON checker</a>.</p>
+
+            ]]></description>
+            <pubDate>Wed, Oct 17 2007 23:38:59 BST</pubDate>
+            <enclosure url='http://code.brautaset.org/JSON/files/JSON_1.dmg' 
+                length='25381' type="application/octet-stream"/>
+        </item>
+        
 
         <item>
             <title>Cocoa JSON Framework v0.3</title>
