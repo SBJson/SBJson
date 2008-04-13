@@ -39,28 +39,29 @@ following main methods:</p>
 -[NSDictionary JSON];
 </pre></dt>
 
-<dd>Return NSStrings containing a JSON representation of the receiver.
-(See <a href="#mappings">note</a> on mapping NSDictionary instances to
-JSON objects.)</dd>
+<dd>Returns an NSString containing the receiver encoded in JSON. (See
+<a href="#mappings">note</a> on mapping NSDictionary instances to JSON
+objects.)</dd>
 
 <dt><pre>
 -[NSString objectFromJSON];
 </pre></dt>
 
-<dd>Decodes the JSON in the receiver and returns either an NSArray or
-NSDictionary. Will throw an error if the receiver does not contain
-valid JSON text.</dd>
+<dd>Returns either an NSArray or NSDictionary decoded from the JSON in
+the receiver. Throws an error if the receiver does not contain valid
+JSON text.</dd>
 
 </dl>
 
 
 <h2 id="fragments">Working with JSON fragments</h2>
 
-<p>Strictly speaking <strong>JSON must have exactly one top-level
-container</strong>. (Either an array or an object.) Nulls, numbers,
-booleans and strings cannot be represented in strict JSON on their
-own. It can however be quite convenient to <em>pretend</em> that such
-fragments are valid JSON. The following methods will let you do so:</p>
+<p>Strictly speaking JSON must have <strong>exactly one top-level
+container</strong>. (Either an array or an object, in JSON parlance.)
+Bare nulls, numbers, booleans and strings are not valid JSON on their
+own. It can be quite convenient to <em>pretend</em> that such
+fragments are valid JSON however. The following methods will let you
+do so:</p>
 
 <dl>
 <dt><pre>
@@ -70,17 +71,16 @@ fragments are valid JSON. The following methods will let you do so:</p>
 </pre>
 </dt>
 
-<dd>Returns an NSString containing a JSON text fragment representating
-the receiver. The method added to NSNumber will, if it holds a boolean
-value, return the string "true" or "false". (See <a
-href="#mappings">note</a>.)</dd>
+<dd>Returns an NSString containing the receiver encoded into a JSON
+text fragment. (See <a href="#mappings">mapping</a> note on encoding
+NSNumbers.)</dd>
 
 <dt><pre>
 -[NSString objectFromJSONFragment];
 </pre></dt>
 
-<dd>Returns an instance of NSArray, NSDictionary, NSNull, NSNumber or
-NSString depending on the content of the string. </dd>
+<dd>Returns the JSON fragment decoded into an instance of either
+NSArray, NSDictionary, NSNull, NSNumber, or NSString.</dd>
 
 </dl>
 
