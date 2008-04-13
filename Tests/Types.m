@@ -39,6 +39,10 @@
         STAssertTrue([bl isKindOfClass:[NSNumber class]], nil);
         eqo([bl JSONStringFragment], b);
     }
+
+    // Explict NSNumber initialised to boolean value
+    eqo([[NSNumber numberWithBool:YES] JSONStringFragment], @"true");
+    eqo([[NSNumber numberWithBool:NO] JSONStringFragment], @"false");
 }
 
 - (void)testNumbers
@@ -59,6 +63,12 @@
         STAssertTrue([num isKindOfClass:[NSNumber class]], nil);
         eqo([num JSONStringFragment], n);
     }
+
+    eqo([[NSNumber numberWithChar:2] JSONStringFragment], @"2");
+    eqo([[NSNumber numberWithChar:1] JSONStringFragment], @"1");
+    eqo([[NSNumber numberWithChar:0] JSONStringFragment], @"0");
+    eqo([[NSNumber numberWithInt:1] JSONStringFragment], @"1");
+    eqo([[NSNumber numberWithInt:0] JSONStringFragment], @"0");
 }
 
 - (void)testStrings
