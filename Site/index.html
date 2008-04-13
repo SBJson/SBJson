@@ -8,51 +8,56 @@
 
 <body>
 
-<h1>JSON Cocoa Framework</h1>
+<h1>JSON Objective-C Framework</h1>
 
-<p>This JSON framework does not add any stand-alone classes. It is a
-collection of categories that adds methods to existing classes.
-Importing <code>&lt;JSON/JSON.h&gt;</code> and linking against the
-framework adds the following methods:</p>
+<p>This framework contains a collection of categories on existing
+Objective-C classes that together provide full JSON support. Importing
+the <JSON/JSON.h> header provides the following main methods:</p>
 
-<ul>
-
-<li>
 <pre>
--(id)objectFromJSON;
--(id)objectFromJSONFragment;
+-[NSArray JSONString];
+-[NSDictionary JSONString];
+-[NSString objectFromJSON];
 </pre>
 
-<p>Added to NSString. These return the Objective-C data structure
-described by the JSON text held within the string.</p>
+<p>Strictly speaking JSON has to have at least one top-level container
+(array or object/dictionary). Nulls, numbers, booleans and strings
+cannot be represented in strict JSON on their own. It can be quite
+convenient to <strong>pretend</strong> that such JSON fragments are
+valid JSON and the following methods will let you do so:</p>
 
-</li>
-
-<li>
 <pre>
--(NSString*)JSONString;
+-[NSNull JSONStringFragment];
+-[NSNumber JSONStringFragment];
+-[NSString JSONStringFragment];
+-[NSString objectFromJSONFragment];
 </pre>
 
-<p>Added to NSArray and NSDictionary. This returns JSON text
-describing the (possibly nested) data structure. In JSON the keys of a
-dictionary (aka "object") <strong>must</strong> be strings. In
-Objective-C they need not be, but this method will fail otherwise.</p>
+<h2>Mapping between JSON and Objective-C types</h2>
 
-</li>
+<p>Here's how the distinct JSON types map to Objective-C types.</p>
 
-<li>
 <pre>
--(NSString*)JSONStringFragment;
+Object  <=> NSDictionary
+Array   <=> NSArray
+String  <=> NSString
+Null    <=> NSNull
+Boolean <=> NSNumber[*]
+Number  <=  NSNumber[*]
+Number   => NSDecimalNumber[*]
 </pre>
 
-<p>Added to the NSNull, NSNumber & NSString classes.</p>
+<p>Going <strong>from</strong> JSON boolean "true" and "false" turn
+into NSNumber instances (created with +numberWithBool:), while normal
+numbers turn into NSDecimalNumber instances. Going <strong>to</strong>
+JSON is a bit more subtle. If the instance was created with
++numberWithBool: it will be represented by the JSON fragment "true" or
+"false". Otherwise, it will be represented by a normal number.</p>
 
-</li>
-</ul>
-
-<p>JSON has to be encapsulated by an array or dictionary, so a
-fragment is not valid JSON on its own. Pretending it is can be quite
-convenient, hence the methods to deal with fragments.</p>
+<p>Note that in JSON the keys of a dictionary/object
+<strong>must</strong> be strings. In Objective-C they need not be, but
+attempting to convert a dictionary with non-string keys into JSON will
+throw an exception.</p>
 
 <h2>Resources</h2>
 
@@ -61,7 +66,6 @@ convenient, hence the methods to deal with fragments.</p>
 <li><a href="__DMGURL__">JSON embedded framework</a> disk image.</li>
 <li>Subversion: <a href="http://svn.brautaset.org/JSON/trunk">http://svn.brautaset.org/JSON/trunk</a>.</li>
 <li>Guide to <a href="http://blog.brautaset.org/2007/09/22/embedding-cocoa-frameworks/">embedding frameworks in Cocoa</a>.</li>
-<li>Feedback and bug reports to <a href="mailto:stig@brautaset.org">Stig Brautaset</a>.</li>
 <li><a href="http://json.org/">Introducing JSON</a>.</li>
 <li><a href="http://www.ietf.org/rfc/rfc4627.txt?number=4627">RFC4627</a>.</li>
 </ul>
@@ -69,6 +73,11 @@ convenient, hence the methods to deal with fragments.</p>
 
 </body>
 </html>
+
+<h2>Feedback / praise / bug reports</h2>
+
+<p>Email <a href="mailto:stig@brautaset.org">Stig Brautaset</a> please.</li>
+
 
 <h2>Apologies</h2>
 
