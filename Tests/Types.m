@@ -105,7 +105,7 @@
 - (void)testStringsWithUnicodeEscapes
 {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-        // e-acute and a greater-than-or-equal to sign (Ž³)
+        // e-acute and a greater-than-or-equal to sign
         [NSString stringWithFormat:@"%C%C", 0xe9, 0x2265],  @"\"\\u00e9\\u2265\"",
         nil];
 
