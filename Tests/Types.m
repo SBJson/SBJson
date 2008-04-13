@@ -67,6 +67,7 @@
 - (void)test03strings
 {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+        @"",                        @"\"\"",
         @" spaces  ",               @"\" spaces  \"",
         @"\\ \" \\ \"",             @"\"\\\\ \\\" \\\\ \\\"\"",
         @"\b",                      @"\"\\b\"",
@@ -137,7 +138,7 @@
     eqo([ds objectFromJSON], dict);
 }
 
-- (void)test06deeplyNested
+- (void)test06nested
 {
     id dict = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSArray arrayWithObjects:
