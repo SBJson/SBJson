@@ -55,7 +55,7 @@ static opts_t defaults(NSDictionary *x)
 - (NSString *)JSONFragment
 {
     opts_t args = defaults(nil);
-    [self JSONFragmentWithOptions:&args];
+    return [self JSONFragmentWithOptions:&args];
 }
 
 - (NSString *)JSONFragmentWithOptions:(opts_t *)x
