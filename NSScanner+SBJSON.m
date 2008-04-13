@@ -59,7 +59,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     unsigned loc = [self scanLocation];
     NSString *str = [self string];
     
-    if (![str length] || '"' != [str characterAtIndex:loc])
+    if (loc == [str length] || '"' != [str characterAtIndex:loc])
         return NO;
     
     *x = [NSMutableString stringWithCapacity:[str length]-loc];
@@ -149,7 +149,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if ([self scanString:@"}" intoString:nil])
         return YES;
 
-    while (![self isAtEnd]) {
+    for (;;) {
         id key, value;
         if (![self scanJSONString:&key]) {
             if ([self scanJSONObject:&key])

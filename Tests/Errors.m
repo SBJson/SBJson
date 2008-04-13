@@ -24,7 +24,7 @@
 {
     tn([@"[1" objectFromJSON], @"enocomma");
     tn([@"{\"a\":1" objectFromJSON], @"enocomma");
-//    tn([@"{\"a\":1 \"b\":2 }" objectFromJSON], @"enocomma");
+    tn([@"{\"a\":1 \"b\":2 }" objectFromJSON], @"enocomma");
 }
 
 - (void)testMissingValue
@@ -56,7 +56,6 @@
 
 - (void)testSingleQuotedString
 {
-    tn([@"'1'" objectFromJSON], @"enojson");
     tn([@"['1'" objectFromJSON], @"enovalue");
     tn([@"{'1'" objectFromJSON], @"enovalue");
     tn([@"{\"a\":'1'" objectFromJSON], @"enovalue");
@@ -64,6 +63,8 @@
 
 - (void)testGarbage
 {
+    tn([@"'1'" objectFromJSON], @"enojson");
+    tn([@"'hello'" objectFromJSON], @"enojson");
     tn([@"\"" objectFromJSON], @"enojson");
     tn([@"\"hello" objectFromJSON], @"enojson");
     tn([@"" objectFromJSON], @"enojson");
