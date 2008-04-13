@@ -172,20 +172,41 @@ simpler to implement the parser that way.)</li>
 above mentioned support for JSON fragments.) For example, it does not
 support trailing commas in arrays or objects.</p>
 
-<p>Though <code>\uXXXX</code> sequences are decoded properly there is
-no support to encode unicode into such sequences yet. This is planned
-in a later version.</p>
+<p>Though <code>\uXXXX</code> sequences are decoded properly there is no
+support to encode unicode into such sequences yet. (Except for the
+control characters, i.e. any code point below 0x20, which are always
+escaped). This is planned in a later version. </p>
 
 
 <h2 id="performance">A note on performance</h2>
 
-<p>At the moment no work has gone into performance. <em>Correctness
-first, speed later</em> has very much been the angle of attack. That
-does not necessarily mean that the code is horribly slow, however. A
-deeply nested 400k JSON file I had lying arond was parsed 10 times in
-around 3 seconds. I don't really know how this measures up against
-other implementations though.</p>
+<p><em>Correctness first, speed later</em> has very much been the angle
+of attack. That does not necessarily mean that the code is horribly
+slow, however. Below are some initial measurements comparing this
+library and Blake Seely's BSJSONAdditions. I used the same strings that
+Marc Lehmann used when comparing <a
+href="http://search.cpan.org/dist/JSON-XS/XS.pm#SPEED">JSON::XS</a> to
+its competitors:</p>
 
+<pre>
+Short string
+                |    encode |    decode |
+BSJSONAdditions | 10488.776 |  4133.938 |
+SBJSON          | 10868.857 |  7198.440 |
+
+
+Long (~12k) string
+                |    encode |    decode |
+BSJSONAdditions |    70.459 |     3.748 |
+SBJSON          |    82.957 |   107.455 |
+</pre>
+
+<p>The difference in encoding speed is quite small, particularly for
+short strings. For decoding, particularly for long strings, the
+difference in speed is pronounced. This difference in decoding speed is
+likely to be in part because BSJSONAdditions supports embedded C-style
+comments, while my library does not. (Comments are not part of the JSON
+spec, but are valid JavaScript.)</p>
 
 <h2 id="resources">Resources</h2>
 
@@ -200,8 +221,11 @@ other implementations though.</p>
 
 <h2 id="bugs">Bugs</h2>
 
-<p>None known. Bug reports are very welcome and will be acted upon
-swiftly.</p>
+<p>This framework turns out to be a little too lenient when parsing
+numbers. Strict JSON does not allow leading zeros (i.e. '012'), leading
+plus sign (i.e. '+10'), or omission of digits after exponent (i.e. '0e',
+'0e+') but this library does. I'm currently working on adapting
+JSON::XS's number validation code to address this. </p>
 
 <h2 id="author">Author</h2>
 

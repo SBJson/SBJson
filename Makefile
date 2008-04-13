@@ -1,5 +1,5 @@
 NAME=JSON
-VERSION=0.2
+VERSION=0.3
 
 RELEASENAME=$(NAME)_$(VERSION)
 DMG=$(RELEASENAME).dmg
@@ -23,7 +23,6 @@ distclean:
 	rm -rf dmg
 
 dist: distclean site
-	setCFBundleVersion.pl $(VERSION) JSON-Info.plist
 	xcodebuild -target $(NAME) clean
 	xcodebuild -target Tests
 	xcodebuild -target $(NAME) install
