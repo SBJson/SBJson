@@ -243,17 +243,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (BOOL)scanJSONValue:(NSObject **)object
 {
-    if ([self scanJSONNull:(NSNull **)object])
-        return YES;
-    if ([self scanJSONBool:(NSNumber **)object])
+    if ([self scanJSONObject:(NSDictionary **)object])
+         return YES;
+    if ([self scanJSONArray:(NSArray **)object])
         return YES;
     if ([self scanJSONString:(NSString **)object])
         return YES;
     if ([self scanJSONNumber:(NSNumber **)object])
         return YES;
-    if ([self scanJSONArray:(NSArray **)object])
+    if ([self scanJSONBool:(NSNumber **)object])
         return YES;
-    if ([self scanJSONObject:(NSDictionary **)object])
+    if ([self scanJSONNull:(NSNull **)object])
         return YES;
     return NO;
 }
