@@ -16,8 +16,12 @@ upload-site: site
 	curl --head $(DMGURL) 2>/dev/null | grep -q "200 OK" 
 	rsync -ruv --delete _site/ --exclude files stig@brautaset.org:code/$(NAME)/
 
-dist: site
-	chmod -R +w dmg; rm -rf dmg $(DMG)
+distclean:
+	rm -rf _site
+	rm -rf $(DMG)
+	chmod -R +w dmg && rm -rf dmg
+
+dist: distclean site
 	setCFBundleVersion.pl $(VERSION) JSON-Info.plist
 	xcodebuild -target $(NAME) clean
 	xcodebuild -target Tests
@@ -28,7 +32,7 @@ dist: site
 	cp -r _site dmg/Documentation
 	hdiutil create -fs HFS+ -volname $(RELEASENAME) -srcfolder dmg $(DMG)
 
-upload-dist: dist
+upload-dist: dist upload-site
 	curl --head $(DMGURL) 2>/dev/null | grep -q "404 Not Found" || false
 	scp $(DMG) $(UP)
 
