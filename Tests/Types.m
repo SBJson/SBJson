@@ -110,7 +110,10 @@
         
         // e-acute and greater-than-or-equal-to, surrounded by 42
         [NSString stringWithFormat:@"42%C42%C42", 0xe9, 0x2265],  @"\"42\\u00e942\\u226542\"",
-        
+
+        // e-acute with upper-case hex
+        [NSString stringWithFormat:@"%C", 0xe9],  @"\"\\u00E9\"",
+
         nil];
 
     NSEnumerator *enumerator = [dict keyEnumerator];
