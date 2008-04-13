@@ -69,7 +69,7 @@ dt + dd {
 
 th {
     padding: 0 0.3em;
-    text-align: left;
+    text-align: right;
 }
 
 th + th, td {

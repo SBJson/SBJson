@@ -133,35 +133,28 @@ NSString.</dd>
 
 <p>Here's how the distinct JSON types map to Objective-C types.</p>
 
-<pre>
-Object  &lt;=&gt; NSDictionary[1]
-Array   &lt;=&gt; NSArray
-String  &lt;=&gt; NSString
-Null    &lt;=&gt; NSNull
-Boolean &lt;=&gt; NSNumber[2]
-Number  &lt;=  NSNumber[3]
-Number   =&gt; NSDecimalNumber[4]
-</pre>
+<dl>
 
-<ol>
-
-<li>In JSON the keys of an object <strong>must</strong> be strings.
+<dt><code>Object  &lt;=&gt; NSDictionary</code></dt>
+<dd>In JSON the keys of an object <strong>must</strong> be strings.
 NSDictionary keys need not be, but attempting to convert an
 NSDictionary with non-string keys into JSON will throw an
-exception.</li>
+exception.</dd>
 
-<li>The JSON boolean "true" and "false" values are represented by
-NSNumber instances created with the +numberWithBool: method.</li>
+<dt><code>Array   &lt;=&gt; NSArray</code></dt>
+<dt><code>String  &lt;=&gt; NSString</code></dt>
+<dt><code>Null    &lt;=&gt; NSNull</code></dt>
+<dt><code>Boolean &lt;=&gt; NSNumber</code></dt>
+<dd>The JSON boolean "true" and "false" values are represented by
+NSNumber instances created with the +numberWithBool: method.</dd>
 
-<li>Any NSNumber instance <strong>other than</strong> the previously
+<dt><code>Number  &lt;=  NSNumber</code></dt>
+<dt><code>Number   =&gt; NSDecimalNumber</code></dt>
+<dd>Any NSNumber instance <strong>other than</strong> the previously
 mentioned booleans will be converted to a JSON number the way you
-would expect.</li>
+would expect. JSON numbers turn into NSDecimalNumber instances. </dd>
 
-<li>JSON numbers turn into NSDecimalNumber instances. (Because it was
-simpler to implement the parser that way.)</li>
-
-</ol>
-
+</dl>
 
 <h2 id="limitations">Limitations</h2>
 
@@ -170,7 +163,7 @@ above mentioned support for JSON fragments.) For example, it does not
 support trailing commas in arrays or objects.</p>
 
 
-<h2 id="performance">A note on performance</h2>
+<h2 id="performance">Performance</h2>
 
 <p>I strongly believe in <em>correctness first, speed later</em> and
 that was very much the angle of attack when creating this framework.
@@ -184,11 +177,18 @@ Blake Seely's BSJSONAdditions. These are the same strings that Marc
 Lehmann used comparing <a
 href="http://search.cpan.org/dist/JSON-XS/XS.pm#SPEED">JSON::XS</a> to
 its competitors. These measurements were taken with the revision r3210
-of trunk. First the short string:</p>
+of trunk. </p>
 
 <table>
 <tr>
 <th>&nbsp;</th>
+<th colspan="2">short string</th>
+<th colspan="2">long string (~12k)</th>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<th>encode</th>
+<th>decode</th>
 <th>encode</th>
 <th>decode</th>
 </tr>
@@ -196,38 +196,22 @@ of trunk. First the short string:</p>
 <th>BSJSONAdditions</th>
 <td>10488.8</td>
 <td>4134.0</td>
-</tr>
-<tr>
-<th>SBJSON</th>
-<td>39858.1</td>
-<td>23319.8</td>
-</tr>
-</table>
-
-<p>The numbers for the long (~12k) string:</p>
-
-<table>
-<tr>
-<th>&nbsp;</th>
-<th>encode</th>
-<th>decode</th>
-</tr>
-<tr>
-<th>BSJSONAdditions</th>
 <td>70.5</td>
 <td>3.7</td>
 </tr>
 <tr>
 <th>SBJSON</th>
+<td>39858.1</td>
+<td>23319.8</td>
 <td>714.3</td>
 <td>555.8</td>
 </tr>
 </table>
 
-<p>BSJSONAdditions' parser allows you to embed C-style comments in the
-JSON text. Though this can be very handy for configuration files, for
-example, SBJSON does not support them as they are not part of the JSON
-spec.</p>
+<p>In BSJSONAdditions' defence, its parser allows you to embed C-style
+comments in the JSON text. This can be very handy for configuration
+files, for example, but makes the parser a little more complicated.
+SBJSON does not support them as they are not part of the JSON spec.</p>
 
 <h2 id="resources">Resources</h2>
 
