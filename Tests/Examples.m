@@ -12,7 +12,12 @@
 
 #import "Tests.h"
 
-#define verifyExample(x) eqo([self jsonExample:x], [self plistExample:x])
+#define verifyExample(x) \
+    do {\
+        id expected = [self plistExample:x]; \
+        eqo([self jsonExample:x], expected); \
+        eqo([[expected JSONRepresentation] JSONValue], expected); \
+    } while (0)
 
 @implementation Examples
 
