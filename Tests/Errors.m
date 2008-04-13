@@ -56,10 +56,10 @@
 
 - (void)testDictionaryToJSON
 {
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNull null]] JSONString], @"enostring");
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNumber numberWithInt:1]] JSONString], @"enostring");
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSArray array]] JSONString], @"enostring");
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSDictionary dictionary]] JSONString], @"enostring");
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNull null]] JSON], @"enostring");
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNumber numberWithInt:1]] JSON], @"enostring");
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSArray array]] JSON], @"enostring");
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSDictionary dictionary]] JSON], @"enostring");
 }
 
 - (void)testSingleQuotedString
@@ -89,7 +89,7 @@
 
 - (void)testNonsupportedObject
 {
-    tn([[NSDate date] JSONStringFragment], @"unsupported");
+    tn([[NSDate date] JSONFragment], @"unsupported");
 }
 
 - (void)testObjectFromFragment

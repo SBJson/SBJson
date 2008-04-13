@@ -31,22 +31,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 @implementation NSObject (NSObject_SBJSON)
-- (NSString *)JSONStringFragment
+- (NSString *)JSONFragment
 {
     [NSException raise:@"unsupported"
-                format:@"-JSONStringFragment not implemented for objects of type '%@'", [self class]];
+                format:@"-JSONFragment not implemented for objects of type '%@'", [self class]];
 }
 @end
 
 @implementation NSNull (NSObject_SBJSON)
-- (NSString *)JSONStringFragment
+- (NSString *)JSONFragment
 {
     return @"null";
 }
 @end
 
 @implementation NSNumber (NSObject_SBJSON)
-- (NSString *)JSONStringFragment
+- (NSString *)JSONFragment
 {
     if ('c' != *[self objCType])
         return [self description];
@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @end
 
 @implementation NSString (NSObject_SBJSON)
-- (NSString *)JSONStringFragment
+- (NSString *)JSONFragment
 {
     NSMutableString *s = [NSMutableString stringWithString:@"\""];
     for (unsigned i = 0; i < [self length]; i++) {
@@ -77,24 +77,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @end
 
 @implementation NSArray (NSObject_SBJSON)
-- (NSString *)JSONStringFragment
+- (NSString *)JSONFragment
 {
     NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[self count]];
     for (int i = 0; i < [self count]; i++)
-        [tmp addObject:[[self objectAtIndex:i] JSONStringFragment]];
+        [tmp addObject:[[self objectAtIndex:i] JSONFragment]];
     return [NSString stringWithFormat:@"[%@]", [tmp componentsJoinedByString:@","]];
 }
 @end
 
 @implementation NSArray (NSArray_SBJSON)
-- (NSString *)JSONString
+- (NSString *)JSON
 {
-    return [self JSONStringFragment];
+    return [self JSONFragment];
 }
 @end
 
 @implementation NSDictionary (NSObject_SBJSON)
-- (NSString *)JSONStringFragment
+- (NSString *)JSONFragment
 {
     NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[self count]];
     NSArray *keys = [[self allKeys] sortedArrayUsingSelector:@selector(compare:)];
@@ -104,15 +104,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             [NSException raise:@"enostring"
                         format:@"JSON dictionary keys *must* be strings."];
         [tmp addObject:[NSString stringWithFormat:@"%@:%@",
-            [key JSONStringFragment], [[self objectForKey:key] JSONStringFragment]]];
+            [key JSONFragment], [[self objectForKey:key] JSONFragment]]];
     }
     return [NSString stringWithFormat:@"{%@}", [tmp componentsJoinedByString:@","]];
 }
 @end
 
 @implementation NSDictionary (NSDictionary_SBJSON)
-- (NSString *)JSONString
+- (NSString *)JSON
 {
-    return [self JSONStringFragment];
+    return [self JSONFragment];
 }
 @end

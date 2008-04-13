@@ -24,8 +24,8 @@
     STAssertTrue([[@"null" objectFromJSONFragment] isKindOfClass:[NSNull class]], nil);
     eqo([@"null" objectFromJSONFragment], [NSNull null]);
 
-//    eqo([nil JSONStringFragment], @"null");
-    eqo([[NSNull null] JSONStringFragment], @"null");
+//    eqo([nil JSONFragment], @"null");
+    eqo([[NSNull null] JSONFragment], @"null");
 }
 
 - (void)testBool
@@ -37,12 +37,12 @@
     for (id b; b = [bools nextObject]; ) {
         id bl = [b objectFromJSONFragment];
         STAssertTrue([bl isKindOfClass:[NSNumber class]], nil);
-        eqo([bl JSONStringFragment], b);
+        eqo([bl JSONFragment], b);
     }
 
     // Explict NSNumber initialised to boolean value
-    eqo([[NSNumber numberWithBool:YES] JSONStringFragment], @"true");
-    eqo([[NSNumber numberWithBool:NO] JSONStringFragment], @"false");
+    eqo([[NSNumber numberWithBool:YES] JSONFragment], @"true");
+    eqo([[NSNumber numberWithBool:NO] JSONFragment], @"false");
 }
 
 - (void)testNumbers
@@ -61,14 +61,14 @@
     for (id n; n = [nums nextObject]; ) {
         id num = [n objectFromJSONFragment];
         STAssertTrue([num isKindOfClass:[NSNumber class]], nil);
-        eqo([num JSONStringFragment], n);
+        eqo([num JSONFragment], n);
     }
 
-    eqo([[NSNumber numberWithChar:2] JSONStringFragment], @"2");
-    eqo([[NSNumber numberWithChar:1] JSONStringFragment], @"1");
-    eqo([[NSNumber numberWithChar:0] JSONStringFragment], @"0");
-    eqo([[NSNumber numberWithInt:1] JSONStringFragment], @"1");
-    eqo([[NSNumber numberWithInt:0] JSONStringFragment], @"0");
+    eqo([[NSNumber numberWithChar:2] JSONFragment], @"2");
+    eqo([[NSNumber numberWithChar:1] JSONFragment], @"1");
+    eqo([[NSNumber numberWithChar:0] JSONFragment], @"0");
+    eqo([[NSNumber numberWithInt:1] JSONFragment], @"1");
+    eqo([[NSNumber numberWithInt:0] JSONFragment], @"0");
 }
 
 - (void)testStrings
@@ -103,11 +103,11 @@
 
         // Simple round trip
         eqo([key objectFromJSONFragment], val);
-        eqo([val JSONStringFragment], key);
+        eqo([val JSONFragment], key);
 
         // Now do a double round-trip
-        eqo([[val JSONStringFragment] objectFromJSONFragment], val);
-        eqo([[key objectFromJSONFragment] JSONStringFragment], key);
+        eqo([[val JSONFragment] objectFromJSONFragment], val);
+        eqo([[key objectFromJSONFragment] JSONFragment], key);
     }
 }
 
@@ -134,29 +134,29 @@
         NSString *val = [dict objectForKey:key];
 //        NSLog(@"'%@' => '%@'", key, val);
         eqo([key objectFromJSONFragment], val);
-        eqo([[val JSONStringFragment] objectFromJSONFragment], val);
+        eqo([[val JSONFragment] objectFromJSONFragment], val);
     }
 }
 
 - (void)testArray
 {
     id arr = [@"fi fo fa fum" componentsSeparatedByString:@" "];
-    id as = [arr JSONString];
+    id as = [arr JSON];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\"]");
     eqo([as objectFromJSON], arr);
     
     arr = [arr arrayByAddingObject:[NSNumber numberWithDouble:0.01]];
-    as = [arr JSONString];
+    as = [arr JSON];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01]");
     eqo([as objectFromJSON], arr);
     
     arr = [arr arrayByAddingObject:[NSNull null]];
-    as = [arr JSONString];
+    as = [arr JSON];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01,null]");
     eqo([as objectFromJSON], arr);
     
     arr = [NSArray arrayWithObjects:@"", [NSNull null], [NSNull null], @"1", nil];
-    as = [arr JSONString];
+    as = [arr JSON];
     eqo(as, @"[\"\",null,null,\"1\"]");
     eqo([as objectFromJSON], arr);
 }
@@ -167,13 +167,13 @@
         [NSNumber numberWithInt:3], @"three",
         @"blue", @"colour",
         nil];
-    id ds = [dict JSONString];
+    id ds = [dict JSON];
     eqo(ds, @"{\"colour\":\"blue\",\"three\":3}");
     eqo([ds objectFromJSON], dict);
 
     dict = [dict mutableCopy];
     [dict setObject:[NSNull null] forKey:@"null"];
-    ds = [dict JSONString];
+    ds = [dict JSON];
     eqo(ds, @"{\"colour\":\"blue\",\"null\":null,\"three\":3}");
     eqo([ds objectFromJSON], dict);
 }
@@ -187,7 +187,7 @@
                     [NSNumber numberWithInt:-1], @"minus", nil], nil], nil],
         @"top",
         nil];
-    id ds = [dict JSONString];
+    id ds = [dict JSON];
     eqo(ds, @"{\"top\":[[{\"minus\":-1}]]}");
     eqo([ds objectFromJSON], dict);
 }

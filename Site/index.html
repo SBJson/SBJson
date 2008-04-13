@@ -34,8 +34,8 @@ importing the <code>&lt;JSON/JSON.h&gt;</code> header provides the
 following main methods:</p>
 
 <pre>
--[NSArray JSONString];
--[NSDictionary JSONString];
+-[NSArray JSON];
+-[NSDictionary JSON];
 </pre>
 
 <p>Returns an NSSTring containing JSON text representing the receiver.
@@ -60,9 +60,9 @@ fragments are valid JSON and the following methods will let you do
 so:</p>
 
 <pre>
--[NSNull JSONStringFragment];
--[NSNumber JSONStringFragment];
--[NSString JSONStringFragment];
+-[NSNull JSONFragment];
+-[NSNumber JSONFragment];
+-[NSString JSONFragment];
 -[NSString objectFromJSONFragment];
 </pre>
 
