@@ -287,7 +287,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JSON;
-				ZERO_LINK = YES;
+				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};

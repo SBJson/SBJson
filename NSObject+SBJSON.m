@@ -63,6 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         switch (uc) {
             case '"':   [s appendString:@"\\\""];       break;
             case '\\':  [s appendString:@"\\\\"];       break;
+            case '/':   [s appendString:@"\\/"];        break;
             case '\t':  [s appendString:@"\\t"];        break;
             case '\n':  [s appendString:@"\\n"];        break;
             case '\r':  [s appendString:@"\\r"];        break;

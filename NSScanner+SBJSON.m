@@ -83,6 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         id c;
         switch (uc) {
             case '\\':  c = @"\\";  break;
+            case '/':   c = @"/";  break;
             case '"':   c = @"\"";  break;
             case 'b':   c = @"\b";  break;
             case 'n':   c = @"\n";  break;
