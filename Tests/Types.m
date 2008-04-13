@@ -41,9 +41,7 @@
     for (id b; b = [bools nextObject]; ) {
         id bl = [b objectFromJSON];
         STAssertTrue([bl isKindOfClass:[NSNumber class]], nil);
-/* not yet...
         eqo([bl JSONString], b);
-*/
     }
 }
 

@@ -48,7 +48,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @implementation NSNumber (NSObject_SBJSON)
 - (NSString *)JSONString
 {
-    return [self description];
+    if ('c' != *[self objCType])
+        return [self description];
+    return [self boolValue] ? @"true" : @"false";
 }
 @end
 
