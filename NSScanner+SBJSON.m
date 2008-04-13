@@ -111,29 +111,30 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (BOOL)scanJSONArray:(NSArray **)array
 {
-    if ([self scanString:@"[" intoString:nil]) {
-        *array = [NSMutableArray array];
+    if (![self scanString:@"[" intoString:nil])
+        return NO;
+
+    *array = [NSMutableArray array];
+    if ([self scanString:@"]" intoString:nil])
+        return YES;
+        
+    for (;;) {
+        id o;
+        if (![self scanJSONObject:&o])
+            [NSException raise:@"enovalue" format:@"Expected array element"];
+
+        [(NSMutableArray *)*array addObject:o];
+
         if ([self scanString:@"]" intoString:nil])
             return YES;
-            
-        for (;;) {
-            id o;
-            if (![self scanJSONObject:&o])
-                [NSException raise:@"enovalue" format:@"Expected array element"];
 
-            [(NSMutableArray *)*array addObject:o];
-
+        if ([self scanString:@"," intoString:nil]) {
             if ([self scanString:@"]" intoString:nil])
-                return YES;
-
-            if ([self scanString:@"," intoString:nil]) {
-                if ([self scanString:@"]" intoString:nil])
-                    [NSException raise:@"comma"
-                                format:@"Trailing comma in array"];
-            } else {
-                [NSException raise:@"enocomma"
-                            format:@", or ] expected while parsing array"];
-            }
+                [NSException raise:@"comma"
+                            format:@"Trailing comma in array"];
+        } else {
+            [NSException raise:@"enocomma"
+                        format:@", or ] expected while parsing array"];
         }
     }
     return NO;
@@ -141,42 +142,43 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (BOOL)scanJSONDictionary:(NSDictionary **)dictionary
 {
-    if ([self scanString:@"{" intoString:nil]) {
-        *dictionary = [NSMutableDictionary dictionary];
+    if (![self scanString:@"{" intoString:nil])
+        return NO;
+    
+    *dictionary = [NSMutableDictionary dictionary];
+    if ([self scanString:@"}" intoString:nil])
+        return YES;
+
+    for (;;) {
+        id key, value;
+        if (![self scanJSONString:&key]) {
+            if ([self scanJSONObject:&key])
+                [NSException raise:@"enostring"
+                            format:@"Dictionary key must be a string"];
+            [NSException raise:@"enovalue"
+                        format:@"Expected dictionary key"];
+        }
+
+        if (![self scanString:@":" intoString:nil])
+            [NSException raise:@"enoseparator"
+                        format:@"Expected key-value separator"];
+
+        if (![self scanJSONObject:&value])
+            [NSException raise:@"enovalue"
+                        format:@"Expected dictionary value"];
+
+        [(NSMutableDictionary *)*dictionary setObject:value forKey:key];
+
         if ([self scanString:@"}" intoString:nil])
             return YES;
-            
-        for (;;) {
-            id key, value;
-            if (![self scanJSONString:&key]) {
-                if ([self scanJSONObject:&key])
-                    [NSException raise:@"enostring"
-                                format:@"Dictionary key must be a string"];
-                [NSException raise:@"enovalue"
-                            format:@"Expected dictionary key"];
-            }
 
-            if (![self scanString:@":" intoString:nil])
-                [NSException raise:@"enoseparator"
-                            format:@"Expected key-value separator"];
-
-            if (![self scanJSONObject:&value])
-                [NSException raise:@"enovalue"
-                            format:@"Expected dictionary value"];
-
-            [(NSMutableDictionary *)*dictionary setObject:value forKey:key];
-
+        if ([self scanString:@"," intoString:nil]) {
             if ([self scanString:@"}" intoString:nil])
-                return YES;
-
-            if ([self scanString:@"," intoString:nil]) {
-                if ([self scanString:@"}" intoString:nil])
-                    [NSException raise:@"comma"
-                                format:@"Trailing comma in dictionary"];
-            } else {
-                [NSException raise:@"enocomma"
-                            format:@", or } expected while parsing dictionary"];
-            }
+                [NSException raise:@"comma"
+                            format:@"Trailing comma in dictionary"];
+        } else {
+            [NSException raise:@"enocomma"
+                        format:@", or } expected while parsing dictionary"];
         }
     }
     return NO;
