@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Cocoa JSON Framework</title>
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen">
 </head>
 
 <body>
@@ -137,13 +137,13 @@ in one go.</dd>
 <p>Here's how the distinct JSON types map to Objective-C types.</p>
 
 <pre>
-Object  <=> NSDictionary[1]
-Array   <=> NSArray
-String  <=> NSString
-Null    <=> NSNull
-Boolean <=> NSNumber[2]
-Number  <=  NSNumber[3]
-Number   => NSDecimalNumber[4]
+Object  &lt;=&gt; NSDictionary[1]
+Array   &lt;=&gt; NSArray
+String  &lt;=&gt; NSString
+Null    &lt;=&gt; NSNull
+Boolean &lt;=&gt; NSNumber[2]
+Number  &lt;=  NSNumber[3]
+Number   =&gt; NSDecimalNumber[4]
 </pre>
 
 <ol>
