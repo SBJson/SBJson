@@ -13,8 +13,8 @@
 <div id="toc">
 <ul>
 <li><a href="#usage">Basic usage</a></li>
-<li><a href="#options">Options</a></li>
 <li><a href="#fragments">JSON fragments</a></li>
+<li><a href="#options">Options</a></li>
 <li><a href="#mappings">Mapping JSON types to Objective-C</a></li>
 <li><a href="#limitations">Limitations</a></li>
 <li><a href="#performance">Performance</a></li>
@@ -62,6 +62,39 @@ JSON text.</dd>
 
 </dl>
 
+<h2 id="fragments">JSON fragments</h2>
+
+<p>Strictly speaking JSON must have <strong>exactly one top-level
+container</strong>. (Either an array or an object.) Bare nulls,
+numbers, booleans and strings are not valid JSON on their own. It can
+be quite convenient to <em>pretend</em> that such fragments are valid
+JSON however. The following methods will let you do so:</p>
+
+<dl>
+
+<dt>
+<pre>
+// Added to NSNull, NSNumber & NSString
+- (NSString *)JSONFragment;
+</pre>
+</dt>
+
+<dd>Returns an NSString containing the receiver encoded into a JSON
+text fragment. (See <a href="#mappings">mapping</a> note on encoding
+NSNumbers.)</dd>
+
+<dt>
+<pre>
+// Added to NSString
+- (id)objectFromJSONFragment;
+</pre>
+</dt>
+
+<dd>Returns the JSON fragment decoded into an instance of either
+NSArray, NSDictionary, NSNull, NSNumber, or NSString.</dd>
+
+</dl>
+
 <h2 id="options">Options</h2>
 
 <p>Options are turned on by providing an instance that will respond
@@ -96,38 +129,6 @@ in one go.</dd>
 
 </dl>
 
-<h2 id="fragments">Working with JSON fragments</h2>
-
-<p>Strictly speaking JSON must have <strong>exactly one top-level
-container</strong>. (Either an array or an object.) Bare nulls,
-numbers, booleans and strings are not valid JSON on their own. It can
-be quite convenient to <em>pretend</em> that such fragments are valid
-JSON however. The following methods will let you do so:</p>
-
-<dl>
-
-<dt>
-<pre>
-// Added to NSNull, NSNumber & NSString
-- (NSString *)JSONFragment;
-</pre>
-</dt>
-
-<dd>Returns an NSString containing the receiver encoded into a JSON
-text fragment. (See <a href="#mappings">mapping</a> note on encoding
-NSNumbers.)</dd>
-
-<dt>
-<pre>
-// Added to NSString
-- (id)objectFromJSONFragment;
-</pre>
-</dt>
-
-<dd>Returns the JSON fragment decoded into an instance of either
-NSArray, NSDictionary, NSNull, NSNumber, or NSString.</dd>
-
-</dl>
 
 <h2 id="mappings">Mapping between JSON and Objective-C types</h2>
 
@@ -167,7 +168,7 @@ simpler to implement the parser that way.)</li>
 
 <p>This framework is limited to parsing strict JSON. (Other than the
 above mentioned support for JSON fragments.) For example, it does not
-currently support trailing commas in arrays or objects.</p>
+support trailing commas in arrays or objects.</p>
 
 <p>Though <code>\uXXXX</code> sequences are decoded properly there is
 no support to encode unicode into such sequences yet. This is planned
