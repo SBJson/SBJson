@@ -32,4 +32,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @implementation JSON
 
+- (id)fromJSONString:(NSString *)js
+{
+    NSScanner *scanner = [NSScanner scannerWithString:js];
+    id ret = [NSDecimalNumber decimalNumberWithString:js];
+
+    return ret;
+}
+
 @end
