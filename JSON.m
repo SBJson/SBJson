@@ -103,19 +103,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         return o;
     if ([scanner scanJSONBool:&o])
         return o;
-
+    if ([scanner scanJSONString:&o])
+        return o;
+    
     NSDecimal decimal;
     if ([scanner scanDecimal:&decimal])
         return [NSDecimalNumber decimalNumberWithDecimal:decimal];
-
-    // Strings. XXX - this is not quite good enough.
-    // We need to deal with escaping.
-    if ([scanner scanString:@"\"" intoString:nil]) {
-        id s;
-        [scanner scanUpToString:@"\"" intoString:&s];
-        [scanner scanString:@"\"" intoString:nil];
-        return s;
-    }
 
     // Composites.
     if ([scanner scanString:@"[" intoString:nil])

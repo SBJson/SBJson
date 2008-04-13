@@ -54,4 +54,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return NO;
 }
 
+- (BOOL)scanJSONString:(NSString **)x
+{
+    // XXX - this is not good enough. We need to deal with escaping.
+    if ([self scanString:@"\"" intoString:nil])
+        if ([self scanUpToString:@"\"" intoString:x])
+            if ([self scanString:@"\"" intoString:nil])
+                return YES;
+    return NO;
+}
+
+
 @end
