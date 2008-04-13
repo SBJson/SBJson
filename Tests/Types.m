@@ -77,12 +77,12 @@
     
     arr = [arr arrayByAddingObject:[NSNumber numberWithDouble:0.01]];
     as = [json toJSONString:arr];
-    eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\", 0.01]");
+    eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01]");
     eqo([json fromJSONString:as], arr);
     
     arr = [arr arrayByAddingObject:[NSNull null]];
     as = [json toJSONString:arr];
-    eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\", 0.01, null]");
+    eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01,null]");
     eqo([json fromJSONString:as], arr);
 }
 
