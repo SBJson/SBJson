@@ -6,50 +6,72 @@
 //  Copyright 2007 Stig Brautaset. All rights reserved.
 //
 
+// The rfc4627a and rfc4627b are examples are from RFC4627, the JSON RFC.
+//
+// The other examples are from http://www.json.org/example.html .
+
 #import "Tests.h"
 
+#define verifyExample(x) eqo([self jsonExample:x], [self plistExample:x])
 
 @implementation Examples
 
-- (id)objFromFileNamed:(NSString *)name
+- (NSString *)exampleFromFile:(NSString *)name
 {
-    id path = [NSString stringWithFormat:@"Tests/Examples/%@", name];
-    id json = [NSString stringWithContentsOfFile:path
-                                      encoding:NSASCIIStringEncoding
-                                         error:nil];
-    STAssertNotNil(json, @"Failed loading example from file");
-    return [json JSONValue];
+    id path = [@"Tests/Examples" stringByAppendingPathComponent:name];
+    id string = [NSString stringWithContentsOfFile:path 
+                                          encoding:NSASCIIStringEncoding
+                                             error:nil];
+    STAssertNotNil(string, @"Failed loading string from file: %@", path);
+    return string;
 }
 
-- (void)testRFC4627Example1
+- (id)plistExample:(NSString *)path
 {
-    id o = [self objFromFileNamed:@"rfc4627ex1.json"];
-    STAssertTrue([o isKindOfClass:[NSDictionary class]], @"Expected dictionary");
-    STAssertEquals([o count], (unsigned)1, @"Expected 1 top-level key");
-    eq([[o valueForKeyPath:@"Image.Width"] intValue], (int)800);
-    eqo([o valueForKeyPath:@"Image.Thumbnail.Url"], @"http://www.example.com/image/481989943");
-    eqo([o valueForKeyPath:@"Image.Thumbnail.Width"], @"100");
+    return [[self exampleFromFile: [path stringByAppendingString:@".plist"]] propertyList];
 }
 
-- (void)testRFC4627Example2
+- (id)jsonExample:(NSString *)path
 {
-    id o = [self objFromFileNamed:@"rfc4627ex2.json"];
-    STAssertTrue([o isKindOfClass:[NSArray class]], @"Expected array");
-    STAssertEquals([o count], (unsigned)2, @"Expected 2 elements");
-    
-    id d = [o objectAtIndex:1];
-    eqo([d valueForKey:@"Longitude"], [NSNumber numberWithDouble:-122.026020]);
+    return [[self exampleFromFile: [path stringByAppendingString:@".json"]] JSONValue];
 }
 
-- (void)testExamples
+- (void)testRFC4627a
 {
-    for (int i = 1; i < 6; i++) {
-        NSString *name = [NSString stringWithFormat:@"json.org/ex%u.json", i];
-        id o = [self objFromFileNamed:name];
-        STAssertTrue([o isKindOfClass:[NSDictionary class]], @"Expected dictionary");
-        eqo([[o JSONRepresentation] JSONValue], o);
-    }
+    verifyExample(@"rfc4627a");
 }
 
+- (void)testRFC4627b
+{
+    verifyExample(@"rfc4627b");
+}
+
+- (void)testExample1
+{
+    verifyExample(@"ex1");
+}
+
+- (void)testExample2
+{
+    verifyExample(@"ex2");
+}
+
+- (void)testExample3
+{
+    verifyExample(@"ex3");
+}
+
+- (void)testExample4
+{
+    verifyExample(@"ex4");
+}
+
+- (void)testExample5
+{
+    // The fifth example on json.org/example.html cannot be
+    // represented as a property list. Or something. I believe the
+    // embedded nulls are the culprits.
+    STAssertNotNil([self jsonExample:@"ex5"], nil);
+}
 
 @end
