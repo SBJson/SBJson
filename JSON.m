@@ -40,4 +40,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return ret;
 }
 
+- (NSString *)toJSONString:(id)x
+{
+    return [x description];
+}
 @end

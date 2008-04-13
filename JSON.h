@@ -35,6 +35,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 - (id)fromJSONString:(NSString *)js;
-
+- (NSString *)toJSONString:(id)x;
 
 @end
