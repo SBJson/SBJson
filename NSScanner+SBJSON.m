@@ -67,11 +67,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         unichar uc = [str characterAtIndex:loc];
         
         if ('"' == uc) {
+            // End of the string.
             [self setScanLocation:loc+1];
             return TRUE;
         }
         
         if ('\\' != uc) {
+            // Normal character. 
             [(NSMutableString *)*x appendFormat:@"%C", uc];
             continue;
         }
