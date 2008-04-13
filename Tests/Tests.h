@@ -11,3 +11,6 @@
 
 @interface Types : SenTestCase
 @end
+
+@interface Errors : SenTestCase
+@end

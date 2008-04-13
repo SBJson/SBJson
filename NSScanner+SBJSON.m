@@ -117,17 +117,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         for (;;) {
             id o;
             if (![self scanJSONObject:&o])
-                [NSException raise:@"no-element" format:@"Expected array element"];
+                [NSException raise:@"enovalue" format:@"Expected array element"];
 
             [(NSMutableArray *)*array addObject:o];
 
             if ([self scanString:@"]" intoString:nil])
                 return YES;
 
-            if (![self scanString:@"," intoString:nil])
-                [NSException raise:@"expected-comma"
-                            format:@", or ] expected while parsing array: %@ (%@)",
-                                [self string], array];
+            if ([self scanString:@"," intoString:nil]) {
+                if ([self scanString:@"]" intoString:nil])
+                    [NSException raise:@"comma"
+                                format:@"Trailing comma in array"];
+            } else {
+                [NSException raise:@"enocomma"
+                            format:@", or ] expected while parsing array"];
+            }
         }
     }
     return NO;
@@ -143,23 +147,30 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         for (;;) {
             id key, value;
             if (![self scanJSONObject:&key])    // XXX this should be string?
-                [NSException raise:@"no-key" format:@"Expected dictionary key"];
+                [NSException raise:@"enovalue"
+                            format:@"Expected dictionary key"];
 
             if (![self scanString:@":" intoString:nil])
-                [NSException raise:@"no-separator" format:@"Expected key-value separator"];
+                [NSException raise:@"enoseparator"
+                            format:@"Expected key-value separator"];
 
             if (![self scanJSONObject:&value])
-                [NSException raise:@"no-value" format:@"Expected dictionary value"];
+                [NSException raise:@"enovalue"
+                            format:@"Expected dictionary value"];
 
             [(NSMutableDictionary *)*dictionary setObject:value forKey:key];
 
             if ([self scanString:@"}" intoString:nil])
                 return YES;
 
-            if (![self scanString:@"," intoString:nil])
-                [NSException raise:@"expected-comma"
-                            format:@", or } expected while parsing dictionary: %@ (%@)",
-                                [self string], dictionary];
+            if ([self scanString:@"," intoString:nil]) {
+                if ([self scanString:@"}" intoString:nil])
+                    [NSException raise:@"comma"
+                                format:@"Trailing comma in dictionary"];
+            } else {
+                [NSException raise:@"enocomma"
+                            format:@", or } expected while parsing dictionary"];
+            }
         }
     }
     return NO;

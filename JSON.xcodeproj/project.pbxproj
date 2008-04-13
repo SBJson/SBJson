@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53C45B9C0C98A87600546F66 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C45B9B0C98A87600546F66 /* Errors.m */; };
 		53D2299C0C96129800276605 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53D229A20C9612E000276605 /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D229A10C9612E000276605 /* Types.m */; };
 		53D229AD0C961B9900276605 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D229810C96121600276605 /* JSON.framework */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53C45B9B0C98A87600546F66 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		53D229810C96121600276605 /* JSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D229830C96121600276605 /* JSON-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "JSON-Info.plist"; sourceTree = "<group>"; };
 		53D2298D0C96122A00276605 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,7 +104,7 @@
 			children = (
 				53D229A00C9612E000276605 /* Tests.h */,
 				53D229A10C9612E000276605 /* Types.m */,
-				E75716940C97E6920084A449 /* Errors.m */,
+				53C45B9B0C98A87600546F66 /* Errors.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -227,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53D229A20C9612E000276605 /* Types.m in Sources */,
+				53C45B9C0C98A87600546F66 /* Errors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
