@@ -8,6 +8,16 @@
         <language>en</language> 
 
         <item>
+            <title>Version 1.1.1: built for 10.4</title>
+            <description><![CDATA[
+		<p>This is almost entirely the same as 1.1, but built for 10.4.</p>
+            ]]></description>
+            <pubDate>Sat, Jan 26 2008 19:23:18 GMT</pubDate>
+            <enclosure url='http://code.brautaset.org/JSON/files/JSON_1.1.1.dmg'
+                length='36843' type="application/octet-stream"/>
+        </item>
+
+        <item>
             <title>Version 1.1: now with more speed!</title>
             <description><![CDATA[
             <p>Two new things in this release:</p>

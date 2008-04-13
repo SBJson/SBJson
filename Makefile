@@ -1,5 +1,5 @@
 NAME=JSON
-VERSION=$(strip $(shell agvtool vers -terse))
+VERSION=$(strip $(shell agvtool mvers -terse1))
 
 FRAMEWORK=/tmp/Frameworks/$(NAME).framework
 RELEASENAME=$(NAME)_$(VERSION)
