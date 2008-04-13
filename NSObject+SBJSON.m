@@ -92,6 +92,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSArray *keys = [[self allKeys] sortedArrayUsingSelector:@selector(compare:)];
     for (int i = 0; i < [keys count]; i++) {
         NSString *key = [keys objectAtIndex:i];
+        if (![key isKindOfClass:[NSString class]])
+            [NSException raise:@"enostring"
+                        format:@"JSON dictionary keys *must* be strings."];
         [tmp addObject:[NSString stringWithFormat:@"%@:%@",
             [key JSONString], [[self objectForKey:key] JSONString]]];
     }

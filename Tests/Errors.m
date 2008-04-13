@@ -42,7 +42,7 @@
     tn([@"{\"a\"" objectFromJSON], @"enoseparator");
 }
 
-- (void)testDictionaryKey
+- (void)testDictionaryFromJSON
 {
     tn([@"{" objectFromJSON], @"enovalue");
     tn([@"{a" objectFromJSON], @"enovalue");
@@ -52,6 +52,14 @@
     tn([@"{{}" objectFromJSON], @"enostring");
     tn([@"{[]" objectFromJSON], @"enostring");
     tn([@"{1" objectFromJSON], @"enostring");
+}
+
+- (void)testDictionaryToJSON
+{
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNull null]] JSONString], @"enostring");
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNumber numberWithInt:1]] JSONString], @"enostring");
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSArray array]] JSONString], @"enostring");
+    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSDictionary dictionary]] JSONString], @"enostring");
 }
 
 - (void)testSingleQuotedString
