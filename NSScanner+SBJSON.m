@@ -54,6 +54,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return NO;
 }
 
+- (BOOL)scanHexQuad:(unsigned *)x
+{
+    *x = 0;
+    NSString *s = [self string];
+    unsigned loc = [self scanLocation];
+    for (int i = 0; i < 4; i++) {
+        unichar c = [s characterAtIndex:loc + i];
+        int d = (c >= '0' && c <= '9') ? c - '0'
+                : (c >= 'a' && c <= 'f') ? (c - 'a' + 10)
+                    : (c >= 'A' && c <= 'F') ? (c - 'A' + 10)
+                        : -1;
+        if (d == -1)
+            return NO;
+        *x *= 16;
+        *x += d;
+    }
+    [self setScanLocation:loc+4];
+    return YES;
+}
+
 - (BOOL)scanJSONString:(NSString **)x
 {
     if (![self scanString:@"\"" intoString:nil])
@@ -93,7 +113,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             case 'u':   {
                     unsigned u;
                     [self setScanLocation:loc+1];
-                    if ([self scanHexInt:&u])
+                    if ([self scanHexQuad:&u])
                         c = [NSString stringWithFormat:@"%C", u];
                 }
                 loc = [self scanLocation]-1;

@@ -107,6 +107,10 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
         // e-acute and greater-than-or-equal-to
         [NSString stringWithFormat:@"%C%C", 0xe9, 0x2265],  @"\"\\u00e9\\u2265\"",
+        
+        // e-acute and greater-than-or-equal-to, surrounded by 42
+        [NSString stringWithFormat:@"42%C42%C42", 0xe9, 0x2265],  @"\"42\\u00e942\\u226542\"",
+        
         nil];
 
     NSEnumerator *enumerator = [dict keyEnumerator];
