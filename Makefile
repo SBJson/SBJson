@@ -1,5 +1,5 @@
 NAME=JSON
-VERSION=$(strip $(shell /Developer/Tools/agvtool vers -terse))
+VERSION=$(strip $(shell agvtool vers -terse))
 
 FRAMEWORK=/tmp/Frameworks/$(NAME).framework
 RELEASENAME=$(NAME)_$(VERSION)
@@ -14,7 +14,7 @@ enclosure: $(DMG)
 	@echo 	 "    ]]></description>"
 	@echo    "    <pubDate>`date +"%a, %b %e %Y %H:%M:%S %Z"`</pubDate>"
 	@echo    "    <enclosure url='$(DMGURL)' "
-	@echo -n "        length='`stat $(DMG) | cut -d" "  -f8`'"
+	@echo    "        length='`stat $(DMG) | cut -d" "  -f8`'"
 	@echo    ' type="application/octet-stream"/>'
 	@echo 	 "</item>"
 

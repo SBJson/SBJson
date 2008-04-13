@@ -8,6 +8,24 @@
         <language>en</language> 
 
         <item>
+            <title>Version 1.1: now with more speed!</title>
+            <description><![CDATA[
+            <p>Two new things in this release:</p>
+            <ol>
+            <li><a href="http://www.mooseyard.com/Jens/">Jens Alfke</a>
+            emailed me out of the blue with a couple of patches to
+            seriously boost performance both on parsing (~5x) and
+            generation (~10x) of JSON.</li>
+            <li>The downloadable embedded framework is now compiled
+            for both ppc and x86 platforms.</li>
+            </ol>
+            ]]></description>
+            <pubDate>Sat, Jan 26 2008 19:23:18 GMT</pubDate>
+            <enclosure url='http://code.brautaset.org/JSON/files/JSON_1.1.dmg'
+                length='37909' type="application/octet-stream"/>
+        </item>
+
+        <item>
             <title>Cocoa JSON Framework v1!</title>
             <description><![CDATA[
             <p>This fixes the known bug in the number parsing. (It was
