@@ -61,8 +61,11 @@
     testFloat(@"+666e-1", 66.6);
 
     id nums = [self splitString:@"-4 4 0.0001 10000 -9999 99.99 98877665544332211009988776655443322110"];
-    for (id n; n = [nums nextObject]; )
-        eqo([json toJSONString:[json fromJSONString:n]], n);
+    for (id n; n = [nums nextObject]; ) {
+        id num = [json fromJSONString:n];
+        STAssertTrue([num isKindOfClass:[NSNumber class]], nil);
+        eqo([json toJSONString:num], n);
+    }
 }
 
 - (void)test03strings
