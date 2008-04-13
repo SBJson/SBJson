@@ -27,16 +27,21 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
-@interface NSScanner (NSScanner_SBJSON)
 
-- (BOOL)scanJSONNull:(NSNull **)x;
-- (BOOL)scanJSONBool:(NSNumber **)x;
-- (BOOL)scanJSONString:(NSString **)x;
-- (BOOL)scanJSONNumber:(NSNumber **)x;
-- (BOOL)scanJSONArray:(NSArray **)x;
-- (BOOL)scanJSONObject:(NSDictionary **)x;
-- (BOOL)scanJSONValue:(NSObject **)x;
+@interface SBJSONScanner : NSObject {
+    const char *start;
+    const char *c;
+}
+
+- (id)initWithString:(NSString *)s;
+
+- (BOOL)scanDictionary:(NSDictionary **)o;
+- (BOOL)scanArray:(NSArray **)o;
+
+- (BOOL)scanValue:(NSObject **)o;
+
+- (BOOL)isAtEnd;
 
 @end

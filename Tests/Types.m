@@ -9,7 +9,7 @@
 #import "Tests.h"
 
 #define testInt(x, y)   eq([[x JSONFragmentValue] intValue], (int)y)
-#define testBool(x, y)  eq([[x JSONFragmentValue] boolValue], (BOOL)y)
+#define testBool(x, y)  eq([[x JSONFragmentValue] boolValue], y)
 #define testFloat(x, y) eq([[x JSONFragmentValue] floatValue], (float)y)
 
 @implementation Types
@@ -55,7 +55,7 @@
     testFloat(@"2.5", 2.5);
     testFloat(@"-333e+0", -333);
     testFloat(@"-333e+3", -333000);
-    testFloat(@"+666e-1", 66.6);
+    testFloat(@"666e-1", 66.6);
 
     id nums = [self splitString:@"-4 4 0.0001 10000 -9999 99.99 98877665544332211009988776655443322110"];
     for (id n; n = [nums nextObject]; ) {

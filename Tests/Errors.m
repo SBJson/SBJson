@@ -16,8 +16,8 @@
 
 - (void)testTrailingComma
 {
-    tn([@"[1,]" JSONValue], @"comma");
-    tn([@"{\"a\":1,}" JSONValue], @"comma");
+    tn([@"[1,]" JSONValue], @"enovalue");
+    tn([@"{\"a\":1,}" JSONValue], @"enostring");
 }
 
 - (void)testMissingComma
@@ -31,21 +31,21 @@
 {
     tn([@"[1,," JSONValue], @"enovalue");
 
-    tn([@"{\"a\":1,," JSONValue], @"enovalue");
-    tn([@"{\"a\":1," JSONValue], @"enovalue");
+    tn([@"{\"a\":1,," JSONValue], @"enostring");
+    tn([@"{\"a\":1," JSONValue], @"enostring");
     tn([@"{\"a\":}" JSONValue], @"enovalue");
     tn([@"{\"a\":" JSONValue], @"enovalue");
 }
 
 - (void)testMissingSeparator
 {
-    tn([@"{\"a\"" JSONValue], @"enoseparator");
+    tn([@"{\"a\"" JSONValue], @"enocolon");
 }
 
 - (void)testDictionaryFromJSON
 {
-    tn([@"{" JSONValue], @"enovalue");
-    tn([@"{a" JSONValue], @"enovalue");
+    tn([@"{" JSONValue], @"enostring");
+    tn([@"{a" JSONValue], @"enostring");
     tn([@"{null" JSONValue], @"enostring");
     tn([@"{false" JSONValue], @"enostring");
     tn([@"{true" JSONValue], @"enostring");
@@ -65,7 +65,7 @@
 - (void)testSingleQuotedString
 {
     tn([@"['1'" JSONValue], @"enovalue");
-    tn([@"{'1'" JSONValue], @"enovalue");
+    tn([@"{'1'" JSONValue], @"enostring");
     tn([@"{\"a\":'1'" JSONValue], @"enovalue");
 }
 
@@ -82,7 +82,7 @@
 - (void)testUnescapedControlChar
 {
     for (unsigned i = 0; i < 0x20; i++)
-        tn(([[NSString stringWithFormat:@"\"%C\"", i] JSONFragmentValue]), @"ctrlchar");
+        tn(([[NSString stringWithFormat:@"\"%C\"", i] JSONFragmentValue]), @"estring");
 }
 
 - (void)testBrokenSurrogatePairs

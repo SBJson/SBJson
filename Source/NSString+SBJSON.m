@@ -28,33 +28,33 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import "NSString+SBJSON.h"
-#import "NSScanner+SBJSON.h"
+#import "SBJSONScanner.h"
 
 
 @implementation NSString (NSString_SBJSON)
 
 - (id)JSONValue
 {
-    NSScanner *scanner = [NSScanner scannerWithString:self];
     id o;
 
-    if ([scanner scanJSONObject:&o] && [scanner isAtEnd])
+    SBJSONScanner *scanner = [[[SBJSONScanner alloc] initWithString:self] autorelease];
+    if ([scanner scanDictionary:&o] && [scanner isAtEnd])
         return o;
-    if ([scanner scanJSONArray:&o] && [scanner isAtEnd])
+    if ([scanner scanArray:&o] && [scanner isAtEnd])
         return o;
-
+    
     [NSException raise:@"enojson"
                 format:@"Failed to parse '%@' as JSON", self];
 }
 
 - (id)JSONFragmentValue
 {
-    NSScanner *scanner = [NSScanner scannerWithString:self];
     id o;
 
-    if ([scanner scanJSONValue:&o] && [scanner isAtEnd])
+    SBJSONScanner *scanner = [[[SBJSONScanner alloc] initWithString:self] autorelease];
+    if ([scanner scanValue:&o] && [scanner isAtEnd])
         return o;
-
+    
     [NSException raise:@"enofragment"
                 format:@"Failed to parse '%@' as a JSON fragment", self];
 }
