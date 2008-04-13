@@ -39,8 +39,8 @@
     STAssertTrue([[json fromJSONString:@"null"] isKindOfClass:[NSNull class]], nil);
     eqo([json fromJSONString:@"null"], [NSNull null]);
 
-    eqo([json toJSONString:nil], @"null");
-    eqo([json toJSONString:[NSNull null]], @"null");
+//    eqo([nil JSONString], @"null");
+    eqo([[NSNull null] JSONString], @"null");
 }
 
 - (void)test01bool
@@ -53,7 +53,7 @@
         id bl = [json fromJSONString:b];
         STAssertTrue([bl isKindOfClass:[NSNumber class]], nil);
 /* not yet...
-        eqo([json toJSONString:bl], b);
+        eqo([bl JSONString], b);
 */
     }
 }
@@ -74,7 +74,7 @@
     for (id n; n = [nums nextObject]; ) {
         id num = [json fromJSONString:n];
         STAssertTrue([num isKindOfClass:[NSNumber class]], nil);
-        eqo([json toJSONString:num], n);
+        eqo([num JSONString], n);
     }
 }
 
@@ -88,7 +88,7 @@
         @"\"quote\\\"\"",                   @"quote\"",
         @"\" spaces  \"",                   @" spaces  ",
 
-/* These don't work yet...
+/* These never worked...
         @"\"\\ttabs\\t\\t\"",               @"\ttabs\t\t",
         @"\"\\\\ \\\" \\\\ \\\"\"",         @"\\ \" \\ \"",
         @"\"\\\n\"",                        @"\n",
@@ -100,26 +100,26 @@
         NSString *val = [dict objectForKey:key];
 //        NSLog(@"'%@' => '%@'", key, val);
 //        eqo([json fromJSONString:val], key);
-        eqo([json toJSONString:key], val);
+        eqo([key JSONString], val);
         
-//        eqo([json fromJSONString:[json toJSONString:s]], s);
+//        eqo([json fromJSONString:[s JSONString]], s);
     }
 }
 
 - (void)test04arrays
 {
     id arr = [@"fi fo fa fum" componentsSeparatedByString:@" "];
-    id as = [json toJSONString:arr];
+    id as = [arr JSONString];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\"]");
     eqo([json fromJSONString:as], arr);
     
     arr = [arr arrayByAddingObject:[NSNumber numberWithDouble:0.01]];
-    as = [json toJSONString:arr];
+    as = [arr JSONString];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01]");
     eqo([json fromJSONString:as], arr);
     
     arr = [arr arrayByAddingObject:[NSNull null]];
-    as = [json toJSONString:arr];
+    as = [arr JSONString];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01,null]");
     eqo([json fromJSONString:as], arr);
 }
@@ -130,13 +130,13 @@
         [NSNumber numberWithInt:3], @"three",
         @"blue", @"colour",
         nil];
-    id ds = [json toJSONString:dict];
+    id ds = [dict JSONString];
     eqo(ds, @"{\"colour\":\"blue\",\"three\":3}");
     eqo([json fromJSONString:ds], dict);
 
     dict = [dict mutableCopy];
     [dict setObject:[NSNull null] forKey:@"null"];
-    ds = [json toJSONString:dict];
+    ds = [dict JSONString];
     eqo(ds, @"{\"colour\":\"blue\",\"null\":null,\"three\":3}");
     eqo([json fromJSONString:ds], dict);
 }
@@ -150,7 +150,7 @@
                     [NSNumber numberWithInt:-1], @"minus", nil], nil], nil],
         @"top",
         nil];
-    id ds = [json toJSONString:dict];
+    id ds = [dict JSONString];
     eqo(ds, @"{\"top\":[[{\"minus\":-1}]]}");
     eqo([json fromJSONString:ds], dict);
 }

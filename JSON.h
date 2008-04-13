@@ -28,13 +28,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import <Cocoa/Cocoa.h>
-
+#import <JSON/NSObject+SBJSON.h>
 
 @interface JSON : NSObject {
 
 }
 
 - (id)fromJSONString:(NSString *)js;
-- (NSString *)toJSONString:(id)x;
 
 @end
