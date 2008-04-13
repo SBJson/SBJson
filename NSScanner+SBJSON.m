@@ -56,11 +56,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (BOOL)scanJSONString:(NSString **)x
 {
-    unsigned loc = [self scanLocation];
-    NSString *str = [self string];
-    
-    if (loc == [str length] || '"' != [str characterAtIndex:loc])
+    if (![self scanString:@"\"" intoString:nil])
         return NO;
+
+    unsigned loc = [self scanLocation]-1;
+    NSString *str = [self string];
     
     *x = [NSMutableString stringWithCapacity:[str length]-loc];
     while (++loc < [str length]) {

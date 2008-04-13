@@ -8,9 +8,6 @@
 
 #import "Tests.h"
 
-#define eq(x, y)        STAssertEquals(x, y, nil)
-#define eqo(x, y)       STAssertEqualObjects(x, y, nil)
-
 #define testInt(x, y)   eq([[x objectFromJSON] intValue], (int)y)
 #define testBool(x, y)  eq([[x objectFromJSON] boolValue], (BOOL)y)
 #define testFloat(x, y) eq([[x objectFromJSON] floatValue], (float)y)
