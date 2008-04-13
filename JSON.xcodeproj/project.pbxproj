@@ -34,7 +34,7 @@
 		53D2298D0C96122A00276605 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D2298E0C96122A00276605 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		53D2299A0C96129800276605 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		53D229A00C9612E000276605 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		53D229A00C9612E000276605 /* Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests.h; sourceTree = "<group>"; };
 		53D229A10C9612E000276605 /* Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Types.m; sourceTree = "<group>"; };
 		E757163D0C96A8B50084A449 /* NSScanner+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+SBJSON.h"; sourceTree = "<group>"; };
 		E757163E0C96A8B50084A449 /* NSScanner+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+SBJSON.m"; sourceTree = "<group>"; };
@@ -100,8 +100,9 @@
 		53D229960C96124500276605 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				53D229A00C9612E000276605 /* Types.h */,
+				53D229A00C9612E000276605 /* Tests.h */,
 				53D229A10C9612E000276605 /* Types.m */,
+				E75716940C97E6920084A449 /* Errors.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";

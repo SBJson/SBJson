@@ -1,5 +1,5 @@
 //
-//  Types.h
+//  Tests.h
 //  JSON
 //
 //  Created by Stig Brautaset on 11/09/2007.
@@ -7,7 +7,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import <JSON/JSON.h>
 
-@interface Types : SenTestCase 
-
+@interface Types : SenTestCase
 @end

@@ -6,8 +6,7 @@
 //  Copyright 2007 Stig Brautaset. All rights reserved.
 //
 
-#import "Types.h"
-#import <JSON/JSON.h>
+#import "Tests.h"
 
 #define eq(x, y)        STAssertEquals(x, y, nil)
 #define eqo(x, y)       STAssertEqualObjects(x, y, nil)
