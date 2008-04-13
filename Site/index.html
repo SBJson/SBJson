@@ -33,21 +33,23 @@ JSON support to existing Cocoa classes.</p>
 importing the <code>&lt;JSON/JSON.h&gt;</code> header provides the
 following main methods:</p>
 
-<pre>
+<dl>
+<dt><pre>
 -[NSArray JSON];
 -[NSDictionary JSON];
-</pre>
+</pre></dt>
 
-<p>Returns an NSSTring containing JSON text representing the receiver.
- (See note below on mapping NSDictionary instances to JSON
-objects.)</p>
+<dd>Returns an NSSTring containing JSON text representing the
+receiver. (See <a href="#mapping">note</a> on mapping NSDictionary
+instances to JSON objects.)</dd>
 
-<pre>
+<dt><pre>
 -[NSString objectFromJSON];
-</pre>
+</pre></dt>
 
-<p>Returns either an NSArray or NSDictionary representing the JSON it
-contains.</p>
+<dd>Returns either an NSArray or NSDictionary representing the JSON it
+contains.</dd>
+</dl>
 
 
 <h2 id="fragments">Working with JSON fragments</h2>
@@ -59,16 +61,28 @@ own. It can be quite convenient to <em>pretend</em> that such
 fragments are valid JSON and the following methods will let you do
 so:</p>
 
-<pre>
+<dl>
+<dt><pre>
 -[NSNull JSONFragment];
 -[NSNumber JSONFragment];
 -[NSString JSONFragment];
--[NSString objectFromJSONFragment];
 </pre>
+</dt>
 
-<p>They work as you would expect from reading about the <em>real</em>
-JSON methods above.</p>
+<dd>Each of these methods will return an NSString containing their
+JSON representations. The method added to NSNumber will, if it holds
+a boolean value, return the string "true" or "false". (See <a
+href="#mapping">note</a>.)</dd>
 
+<dt><pre>
+-[NSString objectFromJSONFragment];
+</pre></dt>
+
+<dd>This method works similarly to the <code>-objectFromJSON</code>
+method. It can return NSNull, NSNumber or NSString objects depending
+on the content of the string. </dd>
+
+</dl>
 
 <h2 id="mappings">Mapping between JSON and Objective-C types</h2>
 
