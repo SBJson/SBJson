@@ -38,9 +38,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSScanner *scanner = [NSScanner scannerWithString:self];
     id o;
 
-    if ([scanner scanJSONObject:&o])
+    if ([scanner scanJSONObject:&o] && [scanner isAtEnd])
         return o;
-    if ([scanner scanJSONArray:&o])
+    if ([scanner scanJSONArray:&o] && [scanner isAtEnd])
         return o;
 
     [NSException raise:@"enojson"
@@ -52,7 +52,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSScanner *scanner = [NSScanner scannerWithString:self];
     id o;
 
-    if ([scanner scanJSONValue:&o])
+    if ([scanner scanJSONValue:&o] && [scanner isAtEnd])
         return o;
 
     [NSException raise:@"enofragment"
