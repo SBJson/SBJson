@@ -37,7 +37,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 {
     NSScanner *scanner = [NSScanner scannerWithString:self];
     id o;
-    if ([scanner scanJSONObject:&o])
+    if ([scanner scanJSON:&o])
         return o;
 
     [NSException raise:@"enojson"
