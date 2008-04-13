@@ -93,6 +93,11 @@
     tn([@"\"\\uDD1E\"" JSONFragmentValue], @"no_high_surrogate_char");
 }
 
+- (void)testIllegalNumber
+{
+    tn([@"+666e-1" JSONValue], @"enojson");
+}
+
 - (void)testNonsupportedObject
 {
     tn([[NSDate date] JSONFragment], @"unsupported");
