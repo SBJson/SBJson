@@ -62,3 +62,16 @@ dt {
 dd + dt {
     padding-top: 0.7em;
 }
+
+dt + dd {
+    padding-top: 0.2em;
+}
+
+th {
+    padding: 0 0.3em;
+    text-align: left;
+}
+
+th + th, td {
+    text-align: right;
+}

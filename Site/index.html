@@ -49,14 +49,13 @@ NSDictionary instances to JSON objects.</dd>
 
 <dt><code>- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)opts;</code></dt>
 
-<dd>Like <code>-JSONRepresentation</code>, but allows you to control
-the look of the produced JSON. Options are turned on by providing an
-instance that responds <code>YES</code> when sent
-<code>-boolValue</code>. (Usually this would be an NSNumber, but it
-could be an NSString if you find it more convenient.) Valid options
-are:
+<dd>Like -JSONRepresentation, but allows you to control the look of
+the produced JSON. Options are turned on by providing an instance that
+responds YES when sent -boolValue. (Usually this would be an NSNumber,
+but it could be an NSString if you find it more convenient.) Valid
+options are:</dd>
 
-<dl>
+<dd><dl>
 
 <dt>SpaceBefore</dt>
 <dd>When encoding a dictionary, adds a space before the ':' that
@@ -93,14 +92,16 @@ the receiver. Throws an error if the receiver does not contain valid
 JSON text.</dd>
 
 <dt><code>- (id)JSONValueWithOptions:(NSDictionary *)opts;</code></dt>
-<dd>Like <code>-JSONValue</code> but allows you to set options
-controlling the parsing. Valid options are:
+<dd>Like -JSONValue but allows you to set options
+controlling the parsing. Valid options are:</dd>
 
+<dd>
 <dl>
 
-<dt>SpaceBefore</dt>
-<dd>When encoding a dictionary, adds a space before the ':' that
-separates the key from its associated value.</dd>
+<dt>MaxDepth</dt>
+<dd>Throws an exception if the JSON string that is decoded is nested
+deeper than the given level. Set it to zero for "unlimited" nesting.
+The default value is 512. </dd>
 
 </dl>
 </dd>
@@ -116,26 +117,15 @@ JSON however. The following methods will let you do so:</p>
 
 <dl>
 
-<dt>
-<pre>
-// Added to NSNull, NSNumber & NSString
-- (NSString *)JSONFragment;
-</pre>
-</dt>
+<dt><code>- (NSString *)JSONFragment;</code></dt>
+<dd>Added to NSNull, NSNumber &amp; NSString, and returns an NSString
+containing the receiver encoded into a JSON text fragment. (See <a
+href="#mappings">mapping</a> note on encoding NSNumbers.)</dd>
 
-<dd>Returns an NSString containing the receiver encoded into a JSON
-text fragment. (See <a href="#mappings">mapping</a> note on encoding
-NSNumbers.)</dd>
-
-<dt>
-<pre>
-// Added to NSString
-- (id)JSONFragmentValue;
-</pre>
-</dt>
-
-<dd>Returns the JSON fragment decoded into an instance of either
-NSArray, NSDictionary, NSNull, NSNumber, or NSString.</dd>
+<dt><code>- (id)JSONFragmentValue;</code></dt>
+<dd>Added to NSString, and returns the JSON fragment decoded into an
+instance of either NSArray, NSDictionary, NSNull, NSNumber, or
+NSString.</dd>
 
 </dl>
 
@@ -194,19 +184,45 @@ Blake Seely's BSJSONAdditions. These are the same strings that Marc
 Lehmann used comparing <a
 href="http://search.cpan.org/dist/JSON-XS/XS.pm#SPEED">JSON::XS</a> to
 its competitors. These measurements were taken with the revision r3210
-of trunk.</p>
+of trunk. First the short string:</p>
 
-<pre>
-Short string
-                |    encode |    decode |
-BSJSONAdditions | 10488.776 |  4133.938 |
-SBJSON          | 39858.112 | 23319.810 |
+<table>
+<tr>
+<th>&nbsp;</th>
+<th>encode</th>
+<th>decode</th>
+</tr>
+<tr>
+<th>BSJSONAdditions</th>
+<td>10488.8</td>
+<td>4134.0</td>
+</tr>
+<tr>
+<th>SBJSON</th>
+<td>39858.1</td>
+<td>23319.8</td>
+</tr>
+</table>
 
-Long (~12k) string
-                |    encode |    decode |
-BSJSONAdditions |    70.459 |     3.748 |
-SBJSON          |   714.318 |   555.750 |
-</pre>
+<p>The numbers for the long (~12k) string:</p>
+
+<table>
+<tr>
+<th>&nbsp;</th>
+<th>encode</th>
+<th>decode</th>
+</tr>
+<tr>
+<th>BSJSONAdditions</th>
+<td>70.5</td>
+<td>3.7</td>
+</tr>
+<tr>
+<th>SBJSON</th>
+<td>714.3</td>
+<td>555.8</td>
+</tr>
+</table>
 
 <p>BSJSONAdditions' parser allows you to embed C-style comments in the
 JSON text. Though this can be very handy for configuration files, for
