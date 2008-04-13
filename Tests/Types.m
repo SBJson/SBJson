@@ -57,15 +57,22 @@
     testInt(@"-333e+0", -333);
     testInt(@"2.5", 2);
     testFloat(@"2.5", 2.5);
+    testFloat(@"-333e+0", -333);
+    testFloat(@"+666e-1", 66.6);
 
-    id nums = [self splitString:@"-4 4 0.0001 10000 -9999 99.99"];
+    id nums = [self splitString:@"-4 4 0.0001 10000 -9999 99.99 98877665544332211009988776655443322110"];
     for (id n; n = [nums nextObject]; )
         eqo([json toJSONString:[json fromJSONString:n]], n);
 }
 
-- (void)test03strings
+- (void)Xtest03strings
 {
-    /// XXX some nasty strings here.
+    id strings = [NSArray arrayWithObjects:
+        @"foo", @"foo\"bar", @"foo\\bar", @"\n", nil];
+        
+    strings = [strings objectEnumerator];
+    for (id s; s = [strings nextObject]; )
+        eqo([json fromJSONString:[json toJSONString:s]], s);
 }
 
 - (void)test04arrays

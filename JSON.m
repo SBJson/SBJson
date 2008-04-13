@@ -130,6 +130,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return [self fromJSONWithScanner:[NSScanner scannerWithString:js]];
 }
 
+- (NSString *)escapedStringWithScanner:(NSScanner *)scanner
+{
+    NSString *tmp;
+    [scanner scanUpToString:@"\\" intoString:&tmp];
+    if ([scanner isAtEnd])
+        return tmp;
+
+    if ([scanner scanString:@"\"" intoString:nil])
+        return [tmp stringByAppendingFormat:@"\\\"%@", [self escapedStringWithScanner:scanner]];
+    if ([scanner scanString:@"\\" intoString:nil])
+        return [tmp stringByAppendingFormat:@"\\\\%@", [self escapedStringWithScanner:scanner]];
+
+    return @"I am dumb";
+}
+
 - (NSString *)toJSONString:(id)x
 {
     if (!x || [x isKindOfClass:[NSNull class]])
@@ -137,7 +152,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if ([x isKindOfClass:[NSNumber class]])
         return [x stringValue];
     if ([x isKindOfClass:[NSString class]])
-        return [NSString stringWithFormat:@"\"%@\"", x];   // XXX needs escaping
+        return [NSString stringWithFormat:@"\"%@\"", 
+            [self escapedStringWithScanner:[NSScanner scannerWithString:x]]];   // XXX needs escaping
     if ([x isKindOfClass:[NSArray class]]) {
         NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[x count]];
         for (int i = 0; i < [x count]; i++)
