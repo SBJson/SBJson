@@ -37,7 +37,7 @@
 - (void)test00null
 {
     STAssertTrue([[json fromJSONString:@"null"] isKindOfClass:[NSNull class]], nil);
-    eqo([json fromJSONString:@"null"], [NSNull class]);
+    eqo([json fromJSONString:@"null"], [NSNull null]);
 
     eqo([json toJSONString:nil], @"null");
     eqo([json toJSONString:[NSNull null]], @"null");
@@ -63,7 +63,12 @@
         eqo([json toJSONString:[json fromJSONString:n]], n);
 }
 
-- (void)test03arrays
+- (void)test03strings
+{
+    /// XXX some nasty strings here.
+}
+
+- (void)test04arrays
 {
     id arr = [@"fi fo fa fum" componentsSeparatedByString:@" "];
     id as = [json toJSONString:arr];
@@ -81,7 +86,7 @@
     eqo([json fromJSONString:as], arr);
 }
 
-- (void)test04dictionaries
+- (void)test05dictionaries
 {
     id dict = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSNumber numberWithInt:3], @"three",
@@ -98,7 +103,7 @@
     eqo([json fromJSONString:ds], dict);
 }
 
-- (void)test05deeplyNested
+- (void)test06deeplyNested
 {
     id dict = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSArray arrayWithObjects:

@@ -32,12 +32,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @implementation JSON
 
+- (id)fromJSONWithScanner:(NSScanner *)scanner
+{
+    NSDecimal decimal;
+    if ([scanner scanString:@"null" intoString:nil])
+        return [NSNull null];
+    if ([scanner scanString:@"true" intoString:nil])
+        return [NSNumber numberWithBool:YES];
+    if ([scanner scanString:@"false" intoString:nil])
+        return [NSNumber numberWithBool:NO];
+    if ([scanner scanDecimal:&decimal])
+        return [NSDecimalNumber decimalNumberWithDecimal:decimal];
+
+    NSLog(@"Don't know how to handle arrays and dictionaries yet");
+    return @"I suck at this";
+}
+
 - (id)fromJSONString:(NSString *)js
 {
-    NSScanner *scanner = [NSScanner scannerWithString:js];
-    id ret = [NSDecimalNumber decimalNumberWithString:js];
-
-    return ret;
+    return [self fromJSONWithScanner:[NSScanner scannerWithString:js]];
 }
 
 - (NSString *)toJSONString:(id)x
