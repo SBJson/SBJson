@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 44;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,16 @@
 		E757164D0C96E39B0084A449 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E757164B0C96E39B0084A449 /* NSString+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E757164E0C96E39B0084A449 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E757164C0C96E39B0084A449 /* NSString+SBJSON.m */; };
 		E76A1EBD0C996EFD00A0CC83 /* Examples.m in Sources */ = {isa = PBXBuildFile; fileRef = E76A1EB60C996C2000A0CC83 /* Examples.m */; };
+		FE2BBD860D8B0D6000184787 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FE2BBD870D8B0D6000184787 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FE2BBD880D8B0D6000184787 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+SBJSON.m */; };
+		FE2BBD8B0D8B0D6000184787 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E757164B0C96E39B0084A449 /* NSString+SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FE2BBD8C0D8B0D6000184787 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E757164C0C96E39B0084A449 /* NSString+SBJSON.m */; };
+		FE2BBDB50D8B0F1D00184787 /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D229A10C9612E000276605 /* Types.m */; };
+		FE2BBDB60D8B0F1D00184787 /* Examples.m in Sources */ = {isa = PBXBuildFile; fileRef = E76A1EB60C996C2000A0CC83 /* Examples.m */; };
+		FE2BBDB70D8B0F1D00184787 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C45B9B0C98A87600546F66 /* Errors.m */; };
+		FE2BBDB80D8B0F1D00184787 /* Pretty.m in Sources */ = {isa = PBXBuildFile; fileRef = E7153EE80CAAABDB00054ADB /* Pretty.m */; };
+		FE7FFC3E0D8EC98E00EC6B9C /* SBJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5390660A0D828B8B0022B8B8 /* SBJSONScanner.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +38,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 53D229800C96121600276605;
 			remoteInfo = JSON;
+		};
+		FE2BBDB30D8B0F0F00184787 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 53D229730C9611FF00276605 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FE2BBD7F0D8B0D3900184787;
+			remoteInfo = json;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -48,6 +65,9 @@
 		E757164B0C96E39B0084A449 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
 		E757164C0C96E39B0084A449 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
 		E76A1EB60C996C2000A0CC83 /* Examples.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Examples.m; sourceTree = "<group>"; };
+		FE2BBD800D8B0D3900184787 /* libjson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE2BBDAB0D8B0EE000184787 /* libjsontests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libjsontests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE2BBDAC0D8B0EE100184787 /* libjsontests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "libjsontests-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +86,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FE2BBD7E0D8B0D3900184787 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FE2BBDA80D8B0EE000184787 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,6 +111,7 @@
 				53D229820C96121600276605 /* Products */,
 				53D229830C96121600276605 /* JSON-Info.plist */,
 				53D2298E0C96122A00276605 /* Tests-Info.plist */,
+				FE2BBDAC0D8B0EE100184787 /* libjsontests-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +120,8 @@
 			children = (
 				53D229810C96121600276605 /* JSON.framework */,
 				53D2298D0C96122A00276605 /* Tests.octest */,
+				FE2BBD800D8B0D3900184787 /* libjson.a */,
+				FE2BBDAB0D8B0EE000184787 /* libjsontests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,6 +167,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FE2BBD7C0D8B0D3900184787 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE2BBD860D8B0D6000184787 /* JSON.h in Headers */,
+				FE2BBD870D8B0D6000184787 /* NSObject+SBJSON.h in Headers */,
+				FE2BBD8B0D8B0D6000184787 /* NSString+SBJSON.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -170,13 +217,49 @@
 			productReference = 53D2298D0C96122A00276605 /* Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		FE2BBD7F0D8B0D3900184787 /* json */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FE2BBD950D8B0DC900184787 /* Build configuration list for PBXNativeTarget "json" */;
+			buildPhases = (
+				FE2BBD7C0D8B0D3900184787 /* Headers */,
+				FE2BBD7D0D8B0D3900184787 /* Sources */,
+				FE2BBD7E0D8B0D3900184787 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = json;
+			productName = json;
+			productReference = FE2BBD800D8B0D3900184787 /* libjson.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		FE2BBDAA0D8B0EE000184787 /* libjsontests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FE2BBDAF0D8B0EE100184787 /* Build configuration list for PBXNativeTarget "libjsontests" */;
+			buildPhases = (
+				FE2BBDA60D8B0EE000184787 /* Resources */,
+				FE2BBDA70D8B0EE000184787 /* Sources */,
+				FE2BBDA80D8B0EE000184787 /* Frameworks */,
+				FE2BBDA90D8B0EE000184787 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FE2BBDB40D8B0F0F00184787 /* PBXTargetDependency */,
+			);
+			name = libjsontests;
+			productName = libjsontests;
+			productReference = FE2BBDAB0D8B0EE000184787 /* libjsontests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		53D229730C9611FF00276605 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 53D229740C9611FF00276605 /* Build configuration list for PBXProject "JSON" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 0;
 			mainGroup = 53D229710C9611FF00276605;
 			productRefGroup = 53D229820C96121600276605 /* Products */;
@@ -185,6 +268,8 @@
 			targets = (
 				53D229800C96121600276605 /* JSON */,
 				53D2298C0C96122A00276605 /* Tests */,
+				FE2BBD7F0D8B0D3900184787 /* json */,
+				FE2BBDAA0D8B0EE000184787 /* libjsontests */,
 			);
 		};
 /* End PBXProject section */
@@ -204,10 +289,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FE2BBDA60D8B0EE000184787 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		53D2298B0C96122A00276605 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		FE2BBDA90D8B0EE000184787 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -244,6 +349,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FE2BBD7D0D8B0D3900184787 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE7FFC3E0D8EC98E00EC6B9C /* SBJSONScanner.m in Sources */,
+				FE2BBD880D8B0D6000184787 /* NSObject+SBJSON.m in Sources */,
+				FE2BBD8C0D8B0D6000184787 /* NSString+SBJSON.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FE2BBDA70D8B0EE000184787 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE2BBDB50D8B0F1D00184787 /* Types.m in Sources */,
+				FE2BBDB60D8B0F1D00184787 /* Examples.m in Sources */,
+				FE2BBDB70D8B0F1D00184787 /* Errors.m in Sources */,
+				FE2BBDB80D8B0F1D00184787 /* Pretty.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -252,12 +378,19 @@
 			target = 53D229800C96121600276605 /* JSON */;
 			targetProxy = 53D229920C96122E00276605 /* PBXContainerItemProxy */;
 		};
+		FE2BBDB40D8B0F0F00184787 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FE2BBD7F0D8B0D3900184787 /* json */;
+			targetProxy = FE2BBDB30D8B0F0F00184787 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		53D229750C9611FF00276605 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				COPY_PHASE_STRIP = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
@@ -266,10 +399,8 @@
 		53D229760C9611FF00276605 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				COPY_PHASE_STRIP = YES;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
@@ -278,7 +409,8 @@
 		53D229860C96121700276605 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				CURRENT_PROJECT_VERSION = 1.1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1.1;
@@ -301,18 +433,14 @@
 				PRODUCT_NAME = JSON;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = SB;
-				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
 		53D229870C96121700276605 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					i386,
-					ppc,
-				);
-				COPY_PHASE_STRIP = YES;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				CURRENT_PROJECT_VERSION = 1.1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1.1;
@@ -333,7 +461,6 @@
 				PRODUCT_NAME = JSON;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = SB;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -365,7 +492,6 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = Tests;
 				WRAPPER_EXTENSION = octest;
-				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
@@ -395,7 +521,105 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = Tests;
 				WRAPPER_EXTENSION = octest;
-				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		FE2BBD840D8B0D3900184787 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				PREBINDING = NO;
+				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
+				PRODUCT_NAME = json;
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
+			};
+			name = Debug;
+		};
+		FE2BBD850D8B0D3900184787 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+				);
+				PREBINDING = NO;
+				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
+				PRODUCT_NAME = json;
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
+			};
+			name = Release;
+		};
+		FE2BBDAD0D8B0EE100184787 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = "libjsontests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-ljson",
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = libjsontests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		FE2BBDAE0D8B0EE100184787 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = "libjsontests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-ljson",
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = libjsontests;
+				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -425,6 +649,24 @@
 			buildConfigurations = (
 				53D229900C96122A00276605 /* Debug */,
 				53D229910C96122A00276605 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FE2BBD950D8B0DC900184787 /* Build configuration list for PBXNativeTarget "json" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE2BBD840D8B0D3900184787 /* Debug */,
+				FE2BBD850D8B0D3900184787 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FE2BBDAF0D8B0EE100184787 /* Build configuration list for PBXNativeTarget "libjsontests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE2BBDAD0D8B0EE100184787 /* Debug */,
+				FE2BBDAE0D8B0EE100184787 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

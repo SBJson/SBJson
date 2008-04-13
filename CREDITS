@@ -14,3 +14,8 @@ Jens Alfke <jens@mooseyard.com> - http://mooseyard.com/Jens
     Jens emailed me out of the blue one day with a couple of patches
     that gave a speedup of 11x for generation and 5x for parsing of
     the long (12k) JSON string I've been using for testing.
+
+Greg Bolsinga
+    Provided patches for dropping the dependency on AppKit and thus
+    truly making this a Foundation framework, and for building a
+    static library suitable for use with the iPhone.
