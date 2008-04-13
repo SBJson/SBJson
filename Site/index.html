@@ -13,7 +13,8 @@
 <div id="toc">
 <ul>
 <li><a href="#usage">Basic usage</a></li>
-<li><a href="#fragments">Working with JSON fragments</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#fragments">JSON fragments</a></li>
 <li><a href="#mappings">Mapping JSON types to Objective-C</a></li>
 <li><a href="#limitations">Limitations</a></li>
 <li><a href="#performance">Performance</a></li>
@@ -34,18 +35,26 @@ importing the <code>&lt;JSON/JSON.h&gt;</code> header provides the
 following main methods:</p>
 
 <dl>
-<dt><pre>
--[NSArray JSONRepresentation];
--[NSDictionary JSONRepresentation];
-</pre></dt>
 
-<dd>Returns an NSString containing the receiver encoded in JSON. (See
-<a href="#mappings">note</a> on mapping NSDictionary instances to JSON
-objects.)</dd>
+<dt>
+<pre>
+// Added to NSArray and NSDictionary
+- (NSString *)JSONRepresentation;
+- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)opts;
+</pre>
+</dt>
 
-<dt><pre>
--[NSString objectFromJSON];
-</pre></dt>
+<dd>Returns an NSString containing the receiver encoded in JSON.
+Please read the note on <a href="#mappings">mapping</a> NSDictionary
+instances to JSON objects. See also the list of <a
+href="#options">options</a>.</dd>
+
+<dt>
+<pre>
+// Added to NSString
+- (id)objectFromJSON;
+</pre>
+</dt>
 
 <dd>Returns either an NSArray or NSDictionary decoded from the JSON in
 the receiver. Throws an error if the receiver does not contain valid
@@ -53,21 +62,54 @@ JSON text.</dd>
 
 </dl>
 
+<h2 id="options">Options</h2>
+
+<p>Options are turned on by providing an instance that will respond
+with a true value when sent -intValue. (Usually this would be an
+NSNumber, but it could be an NSString if you find it more convenient.)
+The valid options are:</p>
+
+<dl>
+
+<dt>SpaceBefore</dt>
+
+<dd>When encoding a dictionary, adds a space before the ':' that
+separates the key from its associated value.</dd>
+
+<dt>SpaceAfter</dt>
+
+<dd>When encoding a dictionary, adds a space <em>after</em> the ':'
+that separates the key from its associated value. Also adds a space
+between the ',' and the next item for both arrays and dictionaries.
+(Except when Indent is also active.)</dd>
+
+<dt>Indent</dt>
+
+<dd>Produces human-readable JSON by using a multi-line format. Each
+array member and dictionary key/value pair is output on its own line,
+indented properly.</dd>
+
+<dt>Pretty</dt>
+
+<dd>A short-cut that turns on SpaceBefore, SpaceAfter and Indent all
+in one go.</dd>
+
+</dl>
 
 <h2 id="fragments">Working with JSON fragments</h2>
 
 <p>Strictly speaking JSON must have <strong>exactly one top-level
-container</strong>. (Either an array or an object, in JSON parlance.)
-Bare nulls, numbers, booleans and strings are not valid JSON on their
-own. It can be quite convenient to <em>pretend</em> that such
-fragments are valid JSON however. The following methods will let you
-do so:</p>
+container</strong>. (Either an array or an object.) Bare nulls,
+numbers, booleans and strings are not valid JSON on their own. It can
+be quite convenient to <em>pretend</em> that such fragments are valid
+JSON however. The following methods will let you do so:</p>
 
 <dl>
-<dt><pre>
--[NSNull JSONFragment];
--[NSNumber JSONFragment];
--[NSString JSONFragment];
+
+<dt>
+<pre>
+// Added to NSNull, NSNumber & NSString
+- (NSString *)JSONFragment;
 </pre>
 </dt>
 
@@ -75,9 +117,12 @@ do so:</p>
 text fragment. (See <a href="#mappings">mapping</a> note on encoding
 NSNumbers.)</dd>
 
-<dt><pre>
--[NSString objectFromJSONFragment];
-</pre></dt>
+<dt>
+<pre>
+// Added to NSString
+- (id)objectFromJSONFragment;
+</pre>
+</dt>
 
 <dd>Returns the JSON fragment decoded into an instance of either
 NSArray, NSDictionary, NSNull, NSNumber, or NSString.</dd>
@@ -120,10 +165,13 @@ simpler to implement the parser that way.)</li>
 
 <h2 id="limitations">Limitations</h2>
 
-<p>As of version 0.1 this framework is limited to parsing strict JSON.
-(Other than the above mentioned support for JSON fragments.) The
-produced JSON is very terse, with no optional whitespace added. This
-is planned for a future version.</p>
+<p>This framework is limited to parsing strict JSON. (Other than the
+above mentioned support for JSON fragments.) For example, it does not
+currently support trailing commas in arrays or objects.</p>
+
+<p>Though <code>\uXXXX</code> sequences are decoded properly there is
+no support to encode unicode into such sequences yet. This is planned
+in a later version.</p>
 
 
 <h2 id="performance">A note on performance</h2>
@@ -151,12 +199,6 @@ other implementations though.</p>
 <h2 id="feedback">Feedback / praise / bug reports</h2>
 
 <p>Email <a href="mailto:stig@brautaset.org">Stig Brautaset</a> please.</li>
-
-
-<h2 id="apologies">Apologies</h2>
-
-<p>This page is just about all the documentation that exists at the
-moment. The code is pretty stable and well tested though.</p>
 
 </body>
 </html>

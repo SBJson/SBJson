@@ -36,9 +36,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @interface NSArray (NSArray_SBJSON)
 - (NSString *)JSONRepresentation;
+- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)opts;
 @end
 
 @interface NSDictionary (NSDictionary_SBJSON)
 - (NSString *)JSONRepresentation;
+- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)opts;
 @end
 

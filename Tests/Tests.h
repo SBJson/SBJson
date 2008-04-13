@@ -20,3 +20,11 @@
 
 @interface Examples : SenTestCase
 @end
+
+@interface Pretty : SenTestCase {
+    NSDictionary *simple;
+    NSDictionary *nested;
+    NSArray *simplea;
+    NSArray *nesteda;
+}
+@end

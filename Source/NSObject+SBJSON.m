@@ -29,33 +29,69 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "NSObject+SBJSON.h"
 
+typedef struct {
+    unsigned before, after, indent, depth, maxdepth;
+} opts_t;
+
+#define setOpt(x,y,z) if (y && [y objectForKey:z]) x = [[y objectForKey:z] intValue]
+
+static opts_t defaults(NSDictionary *x)
+{
+    opts_t y = {0,};
+    y.maxdepth = 512;
+    setOpt(y.before, x, @"SpaceBefore");
+    setOpt(y.after, x, @"SpaceAfter");
+    setOpt(y.indent, x, @"Indent");
+    setOpt(y.before = y.after = y.indent, x, @"Pretty");
+    return y;
+}
+
+@interface NSObject (NSObject_SBJSON_Private)
+- (NSString *)JSONFragmentWithOptions:(opts_t *)x;
+@end
 
 @implementation NSObject (NSObject_SBJSON)
+
 - (NSString *)JSONFragment
+{
+    opts_t args = defaults(nil);
+    [self JSONFragmentWithOptions:&args];
+}
+
+- (NSString *)JSONFragmentWithOptions:(opts_t *)x
 {
     [NSException raise:@"unsupported"
                 format:@"-JSONFragment not implemented for objects of type '%@'", [self class]];
 }
+
 @end
 
+
 @implementation NSNull (NSObject_SBJSON)
-- (NSString *)JSONFragment
+
+- (NSString *)JSONFragmentWithOptions:(opts_t *)x
 {
     return @"null";
 }
+
 @end
 
+
 @implementation NSNumber (NSObject_SBJSON)
-- (NSString *)JSONFragment
+
+- (NSString *)JSONFragmentWithOptions:(opts_t *)x
 {
     if ('c' != *[self objCType])
         return [self description];
     return [self boolValue] ? @"true" : @"false";
 }
+
 @end
 
+
 @implementation NSString (NSObject_SBJSON)
-- (NSString *)JSONFragment
+
+- (NSString *)JSONFragmentWithOptions:(opts_t *)x
 {
     NSMutableString *s = [NSMutableString stringWithString:@"\""];
     for (unsigned i = 0; i < [self length]; i++) {
@@ -74,28 +110,52 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
     return [s stringByAppendingString:@"\""];
 }
+
 @end
 
-@implementation NSArray (NSObject_SBJSON)
-- (NSString *)JSONFragment
-{
-    NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[self count]];
-    for (int i = 0; i < [self count]; i++)
-        [tmp addObject:[[self objectAtIndex:i] JSONFragment]];
-    return [NSString stringWithFormat:@"[%@]", [tmp componentsJoinedByString:@","]];
-}
-@end
 
 @implementation NSArray (NSArray_SBJSON)
+
+- (NSString *)JSONFragmentWithOptions:(opts_t *)x
+{
+    x->depth++;
+    NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[self count]];
+    for (int i = 0; i < [self count]; i++)
+        [tmp addObject:[[self objectAtIndex:i] JSONFragmentWithOptions:x]];
+    x->depth--;
+
+    NSString *open = @"";
+    NSString *close = @"";
+    NSString *sep = x->after ? @", " : @",";
+    if (x->indent) {
+        NSString *indent = [@"" stringByPaddingToLength:x->depth*2 withString:@" " startingAtIndex:0];
+        open = [@"\n  " stringByAppendingString:indent];
+        close = [@"\n" stringByAppendingString:indent];
+        sep = [@",\n  " stringByAppendingString:indent];
+    }
+    return [NSString stringWithFormat:@"[%@%@%@]", open, [tmp componentsJoinedByString:sep], close];
+}
+
 - (NSString *)JSONRepresentation
 {
-    return [self JSONFragment];
+    opts_t args = defaults(nil);
+    return [self JSONFragmentWithOptions:&args];
 }
+
+- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)x
+{
+    opts_t args = defaults(x);
+    return [self JSONFragmentWithOptions:&args];
+}
+
 @end
 
-@implementation NSDictionary (NSObject_SBJSON)
-- (NSString *)JSONFragment
+
+@implementation NSDictionary (NSDictionary_SBJSON)
+
+- (NSString *)JSONFragmentWithOptions:(opts_t *)x
 {
+    x->depth++;
     NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[self count]];
     NSArray *keys = [[self allKeys] sortedArrayUsingSelector:@selector(compare:)];
     for (int i = 0; i < [keys count]; i++) {
@@ -103,16 +163,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         if (![key isKindOfClass:[NSString class]])
             [NSException raise:@"enostring"
                         format:@"JSON dictionary keys *must* be strings."];
-        [tmp addObject:[NSString stringWithFormat:@"%@:%@",
-            [key JSONFragment], [[self objectForKey:key] JSONFragment]]];
+        [tmp addObject:[NSString stringWithFormat:@"%@%s:%s%@",
+            [key JSONFragmentWithOptions:x],
+            x->before ? " " : "",
+            x->after ? " " : "",
+            [[self objectForKey:key] JSONFragmentWithOptions:x]]];
     }
-    return [NSString stringWithFormat:@"{%@}", [tmp componentsJoinedByString:@","]];
+    x->depth--;
+    
+    NSString *open = @"";
+    NSString *close = @"";
+    NSString *sep = x->after ? @", " : @",";
+    if (x->indent) {
+        NSString *indent = [@"" stringByPaddingToLength:x->depth*2 withString:@" " startingAtIndex:0];
+        open = [@"\n  " stringByAppendingString:indent];
+        close = [@"\n" stringByAppendingString:indent];
+        sep = [@",\n  " stringByAppendingString:indent];
+    }
+    return [NSString stringWithFormat:@"{%@%@%@}", open, [tmp componentsJoinedByString:sep], close];
 }
-@end
 
-@implementation NSDictionary (NSDictionary_SBJSON)
 - (NSString *)JSONRepresentation
 {
-    return [self JSONFragment];
+    opts_t args = defaults(nil);
+    return [self JSONFragmentWithOptions:&args];
 }
+
+- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)x
+{
+    opts_t args = defaults(x);
+    return [self JSONFragmentWithOptions:&args];
+}
+
 @end
