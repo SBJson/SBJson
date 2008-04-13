@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007, Stig Brautaset. All rights reserved.
+Copyright (C) 2007 Stig Brautaset. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -27,19 +27,21 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#import "JSON.h"
+#import "NSString+SBJSON.h"
 #import "NSScanner+SBJSON.h"
 
-@implementation JSON
 
-- (id)fromJSONString:(NSString *)js
+@implementation NSString (NSString_SBJSON)
+
+- (id)objectFromJSON
 {
-    NSScanner *scanner = [NSScanner scannerWithString:js];
+    NSScanner *scanner = [NSScanner scannerWithString:self];
     id o;
     if ([scanner scanJSONObject:&o])
         return o;
 
-    [NSException raise:@"json-error" format:@"Failed to parse '%@' as JSON", js];
+    [NSException raise:@"json-error" format:@"Failed to parse '%@' as JSON", self];
 }
+
 
 @end

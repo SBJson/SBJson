@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007, Stig Brautaset. All rights reserved.
+Copyright (C) 2007 Stig Brautaset. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -28,6 +28,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import <Cocoa/Cocoa.h>
-#import <JSON/NSObject+SBJSON.h>
-#import <JSON/NSString+SBJSON.h>
 
+@interface NSString (NSString_SBJSON)
+
+- (id)objectFromJSON;
+
+@end

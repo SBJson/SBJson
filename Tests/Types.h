@@ -8,10 +8,6 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@class JSON;
-
-@interface Types : SenTestCase {
-    JSON *json;
-}
+@interface Types : SenTestCase 
 
 @end
