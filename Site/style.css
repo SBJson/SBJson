@@ -6,7 +6,7 @@ body {  width: 40em;
         font-family: Verdana, Arial, sans-serif;
 }
 h1, h2 {
-    color: #060;
+    color: darkgreen;
 }
 h1 {
     font-size: 1.6em;
@@ -36,16 +36,16 @@ h2 { font-size: 1.2em }
 
 /* Links in the TOC have a different colour */
 #toc a {
-    color: #363;
+    color: darkgreen;
 }
 #toc a:hover {
-    background:#393;
-    color: #afa;
+    background: darkgreen;
+    color: lightgreen;
 }
 
 /* Code snippets */
 #toc, code, pre {
-    background: #9f9;
+    background: lightgreen;
 }
 code, pre { 
     font-size: 1.14em;
