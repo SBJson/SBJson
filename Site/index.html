@@ -36,13 +36,17 @@ following main methods:</p>
 <pre>
 -[NSArray JSONString];
 -[NSDictionary JSONString];
+</pre>
+
+<p>Returns an NSSTring containing JSON text representing the receiver.
+ (See note below on mapping NSDictionary instances to JSON
+objects.)</p>
+
+<pre>
 -[NSString objectFromJSON];
 </pre>
 
-<p>The methods added to NSArray and NSDictionary return an NSString
-containing their JSON representations. (See note below on mapping
-NSDictionary instances to JSON objects.) The method added to NSString
-returns either an NSArray or NSDictionary representing the JSON it
+<p>Returns either an NSArray or NSDictionary representing the JSON it
 contains.</p>
 
 
