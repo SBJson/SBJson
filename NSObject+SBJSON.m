@@ -55,7 +55,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @implementation NSString (NSObject_SBJSON)
 - (NSString *)JSONString
 {
-    return [NSString stringWithFormat:@"\"%@\"", self];
+    NSMutableString *s = [NSMutableString stringWithString:@"\""];
+    for (unsigned i = 0; i < [self length]; i++) {
+        unichar uc = [self characterAtIndex:i];
+        switch (uc) {
+            case '"':   [s appendString:@"\\\""];       break;
+            case '\\':  [s appendString:@"\\\\"];       break;
+            case '\t':  [s appendString:@"\\\t"];       break;
+            case '\n':  [s appendString:@"\\\n"];       break;
+            case '\r':  [s appendString:@"\\\r"];       break;
+            case '\b':  [s appendString:@"\\\b"];       break;
+            case '\f':  [s appendString:@"\\\f"];       break;
+            default:    [s appendFormat:@"%C", uc];     break;
+        }
+    }
+    return [s stringByAppendingString:@"\""];
 }
 @end
 

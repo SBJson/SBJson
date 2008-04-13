@@ -76,12 +76,13 @@
         @"\"quote\\\" again\"",             @"quote\" again",
         @"\"quote\\\"\"",                   @"quote\"",
         @"\" spaces  \"",                   @" spaces  ",
-
-/* These never worked...
-        @"\"\\ttabs\\t\\t\"",               @"\ttabs\t\t",
+        @"\"\\\ttabs\\\t\\\t\"",            @"\ttabs\t\t",
         @"\"\\\\ \\\" \\\\ \\\"\"",         @"\\ \" \\ \"",
         @"\"\\\n\"",                        @"\n",
-*/
+        @"\"\\\r\"",                        @"\r",
+        @"\"\\\r\\\n\"",                    @"\r\n",
+        @"\"\\\b\"",                        @"\b",
+        @"\"\\\f\"",                        @"\f",
         nil];
     
     NSEnumerator *enumerator = [dict keyEnumerator];
