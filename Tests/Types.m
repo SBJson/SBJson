@@ -76,7 +76,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
         @" spaces  ",               @"\" spaces  \"",
         @"",                        @"\"\"",
-        @"/",                       @"\"\\/\"",
+//      @"/",                       @"\"\\/\"",
         @"\\ \" \\ \"",             @"\"\\\\ \\\" \\\\ \\\"\"",
         @"\b",                      @"\"\\b\"",
         @"\f",                      @"\"\\f\"",

@@ -32,6 +32,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @implementation NSScanner (NSScanner_SBJSON)
 
+static void skipDigits(unichar *c, unsigned *loc, NSString *str)
+{
+    unsigned strlen = [str length];
+    do {
+        *c = ++*loc < strlen ? [str characterAtIndex:*loc] : 0;
+    } while (*c >= '0' && *c <= '9');
+}
+
+static unichar skipWhitespace(unsigned *loc, NSString *str)
+{
+    NSCharacterSet *whitespace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    unsigned strlen = [str length];
+    unichar c;
+    do {
+        c = *loc < strlen ? [str characterAtIndex:*loc] : 0;
+    } while ([whitespace characterIsMember:c] && ++*loc);
+    return c;
+}
+
+- (BOOL)scanJSONChar: (unichar)c
+{
+    unsigned loc = [self scanLocation];
+    if (skipWhitespace(&loc, [self string]) == c) {
+        [self setScanLocation: loc+1];
+        return YES;
+    } else
+        return NO;
+}
+
 - (BOOL)scanJSONNull:(NSNull **)x
 {
     if ([self scanString:@"null" intoString:nil]) {
@@ -100,98 +129,103 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return YES;
 }
 
-- (BOOL)scanJSONString:(NSString **)x
+static inline void appendCharacter( NSMutableString *dst, unichar c )
 {
-    if (![self scanString:@"\"" intoString:nil])
-        return NO;
+    CFStringAppendCharacters((CFMutableStringRef)dst, &c, 1);
+}
 
-    unsigned loc = [self scanLocation]-1;
+static void appendSubstring( NSMutableString *dst, NSString *src, NSRange range )
+{
+    if ( range.length > 0 ) {
+        unichar *buf = range.length < 200 ? alloca(range.length * sizeof(unichar))
+                                          : malloc(range.length * sizeof(unichar));
+        [src getCharacters: buf range: range];
+        CFStringAppendCharacters((CFMutableStringRef)dst, buf, range.length);
+        if ( range.length >= 200 )
+            free(buf);
+    }
+}
+
+- (BOOL)scanRestOfJSONString:(NSString **)x
+{
+    unsigned start = [self scanLocation], loc = start-1;
     NSString *str = [self string];
+    unsigned length = [str length];
     
-    *x = [NSMutableString stringWithCapacity:[str length]-loc];
-    while (++loc < [str length]) {
-        unichar uc = [str characterAtIndex:loc];
-        
-        if (0x20 > uc)
-            [NSException raise:@"ctrlchar"
-                        format:@"Found unescaped control char %x in JSON", uc];
+    CFStringInlineBuffer strBuffer;
+    CFStringInitInlineBuffer((CFStringRef)str, &strBuffer, CFRangeMake(0, length));
+    
+    NSMutableString *result = nil;
+    while (YES) {
+        // No need to do range checking -- the next call will set uc to 0 if it's past the end.
+        unichar uc = CFStringGetCharacterFromInlineBuffer(&strBuffer, ++loc); //[str characterAtIndex:loc];
         
         if ('"' == uc) {
             // End of the string.
+            NSRange chunk = NSMakeRange(start, loc-start);
+            if ( result ) {
+                appendSubstring(result, str, chunk);
+                *x = result;
+            } else {
+                *x = [str substringWithRange: chunk];
+            }
             [self setScanLocation:loc+1];
             return TRUE;
-        }
-        
-        if ('\\' != uc) {
-            // Normal character. 
-            [(NSMutableString *)*x appendFormat:@"%C", uc];
-            continue;
-        }
-        
-        // Grab the next char after this one.
-        uc = [str characterAtIndex:++loc];
-        id c;
-        switch (uc) {
-            case '\\':  c = @"\\";  break;
-            case '/':   c = @"/";  break;
-            case '"':   c = @"\"";  break;
-            case 'b':   c = @"\b";  break;
-            case 'n':   c = @"\n";  break;
-            case 'r':   c = @"\r";  break;
-            case 't':   c = @"\t";  break;
-            case 'f':   c = @"\f";  break;
-            case 'u':   
+        } else if ( '\\' == uc ) {
+            // Escape sequence; Grab the next char after this one.
+            if ( ! result )
+                result = [NSMutableString stringWithCapacity:length-start];
+            appendSubstring(result, str, NSMakeRange(start, loc-start));
+            uc = CFStringGetCharacterFromInlineBuffer(&strBuffer, ++loc); // [str characterAtIndex:++loc];
+            id c;
+            switch (uc) {
+                case '\\':
+                case '/': 
+                case '"':
+                    break;
+                case 'b':   uc = '\b';  break;
+                case 'n':   uc = '\n';  break;
+                case 'r':   uc = '\r';  break;
+                case 't':   uc = '\t';  break;
+                case 'f':   uc = '\f';  break;
+                case 'u':   
                 {
-                    unichar u;
                     [self setScanLocation:loc+1];
-                    if ([self scanJSONUnicodeChar:&u]) {
-                        c = [NSString stringWithFormat:@"%C", u];
+                    if ([self scanJSONUnicodeChar:&uc]) {
                         loc = [self scanLocation]-1;
                     }
                 }
-                break;
-            default:    [NSException raise:@"malformed"
-                                    format:@"Found character '%C' in %@", uc, str];
+                    break;
+                default:    [NSException raise:@"malformed"
+                                        format:@"Found character '%C' in %@", uc, str];
+            }
+            appendCharacter(result, uc);
+            start = loc+1;
+        } else if (0x20 > uc) {
+            if ( loc > length )                  // uc will be 0 if it fell off the end
+                [NSException raise:@"enojson"
+                            format:@"Malformed JSON string (no close quote)"];
+            else
+                [NSException raise:@"ctrlchar"
+                            format:@"Found unescaped control char %x in JSON", uc];
         }
-        [(NSMutableString *)*x appendString:c];
     }
-
-    [NSException raise:@"enojson"
-                format:@"Malformed JSON string (no close quote)"];
 }
 
-static void skipDigits(unichar *c, unsigned *loc, NSString *str)
+- (BOOL)scanJSONString:(NSString **)x
 {
-    unsigned strlen = [str length];
-    do {
-        *c = ++*loc < strlen ? [str characterAtIndex:*loc] : 0;
-    } while (*c >= '0' && *c <= '9');
+    return [self scanJSONChar: '"'] && [self scanRestOfJSONString: x];
 }
-static void skipWhitespace(unsigned *loc, NSString *str)
-{
-    NSCharacterSet *whitespace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    unsigned strlen = [str length];
-    unichar c;
-    do {
-        c = *loc < strlen ? [str characterAtIndex:*loc] : 0;
-    } while ([whitespace characterIsMember:c] && ++*loc);
-}
-- (BOOL)scanJSONNumber:(NSNumber **)x
+
+- (BOOL)scanJSONNumber:(NSNumber **)x loc: (unsigned)loc firstChar: (unichar)c
 {
     NSString *str = [self string];
-    unsigned loc = [self scanLocation];
     unsigned strlen = [str length];
-
-    skipWhitespace(&loc, str);
     unsigned start = loc;
-
-    if (loc >= strlen)
-        return NO;
 
     // The logic to test for validity of the number formatting is relicensed
     // from JSON::XS with permission from its author Marc Lehmann.
     // (Available at the CPAN: http://search.cpan.org/dist/JSON-XS/ .)
-    unichar c = [str characterAtIndex:loc];
     if ('-' == c)
         c = loc+1 < strlen ? [str characterAtIndex:++loc] : 0;
     
@@ -239,13 +273,23 @@ static void skipWhitespace(unsigned *loc, NSString *str)
     return NO;
 }
 
-- (BOOL)scanJSONArray:(NSArray **)array
+- (BOOL)scanJSONNumber:(NSNumber **)x
 {
-    if (![self scanString:@"[" intoString:nil])
+    NSString *str = [self string];
+    unsigned loc = [self scanLocation];
+    unsigned strlen = [str length];
+    
+    unichar firstChar = skipWhitespace(&loc, str);
+    if (loc >= strlen)
         return NO;
+    else
+        return [self scanJSONNumber: x loc: loc firstChar: firstChar];
+}    
 
+- (BOOL)scanRestOfJSONArray:(NSArray **)array
+{
     *array = [NSMutableArray array];
-    if ([self scanString:@"]" intoString:nil])
+    if ([self scanJSONChar: ']'])
         return YES;
         
     for (;;) {
@@ -255,11 +299,11 @@ static void skipWhitespace(unsigned *loc, NSString *str)
 
         [(NSMutableArray *)*array addObject:o];
 
-        if ([self scanString:@"]" intoString:nil])
+        if ([self scanJSONChar: ']'])
             return YES;
 
-        if ([self scanString:@"," intoString:nil]) {
-            if ([self scanString:@"]" intoString:nil])
+        if ([self scanJSONChar: ',']) {
+            if ([self scanJSONChar: ']'])
                 [NSException raise:@"comma"
                             format:@"Trailing comma in array"];
         } else {
@@ -270,26 +314,32 @@ static void skipWhitespace(unsigned *loc, NSString *str)
     return NO;
 }
 
-- (BOOL)scanJSONObject:(NSDictionary **)dictionary
+- (BOOL)scanJSONArray:(NSArray **)array
 {
-    if (![self scanString:@"{" intoString:nil])
-        return NO;
-    
-    *dictionary = [NSMutableDictionary dictionary];
-    if ([self scanString:@"}" intoString:nil])
-        return YES;
+    return [self scanJSONChar:'['] && [self scanRestOfJSONArray: array];
+}        
 
+- (BOOL)scanRestOfJSONObject:(NSDictionary **)dictionary
+{
+    *dictionary = [NSMutableDictionary dictionary];
     for (;;) {
         id key, value;
         if (![self scanJSONString:&key]) {
-            if ([self scanJSONValue:&key])
+            if ([self scanJSONChar: '}']) {
+                if ([*dictionary count] == 0)
+                    return YES; // empty dict
+                else
+                    [NSException raise:@"comma"
+                                format:@"Trailing comma in dictionary"];
+            } else if ([self scanJSONValue:&key])
                 [NSException raise:@"enostring"
                             format:@"Dictionary key must be a string"];
-            [NSException raise:@"enovalue"
-                        format:@"Expected dictionary key"];
+            else
+                [NSException raise:@"enovalue"
+                            format:@"Expected dictionary key"];
         }
 
-        if (![self scanString:@":" intoString:nil])
+        if (![self scanJSONChar: ':'])
             [NSException raise:@"enoseparator"
                         format:@"Expected key-value separator"];
 
@@ -299,36 +349,48 @@ static void skipWhitespace(unsigned *loc, NSString *str)
 
         [(NSMutableDictionary *)*dictionary setObject:value forKey:key];
 
-        if ([self scanString:@"}" intoString:nil])
-            return YES;
-
-        if ([self scanString:@"," intoString:nil]) {
-            if ([self scanString:@"}" intoString:nil])
-                [NSException raise:@"comma"
-                            format:@"Trailing comma in dictionary"];
-        } else {
-            [NSException raise:@"enocomma"
-                        format:@", or } expected while parsing dictionary"];
+        if ( ! [self scanJSONChar: ',']) {
+            if ([self scanJSONChar: '}'])
+                return YES;
+            else
+                [NSException raise:@"enocomma"
+                            format:@", or } expected while parsing dictionary"];
         }
     }
     return NO;
 }
 
+- (BOOL)scanJSONObject:(NSDictionary **)dictionary
+{
+    return [self scanJSONChar: '{'] && [self scanRestOfJSONObject: dictionary];
+}
+
 - (BOOL)scanJSONValue:(NSObject **)object
 {
-    if ([self scanJSONObject:(NSDictionary **)object])
-         return YES;
-    if ([self scanJSONArray:(NSArray **)object])
-        return YES;
-    if ([self scanJSONString:(NSString **)object])
-        return YES;
-    if ([self scanJSONNumber:(NSNumber **)object])
-        return YES;
-    if ([self scanJSONBool:(NSNumber **)object])
-        return YES;
-    if ([self scanJSONNull:(NSNull **)object])
-        return YES;
-    return NO;
+    unsigned loc = [self scanLocation];    
+    unichar nextChar = skipWhitespace(&loc, [self string]);
+    switch( nextChar ) {
+        case '{':
+            [self setScanLocation: loc+1];
+            return [self scanRestOfJSONObject:(NSDictionary **)object];
+        case '[':
+            [self setScanLocation: loc+1];
+            return [self scanRestOfJSONArray:(NSArray **)object];
+        case '"':
+            [self setScanLocation: loc+1];
+            return [self scanRestOfJSONString:(NSString **)object];
+        case '0'...'9':
+        case '-':
+        case '+':
+            return [self scanJSONNumber:(NSNumber **)object loc: loc firstChar: nextChar];
+        case 't':
+        case 'f':
+            return [self scanJSONBool:(NSNumber **)object];
+        case 'n':
+            return [self scanJSONNull:(NSNull **)object];
+        default:
+            return NO;
+    }
 }
 
 @end

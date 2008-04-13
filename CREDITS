@@ -9,3 +9,8 @@ Marc Lehmann
     JSON::XS Perl module. I also adopted the way he organised the
     tests. Having a separate fixture for testing error conditions
     makes a lot of sense.
+
+Jens Alfke <jens@mooseyard.com> - http://mooseyard.com/Jens
+    Jens emailed me out of the blue one day with a couple of patches
+    that gave a speedup of 11x for generation and 5x for parsing of
+    the long (12k) JSON string I've been using for testing.

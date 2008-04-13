@@ -172,44 +172,39 @@ simpler to implement the parser that way.)</li>
 above mentioned support for JSON fragments.) For example, it does not
 support trailing commas in arrays or objects.</p>
 
-<p>Though <code>\uXXXX</code> sequences are decoded properly there is no
-support to encode unicode into such sequences yet. (Except for the
-control characters, i.e. any code point below 0x20, which are always
-escaped). This is planned in a later version. </p>
-
 
 <h2 id="performance">A note on performance</h2>
 
-<p><em>Correctness first, speed later</em> has very much been the angle
-of attack when creating this framework. That does not necessarily mean that the code is horribly
-slow, however. Below are some initial measurements comparing this
-library and Blake Seely's BSJSONAdditions. I used the same strings that
-Marc Lehmann used when comparing <a
+<p><em>Correctness first, speed later</em> was very much the angle of
+attack when creating this framework. Below are some performance
+measurements comparing it to Blake Seely's BSJSONAdditions. I used the
+same strings that Marc Lehmann used when comparing <a
 href="http://search.cpan.org/dist/JSON-XS/XS.pm#SPEED">JSON::XS</a> to
-its competitors:</p>
+its competitors.</p>
+
+<p>Originally this was a fairly close race, with SBJSON being slightly
+faster (except for decoding of the long string, where it was a lot
+faster: see note below). Then out of the blue Jens Alfke emailed me a
+couple of patches providing a serious performance boost: almost 11x for
+encoding and a good 5x for decoding the long string. </p>
 
 <pre>
 Short string
                 |    encode |    decode |
 BSJSONAdditions | 10488.776 |  4133.938 |
-SBJSON          | 10868.857 |  7198.440 |
-
+SBJSON          | 40184.804 | 18670.300 |
 
 Long (~12k) string
                 |    encode |    decode |
 BSJSONAdditions |    70.459 |     3.748 |
-SBJSON          |    82.957 |   107.455 |
+SBJSON          |   707.180 |   586.490 |
 </pre>
 
-<p>The difference in encoding speed is quite small, particularly for
-short strings. For decoding, particularly for long strings, the
-difference in speed is pronounced. This difference in decoding speed is
-likely to be in part because BSJSONAdditions supports embedded C-style
-comments, while my library does not. (Comments are not part of the JSON
-spec, but are valid JavaScript.)</p>
-
-<p>(Note that both our libraries puts up a really bad show compared to
-all the Perl modules Marc measured. A bit embarrassing that...)</p>
+<p>Note that BSJSONAdditions supports embedded C-style comments, while
+my library does not. Comments are not part of the JSON spec but are
+valid JavaScript and can be very handy if you use JSON for
+configuration files. Nevertheless, SBJSON strictly adheres to the
+spec.</p>
 
 <h2 id="resources">Resources</h2>
 

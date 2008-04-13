@@ -48,6 +48,7 @@ static opts_t defaults(NSDictionary *x)
 
 @interface NSObject (NSObject_SBJSON_Private)
 - (NSString *)JSONFragmentWithOptions:(opts_t *)x;
+- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json;
 @end
 
 @implementation NSObject (NSObject_SBJSON)
@@ -60,6 +61,20 @@ static opts_t defaults(NSDictionary *x)
 
 - (NSString *)JSONFragmentWithOptions:(opts_t *)x
 {
+    NSMutableString *json = [[NSMutableString alloc] initWithCapacity: 256];
+    [self JSONFragmentWithOptions:x into: json];
+
+    if( [json length] < 240 ) {
+        // If the result is shorter than the capacity, copy it to avoid wasting the empty space:
+        NSString *result = [[json copy] autorelease];
+        [json release];
+        return result;
+    } else
+        return [json autorelease];
+}
+
+- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
+{
     [NSException raise:@"unsupported"
                 format:@"-JSONFragment not implemented for objects of type '%@'", [self class]];
 }
@@ -69,9 +84,9 @@ static opts_t defaults(NSDictionary *x)
 
 @implementation NSNull (NSObject_SBJSON)
 
-- (NSString *)JSONFragmentWithOptions:(opts_t *)x
+- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
 {
-    return @"null";
+    [json appendString: @"null"];
 }
 
 @end
@@ -79,11 +94,12 @@ static opts_t defaults(NSDictionary *x)
 
 @implementation NSNumber (NSObject_SBJSON)
 
-- (NSString *)JSONFragmentWithOptions:(opts_t *)x
+- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
 {
     if ('c' != *[self objCType])
-        return [self description];
-    return [self boolValue] ? @"true" : @"false";
+        [json appendString: [self description]];
+    else
+        [json appendString: [self boolValue] ? @"true" : @"false"];
 }
 
 @end
@@ -91,31 +107,44 @@ static opts_t defaults(NSDictionary *x)
 
 @implementation NSString (NSObject_SBJSON)
 
-- (NSString *)JSONFragmentWithOptions:(opts_t *)x
+- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
 {
-    NSMutableString *s = [NSMutableString stringWithString:@"\""];
-    for (unsigned i = 0; i < [self length]; i++) {
-        unichar uc = [self characterAtIndex:i];
-        switch (uc) {
-            case '"':   [s appendString:@"\\\""];       break;
-            case '\\':  [s appendString:@"\\\\"];       break;
-            case '/':   [s appendString:@"\\/"];        break;
-            case '\t':  [s appendString:@"\\t"];        break;
-            case '\n':  [s appendString:@"\\n"];        break;
-            case '\r':  [s appendString:@"\\r"];        break;
-            case '\b':  [s appendString:@"\\b"];        break;
-            case '\f':  [s appendString:@"\\f"];        break;
-            default:    
-                if (uc < 0x20) {
-                    [s appendFormat:@"\\u%04x", uc];
-                } else {
-                    [s appendFormat:@"%C", uc];
-                }
-                break;
+    static NSMutableCharacterSet *kEscapeChars;
+    if( ! kEscapeChars ) {
+        kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
+        [kEscapeChars addCharactersInString: @"\"\\"];
+    }
+    
+    [json appendString: @"\""];
+    
+    NSRange esc = [self rangeOfCharacterFromSet: kEscapeChars];
+    if( esc.length==0 ) {
+        // No special chars -- can just add the raw string:
+        [json appendString: self];
+    } else {
+        for (unsigned i = 0; i < [self length]; i++) {
+            unichar uc = [self characterAtIndex:i];
+            switch (uc) {
+                case '"':   [json appendString:@"\\\""];       break;
+                case '\\':  [json appendString:@"\\\\"];       break;
+                case '\t':  [json appendString:@"\\t"];        break;
+                case '\n':  [json appendString:@"\\n"];        break;
+                case '\r':  [json appendString:@"\\r"];        break;
+                case '\b':  [json appendString:@"\\b"];        break;
+                case '\f':  [json appendString:@"\\f"];        break;
+                default:    
+                    if (uc < 0x20) {
+                        [json appendFormat:@"\\u%04x", uc];
+                    } else {
+                        [json appendFormat:@"%C", uc];
+                    }
+                    break;
 
+            }
         }
     }
-    return [s stringByAppendingString:@"\""];
+    
+    [json appendString:@"\""];
 }
 
 @end
@@ -123,14 +152,8 @@ static opts_t defaults(NSDictionary *x)
 
 @implementation NSArray (NSArray_SBJSON)
 
-- (NSString *)JSONFragmentWithOptions:(opts_t *)x
+- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
 {
-    x->depth++;
-    NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[self count]];
-    for (int i = 0; i < [self count]; i++)
-        [tmp addObject:[[self objectAtIndex:i] JSONFragmentWithOptions:x]];
-    x->depth--;
-
     NSString *open = @"";
     NSString *close = @"";
     NSString *sep = x->after ? @", " : @",";
@@ -140,7 +163,25 @@ static opts_t defaults(NSDictionary *x)
         close = [@"\n" stringByAppendingString:indent];
         sep = [@",\n  " stringByAppendingString:indent];
     }
-    return [NSString stringWithFormat:@"[%@%@%@]", open, [tmp componentsJoinedByString:sep], close];
+    
+    [json appendString: @"["];
+    if( x->indent ) [json appendString: open];
+    x->depth++;
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+    unsigned n = [self count];
+    for (int i = 0; i < n; i++) {
+        id item = [self objectAtIndex:i];
+#else
+    int i=-1;
+    for( id item in self ) {
+        i++;
+#endif
+        if( i>0 ) [json appendString: sep];
+        [item JSONFragmentWithOptions:x into: json];
+    }
+    x->depth--;
+    if( x->indent ) [json appendString: close];
+    [json appendString: @"]"];
 }
 
 - (NSString *)JSONRepresentation
@@ -160,24 +201,8 @@ static opts_t defaults(NSDictionary *x)
 
 @implementation NSDictionary (NSDictionary_SBJSON)
 
-- (NSString *)JSONFragmentWithOptions:(opts_t *)x
+- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
 {
-    x->depth++;
-    NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:[self count]];
-    NSArray *keys = [[self allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    for (int i = 0; i < [keys count]; i++) {
-        NSString *key = [keys objectAtIndex:i];
-        if (![key isKindOfClass:[NSString class]])
-            [NSException raise:@"enostring"
-                        format:@"JSON dictionary keys *must* be strings."];
-        [tmp addObject:[NSString stringWithFormat:@"%@%s:%s%@",
-            [key JSONFragmentWithOptions:x],
-            x->before ? " " : "",
-            x->after ? " " : "",
-            [[self objectForKey:key] JSONFragmentWithOptions:x]]];
-    }
-    x->depth--;
-    
     NSString *open = @"";
     NSString *close = @"";
     NSString *sep = x->after ? @", " : @",";
@@ -187,7 +212,35 @@ static opts_t defaults(NSDictionary *x)
         close = [@"\n" stringByAppendingString:indent];
         sep = [@",\n  " stringByAppendingString:indent];
     }
-    return [NSString stringWithFormat:@"{%@%@%@}", open, [tmp componentsJoinedByString:sep], close];
+    
+    [json appendString: @"{"];
+    if( x->indent ) [json appendString: open];
+
+    x->depth++;
+    NSArray *keys = [[self allKeys] sortedArrayUsingSelector:@selector(compare:)];
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+    unsigned n = [keys count];
+    for (int i = 0; i < n; i++) {
+        NSString *key = [keys objectAtIndex:i];
+#else
+    int i=-1;
+    for( NSString *key in keys ) {
+        i++;
+#endif
+        if( i>0 ) [json appendString: sep];
+        if (![key isKindOfClass:[NSString class]])
+            [NSException raise:@"enostring"
+                        format:@"JSON dictionary keys *must* be strings."];
+        [key JSONFragmentWithOptions: x into: json];
+        if( x->before ) [json appendString: @" "];
+        [json appendString: @":"];
+        if( x->after ) [json appendString: @" "];
+        [[self objectForKey:key] JSONFragmentWithOptions:x into: json];
+    }
+    x->depth--;
+    
+    if( x->indent ) [json appendString: close];
+    [json appendString: @"}"];
 }
 
 - (NSString *)JSONRepresentation
