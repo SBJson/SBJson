@@ -19,7 +19,8 @@ upload-site: site
 distclean:
 	rm -rf _site
 	rm -rf $(DMG)
-	chmod -R +w dmg && rm -rf dmg
+	-chmod -R +w dmg
+	rm -rf dmg
 
 dist: distclean site
 	setCFBundleVersion.pl $(VERSION) JSON-Info.plist
