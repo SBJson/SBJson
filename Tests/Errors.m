@@ -92,4 +92,15 @@
     tn([[NSDate date] JSONStringFragment], @"unsupported");
 }
 
+- (void)testObjectFromFragment
+{
+    tn([@"true" objectFromJSON], @"enoobject");
+    tn([@"false" objectFromJSON], @"enoobject");
+    tn([@"null" objectFromJSON], @"enoobject");
+    tn([@"1" objectFromJSON], @"enoobject");
+    tn([@"1.0" objectFromJSON], @"enoobject");
+    tn([@"\"string\"" objectFromJSON], @"enoobject");
+}
+
+
 @end

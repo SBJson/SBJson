@@ -8,9 +8,9 @@
 
 #import "Tests.h"
 
-#define testInt(x, y)   eq([[x objectFromJSON] intValue], (int)y)
-#define testBool(x, y)  eq([[x objectFromJSON] boolValue], (BOOL)y)
-#define testFloat(x, y) eq([[x objectFromJSON] floatValue], (float)y)
+#define testInt(x, y)   eq([[x objectFromJSONFragment] intValue], (int)y)
+#define testBool(x, y)  eq([[x objectFromJSONFragment] boolValue], (BOOL)y)
+#define testFloat(x, y) eq([[x objectFromJSONFragment] floatValue], (float)y)
 
 @implementation Types
 
@@ -21,8 +21,8 @@
 
 - (void)testNull
 {
-    STAssertTrue([[@"null" objectFromJSON] isKindOfClass:[NSNull class]], nil);
-    eqo([@"null" objectFromJSON], [NSNull null]);
+    STAssertTrue([[@"null" objectFromJSONFragment] isKindOfClass:[NSNull class]], nil);
+    eqo([@"null" objectFromJSONFragment], [NSNull null]);
 
 //    eqo([nil JSONStringFragment], @"null");
     eqo([[NSNull null] JSONStringFragment], @"null");
@@ -35,7 +35,7 @@
 
     id bools = [self splitString:@"false true false true"];
     for (id b; b = [bools nextObject]; ) {
-        id bl = [b objectFromJSON];
+        id bl = [b objectFromJSONFragment];
         STAssertTrue([bl isKindOfClass:[NSNumber class]], nil);
         eqo([bl JSONStringFragment], b);
     }
@@ -55,7 +55,7 @@
 
     id nums = [self splitString:@"-4 4 0.0001 10000 -9999 99.99 98877665544332211009988776655443322110"];
     for (id n; n = [nums nextObject]; ) {
-        id num = [n objectFromJSON];
+        id num = [n objectFromJSONFragment];
         STAssertTrue([num isKindOfClass:[NSNumber class]], nil);
         eqo([num JSONStringFragment], n);
     }
@@ -92,12 +92,12 @@
         // NSLog(@"'%@' => '%@'", key, val);
 
         // Simple round trip
-        eqo([key objectFromJSON], val);
+        eqo([key objectFromJSONFragment], val);
         eqo([val JSONStringFragment], key);
 
         // Now do a double round-trip
-        eqo([[val JSONStringFragment] objectFromJSON], val);
-        eqo([[key objectFromJSON] JSONStringFragment], key);
+        eqo([[val JSONStringFragment] objectFromJSONFragment], val);
+        eqo([[key objectFromJSONFragment] JSONStringFragment], key);
     }
 }
 
@@ -123,8 +123,8 @@
     for (NSString *key; key = [enumerator nextObject]; ) {
         NSString *val = [dict objectForKey:key];
 //        NSLog(@"'%@' => '%@'", key, val);
-        eqo([key objectFromJSON], val);
-        eqo([[val JSONStringFragment] objectFromJSON], val);
+        eqo([key objectFromJSONFragment], val);
+        eqo([[val JSONStringFragment] objectFromJSONFragment], val);
     }
 }
 
