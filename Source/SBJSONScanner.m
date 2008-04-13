@@ -187,7 +187,7 @@ static char ctrl[0x22];
 
 - (BOOL)scanRestOfArray:(NSMutableArray **)o
 {
-    if (++depth > maxDepth)
+    if (maxDepth && ++depth > maxDepth)
         [self raise:etoodeep format:@"Nested too deep"];
     
     *o = [NSMutableArray arrayWithCapacity:8];
@@ -227,7 +227,7 @@ static char ctrl[0x22];
 
 - (BOOL)scanRestOfDictionary:(NSMutableDictionary **)o
 {
-    if (++depth > maxDepth)
+    if (maxDepth && ++depth > maxDepth)
         [self raise:etoodeep format:@"Nested too deep"];
 
     *o = [NSMutableDictionary dictionaryWithCapacity:7];
