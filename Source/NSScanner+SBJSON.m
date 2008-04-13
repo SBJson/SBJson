@@ -111,8 +111,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     *x = [NSMutableString stringWithCapacity:[str length]-loc];
     while (++loc < [str length]) {
         unichar uc = [str characterAtIndex:loc];
-
-        // Control characters _must_ be escaped.
+        
         if (0x20 > uc)
             [NSException raise:@"ctrlchar"
                         format:@"Found unescaped control char %x in JSON", uc];
@@ -161,8 +160,77 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 format:@"Malformed JSON string (no close quote)"];
 }
 
+static void skipDigits(unichar *c, unsigned *loc, NSString *str)
+{
+    unsigned strlen = [str length];
+    do {
+        *c = ++*loc < strlen ? [str characterAtIndex:*loc] : 0;
+    } while (*c >= '0' && *c <= '9');
+}
+static void skipWhitespace(unsigned *loc, NSString *str)
+{
+    NSCharacterSet *whitespace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    unsigned strlen = [str length];
+    unichar c;
+    do {
+        c = *loc < strlen ? [str characterAtIndex:*loc] : 0;
+    } while ([whitespace characterIsMember:c] && ++*loc);
+}
 - (BOOL)scanJSONNumber:(NSNumber **)x
 {
+    NSString *str = [self string];
+    unsigned loc = [self scanLocation];
+    unsigned strlen = [str length];
+
+    skipWhitespace(&loc, str);
+    unsigned start = loc;
+
+    if (loc >= strlen)
+        return NO;
+
+    // The logic to test for validity of the number formatting is relicensed
+    // from JSON::XS with permission from its author Marc Lehmann.
+    // (Available at the CPAN: http://search.cpan.org/dist/JSON-XS/ .)
+    unichar c = [str characterAtIndex:loc];
+    if ('-' == c)
+        c = loc+1 < strlen ? [str characterAtIndex:++loc] : 0;
+    
+    if ('0' == c) {
+        c = loc+1 < strlen ? [str characterAtIndex:++loc] : 0;
+
+        if (c >= '0' && c <= '9')
+            [NSException raise:@"enonum" format:@"Leading zeroes not allowed in number"];
+
+    } else if ((c < '0' || c > '9') && loc != start) {
+        [NSException raise:@"enonum" format:@"No digits after initial minus (saw %C)", c];
+    
+    } else {
+        skipDigits(&c, &loc, str);
+    }
+
+    // Fractional part
+    if ('.' == c) {
+        c = loc+1 < strlen ? [str characterAtIndex:++loc] : 0;
+
+        if (c < '0' || c > '9')
+            [NSException raise:@"enonum" format:@"No digits after decimal point"];
+        
+        skipDigits(&c, &loc, str);
+    }
+
+    // Exponential part
+    if ('e' == c || 'E' == c) {
+        c = loc+1 < strlen ? [str characterAtIndex:++loc] : 0;
+        
+        if ('-' == c || '+' == c)
+            c = loc+1 < strlen ? [str characterAtIndex:++loc] : 0;
+
+        if (c < '0' || c > '9')
+            [NSException raise:@"enonum" format:@"No digits after exponent"];
+
+        skipDigits(&c, &loc, str);
+    }
+
     NSDecimal decimal;
     if ([self scanDecimal:&decimal]) {
         *x = [NSDecimalNumber decimalNumberWithDecimal:decimal];

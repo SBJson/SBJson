@@ -79,4 +79,24 @@
     STAssertNotNil([self jsonExample:@"ex5"], nil);
 }
 
+- (void)testJSONCheckerFail
+{
+    id o;
+    for (int i = 1; i < 34; i++) {
+        if (i == 18) continue;
+        NSString *name = [NSString stringWithFormat:@"JSONChecker/fail%u.json", i];
+        NSString *json = [self exampleFromFile:name];
+        STAssertThrows(o = [json JSONValue], @"test %@ (%@) returned: %@", name, json, o);
+    }
+}
+
+- (void)testJSONCheckerPass
+{
+    for (int i = 1; i < 4; i++) {
+        NSString *name = [NSString stringWithFormat:@"JSONChecker/pass%u.json", i];
+        NSString *json = [self exampleFromFile:name];
+        STAssertNotNil([json JSONValue], @"test %@ (%@) passed ", name, json);
+    }
+}
+
 @end
