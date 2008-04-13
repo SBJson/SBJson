@@ -8,9 +8,25 @@
         <language>en</language> 
 
         <item>
+            <title>Version 1.2.0</title>
+            <description><![CDATA[
+                <p>Took two patches from Greg Bolsinga. One to make
+                the framework depend only on Foundation (and not on
+                AppKit) and another that added a static library for
+                use on the iPhone.</p>
+                <p>I also rewrote the parser to be a lot cleaner and a
+                bit faster for short input. This also fixed a
+                <em>bizarre</em> bug found by David Zhao.</p>
+            ]]></description>
+            <pubDate>Tue, Mar 18 2008 22:14:07 GMT</pubDate>
+            <enclosure url='http://code.brautaset.org/JSON/files/JSON_1.2.0.dmg' 
+                length='38002' type="application/octet-stream"/>
+        </item>
+
+        <item>
             <title>Version 1.1.1: built for 10.4</title>
             <description><![CDATA[
-		<p>This is almost entirely the same as 1.1, but built for 10.4.</p>
+                <p>This is almost entirely the same as 1.1, but built for 10.4.</p>
             ]]></description>
             <pubDate>Sat, Jan 26 2008 19:23:18 GMT</pubDate>
             <enclosure url='http://code.brautaset.org/JSON/files/JSON_1.1.1.dmg'
