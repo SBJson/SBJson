@@ -41,5 +41,30 @@
     tn([@"{\"a\"" objectFromJSON], @"enoseparator");
 }
 
+- (void)testDictionaryKey
+{
+//    tn([@"{" objectFromJSON], @"enovalue");
+    tn([@"{a" objectFromJSON], @"enovalue");
+    tn([@"{null" objectFromJSON], @"enostring");
+    tn([@"{false" objectFromJSON], @"enostring");
+    tn([@"{true" objectFromJSON], @"enostring");
+    tn([@"{{}" objectFromJSON], @"enostring");
+    tn([@"{[]" objectFromJSON], @"enostring");
+    tn([@"{1" objectFromJSON], @"enostring");
+}
+
+- (void)testSingleQuotedString
+{
+    tn([@"'1'" objectFromJSON], @"enojson");
+    tn([@"['1'" objectFromJSON], @"enovalue");
+    tn([@"{'1'" objectFromJSON], @"enovalue");
+    tn([@"{\"a\":'1'" objectFromJSON], @"enovalue");
+}
+
+- (void)testGarbage
+{
+//    tn([@"" objectFromJSON], @"enojson");
+    tn([@"**" objectFromJSON], @"enojson");
+}
 
 @end

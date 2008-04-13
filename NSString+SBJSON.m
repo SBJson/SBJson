@@ -40,7 +40,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if ([scanner scanJSONObject:&o])
         return o;
 
-    [NSException raise:@"json-error" format:@"Failed to parse '%@' as JSON", self];
+    [NSException raise:@"enojson"
+                format:@"Failed to parse '%@' as JSON", self];
 }
 
 

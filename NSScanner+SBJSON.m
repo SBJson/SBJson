@@ -146,9 +146,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             
         for (;;) {
             id key, value;
-            if (![self scanJSONObject:&key])    // XXX this should be string?
+            if (![self scanJSONString:&key]) {
+                if ([self scanJSONObject:&key])
+                    [NSException raise:@"enostring"
+                                format:@"Dictionary key must be a string"];
                 [NSException raise:@"enovalue"
                             format:@"Expected dictionary key"];
+            }
 
             if (![self scanString:@":" intoString:nil])
                 [NSException raise:@"enoseparator"
