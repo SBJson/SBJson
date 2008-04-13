@@ -99,6 +99,7 @@
 				E757164C0C96E39B0084A449 /* NSString+SBJSON.m */,
 			);
 			name = Classes;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		53D229960C96124500276605 /* Tests */ = {
