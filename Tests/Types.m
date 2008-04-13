@@ -24,8 +24,8 @@
     STAssertTrue([[@"null" objectFromJSON] isKindOfClass:[NSNull class]], nil);
     eqo([@"null" objectFromJSON], [NSNull null]);
 
-//    eqo([nil JSONString], @"null");
-    eqo([[NSNull null] JSONString], @"null");
+//    eqo([nil JSONStringFragment], @"null");
+    eqo([[NSNull null] JSONStringFragment], @"null");
 }
 
 - (void)testBool
@@ -37,7 +37,7 @@
     for (id b; b = [bools nextObject]; ) {
         id bl = [b objectFromJSON];
         STAssertTrue([bl isKindOfClass:[NSNumber class]], nil);
-        eqo([bl JSONString], b);
+        eqo([bl JSONStringFragment], b);
     }
 }
 
@@ -57,7 +57,7 @@
     for (id n; n = [nums nextObject]; ) {
         id num = [n objectFromJSON];
         STAssertTrue([num isKindOfClass:[NSNumber class]], nil);
-        eqo([num JSONString], n);
+        eqo([num JSONStringFragment], n);
     }
 }
 
@@ -93,11 +93,11 @@
 
         // Simple round trip
         eqo([key objectFromJSON], val);
-        eqo([val JSONString], key);
+        eqo([val JSONStringFragment], key);
 
         // Now do a double round-trip
-        eqo([[val JSONString] objectFromJSON], val);
-        eqo([[key objectFromJSON] JSONString], key);
+        eqo([[val JSONStringFragment] objectFromJSON], val);
+        eqo([[key objectFromJSON] JSONStringFragment], key);
     }
 }
 
@@ -124,29 +124,29 @@
         NSString *val = [dict objectForKey:key];
 //        NSLog(@"'%@' => '%@'", key, val);
         eqo([key objectFromJSON], val);
-        eqo([[val JSONString] objectFromJSON], val);
+        eqo([[val JSONStringFragment] objectFromJSON], val);
     }
 }
 
 - (void)testArray
 {
     id arr = [@"fi fo fa fum" componentsSeparatedByString:@" "];
-    id as = [arr JSONString];
+    id as = [arr JSONStringFragment];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\"]");
     eqo([as objectFromJSON], arr);
     
     arr = [arr arrayByAddingObject:[NSNumber numberWithDouble:0.01]];
-    as = [arr JSONString];
+    as = [arr JSONStringFragment];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01]");
     eqo([as objectFromJSON], arr);
     
     arr = [arr arrayByAddingObject:[NSNull null]];
-    as = [arr JSONString];
+    as = [arr JSONStringFragment];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01,null]");
     eqo([as objectFromJSON], arr);
     
     arr = [NSArray arrayWithObjects:@"", [NSNull null], [NSNull null], @"1", nil];
-    as = [arr JSONString];
+    as = [arr JSONStringFragment];
     eqo(as, @"[\"\",null,null,\"1\"]");
     eqo([as objectFromJSON], arr);
 }
