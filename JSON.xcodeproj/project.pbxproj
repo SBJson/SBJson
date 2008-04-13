@@ -271,6 +271,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -292,6 +293,8 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JSON;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = SB;
 				ZERO_LINK = NO;
 			};
 			name = Debug;
@@ -300,6 +303,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -319,6 +323,8 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JSON;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = SB;
 				ZERO_LINK = NO;
 			};
 			name = Release;
