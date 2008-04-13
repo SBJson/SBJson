@@ -34,34 +34,76 @@ site documents version __VERSION__ of the framework.</p>
 
 <p>Linking to the <a href="__DMGURL__">JSON</a> framework and
 importing the <code>&lt;JSON/JSON.h&gt;</code> header provides the
-following main methods:</p>
+following main methods.</p>
+
+<h3>Generating JSON</h3>
+
+<p>The following methods are added as a category on NSArray and NSDictionary:</p>
 
 <dl>
 
+<dt><code>- (NSString *)JSONRepresentation;</code></dt>
+<dd>Returns an NSString instance containing the receiver encoded in
+JSON. Please read the note on <a href="#mappings">mapping</a>
+NSDictionary instances to JSON objects.</dd>
+
+<dt><code>- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)opts;</code></dt>
+
+<dd>Like <code>-JSONRepresentation</code>, but allows you to control
+the look of the produced JSON. Options are turned on by providing an
+instance that responds <code>YES</code> when sent
+<code>-boolValue</code>. (Usually this would be an NSNumber, but it
+could be an NSString if you find it more convenient.) Valid options
+are:
+
+<dl>
+
+<dt>SpaceBefore</dt>
+<dd>When encoding a dictionary, adds a space before the ':' that
+separates the key from its associated value.</dd>
+
+<dt>SpaceAfter</dt>
+<dd>When encoding a dictionary, adds a space <em>after</em> the ':'
+that separates the key from its associated value. Also adds a space
+between the ',' and the next item for both arrays and dictionaries.
+(Except when MultiLine is also active.)</dd>
+
+<dt>MultiLine</dt>
+<dd>Produces human-readable JSON by using a multi-line format. Each
+array member and dictionary key/value pair is output on its own line,
+indented properly.</dd>
+
+<dt>Pretty</dt>
+<dd>A short-cut that turns on SpaceBefore, SpaceAfter and MultiLine all
+in one go.</dd>
+
+</dl>
+</dd>
+</dl>
+
+<h3>Parsing JSON</h3>
+
+<p>The following methods are added as a category on NSString.</p>
+
 <dt>
-<pre>
-// Added to NSArray and NSDictionary
-- (NSString *)JSONRepresentation;
-- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)opts;
-</pre>
-</dt>
 
-<dd>Returns an NSString containing the receiver encoded in JSON.
-Please read the note on <a href="#mappings">mapping</a> NSDictionary
-instances to JSON objects. See also the list of <a
-href="#options">options</a>.</dd>
-
-<dt>
-<pre>
-// Added to NSString
-- (id)JSONValue;
-</pre>
-</dt>
-
+<dt><code>- (id)JSONValue;</code></dt>
 <dd>Returns either an NSArray or NSDictionary decoded from the JSON in
 the receiver. Throws an error if the receiver does not contain valid
 JSON text.</dd>
 
+<dt><code>- (id)JSONValueWithOptions:(NSDictionary *)opts;</code></dt>
+<dd>Like <code>-JSONValue</code> but allows you to set options
+controlling the parsing. Valid options are:
+
+<dl>
+
+<dt>SpaceBefore</dt>
+<dd>When encoding a dictionary, adds a space before the ':' that
+separates the key from its associated value.</dd>
+
+</dl>
+</dd>
 </dl>
 
 <h2 id="fragments">JSON fragments</h2>
@@ -96,41 +138,6 @@ NSNumbers.)</dd>
 NSArray, NSDictionary, NSNull, NSNumber, or NSString.</dd>
 
 </dl>
-
-<h2 id="options">Options</h2>
-
-<p>Options are turned on by providing an instance that will respond
-with a true value when sent -intValue. (Usually this would be an
-NSNumber, but it could be an NSString if you find it more convenient.)
-The valid options are:</p>
-
-<dl>
-
-<dt>SpaceBefore</dt>
-
-<dd>When encoding a dictionary, adds a space before the ':' that
-separates the key from its associated value.</dd>
-
-<dt>SpaceAfter</dt>
-
-<dd>When encoding a dictionary, adds a space <em>after</em> the ':'
-that separates the key from its associated value. Also adds a space
-between the ',' and the next item for both arrays and dictionaries.
-(Except when MultiLine is also active.)</dd>
-
-<dt>MultiLine</dt>
-
-<dd>Produces human-readable JSON by using a multi-line format. Each
-array member and dictionary key/value pair is output on its own line,
-indented properly.</dd>
-
-<dt>Pretty</dt>
-
-<dd>A short-cut that turns on SpaceBefore, SpaceAfter and MultiLine all
-in one go.</dd>
-
-</dl>
-
 
 <h2 id="mappings">Mapping between JSON and Objective-C types</h2>
 
@@ -175,28 +182,30 @@ support trailing commas in arrays or objects.</p>
 
 <h2 id="performance">A note on performance</h2>
 
-<p><em>Correctness first, speed later</em> was very much the angle of
-attack when creating this framework. Below are some performance
-measurements comparing it to Blake Seely's BSJSONAdditions. I used the
-same strings that Marc Lehmann used when comparing <a
-href="http://search.cpan.org/dist/JSON-XS/XS.pm#SPEED">JSON::XS</a> to
-its competitors.</p>
+<p>I strongly believe in <em>correctness first, speed later</em> and
+that was very much the angle of attack when creating this framework.
+Then out of the blue <a href="http://mooseyard.com/Jens">Jens
+Alfke</a> emailed me a couple of patches providing a serious
+performance boost. I've made sure to keep up this performance in any
+later changes.</p>
 
-<p>Originally this was a close race with my framework being slightly
-in the lead. Then out of the blue <a href="http://mooseyard.com/Jens">Jens Alfke</a> emailed me a couple of
-patches providing a serious performance boost: almost 11x for encoding
-and a good 5x for decoding the long string. </p>
+<p>Below are some performance measurements comparing this framework to
+Blake Seely's BSJSONAdditions. These are the same strings that Marc
+Lehmann used comparing <a
+href="http://search.cpan.org/dist/JSON-XS/XS.pm#SPEED">JSON::XS</a> to
+its competitors. These measurements were taken with the revision r3210
+of trunk.</p>
 
 <pre>
 Short string
                 |    encode |    decode |
 BSJSONAdditions | 10488.776 |  4133.938 |
-SBJSON          | 40184.804 | 18670.300 |
+SBJSON          | 39858.112 | 23319.810 |
 
 Long (~12k) string
                 |    encode |    decode |
 BSJSONAdditions |    70.459 |     3.748 |
-SBJSON          |   707.180 |   586.490 |
+SBJSON          |   714.318 |   555.750 |
 </pre>
 
 <p>BSJSONAdditions' parser allows you to embed C-style comments in the

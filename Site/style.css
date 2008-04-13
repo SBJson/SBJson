@@ -50,10 +50,15 @@ h2 { font-size: 1.2em }
 code, pre { 
     font-size: 1.14em;
 }
-pre {
+pre, dt > code {
     padding: 0.3em 1em;
 }
 
 dt {
-    padding: 0.3em 1em;
+    font-weight: bold;
+    padding: 0.3em 0;
+}
+
+dd + dt {
+    padding-top: 0.7em;
 }
