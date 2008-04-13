@@ -105,7 +105,14 @@ static opts_t defaults(NSDictionary *x)
             case '\r':  [s appendString:@"\\r"];        break;
             case '\b':  [s appendString:@"\\b"];        break;
             case '\f':  [s appendString:@"\\f"];        break;
-            default:    [s appendFormat:@"%C", uc];     break;
+            default:    
+                if (uc < 0x20) {
+                    [s appendFormat:@"\\u%04x", uc];
+                } else {
+                    [s appendFormat:@"%C", uc];
+                }
+                break;
+
         }
     }
     return [s stringByAppendingString:@"\""];
