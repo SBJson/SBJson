@@ -34,6 +34,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (NSString *)JSONStringFragment;
 @end
 
+@interface NSArray (NSArray_SBJSON)
+- (NSString *)JSONString;
+@end
+
 @interface NSDictionary (NSDictionary_SBJSON)
 - (NSString *)JSONString;
 @end

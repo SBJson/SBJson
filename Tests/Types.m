@@ -131,22 +131,22 @@
 - (void)testArray
 {
     id arr = [@"fi fo fa fum" componentsSeparatedByString:@" "];
-    id as = [arr JSONStringFragment];
+    id as = [arr JSONString];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\"]");
     eqo([as objectFromJSON], arr);
     
     arr = [arr arrayByAddingObject:[NSNumber numberWithDouble:0.01]];
-    as = [arr JSONStringFragment];
+    as = [arr JSONString];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01]");
     eqo([as objectFromJSON], arr);
     
     arr = [arr arrayByAddingObject:[NSNull null]];
-    as = [arr JSONStringFragment];
+    as = [arr JSONString];
     eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01,null]");
     eqo([as objectFromJSON], arr);
     
     arr = [NSArray arrayWithObjects:@"", [NSNull null], [NSNull null], @"1", nil];
-    as = [arr JSONStringFragment];
+    as = [arr JSONString];
     eqo(as, @"[\"\",null,null,\"1\"]");
     eqo([as objectFromJSON], arr);
 }

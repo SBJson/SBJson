@@ -86,6 +86,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 @end
 
+@implementation NSArray (NSArray_SBJSON)
+- (NSString *)JSONString
+{
+    return [self JSONStringFragment];
+}
+@end
+
 @implementation NSDictionary (NSObject_SBJSON)
 - (NSString *)JSONStringFragment
 {
