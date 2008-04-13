@@ -33,7 +33,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @implementation NSString (NSString_SBJSON)
 
-- (id)objectFromJSON
+- (id)JSONValue
 {
     NSScanner *scanner = [NSScanner scannerWithString:self];
     id o;
@@ -47,7 +47,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 format:@"Failed to parse '%@' as JSON", self];
 }
 
-- (id)objectFromJSONFragment
+- (id)JSONFragmentValue
 {
     NSScanner *scanner = [NSScanner scannerWithString:self];
     id o;

@@ -30,6 +30,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import <Cocoa/Cocoa.h>
 
 @interface NSString (NSString_SBJSON)
-- (id)objectFromJSONFragment;
-- (id)objectFromJSON;
+- (id)JSONFragmentValue;
+- (id)JSONValue;
 @end

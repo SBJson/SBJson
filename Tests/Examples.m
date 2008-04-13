@@ -18,7 +18,7 @@
                                       encoding:NSASCIIStringEncoding
                                          error:nil];
     STAssertNotNil(json, @"Failed loading example from file");
-    return [json objectFromJSON];
+    return [json JSONValue];
 }
 
 - (void)testRFC4627Example1
@@ -47,7 +47,7 @@
         NSString *name = [NSString stringWithFormat:@"json.org/ex%u.json", i];
         id o = [self objFromFileNamed:name];
         STAssertTrue([o isKindOfClass:[NSDictionary class]], @"Expected dictionary");
-        eqo([[o JSONRepresentation] objectFromJSON], o);
+        eqo([[o JSONRepresentation] JSONValue], o);
     }
 }
 

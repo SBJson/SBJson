@@ -16,42 +16,42 @@
 
 - (void)testTrailingComma
 {
-    tn([@"[1,]" objectFromJSON], @"comma");
-    tn([@"{\"a\":1,}" objectFromJSON], @"comma");
+    tn([@"[1,]" JSONValue], @"comma");
+    tn([@"{\"a\":1,}" JSONValue], @"comma");
 }
 
 - (void)testMissingComma
 {
-    tn([@"[1" objectFromJSON], @"enocomma");
-    tn([@"{\"a\":1" objectFromJSON], @"enocomma");
-    tn([@"{\"a\":1 \"b\":2 }" objectFromJSON], @"enocomma");
+    tn([@"[1" JSONValue], @"enocomma");
+    tn([@"{\"a\":1" JSONValue], @"enocomma");
+    tn([@"{\"a\":1 \"b\":2 }" JSONValue], @"enocomma");
 }
 
 - (void)testMissingValue
 {
-    tn([@"[1,," objectFromJSON], @"enovalue");
+    tn([@"[1,," JSONValue], @"enovalue");
 
-    tn([@"{\"a\":1,," objectFromJSON], @"enovalue");
-    tn([@"{\"a\":1," objectFromJSON], @"enovalue");
-    tn([@"{\"a\":}" objectFromJSON], @"enovalue");
-    tn([@"{\"a\":" objectFromJSON], @"enovalue");
+    tn([@"{\"a\":1,," JSONValue], @"enovalue");
+    tn([@"{\"a\":1," JSONValue], @"enovalue");
+    tn([@"{\"a\":}" JSONValue], @"enovalue");
+    tn([@"{\"a\":" JSONValue], @"enovalue");
 }
 
 - (void)testMissingSeparator
 {
-    tn([@"{\"a\"" objectFromJSON], @"enoseparator");
+    tn([@"{\"a\"" JSONValue], @"enoseparator");
 }
 
 - (void)testDictionaryFromJSON
 {
-    tn([@"{" objectFromJSON], @"enovalue");
-    tn([@"{a" objectFromJSON], @"enovalue");
-    tn([@"{null" objectFromJSON], @"enostring");
-    tn([@"{false" objectFromJSON], @"enostring");
-    tn([@"{true" objectFromJSON], @"enostring");
-    tn([@"{{}" objectFromJSON], @"enostring");
-    tn([@"{[]" objectFromJSON], @"enostring");
-    tn([@"{1" objectFromJSON], @"enostring");
+    tn([@"{" JSONValue], @"enovalue");
+    tn([@"{a" JSONValue], @"enovalue");
+    tn([@"{null" JSONValue], @"enostring");
+    tn([@"{false" JSONValue], @"enostring");
+    tn([@"{true" JSONValue], @"enostring");
+    tn([@"{{}" JSONValue], @"enostring");
+    tn([@"{[]" JSONValue], @"enostring");
+    tn([@"{1" JSONValue], @"enostring");
 }
 
 - (void)testDictionaryToJSON
@@ -64,27 +64,27 @@
 
 - (void)testSingleQuotedString
 {
-    tn([@"['1'" objectFromJSON], @"enovalue");
-    tn([@"{'1'" objectFromJSON], @"enovalue");
-    tn([@"{\"a\":'1'" objectFromJSON], @"enovalue");
+    tn([@"['1'" JSONValue], @"enovalue");
+    tn([@"{'1'" JSONValue], @"enovalue");
+    tn([@"{\"a\":'1'" JSONValue], @"enovalue");
 }
 
 - (void)testGarbage
 {
-    tn([@"'1'" objectFromJSON], @"enojson");
-    tn([@"'hello'" objectFromJSON], @"enojson");
-    tn([@"\"" objectFromJSON], @"enojson");
-    tn([@"\"hello" objectFromJSON], @"enojson");
-    tn([@"" objectFromJSON], @"enojson");
-    tn([@"**" objectFromJSON], @"enojson");
+    tn([@"'1'" JSONValue], @"enojson");
+    tn([@"'hello'" JSONValue], @"enojson");
+    tn([@"\"" JSONValue], @"enojson");
+    tn([@"\"hello" JSONValue], @"enojson");
+    tn([@"" JSONValue], @"enojson");
+    tn([@"**" JSONValue], @"enojson");
 }
 
 - (void)testBrokenSurrogatePairs
 {
 //    @"\"\\uD834\\uDD1E\"" is the Unicode surrogate pairs for g-clef
-    tn([@"\"\\uD834foo\"" objectFromJSONFragment], @"no_low_surrogate_char");
-    tn([@"\"\\uD834\\u001E\"" objectFromJSONFragment], @"expected_low_surrogate");
-    tn([@"\"\\uDD1E\"" objectFromJSONFragment], @"no_high_surrogate_char");
+    tn([@"\"\\uD834foo\"" JSONFragmentValue], @"no_low_surrogate_char");
+    tn([@"\"\\uD834\\u001E\"" JSONFragmentValue], @"expected_low_surrogate");
+    tn([@"\"\\uDD1E\"" JSONFragmentValue], @"no_high_surrogate_char");
 }
 
 - (void)testNonsupportedObject
@@ -94,12 +94,12 @@
 
 - (void)testObjectFromFragment
 {
-    tn([@"true" objectFromJSON], @"enojson");
-    tn([@"false" objectFromJSON], @"enojson");
-    tn([@"null" objectFromJSON], @"enojson");
-    tn([@"1" objectFromJSON], @"enojson");
-    tn([@"1.0" objectFromJSON], @"enojson");
-    tn([@"\"string\"" objectFromJSON], @"enojson");
+    tn([@"true" JSONValue], @"enojson");
+    tn([@"false" JSONValue], @"enojson");
+    tn([@"null" JSONValue], @"enojson");
+    tn([@"1" JSONValue], @"enojson");
+    tn([@"1.0" JSONValue], @"enojson");
+    tn([@"\"string\"" JSONValue], @"enojson");
 }
 
 
