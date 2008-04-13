@@ -90,6 +90,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             case 'r':   c = @"\r";  break;
             case 't':   c = @"\t";  break;
             case 'f':   c = @"\f";  break;
+            case 'u':   {
+                    unsigned u;
+                    [self setScanLocation:loc+1];
+                    if ([self scanHexInt:&u])
+                        c = [NSString stringWithFormat:@"%C", u];
+                }
+                loc = [self scanLocation]-1;
+                break;
             default:    [NSException raise:@"malformed"
                                     format:@"Found character '%C' in %@", uc, str];
         }

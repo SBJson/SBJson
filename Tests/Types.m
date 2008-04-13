@@ -19,7 +19,7 @@
     return [[str componentsSeparatedByString:@" "] objectEnumerator];
 }
 
-- (void)test00null
+- (void)testNull
 {
     STAssertTrue([[@"null" objectFromJSON] isKindOfClass:[NSNull class]], nil);
     eqo([@"null" objectFromJSON], [NSNull null]);
@@ -28,7 +28,7 @@
     eqo([[NSNull null] JSONString], @"null");
 }
 
-- (void)test01bool
+- (void)testBool
 {
     testBool(@"true", YES);
     testBool(@"false", NO);
@@ -41,7 +41,7 @@
     }
 }
 
-- (void)test02numbers
+- (void)testNumbers
 {
     testInt(@"5", 5);
     testInt(@"-5", -5);
@@ -61,7 +61,7 @@
     }
 }
 
-- (void)test03strings
+- (void)testStrings
 {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
         @" spaces  ",               @"\" spaces  \"",
@@ -101,7 +101,24 @@
     }
 }
 
-- (void)test04arrays
+
+- (void)testStringsWithUnicodeEscapes
+{
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+        // e-acute and a greater-than-or-equal to sign (Ž³)
+        [NSString stringWithFormat:@"%C%C", 0xe9, 0x2265],  @"\"\\u00e9\\u2265\"",
+        nil];
+
+    NSEnumerator *enumerator = [dict keyEnumerator];
+    for (NSString *key; key = [enumerator nextObject]; ) {
+        NSString *val = [dict objectForKey:key];
+//        NSLog(@"'%@' => '%@'", key, val);
+        eqo([key objectFromJSON], val);
+        eqo([[val JSONString] objectFromJSON], val);
+    }
+}
+
+- (void)testArray
 {
     id arr = [@"fi fo fa fum" componentsSeparatedByString:@" "];
     id as = [arr JSONString];
@@ -124,7 +141,7 @@
     eqo([as objectFromJSON], arr);
 }
 
-- (void)test05dictionaries
+- (void)testObject
 {
     id dict = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSNumber numberWithInt:3], @"three",
@@ -141,7 +158,7 @@
     eqo([ds objectFromJSON], dict);
 }
 
-- (void)test06nested
+- (void)testNested
 {
     id dict = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSArray arrayWithObjects:
