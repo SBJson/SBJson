@@ -1,0 +1,68 @@
+JSON Objective-C Framework
+==========================
+
+This framework contains a collection of categories on existing Cocoa
+classes that together provide full JSON support. Importing the
+<JSON/JSON.h> header provides the following main methods:
+
+    -[NSArray JSONString];
+    -[NSDictionary JSONString];
+    -[NSString objectFromJSON];
+
+Strictly speaking JSON has to have at least one top-level container
+(array or object/dictionary). Nulls, numbers, booleans and strings
+cannot be represented in strict JSON on their own. It can be quite
+convenient to pretend that such JSON fragments are valid JSON and the
+following methods will let you do so:
+
+    -[NSNull JSONStringFragment];
+    -[NSNumber JSONStringFragment];
+    -[NSString JSONStringFragment];
+    -[NSString objectFromJSONFragment];
+
+Mapping between JSON and Objective-C types
+------------------------------------------
+
+Here's how the distinct JSON types map to Objective-C types.
+
+    Object  <=> NSDictionary
+    Array   <=> NSArray
+    String  <=> NSString
+    Null    <=> NSNull
+    Boolean <=> NSNumber[*]
+    Number  <=  NSNumber[*]
+    Number   => NSDecimalNumber[*]
+
+Going from JSON boolean "true" and "false" turn into NSNumber
+instances (created with +numberWithBool:), while normal numbers turn
+into NSDecimalNumber instances. Going to JSON is a bit more subtle. If
+the instance was created with +numberWithBool: it will be represented
+by the JSON fragment "true" or "false". Otherwise, it will be
+represented by a normal number.
+
+Note that in JSON the keys of a dictionary/object must be strings. In
+Objective-C they need not be, but attempting to convert a dictionary
+with non-string keys into JSON will throw an exception.
+
+Resources
+---------
+
+* RSS news feed:
+  http://code.brautaset.org/JSON/news.xml
+* Downloadable embedded disk images:
+  http://code.brautaset.org/JSON/files/
+* Subversion:
+  http://svn.brautaset.org/JSON/trunk
+* Author email address:
+  Stig Brautaset <stig@brautaset.org>.
+
+External Resources
+------------------
+
+* Introducing JSON:
+  http://json.org/
+* JSON RFC:
+  http://www.ietf.org/rfc/rfc4627.txt?number=4627
+* Embedding Cocoa Frameworks (article by yours truly):
+  http://blog.brautaset.org/2007/09/22/embedding-cocoa-frameworks/
+
