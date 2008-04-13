@@ -98,17 +98,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (id)fromJSONWithScanner:(NSScanner *)scanner
 {
-    id *o;
+    id o;
     if ([scanner scanJSONNull:&o])
         return o;
     if ([scanner scanJSONBool:&o])
         return o;
     if ([scanner scanJSONString:&o])
         return o;
-    
-    NSDecimal decimal;
-    if ([scanner scanDecimal:&decimal])
-        return [NSDecimalNumber decimalNumberWithDecimal:decimal];
+    if ([scanner scanJSONNumber:&o])
+        return o;
 
     // Composites.
     if ([scanner scanString:@"[" intoString:nil])

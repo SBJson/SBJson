@@ -64,5 +64,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return NO;
 }
 
+- (BOOL)scanJSONNumber:(NSNumber **)x
+{
+    NSDecimal decimal;
+    if ([self scanDecimal:&decimal]) {
+        *x = [NSDecimalNumber decimalNumberWithDecimal:decimal];
+        return YES;
+    }
+    return NO;
+}
 
 @end
