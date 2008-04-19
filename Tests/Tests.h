@@ -22,9 +22,6 @@
 @end
 
 @interface Pretty : SenTestCase {
-    NSDictionary *simple;
-    NSDictionary *nested;
-    NSArray *simplea;
-    NSArray *nesteda;
+    NSArray *json;
 }
 @end
