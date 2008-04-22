@@ -8,21 +8,12 @@
 
 #import "Tests.h"
 
-id json(NSString *path) {
-    NSString *json = [NSString stringWithContentsOfFile:path
-                                               encoding:NSASCIIStringEncoding
-                                                  error:nil];
-    assert(json);
-    return [json JSONValue];
-}
-
-
-id plist(NSString *path) {
-    NSString *plist = [NSString stringWithContentsOfFile:path
-                                                encoding:NSASCIIStringEncoding
-                                                   error:nil];
-    assert(plist);
-    return [plist propertyList];
+NSString *file(NSString *path) {
+    NSString *content = [NSString stringWithContentsOfFile:path
+                                                  encoding:NSASCIIStringEncoding
+                                                     error:nil];
+    assert(content);
+    return [content substringToIndex:[content length]-1];
 }
 
 @implementation Types
@@ -47,8 +38,8 @@ id plist(NSString *path) {
 
 - (void)testNumbers
 {
-    NSArray *numbers = json(@"Tests/types/number.json");
-    NSArray *expected = plist(@"Tests/types/number.plist");
+    NSArray *numbers = [file(@"Tests/types/number.json") JSONValue];
+    NSArray *expected = [file(@"Tests/types/number.plist") propertyList];
     
     STAssertTrue([numbers count], @"have numbers");
     STAssertEquals([numbers count], [expected count], @"have as many as expected");
@@ -154,36 +145,16 @@ id plist(NSString *path) {
 
 - (void)testArray
 {
-    id arr = [@"fi fo fa fum" componentsSeparatedByString:@" "];
-    id as = [arr JSONRepresentation];
-    eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\"]");
-    eqo([as JSONValue], arr);
-    
-    arr = [arr arrayByAddingObject:[NSNumber numberWithDouble:0.01]];
-    as = [arr JSONRepresentation];
-    eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01]");
-    eqo([as JSONValue], arr);
-    
-    arr = [arr arrayByAddingObject:[NSNull null]];
-    as = [arr JSONRepresentation];
-    eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01,null]");
-    eqo([as JSONValue], arr);
-    
-    arr = [NSArray arrayWithObjects:@"", [NSNull null], [NSNull null], @"1", nil];
-    as = [arr JSONRepresentation];
-    eqo(as, @"[\"\",null,null,\"1\"]");
-    eqo([as JSONValue], arr);
+    NSString *json = file(@"Tests/types/array.json");
+    NSArray *expected = [file(@"Tests/types/array.plist") propertyList];
+    STAssertEqualObjects([json JSONValue], expected, nil);
+    STAssertEqualObjects([expected JSONRepresentation], json, nil);
 }
 
 - (void)testObject
 {
-    NSString *json = [NSString stringWithContentsOfFile:@"Tests/types/object.json"
-                                               encoding:NSASCIIStringEncoding
-                                                  error:nil];
-    json = [json substringToIndex:[json length]-1];
-
-    NSArray *expected = plist(@"Tests/types/object.plist");
-    
+    NSString *json = file(@"Tests/types/object.json");
+    NSArray *expected = [file(@"Tests/types/object.plist") propertyList];
     STAssertEqualObjects([json JSONValue], expected, nil);
     STAssertEqualObjects([expected JSONRepresentation], json, nil);
 }
