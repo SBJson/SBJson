@@ -8,10 +8,6 @@
 
 #import "Tests.h"
 
-#define testInt(x, y)   eq([[x JSONFragmentValue] intValue], (int)y)
-#define testBool(x, y)  eq([[x JSONFragmentValue] boolValue], y)
-#define testFloat(x, y) eq([[x JSONFragmentValue] floatValue], (float)y)
-
 id json(NSString *path) {
     NSString *json = [NSString stringWithContentsOfFile:path
                                                encoding:NSASCIIStringEncoding
@@ -31,18 +27,13 @@ id plist(NSString *path) {
 
 @implementation Types
 
-- (NSEnumerator *)splitString:(NSString *)str
-{
-    return [[str componentsSeparatedByString:@" "] objectEnumerator];
-}
-
 - (void)testNull
 {
-    STAssertTrue([[@"null" JSONFragmentValue] isKindOfClass:[NSNull class]], nil);
-    eqo([@"null" JSONFragmentValue], [NSNull null]);
-
-//    eqo([nil JSONFragment], @"null");
-    eqo([[NSNull null] JSONFragment], @"null");
+    NSString *json = @"[null,null]";
+    NSArray *nulls = [NSArray arrayWithObjects:[NSNull null], [NSNull null], nil];
+    
+    STAssertEqualObjects([json JSONValue], nulls, nil);
+    STAssertEqualObjects([nulls JSONRepresentation], json, nil);
 }
 
 - (void)testBool
