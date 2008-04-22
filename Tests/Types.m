@@ -177,33 +177,15 @@ id plist(NSString *path) {
 
 - (void)testObject
 {
-    id dict = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSNumber numberWithInt:3], @"three",
-        @"blue", @"colour",
-        nil];
-    id ds = [dict JSONRepresentation];
-    eqo(ds, @"{\"colour\":\"blue\",\"three\":3}");
-    eqo([ds JSONValue], dict);
+    NSString *json = [NSString stringWithContentsOfFile:@"Tests/types/object.json"
+                                               encoding:NSASCIIStringEncoding
+                                                  error:nil];
+    json = [json substringToIndex:[json length]-1];
 
-    dict = [dict mutableCopy];
-    [dict setObject:[NSNull null] forKey:@"null"];
-    ds = [dict JSONRepresentation];
-    eqo(ds, @"{\"colour\":\"blue\",\"null\":null,\"three\":3}");
-    eqo([ds JSONValue], dict);
-}
-
-- (void)testNested
-{
-    id dict = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSArray arrayWithObjects:
-            [NSArray arrayWithObjects:
-                [NSDictionary dictionaryWithObjectsAndKeys:
-                    [NSNumber numberWithInt:-1], @"minus", nil], nil], nil],
-        @"top",
-        nil];
-    id ds = [dict JSONRepresentation];
-    eqo(ds, @"{\"top\":[[{\"minus\":-1}]]}");
-    eqo([ds JSONValue], dict);
+    NSArray *expected = plist(@"Tests/types/object.plist");
+    
+    STAssertEqualObjects([json JSONValue], expected, nil);
+    STAssertEqualObjects([expected JSONRepresentation], json, nil);
 }
 
 @end
