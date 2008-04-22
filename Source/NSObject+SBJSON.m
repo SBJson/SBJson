@@ -44,7 +44,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 - (NSString *)JSONRepresentationWithOptions:(NSDictionary *)x {
-    return [self JSONFragment];
+    SBJSONGenerator *generator = [SBJSONGenerator new];
+
+    id o;
+    if (o = [x objectForKey:@"SpaceBefore"]) 
+        [generator setSpaceBefore:[o boolValue]];
+
+    if (o = [x objectForKey:@"SpaceAfter"]) 
+        [generator setSpaceAfter:[o boolValue]];
+
+    if (o = [x objectForKey:@"MultiLine"]) 
+        [generator setMultiLine:[o boolValue]];
+
+    if (o = [x objectForKey:@"Pretty"]) {
+        BOOL pretty = [o boolValue];
+        [generator setSpaceBefore:pretty];
+        [generator setSpaceAfter:pretty];
+        [generator setMultiLine:pretty];        
+    }
+    
+    NSString *json = [generator serializeValue:self];
+    [generator release];
+    return json;
 }
 
 @end

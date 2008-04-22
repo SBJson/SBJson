@@ -58,23 +58,22 @@
 
 - (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json {
     [json appendString:@"["];
-    NSMutableArray *array = [NSMutableArray new];
     
+    BOOL addComma = NO;    
+    NSString *comma = spaceAfter && !multiLine ? @", " : @",";
     NSEnumerator *values = [fragment objectEnumerator];
     for (id value; value = [values nextObject]; ) {
-//        if (![self appendValue:value into:json]) {
-//            NSLog(@"Failed converting array value to JSON: %@", value);
-//            return NO;
-//        }
+        if (!addComma)
+            addComma = YES;
+        else 
+            [json appendString:comma];
         
-        NSMutableString *string = [NSMutableString string];
-        if ([self appendValue:value into:string]) 
-            [array addObject:string];
-        else
+        if (![self appendValue:value into:json]) {
+            NSLog(@"Failed converting array value to JSON: %@", value);
             return NO;
+        }
     }
-    [json appendString:[array componentsJoinedByString:@","]];
-    [array release];
+
     [json appendString:@"]"];
     return YES;
 }
@@ -83,13 +82,15 @@
     [json appendString:@"{"];
     
     BOOL addComma = NO;
+    NSString *comma = spaceAfter && !multiLine ? @", " : @",";
+    NSString *colon = spaceAfter && spaceBefore ? @" : " : spaceAfter ? @": " : spaceBefore ? @" :" : @":";
     NSEnumerator *values = [fragment keyEnumerator];
     for (id value; value = [values nextObject]; ) {
         
         if (!addComma)
             addComma = YES;
         else 
-            [json appendString:@","];
+            [json appendString:comma];
         
         if (![value isKindOfClass:[NSString class]]) {
             NSLog(@"JSON Object keys must be strings");
@@ -101,7 +102,7 @@
             return NO;
         }
 
-        [json appendString:@":"];
+        [json appendString:colon];
         if (![self appendValue:[fragment objectForKey:value] into:json]) {
             NSLog(@"Failed converting dictionary value to JSON");
             return NO;
@@ -152,6 +153,18 @@
 
     [json appendString:@"\""];
     return YES;
+}
+
+- (void)setSpaceBefore:(BOOL)y {
+    spaceBefore = y;
+}
+
+- (void)setSpaceAfter:(BOOL)y {
+    spaceAfter = y;
+}
+
+- (void)setMultiLine:(BOOL)y {
+    multiLine = y;
 }
 
 @end

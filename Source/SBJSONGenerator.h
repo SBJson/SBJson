@@ -10,8 +10,14 @@
 
 
 @interface SBJSONGenerator : NSObject {
-
+    unsigned spaceBefore;
+    unsigned spaceAfter;
+    unsigned multiLine;
 }
+
+- (void)setSpaceBefore:(BOOL)y;
+- (void)setSpaceAfter:(BOOL)y;
+- (void)setMultiLine:(BOOL)y;
 
 - (NSString*)serializeValue:(id)value;
 
