@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+    <string/>
+    <string> spaces </string>
+    <string>/</string>
+    <string>\ " \ "</string>
+    <string>foo"</string>
+    <string>foo""</string>
+    <string>foo""bar</string>
+    <string>foo"bar</string>
+    <string>foo\</string>
+    <string>foo\\bar</string>
+    <string>foo\bar</string>
+    <string>foobar</string>
+    <string>with internal   spaces</string>
+</array>
+</plist>

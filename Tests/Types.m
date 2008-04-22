@@ -22,7 +22,6 @@ NSString *file(NSString *path) {
 {
     NSString *json = @"[null,null]";
     NSArray *nulls = [NSArray arrayWithObjects:[NSNull null], [NSNull null], nil];
-    
     STAssertEqualObjects([json JSONValue], nulls, nil);
     STAssertEqualObjects([nulls JSONRepresentation], json, nil);
 }
@@ -49,56 +48,19 @@ NSString *file(NSString *path) {
         NSNumber *e = [expected objectAtIndex:i];
         STAssertTrue([n isKindOfClass:[NSNumber class]], nil);
         STAssertEqualsWithAccuracy([n doubleValue], [e doubleValue], 1e-6, nil);
+        
+        // Numbers can be written in many different ways, so always go back to the exact representation used.
+        STAssertEqualsWithAccuracy([[[n JSONFragment] JSONFragmentValue] doubleValue], [e doubleValue], 1e-6, nil);
     }
 }
 
-- (void)testStrings
-{
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-        @" spaces  ",               @"\" spaces  \"",
-        @"",                        @"\"\"",
-//      @"/",                       @"\"\\/\"",
-        @"\\ \" \\ \"",             @"\"\\\\ \\\" \\\\ \\\"\"",
-        @"\b",                      @"\"\\b\"",
-        @"\f",                      @"\"\\f\"",
-        @"\n",                      @"\"\\n\"",
-        @"\r",                      @"\"\\r\"",
-        @"\r\n",                    @"\"\\r\\n\"",
-        @"\t",                      @"\"\\t\"",
-        @"\ttabs\t\t",              @"\"\\ttabs\\t\\t\"",
-        @"foo",                     @"\"foo\"",
-        @"foo\"",                   @"\"foo\\\"\"",
-        @"foo\"\"bar",              @"\"foo\\\"\\\"bar\"",
-        @"foo\"bar",                @"\"foo\\\"bar\"",
-        @"foo\\",                   @"\"foo\\\\\"",
-        @"foo\\\\bar",              @"\"foo\\\\\\\\bar\"",
-        @"foo\\bar",                @"\"foo\\\\bar\"",
-        @"foobar",                  @"\"foobar\"",
-        @"with internal   spaces",  @"\"with internal   spaces\"",
-        nil];
-
-    NSEnumerator *enumerator = [dict keyEnumerator];
-    for (NSString *key; key = [enumerator nextObject]; ) {
-        NSString *val = [dict objectForKey:key];
-        // NSLog(@"'%@' => '%@'", key, val);
-
-        // Simple round trip
-        eqo([key JSONFragmentValue], val);
-        eqo([val JSONFragment], key);
-
-        // Now do a double round-trip
-        eqo([[val JSONFragment] JSONFragmentValue], val);
-        eqo([[key JSONFragmentValue] JSONFragment], key);
-    }
-}
-
-- (void)testStringsWithEscapedSlashes
+- (void)testStringWithEscapedSlashes
 {
     eqo([@"\"\\/test\\/path\"" JSONFragmentValue], @"/test/path");
     eqo([@"\"\\\\/test\\\\/path\"" JSONFragmentValue], @"\\/test\\/path");
 }
 
-- (void)testStringsWithUnicodeEscapes
+- (void)testStringWithUnicodeEscapes
 {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
         // e-acute and greater-than-or-equal-to
@@ -124,7 +86,7 @@ NSString *file(NSString *path) {
     }
 }
 
-- (void)testStringsWithControlChars
+- (void)testStringWithControlChars
 {
     NSArray *array = [NSArray arrayWithObjects:
         @"\\u0000", @"\\u0001", @"\\u0002", @"\\u0003", @"\\u0004",
@@ -141,6 +103,14 @@ NSString *file(NSString *path) {
         eqo([string JSONFragment], fragment);
         eqo([fragment JSONFragmentValue], string);
     }
+}
+
+- (void)testString
+{
+    NSString *json = file(@"Tests/types/string.json");
+    NSArray *expected = [file(@"Tests/types/string.plist") propertyList];
+    STAssertEqualObjects([json JSONValue], expected, nil);
+    STAssertEqualObjects([expected JSONRepresentation], json, nil);
 }
 
 - (void)testArray
