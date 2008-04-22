@@ -192,13 +192,13 @@
         @"blue", @"colour",
         nil];
     id ds = [dict JSONRepresentation];
-    eqo(ds, @"{\"colour\":\"blue\",\"three\":3}");
+    eqo(ds, @"{\"three\":3,\"colour\":\"blue\"}");
     eqo([ds JSONValue], dict);
 
     dict = [dict mutableCopy];
     [dict setObject:[NSNull null] forKey:@"null"];
     ds = [dict JSONRepresentation];
-    eqo(ds, @"{\"colour\":\"blue\",\"null\":null,\"three\":3}");
+    eqo(ds, @"{\"three\":3,\"null\":null,\"colour\":\"blue\"}");
     eqo([ds JSONValue], dict);
 }
 
