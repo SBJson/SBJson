@@ -47,19 +47,11 @@ id plist(NSString *path) {
 
 - (void)testBool
 {
-    testBool(@"true", YES);
-    testBool(@"false", NO);
-
-    id bools = [self splitString:@"false true false true"];
-    for (id b; b = [bools nextObject]; ) {
-        id bl = [b JSONFragmentValue];
-        STAssertTrue([bl isKindOfClass:[NSNumber class]], nil);
-        eqo([bl JSONFragment], b);
-    }
-
-    // Explict NSNumber initialised to boolean value
-    eqo([[NSNumber numberWithBool:YES] JSONFragment], @"true");
-    eqo([[NSNumber numberWithBool:NO] JSONFragment], @"false");
+    NSString *json = @"[true,false]";
+    NSArray *bools = [NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil];
+  
+    STAssertEqualObjects([json JSONValue], bools, nil);
+    STAssertEqualObjects([bools JSONRepresentation], json, nil);
 }
 
 - (void)testNumbers
