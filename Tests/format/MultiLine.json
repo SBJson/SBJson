@@ -2,13 +2,14 @@
   "one",
   2,
   {
+    "quux":true,
+    "foo":null,
     "bar":[
       1,
       2,
       [
         
       ]
-    ],
-    "foo":null
+    ]
   }
 ]
