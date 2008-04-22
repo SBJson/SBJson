@@ -12,6 +12,23 @@
 #define testBool(x, y)  eq([[x JSONFragmentValue] boolValue], y)
 #define testFloat(x, y) eq([[x JSONFragmentValue] floatValue], (float)y)
 
+id json(NSString *path) {
+    NSString *json = [NSString stringWithContentsOfFile:path
+                                               encoding:NSASCIIStringEncoding
+                                                  error:nil];
+    assert(json);
+    return [json JSONValue];
+}
+
+
+id plist(NSString *path) {
+    NSString *plist = [NSString stringWithContentsOfFile:path
+                                                encoding:NSASCIIStringEncoding
+                                                   error:nil];
+    assert(plist);
+    return [plist propertyList];
+}
+
 @implementation Types
 
 - (NSEnumerator *)splitString:(NSString *)str
@@ -47,28 +64,18 @@
 
 - (void)testNumbers
 {
-    testInt(@"5", 5);
-    testInt(@"-5", -5);
-    testInt(@"5e1", 50);
-    testInt(@"-333e+0", -333);
-    testInt(@"2.5", 2);
-    testFloat(@"2.5", 2.5);
-    testFloat(@"-333e+0", -333);
-    testFloat(@"-333e+3", -333000);
-    testFloat(@"666e-1", 66.6);
-
-    id nums = [self splitString:@"-4 4 0.0001 10000 -9999 99.99 98877665544332211009988776655443322110"];
-    for (id n; n = [nums nextObject]; ) {
-        id num = [n JSONFragmentValue];
-        STAssertTrue([num isKindOfClass:[NSNumber class]], nil);
-        eqo([num JSONFragment], n);
+    NSArray *numbers = json(@"Tests/types/number.json");
+    NSArray *expected = plist(@"Tests/types/number.plist");
+    
+    STAssertTrue([numbers count], @"have numbers");
+    STAssertEquals([numbers count], [expected count], @"have as many as expected");
+    
+    for (int i = 0; i < [numbers count]; i++) {
+        NSNumber *n = [numbers objectAtIndex:i];
+        NSNumber *e = [expected objectAtIndex:i];
+        STAssertTrue([n isKindOfClass:[NSNumber class]], nil);
+        STAssertEqualsWithAccuracy([n doubleValue], [e doubleValue], 1e-6, nil);
     }
-
-    eqo([[NSNumber numberWithChar:2] JSONFragment], @"2");
-    eqo([[NSNumber numberWithChar:1] JSONFragment], @"1");
-    eqo([[NSNumber numberWithChar:0] JSONFragment], @"0");
-    eqo([[NSNumber numberWithInt:1] JSONFragment], @"1");
-    eqo([[NSNumber numberWithInt:0] JSONFragment], @"0");
 }
 
 - (void)testStrings
