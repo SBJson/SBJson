@@ -15,12 +15,17 @@
 - (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json;
 - (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json;
 
+- (NSString*)colon;
+- (NSString*)comma;
+- (NSString*)indent;
+
 @end
 
 
 @implementation SBJSONGenerator
 
 - (NSString*)serializeValue:(id)value {
+    depth = 0;
     NSMutableString *json = [NSMutableString stringWithCapacity:128];
     if ([self appendValue:value into:json])
         return json;
@@ -57,10 +62,17 @@
 }
 
 - (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json {
+    // Empty array? Well that's easy!
+    if (![fragment count]) {
+        [json appendString:@"[]"];
+        return YES;
+    }
+    
     [json appendString:@"["];
+    depth++;
     
     BOOL addComma = NO;    
-    NSString *comma = spaceAfter && !multiLine ? @", " : @",";
+    NSString *comma = [self comma];
     NSEnumerator *values = [fragment objectEnumerator];
     for (id value; value = [values nextObject]; ) {
         if (!addComma)
@@ -68,22 +80,34 @@
         else 
             [json appendString:comma];
         
+        if (multiLine)
+            [json appendString:[self indent]];
+        
         if (![self appendValue:value into:json]) {
             NSLog(@"Failed converting array value to JSON: %@", value);
             return NO;
         }
     }
 
+    depth--;
+    if (multiLine) [json appendString:[self indent]];
     [json appendString:@"]"];
     return YES;
 }
 
 - (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json {
+    // Empty dictionary? Easy peasy!
+    if (![fragment count]) {
+        [json appendString:@"{}"];
+        return YES;
+    }
+        
     [json appendString:@"{"];
-    
+    depth++;
+
+    NSString *comma = [self comma];
+    NSString *colon = [self colon];
     BOOL addComma = NO;
-    NSString *comma = spaceAfter && !multiLine ? @", " : @",";
-    NSString *colon = spaceAfter && spaceBefore ? @" : " : spaceAfter ? @": " : spaceBefore ? @" :" : @":";
     NSEnumerator *values = [fragment keyEnumerator];
     for (id value; value = [values nextObject]; ) {
         
@@ -91,6 +115,9 @@
             addComma = YES;
         else 
             [json appendString:comma];
+
+        if (multiLine)
+            [json appendString:[self indent]];
         
         if (![value isKindOfClass:[NSString class]]) {
             NSLog(@"JSON Object keys must be strings");
@@ -109,6 +136,8 @@
         }
     }
 
+    depth--;
+    if (multiLine) [json appendString:[self indent]];
     [json appendString:@"}"];
     return YES;    
 }
@@ -165,6 +194,27 @@
 
 - (void)setMultiLine:(BOOL)y {
     multiLine = y;
+}
+
+- (NSString*)comma {
+    return spaceAfter && !multiLine ? @", " : @",";
+}
+
+- (NSString*)colon {
+    NSString *colon = @":";
+    if (spaceAfter && spaceBefore)
+        colon = @" : ";
+    else if (spaceAfter)
+        colon = @": ";
+    else if (spaceBefore)
+        colon = @" :";
+    return colon;
+}
+
+- (NSString*)indent {
+    return multiLine
+        ? [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0]
+        : @"";
 }
 
 @end

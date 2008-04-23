@@ -13,6 +13,7 @@
     unsigned spaceBefore;
     unsigned spaceAfter;
     unsigned multiLine;
+    unsigned depth;
 }
 
 - (void)setSpaceBefore:(BOOL)y;
