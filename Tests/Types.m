@@ -37,19 +37,16 @@ NSString *file(NSString *path) {
 
 - (void)testNumbers
 {
-    NSArray *numbers = [file(@"Tests/types/number.json") JSONValue];
-    NSArray *expected = [file(@"Tests/types/number.plist") propertyList];
+    NSDictionary *numbers = [file(@"Tests/types/number.plist") propertyList];
+    NSEnumerator *iterator = [numbers keyEnumerator];
     
-    STAssertTrue([numbers count], @"have numbers");
-    STAssertEquals([numbers count], [expected count], @"have as many as expected");
-    
-    for (int i = 0; i < [numbers count]; i++) {
-        NSNumber *n = [numbers objectAtIndex:i];
-        NSNumber *e = [expected objectAtIndex:i];
+    for (NSString *number; number = [iterator nextObject]; ) {
+        NSNumber *n = [number JSONFragmentValue];
+        NSNumber *e = [numbers objectForKey:number];
         STAssertTrue([n isKindOfClass:[NSNumber class]], nil);
         STAssertEqualsWithAccuracy([n doubleValue], [e doubleValue], 1e-6, nil);
         
-        // Numbers can be written in many different ways, so always go back to the exact representation used.
+        // Numbers can be written in many different ways, so cannot always go back to the exact representation used.
         STAssertEqualsWithAccuracy([[[n JSONFragment] JSONFragmentValue] doubleValue], [e doubleValue], 1e-6, nil);
     }
 }
