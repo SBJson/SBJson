@@ -29,6 +29,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBJSON.h"
 
+NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
+
 @interface SBJSON (Private)
 
 - (BOOL)appendValue:(id)fragment into:(NSMutableString*)json error:(NSError**)error;
@@ -100,7 +102,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         
     } else {
         if (error)
-            *error = [NSError errorWithDomain:@"org.brautaset.JSON.ErrorDomain" code:ENOSUPPORTED userInfo:nil];
+            *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:nil];
         return NO;
     }
     return YES;
@@ -129,7 +131,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             [json appendString:[self indent]];
         
         if (![self appendValue:value into:json error:error]) {
-            NSLog(@"Failed converting array value to JSON: %@", value);
             return NO;
         }
     }
@@ -166,18 +167,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         
         if (![value isKindOfClass:[NSString class]]) {
             if (error)
-                *error = [NSError errorWithDomain:@"org.brautaset.JSON.ErrorDomain" code:ENOSUPPORTED userInfo:nil];
+                *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:nil];
             return NO;
         }
         
         if (![self appendString:value into:json error:error]) {
-            NSLog(@"Failed converting dictionary key to JSON");
             return NO;
         }
 
         [json appendString:colon];
         if (![self appendValue:[fragment objectForKey:value] into:json error:error]) {
-            NSLog(@"Failed converting dictionary value to JSON");
             return NO;
         }
     }

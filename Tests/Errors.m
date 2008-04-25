@@ -22,6 +22,33 @@
     [json release];
 }
 
+#pragma mark Generator
+
+- (void)testUnsupportedObject
+{
+    NSError *error = nil;
+    STAssertNil([json stringWithJSON:[NSDate date] error:&error], nil);
+    STAssertNotNil(error, nil);
+}
+
+- (void)testNonStringDictionaryKey
+{
+    NSArray *keys = [NSArray arrayWithObjects:[NSNull null],
+                     [NSNumber numberWithInt:1],
+                     [NSArray array],
+                     [NSDictionary dictionary],
+                     nil];
+    
+    for (int i = 0; i < [keys count]; i++) {
+        NSError *error = nil;
+        NSDictionary *object = [NSDictionary dictionaryWithObject:@"1" forKey:[keys objectAtIndex:i]];
+        STAssertNil([json stringWithJSON:object error:&error], nil);
+        STAssertNotNil(error, nil);
+    }
+}
+
+#pragma mark Scanner
+
 - (void)testTrailingComma
 {
     tn([@"[1,]" JSONValue], @"enovalue");
@@ -62,22 +89,6 @@
     tn([@"{1" JSONValue], @"enostring");
 }
 
-- (void)testDictionaryToJSON
-{
-    NSArray *keys = [NSArray arrayWithObjects:[NSNull null],
-                     [NSNumber numberWithInt:1],
-                     [NSArray array],
-                     [NSDictionary dictionary],
-                     nil];
-    
-    for (int i = 0; i < [keys count]; i++) {
-        NSError *error = nil;
-        NSDictionary *object = [NSDictionary dictionaryWithObject:@"1" forKey:[keys objectAtIndex:i]];
-        STAssertNil([json stringWithJSON:object error:&error], nil);
-        STAssertNotNil(error, nil);
-    }
-}
-
 - (void)testSingleQuotedString
 {
     tn([@"['1'" JSONValue], @"enovalue");
@@ -112,13 +123,6 @@
 - (void)testIllegalNumber
 {
     tn([@"+666e-1" JSONValue], @"enojson");
-}
-
-- (void)testNonsupportedObject
-{
-    NSError *error = nil;
-    STAssertNil([json stringWithJSON:[NSDate date] error:&error], nil);
-    STAssertNotNil(error, nil);
 }
 
 - (void)testObjectFromFragment
