@@ -27,14 +27,14 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#import "SBJSONGenerator.h"
+#import "SBJSON.h"
 
-@interface SBJSONGenerator (Private)
+@interface SBJSON (Private)
 
-- (BOOL)appendValue:(id)fragment into:(NSMutableString*)json;
-- (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json;
-- (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json;
-- (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json;
+- (BOOL)appendValue:(id)fragment into:(NSMutableString*)json error:(NSError**)error;
+- (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json error:(NSError**)error;
+- (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json error:(NSError**)error;
+- (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json error:(NSError**)error;
 
 - (NSString*)colon;
 - (NSString*)comma;
@@ -43,27 +43,50 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @end
 
 
-@implementation SBJSONGenerator
+@implementation SBJSON
+
+#pragma mark Generator
 
 - (NSString*)stringWithJSON:(id)value error:(NSError**)error {
     depth = 0;
     NSMutableString *json = [NSMutableString stringWithCapacity:128];
-    if ([self appendValue:value into:json])
+    if ([self appendValue:value into:json error:error])
         return json;
     return nil;
 }
 
-- (BOOL)appendValue:(id)fragment into:(NSMutableString*)json {
+- (NSString*)colon {
+    NSString *colon = @":";
+    if (spaceAfter && spaceBefore)
+        colon = @" : ";
+    else if (spaceAfter)
+        colon = @": ";
+    else if (spaceBefore)
+        colon = @" :";
+    return colon;
+}
+
+- (NSString*)comma {
+    return spaceAfter && !multiLine ? @", " : @",";
+}
+
+- (NSString*)indent {
+    return multiLine
+    ? [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0]
+    : @"";
+}
+
+- (BOOL)appendValue:(id)fragment into:(NSMutableString*)json error:(NSError**)error {
     if ([fragment isKindOfClass:[NSDictionary class]]) {
-        if (![self appendDictionary:fragment into:json])
+        if (![self appendDictionary:fragment into:json error:error])
             return NO;
         
     } else if ([fragment isKindOfClass:[NSArray class]]) {
-        if (![self appendArray:fragment into:json])
+        if (![self appendArray:fragment into:json error:error])
             return NO;
 
     } else if ([fragment isKindOfClass:[NSString class]]) {
-        if (![self appendString:fragment into:json])
+        if (![self appendString:fragment into:json error:error])
             return NO;
 
     } else if ([fragment isKindOfClass:[NSNumber class]]) {
@@ -82,7 +105,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return YES;
 }
 
-- (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json {
+- (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json error:(NSError**)error {
     // Empty array? Well that's easy!
     if (![fragment count]) {
         [json appendString:@"[]"];
@@ -104,7 +127,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         if (multiLine)
             [json appendString:[self indent]];
         
-        if (![self appendValue:value into:json]) {
+        if (![self appendValue:value into:json error:error]) {
             NSLog(@"Failed converting array value to JSON: %@", value);
             return NO;
         }
@@ -116,7 +139,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return YES;
 }
 
-- (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json {
+- (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json error:(NSError**)error {
     // Empty dictionary? Easy peasy!
     if (![fragment count]) {
         [json appendString:@"{}"];
@@ -145,13 +168,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             return NO;
         }
         
-        if (![self appendString:value into:json]) {
+        if (![self appendString:value into:json error:error]) {
             NSLog(@"Failed converting dictionary key to JSON");
             return NO;
         }
 
         [json appendString:colon];
-        if (![self appendValue:[fragment objectForKey:value] into:json]) {
+        if (![self appendValue:[fragment objectForKey:value] into:json error:error]) {
             NSLog(@"Failed converting dictionary value to JSON");
             return NO;
         }
@@ -163,7 +186,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return YES;    
 }
 
-- (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json {
+- (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json error:(NSError**)error {
 
     static NSMutableCharacterSet *kEscapeChars;
     if( ! kEscapeChars ) {
@@ -205,37 +228,30 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return YES;
 }
 
+#pragma mark Properties
+
+- (BOOL)spaceBefore {
+    return spaceBefore;
+}
+
 - (void)setSpaceBefore:(BOOL)y {
     spaceBefore = y;
+}
+
+- (BOOL)spaceAfter {
+    return spaceAfter;
 }
 
 - (void)setSpaceAfter:(BOOL)y {
     spaceAfter = y;
 }
 
+- (BOOL)multiLine {
+    return multiLine;
+}
+
 - (void)setMultiLine:(BOOL)y {
     multiLine = y;
-}
-
-- (NSString*)comma {
-    return spaceAfter && !multiLine ? @", " : @",";
-}
-
-- (NSString*)colon {
-    NSString *colon = @":";
-    if (spaceAfter && spaceBefore)
-        colon = @" : ";
-    else if (spaceAfter)
-        colon = @": ";
-    else if (spaceBefore)
-        colon = @" :";
-    return colon;
-}
-
-- (NSString*)indent {
-    return multiLine
-        ? [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0]
-        : @"";
 }
 
 @end

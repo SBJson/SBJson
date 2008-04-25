@@ -30,7 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import <Cocoa/Cocoa.h>
 
 
-@interface SBJSONGenerator : NSObject {
+@interface SBJSON : NSObject {
     unsigned spaceBefore;
     unsigned spaceAfter;
     unsigned multiLine;
