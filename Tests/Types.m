@@ -104,10 +104,15 @@ NSString *file(NSString *path) {
 
 - (void)testString
 {
-    NSString *json = file(@"Tests/types/string.json");
-    NSArray *expected = [file(@"Tests/types/string.plist") propertyList];
-    STAssertEqualObjects([json JSONValue], expected, nil);
-    STAssertEqualObjects([expected JSONRepresentation], json, nil);
+    NSDictionary *strings = [file(@"Tests/types/string.plist") propertyList];
+    NSEnumerator *iterator = [strings keyEnumerator];
+    for (NSString *string; string = [iterator nextObject]; ) {
+        NSString *expected = [strings objectForKey:string];
+        id json = [string JSONFragmentValue];
+        STAssertTrue([json isKindOfClass:[NSString class]], nil);
+        STAssertEqualObjects(json, expected, nil);
+        STAssertEqualObjects([expected JSONFragment], string, nil);
+    }
 }
 
 - (void)testArray
