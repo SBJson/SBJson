@@ -14,6 +14,14 @@
 
 @implementation Errors
 
+- (void)setUp {
+    json = [SBJSON new];
+}
+
+- (void)tearDown {
+    [json release];
+}
+
 - (void)testTrailingComma
 {
     tn([@"[1,]" JSONValue], @"enovalue");
@@ -56,10 +64,18 @@
 
 - (void)testDictionaryToJSON
 {
-    STAssertNil([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNull null]] JSONRepresentation], @"enostring");
-    STAssertNil([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNumber numberWithInt:1]] JSONRepresentation], @"enostring");
-    STAssertNil([[NSDictionary dictionaryWithObject:@"1" forKey:[NSArray array]] JSONRepresentation], @"enostring");
-    STAssertNil([[NSDictionary dictionaryWithObject:@"1" forKey:[NSDictionary dictionary]] JSONRepresentation], @"enostring");
+    NSArray *keys = [NSArray arrayWithObjects:[NSNull null],
+                     [NSNumber numberWithInt:1],
+                     [NSArray array],
+                     [NSDictionary dictionary],
+                     nil];
+    
+    for (int i = 0; i < [keys count]; i++) {
+        NSError *error = nil;
+        NSDictionary *object = [NSDictionary dictionaryWithObject:@"1" forKey:[keys objectAtIndex:i]];
+        STAssertNil([json stringWithJSON:object error:&error], nil);
+        STAssertNotNil(error, nil);
+    }
 }
 
 - (void)testSingleQuotedString
@@ -100,7 +116,9 @@
 
 - (void)testNonsupportedObject
 {
-    STAssertNil([[NSDate date] JSONFragment], @"unsupported");
+    NSError *error = nil;
+    STAssertNil([json stringWithJSON:[NSDate date] error:&error], nil);
+    STAssertNotNil(error, nil);
 }
 
 - (void)testObjectFromFragment

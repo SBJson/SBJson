@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		5390660B0D828B8B0022B8B8 /* SBJSONScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 539066090D828B8B0022B8B8 /* SBJSONScanner.h */; };
 		5390660C0D828B8B0022B8B8 /* SBJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5390660A0D828B8B0022B8B8 /* SBJSONScanner.m */; };
-		539191D20DBB896D00714DA2 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 539191D00DBB896D00714DA2 /* SBJSON.h */; };
+		539191D20DBB896D00714DA2 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 539191D00DBB896D00714DA2 /* SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		539191D30DBB896D00714DA2 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 539191D10DBB896D00714DA2 /* SBJSON.m */; };
-		539191D40DBB896D00714DA2 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 539191D00DBB896D00714DA2 /* SBJSON.h */; };
+		539191D40DBB896D00714DA2 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 539191D00DBB896D00714DA2 /* SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		539191D50DBB896D00714DA2 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 539191D10DBB896D00714DA2 /* SBJSON.m */; };
 		53C45B9C0C98A87600546F66 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C45B9B0C98A87600546F66 /* Errors.m */; };
 		53D2299C0C96129800276605 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };

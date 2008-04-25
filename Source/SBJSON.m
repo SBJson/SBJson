@@ -99,7 +99,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         [json appendString:@"null"];
         
     } else {
-        NSLog(@"Not able to convert object to JSON: %@", fragment);
+        if (error)
+            *error = [NSError errorWithDomain:@"org.brautaset.JSON.ErrorDomain" code:ENOSUPPORTED userInfo:nil];
         return NO;
     }
     return YES;
@@ -164,7 +165,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             [json appendString:[self indent]];
         
         if (![value isKindOfClass:[NSString class]]) {
-            NSLog(@"JSON Object keys must be strings");
+            if (error)
+                *error = [NSError errorWithDomain:@"org.brautaset.JSON.ErrorDomain" code:ENOSUPPORTED userInfo:nil];
             return NO;
         }
         
