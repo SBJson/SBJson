@@ -28,12 +28,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import "NSObject+SBJSON.h"
-#import "SBJSONGenerator.h"
+#import "SBJSON.h"
 
 @implementation NSObject (NSObject_SBJSON)
 
 - (NSString *)JSONFragment {
-    SBJSONGenerator *generator = [SBJSONGenerator new];
+    SBJSON *generator = [SBJSON new];
     NSString *json = [generator stringWithJSON:self error:NULL];
     [generator release];
     return json;
@@ -44,7 +44,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 - (NSString *)JSONRepresentationWithOptions:(NSDictionary *)x {
-    SBJSONGenerator *generator = [SBJSONGenerator new];
+    SBJSON *generator = [SBJSON new];
 
     id o;
     if (o = [x objectForKey:@"SpaceBefore"]) 
