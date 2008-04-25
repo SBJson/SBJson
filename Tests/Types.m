@@ -30,7 +30,6 @@ NSString *file(NSString *path) {
 {
     NSString *json = @"[true,false]";
     NSArray *bools = [NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil];
-  
     STAssertEqualObjects([json JSONValue], bools, nil);
     STAssertEqualObjects([bools JSONRepresentation], json, nil);
 }
@@ -51,13 +50,13 @@ NSString *file(NSString *path) {
     }
 }
 
-- (void)testStringWithEscapedSlashes
+- (void)testEscapedSlashes
 {
     eqo([@"\"\\/test\\/path\"" JSONFragmentValue], @"/test/path");
     eqo([@"\"\\\\/test\\\\/path\"" JSONFragmentValue], @"\\/test\\/path");
 }
 
-- (void)testStringWithUnicodeEscapes
+- (void)testUnicodeEscapes
 {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
         // e-acute and greater-than-or-equal-to
@@ -77,13 +76,12 @@ NSString *file(NSString *path) {
     NSEnumerator *enumerator = [dict keyEnumerator];
     for (NSString *key; key = [enumerator nextObject]; ) {
         NSString *val = [dict objectForKey:key];
-//        NSLog(@"'%@' => '%@'", key, val);
         eqo([key JSONFragmentValue], val);
         eqo([[val JSONFragment] JSONFragmentValue], val);
     }
 }
 
-- (void)testStringWithControlChars
+- (void)testControlCharacters
 {
     NSArray *array = [NSArray arrayWithObjects:
         @"\\u0000", @"\\u0001", @"\\u0002", @"\\u0003", @"\\u0004",
