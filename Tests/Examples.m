@@ -53,7 +53,6 @@
             continue;
         
         NSString *jsonPath = [dir stringByAppendingPathComponent:file];
-        NSLog(jsonPath);
         NSString *plistPath = [[jsonPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"plist"];
         
         NSString *jsonRep = [NSString stringWithContentsOfFile:jsonPath
