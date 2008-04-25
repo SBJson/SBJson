@@ -8,116 +8,55 @@
 
 #import "Tests.h"
 
-#define testInt(x, y)   eq([[x JSONFragmentValue] intValue], (int)y)
-#define testBool(x, y)  eq([[x JSONFragmentValue] boolValue], y)
-#define testFloat(x, y) eq([[x JSONFragmentValue] floatValue], (float)y)
+NSString *file(NSString *path) {
+    NSString *content = [NSString stringWithContentsOfFile:path
+                                                  encoding:NSASCIIStringEncoding
+                                                     error:nil];
+    assert(content);
+    return [content substringToIndex:[content length]-1];
+}
 
 @implementation Types
 
-- (NSEnumerator *)splitString:(NSString *)str
-{
-    return [[str componentsSeparatedByString:@" "] objectEnumerator];
-}
-
 - (void)testNull
 {
-    STAssertTrue([[@"null" JSONFragmentValue] isKindOfClass:[NSNull class]], nil);
-    eqo([@"null" JSONFragmentValue], [NSNull null]);
-
-//    eqo([nil JSONFragment], @"null");
-    eqo([[NSNull null] JSONFragment], @"null");
+    NSString *json = @"[null,null]";
+    NSArray *nulls = [NSArray arrayWithObjects:[NSNull null], [NSNull null], nil];
+    STAssertEqualObjects([json JSONValue], nulls, nil);
+    STAssertEqualObjects([nulls JSONRepresentation], json, nil);
 }
 
 - (void)testBool
 {
-    testBool(@"true", YES);
-    testBool(@"false", NO);
-
-    id bools = [self splitString:@"false true false true"];
-    for (id b; b = [bools nextObject]; ) {
-        id bl = [b JSONFragmentValue];
-        STAssertTrue([bl isKindOfClass:[NSNumber class]], nil);
-        eqo([bl JSONFragment], b);
-    }
-
-    // Explict NSNumber initialised to boolean value
-    eqo([[NSNumber numberWithBool:YES] JSONFragment], @"true");
-    eqo([[NSNumber numberWithBool:NO] JSONFragment], @"false");
+    NSString *json = @"[true,false]";
+    NSArray *bools = [NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:NO], nil];
+    STAssertEqualObjects([json JSONValue], bools, nil);
+    STAssertEqualObjects([bools JSONRepresentation], json, nil);
 }
 
 - (void)testNumbers
 {
-    testInt(@"5", 5);
-    testInt(@"-5", -5);
-    testInt(@"5e1", 50);
-    testInt(@"-333e+0", -333);
-    testInt(@"2.5", 2);
-    testFloat(@"2.5", 2.5);
-    testFloat(@"-333e+0", -333);
-    testFloat(@"-333e+3", -333000);
-    testFloat(@"666e-1", 66.6);
-
-    id nums = [self splitString:@"-4 4 0.0001 10000 -9999 99.99 98877665544332211009988776655443322110"];
-    for (id n; n = [nums nextObject]; ) {
-        id num = [n JSONFragmentValue];
-        STAssertTrue([num isKindOfClass:[NSNumber class]], nil);
-        eqo([num JSONFragment], n);
-    }
-
-    eqo([[NSNumber numberWithChar:2] JSONFragment], @"2");
-    eqo([[NSNumber numberWithChar:1] JSONFragment], @"1");
-    eqo([[NSNumber numberWithChar:0] JSONFragment], @"0");
-    eqo([[NSNumber numberWithInt:1] JSONFragment], @"1");
-    eqo([[NSNumber numberWithInt:0] JSONFragment], @"0");
-}
-
-- (void)testStrings
-{
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-        @" spaces  ",               @"\" spaces  \"",
-        @"",                        @"\"\"",
-//      @"/",                       @"\"\\/\"",
-        @"\\ \" \\ \"",             @"\"\\\\ \\\" \\\\ \\\"\"",
-        @"\b",                      @"\"\\b\"",
-        @"\f",                      @"\"\\f\"",
-        @"\n",                      @"\"\\n\"",
-        @"\r",                      @"\"\\r\"",
-        @"\r\n",                    @"\"\\r\\n\"",
-        @"\t",                      @"\"\\t\"",
-        @"\ttabs\t\t",              @"\"\\ttabs\\t\\t\"",
-        @"foo",                     @"\"foo\"",
-        @"foo\"",                   @"\"foo\\\"\"",
-        @"foo\"\"bar",              @"\"foo\\\"\\\"bar\"",
-        @"foo\"bar",                @"\"foo\\\"bar\"",
-        @"foo\\",                   @"\"foo\\\\\"",
-        @"foo\\\\bar",              @"\"foo\\\\\\\\bar\"",
-        @"foo\\bar",                @"\"foo\\\\bar\"",
-        @"foobar",                  @"\"foobar\"",
-        @"with internal   spaces",  @"\"with internal   spaces\"",
-        nil];
-
-    NSEnumerator *enumerator = [dict keyEnumerator];
-    for (NSString *key; key = [enumerator nextObject]; ) {
-        NSString *val = [dict objectForKey:key];
-        // NSLog(@"'%@' => '%@'", key, val);
-
-        // Simple round trip
-        eqo([key JSONFragmentValue], val);
-        eqo([val JSONFragment], key);
-
-        // Now do a double round-trip
-        eqo([[val JSONFragment] JSONFragmentValue], val);
-        eqo([[key JSONFragmentValue] JSONFragment], key);
+    NSDictionary *numbers = [file(@"Tests/types/number.plist") propertyList];
+    NSEnumerator *iterator = [numbers keyEnumerator];
+    
+    for (NSString *number; number = [iterator nextObject]; ) {
+        NSNumber *n = [number JSONFragmentValue];
+        NSNumber *e = [numbers objectForKey:number];
+        STAssertTrue([n isKindOfClass:[NSNumber class]], nil);
+        STAssertEqualsWithAccuracy([n doubleValue], [e doubleValue], 1e-6, nil);
+        
+        // Numbers can be written in many different ways, so cannot always go back to the exact representation used.
+        STAssertEqualsWithAccuracy([[[n JSONFragment] JSONFragmentValue] doubleValue], [e doubleValue], 1e-6, nil);
     }
 }
 
-- (void)testStringsWithEscapedSlashes
+- (void)testEscapedSlashes
 {
     eqo([@"\"\\/test\\/path\"" JSONFragmentValue], @"/test/path");
     eqo([@"\"\\\\/test\\\\/path\"" JSONFragmentValue], @"\\/test\\/path");
 }
 
-- (void)testStringsWithUnicodeEscapes
+- (void)testUnicodeEscapes
 {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
         // e-acute and greater-than-or-equal-to
@@ -137,13 +76,12 @@
     NSEnumerator *enumerator = [dict keyEnumerator];
     for (NSString *key; key = [enumerator nextObject]; ) {
         NSString *val = [dict objectForKey:key];
-//        NSLog(@"'%@' => '%@'", key, val);
         eqo([key JSONFragmentValue], val);
         eqo([[val JSONFragment] JSONFragmentValue], val);
     }
 }
 
-- (void)testStringsWithControlChars
+- (void)testControlCharacters
 {
     NSArray *array = [NSArray arrayWithObjects:
         @"\\u0000", @"\\u0001", @"\\u0002", @"\\u0003", @"\\u0004",
@@ -162,58 +100,43 @@
     }
 }
 
+- (void)testString
+{
+    NSDictionary *strings = [file(@"Tests/types/string.plist") propertyList];
+    NSEnumerator *iterator = [strings keyEnumerator];
+    for (NSString *string; string = [iterator nextObject]; ) {
+        NSString *expected = [strings objectForKey:string];
+        id json = [string JSONFragmentValue];
+        STAssertTrue([json isKindOfClass:[NSString class]], nil);
+        STAssertEqualObjects(json, expected, nil);
+        STAssertEqualObjects([expected JSONFragment], string, nil);
+    }
+}
+
 - (void)testArray
 {
-    id arr = [@"fi fo fa fum" componentsSeparatedByString:@" "];
-    id as = [arr JSONRepresentation];
-    eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\"]");
-    eqo([as JSONValue], arr);
-    
-    arr = [arr arrayByAddingObject:[NSNumber numberWithDouble:0.01]];
-    as = [arr JSONRepresentation];
-    eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01]");
-    eqo([as JSONValue], arr);
-    
-    arr = [arr arrayByAddingObject:[NSNull null]];
-    as = [arr JSONRepresentation];
-    eqo(as, @"[\"fi\",\"fo\",\"fa\",\"fum\",0.01,null]");
-    eqo([as JSONValue], arr);
-    
-    arr = [NSArray arrayWithObjects:@"", [NSNull null], [NSNull null], @"1", nil];
-    as = [arr JSONRepresentation];
-    eqo(as, @"[\"\",null,null,\"1\"]");
-    eqo([as JSONValue], arr);
+    NSDictionary *dict = [file(@"Tests/types/array.plist") propertyList];
+    NSEnumerator *enumerator = [dict keyEnumerator];
+    for (NSString *jsonrep; jsonrep = [enumerator nextObject]; ) {
+        id expected = [dict objectForKey:jsonrep];
+        id json = [jsonrep JSONValue];
+        STAssertTrue([json isKindOfClass:[expected class]], nil);
+        STAssertEqualObjects(json, expected, nil);
+        STAssertEqualObjects([expected JSONRepresentation], jsonrep, nil);
+    }
 }
 
 - (void)testObject
 {
-    id dict = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSNumber numberWithInt:3], @"three",
-        @"blue", @"colour",
-        nil];
-    id ds = [dict JSONRepresentation];
-    eqo(ds, @"{\"colour\":\"blue\",\"three\":3}");
-    eqo([ds JSONValue], dict);
-
-    dict = [dict mutableCopy];
-    [dict setObject:[NSNull null] forKey:@"null"];
-    ds = [dict JSONRepresentation];
-    eqo(ds, @"{\"colour\":\"blue\",\"null\":null,\"three\":3}");
-    eqo([ds JSONValue], dict);
-}
-
-- (void)testNested
-{
-    id dict = [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSArray arrayWithObjects:
-            [NSArray arrayWithObjects:
-                [NSDictionary dictionaryWithObjectsAndKeys:
-                    [NSNumber numberWithInt:-1], @"minus", nil], nil], nil],
-        @"top",
-        nil];
-    id ds = [dict JSONRepresentation];
-    eqo(ds, @"{\"top\":[[{\"minus\":-1}]]}");
-    eqo([ds JSONValue], dict);
+    NSDictionary *dict = [file(@"Tests/types/object.plist") propertyList];
+    NSEnumerator *enumerator = [dict keyEnumerator];
+    for (NSString *jsonrep; jsonrep = [enumerator nextObject]; ) {
+        id expected = [dict objectForKey:jsonrep];
+        id json = [jsonrep JSONValue];
+        STAssertTrue([json isKindOfClass:[expected class]], nil);
+        STAssertEqualObjects(json, expected, nil);
+        STAssertEqualObjects([expected JSONRepresentation], jsonrep, nil);
+    }
 }
 
 @end
