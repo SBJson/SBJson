@@ -117,18 +117,28 @@ NSString *file(NSString *path) {
 
 - (void)testArray
 {
-    NSString *json = file(@"Tests/types/array.json");
-    NSArray *expected = [file(@"Tests/types/array.plist") propertyList];
-    STAssertEqualObjects([json JSONValue], expected, nil);
-    STAssertEqualObjects([expected JSONRepresentation], json, nil);
+    NSDictionary *dict = [file(@"Tests/types/array.plist") propertyList];
+    NSEnumerator *enumerator = [dict keyEnumerator];
+    for (NSString *jsonrep; jsonrep = [enumerator nextObject]; ) {
+        id expected = [dict objectForKey:jsonrep];
+        id json = [jsonrep JSONValue];
+        STAssertTrue([json isKindOfClass:[expected class]], nil);
+        STAssertEqualObjects(json, expected, nil);
+        STAssertEqualObjects([expected JSONRepresentation], jsonrep, nil);
+    }
 }
 
 - (void)testObject
 {
-    NSString *json = file(@"Tests/types/object.json");
-    NSArray *expected = [file(@"Tests/types/object.plist") propertyList];
-    STAssertEqualObjects([json JSONValue], expected, nil);
-    STAssertEqualObjects([expected JSONRepresentation], json, nil);
+    NSDictionary *dict = [file(@"Tests/types/object.plist") propertyList];
+    NSEnumerator *enumerator = [dict keyEnumerator];
+    for (NSString *jsonrep; jsonrep = [enumerator nextObject]; ) {
+        id expected = [dict objectForKey:jsonrep];
+        id json = [jsonrep JSONValue];
+        STAssertTrue([json isKindOfClass:[expected class]], nil);
+        STAssertEqualObjects(json, expected, nil);
+        STAssertEqualObjects([expected JSONRepresentation], jsonrep, nil);
+    }
 }
 
 @end
