@@ -15,7 +15,7 @@
     NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
 
     while (file = [files nextObject]) {
-        if ([[file pathExtension] isEqualToString:@"plist"])
+        if (![[file pathExtension] isEqualToString:@"json"])
             continue;
         
         NSString *jsonPath = [dir stringByAppendingPathComponent:file];
@@ -49,10 +49,11 @@
     NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
 
     while (file = [files nextObject]) {
-        if ([[file pathExtension] isEqualToString:@"plist"])
+        if (![[file pathExtension] isEqualToString:@"json"])
             continue;
         
         NSString *jsonPath = [dir stringByAppendingPathComponent:file];
+        NSLog(jsonPath);
         NSString *plistPath = [[jsonPath stringByDeletingPathExtension] stringByAppendingPathExtension:@"plist"];
         
         NSString *jsonRep = [NSString stringWithContentsOfFile:jsonPath
@@ -82,6 +83,9 @@
     
     NSDictionary *options = [NSDictionary dictionaryWithObject:@"19" forKey:@"MaxDepth"];
     while (file = [files nextObject]) {
+        if (![[file pathExtension] isEqualToString:@"json"])
+            continue;
+
         NSString *json = [NSString stringWithContentsOfFile:[dir stringByAppendingPathComponent:file]
                                                    encoding:NSASCIIStringEncoding
                                                       error:nil];
