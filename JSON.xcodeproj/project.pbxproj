@@ -553,6 +553,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
 				PRODUCT_NAME = json;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -576,6 +577,8 @@
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
 				PRODUCT_NAME = json;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
+				SDKROOT = "";
+				SKIP_INSTALL = NO;
 			};
 			name = Release;
 		};
