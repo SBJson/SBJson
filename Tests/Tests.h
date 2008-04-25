@@ -15,7 +15,9 @@
 @interface Types : SenTestCase
 @end
 
-@interface Errors : SenTestCase
+@interface Errors : SenTestCase {
+    SBJSON *json;
+}
 @end
 
 @interface Examples : SenTestCase

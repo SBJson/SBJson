@@ -14,6 +14,41 @@
 
 @implementation Errors
 
+- (void)setUp {
+    json = [SBJSON new];
+}
+
+- (void)tearDown {
+    [json release];
+}
+
+#pragma mark Generator
+
+- (void)testUnsupportedObject
+{
+    NSError *error = nil;
+    STAssertNil([json stringWithJSON:[NSDate date] error:&error], nil);
+    STAssertNotNil(error, nil);
+}
+
+- (void)testNonStringDictionaryKey
+{
+    NSArray *keys = [NSArray arrayWithObjects:[NSNull null],
+                     [NSNumber numberWithInt:1],
+                     [NSArray array],
+                     [NSDictionary dictionary],
+                     nil];
+    
+    for (int i = 0; i < [keys count]; i++) {
+        NSError *error = nil;
+        NSDictionary *object = [NSDictionary dictionaryWithObject:@"1" forKey:[keys objectAtIndex:i]];
+        STAssertNil([json stringWithJSON:object error:&error], nil);
+        STAssertNotNil(error, nil);
+    }
+}
+
+#pragma mark Scanner
+
 - (void)testTrailingComma
 {
     tn([@"[1,]" JSONValue], @"enovalue");
@@ -54,14 +89,6 @@
     tn([@"{1" JSONValue], @"enostring");
 }
 
-- (void)testDictionaryToJSON
-{
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNull null]] JSONRepresentation], @"enostring");
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSNumber numberWithInt:1]] JSONRepresentation], @"enostring");
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSArray array]] JSONRepresentation], @"enostring");
-    tn([[NSDictionary dictionaryWithObject:@"1" forKey:[NSDictionary dictionary]] JSONRepresentation], @"enostring");
-}
-
 - (void)testSingleQuotedString
 {
     tn([@"['1'" JSONValue], @"enovalue");
@@ -96,11 +123,6 @@
 - (void)testIllegalNumber
 {
     tn([@"+666e-1" JSONValue], @"enojson");
-}
-
-- (void)testNonsupportedObject
-{
-    tn([[NSDate date] JSONFragment], @"unsupported");
 }
 
 - (void)testObjectFromFragment

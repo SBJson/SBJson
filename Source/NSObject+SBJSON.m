@@ -28,231 +28,44 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import "NSObject+SBJSON.h"
-
-typedef struct {
-    unsigned before, after, indent, depth, maxdepth;
-} opts_t;
-
-#define setOpt(x,y,z) if (y && [y objectForKey:z]) x = [[y objectForKey:z] intValue]
-
-static opts_t defaults(NSDictionary *x)
-{
-    opts_t y = {0,};
-    y.maxdepth = 512;
-    setOpt(y.before, x, @"SpaceBefore");
-    setOpt(y.after, x, @"SpaceAfter");
-    setOpt(y.indent, x, @"MultiLine");
-    setOpt(y.before = y.after = y.indent, x, @"Pretty");
-    return y;
-}
-
-@interface NSObject (NSObject_SBJSON_Private)
-- (NSString *)JSONFragmentWithOptions:(opts_t *)x;
-- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json;
-@end
+#import "SBJSON.h"
 
 @implementation NSObject (NSObject_SBJSON)
 
-- (NSString *)JSONFragment
-{
-    opts_t args = defaults(nil);
-    return [self JSONFragmentWithOptions:&args];
+- (NSString *)JSONFragment {
+    SBJSON *generator = [SBJSON new];
+    NSString *json = [generator stringWithJSON:self error:NULL];
+    [generator release];
+    return json;
 }
 
-- (NSString *)JSONFragmentWithOptions:(opts_t *)x
-{
-    NSMutableString *json = [[NSMutableString alloc] initWithCapacity: 256];
-    [self JSONFragmentWithOptions:x into: json];
-
-    if( [json length] < 240 ) {
-        // If the result is shorter than the capacity, copy it to avoid wasting the empty space:
-        NSString *result = [[json copy] autorelease];
-        [json release];
-        return result;
-    } else
-        return [json autorelease];
+- (NSString *)JSONRepresentation {
+    return [self JSONFragment];
 }
 
-- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
-{
-    [NSException raise:@"unsupported"
-                format:@"-JSONFragment not implemented for objects of type '%@'", [self class]];
-}
+- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)x {
+    SBJSON *generator = [SBJSON new];
 
-@end
+    id o;
+    if (o = [x objectForKey:@"SpaceBefore"]) 
+        [generator setSpaceBefore:[o boolValue]];
 
+    if (o = [x objectForKey:@"SpaceAfter"]) 
+        [generator setSpaceAfter:[o boolValue]];
 
-@implementation NSNull (NSObject_SBJSON)
+    if (o = [x objectForKey:@"MultiLine"]) 
+        [generator setMultiLine:[o boolValue]];
 
-- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
-{
-    [json appendString: @"null"];
-}
-
-@end
-
-
-@implementation NSNumber (NSObject_SBJSON)
-
-- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
-{
-    if ('c' != *[self objCType])
-        [json appendString: [self description]];
-    else
-        [json appendString: [self boolValue] ? @"true" : @"false"];
-}
-
-@end
-
-
-@implementation NSString (NSObject_SBJSON)
-
-- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
-{
-    static NSMutableCharacterSet *kEscapeChars;
-    if( ! kEscapeChars ) {
-        kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
-        [kEscapeChars addCharactersInString: @"\"\\"];
+    if (o = [x objectForKey:@"Pretty"]) {
+        BOOL pretty = [o boolValue];
+        [generator setSpaceBefore:pretty];
+        [generator setSpaceAfter:pretty];
+        [generator setMultiLine:pretty];        
     }
     
-    [json appendString: @"\""];
-    
-    NSRange esc = [self rangeOfCharacterFromSet: kEscapeChars];
-    if( esc.length==0 ) {
-        // No special chars -- can just add the raw string:
-        [json appendString: self];
-    } else {
-        for (unsigned i = 0; i < [self length]; i++) {
-            unichar uc = [self characterAtIndex:i];
-            switch (uc) {
-                case '"':   [json appendString:@"\\\""];       break;
-                case '\\':  [json appendString:@"\\\\"];       break;
-                case '\t':  [json appendString:@"\\t"];        break;
-                case '\n':  [json appendString:@"\\n"];        break;
-                case '\r':  [json appendString:@"\\r"];        break;
-                case '\b':  [json appendString:@"\\b"];        break;
-                case '\f':  [json appendString:@"\\f"];        break;
-                default:    
-                    if (uc < 0x20) {
-                        [json appendFormat:@"\\u%04x", uc];
-                    } else {
-                        [json appendFormat:@"%C", uc];
-                    }
-                    break;
-
-            }
-        }
-    }
-    
-    [json appendString:@"\""];
-}
-
-@end
-
-
-@implementation NSArray (NSArray_SBJSON)
-
-- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
-{
-    NSString *open = @"";
-    NSString *close = @"";
-    NSString *sep = x->after ? @", " : @",";
-    if (x->indent) {
-        NSString *indent = [@"" stringByPaddingToLength:x->depth*2 withString:@" " startingAtIndex:0];
-        open = [@"\n  " stringByAppendingString:indent];
-        close = [@"\n" stringByAppendingString:indent];
-        sep = [@",\n  " stringByAppendingString:indent];
-    }
-    
-    [json appendString: @"["];
-    if( x->indent ) [json appendString: open];
-    x->depth++;
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-    unsigned n = [self count];
-    for (int i = 0; i < n; i++) {
-        id item = [self objectAtIndex:i];
-#else
-    int i=-1;
-    for( id item in self ) {
-        i++;
-#endif
-        if( i>0 ) [json appendString: sep];
-        [item JSONFragmentWithOptions:x into: json];
-    }
-    x->depth--;
-    if( x->indent ) [json appendString: close];
-    [json appendString: @"]"];
-}
-
-- (NSString *)JSONRepresentation
-{
-    opts_t args = defaults(nil);
-    return [self JSONFragmentWithOptions:&args];
-}
-
-- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)x
-{
-    opts_t args = defaults(x);
-    return [self JSONFragmentWithOptions:&args];
-}
-
-@end
-
-
-@implementation NSDictionary (NSDictionary_SBJSON)
-
-- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json
-{
-    NSString *open = @"";
-    NSString *close = @"";
-    NSString *sep = x->after ? @", " : @",";
-    if (x->indent) {
-        NSString *indent = [@"" stringByPaddingToLength:x->depth*2 withString:@" " startingAtIndex:0];
-        open = [@"\n  " stringByAppendingString:indent];
-        close = [@"\n" stringByAppendingString:indent];
-        sep = [@",\n  " stringByAppendingString:indent];
-    }
-    
-    [json appendString: @"{"];
-    if( x->indent ) [json appendString: open];
-
-    x->depth++;
-    NSArray *keys = [[self allKeys] sortedArrayUsingSelector:@selector(compare:)];
-#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
-    unsigned n = [keys count];
-    for (int i = 0; i < n; i++) {
-        NSString *key = [keys objectAtIndex:i];
-#else
-    int i=-1;
-    for( NSString *key in keys ) {
-        i++;
-#endif
-        if( i>0 ) [json appendString: sep];
-        if (![key isKindOfClass:[NSString class]])
-            [NSException raise:@"enostring"
-                        format:@"JSON dictionary keys *must* be strings."];
-        [key JSONFragmentWithOptions: x into: json];
-        if( x->before ) [json appendString: @" "];
-        [json appendString: @":"];
-        if( x->after ) [json appendString: @" "];
-        [[self objectForKey:key] JSONFragmentWithOptions:x into: json];
-    }
-    x->depth--;
-    
-    if( x->indent ) [json appendString: close];
-    [json appendString: @"}"];
-}
-
-- (NSString *)JSONRepresentation
-{
-    opts_t args = defaults(nil);
-    return [self JSONFragmentWithOptions:&args];
-}
-
-- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)x
-{
-    opts_t args = defaults(x);
-    return [self JSONFragmentWithOptions:&args];
+    NSString *json = [generator stringWithJSON:self error:NULL];
+    [generator release];
+    return json;
 }
 
 @end

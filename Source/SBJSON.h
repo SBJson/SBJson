@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007, Stig Brautaset. All rights reserved.
+Copyright (C) 2008 Stig Brautaset. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import <Foundation/Foundation.h>
-#import <JSON/SBJSON.h>
-#import <JSON/NSObject+SBJSON.h>
-#import <JSON/NSString+SBJSON.h>
 
+extern NSString * SBJSONErrorDomain;
+
+enum {
+    ENOSUPPORTED = 1,
+    ENOSTRING,
+};
+
+@interface SBJSON : NSObject {
+    unsigned spaceBefore;
+    unsigned spaceAfter;
+    unsigned multiLine;
+    unsigned depth;
+}
+
+- (void)setSpaceBefore:(BOOL)y;
+- (void)setSpaceAfter:(BOOL)y;
+- (void)setMultiLine:(BOOL)y;
+
+- (NSString*)stringWithJSON:(id)value error:(NSError**)error;
+
+@end
