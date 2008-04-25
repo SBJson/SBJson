@@ -34,7 +34,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSString *)JSONFragment {
     SBJSONGenerator *generator = [SBJSONGenerator new];
-    NSString *json = [generator serializeValue:self];
+    NSString *json = [generator stringWithJSON:self error:NULL];
     [generator release];
     return json;
 }
@@ -63,7 +63,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         [generator setMultiLine:pretty];        
     }
     
-    NSString *json = [generator serializeValue:self];
+    NSString *json = [generator stringWithJSON:self error:NULL];
     [generator release];
     return json;
 }
