@@ -3,51 +3,51 @@
 <plist version="1.0">
 <dict>
     <key>5</key>
-	<real>5</real>
+    <real>5</real>
 
     <key>-5</key>
-	<real>-5</real>
+    <real>-5</real>
 
     <key>5e1</key>
-	<real>50</real>
+    <real>50</real>
 
     <key>-333e+0</key>
-	<real>-333</real>
+    <real>-333</real>
 
     <key>2.5</key>
-	<real>2.5</real>
+    <real>2.5</real>
 
     <key>-333e+3</key>
-	<real>-333000</real>
+    <real>-333000</real>
 
     <key>666e-1</key>
-	<real>66.6</real>
-    
+    <real>66.6</real>
+
     <key>-4</key>
-	<real>-4</real>
-    
+    <real>-4</real>
+
     <key>4</key>
-	<real>4</real>
+    <real>4</real>
 
     <key>0.0001</key>
-	<real>0.0001</real>
+    <real>0.0001</real>
 
     <key>10000</key>
-	<real>10000</real>
+    <real>10000</real>
 
     <key>-9999</key>
-	<real>-9999</real>
+    <real>-9999</real>
 
     <key>99.99</key>
-	<real>99.99</real>
+    <real>99.99</real>
 
     <key>98877665544332211009988776655443322110</key>
-	<real>9.8877665544332221e+37</real>
+    <real>9.8877665544332221e+37</real>
 
     <key>1</key>
-	<real>1</real>
+    <real>1</real>
 
     <key>0</key>
-	<real>0</real>
+    <real>0</real>
 </dict>
 </plist>
