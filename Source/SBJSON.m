@@ -115,10 +115,8 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     BOOL addComma = NO;    
     NSString *comma = [self comma];
     NSEnumerator *values = [fragment objectEnumerator];
-    for (id value; value = [values nextObject]; ) {
-        if (!addComma)
-            addComma = YES;
-        else 
+    for (id value; value = [values nextObject]; addComma = YES) {
+        if (addComma)
             [json appendString:comma];
         
         if (multiLine)
@@ -144,11 +142,9 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     NSString *colon = [self colon];
     BOOL addComma = NO;
     NSEnumerator *values = [fragment keyEnumerator];
-    for (id value; value = [values nextObject]; ) {
+    for (id value; value = [values nextObject]; addComma = YES) {
         
-        if (!addComma)
-            addComma = YES;
-        else 
+        if (addComma)
             [json appendString:comma];
 
         if (multiLine)
