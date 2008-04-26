@@ -109,12 +109,6 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 }
 
 - (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json error:(NSError**)error {
-    // Empty array? Well that's easy!
-    if (![fragment count]) {
-        [json appendString:@"[]"];
-        return YES;
-    }
-    
     [json appendString:@"["];
     depth++;
     
@@ -136,18 +130,13 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     }
 
     depth--;
-    if (multiLine) [json appendString:[self indent]];
+    if (multiLine && [fragment count])
+        [json appendString:[self indent]];
     [json appendString:@"]"];
     return YES;
 }
 
 - (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json error:(NSError**)error {
-    // Empty dictionary? Easy peasy!
-    if (![fragment count]) {
-        [json appendString:@"{}"];
-        return YES;
-    }
-        
     [json appendString:@"{"];
     depth++;
 
@@ -182,7 +171,8 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     }
 
     depth--;
-    if (multiLine) [json appendString:[self indent]];
+    if (multiLine && [fragment count])
+        [json appendString:[self indent]];
     [json appendString:@"}"];
     return YES;    
 }
