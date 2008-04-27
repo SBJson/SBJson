@@ -18,15 +18,7 @@
 		53D229A20C9612E000276605 /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D229A10C9612E000276605 /* Types.m */; };
 		53D229AD0C961B9900276605 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D229810C96121600276605 /* JSON.framework */; };
 		53EF4D4E0DC2483C005F5E6D /* bench.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EF4D4D0DC2483C005F5E6D /* bench.m */; };
-		53EF4D950DC2572F005F5E6D /* JSON.h in Sources */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; };
-		53EF4D960DC2572F005F5E6D /* SBJSON.h in Sources */ = {isa = PBXBuildFile; fileRef = 539191D00DBB896D00714DA2 /* SBJSON.h */; };
-		53EF4D970DC2572F005F5E6D /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 539191D10DBB896D00714DA2 /* SBJSON.m */; };
-		53EF4D980DC2572F005F5E6D /* NSObject+SBJSON.h in Sources */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+SBJSON.h */; };
-		53EF4D990DC2572F005F5E6D /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+SBJSON.m */; };
-		53EF4D9A0DC2572F005F5E6D /* NSString+SBJSON.h in Sources */ = {isa = PBXBuildFile; fileRef = E757164B0C96E39B0084A449 /* NSString+SBJSON.h */; };
-		53EF4D9B0DC2572F005F5E6D /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E757164C0C96E39B0084A449 /* NSString+SBJSON.m */; };
-		53EF4D9C0DC2572F005F5E6D /* SBJSONScanner.h in Sources */ = {isa = PBXBuildFile; fileRef = 539066090D828B8B0022B8B8 /* SBJSONScanner.h */; };
-		53EF4D9D0DC2572F005F5E6D /* SBJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5390660A0D828B8B0022B8B8 /* SBJSONScanner.m */; };
+		53EF4F9F0DC52FEB005F5E6D /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2BBD800D8B0D3900184787 /* libjson.a */; };
 		E7153EE90CAAABDB00054ADB /* Pretty.m in Sources */ = {isa = PBXBuildFile; fileRef = E7153EE80CAAABDB00054ADB /* Pretty.m */; };
 		E75716450C96DB530084A449 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E75716460C96DB530084A449 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+SBJSON.m */; };
@@ -52,6 +44,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 53D229800C96121600276605;
 			remoteInfo = JSON;
+		};
+		53EF4F960DC52FD0005F5E6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 53D229730C9611FF00276605 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FE2BBD7F0D8B0D3900184787 /* json */;
+			remoteInfo = json;
 		};
 		FE2BBDB30D8B0F0F00184787 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -108,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53EF4F9F0DC52FEB005F5E6D /* libjson.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +266,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				53EF4F970DC52FD0005F5E6D /* PBXTargetDependency */,
 			);
 			name = bench;
 			productName = bench;
@@ -410,15 +411,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53EF4D950DC2572F005F5E6D /* JSON.h in Sources */,
-				53EF4D960DC2572F005F5E6D /* SBJSON.h in Sources */,
-				53EF4D970DC2572F005F5E6D /* SBJSON.m in Sources */,
-				53EF4D980DC2572F005F5E6D /* NSObject+SBJSON.h in Sources */,
-				53EF4D990DC2572F005F5E6D /* NSObject+SBJSON.m in Sources */,
-				53EF4D9A0DC2572F005F5E6D /* NSString+SBJSON.h in Sources */,
-				53EF4D9B0DC2572F005F5E6D /* NSString+SBJSON.m in Sources */,
-				53EF4D9C0DC2572F005F5E6D /* SBJSONScanner.h in Sources */,
-				53EF4D9D0DC2572F005F5E6D /* SBJSONScanner.m in Sources */,
 				53EF4D4E0DC2483C005F5E6D /* bench.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -452,6 +444,11 @@
 			isa = PBXTargetDependency;
 			target = 53D229800C96121600276605 /* JSON */;
 			targetProxy = 53D229920C96122E00276605 /* PBXContainerItemProxy */;
+		};
+		53EF4F970DC52FD0005F5E6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FE2BBD7F0D8B0D3900184787 /* json */;
+			targetProxy = 53EF4F960DC52FD0005F5E6D /* PBXContainerItemProxy */;
 		};
 		FE2BBDB40D8B0F0F00184787 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -614,8 +611,8 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
-					"-framework",
-					AppKit,
+					"-ObjC",
+					"-ljson",
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = bench;
@@ -637,8 +634,8 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
-					"-framework",
-					AppKit,
+					"-ObjC",
+					"-ljson",
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = bench;
