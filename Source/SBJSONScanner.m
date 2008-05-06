@@ -62,8 +62,8 @@ NSString *const enumber = @"enumber";
 NSString *const estring = @"estring";
 NSString *const evalue  = @"evalue";
 
-#define skipWhitespace() while (isspace(*c)) c++
-#define skipDigits() while (isdigit(*c)) c++
+#define skipWhitespace(c) while (isspace(*c)) c++
+#define skipDigits(c) while (isdigit(*c)) c++
 
 @implementation SBJSONScanner
 
@@ -103,13 +103,13 @@ static char ctrl[0x22];
 
 - (BOOL)isAtEnd
 {
-    skipWhitespace();
+    skipWhitespace(c);
     return !*c;
 }
 
 - (BOOL)scanValue:(NSObject **)o
 {
-    skipWhitespace();
+    skipWhitespace(c);
     
     switch (*c++) {
         case '{':
@@ -178,7 +178,7 @@ static char ctrl[0x22];
 
 - (BOOL)scanArray:(NSArray **)o
 {
-    skipWhitespace();
+    skipWhitespace(c);
     if (*c == '[' && c++)
         return [self scanRestOfArray:(NSMutableArray **)o];
     return NO;
@@ -191,7 +191,7 @@ static char ctrl[0x22];
     
     *o = [NSMutableArray arrayWithCapacity:8];
     
-    skipWhitespace();
+    skipWhitespace(c);
     if (*c == ']' && c++) {
         depth--;
         return YES;
@@ -204,7 +204,7 @@ static char ctrl[0x22];
         
         [*o addObject:v];
         
-        skipWhitespace();
+        skipWhitespace(c);
         if (*c == ']' && c++) {
             depth--;
             return YES;
@@ -217,7 +217,7 @@ static char ctrl[0x22];
 
 - (BOOL)scanDictionary:(NSDictionary **)o
 {
-    skipWhitespace();
+    skipWhitespace(c);
     if (*c == '{' && c++)
         return [self scanRestOfDictionary:(NSMutableDictionary **)o];
     return NO;
@@ -231,7 +231,7 @@ static char ctrl[0x22];
 
     *o = [NSMutableDictionary dictionaryWithCapacity:7];
     
-    skipWhitespace();
+    skipWhitespace(c);
     if (*c == '}' && c++) {
         depth--;
         return YES;
@@ -240,11 +240,11 @@ static char ctrl[0x22];
     do {
         id k, v;
 
-        skipWhitespace();
+        skipWhitespace(c);
         if (!(*c == '\"' && c++ && [self scanRestOfString:&k]))
             [self raise:enostring format:@"Expected string for dictionary key"];
         
-        skipWhitespace();
+        skipWhitespace(c);
         if (*c != ':')
             [self raise:enocolon format:@"Expected ':' separating dictionary pair"];
 
@@ -254,7 +254,7 @@ static char ctrl[0x22];
 
         [*o setObject:v forKey:k];
 
-        skipWhitespace();
+        skipWhitespace(c);
         if (*c == '}' && c++) {
             depth--;
             return YES;
@@ -399,7 +399,7 @@ static char ctrl[0x22];
         return NO;
         
     } else {
-        skipDigits();
+        skipDigits(c);
     }
     
     // Fractional part
@@ -409,7 +409,7 @@ static char ctrl[0x22];
             [self raise:enumber format:@"No digits after decimal point"];
             return NO;
         }        
-        skipDigits();
+        skipDigits(c);
     }
     
     // Exponential part
@@ -423,7 +423,7 @@ static char ctrl[0x22];
             [self raise:enumber format:@"No digits after exponent"];
             return NO;
         }
-        skipDigits();
+        skipDigits(c);
     }
     
     id str = [[NSString alloc] initWithBytesNoCopy:(char*)ns
