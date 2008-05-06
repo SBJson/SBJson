@@ -111,36 +111,32 @@ static char ctrl[0x22];
 {
     skipWhitespace();
     
-    switch (*c) {
+    switch (*c++) {
         case '{':
-            c++;
             return [self scanRestOfDictionary:(NSMutableDictionary **)o];
             break;
         case '[':
-            c++;
             return [self scanRestOfArray:(NSMutableArray **)o];
             break;
         case '"':
-            c++;
             return [self scanRestOfString:(NSMutableString **)o];
             break;
         case 'f':
-            c++;
             return [self scanRestOfFalse:(NSNumber **)o];
             break;
         case 't':
-            c++;
             return [self scanRestOfTrue:(NSNumber **)o];
             break;
         case 'n':
-            c++;
             return [self scanRestOfNull:(NSNull **)o];
             break;
         case '-':
         case '0'...'9':
+            c--; // cannot verify number correctly without the first character
             return [self scanNumber:(NSNumber **)o];
             break;
         default:
+            c--;
             [self raise:enovalue format:@"Unrecognised leading character"];
             return NO;
             break;
