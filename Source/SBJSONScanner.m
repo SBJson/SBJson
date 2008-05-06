@@ -145,7 +145,8 @@ static char ctrl[0x22];
 
 - (BOOL)scanRestOfTrue:(NSNumber **)o
 {
-    if (*c == 'r' && *++c == 'u' && *++c == 'e' && c++) {
+    if (!strncmp(c, "rue", 3)) {
+        c += 3;
         *o = [NSNumber numberWithBool:YES];
         return YES;
     }
@@ -155,7 +156,8 @@ static char ctrl[0x22];
 
 - (BOOL)scanRestOfFalse:(NSNumber **)o
 {
-    if (*c == 'a' && *++c == 'l' && *++c == 's' && *++c == 'e' && c++) {
+    if (!strncmp(c, "alse", 4)) {
+        c += 4;
         *o = [NSNumber numberWithBool:NO];
         return YES;
     }
@@ -165,7 +167,8 @@ static char ctrl[0x22];
 
 - (BOOL)scanRestOfNull:(NSNull **)o
 {
-    if (*c == 'u' && *++c == 'l' && *++c == 'l' && c++) {
+    if (!strncmp(c, "ull", 3)) {
+        c += 3;
         *o = [NSNull null];
         return YES;
     }
