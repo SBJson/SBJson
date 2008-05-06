@@ -109,22 +109,14 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 }
 
 - (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json error:(NSError**)error {
-    // Empty array? Well that's easy!
-    if (![fragment count]) {
-        [json appendString:@"[]"];
-        return YES;
-    }
-    
     [json appendString:@"["];
     depth++;
     
     BOOL addComma = NO;    
     NSString *comma = [self comma];
     NSEnumerator *values = [fragment objectEnumerator];
-    for (id value; value = [values nextObject]; ) {
-        if (!addComma)
-            addComma = YES;
-        else 
+    for (id value; value = [values nextObject]; addComma = YES) {
+        if (addComma)
             [json appendString:comma];
         
         if (multiLine)
@@ -136,18 +128,13 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     }
 
     depth--;
-    if (multiLine) [json appendString:[self indent]];
+    if (multiLine && [fragment count])
+        [json appendString:[self indent]];
     [json appendString:@"]"];
     return YES;
 }
 
 - (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json error:(NSError**)error {
-    // Empty dictionary? Easy peasy!
-    if (![fragment count]) {
-        [json appendString:@"{}"];
-        return YES;
-    }
-        
     [json appendString:@"{"];
     depth++;
 
@@ -155,11 +142,9 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     NSString *colon = [self colon];
     BOOL addComma = NO;
     NSEnumerator *values = [fragment keyEnumerator];
-    for (id value; value = [values nextObject]; ) {
+    for (id value; value = [values nextObject]; addComma = YES) {
         
-        if (!addComma)
-            addComma = YES;
-        else 
+        if (addComma)
             [json appendString:comma];
 
         if (multiLine)
@@ -182,7 +167,8 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     }
 
     depth--;
-    if (multiLine) [json appendString:[self indent]];
+    if (multiLine && [fragment count])
+        [json appendString:[self indent]];
     [json appendString:@"}"];
     return YES;    
 }
