@@ -78,7 +78,10 @@
 
 - (void)testMissingSeparator
 {
-    tn([@"{\"a\"" JSONValue], @"enocolon");
+    NSError *error;
+    STAssertNil([json objectWithString:@"{\"a\"" error:&error], nil);
+    STAssertNotNil(error, @"error has been set");
+    assertErrorContains(error, @"Expected ':'");
 }
 
 - (void)testDictionaryFromJSON
@@ -109,7 +112,7 @@
         NSError *err = nil;
         STAssertNil([json fragmentWithString:fragment error:&err], fragment);
         STAssertNotNil(err, @"error has been set");
-        assertErrorContains(err, @"Valid fragment");
+        assertErrorContains(err, @"Unrecognised leading character");
     }
 }
 

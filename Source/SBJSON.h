@@ -36,7 +36,8 @@ enum {
     ENOSTRING,
     EFRAGMENT,
     ELEADINGCHAR,
-    UNRECOGNISEDCTRL
+    UNRECOGNISEDCTRL,
+    ENOCOLON,
 };
 
 @interface SBJSON : NSObject {

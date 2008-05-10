@@ -249,8 +249,13 @@ static char ctrl[0x22];
             [self raise:enostring format:@"Expected string for dictionary key"];
         
         skipWhitespace(c);
-        if (*c != ':')
-            [self raise:enocolon format:@"Expected ':' separating dictionary pair"];
+        if (*c != ':') {
+            if (error) {
+                NSDictionary *ui = [NSDictionary dictionaryWithObject:@"Expected ':' separating key and value" forKey:NSLocalizedDescriptionKey];
+                *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOCOLON userInfo:ui];
+            }
+            return NO;
+        }
 
         c++;
         if (![self scanValue:&v error:error])
