@@ -28,6 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import "SBJSON.h"
+#import "SBJSONScanner.h"
 
 NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
@@ -46,6 +47,13 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
 
 @implementation SBJSON
+
+- (id)init {
+    if (self = [super init]) {
+        [self setMaxDepth:512];
+    }
+    return self;
+}
 
 #pragma mark Generator
 
@@ -215,6 +223,40 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     return YES;
 }
 
+#pragma mark Scanner
+
+- (id)fragmentWithString:(NSString*)repr error:(NSError**)error {
+    id o;
+    SBJSONScanner *scanner = [[SBJSONScanner alloc] initWithString:repr];
+    [scanner setMaxDepth:[self maxDepth]];
+
+    NSError *err;
+    BOOL success = [scanner scanValue:&o error:&err] && [scanner isAtEnd];
+    [scanner release];
+    
+    if (success)
+        return o;
+    if (error)
+        *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:nil];
+    return nil;
+}
+
+- (id)objectWithString:(NSString*)repr error:(NSError**)error {
+    
+    id o = [self fragmentWithString:repr error:error];
+
+    if ([o isKindOfClass:[NSDictionary class]] || [o isKindOfClass:[NSArray class]])
+        return o;
+
+    if (o && error) {
+        NSString *val = [NSString stringWithFormat:@"Valid fragment of type '%@', but not strictly valid JSON.", [o className]];
+        NSDictionary *ui = [NSDictionary dictionaryWithObject:val forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:SBJSONErrorDomain code:EFRAGMENT userInfo:ui];
+        return nil;
+    }
+    return o;
+}
+
 #pragma mark Properties
 
 - (BOOL)spaceBefore {
@@ -239,6 +281,14 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
 - (void)setMultiLine:(BOOL)y {
     multiLine = y;
+}
+
+- (unsigned)maxDepth {
+    return maxDepth;
+}
+
+- (void)setMaxDepth:(unsigned)y {
+    maxDepth = y;
 }
 
 @end

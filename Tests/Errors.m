@@ -12,6 +12,10 @@
 #define tn(expr, name) \
     STAssertThrowsSpecificNamed(expr, NSException, name, @"ieee!")
 
+#define assertErrorContains(e, s) \
+    (void)"dummy"
+//    STAssertTrue([[[e userInfo] objectForKey:NSLocalizedDescriptionKey] hasPrefix:s], nil)
+
 @implementation Errors
 
 - (void)setUp {
@@ -98,18 +102,26 @@
 
 - (void)testGarbage
 {
-    tn([@"'1'" JSONValue], @"enojson");
-    tn([@"'hello'" JSONValue], @"enojson");
-    tn([@"\"" JSONValue], @"enojson");
-    tn([@"\"hello" JSONValue], @"enojson");
-    tn([@"" JSONValue], @"enojson");
-    tn([@"**" JSONValue], @"enojson");
+    NSArray *fragments = [@"'1' 'hello' \" \"hello ** " componentsSeparatedByString:@" "];
+    for (int i = 0; i < [fragments count]; i++) {
+        NSString *fragment = [fragments objectAtIndex:i];
+        
+        NSError *err = nil;
+        STAssertNil([json fragmentWithString:fragment error:&err], fragment);
+        STAssertNotNil(err, @"error has been set");
+        assertErrorContains(err, @"Valid fragment");
+    }
 }
 
 - (void)testUnescapedControlChar
 {
-    for (unsigned i = 0; i < 0x20; i++)
-        tn(([[NSString stringWithFormat:@"\"%C\"", i] JSONFragmentValue]), @"estring");
+    for (unsigned i = 0; i < 0x20; i++) {
+        NSError *err = nil;
+        NSString *str = [NSString stringWithFormat:@"\"%C\"", i];
+        STAssertNil([json fragmentWithString:str error:&err], nil);
+        STAssertNotNil(err, @"error has been set");
+        assertErrorContains(err, @"Unescaped control character");
+    }
 }
 
 - (void)testBrokenSurrogatePairs
@@ -122,18 +134,26 @@
 
 - (void)testIllegalNumber
 {
-    tn([@"+666e-1" JSONValue], @"enojson");
+    NSError *err = nil;
+    STAssertNil([json fragmentWithString:@"+666e-1" error:&err], nil);
+    STAssertNotNil(err, nil);
+
+    // XXX: Should eventually be something like "Leading + not allowed in numbers"
+    assertErrorContains(err, @"Unrecognised leading character");
 }
 
 - (void)testObjectFromFragment
 {
-    tn([@"true" JSONValue], @"enojson");
-    tn([@"false" JSONValue], @"enojson");
-    tn([@"null" JSONValue], @"enojson");
-    tn([@"1" JSONValue], @"enojson");
-    tn([@"1.0" JSONValue], @"enojson");
-    tn([@"\"string\"" JSONValue], @"enojson");
-}
+    
+    NSArray *fragments = [@"true false null 1 1.0 \"str\"" componentsSeparatedByString:@" "];
+    for (int i = 0; i < [fragments count]; i++) {
+        NSString *fragment = [fragments objectAtIndex:i];
 
+        NSError *err = nil;
+        STAssertNil([json objectWithString:fragment error:&err], fragment);
+        STAssertNotNil(err, @"error has been set");
+        assertErrorContains(err, @"Valid fragment");
+    }
+}
 
 @end

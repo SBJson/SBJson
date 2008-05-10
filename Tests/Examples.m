@@ -93,7 +93,7 @@
             STAssertNoThrow([json JSONValueWithOptions:options], nil);
             
         } else {
-            STAssertThrows([json JSONValueWithOptions:options], nil);
+            STAssertThrows([json JSONValueWithOptions:options], json);
         }
     }
 }

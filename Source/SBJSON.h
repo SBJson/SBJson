@@ -34,6 +34,9 @@ extern NSString * SBJSONErrorDomain;
 enum {
     ENOSUPPORTED = 1,
     ENOSTRING,
+    EFRAGMENT,
+    ELEADINGCHAR,
+    UNRECOGNISEDCTRL
 };
 
 @interface SBJSON : NSObject {
@@ -42,6 +45,7 @@ enum {
     BOOL multiLine;
 
     unsigned depth;
+    unsigned maxDepth;
 }
 
 - (BOOL)spaceBefore;
@@ -53,6 +57,12 @@ enum {
 - (BOOL)multiLine;
 - (void)setMultiLine:(BOOL)y;
 
+- (unsigned)maxDepth;
+- (void)setMaxDepth:(unsigned)y;
+
 - (NSString*)stringWithJSON:(id)value error:(NSError**)error;
+
+- (id)fragmentWithString:(NSString*)jsonrep error:(NSError**)error;
+- (id)objectWithString:(NSString*)jsonrep error:(NSError**)error;
 
 @end

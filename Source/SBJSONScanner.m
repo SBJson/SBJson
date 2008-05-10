@@ -27,22 +27,23 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#import "SBJSON.h"
 #import "SBJSONScanner.h"
 
 @interface SBJSONScanner (Private)
 
-- (BOOL)scanRestOfArray:(NSMutableArray **)o;
-- (BOOL)scanRestOfDictionary:(NSMutableDictionary **)o;
-- (BOOL)scanRestOfNull:(NSNull **)o;
-- (BOOL)scanRestOfFalse:(NSNumber **)o;
-- (BOOL)scanRestOfTrue:(NSNumber **)o;
-- (BOOL)scanRestOfString:(NSMutableString **)o;
+- (BOOL)scanRestOfArray:(NSMutableArray **)o error:(NSError **)error;
+- (BOOL)scanRestOfDictionary:(NSMutableDictionary **)o error:(NSError **)error;
+- (BOOL)scanRestOfNull:(NSNull **)o error:(NSError **)error;
+- (BOOL)scanRestOfFalse:(NSNumber **)o error:(NSError **)error;
+- (BOOL)scanRestOfTrue:(NSNumber **)o error:(NSError **)error;
+- (BOOL)scanRestOfString:(NSMutableString **)o error:(NSError **)error;
 
 // Cannot manage without looking at the first digit
-- (BOOL)scanNumber:(NSNumber **)o;
+- (BOOL)scanNumber:(NSNumber **)o error:(NSError **)error;
 
-- (BOOL)scanHexQuad:(unichar *)x;
-- (BOOL)scanUnicodeChar:(unichar *)x;
+- (BOOL)scanHexQuad:(unichar *)x error:(NSError **)error;
+- (BOOL)scanUnicodeChar:(unichar *)x error:(NSError **)error;
 
 - (void)log:(NSString *)x;
 
@@ -107,43 +108,46 @@ static char ctrl[0x22];
     return !*c;
 }
 
-- (BOOL)scanValue:(NSObject **)o
+- (BOOL)scanValue:(NSObject **)o error:(NSError **)error
 {
     skipWhitespace(c);
     
     switch (*c++) {
         case '{':
-            return [self scanRestOfDictionary:(NSMutableDictionary **)o];
+            return [self scanRestOfDictionary:(NSMutableDictionary **)o error:error];
             break;
         case '[':
-            return [self scanRestOfArray:(NSMutableArray **)o];
+            return [self scanRestOfArray:(NSMutableArray **)o error:error];
             break;
         case '"':
-            return [self scanRestOfString:(NSMutableString **)o];
+            return [self scanRestOfString:(NSMutableString **)o error:error];
             break;
         case 'f':
-            return [self scanRestOfFalse:(NSNumber **)o];
+            return [self scanRestOfFalse:(NSNumber **)o error:error];
             break;
         case 't':
-            return [self scanRestOfTrue:(NSNumber **)o];
+            return [self scanRestOfTrue:(NSNumber **)o error:error];
             break;
         case 'n':
-            return [self scanRestOfNull:(NSNull **)o];
+            return [self scanRestOfNull:(NSNull **)o error:error];
             break;
         case '-':
         case '0'...'9':
             c--; // cannot verify number correctly without the first character
-            return [self scanNumber:(NSNumber **)o];
+            return [self scanNumber:(NSNumber **)o error:error];
             break;
         default:
             c--;
-            [self raise:enovalue format:@"Unrecognised leading character"];
+            if (error) {
+                NSDictionary *ui = [NSDictionary dictionaryWithObject:@"Unrecognised leading character" forKey:NSLocalizedDescriptionKey];
+                *error = [NSError errorWithDomain:SBJSONErrorDomain code:ELEADINGCHAR userInfo:ui];
+            }
             return NO;
             break;
     }
 }
 
-- (BOOL)scanRestOfTrue:(NSNumber **)o
+- (BOOL)scanRestOfTrue:(NSNumber **)o error:(NSError **)error
 {
     if (!strncmp(c, "rue", 3)) {
         c += 3;
@@ -154,7 +158,7 @@ static char ctrl[0x22];
     return NO;
 }
 
-- (BOOL)scanRestOfFalse:(NSNumber **)o
+- (BOOL)scanRestOfFalse:(NSNumber **)o error:(NSError **)error
 {
     if (!strncmp(c, "alse", 4)) {
         c += 4;
@@ -165,7 +169,7 @@ static char ctrl[0x22];
     return NO;
 }
 
-- (BOOL)scanRestOfNull:(NSNull **)o
+- (BOOL)scanRestOfNull:(NSNull **)o error:(NSError **)error
 {
     if (!strncmp(c, "ull", 3)) {
         c += 3;
@@ -176,15 +180,15 @@ static char ctrl[0x22];
     return NO;
 }
 
-- (BOOL)scanArray:(NSArray **)o
+- (BOOL)scanArray:(NSArray **)o error:(NSError **)error
 {
     skipWhitespace(c);
     if (*c == '[' && c++)
-        return [self scanRestOfArray:(NSMutableArray **)o];
+        return [self scanRestOfArray:(NSMutableArray **)o error:error];
     return NO;
 }
 
-- (BOOL)scanRestOfArray:(NSMutableArray **)o
+- (BOOL)scanRestOfArray:(NSMutableArray **)o error:(NSError **)error
 {
     if (maxDepth && ++depth > maxDepth)
         [self raise:etoodeep format:@"Nested too deep"];
@@ -199,7 +203,7 @@ static char ctrl[0x22];
     
     do {
         id v;
-        if (![self scanValue:&v])
+        if (![self scanValue:&v error:nil])
             [self raise:enovalue format:@"Expected value while parsing array"];
         
         [*o addObject:v];
@@ -215,16 +219,16 @@ static char ctrl[0x22];
     [self raise:enocomma format:@"Expected , or ] while parsing array"];
 }
 
-- (BOOL)scanDictionary:(NSDictionary **)o
+- (BOOL)scanDictionary:(NSDictionary **)o error:(NSError **)error
 {
     skipWhitespace(c);
     if (*c == '{' && c++)
-        return [self scanRestOfDictionary:(NSMutableDictionary **)o];
+        return [self scanRestOfDictionary:(NSMutableDictionary **)o error:error];
     return NO;
 }
 
 
-- (BOOL)scanRestOfDictionary:(NSMutableDictionary **)o
+- (BOOL)scanRestOfDictionary:(NSMutableDictionary **)o error:(NSError **)error
 {
     if (maxDepth && ++depth > maxDepth)
         [self raise:etoodeep format:@"Nested too deep"];
@@ -241,7 +245,7 @@ static char ctrl[0x22];
         id k, v;
 
         skipWhitespace(c);
-        if (!(*c == '\"' && c++ && [self scanRestOfString:&k]))
+        if (!(*c == '\"' && c++ && [self scanRestOfString:&k error:error]))
             [self raise:enostring format:@"Expected string for dictionary key"];
         
         skipWhitespace(c);
@@ -249,7 +253,7 @@ static char ctrl[0x22];
             [self raise:enocolon format:@"Expected ':' separating dictionary pair"];
 
         c++;
-        if (![self scanValue:&v])
+        if (![self scanValue:&v error:error])
             [self raise:enovalue format:@"Expected value part of dictionary pair"];
 
         [*o setObject:v forKey:k];
@@ -265,7 +269,7 @@ static char ctrl[0x22];
     [self raise:enocomma format:@"Expected , or } while parsing dictionary"];
 }
 
-- (BOOL)scanRestOfString:(NSMutableString **)o
+- (BOOL)scanRestOfString:(NSMutableString **)o error:(NSError **)error
 {
     *o = [NSMutableString stringWithCapacity:16];
     do {
@@ -305,7 +309,7 @@ static char ctrl[0x22];
 
                 case 'u':
                     c++;
-                    if (![self scanUnicodeChar:&uc]) {
+                    if (![self scanUnicodeChar:&uc error:error]) {
                         [self raise:estring format:@"Broken unicode escape sequence"];
                         return NO;
                     }
@@ -320,7 +324,11 @@ static char ctrl[0x22];
             c++;
 
         } else if (*c < 0x20) {
-            [self raise:estring format:[NSString stringWithFormat:@"Found unescaped control character '0x%x'", *c]];
+            if (error) {
+                NSString *err = [NSString stringWithFormat:@"Found unescaped control character '0x%x'", *c];
+                NSDictionary *ui = [NSDictionary dictionaryWithObject:err forKey:NSLocalizedDescriptionKey];
+                *error = [NSError errorWithDomain:SBJSONErrorDomain code:UNRECOGNISEDCTRL userInfo:ui];
+            }
             return NO;
 
         } else {
@@ -332,17 +340,17 @@ static char ctrl[0x22];
     return NO;
 }
 
-- (BOOL)scanUnicodeChar:(unichar *)x
+- (BOOL)scanUnicodeChar:(unichar *)x error:(NSError **)error
 {
     unichar hi, lo;
     
-    if (![self scanHexQuad:&hi])
+    if (![self scanHexQuad:&hi error:error])
         return NO;
     
     if (hi >= 0xd800) {     // high surrogate char?
         if (hi < 0xdc00) {  // yes - expect a low char
             
-            if (!(*c == '\\' && ++c && *c == 'u' && ++c && [self scanHexQuad:&lo]))
+            if (!(*c == '\\' && ++c && *c == 'u' && ++c && [self scanHexQuad:&lo error:error]))
                 [self raise:@"no_low_surrogate_char" format:@"Missing low character in surrogate pair"];
             
             if (lo < 0xdc00 || lo >= 0xdfff) 
@@ -359,7 +367,7 @@ static char ctrl[0x22];
     return YES;
 }
 
-- (BOOL)scanHexQuad:(unichar *)x
+- (BOOL)scanHexQuad:(unichar *)x error:(NSError **)error
 {
     *x = 0;
     for (int i = 0; i < 4; i++) {
@@ -377,7 +385,7 @@ static char ctrl[0x22];
     return YES;
 }
 
-- (BOOL)scanNumber:(NSNumber **)o
+- (BOOL)scanNumber:(NSNumber **)o error:(NSError **)error
 {
     const char *ns = c;
     
