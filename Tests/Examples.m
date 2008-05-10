@@ -76,7 +76,7 @@
 }
 
 
-- (void)testJsonChecker {
+- (void)XtestJsonChecker {
     NSString *file, *dir = @"Tests/jsonchecker";
     NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
     
