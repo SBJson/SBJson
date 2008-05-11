@@ -56,7 +56,11 @@
 - (void)testTrailingComma
 {
     tn([@"[1,]" JSONValue], @"enovalue");
-    tn([@"{\"a\":1,}" JSONValue], @"enostring");
+
+    NSError *error = nil;
+    STAssertNil([json objectWithString:@"{\"a\":1,}" error:&error], nil);
+    STAssertNotNil(error, nil);
+    assertErrorContains(error, @"Trailing comma disallowed");
 }
 
 - (void)testMissingComma
@@ -68,10 +72,17 @@
 
 - (void)testMissingValue
 {
+    NSArray *fragments = [@"{\"a\":1,, {\"a\":1," componentsSeparatedByString:@" "];
+    for (int i = 0; i < [fragments count]; i++) {
+        NSString *fragment = [fragments objectAtIndex:i];
+        
+        NSError *error = nil;
+        STAssertNil([json objectWithString:@"" error:&error], nil);
+        STAssertNotNil(error, nil);
+        assertErrorContains(error, @"Unexpected comma");
+    }
+    
     tn([@"[1,," JSONValue], @"enovalue");
-
-    tn([@"{\"a\":1,," JSONValue], @"enostring");
-    tn([@"{\"a\":1," JSONValue], @"enostring");
     tn([@"{\"a\":}" JSONValue], @"enovalue");
     tn([@"{\"a\":" JSONValue], @"enovalue");
 }
@@ -84,22 +95,22 @@
     assertErrorContains(error, @"Expected ':'");
 }
 
-- (void)testDictionaryFromJSON
+- (void)testNoStringKey
 {
-    tn([@"{" JSONValue], @"enostring");
-    tn([@"{a" JSONValue], @"enostring");
-    tn([@"{null" JSONValue], @"enostring");
-    tn([@"{false" JSONValue], @"enostring");
-    tn([@"{true" JSONValue], @"enostring");
-    tn([@"{{}" JSONValue], @"enostring");
-    tn([@"{[]" JSONValue], @"enostring");
-    tn([@"{1" JSONValue], @"enostring");
+    NSArray *fragments = [@"{ {a {null {false {true {{} {[] {1" componentsSeparatedByString:@" "];
+    for (int i = 0; i < [fragments count]; i++) {
+        NSString *fragment = [fragments objectAtIndex:i];
+        
+        NSError *err = nil;
+        STAssertNil([json objectWithString:fragment error:&err], fragment);
+        STAssertNotNil(err, @"error has been set");
+        assertErrorContains(err, @"Dictionary key must be string");
+    }
 }
 
 - (void)testSingleQuotedString
 {
     tn([@"['1'" JSONValue], @"enovalue");
-    tn([@"{'1'" JSONValue], @"enostring");
     tn([@"{\"a\":'1'" JSONValue], @"enovalue");
 }
 
@@ -146,8 +157,7 @@
 }
 
 - (void)testObjectFromFragment
-{
-    
+{    
     NSArray *fragments = [@"true false null 1 1.0 \"str\"" componentsSeparatedByString:@" "];
     for (int i = 0; i < [fragments count]; i++) {
         NSString *fragment = [fragments objectAtIndex:i];

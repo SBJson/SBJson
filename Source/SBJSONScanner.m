@@ -245,8 +245,13 @@ static char ctrl[0x22];
         id k, v;
 
         skipWhitespace(c);
-        if (!(*c == '\"' && c++ && [self scanRestOfString:&k error:error]))
-            [self raise:enostring format:@"Expected string for dictionary key"];
+        if (!(*c == '\"' && c++ && [self scanRestOfString:&k error:error])) {
+            if (error) {
+                NSDictionary *ui = [NSDictionary dictionaryWithObject:@"Dictionary key must be string" forKey:NSLocalizedDescriptionKey];
+                *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOCOLON userInfo:ui];
+            }
+            return NO;
+        }
         
         skipWhitespace(c);
         if (*c != ':') {
