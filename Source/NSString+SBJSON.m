@@ -43,7 +43,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             [json setMaxDepth:[opt intValue]];
     }
     
-    NSError *error;
+    NSError *error = nil;
     id o = [json fragmentWithString:self error:&error];
     if (!o)
         NSLog(@"%@", error);
@@ -61,7 +61,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             [json setMaxDepth:[opt intValue]];
     }
     
-    NSError *error;
+    NSError *error = nil;
     id o = [json objectWithString:self error:&error];
     if (!o)
         NSLog(@"%@", error);

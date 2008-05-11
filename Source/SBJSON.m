@@ -32,6 +32,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
+#define ui(s) [NSDictionary dictionaryWithObject:s forKey:NSLocalizedDescriptionKey]
+
 @interface SBJSON (Private)
 
 - (BOOL)appendValue:(id)fragment into:(NSMutableString*)json error:(NSError**)error;
@@ -231,30 +233,44 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     [scanner setMaxDepth:[self maxDepth]];
 
     NSError *err;
-    BOOL success = [scanner scanValue:&o error:&err] && [scanner isAtEnd];
+    BOOL success = [scanner scanValue:&o error:&err];
+    
+    if (success && ![scanner isAtEnd]) {
+        err = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:ui(@"Garbage after JSON fragment")];
+        success = NO;
+    }
+    
     [scanner release];
     
     if (success)
         return o;
     if (error)
-        *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:nil];
+        *error = err;
     return nil;
 }
 
 - (id)objectWithString:(NSString*)repr error:(NSError**)error {
+    SBJSONScanner *scanner = [[SBJSONScanner alloc] initWithString:repr];
+    [scanner setMaxDepth:[self maxDepth]];
     
-    id o = [self fragmentWithString:repr error:error];
-
-    if ([o isKindOfClass:[NSDictionary class]] || [o isKindOfClass:[NSArray class]])
-        return o;
-
-    if (o && error) {
-        NSString *val = [NSString stringWithFormat:@"Valid fragment of type '%@', but not strictly valid JSON.", [o className]];
-        NSDictionary *ui = [NSDictionary dictionaryWithObject:val forKey:NSLocalizedDescriptionKey];
-        *error = [NSError errorWithDomain:SBJSONErrorDomain code:EFRAGMENT userInfo:ui];
-        return nil;
+    id o;
+    NSError *err;
+    BOOL success = ([scanner scanDictionary:&o error:&err] || [scanner scanArray:&o error:&err]);
+    
+    if (success && ![scanner isAtEnd]) {
+        err = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:ui(@"Garbage after JSON")];
+        success = NO;
     }
-    return o;
+    [scanner release];
+    
+    if (success)
+        return o;
+    
+    if (error)
+        *error = err;
+    
+    
+    return nil;
 }
 
 #pragma mark Properties

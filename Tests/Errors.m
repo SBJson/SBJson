@@ -55,36 +55,41 @@
 
 - (void)testTrailingComma
 {
-    tn([@"[1,]" JSONValue], @"enovalue");
-
-    NSError *error = nil;
-    STAssertNil([json objectWithString:@"{\"a\":1,}" error:&error], nil);
-    STAssertNotNil(error, nil);
-    assertErrorContains(error, @"Trailing comma disallowed");
-}
-
-- (void)testMissingComma
-{
-    tn([@"[1" JSONValue], @"enocomma");
-    tn([@"{\"a\":1" JSONValue], @"enocomma");
-    tn([@"{\"a\":1 \"b\":2 }" JSONValue], @"enocomma");
-}
-
-- (void)testMissingValue
-{
-    NSArray *fragments = [@"{\"a\":1,, {\"a\":1," componentsSeparatedByString:@" "];
+    NSArray *fragments = [@"[1,] {\"a\":1,}" componentsSeparatedByString:@" "];
     for (int i = 0; i < [fragments count]; i++) {
         NSString *fragment = [fragments objectAtIndex:i];
         
         NSError *error = nil;
-        STAssertNil([json objectWithString:@"" error:&error], nil);
+        STAssertNil([json objectWithString:fragment error:&error], nil);
         STAssertNotNil(error, nil);
-        assertErrorContains(error, @"Unexpected comma");
+        assertErrorContains(error, @"Trailing comma disallowed");
     }
-    
-    tn([@"[1,," JSONValue], @"enovalue");
-    tn([@"{\"a\":}" JSONValue], @"enovalue");
-    tn([@"{\"a\":" JSONValue], @"enovalue");
+}
+
+- (void)testMissingComma
+{
+    NSArray *fragments = [@"[1 {\"a\":1 {\"a\":1\"b\":2}" componentsSeparatedByString:@" "];
+    for (int i = 0; i < [fragments count]; i++) {
+        NSString *fragment = [fragments objectAtIndex:i];
+        
+        NSError *error = nil;
+        STAssertNil([json objectWithString:fragment error:&error], nil);
+        STAssertNotNil(error, nil);
+        assertErrorContains(error, @"Missing comma");
+    }
+}
+
+- (void)testMissingValue
+{
+    NSArray *fragments = [@"{\"a\":1,, {\"a\":1, {\"a\":} {\"a\": [1,," componentsSeparatedByString:@" "];
+    for (int i = 0; i < [fragments count]; i++) {
+        NSString *fragment = [fragments objectAtIndex:i];
+        
+        NSError *error = nil;
+        STAssertNil([json objectWithString:fragment error:&error], nil);
+        STAssertNotNil(error, nil);
+        assertErrorContains(error, @"Missing value");
+    }
 }
 
 - (void)testMissingSeparator
@@ -101,17 +106,11 @@
     for (int i = 0; i < [fragments count]; i++) {
         NSString *fragment = [fragments objectAtIndex:i];
         
-        NSError *err = nil;
-        STAssertNil([json objectWithString:fragment error:&err], fragment);
-        STAssertNotNil(err, @"error has been set");
-        assertErrorContains(err, @"Dictionary key must be string");
+        NSError *error = nil;
+        STAssertNil([json objectWithString:fragment error:&error], nil);
+        STAssertNotNil(error, @"error has been set");
+        assertErrorContains(error, @"Dictionary key must be string");
     }
-}
-
-- (void)testSingleQuotedString
-{
-    tn([@"['1'" JSONValue], @"enovalue");
-    tn([@"{\"a\":'1'" JSONValue], @"enovalue");
 }
 
 - (void)testGarbage
@@ -140,20 +139,28 @@
 
 - (void)testBrokenSurrogatePairs
 {
-//    @"\"\\uD834\\uDD1E\"" is the Unicode surrogate pairs for g-clef
-    tn([@"\"\\uD834foo\"" JSONFragmentValue], @"no_low_surrogate_char");
-    tn([@"\"\\uD834\\u001E\"" JSONFragmentValue], @"expected_low_surrogate");
-    tn([@"\"\\uDD1E\"" JSONFragmentValue], @"no_high_surrogate_char");
+    NSDictionary *tests = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"No low surrogate char",  @"\"\\uD834foo\"",
+                           @"Expected low surrogate", @"\"\\uD834\\u001E\"",
+                           @"No high surrogate char", @"\"\\uDD1E\"",
+                           nil];
+    NSEnumerator *keys = [tests keyEnumerator];
+    for (id key; key = [keys nextObject]; ) {
+        NSError *error = nil;
+        STAssertNil([json fragmentWithString:key error:&error], nil);
+        STAssertNotNil(error, nil);
+        assertErrorContains(error, [tests objectForKey:key]);
+    }
 }
 
 - (void)testIllegalNumber
 {
-    NSError *err = nil;
-    STAssertNil([json fragmentWithString:@"+666e-1" error:&err], nil);
-    STAssertNotNil(err, nil);
+    NSError *error = nil;
+    STAssertNil([json fragmentWithString:@"+666e-1" error:&error], nil);
+    STAssertNotNil(error, nil);
 
     // XXX: Should eventually be something like "Leading + not allowed in numbers"
-    assertErrorContains(err, @"Unrecognised leading character");
+    assertErrorContains(error, @"Unrecognised leading character");
 }
 
 - (void)testObjectFromFragment
@@ -162,10 +169,10 @@
     for (int i = 0; i < [fragments count]; i++) {
         NSString *fragment = [fragments objectAtIndex:i];
 
-        NSError *err = nil;
-        STAssertNil([json objectWithString:fragment error:&err], fragment);
-        STAssertNotNil(err, @"error has been set");
-        assertErrorContains(err, @"Valid fragment");
+        NSError *error = nil;
+        STAssertNil([json objectWithString:fragment error:&error], fragment);
+        STAssertNotNil(error, fragment);
+        assertErrorContains(error, @"Valid fragment");
     }
 }
 
