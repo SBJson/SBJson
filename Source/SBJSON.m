@@ -112,7 +112,7 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
         
     } else {
         if (error)
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:nil];
+            *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNSUPPORTED userInfo:nil];
         return NO;
     }
     return YES;
@@ -162,7 +162,7 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
         
         if (![value isKindOfClass:[NSString class]]) {
             if (error)
-                *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:nil];
+                *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNSUPPORTED userInfo:nil];
             return NO;
         }
         
@@ -236,7 +236,7 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     BOOL success = [scanner scanValue:&o error:&err];
     
     if (success && ![scanner isAtEnd]) {
-        err = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:ui(@"Garbage after JSON fragment")];
+        err = [NSError errorWithDomain:SBJSONErrorDomain code:ETRAILGARBAGE userInfo:ui(@"Garbage after JSON fragment")];
         success = NO;
     }
     
