@@ -232,7 +232,7 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     SBJSONScanner *scanner = [[SBJSONScanner alloc] initWithString:repr];
     [scanner setMaxDepth:[self maxDepth]];
 
-    NSError *err;
+    NSError *err = nil;
     BOOL success = [scanner scanValue:&o error:&err];
     
     if (success && ![scanner isAtEnd]) {
@@ -250,26 +250,21 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 }
 
 - (id)objectWithString:(NSString*)repr error:(NSError**)error {
-    SBJSONScanner *scanner = [[SBJSONScanner alloc] initWithString:repr];
-    [scanner setMaxDepth:[self maxDepth]];
     
-    id o;
-    NSError *err;
-    BOOL success = ([scanner scanDictionary:&o error:&err] || [scanner scanArray:&o error:&err]);
-    
-    if (success && ![scanner isAtEnd]) {
-        err = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:ui(@"Garbage after JSON")];
-        success = NO;
-    }
-    [scanner release];
-    
-    if (success)
+    NSError *err = nil;
+    id o = [self fragmentWithString:repr error:&err];
+
+    if (o && ([o isKindOfClass:[NSDictionary class]] || [o isKindOfClass:[NSArray class]]))
         return o;
+    
+    if (o) {
+        NSDictionary *ui = [NSDictionary dictionaryWithObject:@"Valid fragment, but not JSON" forKey: NSLocalizedDescriptionKey];
+        err = [NSError errorWithDomain:SBJSONErrorDomain code:EFRAGMENT userInfo:ui];
+    }
     
     if (error)
         *error = err;
-    
-    
+
     return nil;
 }
 

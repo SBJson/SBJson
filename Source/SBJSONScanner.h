@@ -40,9 +40,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (id)initWithString:(NSString *)s;
 
-- (BOOL)scanDictionary:(NSDictionary **)o error:(NSError **)error;
-- (BOOL)scanArray:(NSArray **)o error:(NSError **)error;
-
 - (BOOL)scanValue:(NSObject **)o error:(NSError **)error;
 
 - (BOOL)isAtEnd;

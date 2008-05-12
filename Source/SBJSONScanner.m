@@ -45,28 +45,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (BOOL)scanHexQuad:(unichar *)x error:(NSError **)error;
 - (BOOL)scanUnicodeChar:(unichar *)x error:(NSError **)error;
 
-- (void)log:(NSString *)x;
-
 @end
-
-NSString *const enocomma  = @"enocomma";
-NSString *const enocolon  = @"enocolon";
-NSString *const enostring = @"enostring";
-NSString *const enovalue  = @"enovalue";
-NSString *const enojson   = @"enojson";
-NSString *const etoodeep  = @"depth";
-
-NSString *const etrue   = @"etrue";
-NSString *const efalse  = @"efalse";
-NSString *const enull   = @"enull";
-NSString *const enumber = @"enumber";
-NSString *const estring = @"estring";
-NSString *const evalue  = @"evalue";
 
 #define skipWhitespace(c) while (isspace(*c)) c++
 #define skipDigits(c) while (isdigit(*c)) c++
 
-#define ui(s) [NSDictionary dictionaryWithObject:s forKey:NSLocalizedDescriptionKey]
+static NSError *err(int code, NSString *str) {
+    NSDictionary *ui = [NSDictionary dictionaryWithObject:str forKey:NSLocalizedDescriptionKey];
+    return [NSError errorWithDomain:SBJSONErrorDomain code:code userInfo:ui];
+}
+
+static NSError *errWithUnderlier(int code, NSError **u, NSString *str) {
+    if (!u)
+        return err(code, str);
+    
+    NSDictionary *ui = [NSDictionary dictionaryWithObjectsAndKeys:
+                        str, NSLocalizedDescriptionKey,
+                        *u, NSUnderlyingErrorKey,
+                        nil];
+    return [NSError errorWithDomain:SBJSONErrorDomain code:code userInfo:ui];
+}
 
 
 @implementation SBJSONScanner
@@ -131,9 +129,12 @@ static char ctrl[0x22];
             c--; // cannot verify number correctly without the first character
             return [self scanNumber:(NSNumber **)o error:error];
             break;
+        case '+':
+            *error = err(ELEADINGCHAR, @"Leading + disallowed in number");
+            return NO;
+            break;
         default:
-            c--;
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:ELEADINGCHAR userInfo:ui(@"Unrecognised leading character")];
+            *error = err(ELEADINGCHAR, @"Unrecognised leading character");
             return NO;
             break;
     }
@@ -146,7 +147,7 @@ static char ctrl[0x22];
         *o = [NSNumber numberWithBool:YES];
         return YES;
     }
-    *error = [NSError errorWithDomain:SBJSONErrorDomain code:ELEADINGCHAR userInfo:ui(@"Expected 'true'")];
+    *error = err(ELEADINGCHAR, @"Expected 'true'");
     return NO;
 }
 
@@ -157,7 +158,7 @@ static char ctrl[0x22];
         *o = [NSNumber numberWithBool:NO];
         return YES;
     }
-    *error = [NSError errorWithDomain:SBJSONErrorDomain code:ELEADINGCHAR userInfo:ui(@"Expected 'false'")];
+    *error = err(ELEADINGCHAR, @"Expected 'false'");
     return NO;
 }
 
@@ -168,119 +169,98 @@ static char ctrl[0x22];
         *o = [NSNull null];
         return YES;
     }
-    *error = [NSError errorWithDomain:SBJSONErrorDomain code:ELEADINGCHAR userInfo:ui(@"Expected 'null'")];
-    return NO;
-}
-
-- (BOOL)scanArray:(NSArray **)o error:(NSError **)error
-{
-    skipWhitespace(c);
-    
-    const char *tmp = c;
-    if (*c == '[' && c++ && [self scanRestOfArray:(NSMutableArray **)o error:error])
-        return YES;
-    
-    c = tmp;
-    *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:ui(@"Not an array")];
+    *error = err(ELEADINGCHAR, @"Expected 'null'");
     return NO;
 }
 
 - (BOOL)scanRestOfArray:(NSMutableArray **)o error:(NSError **)error
 {
     if (maxDepth && ++depth > maxDepth) {
-        *error = [NSError errorWithDomain:SBJSONErrorDomain code:MAXDEPTH userInfo:ui(@"Nested too deep")];
+        *error = err(MAXDEPTH, @"Nested too deep");
         return NO;
     }
         
     *o = [NSMutableArray arrayWithCapacity:8];
     
-    skipWhitespace(c);
-    if (*c == ']' && c++) {
-        depth--;
-        return YES;
-    }
-    
-    do {
+    for (; *c ;) {
         id v;
+
+        skipWhitespace(c);
+        if (*c == ']' && c++) {
+            depth--;
+            return YES;
+        }
+                
         if (![self scanValue:&v error:error]) {
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:MAXDEPTH userInfo:ui(@"Expected value while parsing array")];
+            *error = errWithUnderlier(ENOVALUE, error, @"Expected value while parsing array");
             return NO;
         }
         
         [*o addObject:v];
         
         skipWhitespace(c);
-        if (*c == ']' && c++) {
-            depth--;
-            return YES;
-        }
-        
-    } while (*c == ',' && c++);
+        if (*c == ',' && c++) {
+            skipWhitespace(c);
+            if (*c == ']') {
+                *error = err(ENOCOMMA, @"Trailing comma disallowed in array");
+                return NO;
+            }
+        }        
+    }
 
-    *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOCOMMA userInfo:ui(@"Expected , or ] while parsing array")];
+    *error = err(ENOCOMMA, @"End of input while parsing array");
     return NO;
 }
-
-- (BOOL)scanDictionary:(NSDictionary **)o error:(NSError **)error
-{
-    skipWhitespace(c);
-    const char *tmp = c;
-    if (*c == '{' && c++ && [self scanRestOfDictionary:(NSMutableDictionary **)o error:error])
-        return YES;
-
-    c = tmp;
-    *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:ui(@"Not a dictionary")];
-    return NO;
-}
-
 
 - (BOOL)scanRestOfDictionary:(NSMutableDictionary **)o error:(NSError **)error
 {
     if (maxDepth && ++depth > maxDepth) {
-        *error = [NSError errorWithDomain:SBJSONErrorDomain code:MAXDEPTH userInfo:ui(@"Nested too deep")];
+        *error = err(MAXDEPTH, @"Nested too deep");
         return NO;
     }
     
     *o = [NSMutableDictionary dictionaryWithCapacity:7];
     
-    skipWhitespace(c);
-    if (*c == '}' && c++) {
-        depth--;
-        return YES;
-    }    
-    
-    do {
+    for (; *c ;) {
         id k, v;
 
         skipWhitespace(c);
+        if (*c == '}' && c++) {
+            depth--;
+            return YES;
+        }    
+        
         if (!(*c == '\"' && c++ && [self scanRestOfString:&k error:error])) {
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSTRING userInfo:ui(@"Dictionary key must be string")];
+            *error = errWithUnderlier(ENOSTRING, error, @"Object key string expected");
             return NO;
         }
         
         skipWhitespace(c);
         if (*c != ':') {
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOCOLON userInfo:ui(@"Expected ':' separating key and value")];
+            *error = err(ENOCOLON, @"Expected ':' separating key and value");
             return NO;
         }
 
         c++;
         if (![self scanValue:&v error:error]) {
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOCOLON userInfo:ui(@"Expected value part of dictionary pair")];
+            NSString *string = [NSString stringWithFormat:@"Object value expected for key: %@", k];
+            *error = errWithUnderlier(ENOVALUE, error, string);
             return NO;
         }
 
         [*o setObject:v forKey:k];
 
         skipWhitespace(c);
-        if (*c == '}' && c++) {
-            depth--;
-            return YES;
-        }
-        
-    } while (*c == ',' && c++);
+        if (*c == ',' && c++) {
+            skipWhitespace(c);
+            if (*c == '}') {
+                *error = err(ENOCOMMA, @"Trailing comma disallowed in object");
+                return NO;
+            }
+        }        
+    }
     
-    *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOCOMMA userInfo:ui(@"Expected , or } while parsing dictionary")];
+    *error = err(ENOCOMMA, @"End of input while parsing object");
     return NO;
 }
 
@@ -325,16 +305,13 @@ static char ctrl[0x22];
                 case 'u':
                     c++;
                     if (![self scanUnicodeChar:&uc error:error]) {
-                        *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNICODECHAR userInfo:ui(@"Broken unicode character")];
+                        *error = errWithUnderlier(EUNICODECHAR, error, @"Broken unicode character");
                         return NO;
                     }
                     c--; // hack.
                     break;
                 default:
-                    {
-                        NSString *err = [NSString stringWithFormat:@"Found illegal escape sequence '0x%x'", uc];
-                        *error = [NSError errorWithDomain:SBJSONErrorDomain code:ILLEGAL_ESCAPE userInfo:ui(err)];
-                    }
+                    *error = err(ILLEGAL_ESCAPE, [NSString stringWithFormat:@"Illegal escape sequence '0x%x'", uc]);
                     return NO;
                     break;
             }
@@ -342,8 +319,7 @@ static char ctrl[0x22];
             c++;
 
         } else if (*c < 0x20) {
-            NSString *err = [NSString stringWithFormat:@"Found unescaped control character '0x%x'", *c];
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:UNRECOGNISEDCTRL userInfo:ui(err)];
+            *error = err(UNRECOGNISEDCTRL, [NSString stringWithFormat:@"Unescaped control character '0x%x'", *c]);
             return NO;
 
         } else {
@@ -351,7 +327,7 @@ static char ctrl[0x22];
         }
     } while (*c);
     
-    *error = [NSError errorWithDomain:SBJSONErrorDomain code:UNEXPECTED_EOF userInfo:ui(@"Unexpected EOF while parsing string")];
+    *error = err(UNEXPECTED_EOF, @"Unexpected EOF while parsing string");
     return NO;
 }
 
@@ -360,7 +336,7 @@ static char ctrl[0x22];
     unichar hi, lo;
     
     if (![self scanHexQuad:&hi error:error]) {
-        *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNICODECHAR userInfo:ui(@"Missing hex quad")];
+        *error = err(EUNICODECHAR, @"Missing hex quad");
         return NO;        
     }
     
@@ -368,19 +344,19 @@ static char ctrl[0x22];
         if (hi < 0xdc00) {  // yes - expect a low char
             
             if (!(*c == '\\' && ++c && *c == 'u' && ++c && [self scanHexQuad:&lo error:error])) {
-                *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNICODECHAR userInfo:ui(@"Missing low character in surrogate pair")];
+                *error = errWithUnderlier(EUNICODECHAR, error, @"Missing low character in surrogate pair");
                 return NO;
             }
             
             if (lo < 0xdc00 || lo >= 0xdfff) {
-                *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNICODECHAR userInfo:ui(@"Expected low surrogate char")];
+                *error = err(EUNICODECHAR, @"Invalid low surrogate char");
                 return NO;
             }
             
             hi = (hi - 0xd800) * 0x400 + (lo - 0xdc00) + 0x10000;
             
         } else if (hi < 0xe000) {
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNICODECHAR userInfo:ui(@"Missing high character in surrogate pair")];
+            *error = err(EUNICODECHAR, @"Invalid high character in surrogate pair");
             return NO;
         }
     }
@@ -400,7 +376,7 @@ static char ctrl[0x22];
             ? (uc - 'a' + 10) : (uc >= 'A' && uc <= 'F')
             ? (uc - 'A' + 10) : -1;
         if (d == -1) {
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNICODECHAR userInfo:ui(@"Missing hex digit in quad")];
+            *error = err(EUNICODECHAR, @"Missing hex digit in quad");
             return NO;
         }
         *x *= 16;
@@ -422,12 +398,12 @@ static char ctrl[0x22];
 
     if ('0' == *c && c++) {        
         if (isdigit(*c)) {
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:BROKEN_NUMBER userInfo:ui(@"Found illegal leading zero in number")];
+            *error = err(BROKEN_NUMBER, @"Leading 0 disallowed in number");
             return NO;
         }
 
     } else if (!isdigit(*c) && c != ns) {
-        *error = [NSError errorWithDomain:SBJSONErrorDomain code:BROKEN_NUMBER userInfo:ui(@"No digits after initial minus")];
+        *error = err(BROKEN_NUMBER, @"No digits after initial minus");
         return NO;
         
     } else {
@@ -438,7 +414,7 @@ static char ctrl[0x22];
     if ('.' == *c && c++) {
         
         if (!isdigit(*c)) {
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:BROKEN_NUMBER userInfo:ui(@"No digits after decimal point")];
+            *error = err(BROKEN_NUMBER, @"No digits after decimal point");
             return NO;
         }        
         skipDigits(c);
@@ -452,7 +428,7 @@ static char ctrl[0x22];
             c++;
         
         if (!isdigit(*c)) {
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:BROKEN_NUMBER userInfo:ui(@"No digits after exponent")];
+            *error = err(BROKEN_NUMBER, @"No digits after exponent");
             return NO;
         }
         skipDigits(c);
@@ -466,7 +442,7 @@ static char ctrl[0x22];
     if (str && (*o = [NSDecimalNumber decimalNumberWithString:str]))
         return YES;
     
-    *error = [NSError errorWithDomain:SBJSONErrorDomain code:BROKEN_NUMBER userInfo:ui(@"Failed creating decimal instance")];
+    *error = err(BROKEN_NUMBER, @"Failed creating decimal instance");
     return NO;
 }
 

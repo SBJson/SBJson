@@ -33,6 +33,7 @@ extern NSString * SBJSONErrorDomain;
 
 enum {
     ENOSUPPORTED = 1,
+    ENOVALUE,
     ENOSTRING,
     EFRAGMENT,
     ELEADINGCHAR,
@@ -44,6 +45,7 @@ enum {
     ILLEGAL_ESCAPE,
     UNEXPECTED_EOF,
     BROKEN_NUMBER,
+    PREMATURE_EOF,
 };
 
 @interface SBJSON : NSObject {

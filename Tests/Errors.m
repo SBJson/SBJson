@@ -13,8 +13,10 @@
     STAssertThrowsSpecificNamed(expr, NSException, name, @"ieee!")
 
 #define assertErrorContains(e, s) \
-    (void)"dummy"
-//    STAssertTrue([[[e userInfo] objectForKey:NSLocalizedDescriptionKey] hasPrefix:s], nil)
+    STAssertTrue([[[e userInfo] objectForKey:NSLocalizedDescriptionKey] hasPrefix:s], @"%@", [e userInfo])
+
+#define assertUnderlyingErrorContains(e, s) \
+    STAssertTrue([[[[[e userInfo] objectForKey:NSUnderlyingErrorKey] userInfo] objectForKey:NSLocalizedDescriptionKey] hasPrefix:s], @"%@", [e userInfo])
 
 @implementation Errors
 
@@ -53,117 +55,155 @@
 
 #pragma mark Scanner
 
-- (void)testTrailingComma
-{
-    NSArray *fragments = [@"[1,] {\"a\":1,}" componentsSeparatedByString:@" "];
-    for (int i = 0; i < [fragments count]; i++) {
-        NSString *fragment = [fragments objectAtIndex:i];
-        
-        NSError *error = nil;
-        STAssertNil([json objectWithString:fragment error:&error], nil);
-        STAssertNotNil(error, nil);
-        assertErrorContains(error, @"Trailing comma disallowed");
-    }
-}
-
-- (void)testMissingComma
-{
-    NSArray *fragments = [@"[1 {\"a\":1 {\"a\":1\"b\":2}" componentsSeparatedByString:@" "];
-    for (int i = 0; i < [fragments count]; i++) {
-        NSString *fragment = [fragments objectAtIndex:i];
-        
-        NSError *error = nil;
-        STAssertNil([json objectWithString:fragment error:&error], nil);
-        STAssertNotNil(error, nil);
-        assertErrorContains(error, @"Missing comma");
-    }
-}
-
-- (void)testMissingValue
-{
-    NSArray *fragments = [@"{\"a\":1,, {\"a\":1, {\"a\":} {\"a\": [1,," componentsSeparatedByString:@" "];
-    for (int i = 0; i < [fragments count]; i++) {
-        NSString *fragment = [fragments objectAtIndex:i];
-        
-        NSError *error = nil;
-        STAssertNil([json objectWithString:fragment error:&error], nil);
-        STAssertNotNil(error, nil);
-        assertErrorContains(error, @"Missing value");
-    }
-}
-
-- (void)testMissingSeparator
-{
+- (void)testArray {
     NSError *error;
+
+    STAssertNil([json objectWithString:@"[1,,2]" error:&error], nil);
+    assertErrorContains(error, @"Expected value");
+    
+    STAssertNil([json objectWithString:@"[1,,]" error:&error], nil);
+    assertErrorContains(error, @"Expected value");
+
+    STAssertNil([json objectWithString:@"[,1]" error:&error], nil);
+    assertErrorContains(error, @"Expected value");
+
+
+    STAssertNil([json objectWithString:@"[1,]" error:&error], nil);
+    assertErrorContains(error, @"Trailing comma disallowed");
+    
+    
+    STAssertNil([json objectWithString:@"[1" error:&error], nil);
+    assertErrorContains(error, @"End of input while parsing array");
+    
+    STAssertNil([json objectWithString:@"[[]" error:&error], nil);
+    assertErrorContains(error, @"End of input while parsing array");
+}
+
+- (void)testObject {
+    NSError *error;
+
+    STAssertNil([json objectWithString:@"{1" error:&error], nil);
+    assertErrorContains(error, @"Object key string expected");
+        
+    STAssertNil([json objectWithString:@"{null" error:&error], nil);
+    assertErrorContains(error, @"Object key string expected");
+    
+    STAssertNil([json objectWithString:@"{\"a\":1,,}" error:&error], nil);
+    assertErrorContains(error, @"Object key string expected");
+    
+    STAssertNil([json objectWithString:@"{,\"a\":1}" error:&error], nil);
+    assertErrorContains(error, @"Object key string expected");
+    
+
     STAssertNil([json objectWithString:@"{\"a\"" error:&error], nil);
-    STAssertNotNil(error, @"error has been set");
     assertErrorContains(error, @"Expected ':'");
+    
+
+    STAssertNil([json objectWithString:@"{\"a\":" error:&error], nil);
+    assertErrorContains(error, @"Object value expected");
+    
+    STAssertNil([json objectWithString:@"{\"a\":," error:&error], nil);
+    assertErrorContains(error, @"Object value expected");
+    
+    
+    STAssertNil([json objectWithString:@"{\"a\":1,}" error:&error], nil);
+    assertErrorContains(error, @"Trailing comma disallowed");
+    
+    
+    STAssertNil([json objectWithString:@"{" error:&error], nil);
+    assertErrorContains(error, @"End of input while parsing object");
+    
+    STAssertNil([json objectWithString:@"{\"a\":{}" error:&error], nil);
+    assertErrorContains(error, @"End of input while parsing object");
 }
 
-- (void)testNoStringKey
-{
-    NSArray *fragments = [@"{ {a {null {false {true {{} {[] {1" componentsSeparatedByString:@" "];
-    for (int i = 0; i < [fragments count]; i++) {
-        NSString *fragment = [fragments objectAtIndex:i];
+- (void)testNumber {
+    NSError *error;
+
+    STAssertNil([json fragmentWithString:@"-" error:&error], nil);
+    assertErrorContains(error, @"No digits after initial minus");
         
-        NSError *error = nil;
-        STAssertNil([json objectWithString:fragment error:&error], nil);
-        STAssertNotNil(error, @"error has been set");
-        assertErrorContains(error, @"Dictionary key must be string");
-    }
+    STAssertNil([json fragmentWithString:@"+1" error:&error], nil);
+    assertErrorContains(error, @"Leading + disallowed in number");
+
+    STAssertNil([json fragmentWithString:@"01" error:&error], nil);
+    assertErrorContains(error, @"Leading 0 disallowed in number");
+    
+    STAssertNil([json fragmentWithString:@"0." error:&error], nil);
+    assertErrorContains(error, @"No digits after decimal point");
+    
+    
+    STAssertNil([json fragmentWithString:@"1e" error:&error], nil);
+    assertErrorContains(error, @"No digits after exponent");
+    
+    STAssertNil([json fragmentWithString:@"1e-" error:&error], nil);
+    assertErrorContains(error, @"No digits after exponent");
+    
+    STAssertNil([json fragmentWithString:@"1e+" error:&error], nil);
+    assertErrorContains(error, @"No digits after exponent");
 }
 
-- (void)testGarbage
-{
-    NSArray *fragments = [@"'1' 'hello' \" \"hello ** " componentsSeparatedByString:@" "];
-    for (int i = 0; i < [fragments count]; i++) {
-        NSString *fragment = [fragments objectAtIndex:i];
+- (void)testNull {
+    NSError *error;
+    
+    STAssertNil([json fragmentWithString:@"nil" error:&error], nil);
+    assertErrorContains(error, @"Expected 'null'");
+}
+
+- (void)testBool {
+    NSError *error;
+    
+    STAssertNil([json fragmentWithString:@"truth" error:&error], nil);
+    assertErrorContains(error, @"Expected 'true'");
+    
+    STAssertNil([json fragmentWithString:@"fake" error:&error], nil);
+    assertErrorContains(error, @"Expected 'false'");
+}    
+
+- (void)testString {
+    NSError *error;
+
+    STAssertNil([json fragmentWithString:@"\"" error:&error], nil);
+    assertErrorContains(error, @"Unescaped control character");
+    
+    STAssertNil([json fragmentWithString:@"\"foo" error:&error], nil);
+    assertErrorContains(error, @"Unescaped control character");
+
+    
+    STAssertNil([json fragmentWithString:@"\"\\uD834foo\"" error:&error], nil);
+    assertErrorContains(error, @"Broken unicode character");
+    assertUnderlyingErrorContains(error, @"Missing low character");
         
-        NSError *err = nil;
-        STAssertNil([json fragmentWithString:fragment error:&err], fragment);
-        STAssertNotNil(err, @"error has been set");
-        assertErrorContains(err, @"Unrecognised leading character");
-    }
-}
+    STAssertNil([json fragmentWithString:@"\"\\uD834\\u001E\"" error:&error], nil);
+    assertErrorContains(error, @"Broken unicode character");
+    assertUnderlyingErrorContains(error, @"Invalid low surrogate");
+    
+    STAssertNil([json fragmentWithString:@"\"\\uDD1Ef\"" error:&error], nil);
+    assertErrorContains(error, @"Broken unicode character");
+    assertUnderlyingErrorContains(error, @"Invalid high character");
 
-- (void)testUnescapedControlChar
-{
+    
     for (unsigned i = 0; i < 0x20; i++) {
-        NSError *err = nil;
         NSString *str = [NSString stringWithFormat:@"\"%C\"", i];
-        STAssertNil([json fragmentWithString:str error:&err], nil);
-        STAssertNotNil(err, @"error has been set");
-        assertErrorContains(err, @"Unescaped control character");
+        STAssertNil([json fragmentWithString:str error:&error], nil);
+        assertErrorContains(error, @"Unescaped control character");
     }
 }
 
-- (void)testBrokenSurrogatePairs
-{
-    NSDictionary *tests = [NSDictionary dictionaryWithObjectsAndKeys:
-                           @"No low surrogate char",  @"\"\\uD834foo\"",
-                           @"Expected low surrogate", @"\"\\uD834\\u001E\"",
-                           @"No high surrogate char", @"\"\\uDD1E\"",
-                           nil];
-    NSEnumerator *keys = [tests keyEnumerator];
-    for (id key; key = [keys nextObject]; ) {
-        NSError *error = nil;
-        STAssertNil([json fragmentWithString:key error:&error], nil);
-        STAssertNotNil(error, nil);
-        assertErrorContains(error, [tests objectForKey:key]);
-    }
-}
-
-- (void)testIllegalNumber
-{
-    NSError *error = nil;
-    STAssertNil([json fragmentWithString:@"+666e-1" error:&error], nil);
-    STAssertNotNil(error, nil);
-
-    // XXX: Should eventually be something like "Leading + not allowed in numbers"
+- (void)testGarbage {
+    NSError *error;
+    
+    STAssertNil([json fragmentWithString:@"'1'" error:&error], nil);
+    assertErrorContains(error, @"Unrecognised leading character");
+    
+    STAssertNil([json fragmentWithString:@"'hello'" error:&error], nil);
+    assertErrorContains(error, @"Unrecognised leading character");
+    
+    STAssertNil([json fragmentWithString:@"**" error:&error], nil);
     assertErrorContains(error, @"Unrecognised leading character");
 }
 
-- (void)testObjectFromFragment
+- (void)testFragment
 {    
     NSArray *fragments = [@"true false null 1 1.0 \"str\"" componentsSeparatedByString:@" "];
     for (int i = 0; i < [fragments count]; i++) {
@@ -171,7 +211,6 @@
 
         NSError *error = nil;
         STAssertNil([json objectWithString:fragment error:&error], fragment);
-        STAssertNotNil(error, fragment);
         assertErrorContains(error, @"Valid fragment");
     }
 }
