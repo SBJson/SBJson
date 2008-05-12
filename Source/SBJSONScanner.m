@@ -83,7 +83,7 @@ static char ctrl[0x22];
 - (id)initWithString:(NSString *)s
 {
     if (self = [super init]) {
-        start = c = [s UTF8String];
+        c = [s UTF8String];
         depth = 0;
         [self setMaxDepth:512];
     }
