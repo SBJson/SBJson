@@ -76,7 +76,7 @@
 }
 
 
-- (void)XtestJsonChecker {
+- (void)testJsonChecker {
     NSString *file, *dir = @"Tests/jsonchecker";
     NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
     
@@ -90,10 +90,10 @@
                                                       error:nil];
 
         if ([file hasPrefix:@"pass"]) {
-            STAssertNoThrow([json JSONValueWithOptions:options], nil);
+            STAssertNotNil([json JSONValueWithOptions:options], nil);
             
         } else {
-            STAssertThrows([json JSONValueWithOptions:options], json);
+            STAssertNil([json JSONValueWithOptions:options], json);
         }
     }
 }
