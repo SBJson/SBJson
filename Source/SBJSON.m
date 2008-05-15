@@ -61,9 +61,14 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
 - (NSString*)stringWithJSON:(id)value error:(NSError**)error {
     depth = 0;
+    NSError *err;
     NSMutableString *json = [NSMutableString stringWithCapacity:128];
-    if ([self appendValue:value into:json error:error])
+    if ([self appendValue:value into:json error:&err])
         return json;
+    
+    if (error)
+        *error = err;
+    
     return nil;
 }
 
@@ -111,8 +116,9 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
         [json appendString:@"null"];
         
     } else {
-        if (error)
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNSUPPORTED userInfo:nil];
+        NSString *message = [NSString stringWithFormat:@"JSON serialisation not supported for %@", [fragment className]];
+        NSDictionary *ui = [NSDictionary dictionaryWithObject:message forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNSUPPORTED userInfo:ui];
         return NO;
     }
     return YES;
@@ -161,8 +167,8 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
             [json appendString:[self indent]];
         
         if (![value isKindOfClass:[NSString class]]) {
-            if (error)
-                *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNSUPPORTED userInfo:nil];
+            NSDictionary *ui = [NSDictionary dictionaryWithObject:@"JSON object key must be string" forKey:NSLocalizedDescriptionKey];
+            *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNSUPPORTED userInfo:ui];
             return NO;
         }
         
@@ -172,6 +178,9 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
         [json appendString:colon];
         if (![self appendValue:[fragment objectForKey:value] into:json error:error]) {
+            NSString *message = [NSString stringWithFormat:@"Unsupported value for key %@ in object", value];
+            NSDictionary *ui = [NSDictionary dictionaryWithObject:message forKey:NSLocalizedDescriptionKey];
+            *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNSUPPORTED userInfo:ui];
             return NO;
         }
     }
