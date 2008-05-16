@@ -47,21 +47,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     SBJSON *generator = [SBJSON new];
 
     id o;
-    if (o = [x objectForKey:@"SpaceBefore"]) 
-        [generator setSpaceBefore:[o boolValue]];
-
-    if (o = [x objectForKey:@"SpaceAfter"]) 
-        [generator setSpaceAfter:[o boolValue]];
+    if (o = [x objectForKey:@"HumanReadable"]) 
+        [generator setHumanReadable:[o boolValue]];
 
     if (o = [x objectForKey:@"MultiLine"]) 
-        [generator setMultiLine:[o boolValue]];
+        [generator setHumanReadable:[o boolValue]];
 
-    if (o = [x objectForKey:@"Pretty"]) {
-        BOOL pretty = [o boolValue];
-        [generator setSpaceBefore:pretty];
-        [generator setSpaceAfter:pretty];
-        [generator setMultiLine:pretty];        
-    }
+    if (o = [x objectForKey:@"Pretty"])
+        [generator setHumanReadable:[o boolValue]];
     
     NSString *json = [generator stringWithJSON:self error:NULL];
     [generator release];

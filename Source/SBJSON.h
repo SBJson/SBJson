@@ -37,15 +37,12 @@ enum {
 };
 
 @interface SBJSON : NSObject {
-    unsigned spaceBefore;
-    unsigned spaceAfter;
-    unsigned multiLine;
     unsigned depth;
+    BOOL humanReadable;
 }
 
-- (void)setSpaceBefore:(BOOL)y;
-- (void)setSpaceAfter:(BOOL)y;
-- (void)setMultiLine:(BOOL)y;
+- (BOOL)humanReadable;
+- (void)setHumanReadable:(BOOL)y;
 
 - (NSString*)stringWithJSON:(id)value error:(NSError**)error;
 
