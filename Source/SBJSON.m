@@ -50,8 +50,13 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 - (NSString*)stringWithJSON:(id)value error:(NSError**)error {
     depth = 0;
     NSMutableString *json = [NSMutableString stringWithCapacity:128];
-    if ([self appendValue:value into:json error:error])
+    
+    NSError *err;
+    if ([self appendValue:value into:json error:&err])
         return json;
+    
+    if (error)
+        *error = err;
     return nil;
 }
 
@@ -84,8 +89,9 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
         [json appendString:@"null"];
         
     } else {
-        if (error)
-            *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:nil];
+        NSString *message = [NSString stringWithFormat:@"Object of type %@ not supported", [fragment className]];
+        NSDictionary *ui = [NSDictionary dictionaryWithObject:message forKey:NSLocalizedDescriptionKey];
+        *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:ui];
         return NO;
     }
     return YES;
@@ -132,19 +138,17 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
             [json appendString:[self indent]];
         
         if (![value isKindOfClass:[NSString class]]) {
-            if (error)
-                *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:nil];
+            NSDictionary *ui = [NSDictionary dictionaryWithObject:@"Object key must be string" forKey:NSLocalizedDescriptionKey];
+            *error = [NSError errorWithDomain:SBJSONErrorDomain code:ENOSUPPORTED userInfo:ui];
             return NO;
         }
         
-        if (![self appendString:value into:json error:error]) {
+        if (![self appendString:value into:json error:error])
             return NO;
-        }
 
         [json appendString:colon];
-        if (![self appendValue:[fragment objectForKey:value] into:json error:error]) {
+        if (![self appendValue:[fragment objectForKey:value] into:json error:error])
             return NO;
-        }
     }
 
     depth--;
