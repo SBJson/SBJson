@@ -13,10 +13,10 @@
     STAssertThrowsSpecificNamed(expr, NSException, name, @"ieee!")
 
 #define assertErrorContains(e, s) \
-    STAssertTrue([[[e userInfo] objectForKey:NSLocalizedDescriptionKey] hasPrefix:s], @"%@", [e userInfo])
+    STAssertTrue([[e localizedDescription] hasPrefix:s], @"%@", [e userInfo])
 
 #define assertUnderlyingErrorContains(e, s) \
-    STAssertTrue([[[[[e userInfo] objectForKey:NSUnderlyingErrorKey] userInfo] objectForKey:NSLocalizedDescriptionKey] hasPrefix:s], @"%@", [e userInfo])
+    STAssertTrue([[[[e userInfo] objectForKey:NSUnderlyingErrorKey] localizedDescription] hasPrefix:s], @"%@", [e userInfo])
 
 @implementation Errors
 
