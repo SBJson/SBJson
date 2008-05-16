@@ -45,22 +45,14 @@ enum {
 };
 
 @interface SBJSON : NSObject {
-    BOOL spaceBefore;
-    BOOL spaceAfter;
-    BOOL multiLine;
+    BOOL humanReadable;
 
     unsigned depth;
     unsigned maxDepth;
 }
 
-- (BOOL)spaceBefore;
-- (void)setSpaceBefore:(BOOL)y;
-
-- (BOOL)spaceAfter;
-- (void)setSpaceAfter:(BOOL)y;
-
-- (BOOL)multiLine;
-- (void)setMultiLine:(BOOL)y;
+- (BOOL)humanReadable;
+- (void)setHumanReadable:(BOOL)y;
 
 - (unsigned)maxDepth;
 - (void)setMaxDepth:(unsigned)y;

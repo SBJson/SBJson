@@ -41,8 +41,6 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 - (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json error:(NSError**)error;
 - (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json error:(NSError**)error;
 
-- (NSString*)colon;
-- (NSString*)comma;
 - (NSString*)indent;
 
 @end
@@ -61,34 +59,19 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
 - (NSString*)stringWithJSON:(id)value error:(NSError**)error {
     depth = 0;
-    NSError *err;
     NSMutableString *json = [NSMutableString stringWithCapacity:128];
+    
+    NSError *err;
     if ([self appendValue:value into:json error:&err])
         return json;
     
     if (error)
         *error = err;
-    
     return nil;
 }
 
-- (NSString*)colon {
-    NSString *colon = @":";
-    if (spaceAfter && spaceBefore)
-        colon = @" : ";
-    else if (spaceAfter)
-        colon = @": ";
-    else if (spaceBefore)
-        colon = @" :";
-    return colon;
-}
-
-- (NSString*)comma {
-    return spaceAfter && !multiLine ? @", " : @",";
-}
-
 - (NSString*)indent {
-    return multiLine
+    return [self humanReadable]
     ? [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0]
     : @"";
 }
@@ -129,13 +112,12 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     depth++;
     
     BOOL addComma = NO;    
-    NSString *comma = [self comma];
     NSEnumerator *values = [fragment objectEnumerator];
     for (id value; value = [values nextObject]; addComma = YES) {
         if (addComma)
-            [json appendString:comma];
+            [json appendString:@","];
         
-        if (multiLine)
+        if ([self humanReadable])
             [json appendString:[self indent]];
         
         if (![self appendValue:value into:json error:error]) {
@@ -144,7 +126,7 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     }
 
     depth--;
-    if (multiLine && [fragment count])
+    if ([self humanReadable] && [fragment count])
         [json appendString:[self indent]];
     [json appendString:@"]"];
     return YES;
@@ -154,16 +136,15 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     [json appendString:@"{"];
     depth++;
 
-    NSString *comma = [self comma];
-    NSString *colon = [self colon];
+    NSString *colon = [self humanReadable] ? @" : " : @":";
     BOOL addComma = NO;
     NSEnumerator *values = [fragment keyEnumerator];
     for (id value; value = [values nextObject]; addComma = YES) {
         
         if (addComma)
-            [json appendString:comma];
+            [json appendString:@","];
 
-        if (multiLine)
+        if ([self humanReadable])
             [json appendString:[self indent]];
         
         if (![value isKindOfClass:[NSString class]]) {
@@ -172,9 +153,8 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
             return NO;
         }
         
-        if (![self appendString:value into:json error:error]) {
+        if (![self appendString:value into:json error:error])
             return NO;
-        }
 
         [json appendString:colon];
         if (![self appendValue:[fragment objectForKey:value] into:json error:error]) {
@@ -182,11 +162,11 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
             NSDictionary *ui = [NSDictionary dictionaryWithObject:message forKey:NSLocalizedDescriptionKey];
             *error = [NSError errorWithDomain:SBJSONErrorDomain code:EUNSUPPORTED userInfo:ui];
             return NO;
-        }
+	}
     }
 
     depth--;
-    if (multiLine && [fragment count])
+    if ([self humanReadable] && [fragment count])
         [json appendString:[self indent]];
     [json appendString:@"}"];
     return YES;    
@@ -279,28 +259,12 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
 #pragma mark Properties
 
-- (BOOL)spaceBefore {
-    return spaceBefore;
+- (BOOL)humanReadable {
+    return humanReadable;
 }
 
-- (void)setSpaceBefore:(BOOL)y {
-    spaceBefore = y;
-}
-
-- (BOOL)spaceAfter {
-    return spaceAfter;
-}
-
-- (void)setSpaceAfter:(BOOL)y {
-    spaceAfter = y;
-}
-
-- (BOOL)multiLine {
-    return multiLine;
-}
-
-- (void)setMultiLine:(BOOL)y {
-    multiLine = y;
+- (void)setHumanReadable:(BOOL)y {
+    humanReadable = y;
 }
 
 - (unsigned)maxDepth {

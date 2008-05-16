@@ -18,14 +18,14 @@
 }
 
 - (void)testFormatting {
-    NSArray *formats = [@"SpaceBefore SpaceAfter MultiLine Pretty" componentsSeparatedByString:@" "];
+    NSArray *formats = [@"HumanReadable MultiLine Pretty" componentsSeparatedByString:@" "];
     id fmt, fmtenum = [formats objectEnumerator];
     
     while (fmt = [fmtenum nextObject]) {
         NSDictionary *args = [NSDictionary dictionaryWithObject:@"1" forKey:fmt];
         NSString *got = [json JSONRepresentationWithOptions:args];
 
-        NSString *file = [NSString stringWithFormat:@"Tests/format/%@.json", fmt];
+        NSString *file = [NSString stringWithFormat:@"Tests/format/HumanReadable.json", fmt];
         NSString *expected = [NSString stringWithContentsOfFile:file
                                                        encoding:NSASCIIStringEncoding
                                                           error:nil];
