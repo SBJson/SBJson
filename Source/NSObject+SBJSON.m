@@ -45,10 +45,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 - (NSString *)JSONRepresentation {
-    return [self JSONFragment];
+    SBJSON *generator = [SBJSON new];
+    
+    NSError *error;
+    NSString *json = [generator stringWithObject:self error:&error];
+    [generator release];
+    
+    if (!json)
+        NSLog(@"%@", error);
+    return json;
 }
 
-- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)x {
+- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)x {    
     SBJSON *generator = [SBJSON new];
 
     id o;
