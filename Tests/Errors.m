@@ -33,7 +33,7 @@
 - (void)testUnsupportedObject
 {
     NSError *error = nil;
-    STAssertNil([json stringWithJSON:[NSDate date] error:&error], nil);
+    STAssertNil([json stringWithObject:[NSDate date] error:&error], nil);
     STAssertNotNil(error, nil);
 }
 
@@ -48,7 +48,7 @@
     for (int i = 0; i < [keys count]; i++) {
         NSError *error = nil;
         NSDictionary *object = [NSDictionary dictionaryWithObject:@"1" forKey:[keys objectAtIndex:i]];
-        STAssertNil([json stringWithJSON:object error:&error], nil);
+        STAssertNil([json stringWithObject:object error:&error], nil);
         STAssertNotNil(error, nil);
     }
 }
@@ -61,7 +61,7 @@
         NSString *fragment = [fragments objectAtIndex:i];
         
         NSError *error = nil;
-        STAssertNil([json stringWithJSON:fragment error:&error], @"%@", fragment);
+        STAssertNil([json stringWithObject:fragment error:&error], @"%@", fragment);
         assertErrorContains(error, @"Not valid JSON");
     }
 }

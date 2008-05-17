@@ -62,7 +62,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         [generator setHumanReadable:[o boolValue]];
     
     NSError *error;
-    NSString *json = [generator stringWithJSON:self error:&error];
+    NSString *json = [generator stringWithObject:self error:&error];
     [generator release];
     
     if (!json)

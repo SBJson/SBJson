@@ -120,7 +120,7 @@ static char ctrl[0x22];
     return nil;
 }
 
-- (NSString*)stringWithJSON:(id)value error:(NSError**)error {
+- (NSString*)stringWithObject:(id)value error:(NSError**)error {
     NSError *err2;
     if (![value isKindOfClass:[NSDictionary class]] && ![value isKindOfClass:[NSArray class]]) {
         err2 = err(EFRAGMENT, @"Not valid JSON (try -stringWithFragment:error:)");        
