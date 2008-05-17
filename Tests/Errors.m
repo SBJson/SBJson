@@ -12,6 +12,12 @@
 #define tn(expr, name) \
     STAssertThrowsSpecificNamed(expr, NSException, name, @"ieee!")
 
+#define assertErrorContains(e, s) \
+    STAssertTrue([[e localizedDescription] hasPrefix:s], @"%@", [e userInfo])
+
+#define assertUnderlyingErrorContains(e, s) \
+    STAssertTrue([[[[e userInfo] objectForKey:NSUnderlyingErrorKey] localizedDescription] hasPrefix:s], @"%@", [e userInfo])
+
 @implementation Errors
 
 - (void)setUp {
@@ -49,91 +55,164 @@
 
 #pragma mark Scanner
 
-- (void)testTrailingComma
-{
-    tn([@"[1,]" JSONValue], @"enovalue");
-    tn([@"{\"a\":1,}" JSONValue], @"enostring");
+- (void)testArray {
+    NSError *error;
+
+    STAssertNil([json objectWithString:@"[1,,2]" error:&error], nil);
+    assertErrorContains(error, @"Expected value");
+    
+    STAssertNil([json objectWithString:@"[1,,]" error:&error], nil);
+    assertErrorContains(error, @"Expected value");
+
+    STAssertNil([json objectWithString:@"[,1]" error:&error], nil);
+    assertErrorContains(error, @"Expected value");
+
+
+    STAssertNil([json objectWithString:@"[1,]" error:&error], nil);
+    assertErrorContains(error, @"Trailing comma disallowed");
+    
+    
+    STAssertNil([json objectWithString:@"[1" error:&error], nil);
+    assertErrorContains(error, @"End of input while parsing array");
+    
+    STAssertNil([json objectWithString:@"[[]" error:&error], nil);
+    assertErrorContains(error, @"End of input while parsing array");
 }
 
-- (void)testMissingComma
-{
-    tn([@"[1" JSONValue], @"enocomma");
-    tn([@"{\"a\":1" JSONValue], @"enocomma");
-    tn([@"{\"a\":1 \"b\":2 }" JSONValue], @"enocomma");
+- (void)testObject {
+    NSError *error;
+
+    STAssertNil([json objectWithString:@"{1" error:&error], nil);
+    assertErrorContains(error, @"Object key string expected");
+        
+    STAssertNil([json objectWithString:@"{null" error:&error], nil);
+    assertErrorContains(error, @"Object key string expected");
+    
+    STAssertNil([json objectWithString:@"{\"a\":1,,}" error:&error], nil);
+    assertErrorContains(error, @"Object key string expected");
+    
+    STAssertNil([json objectWithString:@"{,\"a\":1}" error:&error], nil);
+    assertErrorContains(error, @"Object key string expected");
+    
+
+    STAssertNil([json objectWithString:@"{\"a\"" error:&error], nil);
+    assertErrorContains(error, @"Expected ':'");
+    
+
+    STAssertNil([json objectWithString:@"{\"a\":" error:&error], nil);
+    assertErrorContains(error, @"Object value expected");
+    
+    STAssertNil([json objectWithString:@"{\"a\":," error:&error], nil);
+    assertErrorContains(error, @"Object value expected");
+    
+    
+    STAssertNil([json objectWithString:@"{\"a\":1,}" error:&error], nil);
+    assertErrorContains(error, @"Trailing comma disallowed");
+    
+    
+    STAssertNil([json objectWithString:@"{" error:&error], nil);
+    assertErrorContains(error, @"End of input while parsing object");
+    
+    STAssertNil([json objectWithString:@"{\"a\":{}" error:&error], nil);
+    assertErrorContains(error, @"End of input while parsing object");
 }
 
-- (void)testMissingValue
-{
-    tn([@"[1,," JSONValue], @"enovalue");
+- (void)testNumber {
+    NSError *error;
 
-    tn([@"{\"a\":1,," JSONValue], @"enostring");
-    tn([@"{\"a\":1," JSONValue], @"enostring");
-    tn([@"{\"a\":}" JSONValue], @"enovalue");
-    tn([@"{\"a\":" JSONValue], @"enovalue");
+    STAssertNil([json fragmentWithString:@"-" error:&error], nil);
+    assertErrorContains(error, @"No digits after initial minus");
+        
+    STAssertNil([json fragmentWithString:@"+1" error:&error], nil);
+    assertErrorContains(error, @"Leading + disallowed in number");
+
+    STAssertNil([json fragmentWithString:@"01" error:&error], nil);
+    assertErrorContains(error, @"Leading 0 disallowed in number");
+    
+    STAssertNil([json fragmentWithString:@"0." error:&error], nil);
+    assertErrorContains(error, @"No digits after decimal point");
+    
+    
+    STAssertNil([json fragmentWithString:@"1e" error:&error], nil);
+    assertErrorContains(error, @"No digits after exponent");
+    
+    STAssertNil([json fragmentWithString:@"1e-" error:&error], nil);
+    assertErrorContains(error, @"No digits after exponent");
+    
+    STAssertNil([json fragmentWithString:@"1e+" error:&error], nil);
+    assertErrorContains(error, @"No digits after exponent");
 }
 
-- (void)testMissingSeparator
-{
-    tn([@"{\"a\"" JSONValue], @"enocolon");
+- (void)testNull {
+    NSError *error;
+    
+    STAssertNil([json fragmentWithString:@"nil" error:&error], nil);
+    assertErrorContains(error, @"Expected 'null'");
 }
 
-- (void)testDictionaryFromJSON
-{
-    tn([@"{" JSONValue], @"enostring");
-    tn([@"{a" JSONValue], @"enostring");
-    tn([@"{null" JSONValue], @"enostring");
-    tn([@"{false" JSONValue], @"enostring");
-    tn([@"{true" JSONValue], @"enostring");
-    tn([@"{{}" JSONValue], @"enostring");
-    tn([@"{[]" JSONValue], @"enostring");
-    tn([@"{1" JSONValue], @"enostring");
+- (void)testBool {
+    NSError *error;
+    
+    STAssertNil([json fragmentWithString:@"truth" error:&error], nil);
+    assertErrorContains(error, @"Expected 'true'");
+    
+    STAssertNil([json fragmentWithString:@"fake" error:&error], nil);
+    assertErrorContains(error, @"Expected 'false'");
+}    
+
+- (void)testString {
+    NSError *error;
+
+    STAssertNil([json fragmentWithString:@"\"" error:&error], nil);
+    assertErrorContains(error, @"Unescaped control character");
+    
+    STAssertNil([json fragmentWithString:@"\"foo" error:&error], nil);
+    assertErrorContains(error, @"Unescaped control character");
+
+    
+    STAssertNil([json fragmentWithString:@"\"\\uD834foo\"" error:&error], nil);
+    assertErrorContains(error, @"Broken unicode character");
+    assertUnderlyingErrorContains(error, @"Missing low character");
+        
+    STAssertNil([json fragmentWithString:@"\"\\uD834\\u001E\"" error:&error], nil);
+    assertErrorContains(error, @"Broken unicode character");
+    assertUnderlyingErrorContains(error, @"Invalid low surrogate");
+    
+    STAssertNil([json fragmentWithString:@"\"\\uDD1Ef\"" error:&error], nil);
+    assertErrorContains(error, @"Broken unicode character");
+    assertUnderlyingErrorContains(error, @"Invalid high character");
+
+    
+    for (unsigned i = 0; i < 0x20; i++) {
+        NSString *str = [NSString stringWithFormat:@"\"%C\"", i];
+        STAssertNil([json fragmentWithString:str error:&error], nil);
+        assertErrorContains(error, @"Unescaped control character");
+    }
 }
 
-- (void)testSingleQuotedString
-{
-    tn([@"['1'" JSONValue], @"enovalue");
-    tn([@"{'1'" JSONValue], @"enostring");
-    tn([@"{\"a\":'1'" JSONValue], @"enovalue");
+- (void)testGarbage {
+    NSError *error;
+    
+    STAssertNil([json fragmentWithString:@"'1'" error:&error], nil);
+    assertErrorContains(error, @"Unrecognised leading character");
+    
+    STAssertNil([json fragmentWithString:@"'hello'" error:&error], nil);
+    assertErrorContains(error, @"Unrecognised leading character");
+    
+    STAssertNil([json fragmentWithString:@"**" error:&error], nil);
+    assertErrorContains(error, @"Unrecognised leading character");
 }
 
-- (void)testGarbage
-{
-    tn([@"'1'" JSONValue], @"enojson");
-    tn([@"'hello'" JSONValue], @"enojson");
-    tn([@"\"" JSONValue], @"enojson");
-    tn([@"\"hello" JSONValue], @"enojson");
-    tn([@"" JSONValue], @"enojson");
-    tn([@"**" JSONValue], @"enojson");
-}
+- (void)testFragment
+{    
+    NSArray *fragments = [@"true false null 1 1.0 \"str\"" componentsSeparatedByString:@" "];
+    for (int i = 0; i < [fragments count]; i++) {
+        NSString *fragment = [fragments objectAtIndex:i];
 
-- (void)testUnescapedControlChar
-{
-    for (unsigned i = 0; i < 0x20; i++)
-        tn(([[NSString stringWithFormat:@"\"%C\"", i] JSONFragmentValue]), @"estring");
+        NSError *error = nil;
+        STAssertNil([json objectWithString:fragment error:&error], fragment);
+        assertErrorContains(error, @"Valid fragment");
+    }
 }
-
-- (void)testBrokenSurrogatePairs
-{
-//    @"\"\\uD834\\uDD1E\"" is the Unicode surrogate pairs for g-clef
-    tn([@"\"\\uD834foo\"" JSONFragmentValue], @"no_low_surrogate_char");
-    tn([@"\"\\uD834\\u001E\"" JSONFragmentValue], @"expected_low_surrogate");
-    tn([@"\"\\uDD1E\"" JSONFragmentValue], @"no_high_surrogate_char");
-}
-
-- (void)testIllegalNumber
-{
-    tn([@"+666e-1" JSONValue], @"enojson");
-}
-
-- (void)testObjectFromFragment
-{
-    tn([@"true" JSONValue], @"enojson");
-    tn([@"false" JSONValue], @"enojson");
-    tn([@"null" JSONValue], @"enojson");
-    tn([@"1" JSONValue], @"enojson");
-    tn([@"1.0" JSONValue], @"enojson");
-    tn([@"\"string\"" JSONValue], @"enojson");
-}
-
 
 @end

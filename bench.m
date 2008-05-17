@@ -30,10 +30,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import <stdio.h>
 #import "JSON.h"
 
-#define TIME 10
+#define COUNT 500
 
 int main(int argc, char **argv) {
-    NSAutoreleasePool *pool = [NSAutoreleasePool new];
+    NSAutoreleasePool *outer = [NSAutoreleasePool new];
     
     if (argc != 2) {
         printf("Usage: %s file-containing-json\n", argv[0]);
@@ -44,28 +44,32 @@ int main(int argc, char **argv) {
     NSString *repr = [NSString stringWithContentsOfFile:filename];
     id json = [repr JSONValue];
     
-    unsigned cnt = 0;
+    NSAutoreleasePool *inner = [NSAutoreleasePool new];
     NSDate *start = [NSDate date];
-    do {
-        cnt++;
-        NSAutoreleasePool *inner = [NSAutoreleasePool new];
+    for (int i = 0; i < COUNT; i++) {
         [repr JSONValue];
-        [inner release];
-    } while (-[start timeIntervalSinceNow] < TIME);
+        [repr JSONValue];
+        [repr JSONValue];
+        [repr JSONValue];
+        [repr JSONValue];
+    }
     double duration = -[start timeIntervalSinceNow];
-    printf("Decode: %f\n", cnt / duration);
-
-    cnt = 0;
-    start = [NSDate date];
-    do {
-        cnt++;
-        NSAutoreleasePool *inner = [NSAutoreleasePool new];
-        [json JSONRepresentation];
-        [inner release];
-    } while (-[start timeIntervalSinceNow] < TIME);
-    duration = -[start timeIntervalSinceNow];
-    printf("Encode: %f\n", cnt / duration);
+    printf("Decode: %f\n", 5 * COUNT / duration);
+    [inner release];
     
-    [pool release];
+    inner = [NSAutoreleasePool new];
+    start = [NSDate date];
+    for (int i = 0; i < COUNT; i++) {
+        [json JSONRepresentation];
+        [json JSONRepresentation];
+        [json JSONRepresentation];
+        [json JSONRepresentation];
+        [json JSONRepresentation];
+    }
+    duration = -[start timeIntervalSinceNow];
+    printf("Encode: %f\n", 5 * COUNT / duration);
+    [inner release];
+    
+    [outer release];
     return 0;
 }

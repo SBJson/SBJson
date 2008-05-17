@@ -34,8 +34,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSString *)JSONFragment {
     SBJSON *generator = [SBJSON new];
-    NSString *json = [generator stringWithJSON:self error:NULL];
+    
+    NSError *error;
+    NSString *json = [generator stringWithJSON:self error:&error];
     [generator release];
+    
+    if (!json)
+        NSLog(@"%@", error);
     return json;
 }
 
@@ -56,8 +61,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (o = [x objectForKey:@"Pretty"])
         [generator setHumanReadable:[o boolValue]];
     
-    NSString *json = [generator stringWithJSON:self error:NULL];
+    NSError *error;
+    NSString *json = [generator stringWithJSON:self error:&error];
     [generator release];
+    
+    if (!json)
+        NSLog(@"%@", error);
     return json;
 }
 

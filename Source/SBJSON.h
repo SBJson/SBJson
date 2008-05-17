@@ -32,18 +32,37 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern NSString * SBJSONErrorDomain;
 
 enum {
-    ENOSUPPORTED = 1,
-    ENOSTRING,
+    EUNSUPPORTED = 1,
+    EPARSENUM,
+    EPARSE,
+    EFRAGMENT,
+    ECTRL,
+    EUNICODE,
+    EDEPTH,
+    EESCAPE,
+    ETRAILCOMMA,
+    ETRAILGARBAGE,
 };
 
 @interface SBJSON : NSObject {
-    unsigned depth;
+    // Attributes
     BOOL humanReadable;
+    unsigned maxDepth;
+
+    // Used temporarily during scanning/generation
+    unsigned depth;
+    const char *c;
 }
 
 - (BOOL)humanReadable;
 - (void)setHumanReadable:(BOOL)y;
 
+- (unsigned)maxDepth;
+- (void)setMaxDepth:(unsigned)y;
+
 - (NSString*)stringWithJSON:(id)value error:(NSError**)error;
+
+- (id)fragmentWithString:(NSString*)jsonrep error:(NSError**)error;
+- (id)objectWithString:(NSString*)jsonrep error:(NSError**)error;
 
 @end

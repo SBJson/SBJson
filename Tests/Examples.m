@@ -90,10 +90,10 @@
                                                       error:nil];
 
         if ([file hasPrefix:@"pass"]) {
-            STAssertNoThrow([json JSONValueWithOptions:options], nil);
+            STAssertNotNil([json JSONValueWithOptions:options], nil);
             
         } else {
-            STAssertThrows([json JSONValueWithOptions:options], nil);
+            STAssertNil([json JSONValueWithOptions:options], json);
         }
     }
 }

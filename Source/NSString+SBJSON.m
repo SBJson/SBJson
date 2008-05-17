@@ -28,50 +28,54 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import "NSString+SBJSON.h"
-#import "SBJSONScanner.h"
+#import "SBJSON.h"
 
 
 @implementation NSString (NSString_SBJSON)
 
-- (id)JSONValue
+- (id)JSONFragmentValueWithOptions:(NSDictionary *)opts
 {
-    return [self JSONValueWithOptions:nil];
-}
-
-- (id)JSONValueWithOptions:(NSDictionary *)opts
-{
-    id o;
-
-    SBJSONScanner *scanner = [[SBJSONScanner alloc] initWithString:self];
+    SBJSON *json = [SBJSON new];
+    
     if (opts) {
         id opt = [opts objectForKey:@"MaxDepth"];
         if (opt)
-            [scanner setMaxDepth:[opt intValue]];
+            [json setMaxDepth:[opt intValue]];
     }
+    
+    NSError *error;
+    id o = [json fragmentWithString:self error:&error];
+    if (!o)
+        NSLog(@"%@", error);
+    return o;
+}
 
-    BOOL success = ([scanner scanDictionary:&o] || [scanner scanArray:&o]) && [scanner isAtEnd];
-    [scanner release];
 
-    if (success)
-        return o;
-
-    [NSException raise:@"enojson"
-                format:@"Failed to parse '%@' as JSON", self];
+- (id)JSONValueWithOptions:(NSDictionary *)opts
+{
+    SBJSON *json = [SBJSON new];
+    
+    if (opts) {
+        id opt = [opts objectForKey:@"MaxDepth"];
+        if (opt)
+            [json setMaxDepth:[opt intValue]];
+    }
+    
+    NSError *error;
+    id o = [json objectWithString:self error:&error];
+    if (!o)
+        NSLog(@"%@", error);
+    return o;
 }
 
 - (id)JSONFragmentValue
 {
-    id o;
+    return [self JSONFragmentValueWithOptions:nil];
+}
 
-    SBJSONScanner *scanner = [[SBJSONScanner alloc] initWithString:self];
-    BOOL success = [scanner scanValue:&o] && [scanner isAtEnd];
-    [scanner release];
-
-    if (success)
-        return o;
-    
-    [NSException raise:@"enofragment"
-                format:@"Failed to parse '%@' as a JSON fragment", self];
+- (id)JSONValue
+{
+    return [self JSONValueWithOptions:nil];
 }
 
 @end
