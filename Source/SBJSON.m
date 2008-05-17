@@ -107,7 +107,7 @@ static char ctrl[0x22];
 
 #pragma mark Generator
 
-- (NSString*)stringWithJSON:(id)value error:(NSError**)error {
+- (NSString*)stringWithFragment:(id)value error:(NSError**)error {
     depth = 0;
     NSMutableString *json = [NSMutableString stringWithCapacity:128];
     
@@ -117,6 +117,22 @@ static char ctrl[0x22];
     
     if (error)
         *error = err;
+    return nil;
+}
+
+- (NSString*)stringWithJSON:(id)value error:(NSError**)error {
+    NSError *err2;
+    if (![value isKindOfClass:[NSDictionary class]] && ![value isKindOfClass:[NSArray class]]) {
+        err2 = err(EFRAGMENT, @"Not valid JSON (try -stringWithFragment:error:)");        
+
+    } else {
+        NSString *json = [self stringWithFragment:value error:&err2];
+        if (json)
+            return json;
+    }
+
+    if (error)
+        *error = err2;
     return nil;
 }
 

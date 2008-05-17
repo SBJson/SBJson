@@ -61,6 +61,7 @@ enum {
 - (void)setMaxDepth:(unsigned)y;
 
 - (NSString*)stringWithJSON:(id)value error:(NSError**)error;
+- (NSString*)stringWithFragment:(id)value error:(NSError**)error;
 
 - (id)fragmentWithString:(NSString*)jsonrep error:(NSError**)error;
 - (id)objectWithString:(NSString*)jsonrep error:(NSError**)error;

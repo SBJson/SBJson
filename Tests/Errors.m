@@ -53,6 +53,20 @@
     }
 }
 
+
+- (void)testScalar
+{    
+    NSArray *fragments = [NSArray arrayWithObjects:@"foo", [NSNull null], [NSNumber numberWithInt:1], [NSNumber numberWithBool:YES], nil];
+    for (int i = 0; i < [fragments count]; i++) {
+        NSString *fragment = [fragments objectAtIndex:i];
+        
+        NSError *error = nil;
+        STAssertNil([json stringWithJSON:fragment error:&error], @"%@", fragment);
+        assertErrorContains(error, @"Not valid JSON");
+    }
+}
+
+
 #pragma mark Scanner
 
 - (void)testArray {
@@ -209,7 +223,7 @@
     for (int i = 0; i < [fragments count]; i++) {
         NSString *fragment = [fragments objectAtIndex:i];
 
-        NSError *error = nil;
+        NSError *error;
         STAssertNil([json objectWithString:fragment error:&error], fragment);
         assertErrorContains(error, @"Valid fragment");
     }
