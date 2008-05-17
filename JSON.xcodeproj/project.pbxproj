@@ -602,7 +602,6 @@
 					"-framework",
 					Foundation,
 					"-ObjC",
-					"-ljson",
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = bench;
@@ -625,7 +624,6 @@
 					"-framework",
 					Foundation,
 					"-ObjC",
-					"-ljson",
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = bench;
