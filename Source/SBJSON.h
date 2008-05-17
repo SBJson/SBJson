@@ -44,26 +44,40 @@ enum {
     ETRAILGARBAGE,
 };
 
+/// JSON parsing and generation
 @interface SBJSON : NSObject {
     // Attributes
     BOOL humanReadable;
     unsigned maxDepth;
 
+@private
     // Used temporarily during scanning/generation
     unsigned depth;
     const char *c;
 }
 
+/// Whether we are generating human-readable (multiline) JSON
 - (BOOL)humanReadable;
+
+/// Set whether to generate human-readable JSON or not
 - (void)setHumanReadable:(BOOL)y;
 
+/// The maximum depth the parser will go to
 - (unsigned)maxDepth;
+
+/// Set the maximum depth the parser will go to
 - (void)setMaxDepth:(unsigned)y;
 
+/// Return JSON representation of an array  or dictionary
 - (NSString*)stringWithObject:(id)value error:(NSError**)error;
+
+/// Return JSON representation of any legal JSON value
 - (NSString*)stringWithFragment:(id)value error:(NSError**)error;
 
+/// Return the object represented by the given string
 - (id)objectWithString:(NSString*)jsonrep error:(NSError**)error;
+
+/// Return the fragment represented by the given string
 - (id)fragmentWithString:(NSString*)jsonrep error:(NSError**)error;
 
 @end

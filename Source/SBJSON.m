@@ -107,6 +107,13 @@ static char ctrl[0x22];
 
 #pragma mark Generator
 
+/**
+ Returns a string containing JSON representation of the passed in value, or nil on error.
+ If nil is returned and @p error is not NULL, @p error can be interrogated to find the cause of the error.
+ 
+ @param value any instance that can be represented as a JSON fragment
+ @param error used to return an error by reference (pass NULL if this is not desired)
+ */
 - (NSString*)stringWithFragment:(id)value error:(NSError**)error {
     depth = 0;
     NSMutableString *json = [NSMutableString stringWithCapacity:128];
@@ -120,6 +127,13 @@ static char ctrl[0x22];
     return nil;
 }
 
+/**
+ Returns a string containing JSON representation of the passed in value, or nil on error.
+ If nil is returned and @p error is not NULL, @p error can be interrogated to find the cause of the error.
+ 
+ @param value a NSDictionary or NSArray instance
+ @param error used to return an error by reference (pass NULL if this is not desired)
+ */
 - (NSString*)stringWithObject:(id)value error:(NSError**)error {
     NSError *err2;
     if (![value isKindOfClass:[NSDictionary class]] && ![value isKindOfClass:[NSArray class]]) {
@@ -275,6 +289,13 @@ static char ctrl[0x22];
 
 #pragma mark Scanner
 
+/**
+ Returns the object represented by the passed-in string or nil on error. The returned object can be
+ a string, number, boolean, null, array or dictionary.
+ 
+ @param repr the json string to parse
+ @param error used to return an error by reference (pass NULL if this is not desired)
+ */
 - (id)fragmentWithString:(NSString*)repr error:(NSError**)error {
     c = [repr UTF8String];
     depth = 0;
@@ -295,6 +316,13 @@ static char ctrl[0x22];
     return nil;
 }
 
+/**
+ Returns the object represented by the passed-in string or nil on error. The returned object
+ will be either a dictionary or an array.
+ 
+ @param repr the json string to parse
+ @param error used to return an error by reference (pass NULL if this is not desired)
+ */
 - (id)objectWithString:(NSString*)repr error:(NSError**)error {
     
     NSError *err2 = nil;
@@ -668,18 +696,33 @@ static char ctrl[0x22];
 
 #pragma mark Properties
 
+/**
+ Returns whether the instance is configured to generate human readable JSON.
+ */
 - (BOOL)humanReadable {
     return humanReadable;
 }
 
+/**
+ Set whether or not to generate human-readable JSON. The default is NO, which produces
+ JSON without any whitespace. (Except inside strings.) If set to YES, generates human-readable
+ JSON with linebreaks after each array value and dictionary key/value pair, indented two
+ spaces per nesting level.
+ */
 - (void)setHumanReadable:(BOOL)y {
     humanReadable = y;
 }
 
+/**
+ Returns the maximum depth allowed when parsing JSON.
+ */
 - (unsigned)maxDepth {
     return maxDepth;
 }
 
+/**
+ Set the maximum depth allowed when parsing JSON. The default value is 512.
+ */
 - (void)setMaxDepth:(unsigned)y {
     maxDepth = y;
 }
