@@ -63,6 +63,8 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
 @end
 
+#pragma mark Private utilities
+
 #define skipWhitespace(c) while (isspace(*c)) c++
 #define skipDigits(c) while (isdigit(*c)) c++
 
@@ -119,9 +121,7 @@ static char ctrl[0x22];
 }
 
 - (NSString*)indent {
-    return [self humanReadable]
-    ? [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0]
-    : @"";
+    return [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0];
 }
 
 - (BOOL)appendValue:(id)fragment into:(NSMutableString*)json error:(NSError**)error {
