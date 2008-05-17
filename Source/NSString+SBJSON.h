@@ -29,8 +29,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Foundation/Foundation.h>
 
+/// Adds JSON parsing to NSString
 @interface NSString (NSString_SBJSON)
+
+/// Returns the object represented in the receiver, or nil on error. 
 - (id)JSONFragmentValue;
+
+/// Returns the dictionary or array represented in the receiver, or nil on error.
 - (id)JSONValue;
+
+/**
+ @brief Returns the dictionary or array represented in the receiver, or nil on error.
+ @param opts a dictionary of options
+
+ Only one option is supported: MadDepth. Set it to the maximum recursion level you want to support.
+ 
+ @deprecated This method is deprecated. Use an instance of the SBJSON class and set the @p maxDepth attribute instead.
+ */
 - (id)JSONValueWithOptions:(NSDictionary *)opts;
+
 @end
