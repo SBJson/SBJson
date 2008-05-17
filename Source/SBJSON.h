@@ -45,10 +45,13 @@ enum {
 };
 
 @interface SBJSON : NSObject {
+    // Attributes
     BOOL humanReadable;
-
-    unsigned depth;
     unsigned maxDepth;
+
+    // Used temporarily during scanning/generation
+    unsigned depth;
+    const char *c;
 }
 
 - (BOOL)humanReadable;
