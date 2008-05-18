@@ -1,8 +1,6 @@
 Blake Seely
-    I got the idea to use a category on NSScanner for the core of the
-    JSON parser from Blake's BSJSONAdditons project. This led me to
-    completely abandon a stand-alone JSON class which cleared up the
-    public interface considerably.
+    A lot of the inspiration to early versions of this framework
+    came from Blake's BSJSONAdditions project.
 
 Marc Lehmann
     Part of the inspiration for my JSON work has been from Marc's
