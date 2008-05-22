@@ -219,6 +219,7 @@
 				53D2297D0C96121600276605 /* Resources */,
 				53D2297E0C96121600276605 /* Sources */,
 				53D2297F0C96121600276605 /* Frameworks */,
+				537B3F920DE1EEDA00DCB308 /* Doxygen */,
 			);
 			buildRules = (
 			);
@@ -348,6 +349,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		537B3F920DE1EEDA00DCB308 /* Doxygen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Doxygen;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# See also http://developer.apple.com/tools/creatingdocsetswithdoxygen.html \n\nVERS=$(agvtool mvers -terse1)\n\nDOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen\nDOXYFILE=$DERIVED_FILES_DIR/Doxyfile\nDOCSET=$SOURCE_ROOT/DoxygenDocs.docset\n\n# Check that doxygen is present\ntest -f $DOXYGEN || exit 0\n\n# Create a doxygen configuration file with only the settings we care about\n\ncat <<EOF > $DOXYFILE\n\nPROJECT_NAME           = $PROJECT\nPROJECT_NUMBER         = $VERS\nOUTPUT_DIRECTORY       = $DOCSET\nINPUT                  = $SOURCE_ROOT/Source $SOURCE_ROOT/Docs\nFILE_PATTERNS          = *.h *.m *.doxygen\n\nGENERATE_LATEX         = NO\nGENERATE_HTML          = YES\nGENERATE_DOCSET        = YES\nDOCSET_FEEDNAME        = \"brautaset.org api docs\"\nDOCSET_BUNDLE_ID       = org.brautaset.$PROJECT\n\nQUIET                  = YES\n\nEOF\n\n#  Run doxygen on the updated config file.\n#  doxygen creates a Makefile that does most of the heavy lifting.\n\n$DOXYGEN $DOXYFILE\n\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\nmake -C $DERIVED_FILES_DIR/html install\n\n# Don't run the osascript below, as it causes the documentation window to be brought to the foreground.\nexit 0\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\nrm -f $TEMP_DIR/loadDocSet.scpt\n\ncat <<EOF > $TEMP_DIR/loadDocSet.scpt\ntell application \"Xcode\"\n\tload documentation set with path \"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\"\nend tell\nEOF\n\n# Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt\n\nexit 0";
+			showEnvVarsInLog = 0;
+		};
 		53D2298B0C96122A00276605 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
