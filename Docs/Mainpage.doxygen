@@ -12,8 +12,8 @@ strings are not valid JSON on their own. It can be quite convenient to
 pretend that fragments are valid JSON; this is supported through
 dedicated methods.
 
-This framework is limited to parsing strict JSON. (Aside other than the
-above mentioned support for fragments.) For example, it does not support
+This framework is limited to parsing strict JSON. (Aside from the above
+mentioned support for fragments.) For example, it does not support
 trailing commas in arrays or objects, nor embedded comments.
 
 Learn more on the http://code.google.com/p/json-framework project site.
