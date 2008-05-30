@@ -42,7 +42,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  @brief Returns the dictionary or array represented in the receiver, or nil on error.
  @param opts a dictionary of options
 
- Only one option is supported: MadDepth. Set it to the maximum recursion level you want to support.
+ Only one option is supported: MaxDepth. Set it to the maximum recursion level you want to support. 0 means no maximum level; the default is 512.
  
  @deprecated This method is deprecated. Use an instance of the SBJSON class and set the @p maxDepth attribute instead.
  */

@@ -63,9 +63,9 @@
 		539191D10DBB896D00714DA2 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
 		53C45B9B0C98A87600546F66 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		53D229810C96121600276605 /* JSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		53D229830C96121600276605 /* JSON-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "JSON-Info.plist"; sourceTree = "<group>"; };
+		53D229830C96121600276605 /* JSON-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSON-Info.plist"; sourceTree = "<group>"; };
 		53D2298D0C96122A00276605 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		53D2298E0C96122A00276605 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		53D2298E0C96122A00276605 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		53D2299A0C96129800276605 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		53D229A00C9612E000276605 /* Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests.h; sourceTree = "<group>"; };
 		53D229A10C9612E000276605 /* Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Types.m; sourceTree = "<group>"; };
@@ -220,6 +220,7 @@
 				53D2297E0C96121600276605 /* Sources */,
 				53D2297F0C96121600276605 /* Frameworks */,
 				537B3F920DE1EEDA00DCB308 /* Doxygen */,
+				534780620DE89FD200FC1C7A /* Install docset */,
 			);
 			buildRules = (
 			);
@@ -349,6 +350,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		534780620DE89FD200FC1C7A /* Install docset */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Install docset";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "DOCSET=$SOURCE_ROOT/Doxygen.docset\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\nmake -C $DOCSET/html install\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\nrm -f $TEMP_DIR/loadDocSet.scpt\n\ncat <<EOF > $TEMP_DIR/loadDocSet.scpt\ntell application \"Xcode\"\n\tload documentation set with path \"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\"\nend tell\nEOF\n\n# Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt\n";
+			showEnvVarsInLog = 0;
+		};
 		537B3F920DE1EEDA00DCB308 /* Doxygen */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -361,7 +377,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# See also http://developer.apple.com/tools/creatingdocsetswithdoxygen.html \n\nVERS=$(agvtool mvers -terse1)\n\nDOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen\nDOXYFILE=$DERIVED_FILES_DIR/Doxyfile\nDOCSET=$SOURCE_ROOT/DoxygenDocs.docset\n\n# Check that doxygen is present\ntest -f $DOXYGEN || exit 0\n\n# Create a doxygen configuration file with only the settings we care about\n\ncat <<EOF > $DOXYFILE\n\nPROJECT_NAME           = $FULL_PRODUCT_NAME\nPROJECT_NUMBER         = $VERS\nOUTPUT_DIRECTORY       = $DOCSET\nINPUT                  = $SOURCE_ROOT/Source $SOURCE_ROOT/Docs\nFILE_PATTERNS          = *.h *.m *.doxygen\n\nGENERATE_LATEX         = NO\nGENERATE_HTML          = YES\nGENERATE_DOCSET        = YES\nDOCSET_FEEDNAME        = \"brautaset.org api docs\"\nDOCSET_BUNDLE_ID       = org.brautaset.$PROJECT\n\nQUIET                  = YES\n\nEOF\n\n#  Run doxygen on the updated config file.\n#  doxygen creates a Makefile that does most of the heavy lifting.\n\n$DOXYGEN $DOXYFILE\n\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\nmake -C $DERIVED_FILES_DIR/html install\n\n# Don't run the osascript below, as it causes the documentation window to be brought to the foreground.\nexit 0\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\nrm -f $TEMP_DIR/loadDocSet.scpt\n\ncat <<EOF > $TEMP_DIR/loadDocSet.scpt\ntell application \"Xcode\"\n\tload documentation set with path \"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\"\nend tell\nEOF\n\n# Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt\n\nexit 0";
+			shellScript = "# See also http://developer.apple.com/tools/creatingdocsetswithdoxygen.html \n\nVERS=$(agvtool mvers -terse1)\n\nDOXYFILE=$DERIVED_FILES_DIR/Doxyfile\nDOCSET=$SOURCE_ROOT/Doxygen.docset\nDOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen\n\nif ! test -x $DOXYGEN ; then\n\tDOXYGEN=`which doxygen`;\nfi\n\nif ! test -x $DOXYGEN ; then\n\techo \"*** Install Doxygen to get documentatino generated for you automatically ***\"\n\texit 0\nfi\n\n\n# Check that doxygen is present\ntest -f $DOXYGEN || exit 0\n\n# Create a doxygen configuration file with only the settings we care about\n\ncat <<EOF > $DOXYFILE\n\nPROJECT_NAME           = $FULL_PRODUCT_NAME\nPROJECT_NUMBER         = $VERS\nOUTPUT_DIRECTORY       = $DOCSET\nINPUT                  = $SOURCE_ROOT/Source $SOURCE_ROOT/Docs\nFILE_PATTERNS          = *.h *.m *.doxygen\n\nGENERATE_LATEX         = NO\nGENERATE_HTML          = YES\nGENERATE_DOCSET        = YES\nDOCSET_FEEDNAME        = \"brautaset.org api docs\"\nDOCSET_BUNDLE_ID       = org.brautaset.$PROJECT\n\nQUIET                  = YES\n\nEOF\n\n#  Run doxygen on the updated config file.\n#  doxygen creates a Makefile that does most of the heavy lifting.\n\n$DOXYGEN $DOXYFILE\n\n";
 			showEnvVarsInLog = 0;
 		};
 		53D2298B0C96122A00276605 /* ShellScript */ = {

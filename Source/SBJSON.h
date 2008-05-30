@@ -44,7 +44,7 @@ enum {
     ETRAILGARBAGE,
 };
 
-/// JSON parsing and generation
+/// A strict JSON parser and generator
 @interface SBJSON : NSObject {
     // Attributes
     BOOL humanReadable;
