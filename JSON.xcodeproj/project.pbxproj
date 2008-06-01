@@ -362,7 +362,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "DOCSET=$SOURCE_ROOT/Doxygen.docset\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\nmake -C $DOCSET/html install\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\nrm -f $TEMP_DIR/loadDocSet.scpt\n\ncat <<EOF > $TEMP_DIR/loadDocSet.scpt\ntell application \"Xcode\"\n\tload documentation set with path \"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\"\nend tell\nEOF\n\n# Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt\n";
+			shellScript = "DOCSET=$SOURCE_ROOT/Doxygen.docset\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\nmake -C $DOCSET/html install\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\nrm -f $TEMP_DIR/loadDocSet.scpt\n\ncat <<EOF > $TEMP_DIR/loadDocSet.scpt\ntell application \"Xcode\"\n\tload documentation set with path \"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/org.brautaset.${PROJECT}.docset/\"\nend tell\nEOF\n\n# Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt\n";
 			showEnvVarsInLog = 0;
 		};
 		537B3F920DE1EEDA00DCB308 /* Doxygen */ = {
