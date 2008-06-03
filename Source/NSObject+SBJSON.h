@@ -36,7 +36,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  @brief Returns a string containing the receiver encoded as a JSON fragment.
 
- This method is added in a category on NSObject but is only actually supported for the following objects:
+ This method is added as a category on NSObject but is only actually
+ supported for the following objects:
  @li NSDictionary
  @li NSArray
  @li NSString
@@ -48,20 +49,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  @brief Returns a string containing the receiver encoded in JSON.
 
- This method is added in a category on NSObject but is only actually supported for the following objects:
+ This method is added as a category on NSObject but is only actually
+ supported for the following objects:
  @li NSDictionary
  @li NSArray
  */
 - (NSString *)JSONRepresentation;
 
 /**
- @brief Returns a string containing the receiver encoded in JSON, optionally human readable.
+ @brief Returns a string containing the receiver encoded in JSON.
+ 
+ Pass in a dictionary with an object that returns a true value for the
+ @p HumanReadable key, and the returned JSON will be  human readable.
 
- This method is added in a category on NSObject but is only actually supported for the following objects:
+ @deprecated This method is deprecated. Use an instance of the SBJSON
+ class and set the @p humanReadable attribute instead.
+
+ This method is added as a category on NSObject but is only actually
+ supported for the following objects:
  @li NSDictionary
  @li NSArray
  
- @deprecated This method is deprecated. Use an instance of the SBJSON class and set the @p humanReadable attribute instead.
  */
 - (NSString *)JSONRepresentationWithOptions:(NSDictionary *)opts;
 
