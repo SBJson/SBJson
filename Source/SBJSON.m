@@ -107,6 +107,32 @@ static char ctrl[0x22];
 
 #pragma mark Generator
 
+
+/**
+ Returns a string containing JSON representation of the passed in value, or nil on error.
+ If nil is returned and @p error is not NULL, @p *error can be interrogated to find the cause of the error.
+ 
+ @param value any instance that can be represented as a JSON fragment
+ @param allowScalar wether to return json fragments for scalar objects
+ @param error used to return an error by reference (pass NULL if this is not desired)
+ */
+- (NSString*)stringWithObject:(id)value allowScalar:(BOOL)allowScalar error:(NSError**)error {
+    depth = 0;
+    NSMutableString *json = [NSMutableString stringWithCapacity:128];
+    
+    NSError *err2 = nil;
+    if (!allowScalar && ![value isKindOfClass:[NSDictionary class]] && ![value isKindOfClass:[NSArray class]]) {
+        err2 = err(EFRAGMENT, @"Not valid type for JSON");        
+        
+    } else if ([self appendValue:value into:json error:&err2]) {
+        return json;
+    }
+    
+    if (error)
+        *error = err2;
+    return nil;
+}
+
 /**
  Returns a string containing JSON representation of the passed in value, or nil on error.
  If nil is returned and @p error is not NULL, @p error can be interrogated to find the cause of the error.
@@ -115,16 +141,7 @@ static char ctrl[0x22];
  @param error used to return an error by reference (pass NULL if this is not desired)
  */
 - (NSString*)stringWithFragment:(id)value error:(NSError**)error {
-    depth = 0;
-    NSMutableString *json = [NSMutableString stringWithCapacity:128];
-    
-    NSError *err;
-    if ([self appendValue:value into:json error:&err])
-        return json;
-    
-    if (error)
-        *error = err;
-    return nil;
+    return [self stringWithObject:value allowScalar:YES error:error];
 }
 
 /**
@@ -135,20 +152,9 @@ static char ctrl[0x22];
  @param error used to return an error by reference (pass NULL if this is not desired)
  */
 - (NSString*)stringWithObject:(id)value error:(NSError**)error {
-    NSError *err2;
-    if (![value isKindOfClass:[NSDictionary class]] && ![value isKindOfClass:[NSArray class]]) {
-        err2 = err(EFRAGMENT, @"Not valid JSON (try -stringWithFragment:error:)");        
-
-    } else {
-        NSString *json = [self stringWithFragment:value error:&err2];
-        if (json)
-            return json;
-    }
-
-    if (error)
-        *error = err2;
-    return nil;
+    return [self stringWithObject:value allowScalar:NO error:error];
 }
+
 
 - (NSString*)indent {
     return [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0];
@@ -294,11 +300,12 @@ static char ctrl[0x22];
  a string, number, boolean, null, array or dictionary.
  
  @param repr the json string to parse
+ @param allowScalar whether to return objects for JSON fragments
  @param error used to return an error by reference (pass NULL if this is not desired)
  */
-- (id)fragmentWithString:(NSString*)repr error:(NSError**)error {
-    c = [repr UTF8String];
+- (id)objectWithString:(id)repr allowScalar:(BOOL)allowScalar error:(NSError**)error {
     depth = 0;
+    c = [repr UTF8String];
     
     id o;
     NSError *err2 = nil;
@@ -308,12 +315,28 @@ static char ctrl[0x22];
         err2 = err(ETRAILGARBAGE, @"Garbage after JSON fragment");
         success = NO;
     }
-        
+    
+    if (!allowScalar && ![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]]) {
+        err2 = err(EFRAGMENT, @"Valid fragment, but not JSON");
+        success = NO;
+    }
+    
     if (success)
         return o;
     if (error)
         *error = err2;
-    return nil;
+    return nil;    
+}
+
+/**
+ Returns the object represented by the passed-in string or nil on error. The returned object can be
+ a string, number, boolean, null, array or dictionary.
+ 
+ @param repr the json string to parse
+ @param error used to return an error by reference (pass NULL if this is not desired)
+ */
+- (id)fragmentWithString:(NSString*)repr error:(NSError**)error {
+    return [self objectWithString:repr allowScalar:YES error:error];
 }
 
 /**
@@ -324,22 +347,8 @@ static char ctrl[0x22];
  @param error used to return an error by reference (pass NULL if this is not desired)
  */
 - (id)objectWithString:(NSString*)repr error:(NSError**)error {
-    
-    NSError *err2 = nil;
-    id o = [self fragmentWithString:repr error:&err2];
-
-    if (o && ([o isKindOfClass:[NSDictionary class]] || [o isKindOfClass:[NSArray class]]))
-        return o;
-    
-    if (o)
-        err2 = err(EFRAGMENT, @"Valid fragment, but not JSON");
-    
-    if (error)
-        *error = err2;
-
-    return nil;
+    return [self objectWithString:repr allowScalar:NO error:error];
 }
-
 
 - (BOOL)scanValue:(NSObject **)o error:(NSError **)error
 {

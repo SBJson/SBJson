@@ -66,7 +66,7 @@
         
         NSError *error = nil;
         STAssertNil([json stringWithObject:fragment error:&error], @"%@", fragment);
-        assertErrorContains(error, @"Not valid JSON");
+        assertErrorContains(error, @"Not valid type for JSON");
     }
 }
 

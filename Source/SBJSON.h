@@ -70,10 +70,10 @@ way you would expect. JSON numbers turn into NSDecimalNumber instances,
 as we can thus avoid any loss of precision.
 
 Strictly speaking correctly formed JSON text must have <strong>exactly
-one top-level container</strong>. (Either an Array or an Object.) Bare
-nulls, numbers, booleans and strings are not valid JSON on their own.
+one top-level container</strong>. (Either an Array or an Object.) Scalars,
+i.e. nulls, numbers, booleans and strings, are not valid JSON on their own.
 It can be quite convenient to pretend that such fragments are valid
-JSON however. This class lets you do so.
+JSON however, and this class lets you do so.
 
 This class does its best to be as strict as possible, both in what it
 accepts and what it generates. (Other than the above mentioned support
@@ -116,5 +116,15 @@ anything else not in the JSON specification.
 
 /// Return the fragment represented by the given string
 - (id)fragmentWithString:(NSString*)jsonrep error:(NSError**)error;
+
+/// Return JSON representation (or fragment) for the given object
+- (NSString*)stringWithObject:(id)value
+                  allowScalar:(BOOL)x
+    					error:(NSError**)error;
+
+/// Parse the string and return the represented object (or scalar)
+- (id)objectWithString:(id)value
+           allowScalar:(BOOL)x
+    			 error:(NSError**)error;
 
 @end
