@@ -180,7 +180,13 @@
 
 - (void)testString {
     NSError *error;
+    
+    STAssertNil([json fragmentWithString:@"" error:&error], nil);
+    assertErrorContains(error, @"Unrecognised leading character");
 
+    STAssertNil([json objectWithString:@"" error:&error], nil);
+    assertErrorContains(error, @"Unrecognised leading character");
+    
     STAssertNil([json fragmentWithString:@"\"" error:&error], nil);
     assertErrorContains(error, @"Unescaped control character");
     

@@ -316,7 +316,7 @@ static char ctrl[0x22];
         success = NO;
     }
     
-    if (!allowScalar && ![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]]) {
+    if (success && !allowScalar && ![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]]) {
         err2 = err(EFRAGMENT, @"Valid fragment, but not JSON");
         success = NO;
     }
