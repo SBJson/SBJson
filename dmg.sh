@@ -34,4 +34,14 @@ failed. Please find it yourself. </p>
 </html>
 HTML
 
+cp -p CREDITS $DIST
+cp -p README $DIST
+cat <<DOCINSTALL >> $DIST/README
+
+You can install the API documentation in this dmg by copying
+the 'html' directory to a writable location on your hard-drive,
+cd into the directory and type 'make install'.
+
+DOCINSTALL
+
 hdiutil create -fs HFS+ -volname $DIST -srcfolder $DIST $DMG
