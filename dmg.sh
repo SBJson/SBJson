@@ -16,6 +16,8 @@ xcodebuild -configuration Release -target JSON install
 mkdir $DIST
 cp -p -R /tmp/Frameworks/$PROJ.framework $DIST/
 cp -p -R Doxygen.docset/html $DIST/html
+rm -rf $DIST/html/org.brautaset.${PROJ}.docset
+
 
 cat <<HTML > $DIST/API.html
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
