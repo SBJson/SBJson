@@ -385,11 +385,18 @@ static char ctrl[0x22];
             *error = err(EPARSENUM, @"Leading + disallowed in number");
             return NO;
             break;
+        case 0x0:
+            *error = err(EPARSE, @"Unexpected end of string");
+            return NO;
+            break;
         default:
             *error = err(EPARSE, @"Unrecognised leading character");
             return NO;
             break;
     }
+    
+    NSAssert(0, @"Should never get here");
+    return NO;
 }
 
 - (BOOL)scanRestOfTrue:(NSNumber **)o error:(NSError **)error

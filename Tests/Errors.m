@@ -56,7 +56,7 @@
 
 - (void)testScalar
 {    
-    NSArray *fragments = [NSArray arrayWithObjects:@"foo", [NSNull null], [NSNumber numberWithInt:1], [NSNumber numberWithBool:YES], nil];
+    NSArray *fragments = [NSArray arrayWithObjects:@"foo", @"", [NSNull null], [NSNumber numberWithInt:1], [NSNumber numberWithBool:YES], nil];
     for (int i = 0; i < [fragments count]; i++) {
         NSString *fragment = [fragments objectAtIndex:i];
         
@@ -95,6 +95,11 @@
     
     STAssertNil([json objectWithString:@"[[]" error:&error], nil);
     assertErrorContains(error, @"End of input while parsing array");
+
+    // See if seemingly-valid arrays have nasty elements
+    STAssertNil([json objectWithString:@"[+1]" error:&error], nil);
+    assertErrorContains(error, @"Expected value");
+    assertUnderlyingErrorContains(error, @"Leading + disallowed");
 }
 
 - (void)testObject {
@@ -182,10 +187,10 @@
     NSError *error;
     
     STAssertNil([json fragmentWithString:@"" error:&error], nil);
-    assertErrorContains(error, @"Unrecognised leading character");
+    assertErrorContains(error, @"Unexpected end of string");
 
     STAssertNil([json objectWithString:@"" error:&error], nil);
-    assertErrorContains(error, @"Unrecognised leading character");
+    assertErrorContains(error, @"Unexpected end of string");
     
     STAssertNil([json fragmentWithString:@"\"" error:&error], nil);
     assertErrorContains(error, @"Unescaped control character");
