@@ -293,7 +293,7 @@ static char ctrl[0x22];
     return YES;
 }
 
-#pragma mark Scanner
+#pragma mark Parser
 
 /**
  Returns the object represented by the passed-in string or nil on error. The returned object can be
@@ -350,6 +350,9 @@ static char ctrl[0x22];
     return [self objectWithString:repr allowScalar:NO error:error];
 }
 
+/*
+ In contrast to the public methods, it is an error to omit the error parameter here.
+ */
 - (BOOL)scanValue:(NSObject **)o error:(NSError **)error
 {
     skipWhitespace(c);
@@ -559,7 +562,7 @@ static char ctrl[0x22];
                     }
                     c--; // hack.
                     break;
-                    default:
+                default:
                     *error = err(EESCAPE, [NSString stringWithFormat:@"Illegal escape sequence '0x%x'", uc]);
                     return NO;
                     break;
