@@ -391,7 +391,7 @@ static char ctrl[0x22];
             return NO;
             break;
         case 0x0:
-            *error = err(EPARSE, @"Unexpected end of string");
+            *error = err(EEOF, @"Unexpected end of string");
             return NO;
             break;
         default:
@@ -472,7 +472,7 @@ static char ctrl[0x22];
         }        
     }
     
-    *error = err(EPARSE, @"End of input while parsing array");
+    *error = err(EEOF, @"End of input while parsing array");
     return NO;
 }
 
@@ -524,7 +524,7 @@ static char ctrl[0x22];
         }        
     }
     
-    *error = err(EPARSE, @"End of input while parsing object");
+    *error = err(EEOF, @"End of input while parsing object");
     return NO;
 }
 
@@ -591,7 +591,7 @@ static char ctrl[0x22];
         }
     } while (*c);
     
-    *error = err(EPARSE, @"Unexpected EOF while parsing string");
+    *error = err(EEOF, @"Unexpected EOF while parsing string");
     return NO;
 }
 

@@ -42,6 +42,7 @@ enum {
     EESCAPE,
     ETRAILCOMMA,
     ETRAILGARBAGE,
+    EEOF,
 };
 
 /**
