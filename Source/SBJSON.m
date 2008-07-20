@@ -309,23 +309,28 @@ static char ctrl[0x22];
     
     id o;
     NSError *err2 = nil;
-    BOOL success = [self scanValue:&o error:&err2];
-    
-    if (success && ![self scanIsAtEnd]) {
-        err2 = err(ETRAILGARBAGE, @"Garbage after JSON fragment");
-        success = NO;
+    if (![self scanValue:&o error:&err2]) {
+        if (error)
+            *error = err2;
+        return nil;
     }
     
-    if (success && !allowScalar && ![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]]) {
-        err2 = err(EFRAGMENT, @"Valid fragment, but not JSON");
-        success = NO;
+    // We found some valid JSON. But did it also contain something else?
+    if (![self scanIsAtEnd]) {
+        if (error)
+            *error = err(ETRAILGARBAGE, @"Garbage after JSON");
+        return nil;
     }
     
-    if (success)
-        return o;
-    if (error)
-        *error = err2;
-    return nil;    
+    // If we don't allow scalars, check that the object we've found is a valid JSON container.
+    if (!allowScalar && ![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]]) {
+        if (error)
+            *error = err(EFRAGMENT, @"Valid fragment, but not JSON");
+        return nil;
+    }
+
+    NSAssert1(o, @"Should have a valid object from %@", repr);
+    return o;
 }
 
 /**
