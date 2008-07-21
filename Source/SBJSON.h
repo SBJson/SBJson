@@ -81,7 +81,7 @@ accepts and what it generates. (Other than the above mentioned support
 for JSON fragments.) For example, it does not support trailing commas
 in arrays or objects. Nor does it support embedded comments, or
 anything else not in the JSON specification.
-
+ 
 */
 @interface SBJSON : NSObject {
     // Attributes
@@ -95,16 +95,17 @@ anything else not in the JSON specification.
 }
 
 /// Whether we are generating human-readable (multiline) JSON
-- (BOOL)humanReadable;
-
-/// Set whether to generate human-readable JSON or not
-- (void)setHumanReadable:(BOOL)y;
+/**
+ Set whether or not to generate human-readable JSON. The default is NO, which produces
+ JSON without any whitespace. (Except inside strings.) If set to YES, generates human-readable
+ JSON with linebreaks after each array value and dictionary key/value pair, indented two
+ spaces per nesting level.
+ */
+@property BOOL humanReadable;
 
 /// The maximum depth the parser will go to
-- (unsigned)maxDepth;
-
-/// Set the maximum depth the parser will go to
-- (void)setMaxDepth:(unsigned)y;
+/** Defaults to 512. */
+@property unsigned maxDepth;
 
 /// Return JSON representation of an array  or dictionary
 - (NSString*)stringWithObject:(id)value error:(NSError**)error;

@@ -720,35 +720,7 @@ static char ctrl[0x22];
 
 #pragma mark Properties
 
-/**
- Returns whether the instance is configured to generate human readable JSON.
- */
-- (BOOL)humanReadable {
-    return humanReadable;
-}
-
-/**
- Set whether or not to generate human-readable JSON. The default is NO, which produces
- JSON without any whitespace. (Except inside strings.) If set to YES, generates human-readable
- JSON with linebreaks after each array value and dictionary key/value pair, indented two
- spaces per nesting level.
- */
-- (void)setHumanReadable:(BOOL)y {
-    humanReadable = y;
-}
-
-/**
- Returns the maximum depth allowed when parsing JSON.
- */
-- (unsigned)maxDepth {
-    return maxDepth;
-}
-
-/**
- Set the maximum depth allowed when parsing JSON. The default value is 512.
- */
-- (void)setMaxDepth:(unsigned)y {
-    maxDepth = y;
-}
+@synthesize humanReadable;
+@synthesize maxDepth;
 
 @end
