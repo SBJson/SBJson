@@ -86,11 +86,11 @@ anything else not in the JSON specification.
 @interface SBJSON : NSObject {
     // Attributes
     BOOL humanReadable;
-    unsigned maxDepth;
+    NSUInteger maxDepth;
 
 @private
     // Used temporarily during scanning/generation
-    unsigned depth;
+    NSUInteger depth;
     const char *c;
 }
 
@@ -105,7 +105,7 @@ anything else not in the JSON specification.
 
 /// The maximum depth the parser will go to
 /** Defaults to 512. */
-@property unsigned maxDepth;
+@property NSUInteger maxDepth;
 
 /// Return JSON representation of an array  or dictionary
 - (NSString*)stringWithObject:(id)value error:(NSError**)error;

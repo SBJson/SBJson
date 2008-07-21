@@ -212,7 +212,7 @@
     assertUnderlyingErrorContains(error, @"Invalid high character");
 
     
-    for (unsigned i = 0; i < 0x20; i++) {
+    for (NSUInteger i = 0; i < 0x20; i++) {
         NSString *str = [NSString stringWithFormat:@"\"%C\"", i];
         STAssertNil([json fragmentWithString:str error:&error], nil);
         assertErrorContains(error, @"Unescaped control character");

@@ -267,7 +267,7 @@ static char ctrl[0x22];
         [json appendString:fragment];
         
     } else {
-        for (unsigned i = 0; i < [fragment length]; i++) {
+        for (NSUInteger i = 0; i < [fragment length]; i++) {
             unichar uc = [fragment characterAtIndex:i];
             switch (uc) {
                 case '"':   [json appendString:@"\\\""];       break;
