@@ -33,11 +33,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @implementation NSObject (NSObject_SBJSON)
 
 - (NSString *)JSONFragment {
-    SBJSON *generator = [SBJSON new];
+    SBJSON *generator = [[SBJSON new] autorelease];
     
     NSError *error;
     NSString *json = [generator stringWithFragment:self error:&error];
-    [generator release];
     
     if (!json)
         NSLog(@"%@", error);
@@ -45,33 +44,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 - (NSString *)JSONRepresentation {
-    SBJSON *generator = [SBJSON new];
+    SBJSON *generator = [[SBJSON new] autorelease];
     
     NSError *error;
     NSString *json = [generator stringWithObject:self error:&error];
-    [generator release];
-    
-    if (!json)
-        NSLog(@"%@", error);
-    return json;
-}
-
-- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)x {    
-    SBJSON *generator = [SBJSON new];
-
-    id o;
-    if (o = [x objectForKey:@"HumanReadable"]) 
-        [generator setHumanReadable:[o boolValue]];
-
-    if (o = [x objectForKey:@"MultiLine"]) 
-        [generator setHumanReadable:[o boolValue]];
-
-    if (o = [x objectForKey:@"Pretty"])
-        [generator setHumanReadable:[o boolValue]];
-    
-    NSError *error;
-    NSString *json = [generator stringWithObject:self error:&error];
-    [generator release];
     
     if (!json)
         NSLog(@"%@", error);

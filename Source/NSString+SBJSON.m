@@ -33,53 +33,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @implementation NSString (NSString_SBJSON)
 
-- (id)JSONFragmentValueWithOptions:(NSDictionary *)opts
+- (id)JSONFragmentValue
 {
-    SBJSON *json = [SBJSON new];
-    
-    if (opts) {
-        id opt = [opts objectForKey:@"MaxDepth"];
-        if (opt)
-            [json setMaxDepth:[opt intValue]];
-    }
+    SBJSON *json = [[SBJSON new] autorelease];
     
     NSError *error;
     id o = [json fragmentWithString:self error:&error];
-    [json release];
-
+    
     if (!o)
         NSLog(@"%@", error);
     return o;
-}
-
-
-- (id)JSONValueWithOptions:(NSDictionary *)opts
-{
-    SBJSON *json = [SBJSON new];
-    
-    if (opts) {
-        id opt = [opts objectForKey:@"MaxDepth"];
-        if (opt)
-            [json setMaxDepth:[opt intValue]];
-    }
-    
-    NSError *error;
-    id o = [json objectWithString:self error:&error];
-    [json release];
-
-    if (!o)
-        NSLog(@"%@", error);
-    return o;
-}
-
-- (id)JSONFragmentValue
-{
-    return [self JSONFragmentValueWithOptions:nil];
 }
 
 - (id)JSONValue
 {
-    return [self JSONValueWithOptions:nil];
+    SBJSON *json = [[SBJSON new] autorelease];
+    
+    NSError *error;
+    id o = [json objectWithString:self error:&error];
+    
+    if (!o)
+        NSLog(@"%@", error);
+    return o;
 }
 
 @end

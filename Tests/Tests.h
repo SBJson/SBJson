@@ -23,7 +23,5 @@
 @interface Examples : SenTestCase
 @end
 
-@interface Pretty : SenTestCase {
-    NSArray *json;
-}
+@interface Pretty : SenTestCase
 @end

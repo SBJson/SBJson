@@ -80,7 +80,8 @@
     NSString *file, *dir = @"Tests/jsonchecker";
     NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
     
-    NSDictionary *options = [NSDictionary dictionaryWithObject:@"19" forKey:@"MaxDepth"];
+    SBJSON *sbjson = [SBJSON new];
+    sbjson.maxDepth = 19;
     while (file = [files nextObject]) {
         if (![[file pathExtension] isEqualToString:@"json"])
             continue;
@@ -90,10 +91,10 @@
                                                       error:nil];
 
         if ([file hasPrefix:@"pass"]) {
-            STAssertNotNil([json JSONValueWithOptions:options], nil);
+            STAssertNotNil([sbjson objectWithString:json error:NULL], nil);
             
         } else {
-            STAssertNil([json JSONValueWithOptions:options], json);
+            STAssertNil([sbjson objectWithString:json error:NULL], json);
         }
     }
 }

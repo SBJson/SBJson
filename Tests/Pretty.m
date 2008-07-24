@@ -10,31 +10,28 @@
 
 @implementation Pretty
 
-- (void)setUp {
-    NSString *input = [NSString stringWithContentsOfFile:@"Tests/format/input.json"
-                                                encoding:NSASCIIStringEncoding
-                                                   error:nil];
-    json = [input JSONValue];
-}
+- (void)testOutputFormat {
+    SBJSON *json = [SBJSON new];    
+    NSString *inputString = [NSString stringWithContentsOfFile:@"Tests/format/input.json"
+                                                      encoding:NSASCIIStringEncoding
+                                                         error:nil];
 
-- (void)testFormatting {
-    NSArray *formats = [@"HumanReadable MultiLine Pretty" componentsSeparatedByString:@" "];
-    id fmt, fmtenum = [formats objectEnumerator];
+    id input = [json objectWithString:inputString error:NULL];
+    id output = [json stringWithObject:input error:NULL];
+    STAssertEquals([[output componentsSeparatedByString:@"\n"] count], (NSUInteger)1, nil);
     
-    while (fmt = [fmtenum nextObject]) {
-        NSDictionary *args = [NSDictionary dictionaryWithObject:@"1" forKey:fmt];
-        NSString *got = [json JSONRepresentationWithOptions:args];
+    json.humanReadable = YES;
+    id humanReadable = [json stringWithObject:input error:NULL];
+    STAssertEquals([[humanReadable componentsSeparatedByString:@"\n"] count], (NSUInteger)14, nil);
 
-        NSString *file = [NSString stringWithFormat:@"Tests/format/HumanReadable.json", fmt];
-        NSString *expected = [NSString stringWithContentsOfFile:file
-                                                       encoding:NSASCIIStringEncoding
-                                                          error:nil];
+    
+    NSString *expected = [NSString stringWithContentsOfFile:@"Tests/format/HumanReadable.json"
+                                                   encoding:NSASCIIStringEncoding
+                                                      error:nil];
 
-        // chop off the newline
-        expected = [expected substringToIndex:[expected length]-1];
-
-        STAssertEqualObjects(got, expected, fmt);
-    }
+    // chop off the newline
+    expected = [expected substringToIndex:[expected length]-1];
+    STAssertEqualObjects(humanReadable, expected, nil);
 }
 
 @end
