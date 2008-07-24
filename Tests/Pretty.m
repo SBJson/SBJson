@@ -24,6 +24,10 @@
     id humanReadable = [json stringWithObject:input error:NULL];
     STAssertEquals([[humanReadable componentsSeparatedByString:@"\n"] count], (NSUInteger)14, nil);
 
+    json.sortKeys = YES;
+    id sortKeys = [json stringWithObject:input error:NULL];
+    STAssertEquals([[sortKeys componentsSeparatedByString:@"\n"] count], (NSUInteger)14, nil);
+    STAssertFalse([sortKeys isEqual:humanReadable], @"%@ == %@", sortKeys, humanReadable);
     
     NSString *expected = [NSString stringWithContentsOfFile:@"Tests/format/HumanReadable.json"
                                                    encoding:NSASCIIStringEncoding
@@ -31,7 +35,7 @@
 
     // chop off the newline
     expected = [expected substringToIndex:[expected length]-1];
-    STAssertEqualObjects(humanReadable, expected, nil);
+    STAssertEqualObjects(sortKeys, expected, nil);
 }
 
 @end

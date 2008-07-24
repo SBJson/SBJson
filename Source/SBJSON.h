@@ -84,8 +84,8 @@ anything else not in the JSON specification.
  
 */
 @interface SBJSON : NSObject {
-    // Attributes
     BOOL humanReadable;
+    BOOL sortKeys;
     NSUInteger maxDepth;
 
 @private
@@ -102,6 +102,10 @@ anything else not in the JSON specification.
  spaces per nesting level.
  */
 @property BOOL humanReadable;
+
+/// Whether or not to sort the dictionary keys in the output
+/** The default is to not sort the keys. */
+@property BOOL sortKeys;
 
 /// The maximum depth the parser will go to
 /** Defaults to 512. */

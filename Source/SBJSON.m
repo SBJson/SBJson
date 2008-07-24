@@ -220,7 +220,11 @@ static char ctrl[0x22];
 
     NSString *colon = [self humanReadable] ? @" : " : @":";
     BOOL addComma = NO;
-    NSEnumerator *values = [fragment keyEnumerator];
+    NSArray *keys = [fragment allKeys];
+    if (self.sortKeys)
+        keys = [keys sortedArrayUsingSelector:@selector(compare:)];
+    
+    NSEnumerator *values = [keys objectEnumerator];
     for (id value; value = [values nextObject]; addComma = YES) {
         
         if (addComma)
@@ -721,6 +725,7 @@ static char ctrl[0x22];
 #pragma mark Properties
 
 @synthesize humanReadable;
+@synthesize sortKeys;
 @synthesize maxDepth;
 
 @end
