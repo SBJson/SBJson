@@ -6,7 +6,8 @@
 //  Copyright 2007 Stig Brautaset. All rights reserved.
 //
 
-#import "Tests.h"
+#import "Examples.h"
+#import <JSON/JSON.h>
 
 @implementation Examples
 

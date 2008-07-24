@@ -6,7 +6,8 @@
 //  Copyright 2007 Stig Brautaset. All rights reserved.
 //
 
-#import "Tests.h"
+#import "Types.h"
+#import <JSON/JSON.h>
 
 NSString *file(NSString *path) {
     NSString *content = [NSString stringWithContentsOfFile:path

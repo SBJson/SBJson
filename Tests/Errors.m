@@ -6,7 +6,8 @@
 //  Copyright 2007 Stig Brautaset. All rights reserved.
 //
 
-#import "Tests.h"
+#import "Errors.h"
+#import <JSON/JSON.h>
 
 // The ST guys sure like typing. Personally, I don't.
 #define tn(expr, name) \

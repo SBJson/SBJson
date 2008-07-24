@@ -59,6 +59,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5355C86B0E392B2A00A18C15 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
+		5355C86C0E392B2A00A18C15 /* Examples.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Examples.h; sourceTree = "<group>"; };
+		5355C86D0E392B2A00A18C15 /* Pretty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pretty.h; sourceTree = "<group>"; };
+		5355C86E0E392B2A00A18C15 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		539191D00DBB896D00714DA2 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
 		539191D10DBB896D00714DA2 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
 		53C45B9B0C98A87600546F66 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
@@ -67,7 +71,6 @@
 		53D2298D0C96122A00276605 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D2298E0C96122A00276605 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		53D2299A0C96129800276605 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		53D229A00C9612E000276605 /* Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests.h; sourceTree = "<group>"; };
 		53D229A10C9612E000276605 /* Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Types.m; sourceTree = "<group>"; };
 		53EF4D400DC247B3005F5E6D /* bench */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bench; sourceTree = BUILT_PRODUCTS_DIR; };
 		53EF4D4D0DC2483C005F5E6D /* bench.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bench.m; sourceTree = "<group>"; };
@@ -166,10 +169,13 @@
 		53D229960C96124500276605 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				53D229A00C9612E000276605 /* Tests.h */,
-				53D229A10C9612E000276605 /* Types.m */,
-				E76A1EB60C996C2000A0CC83 /* Examples.m */,
+				5355C86B0E392B2A00A18C15 /* Errors.h */,
 				53C45B9B0C98A87600546F66 /* Errors.m */,
+				5355C86C0E392B2A00A18C15 /* Examples.h */,
+				E76A1EB60C996C2000A0CC83 /* Examples.m */,
+				5355C86E0E392B2A00A18C15 /* Types.h */,
+				53D229A10C9612E000276605 /* Types.m */,
+				5355C86D0E392B2A00A18C15 /* Pretty.h */,
 				E7153EE80CAAABDB00054ADB /* Pretty.m */,
 			);
 			path = Tests;
