@@ -9,6 +9,9 @@
 #import "Types.h"
 #import <JSON/JSON.h>
 
+#define eq(x, y)        STAssertEquals(x, y, nil)
+#define eqo(x, y)       STAssertEqualObjects(x, y, nil)
+
 NSString *file(NSString *path) {
     NSString *content = [NSString stringWithContentsOfFile:path
                                                   encoding:NSASCIIStringEncoding
