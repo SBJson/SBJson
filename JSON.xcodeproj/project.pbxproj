@@ -17,6 +17,7 @@
 		53D229AD0C961B9900276605 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D229810C96121600276605 /* JSON.framework */; };
 		53EF4D4E0DC2483C005F5E6D /* bench.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EF4D4D0DC2483C005F5E6D /* bench.m */; };
 		53EF4F9F0DC52FEB005F5E6D /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2BBD800D8B0D3900184787 /* libjson.a */; };
+		53F8A8150E57158200355C72 /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2BBD800D8B0D3900184787 /* libjson.a */; };
 		E7153EE90CAAABDB00054ADB /* Pretty.m in Sources */ = {isa = PBXBuildFile; fileRef = E7153EE80CAAABDB00054ADB /* Pretty.m */; };
 		E75716450C96DB530084A449 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E75716460C96DB530084A449 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+SBJSON.m */; };
@@ -24,9 +25,9 @@
 		E757164E0C96E39B0084A449 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E757164C0C96E39B0084A449 /* NSString+SBJSON.m */; };
 		E76A1EBD0C996EFD00A0CC83 /* Examples.m in Sources */ = {isa = PBXBuildFile; fileRef = E76A1EB60C996C2000A0CC83 /* Examples.m */; };
 		FE2BBD860D8B0D6000184787 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FE2BBD870D8B0D6000184787 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FE2BBD870D8B0D6000184787 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FE2BBD880D8B0D6000184787 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+SBJSON.m */; };
-		FE2BBD8B0D8B0D6000184787 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E757164B0C96E39B0084A449 /* NSString+SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FE2BBD8B0D8B0D6000184787 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E757164B0C96E39B0084A449 /* NSString+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FE2BBD8C0D8B0D6000184787 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E757164C0C96E39B0084A449 /* NSString+SBJSON.m */; };
 		FE2BBDB50D8B0F1D00184787 /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D229A10C9612E000276605 /* Types.m */; };
 		FE2BBDB60D8B0F1D00184787 /* Examples.m in Sources */ = {isa = PBXBuildFile; fileRef = E76A1EB60C996C2000A0CC83 /* Examples.m */; };
@@ -120,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53F8A8150E57158200355C72 /* libjson.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,9 +275,9 @@
 			productReference = 53EF4D400DC247B3005F5E6D /* bench */;
 			productType = "com.apple.product-type.tool";
 		};
-		FE2BBD7F0D8B0D3900184787 /* json */ = {
+		FE2BBD7F0D8B0D3900184787 /* libjson */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FE2BBD950D8B0DC900184787 /* Build configuration list for PBXNativeTarget "json" */;
+			buildConfigurationList = FE2BBD950D8B0DC900184787 /* Build configuration list for PBXNativeTarget "libjson" */;
 			buildPhases = (
 				FE2BBD7C0D8B0D3900184787 /* Headers */,
 				FE2BBD7D0D8B0D3900184787 /* Sources */,
@@ -285,7 +287,7 @@
 			);
 			dependencies = (
 			);
-			name = json;
+			name = libjson;
 			productName = json;
 			productReference = FE2BBD800D8B0D3900184787 /* libjson.a */;
 			productType = "com.apple.product-type.library.static";
@@ -324,7 +326,7 @@
 			targets = (
 				53D229800C96121600276605 /* JSON */,
 				53D2298C0C96122A00276605 /* Tests */,
-				FE2BBD7F0D8B0D3900184787 /* json */,
+				FE2BBD7F0D8B0D3900184787 /* libjson */,
 				FE2BBDAA0D8B0EE000184787 /* libjsontests */,
 				53EF4D3F0DC247B3005F5E6D /* bench */,
 			);
@@ -475,12 +477,12 @@
 		};
 		53EF4F970DC52FD0005F5E6D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FE2BBD7F0D8B0D3900184787 /* json */;
+			target = FE2BBD7F0D8B0D3900184787 /* libjson */;
 			targetProxy = 53EF4F960DC52FD0005F5E6D /* PBXContainerItemProxy */;
 		};
 		FE2BBDB40D8B0F0F00184787 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FE2BBD7F0D8B0D3900184787 /* json */;
+			target = FE2BBD7F0D8B0D3900184787 /* libjson */;
 			targetProxy = FE2BBDB30D8B0F0F00184787 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -827,7 +829,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FE2BBD950D8B0DC900184787 /* Build configuration list for PBXNativeTarget "json" */ = {
+		FE2BBD950D8B0DC900184787 /* Build configuration list for PBXNativeTarget "libjson" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FE2BBD840D8B0D3900184787 /* Debug */,
