@@ -24,11 +24,15 @@ xcodebuild -target libjson -configuration Release -sdk iphoneos2.0 install \
     DSTROOT=$DIST/SDKs/JSON/iphoneos.sdk || exit 1
 cp Resources/iphoneos.sdk/SDKSettings.plist $DIST/SDKs/JSON/iphoneos.sdk || exit 1
 
-# Create iPhone simulator SDK
+# Create the iPhone Simulator SDK
 xcodebuild -target libjson -configuration Release -sdk iphonesimulator2.0 install \
     ARCHS=i386 \
     DSTROOT=$DIST/SDKs/JSON/iphonesimulator.sdk || exit 1
 cp Resources/iphonesimulator.sdk/SDKSettings.plist $DIST/SDKs/JSON/iphonesimulator.sdk || exit 1
+
+# Allow linking statically into normal OS X apps
+xcodebuild -target libjson -configuration Release -sdk macosx10.5 install \
+    DSTROOT=$DIST/SDKs/JSON/macosx.sdk || exit 1
 
 
 # Create the documentation
@@ -55,28 +59,6 @@ HTML
 
 cp -p CREDITS $DIST
 cp -p README $DIST
-cat <<INSTALL > $DIST/INSTALL
-
-iPhone SDK
-==========
-
-Copy the content of the 'SDKs' folder to ~/Library/SDKs. (You may have
-to create that directory.)
-
-
-Embedded Framework
-==================
-
-Copy the '$PROJECT.framework' bundle to ~/Library/Frameworks. (You may
-have to create that directory.)
-
-Documentation
-=============
-
-You can install the API documentation in this dmg by copying the
-'Documentation/html' directory to a writable location on your
-hard-drive, cd into the directory and type 'make install'.
-
-INSTALL
+cp -p INSTALL $DIST
 
 hdiutil create -fs HFS+ -volname $DIST -srcfolder $DIST $DMG
