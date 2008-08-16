@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 44;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -315,7 +315,7 @@
 		53D229730C9611FF00276605 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 53D229740C9611FF00276605 /* Build configuration list for PBXProject "JSON" */;
-			compatibilityVersion = "Xcode 3.0";
+			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 0;
 			mainGroup = 53D229710C9611FF00276605;
 			productRefGroup = 53D229820C96121600276605 /* Products */;
@@ -489,28 +489,24 @@
 		53D229750C9611FF00276605 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
 		53D229760C9611FF00276605 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
 			};
 			name = Release;
 		};
 		53D229860C96121700276605 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CURRENT_PROJECT_VERSION = 3;
 				DYLIB_COMPATIBILITY_VERSION = 3;
 				DYLIB_CURRENT_VERSION = 3;
@@ -532,7 +528,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JSON;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = SB;
 			};
@@ -541,8 +537,7 @@
 		53D229870C96121700276605 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CURRENT_PROJECT_VERSION = 3;
 				DYLIB_COMPATIBILITY_VERSION = 3;
 				DYLIB_CURRENT_VERSION = 3;
@@ -562,7 +557,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JSON;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = SB;
 			};
@@ -571,6 +566,7 @@
 		53D229900C96122A00276605 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(value)",
@@ -596,7 +592,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Tests;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -604,6 +600,7 @@
 		53D229910C96122A00276605 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(value)",
@@ -627,7 +624,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Tests;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -635,6 +632,7 @@
 		53EF4D420DC247B3005F5E6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -652,7 +650,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = bench;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "";
 				ZERO_LINK = NO;
 			};
 			name = Debug;
@@ -660,6 +658,7 @@
 		53EF4D430DC247B3005F5E6D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -676,7 +675,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = bench;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -685,8 +684,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -699,7 +697,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
 				PRODUCT_NAME = json;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -707,8 +705,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -724,7 +721,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
 				PRODUCT_NAME = json;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "";
 				SKIP_INSTALL = NO;
 			};
 			name = Release;
@@ -733,6 +730,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -755,7 +753,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = libjsontests;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -764,6 +762,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -784,7 +783,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = libjsontests;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
