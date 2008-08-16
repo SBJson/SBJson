@@ -183,7 +183,7 @@ static char ctrl[0x22];
         [json appendString:@"null"];
         
     } else {
-        *error = err(EUNSUPPORTED, [NSString stringWithFormat:@"JSON serialisation not supported for %@", [fragment className]]);
+        *error = err(EUNSUPPORTED, [NSString stringWithFormat:@"JSON serialisation not supported for %@", [fragment class]]);
         return NO;
     }
     return YES;

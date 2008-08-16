@@ -6,6 +6,20 @@
 	objectVersion = 45;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		53F8A8380E571AAF00355C72 /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 53F8A83B0E571ACE00355C72 /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				53F8A8370E571AAF00355C72 /* Generate & install docset */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		539191D20DBB896D00714DA2 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 539191D00DBB896D00714DA2 /* SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		539191D30DBB896D00714DA2 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 539191D10DBB896D00714DA2 /* SBJSON.m */; };
@@ -227,8 +241,6 @@
 				53D2297D0C96121600276605 /* Resources */,
 				53D2297E0C96121600276605 /* Sources */,
 				53D2297F0C96121600276605 /* Frameworks */,
-				537B3F920DE1EEDA00DCB308 /* Doxygen */,
-				534780620DE89FD200FC1C7A /* Install docset */,
 			);
 			buildRules = (
 			);
@@ -329,6 +341,7 @@
 				FE2BBD7F0D8B0D3900184787 /* libjson */,
 				FE2BBDAA0D8B0EE000184787 /* libjsontests */,
 				53EF4D3F0DC247B3005F5E6D /* bench */,
+				53F8A8380E571AAF00355C72 /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -358,36 +371,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		534780620DE89FD200FC1C7A /* Install docset */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Install docset";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "DOCSET=$SOURCE_ROOT/Doxygen.docset\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\nmake -C $DOCSET/html install\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\nrm -f $TEMP_DIR/loadDocSet.scpt\n\ncat <<EOF > $TEMP_DIR/loadDocSet.scpt\ntell application \"Xcode\"\n\tload documentation set with path \"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/org.brautaset.${PROJECT}.docset/\"\nend tell\nEOF\n\n# Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt\n";
-			showEnvVarsInLog = 0;
-		};
-		537B3F920DE1EEDA00DCB308 /* Doxygen */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Doxygen;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# See also http://developer.apple.com/tools/creatingdocsetswithdoxygen.html \n\nVERS=$(agvtool mvers -terse1)\n\nDOXYFILE=$DERIVED_FILES_DIR/Doxyfile\nDOCSET=$SOURCE_ROOT/Doxygen.docset\nDOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen\n\nif ! test -x $DOXYGEN ; then\n\tDOXYGEN=`which doxygen`;\nfi\n\nif ! test -x $DOXYGEN ; then\n\techo \"*** Install Doxygen to get documentatino generated for you automatically ***\"\n\texit 0\nfi\n\n\n# Check that doxygen is present\ntest -f $DOXYGEN || exit 0\n\n# Create a doxygen configuration file with only the settings we care about\n\ncat <<EOF > $DOXYFILE\n\nPROJECT_NAME           = $FULL_PRODUCT_NAME\nPROJECT_NUMBER         = $VERS\nOUTPUT_DIRECTORY       = $DOCSET\nINPUT                  = $SOURCE_ROOT/Source $SOURCE_ROOT/Docs\nFILE_PATTERNS          = *.h *.m *.doxygen\n\nHIDE_UNDOC_MEMBERS     = YES\nHIDE_UNDOC_CLASSES     = YES\nHIDE_UNDOC_RELATIONS   = YES\nREPEAT_BRIEF           = NO\n\nGENERATE_LATEX         = NO\nGENERATE_HTML          = YES\nGENERATE_DOCSET        = YES\nDOCSET_FEEDNAME        = \"brautaset.org api docs\"\nDOCSET_BUNDLE_ID       = org.brautaset.$PROJECT\n\nQUIET                  = YES\n\nEOF\n\n#  Run doxygen on the updated config file.\n#  doxygen creates a Makefile that does most of the heavy lifting.\n\n$DOXYGEN $DOXYFILE\n\n";
-			showEnvVarsInLog = 0;
-		};
 		53D2298B0C96122A00276605 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -400,6 +383,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		53F8A8370E571AAF00355C72 /* Generate & install docset */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate & install docset";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# See also http://developer.apple.com/tools/creatingdocsetswithdoxygen.html \n\nVERS=$(agvtool mvers -terse1)\n\nDOXYFILE=$DERIVED_FILES_DIR/Doxyfile\nDOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen\nDOCSET=$DSTROOT/Documentation\n\nmkdir -p $DERIVED_FILES_DIR || exit 1\nmkdir -p $DOCSET || exit 1\n\nif ! test -x $DOXYGEN ; then\n\tDOXYGEN=`which doxygen`;\nfi\n\nif ! test -x $DOXYGEN ; then\n\techo \"*** Install Doxygen to get documentatino generated for you automatically ***\"\n\texit 0\nfi\n\n\n# Check that doxygen is present\ntest -f $DOXYGEN || exit 1\n\n# Create a doxygen configuration file with only the settings we care about\n\ncat <<EOF > $DOXYFILE\n\nPROJECT_NAME           = $FULL_PRODUCT_NAME\nPROJECT_NUMBER         = $VERS\nOUTPUT_DIRECTORY       = $DOCSET\nINPUT                  = $SOURCE_ROOT/Source $SOURCE_ROOT/Docs\nFILE_PATTERNS          = *.h *.m *.doxygen\n\nHIDE_UNDOC_MEMBERS     = YES\nHIDE_UNDOC_CLASSES     = YES\nHIDE_UNDOC_RELATIONS   = YES\nREPEAT_BRIEF           = NO\n\nGENERATE_LATEX         = NO\nGENERATE_HTML          = YES\nGENERATE_DOCSET        = YES\nDOCSET_FEEDNAME        = \"brautaset.org $PROJECT Documentation\"\nDOCSET_BUNDLE_ID       = org.brautaset.$PROJECT\n\nQUIET                  = NO\n\nEOF\n\n#  Run doxygen on the updated config file.\n#  doxygen creates a Makefile that does most of the heavy lifting.\n\n$DOXYGEN $DOXYFILE\n\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\nmake -C $DOCSET/html install\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\nrm -f $TEMP_DIR/loadDocSet.scpt\n\ncat <<EOF > $TEMP_DIR/loadDocSet.scpt\ntell application \"Xcode\"\n\tload documentation set with path \"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/org.brautaset.${PROJECT}.docset/\"\nend tell\nEOF\n\n# Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt\n\n";
 		};
 		FE2BBDA90D8B0EE000184787 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -682,6 +679,27 @@
 			};
 			name = Release;
 		};
+		53F8A8390E571AB000355C72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Documentation;
+			};
+			name = Debug;
+		};
+		53F8A83A0E571AB000355C72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = Documentation;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		FE2BBD840D8B0D3900184787 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -695,6 +713,10 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+				);
 				PREBINDING = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
 				PRODUCT_NAME = json;
@@ -825,6 +847,15 @@
 			buildConfigurations = (
 				53EF4D420DC247B3005F5E6D /* Debug */,
 				53EF4D430DC247B3005F5E6D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53F8A83B0E571ACE00355C72 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53F8A8390E571AB000355C72 /* Debug */,
+				53F8A83A0E571AB000355C72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
