@@ -40,31 +40,32 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    SBJSON *json = [SBJSON new];
     NSString *filename = [NSString stringWithCString:argv[1]];
     NSString *repr = [NSString stringWithContentsOfFile:filename];
-    id json = [repr JSONValue];
     
     NSAutoreleasePool *inner = [NSAutoreleasePool new];
     NSDate *start = [NSDate date];
     for (int i = 0; i < COUNT; i++) {
-        [repr JSONValue];
-        [repr JSONValue];
-        [repr JSONValue];
-        [repr JSONValue];
-        [repr JSONValue];
+        [json objectWithString:repr error:NULL];
+        [json objectWithString:repr error:NULL];
+        [json objectWithString:repr error:NULL];
+        [json objectWithString:repr error:NULL];
+        [json objectWithString:repr error:NULL];
     }
     double duration = -[start timeIntervalSinceNow];
     printf("Decode: %f\n", 5 * COUNT / duration);
     [inner release];
     
+    id object = [repr JSONValue];
     inner = [NSAutoreleasePool new];
     start = [NSDate date];
     for (int i = 0; i < COUNT; i++) {
-        [json JSONRepresentation];
-        [json JSONRepresentation];
-        [json JSONRepresentation];
-        [json JSONRepresentation];
-        [json JSONRepresentation];
+        [json stringWithObject:object error:NULL];
+        [json stringWithObject:object error:NULL];
+        [json stringWithObject:object error:NULL];
+        [json stringWithObject:object error:NULL];
+        [json stringWithObject:object error:NULL];
     }
     duration = -[start timeIntervalSinceNow];
     printf("Encode: %f\n", 5 * COUNT / duration);
