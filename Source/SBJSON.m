@@ -194,11 +194,12 @@ static char ctrl[0x22];
     depth++;
     
     BOOL addComma = NO;    
-    NSEnumerator *values = [fragment objectEnumerator];
-    for (id value; value = [values nextObject]; addComma = YES) {
+    for (id value in fragment) {
         if (addComma)
             [json appendString:@","];
-        
+        else
+            addComma = YES;
+
         if ([self humanReadable])
             [json appendString:[self indent]];
         
@@ -224,11 +225,11 @@ static char ctrl[0x22];
     if (self.sortKeys)
         keys = [keys sortedArrayUsingSelector:@selector(compare:)];
     
-    NSEnumerator *values = [keys objectEnumerator];
-    for (id value; value = [values nextObject]; addComma = YES) {
-        
+    for (id value in keys) {
         if (addComma)
             [json appendString:@","];
+        else
+            addComma = YES;
 
         if ([self humanReadable])
             [json appendString:[self indent]];
@@ -271,7 +272,8 @@ static char ctrl[0x22];
         [json appendString:fragment];
         
     } else {
-        for (NSUInteger i = 0; i < [fragment length]; i++) {
+        NSUInteger length = [fragment length];
+        for (NSUInteger i = 0; i < length; i++) {
             unichar uc = [fragment characterAtIndex:i];
             switch (uc) {
                 case '"':   [json appendString:@"\\\""];       break;
