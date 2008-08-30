@@ -18,7 +18,8 @@ have to create that directory.)
 
 Use the "Add existing file" menu to add the framework to your
 application. You also have to add a "Copy files" build phase to copy the
-framework into your application.
+framework into your application. This should copy files to the
+Frameworks folder inside Resources.
 
 http://developer.apple.com/documentation/MacOSX/Conceptual/BPFrameworks/Tasks/CreatingFrameworks.html#//apple_ref/doc/uid/20002258-106880-BAJJBIEF
 
