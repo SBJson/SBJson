@@ -310,6 +310,13 @@ static char ctrl[0x22];
  @param error used to return an error by reference (pass NULL if this is not desired)
  */
 - (id)objectWithString:(id)repr allowScalar:(BOOL)allowScalar error:(NSError**)error {
+
+    if (!repr) {
+        if (error)
+            *error = err(EINPUT, @"Input was 'nil'");
+        return nil;
+    }
+    
     depth = 0;
     c = [repr UTF8String];
     
@@ -320,14 +327,14 @@ static char ctrl[0x22];
             *error = err2;
         return nil;
     }
-    
+        
     // We found some valid JSON. But did it also contain something else?
     if (![self scanIsAtEnd]) {
         if (error)
             *error = err(ETRAILGARBAGE, @"Garbage after JSON");
         return nil;
     }
-    
+
     // If we don't allow scalars, check that the object we've found is a valid JSON container.
     if (!allowScalar && ![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]]) {
         if (error)

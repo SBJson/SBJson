@@ -220,7 +220,23 @@
     }
 }
 
-- (void)testGarbage {
+- (void)testObjectGarbage {
+    NSError *error;
+
+    STAssertNil([json objectWithString:@"'1'" error:&error], nil);
+    assertErrorContains(error, @"Unrecognised leading character");
+    
+    STAssertNil([json objectWithString:@"'hello'" error:&error], nil);
+    assertErrorContains(error, @"Unrecognised leading character");
+    
+    STAssertNil([json objectWithString:@"**" error:&error], nil);
+    assertErrorContains(error, @"Unrecognised leading character");
+    
+    STAssertNil([json objectWithString:nil error:&error], nil);
+    assertErrorContains(error, @"Input was 'nil'");
+}
+
+- (void)testFragmentGarbage {
     NSError *error;
     
     STAssertNil([json fragmentWithString:@"'1'" error:&error], nil);
@@ -231,6 +247,9 @@
     
     STAssertNil([json fragmentWithString:@"**" error:&error], nil);
     assertErrorContains(error, @"Unrecognised leading character");
+    
+    STAssertNil([json fragmentWithString:nil error:&error], nil);
+    assertErrorContains(error, @"Input was 'nil'");
 }
 
 - (void)testFragment

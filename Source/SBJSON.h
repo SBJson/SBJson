@@ -43,6 +43,7 @@ enum {
     ETRAILCOMMA,
     ETRAILGARBAGE,
     EEOF,
+    EINPUT
 };
 
 /**
