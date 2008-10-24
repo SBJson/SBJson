@@ -1,3 +1,8 @@
+************************************************************************
+Please note that you should use *either* the JSON SDK, *or* the Embedded
+Framework. Use the SDK on the iPhone, as it does not support Frameworks.
+Use the embedded Framework for any Cocoa apps running on a standard Mac.
+************************************************************************
 
 JSON SDK (iPhone / iPhone Simulator / MacOS 10.5)
 =================================================
