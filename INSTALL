@@ -4,7 +4,7 @@ Framework. Use the SDK on the iPhone, as it does not support Frameworks.
 Use the embedded Framework for any Cocoa apps running on a standard Mac.
 ************************************************************************
 
-JSON SDK (iPhone / iPhone Simulator / MacOS 10.5)
+JSON SDK (iPhone / iPhone Simulator)
 =================================================
 
 Copy the content of the 'SDKs' folder to ~/Library/SDKs. (You may have
@@ -33,5 +33,5 @@ Documentation
 =============
 
 You can install the API documentation in this dmg by copying the
-'Documentation/html' directory to a writable location on your
-hard-drive, cd into the directory and type 'make install'.
+'Documentation/html' directory to a writable location on your hard
+drive, cd into the directory in Terminal and type 'make install'.
