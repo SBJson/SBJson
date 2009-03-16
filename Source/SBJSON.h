@@ -29,6 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Foundation/Foundation.h>
 #import "SBJsonParser.h"
+#import "SBJsonWriter.h"
 
 extern NSString * SBJSONErrorDomain;
 
@@ -70,7 +71,7 @@ in arrays or objects. Nor does it support embedded comments, or
 anything else not in the JSON specification.
  
 */
-@interface SBJSON : NSObject <SBJsonParser> {
+@interface SBJSON : NSObject <SBJsonParser, SBJsonWriter> {
     BOOL humanReadable;
     BOOL sortKeys;
     NSUInteger maxDepth;
@@ -80,29 +81,5 @@ anything else not in the JSON specification.
     NSUInteger depth;
     const char *c;
 }
-
-/// Whether we are generating human-readable (multiline) JSON
-/**
- Set whether or not to generate human-readable JSON. The default is NO, which produces
- JSON without any whitespace. (Except inside strings.) If set to YES, generates human-readable
- JSON with linebreaks after each array value and dictionary key/value pair, indented two
- spaces per nesting level.
- */
-@property BOOL humanReadable;
-
-/// Whether or not to sort the dictionary keys in the output
-/** The default is to not sort the keys. */
-@property BOOL sortKeys;
-
-/// Return JSON representation of an array  or dictionary
-- (NSString*)stringWithObject:(id)value error:(NSError**)error;
-
-/// Return JSON representation of any legal JSON value
-- (NSString*)stringWithFragment:(id)value error:(NSError**)error;
-
-/// Return JSON representation (or fragment) for the given object
-- (NSString*)stringWithObject:(id)value
-                  allowScalar:(BOOL)x
-    					error:(NSError**)error;
 
 @end

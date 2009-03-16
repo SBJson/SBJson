@@ -25,6 +25,10 @@
 		5351577B0F6E3BE100C8AABD /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157790F6E3BE100C8AABD /* SBJsonParser.m */; };
 		5351577C0F6E3BE100C8AABD /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157780F6E3BE100C8AABD /* SBJsonParser.h */; };
 		5351577D0F6E3BE100C8AABD /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157790F6E3BE100C8AABD /* SBJsonParser.m */; };
+		535157A50F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; };
+		535157A60F6EE4A800C8AABD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
+		535157A70F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; };
+		535157A80F6EE4A800C8AABD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
 		539191D20DBB896D00714DA2 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 539191D00DBB896D00714DA2 /* SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		539191D30DBB896D00714DA2 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 539191D10DBB896D00714DA2 /* SBJSON.m */; };
 		539191D40DBB896D00714DA2 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 539191D00DBB896D00714DA2 /* SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -80,6 +84,8 @@
 /* Begin PBXFileReference section */
 		535157780F6E3BE100C8AABD /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		535157790F6E3BE100C8AABD /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		535157A30F6EE4A800C8AABD /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		535157A40F6EE4A800C8AABD /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		5355C86B0E392B2A00A18C15 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
 		5355C86C0E392B2A00A18C15 /* Examples.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Examples.h; sourceTree = "<group>"; };
 		5355C86D0E392B2A00A18C15 /* Pretty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pretty.h; sourceTree = "<group>"; };
@@ -185,6 +191,8 @@
 				E757164C0C96E39B0084A449 /* NSString+SBJSON.m */,
 				535157780F6E3BE100C8AABD /* SBJsonParser.h */,
 				535157790F6E3BE100C8AABD /* SBJsonParser.m */,
+				535157A30F6EE4A800C8AABD /* SBJsonWriter.h */,
+				535157A40F6EE4A800C8AABD /* SBJsonWriter.m */,
 			);
 			name = Classes;
 			path = Source;
@@ -225,6 +233,7 @@
 				E757164D0C96E39B0084A449 /* NSString+SBJSON.h in Headers */,
 				539191D20DBB896D00714DA2 /* SBJSON.h in Headers */,
 				5351577C0F6E3BE100C8AABD /* SBJsonParser.h in Headers */,
+				535157A70F6EE4A800C8AABD /* SBJsonWriter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +246,7 @@
 				FE2BBD8B0D8B0D6000184787 /* NSString+SBJSON.h in Headers */,
 				539191D40DBB896D00714DA2 /* SBJSON.h in Headers */,
 				5351577A0F6E3BE100C8AABD /* SBJsonParser.h in Headers */,
+				535157A50F6EE4A800C8AABD /* SBJsonWriter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +442,7 @@
 				E757164E0C96E39B0084A449 /* NSString+SBJSON.m in Sources */,
 				539191D30DBB896D00714DA2 /* SBJSON.m in Sources */,
 				5351577D0F6E3BE100C8AABD /* SBJsonParser.m in Sources */,
+				535157A80F6EE4A800C8AABD /* SBJsonWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +473,7 @@
 				FE2BBD8C0D8B0D6000184787 /* NSString+SBJSON.m in Sources */,
 				539191D50DBB896D00714DA2 /* SBJSON.m in Sources */,
 				5351577B0F6E3BE100C8AABD /* SBJsonParser.m in Sources */,
+				535157A60F6EE4A800C8AABD /* SBJsonWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
