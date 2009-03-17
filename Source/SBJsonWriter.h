@@ -28,6 +28,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "Error.h"
 
 /**
  Protocol for the JSON writer.
@@ -47,14 +48,6 @@
 /** The default is to not sort the keys. */
 @property BOOL sortKeys;
 
-/// Return JSON representation of an array  or dictionary
-- (NSString*)stringWithObject:(id)value
-                        error:(NSError**)error;
-
-/// Return JSON representation of any legal JSON value
-- (NSString*)stringWithFragment:(id)value
-                          error:(NSError**)error;
-
 /// Return JSON representation (or fragment) for the given object
 - (NSString*)stringWithObject:(id)value
                   allowScalar:(BOOL)x
@@ -64,8 +57,11 @@
 @end
 
 
-@interface SBJsonWriter : NSObject {
+@interface SBJsonWriter : NSObject <SBJsonWriter> {
 
+@private
+    BOOL sortKeys, humanReadable;
+    NSUInteger depth;
 }
 
 @end

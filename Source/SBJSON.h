@@ -70,14 +70,8 @@ anything else not in the JSON specification.
  
 */
 @interface SBJSON : NSObject <SBJsonParser, SBJsonWriter> {
-    BOOL humanReadable;
-    BOOL sortKeys;
-    NSUInteger maxDepth;
 
-@private
-    // Used temporarily during scanning/generation
-    NSUInteger depth;
-    
+@private    
     SBJsonParser *jsonParser;
     SBJsonWriter *jsonWriter;
 }
@@ -89,5 +83,13 @@ anything else not in the JSON specification.
 /// Return the object represented by the given string
 - (id)objectWithString:(NSString*)jsonrep
                  error:(NSError**)error;
+
+/// Return JSON representation of an array  or dictionary
+- (NSString*)stringWithObject:(id)value
+                        error:(NSError**)error;
+
+/// Return JSON representation of any legal JSON value
+- (NSString*)stringWithFragment:(id)value
+                          error:(NSError**)error;
 
 @end
