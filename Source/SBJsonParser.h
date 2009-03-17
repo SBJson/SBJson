@@ -28,21 +28,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
-enum {
-    EUNSUPPORTED = 1,
-    EPARSENUM,
-    EPARSE,
-    EFRAGMENT,
-    ECTRL,
-    EUNICODE,
-    EDEPTH,
-    EESCAPE,
-    ETRAILCOMMA,
-    ETRAILGARBAGE,
-    EEOF,
-    EINPUT
-};
+#import "Error.h"
 
 /**
  Protocol for the JSON parser.
@@ -52,14 +38,6 @@ enum {
 /// The maximum depth the parser will go to
 /** Defaults to 512. */
 @property NSUInteger maxDepth;
-
-/// Return the fragment represented by the given string
-- (id)fragmentWithString:(NSString*)jsonrep
-                   error:(NSError**)error;
-
-/// Return the object represented by the given string
-- (id)objectWithString:(NSString*)jsonrep
-                 error:(NSError**)error;
 
 /// Parse the string and return the represented object (or scalar)
 - (id)objectWithString:(id)value
@@ -71,8 +49,11 @@ enum {
 /**
  Strict JSON parser.
  */
-@interface SBJsonParser : NSObject  {
+@interface SBJsonParser : NSObject <SBJsonParser> {
     
+@private
+    const char *c;
+    NSUInteger depth, maxDepth;
 }
 
 @end

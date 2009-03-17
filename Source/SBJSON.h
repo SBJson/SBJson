@@ -31,8 +31,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "SBJsonParser.h"
 #import "SBJsonWriter.h"
 
-extern NSString * SBJSONErrorDomain;
-
 /**
 @brief A strict JSON parser and generator
 
@@ -79,7 +77,17 @@ anything else not in the JSON specification.
 @private
     // Used temporarily during scanning/generation
     NSUInteger depth;
-    const char *c;
+    
+    SBJsonParser *jsonParser;
+    SBJsonWriter *jsonWriter;
 }
+
+/// Return the fragment represented by the given string
+- (id)fragmentWithString:(NSString*)jsonrep
+                   error:(NSError**)error;
+
+/// Return the object represented by the given string
+- (id)objectWithString:(NSString*)jsonrep
+                 error:(NSError**)error;
 
 @end
