@@ -28,10 +28,10 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Error.h"
+#import "SBJsonBase.h"
 
 /**
- Protocol for the JSON parser.
+ Protocol for the JSON parser. This exists because we have the SBJSON facade, that also wants to implement the methods in the parser.
  */
 @protocol SBJsonParser
 
@@ -49,7 +49,7 @@
 /**
  Strict JSON parser.
  */
-@interface SBJsonParser : NSObject <SBJsonParser> {
+@interface SBJsonParser : SBJsonBase <SBJsonParser> {
     
 @private
     const char *c;

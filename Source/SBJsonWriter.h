@@ -28,10 +28,10 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Error.h"
+#import "SBJsonBase.h"
 
 /**
- Protocol for the JSON writer.
+ Protocol for the JSON writer. This exists because we have the SBJSON facade, that also wants to implement the methods in the writer.
  */
 @protocol SBJsonWriter
 
@@ -57,7 +57,10 @@
 @end
 
 
-@interface SBJsonWriter : NSObject <SBJsonWriter> {
+/**
+ The JSON writer class.
+ */
+@interface SBJsonWriter : SBJsonBase <SBJsonWriter> {
 
 @private
     BOOL sortKeys, humanReadable;

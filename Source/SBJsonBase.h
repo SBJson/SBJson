@@ -1,11 +1,12 @@
-/*
- *  Error.h
- *  JSON
- *
- *  Created by Stig Brautaset on 17/03/2009.
- *  Copyright 2009 Stig Brautaset. All rights reserved.
- *
- */
+//
+//  SBJsonBase.h
+//  JSON
+//
+//  Created by Stig Brautaset on 18/03/2009.
+//  Copyright 2009 Stig Brautaset. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
 
 extern NSString * SBJSONErrorDomain;
 
@@ -25,3 +26,9 @@ enum {
     EINPUT
 };
 
+
+@interface SBJsonBase : NSObject {
+
+}
+
+@end
