@@ -31,9 +31,14 @@
 #import "SBJsonBase.h"
 
 /**
- Protocol for the JSON parser. This exists because we have the SBJSON facade, that also wants to implement the methods in the parser.
+ Strict JSON parser.
  */
-@protocol SBJsonParser
+@interface SBJsonParser : SBJsonBase {
+    
+@private
+    const char *c;
+    NSUInteger depth, maxDepth;
+}
 
 /// The maximum depth the parser will go to
 /** Defaults to 512. */
@@ -41,19 +46,8 @@
 
 /// Parse the string and return the represented object (or scalar)
 - (id)objectWithString:(id)value
-           allowScalar:(BOOL)x
-    			 error:(NSError**)error;
+           allowScalar:(BOOL)x;
 
-@end
 
-/**
- Strict JSON parser.
- */
-@interface SBJsonParser : SBJsonBase <SBJsonParser> {
-    
-@private
-    const char *c;
-    NSUInteger depth, maxDepth;
-}
 
 @end

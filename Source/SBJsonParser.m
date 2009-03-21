@@ -54,15 +54,12 @@ static char ctrl[0x22];
  
  @param repr the json string to parse
  @param allowScalar whether to return objects for JSON fragments
- @param error used to return an error by reference (pass NULL if this is not desired)
  */
-- (id)objectWithString:(id)repr allowScalar:(BOOL)allowScalar error:(NSError**)error {
+- (id)objectWithString:(id)repr allowScalar:(BOOL)allowScalar {
     [self clearErrorTrace];
     
     if (!repr) {
         [self addErrorWithCode:EINPUT description:@"Input was 'nil'"];
-        if (error)
-            *error = [[self errorTrace] lastObject];
         return nil;
     }
     
@@ -71,24 +68,18 @@ static char ctrl[0x22];
     
     id o;
     if (![self scanValue:&o]) {
-        if (error)
-            *error = [[self errorTrace] lastObject];
         return nil;
     }
     
     // We found some valid JSON. But did it also contain something else?
     if (![self scanIsAtEnd]) {
         [self addErrorWithCode:ETRAILGARBAGE description:@"Garbage after JSON"];
-        if (error)
-            *error = [[self errorTrace] lastObject];
         return nil;
     }
     
     // If we don't allow scalars, check that the object we've found is a valid JSON container.
     if (!allowScalar && ![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]]) {
         [self addErrorWithCode:EFRAGMENT description:@"Valid fragment, but not JSON"];
-        if (error)
-            *error = [[self errorTrace] lastObject];
         return nil;
     }
     

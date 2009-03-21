@@ -69,12 +69,14 @@ in arrays or objects. Nor does it support embedded comments, or
 anything else not in the JSON specification.
  
 */
-@interface SBJSON : NSObject <SBJsonParser, SBJsonWriter> {
+@interface SBJSON : NSObject <SBJsonWriter> {
 
 @private    
     SBJsonParser *jsonParser;
     SBJsonWriter *jsonWriter;
 }
+
+@property NSUInteger maxDepth;
 
 /// Return the fragment represented by the given string
 - (id)fragmentWithString:(NSString*)jsonrep
@@ -83,6 +85,12 @@ anything else not in the JSON specification.
 /// Return the object represented by the given string
 - (id)objectWithString:(NSString*)jsonrep
                  error:(NSError**)error;
+
+/// Parse the string and return the represented object (or scalar)
+- (id)objectWithString:(id)value
+           allowScalar:(BOOL)x
+    			 error:(NSError**)error;
+
 
 /// Return JSON representation of an array  or dictionary
 - (NSString*)stringWithObject:(id)value

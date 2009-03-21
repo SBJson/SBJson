@@ -87,11 +87,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #pragma mark Parsing
 
-/// Parse the string and return the represented object (or scalar)
+/**
+ Returns the object represented by the passed-in string or nil on error. The returned object can be
+ a string, number, boolean, null, array or dictionary.
+ 
+ @param repr the json string to parse
+ @param allowScalar whether to return objects for JSON fragments
+ @param error used to return an error by reference (pass NULL if this is not desired)
+ */
 - (id)objectWithString:(id)value allowScalar:(BOOL)x error:(NSError**)error {
-    return [jsonParser objectWithString:value
-                            allowScalar:x
-                                  error:error];
+
+    id obj = [jsonParser objectWithString:value allowScalar:x];
+    if (obj)
+        return obj;
+    
+    if (error)
+        *error = [[jsonParser errorTrace] lastObject];
+    return nil;
 }
 
 /**
