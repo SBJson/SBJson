@@ -54,9 +54,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  @param error used to return an error by reference (pass NULL if this is not desired)
  */
 - (NSString*)stringWithObject:(id)value allowScalar:(BOOL)allowScalar error:(NSError**)error {
-    return [jsonWriter stringWithObject:value
-                            allowScalar:allowScalar
-                                  error:error];
+    
+    NSString *json = [jsonWriter stringWithObject:value allowScalar:allowScalar];
+    if (json)
+        return json;
+    
+    if (error)
+        *error = [[jsonWriter errorTrace] lastObject];
+    return nil;
 }
 
 /**

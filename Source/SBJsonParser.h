@@ -30,19 +30,24 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonBase.h"
 
+@protocol SBJsonParserOptions
+
+/// The maximum depth the parser will go to
+/** Defaults to 512. */
+@property NSUInteger maxDepth;
+
+@end
+
+
 /**
  Strict JSON parser.
  */
-@interface SBJsonParser : SBJsonBase {
+@interface SBJsonParser : SBJsonBase <SBJsonParserOptions> {
     
 @private
     const char *c;
     NSUInteger depth, maxDepth;
 }
-
-/// The maximum depth the parser will go to
-/** Defaults to 512. */
-@property NSUInteger maxDepth;
 
 /// Parse the string and return the represented object (or scalar)
 - (id)objectWithString:(id)value

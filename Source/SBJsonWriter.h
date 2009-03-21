@@ -33,7 +33,7 @@
 /**
  Protocol for the JSON writer. This exists because we have the SBJSON facade, that also wants to implement the methods in the writer.
  */
-@protocol SBJsonWriter
+@protocol SBJsonWriterOptions
 
 /// Whether we are generating human-readable (multiline) JSON
 /**
@@ -48,23 +48,22 @@
 /** The default is to not sort the keys. */
 @property BOOL sortKeys;
 
-/// Return JSON representation (or fragment) for the given object
-- (NSString*)stringWithObject:(id)value
-                  allowScalar:(BOOL)x
-    					error:(NSError**)error;
-
-
 @end
 
 
 /**
  The JSON writer class.
  */
-@interface SBJsonWriter : SBJsonBase <SBJsonWriter> {
+@interface SBJsonWriter : SBJsonBase <SBJsonWriterOptions> {
 
 @private
     BOOL sortKeys, humanReadable;
     NSUInteger depth;
 }
+
+/// Return JSON representation (or fragment) for the given object
+- (NSString*)stringWithObject:(id)value
+                  allowScalar:(BOOL)x;
+
 
 @end

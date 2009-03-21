@@ -31,9 +31,8 @@
  
  @param value any instance that can be represented as a JSON fragment
  @param allowScalar wether to return json fragments for scalar objects
- @param error used to return an error by reference (pass NULL if this is not desired)
  */
-- (NSString*)stringWithObject:(id)value allowScalar:(BOOL)allowScalar error:(NSError**)error {
+- (NSString*)stringWithObject:(id)value allowScalar:(BOOL)allowScalar {
     [self clearErrorTrace];
     depth = 0;
     NSMutableString *json = [NSMutableString stringWithCapacity:128];
@@ -45,9 +44,6 @@
         return json;
     }
     
-    if (error)
-        *error = [[self errorTrace] lastObject];
-
     return nil;
 }
 
