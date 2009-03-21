@@ -15,10 +15,18 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 @synthesize errorTrace;
 
 - (void)addErrorWithCode:(NSUInteger)code description:(NSString*)str {
-    if (!errorTrace)
+    NSDictionary *userInfo;
+    if (!errorTrace) {
         errorTrace = [NSMutableArray new];
+        userInfo = [NSDictionary dictionaryWithObject:str forKey:NSLocalizedDescriptionKey];
+        
+    } else {
+        userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                    str, NSLocalizedDescriptionKey,
+                    [errorTrace lastObject], NSUnderlyingErrorKey,
+                    nil];
+    }
     
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:str forKey:NSLocalizedDescriptionKey];
     NSError *error = [NSError errorWithDomain:SBJSONErrorDomain code:code userInfo:userInfo];
 
     [self willChangeValueForKey:@"errorTrace"];

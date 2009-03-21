@@ -8,31 +8,12 @@
 
 #import "SBJsonWriter.h"
 
-#pragma mark Private utilities
-
-static NSError *err(int code, NSString *str) {
-    NSDictionary *ui = [NSDictionary dictionaryWithObject:str forKey:NSLocalizedDescriptionKey];
-    return [NSError errorWithDomain:SBJSONErrorDomain code:code userInfo:ui];
-}
-
-static NSError *errWithUnderlier(int code, NSError **u, NSString *str) {
-    if (!u)
-        return err(code, str);
-    
-    NSDictionary *ui = [NSDictionary dictionaryWithObjectsAndKeys:
-                        str, NSLocalizedDescriptionKey,
-                        *u, NSUnderlyingErrorKey,
-                        nil];
-    return [NSError errorWithDomain:SBJSONErrorDomain code:code userInfo:ui];
-}
-
-
 @interface SBJsonWriter ()
 
-- (BOOL)appendValue:(id)fragment into:(NSMutableString*)json error:(NSError**)error;
-- (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json error:(NSError**)error;
-- (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json error:(NSError**)error;
-- (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json error:(NSError**)error;
+- (BOOL)appendValue:(id)fragment into:(NSMutableString*)json;
+- (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json;
+- (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json;
+- (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json;
 
 - (NSString*)indent;
 
@@ -53,19 +34,20 @@ static NSError *errWithUnderlier(int code, NSError **u, NSString *str) {
  @param error used to return an error by reference (pass NULL if this is not desired)
  */
 - (NSString*)stringWithObject:(id)value allowScalar:(BOOL)allowScalar error:(NSError**)error {
+    [self clearErrorTrace];
     depth = 0;
     NSMutableString *json = [NSMutableString stringWithCapacity:128];
     
-    NSError *err2 = nil;
     if (!allowScalar && ![value isKindOfClass:[NSDictionary class]] && ![value isKindOfClass:[NSArray class]]) {
-        err2 = err(EFRAGMENT, @"Not valid type for JSON");        
+        [self addErrorWithCode:EFRAGMENT description:@"Not valid type for JSON"];
         
-    } else if ([self appendValue:value into:json error:&err2]) {
+    } else if ([self appendValue:value into:json]) {
         return json;
     }
     
     if (error)
-        *error = err2;
+        *error = [[self errorTrace] lastObject];
+
     return nil;
 }
 
@@ -74,17 +56,17 @@ static NSError *errWithUnderlier(int code, NSError **u, NSString *str) {
     return [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0];
 }
 
-- (BOOL)appendValue:(id)fragment into:(NSMutableString*)json error:(NSError**)error {
+- (BOOL)appendValue:(id)fragment into:(NSMutableString*)json {
     if ([fragment isKindOfClass:[NSDictionary class]]) {
-        if (![self appendDictionary:fragment into:json error:error])
+        if (![self appendDictionary:fragment into:json])
             return NO;
         
     } else if ([fragment isKindOfClass:[NSArray class]]) {
-        if (![self appendArray:fragment into:json error:error])
+        if (![self appendArray:fragment into:json])
             return NO;
         
     } else if ([fragment isKindOfClass:[NSString class]]) {
-        if (![self appendString:fragment into:json error:error])
+        if (![self appendString:fragment into:json])
             return NO;
         
     } else if ([fragment isKindOfClass:[NSNumber class]]) {
@@ -97,13 +79,13 @@ static NSError *errWithUnderlier(int code, NSError **u, NSString *str) {
         [json appendString:@"null"];
         
     } else {
-        *error = err(EUNSUPPORTED, [NSString stringWithFormat:@"JSON serialisation not supported for %@", [fragment class]]);
+        [self addErrorWithCode:EUNSUPPORTED description:[NSString stringWithFormat:@"JSON serialisation not supported for %@", [fragment class]]];
         return NO;
     }
     return YES;
 }
 
-- (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json error:(NSError**)error {
+- (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json {
     [json appendString:@"["];
     depth++;
     
@@ -117,7 +99,7 @@ static NSError *errWithUnderlier(int code, NSError **u, NSString *str) {
         if ([self humanReadable])
             [json appendString:[self indent]];
         
-        if (![self appendValue:value into:json error:error]) {
+        if (![self appendValue:value into:json]) {
             return NO;
         }
     }
@@ -129,7 +111,7 @@ static NSError *errWithUnderlier(int code, NSError **u, NSString *str) {
     return YES;
 }
 
-- (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json error:(NSError**)error {
+- (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json {
     [json appendString:@"{"];
     depth++;
     
@@ -149,16 +131,16 @@ static NSError *errWithUnderlier(int code, NSError **u, NSString *str) {
             [json appendString:[self indent]];
         
         if (![value isKindOfClass:[NSString class]]) {
-            *error = err(EUNSUPPORTED, @"JSON object key must be string");
+            [self addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
             return NO;
         }
         
-        if (![self appendString:value into:json error:error])
+        if (![self appendString:value into:json])
             return NO;
         
         [json appendString:colon];
-        if (![self appendValue:[fragment objectForKey:value] into:json error:error]) {
-            *error = err(EUNSUPPORTED, [NSString stringWithFormat:@"Unsupported value for key %@ in object", value]);
+        if (![self appendValue:[fragment objectForKey:value] into:json]) {
+            [self addErrorWithCode:EUNSUPPORTED description:[NSString stringWithFormat:@"Unsupported value for key %@ in object", value]];
             return NO;
         }
     }
@@ -170,7 +152,7 @@ static NSError *errWithUnderlier(int code, NSError **u, NSString *str) {
     return YES;    
 }
 
-- (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json error:(NSError**)error {
+- (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json {
     
     static NSMutableCharacterSet *kEscapeChars;
     if( ! kEscapeChars ) {
