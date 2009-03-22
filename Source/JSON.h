@@ -35,47 +35,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  JSON. One standard object-based and a higher level api consisting of
  categories added to existing Objective-C classes.
 
+ This framework does its best to be as strict as possible, both in what it
+ accepts and what it generates. For example, it does not support trailing commas
+ in arrays or objects. Nor does it support embedded comments, or
+ anything else not in the JSON specification. This is considered a feature.
+ 
  Learn more on the http://code.google.com/p/json-framework project site.
   
- @section Mapping
- 
- @subsection sub_objc_to_json Objective-C to JSON
- 
- Objective-C types are mapped to JSON types in the following way:
- 
- @li NSNull -> Null
- @li NSString -> String
- @li NSArray -> Array
- @li NSDictionary -> Object
- @li NSNumber (-initWithBool:) -> Boolean
- @li NSNumber -> Number
- 
- In JSON the keys of an object must be strings. NSDictionary keys need
- not be, but attempting to convert an NSDictionary with non-string keys
- into JSON will throw an exception.
- 
- NSNumber instances created with the +initWithBool: method are
- converted into the JSON boolean "true" and "false" values, and vice
- versa. Any other NSNumber instances are converted to a JSON number the
- way you would expect.
- 
- @subsection sub_json_to_objc JSON to Objective-C
- 
- @li Null -> NSNull
- @li String -> NSMutableString
- @li Array -> NSMutableArray
- @li Object -> NSMutableDictionary
- @li Boolean -> NSNumber (initialised with -initWithBool:)
- @li Number -> NSDecimalNumber
- 
- Since Objective-C doesn't have a class for bool, Booleans turns into NSNumber
- instances. These are initialised with the -initWithBool: method, and therefore
- round-trip back to JSON properly.
- 
- JSON numbers turn into NSDecimalNumber instances,
- as we can thus avoid any loss of precision. (JSON allows ridiculously large numbers.)
- 
- @section sec_working_with_scalars Working with scalars
+ @page page_working_with_scalars Working with scalars
  
  Strictly speaking correctly formed JSON text must have <strong>exactly
  one top-level container</strong>. (Either an Array or an Object.) Scalars,
@@ -83,11 +50,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  It can be quite convenient to pretend that such fragments are valid
  JSON however, and this framework lets you do so.
  
- This framework does its best to be as strict as possible, both in what it
- accepts and what it generates. For example, it does not support trailing commas
- in arrays or objects. Nor does it support embedded comments, or
- anything else not in the JSON specification. This is considered a feature.
- 
+ A scalar is also referred to as a "fragment".
+  
 */
 
 #import <JSON/SBJSON.h>

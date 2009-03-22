@@ -32,10 +32,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "SBJsonWriter.h"
 
 /**
- @brief Facade for the separate writer/parser objects.
- 
- If you need both a parser and a writer, but don't want to hold on to two references,
- this class might be for you. Otherwise, just go for the SBJsonParser / SBJsonWriter class directly.
+ @brief Facade for parsing/writing JSON.
+
+ The object now exists as a facade to keep backwards compatibility with previous releases.
  */
 @interface SBJSON : NSObject <SBJsonParserOptions, SBJsonWriterOptions> {
 

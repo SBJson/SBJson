@@ -52,7 +52,26 @@
 
 
 /**
- The JSON writer class.
+ @brief The JSON writer class.
+ 
+ Objective-C types are mapped to JSON types in the following way:
+ 
+ @li NSNull -> Null
+ @li NSString -> String
+ @li NSArray -> Array
+ @li NSDictionary -> Object
+ @li NSNumber (-initWithBool:) -> Boolean
+ @li NSNumber -> Number
+ 
+ In JSON the keys of an object must be strings. NSDictionary keys need
+ not be, but attempting to convert an NSDictionary with non-string keys
+ into JSON will throw an exception.
+ 
+ NSNumber instances created with the +initWithBool: method are
+ converted into the JSON boolean "true" and "false" values, and vice
+ versa. Any other NSNumber instances are converted to a JSON number the
+ way you would expect.
+ 
  */
 @interface SBJsonWriter : SBJsonBase <SBJsonWriterOptions> {
 
