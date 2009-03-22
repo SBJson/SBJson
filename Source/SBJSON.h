@@ -32,43 +32,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "SBJsonWriter.h"
 
 /**
-@brief A strict JSON parser and generator
-
-This is the parser and generator underlying the categories added to
-NSString and various other objects.
-
-Objective-C types are mapped to JSON types and back in the following way:
-
-@li NSNull -> Null -> NSNull
-@li NSString -> String -> NSMutableString
-@li NSArray -> Array -> NSMutableArray
-@li NSDictionary -> Object -> NSMutableDictionary
-@li NSNumber (-initWithBool:) -> Boolean -> NSNumber -initWithBool:
-@li NSNumber -> Number -> NSDecimalNumber
-
-In JSON the keys of an object must be strings. NSDictionary keys need
-not be, but attempting to convert an NSDictionary with non-string keys
-into JSON will throw an exception.
-
-NSNumber instances created with the +numberWithBool: method are
-converted into the JSON boolean "true" and "false" values, and vice
-versa. Any other NSNumber instances are converted to a JSON number the
-way you would expect. JSON numbers turn into NSDecimalNumber instances,
-as we can thus avoid any loss of precision.
-
-Strictly speaking correctly formed JSON text must have <strong>exactly
-one top-level container</strong>. (Either an Array or an Object.) Scalars,
-i.e. nulls, numbers, booleans and strings, are not valid JSON on their own.
-It can be quite convenient to pretend that such fragments are valid
-JSON however, and this class lets you do so.
-
-This class does its best to be as strict as possible, both in what it
-accepts and what it generates. (Other than the above mentioned support
-for JSON fragments.) For example, it does not support trailing commas
-in arrays or objects. Nor does it support embedded comments, or
-anything else not in the JSON specification.
+ @brief Facade for the separate writer/parser objects.
  
-*/
+ If you need both a parser and a writer, but don't want to hold on to two references,
+ this class might be for you. Otherwise, just go for the SBJsonParser / SBJsonWriter class directly.
+ */
 @interface SBJSON : NSObject <SBJsonParserOptions, SBJsonWriterOptions> {
 
 @private    

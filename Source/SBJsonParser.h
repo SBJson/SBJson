@@ -30,6 +30,9 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonBase.h"
 
+/**
+  Protocol for the parser options. This exists so the SBJSON facade can implement the options in the parser without having to re-declare them.
+ */
 @protocol SBJsonParserOptions
 
 /// The maximum depth the parser will go to

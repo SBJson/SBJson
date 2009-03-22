@@ -31,7 +31,7 @@
 #import "SBJsonBase.h"
 
 /**
- Protocol for the JSON writer. This exists because we have the SBJSON facade, that also wants to implement the methods in the writer.
+ Protocol for the writer options. This exists so the SBJSON facade can implement the options in the writer without having to re-declare them.
  */
 @protocol SBJsonWriterOptions
 
