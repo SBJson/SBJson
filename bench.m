@@ -30,7 +30,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import <stdio.h>
 #import "JSON.h"
 
-#define COUNT 500
+#define COUNT 50
+
 
 int main(int argc, char **argv) {
     NSAutoreleasePool *outer = [NSAutoreleasePool new];
@@ -40,37 +41,45 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    SBJSON *json = [SBJSON new];
+    SBJsonParser *parser = [SBJsonParser new];
+    SBJsonWriter *writer = [SBJsonWriter new];
+
     NSString *filename = [NSString stringWithCString:argv[1]];
-    NSString *repr = [NSString stringWithContentsOfFile:filename];
-    
-    NSAutoreleasePool *inner = [NSAutoreleasePool new];
-    NSDate *start = [NSDate date];
+    NSString *json = [NSString stringWithContentsOfFile:filename];
+    id obj = [json JSONValue];
+        
+    NSTimeInterval parseMin = 1e99;
     for (int i = 0; i < COUNT; i++) {
-        [json objectWithString:repr error:NULL];
-        [json objectWithString:repr error:NULL];
-        [json objectWithString:repr error:NULL];
-        [json objectWithString:repr error:NULL];
-        [json objectWithString:repr error:NULL];
+        NSAutoreleasePool *inner = [NSAutoreleasePool new];
+        NSDate *date = [NSDate date];
+        [parser objectWithString:json allowScalar:NO];
+        [parser objectWithString:json allowScalar:NO];
+        [parser objectWithString:json allowScalar:NO];
+        [parser objectWithString:json allowScalar:NO];
+        [parser objectWithString:json allowScalar:NO];
+        NSTimeInterval duration = -[date timeIntervalSinceNow];
+        parseMin = MIN(duration, parseMin);
+        [inner release];
     }
-    double duration = -[start timeIntervalSinceNow];
-    printf("Decode: %f\n", 5 * COUNT / duration);
-    [inner release];
     
-    id object = [repr JSONValue];
-    inner = [NSAutoreleasePool new];
-    start = [NSDate date];
+    NSTimeInterval writeMin = 1e99;
     for (int i = 0; i < COUNT; i++) {
-        [json stringWithObject:object error:NULL];
-        [json stringWithObject:object error:NULL];
-        [json stringWithObject:object error:NULL];
-        [json stringWithObject:object error:NULL];
-        [json stringWithObject:object error:NULL];
+        NSAutoreleasePool *inner = [NSAutoreleasePool new];
+        NSDate *date = [NSDate date];
+        [writer stringWithObject:obj allowScalar:NO];
+        [writer stringWithObject:obj allowScalar:NO];
+        [writer stringWithObject:obj allowScalar:NO];
+        [writer stringWithObject:obj allowScalar:NO];
+        [writer stringWithObject:obj allowScalar:NO];
+        NSTimeInterval duration = -[date timeIntervalSinceNow];
+        writeMin = MIN(duration, writeMin);
+        [inner release];
     }
-    duration = -[start timeIntervalSinceNow];
-    printf("Encode: %f\n", 5 * COUNT / duration);
-    [inner release];
     
+    printf("||  || parse || write ||\n");
+    printf("|| SBJsonParser || %f || -- ||\n", 5.0 / parseMin);
+    printf("|| SBJsonWriter || -- || %f ||\n", 5.0 / writeMin);
+
     [outer release];
     return 0;
 }
