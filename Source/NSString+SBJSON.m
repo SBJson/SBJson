@@ -28,33 +28,33 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import "NSString+SBJSON.h"
-#import "SBJSON.h"
+#import "SBJsonParser.h"
 
 
 @implementation NSString (NSString_SBJSON)
 
 - (id)JSONFragmentValue
 {
-    SBJSON *json = [[SBJSON new] autorelease];
+    SBJsonParser *parser = [[SBJsonParser new] autorelease];
     
-    NSError *error;
-    id o = [json fragmentWithString:self error:&error];
+    id repr = [parser objectWithString:self allowScalar:YES];
+    if (repr)
+        return repr;
     
-    if (!o)
-        NSLog(@"%@", error);
-    return o;
+    NSLog(@"-JSONFragmentValue failed. Error trace is: %@", [parser errorTrace]);
+    return nil;
 }
 
 - (id)JSONValue
 {
-    SBJSON *json = [[SBJSON new] autorelease];
+    SBJsonParser *parser = [[SBJsonParser new] autorelease];
     
-    NSError *error;
-    id o = [json objectWithString:self error:&error];
+    id repr = [parser objectWithString:self allowScalar:NO];
+    if (repr)
+        return repr;
     
-    if (!o)
-        NSLog(@"%@", error);
-    return o;
+    NSLog(@"-JSONValue failed. Error trace is: %@", [parser errorTrace]);
+    return nil;
 }
 
 @end
