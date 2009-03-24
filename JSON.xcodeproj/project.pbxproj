@@ -12,6 +12,7 @@
 			buildConfigurationList = 53F8A83B0E571ACE00355C72 /* Build configuration list for PBXAggregateTarget "Documentation" */;
 			buildPhases = (
 				53F8A8370E571AAF00355C72 /* Generate & install docset */,
+				535159720F7858A500C8AABD /* Generate API docs */,
 			);
 			dependencies = (
 			);
@@ -401,6 +402,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		535159720F7858A500C8AABD /* Generate API docs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate API docs";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# See also http://developer.apple.com/tools/creatingdocsetswithdoxygen.html \n\nVERS=$(agvtool mvers -terse1)\n\nDOXYFILE=$DERIVED_FILES_DIR/Doxyfile\nDOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen\nDOCSET=$SOURCE_ROOT\n\nmkdir -p $DERIVED_FILES_DIR || exit 1\nmkdir -p $DOCSET || exit 1\n\nif ! test -x $DOXYGEN ; then\n\tDOXYGEN=`which doxygen`;\nfi\n\nif ! test -x $DOXYGEN ; then\n\techo \"*** Install Doxygen to get documentation generated for you automatically ***\"\n\texit 0\nfi\n\n\n# Check that doxygen is present\ntest -f $DOXYGEN || exit 1\n\n# Create a doxygen configuration file with only the settings we care about\n\ncat <<EOF > $DOXYFILE\n\nPROJECT_NAME           = $FULL_PRODUCT_NAME\nPROJECT_NUMBER         = $VERS\nOUTPUT_DIRECTORY       = $DOCSET\nINPUT                  = $SOURCE_ROOT/Source $SOURCE_ROOT/Docs\nFILE_PATTERNS          = *.h *.m *.doxygen\n\nHIDE_UNDOC_MEMBERS     = YES\nHIDE_UNDOC_CLASSES     = YES\nHIDE_UNDOC_RELATIONS   = YES\nREPEAT_BRIEF           = NO\n\nGENERATE_LATEX         = NO\nGENERATE_HTML          = YES\nGENERATE_DOCSET        = NO\n\nHTML_OUTPUT            = docs\n\nQUIET                  = NO\n\nEOF\n\n#  Run doxygen on the updated config file.\n#  doxygen creates a Makefile that does most of the heavy lifting.\n\n$DOXYGEN $DOXYFILE\n";
+		};
 		53D2298B0C96122A00276605 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -426,7 +441,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# See also http://developer.apple.com/tools/creatingdocsetswithdoxygen.html \n\nVERS=$(agvtool mvers -terse1)\n\nDOXYFILE=$DERIVED_FILES_DIR/Doxyfile\nDOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen\nDOCSET=$DSTROOT/Documentation\n\nmkdir -p $DERIVED_FILES_DIR || exit 1\nmkdir -p $DOCSET || exit 1\n\nif ! test -x $DOXYGEN ; then\n\tDOXYGEN=`which doxygen`;\nfi\n\nif ! test -x $DOXYGEN ; then\n\techo \"*** Install Doxygen to get documentatino generated for you automatically ***\"\n\texit 0\nfi\n\n\n# Check that doxygen is present\ntest -f $DOXYGEN || exit 1\n\n# Create a doxygen configuration file with only the settings we care about\n\ncat <<EOF > $DOXYFILE\n\nPROJECT_NAME           = $FULL_PRODUCT_NAME\nPROJECT_NUMBER         = $VERS\nOUTPUT_DIRECTORY       = $DOCSET\nINPUT                  = $SOURCE_ROOT/Source $SOURCE_ROOT/Docs\nFILE_PATTERNS          = *.h *.m *.doxygen\n\nHIDE_UNDOC_MEMBERS     = YES\nHIDE_UNDOC_CLASSES     = YES\nHIDE_UNDOC_RELATIONS   = YES\nREPEAT_BRIEF           = NO\n\nGENERATE_LATEX         = NO\nGENERATE_HTML          = YES\nGENERATE_DOCSET        = YES\nDOCSET_FEEDNAME        = \"brautaset.org $PROJECT Documentation\"\nDOCSET_BUNDLE_ID       = org.brautaset.$PROJECT\n\nQUIET                  = NO\n\nEOF\n\n#  Run doxygen on the updated config file.\n#  doxygen creates a Makefile that does most of the heavy lifting.\n\n$DOXYGEN $DOXYFILE\n\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\nmake -C $DOCSET/html install\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\nrm -f $TEMP_DIR/loadDocSet.scpt\n\ncat <<EOF > $TEMP_DIR/loadDocSet.scpt\ntell application \"Xcode\"\n\tload documentation set with path \"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/org.brautaset.${PROJECT}.docset/\"\nend tell\nEOF\n\n# Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt\n\n";
+			shellScript = "# See also http://developer.apple.com/tools/creatingdocsetswithdoxygen.html \n\nVERS=$(agvtool mvers -terse1)\n\nDOXYFILE=$DERIVED_FILES_DIR/Doxyfile\nDOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen\nDOCSET=$DSTROOT/Documentation\n\nmkdir -p $DERIVED_FILES_DIR || exit 1\nmkdir -p $DOCSET || exit 1\n\nif ! test -x $DOXYGEN ; then\n\tDOXYGEN=`which doxygen`;\nfi\n\nif ! test -x $DOXYGEN ; then\n\techo \"*** Install Doxygen to get documentation generated for you automatically ***\"\n\texit 0\nfi\n\n\n# Check that doxygen is present\ntest -f $DOXYGEN || exit 1\n\n# Create a doxygen configuration file with only the settings we care about\n\ncat <<EOF > $DOXYFILE\n\nPROJECT_NAME           = $FULL_PRODUCT_NAME\nPROJECT_NUMBER         = $VERS\nOUTPUT_DIRECTORY       = $DOCSET\nINPUT                  = $SOURCE_ROOT/Source $SOURCE_ROOT/Docs\nFILE_PATTERNS          = *.h *.m *.doxygen\n\nHIDE_UNDOC_MEMBERS     = YES\nHIDE_UNDOC_CLASSES     = YES\nHIDE_UNDOC_RELATIONS   = YES\nREPEAT_BRIEF           = NO\n\nGENERATE_LATEX         = NO\nGENERATE_HTML          = YES\nGENERATE_DOCSET        = YES\nDOCSET_FEEDNAME        = \"brautaset.org $PROJECT Documentation\"\nDOCSET_BUNDLE_ID       = org.brautaset.$PROJECT\n\nQUIET                  = NO\n\nEOF\n\n#  Run doxygen on the updated config file.\n#  doxygen creates a Makefile that does most of the heavy lifting.\n\n$DOXYGEN $DOXYFILE\n\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\nmake -C $DOCSET/html install\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\nrm -f $TEMP_DIR/loadDocSet.scpt\n\ncat <<EOF > $TEMP_DIR/loadDocSet.scpt\ntell application \"Xcode\"\n\tload documentation set with path \"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/org.brautaset.${PROJECT}.docset/\"\nend tell\nEOF\n\n# Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt\n\n";
 		};
 		FE2BBDA90D8B0EE000184787 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
