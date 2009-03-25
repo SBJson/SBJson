@@ -36,7 +36,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  The object now exists as a facade to keep backwards compatibility with previous releases.
  */
-@interface SBJSON : NSObject <SBJsonParserOptions, SBJsonWriterOptions> {
+@interface SBJSON : SBJsonBase <SBJsonParserOptions, SBJsonWriterOptions> {
 
 @private    
     SBJsonParser *jsonParser;

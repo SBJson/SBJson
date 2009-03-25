@@ -58,9 +58,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSString *json = [jsonWriter stringWithObject:value allowScalar:allowScalar];
     if (json)
         return json;
+
+    errorTrace = [[jsonWriter errorTrace] mutableCopy];
     
     if (error)
-        *error = [[jsonWriter errorTrace] lastObject];
+        *error = [errorTrace lastObject];
     return nil;
 }
 
@@ -106,8 +108,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (obj)
         return obj;
     
+    errorTrace = [[jsonParser errorTrace] mutableCopy];
+
     if (error)
-        *error = [[jsonParser errorTrace] lastObject];
+        *error = [errorTrace lastObject];
     return nil;
 }
 

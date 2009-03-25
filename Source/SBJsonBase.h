@@ -35,7 +35,12 @@ enum {
 }
 
 /// Return an error trace, or nil if there was no errors.
-@property(copy,readonly) NSArray* errorTrace;
+/**
+ Note that this method returns the trace of the last method that failed.
+ You need to check the return value of the call you're making to figure out
+ if the call actually failed, before you know call this method.
+ */
+ @property(copy,readonly) NSArray* errorTrace;
 
 /// @internal for use in subclasses to add errors to the stack trace
 - (void)addErrorWithCode:(NSUInteger)code description:(NSString*)str;
