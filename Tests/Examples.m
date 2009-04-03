@@ -15,7 +15,7 @@
     NSString *file, *dir = @"Tests/json.org";
     NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
 
-    while (file = [files nextObject]) {
+    while ((file = [files nextObject])) {
         if (![[file pathExtension] isEqualToString:@"json"])
             continue;
         
@@ -49,7 +49,7 @@
     NSString *file, *dir = @"Tests/rfc4627";
     NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
 
-    while (file = [files nextObject]) {
+    while ((file = [files nextObject])) {
         if (![[file pathExtension] isEqualToString:@"json"])
             continue;
         
@@ -83,7 +83,7 @@
     
     SBJSON *sbjson = [SBJSON new];
     sbjson.maxDepth = 19;
-    while (file = [files nextObject]) {
+    while ((file = [files nextObject])) {
         if (![[file pathExtension] isEqualToString:@"json"])
             continue;
 

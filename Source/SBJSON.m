@@ -42,6 +42,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return self;
 }
 
+- (void)dealloc {
+    [jsonWriter release];
+    [jsonParser release];
+    [super dealloc];
+}
+
 #pragma mark Writer 
 
 

@@ -43,7 +43,7 @@ NSString *file(NSString *path) {
     NSDictionary *numbers = [file(@"Tests/types/number.plist") propertyList];
     NSEnumerator *iterator = [numbers keyEnumerator];
     
-    for (NSString *number; number = [iterator nextObject]; ) {
+    for (NSString *number; (number = [iterator nextObject]); ) {
         NSNumber *n = [number JSONFragmentValue];
         NSNumber *e = [numbers objectForKey:number];
         STAssertTrue([n isKindOfClass:[NSNumber class]], nil);
@@ -78,7 +78,7 @@ NSString *file(NSString *path) {
         nil];
 
     NSEnumerator *enumerator = [dict keyEnumerator];
-    for (NSString *key; key = [enumerator nextObject]; ) {
+    for (NSString *key; (key = [enumerator nextObject]); ) {
         NSString *val = [dict objectForKey:key];
         eqo([key JSONFragmentValue], val);
         eqo([[val JSONFragment] JSONFragmentValue], val);
@@ -108,7 +108,7 @@ NSString *file(NSString *path) {
 {
     NSDictionary *strings = [file(@"Tests/types/string.plist") propertyList];
     NSEnumerator *iterator = [strings keyEnumerator];
-    for (NSString *string; string = [iterator nextObject]; ) {
+    for (NSString *string; (string = [iterator nextObject]); ) {
         NSString *expected = [strings objectForKey:string];
         id json = [string JSONFragmentValue];
         STAssertTrue([json isKindOfClass:[NSString class]], nil);
@@ -121,7 +121,7 @@ NSString *file(NSString *path) {
 {
     NSDictionary *dict = [file(@"Tests/types/array.plist") propertyList];
     NSEnumerator *enumerator = [dict keyEnumerator];
-    for (NSString *jsonrep; jsonrep = [enumerator nextObject]; ) {
+    for (NSString *jsonrep; (jsonrep = [enumerator nextObject]); ) {
         id expected = [dict objectForKey:jsonrep];
         id json = [jsonrep JSONValue];
         STAssertTrue([json isKindOfClass:[expected class]], nil);
@@ -134,7 +134,7 @@ NSString *file(NSString *path) {
 {
     NSDictionary *dict = [file(@"Tests/types/object.plist") propertyList];
     NSEnumerator *enumerator = [dict keyEnumerator];
-    for (NSString *jsonrep; jsonrep = [enumerator nextObject]; ) {
+    for (NSString *jsonrep; (jsonrep = [enumerator nextObject]); ) {
         id expected = [dict objectForKey:jsonrep];
         id json = [jsonrep JSONValue];
         STAssertTrue([json isKindOfClass:[expected class]], nil);
