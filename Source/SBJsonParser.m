@@ -310,7 +310,7 @@ static char ctrl[0x22];
                     return NO;
                     break;
             }
-            [*o appendFormat:@"%C", uc];
+            CFStringAppendCharacters((CFMutableStringRef)*o, &uc, 1);
             c++;
             
         } else if (*c < 0x20) {
