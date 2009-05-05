@@ -41,6 +41,7 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
 - (void)clearErrorTrace {
     [self willChangeValueForKey:@"errorTrace"];
+    [errorTrace release];
     errorTrace = nil;
     [self didChangeValueForKey:@"errorTrace"];
 }

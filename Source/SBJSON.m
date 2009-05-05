@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (json)
         return json;
 
+    [errorTrace release];
     errorTrace = [[jsonWriter errorTrace] mutableCopy];
     
     if (error)
@@ -114,6 +115,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (obj)
         return obj;
     
+    [errorTrace release];
     errorTrace = [[jsonParser errorTrace] mutableCopy];
 
     if (error)
