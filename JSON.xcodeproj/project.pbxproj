@@ -108,6 +108,8 @@
 		53D229A10C9612E000276605 /* Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Types.m; sourceTree = "<group>"; };
 		53EF4D400DC247B3005F5E6D /* bench */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bench; sourceTree = BUILT_PRODUCTS_DIR; };
 		53EF4D4D0DC2483C005F5E6D /* bench.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bench.m; sourceTree = "<group>"; };
+		BCC0466A0FB62CA600F9F2D3 /* Installation.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Installation.rtf; sourceTree = "<group>"; };
+		BCC0466C0FB62CF100F9F2D3 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		E7153EE80CAAABDB00054ADB /* Pretty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pretty.m; sourceTree = "<group>"; };
 		E75716430C96DB530084A449 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -231,6 +233,8 @@
 		BCC0465E0FB62C2B00F9F2D3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BCC0466C0FB62CF100F9F2D3 /* README */,
+				BCC0466A0FB62CA600F9F2D3 /* Installation.rtf */,
 				53D229830C96121600276605 /* JSON-Info.plist */,
 				53D2298E0C96122A00276605 /* Tests-Info.plist */,
 				FE2BBDAC0D8B0EE100184787 /* libjsontests-Info.plist */,
