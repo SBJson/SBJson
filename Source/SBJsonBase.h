@@ -48,8 +48,9 @@ enum {
 };
 
 /**
- Contains methods for reporting errors.
- 
+ @brief common base class for parsing & writing
+
+ This class contains the common error-handling code.
  */
 @interface SBJsonBase : NSObject {
     NSMutableArray *errorTrace;

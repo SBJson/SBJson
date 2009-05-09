@@ -29,7 +29,11 @@
 
 #import <Foundation/Foundation.h>
 
-/// Adds JSON parsing to NSString
+/**
+ @brief Adds JSON parsing methods to NSString
+ 
+This is a category on NSString that adds methods for parsing the target string.
+*/
 @interface NSString (NSString_SBJSON)
 
 /// Returns the object represented in the receiver, or nil on error. 
