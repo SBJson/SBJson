@@ -168,9 +168,7 @@
 				53D229950C96123C00276605 /* Classes */,
 				53D229960C96124500276605 /* Tests */,
 				53D229820C96121600276605 /* Products */,
-				53D229830C96121600276605 /* JSON-Info.plist */,
-				53D2298E0C96122A00276605 /* Tests-Info.plist */,
-				FE2BBDAC0D8B0EE100184787 /* libjsontests-Info.plist */,
+				BCC0465E0FB62C2B00F9F2D3 /* Resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -228,6 +226,16 @@
 				53EF4D4D0DC2483C005F5E6D /* bench.m */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		BCC0465E0FB62C2B00F9F2D3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				53D229830C96121600276605 /* JSON-Info.plist */,
+				53D2298E0C96122A00276605 /* Tests-Info.plist */,
+				FE2BBDAC0D8B0EE100184787 /* libjsontests-Info.plist */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
