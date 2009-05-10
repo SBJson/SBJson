@@ -21,6 +21,7 @@ cp -p -R $INSTALL_DIR/../Frameworks/$PROJECT.framework $DISK_IMAGE
 
 # Copy the source verbatim into the disk image.
 cp -p -R $SOURCE_ROOT/Source $DISK_IMAGE/$PROJECT
+rm -rf $DISK_IMAGE/$PROJECT/.svn
 
 # Create the documentation
 xcodebuild -target Documentation -configuration Release install || exit 1
