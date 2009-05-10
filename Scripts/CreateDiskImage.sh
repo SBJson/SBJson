@@ -41,9 +41,7 @@ window.location = "Documentation/index.html"
 </script>
 </head>
 <body>
-<p>Aw, shucks! I tried to redirect you to the <a
-href="Documentaton/html/index.html">api documentation</a> but obviously
-failed. Please find it yourself. </p>
+<p>Aw, shucks! I tried to redirect you to the <a href="Documentaton/index.html">api documentation</a> but obviously failed. Please find it yourself. </p>
 </body>
 </html>
 HTML
