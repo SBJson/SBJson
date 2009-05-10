@@ -51,31 +51,29 @@
 <a name="l00030"></a>00030 <span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span>
 <a name="l00031"></a>00031 <span class="preprocessor">#import "SBJsonBase.h"</span>
 <a name="l00032"></a>00032 
-<a name="l00036"></a><a class="code" href="protocol_s_b_json_writer_options-p.html">00036</a> <span class="keyword">@protocol </span>SBJsonWriterOptions
-<a name="l00037"></a>00037 
+<a name="l00038"></a><a class="code" href="protocol_s_b_json_writer_options-p.html">00038</a> <span class="keyword">@protocol </span>SBJsonWriterOptions
 <a name="l00039"></a>00039 
-<a name="l00045"></a><a class="code" href="protocol_s_b_json_writer_options-p.html#8d90f02fcd6ec818fe8693440a49d5da">00045</a> @<span class="keyword">property</span> BOOL humanReadable;
-<a name="l00046"></a>00046 
-<a name="l00048"></a>00048 
-<a name="l00049"></a><a class="code" href="protocol_s_b_json_writer_options-p.html#024096dfe5591a6345ad23dccef273b6">00049</a> @<span class="keyword">property</span> BOOL sortKeys;
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="keyword">@end</span>
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053 
-<a name="l00076"></a><a class="code" href="interface_s_b_json_writer.html">00076</a> <span class="keyword">@interface </span><a class="code" href="interface_s_b_json_writer.html" title="The JSON writer class.">SBJsonWriter</a> : <a class="code" href="interface_s_b_json_base.html" title="common base class for parsing &amp;amp; writing">SBJsonBase</a> &lt;<a class="code" href="protocol_s_b_json_writer_options-p.html">SBJsonWriterOptions</a>&gt; {
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078 <span class="keyword">@private</span>
-<a name="l00079"></a>00079     BOOL sortKeys, humanReadable;
-<a name="l00080"></a>00080     NSUInteger depth;
-<a name="l00081"></a>00081 }
-<a name="l00082"></a>00082 
-<a name="l00084"></a>00084 - (NSString*)stringWithObject:(<span class="keywordtype">id</span>)value
-<a name="l00085"></a>00085                   allowScalar:(BOOL)x;
-<a name="l00086"></a>00086 
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088 <span class="keyword">@end</span>
+<a name="l00048"></a><a class="code" href="protocol_s_b_json_writer_options-p.html#8d90f02fcd6ec818fe8693440a49d5da">00048</a> @<span class="keyword">property</span> BOOL humanReadable;
+<a name="l00049"></a>00049 
+<a name="l00056"></a><a class="code" href="protocol_s_b_json_writer_options-p.html#024096dfe5591a6345ad23dccef273b6">00056</a> @<span class="keyword">property</span> BOOL sortKeys;
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058 <span class="keyword">@end</span>
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060 
+<a name="l00083"></a><a class="code" href="interface_s_b_json_writer.html">00083</a> <span class="keyword">@interface </span><a class="code" href="interface_s_b_json_writer.html" title="The JSON writer class.">SBJsonWriter</a> : <a class="code" href="interface_s_b_json_base.html" title="common base class for parsing &amp;amp; writing">SBJsonBase</a> &lt;<a class="code" href="protocol_s_b_json_writer_options-p.html" title="Options for the writer class.">SBJsonWriterOptions</a>&gt; {
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 <span class="keyword">@private</span>
+<a name="l00086"></a>00086     BOOL sortKeys, humanReadable;
+<a name="l00087"></a>00087     NSUInteger depth;
+<a name="l00088"></a>00088 }
+<a name="l00089"></a>00089 
+<a name="l00091"></a>00091 - (NSString*)stringWithObject:(<span class="keywordtype">id</span>)value
+<a name="l00092"></a>00092                   allowScalar:(BOOL)x;
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095 <span class="keyword">@end</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sun May 10 01:34:15 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sun May 10 20:30:38 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.7 </small></address>
 </body>

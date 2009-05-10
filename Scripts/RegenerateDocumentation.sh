@@ -7,7 +7,7 @@ VERSION=$(agvtool mvers -terse1)
 
 DOXYFILE=$DERIVED_FILES_DIR/doxygen.config
 DOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen
-DOCSET=$INSTALL_DIR/Docset
+DOCSET=$INSTALL_DIR/Documentation
 
 mkdir -p $DERIVED_FILES_DIR || exit 1
 mkdir -p $DOCSET || exit 1
@@ -35,27 +35,29 @@ REPEAT_BRIEF           = NO
 
 GENERATE_LATEX         = NO
 GENERATE_HTML          = YES
-GENERATE_DOCSET        = YES
-DOCSET_FEEDNAME        = "brautaset.org $PROJECT Documentation"
-DOCSET_BUNDLE_ID       = org.brautaset.$PROJECT
+GENERATE_DOCSET        = NO
 
 EOF
 
 #  Run doxygen on the updated config file.
-#  doxygen creates a Makefile that does most of the heavy lifting.
 $DOXYGEN $DOXYFILE
 
-#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.
-make -C $DOCSET/html install
+# Replace the old dir with the newly generated one.
+rm -f $SOURCE_ROOT/documentation/*
+cp -p $INSTALL_DIR/Documentation/html/* $SOURCE_ROOT/documentation
+cd $SOURCE_ROOT/documentation
 
-#  Construct a temporary applescript file to tell Xcode to load a docset.
-rm -f $TEMP_DIR/loadDocSet.scpt
+# Revert files that differ only in the timestamp.
+svn diff *.html | diffstat | awk '$3 == "2" { print $1 }' | xargs svn revert
 
-cat <<EOF > $TEMP_DIR/loadDocSet.scpt
-tell application "Xcode"
-	load documentation set with path "/Users/$USER/Library/Developer/Shared/Documentation/DocSets/org.brautaset.${PROJECT}.docset/"
-end tell
-EOF
+# Add/remove files from subversion.
+svn st | awk '
+    $1 == "?" { print "svn add", $2 }
+    $1 == "!" { print "svn delete",  $2 }
+' | sh -
 
-# Run the load-docset applescript command.
-osascript $TEMP_DIR/loadDocSet.scpt
+svn propset svn:mime-type text/html *.html
+svn propset svn:mime-type text/css *.css
+svn propset svn:mime-type image/png *.png
+svn propset svn:mime-type image/gif *.gif
+

@@ -22,7 +22,8 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = BCC047190FB651CD00F9F2D3 /* Build configuration list for PBXAggregateTarget "Documentation" */;
 			buildPhases = (
-				BCC047150FB651AF00F9F2D3 /* ShellScript */,
+				BCC047150FB651AF00F9F2D3 /* Install Docset */,
+				BC86E8BD0FB760D600534590 /* Refresh API docs */,
 			);
 			dependencies = (
 			);
@@ -118,10 +119,13 @@
 		53D229A10C9612E000276605 /* Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Types.m; sourceTree = "<group>"; };
 		53EF4D400DC247B3005F5E6D /* bench */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bench; sourceTree = BUILT_PRODUCTS_DIR; };
 		53EF4D4D0DC2483C005F5E6D /* bench.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bench.m; sourceTree = "<group>"; };
+		BC86E8BB0FB75C0200534590 /* RegenerateDocumentation.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = RegenerateDocumentation.sh; sourceTree = "<group>"; };
 		BCC0466A0FB62CA600F9F2D3 /* Install.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Install.rtf; sourceTree = "<group>"; };
 		BCC0466C0FB62CF100F9F2D3 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		BCC047320FB6584C00F9F2D3 /* InstallDocumentation.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = InstallDocumentation.sh; sourceTree = "<group>"; };
+		BCC047320FB6584C00F9F2D3 /* InstallDocumentation.sh */ = {isa = PBXFileReference; explicitFileType = text.script.sh; fileEncoding = 4; path = InstallDocumentation.sh; sourceTree = "<group>"; };
 		BCC047330FB6586100F9F2D3 /* CreateDiskImage.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = CreateDiskImage.sh; sourceTree = "<group>"; };
+		BCC047920FB727F600F9F2D3 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		BCC047DA0FB743B100F9F2D3 /* Changes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Changes.rtf; sourceTree = "<group>"; };
 		E7153EE80CAAABDB00054ADB /* Pretty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pretty.m; sourceTree = "<group>"; };
 		E75716430C96DB530084A449 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -183,6 +187,7 @@
 				53D229960C96124500276605 /* Tests */,
 				53D229820C96121600276605 /* Products */,
 				BCC0465E0FB62C2B00F9F2D3 /* Resources */,
+				BCC047D30FB742FC00F9F2D3 /* Documents */,
 				BCC046DF0FB6478C00F9F2D3 /* Scripts */,
 			);
 			sourceTree = "<group>";
@@ -247,7 +252,6 @@
 			isa = PBXGroup;
 			children = (
 				BCC0466C0FB62CF100F9F2D3 /* README */,
-				BCC0466A0FB62CA600F9F2D3 /* Install.rtf */,
 				53D229830C96121600276605 /* JSON-Info.plist */,
 				53D2298E0C96122A00276605 /* Tests-Info.plist */,
 				FE2BBDAC0D8B0EE100184787 /* libjsontests-Info.plist */,
@@ -258,10 +262,21 @@
 		BCC046DF0FB6478C00F9F2D3 /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
+				BC86E8BB0FB75C0200534590 /* RegenerateDocumentation.sh */,
 				BCC047330FB6586100F9F2D3 /* CreateDiskImage.sh */,
 				BCC047320FB6584C00F9F2D3 /* InstallDocumentation.sh */,
 			);
 			path = Scripts;
+			sourceTree = "<group>";
+		};
+		BCC047D30FB742FC00F9F2D3 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				BCC047920FB727F600F9F2D3 /* Credits.rtf */,
+				BCC0466A0FB62CA600F9F2D3 /* Install.rtf */,
+				BCC047DA0FB743B100F9F2D3 /* Changes.rtf */,
+			);
+			name = Documents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -450,6 +465,20 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		BC86E8BD0FB760D600534590 /* Refresh API docs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Refresh API docs";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec $SOURCE_ROOT/Scripts/RegenerateDocumentation.sh";
+		};
 		BCC046C10FB645F100F9F2D3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -463,13 +492,14 @@
 			shellPath = /bin/sh;
 			shellScript = "exec $SOURCE_ROOT/Scripts/CreateDiskImage.sh";
 		};
-		BCC047150FB651AF00F9F2D3 /* ShellScript */ = {
+		BCC047150FB651AF00F9F2D3 /* Install Docset */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Install Docset";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

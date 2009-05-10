@@ -51,29 +51,28 @@
 <a name="l00030"></a>00030 <span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span>
 <a name="l00031"></a>00031 <span class="preprocessor">#import "SBJsonBase.h"</span>
 <a name="l00032"></a>00032 
-<a name="l00036"></a><a class="code" href="protocol_s_b_json_parser_options-p.html">00036</a> <span class="keyword">@protocol </span>SBJsonParserOptions
-<a name="l00037"></a>00037 
+<a name="l00038"></a><a class="code" href="protocol_s_b_json_parser_options-p.html">00038</a> <span class="keyword">@protocol </span>SBJsonParserOptions
 <a name="l00039"></a>00039 
-<a name="l00040"></a><a class="code" href="protocol_s_b_json_parser_options-p.html#6c66a5cbcc61dccff6d3556e9a28d97d">00040</a> @<span class="keyword">property</span> NSUInteger maxDepth;
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042 <span class="keyword">@end</span>
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044 
-<a name="l00066"></a><a class="code" href="interface_s_b_json_parser.html">00066</a> <span class="keyword">@interface </span><a class="code" href="interface_s_b_json_parser.html" title="A strict JSON parser.">SBJsonParser</a> : <a class="code" href="interface_s_b_json_base.html" title="common base class for parsing &amp;amp; writing">SBJsonBase</a> &lt;<a class="code" href="protocol_s_b_json_parser_options-p.html">SBJsonParserOptions</a>&gt; {
-<a name="l00067"></a>00067     
-<a name="l00068"></a>00068 <span class="keyword">@private</span>
-<a name="l00069"></a>00069     <span class="keyword">const</span> <span class="keywordtype">char</span> *c;
-<a name="l00070"></a>00070     NSUInteger depth, maxDepth;
-<a name="l00071"></a>00071 }
-<a name="l00072"></a>00072 
-<a name="l00074"></a>00074 - (id)objectWithString:(<span class="keywordtype">id</span>)value
-<a name="l00075"></a>00075            allowScalar:(BOOL)x;
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079 <span class="keyword">@end</span>
+<a name="l00047"></a><a class="code" href="protocol_s_b_json_parser_options-p.html#6c66a5cbcc61dccff6d3556e9a28d97d">00047</a> @<span class="keyword">property</span> NSUInteger maxDepth;
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049 <span class="keyword">@end</span>
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051 
+<a name="l00073"></a><a class="code" href="interface_s_b_json_parser.html">00073</a> <span class="keyword">@interface </span><a class="code" href="interface_s_b_json_parser.html" title="The JSON parser class.">SBJsonParser</a> : <a class="code" href="interface_s_b_json_base.html" title="common base class for parsing &amp;amp; writing">SBJsonBase</a> &lt;<a class="code" href="protocol_s_b_json_parser_options-p.html" title="Options for the parser class.">SBJsonParserOptions</a>&gt; {
+<a name="l00074"></a>00074     
+<a name="l00075"></a>00075 <span class="keyword">@private</span>
+<a name="l00076"></a>00076     <span class="keyword">const</span> <span class="keywordtype">char</span> *c;
+<a name="l00077"></a>00077     NSUInteger depth, maxDepth;
+<a name="l00078"></a>00078 }
+<a name="l00079"></a>00079 
+<a name="l00081"></a>00081 - (id)objectWithString:(<span class="keywordtype">id</span>)repr
+<a name="l00082"></a>00082            allowScalar:(BOOL)allowScalar;
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086 <span class="keyword">@end</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sun May 10 01:34:15 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sun May 10 20:30:38 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.7 </small></address>
 </body>

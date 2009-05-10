@@ -52,10 +52,10 @@
 <a name="l00031"></a>00031 <span class="preprocessor">#import "SBJsonParser.h"</span>
 <a name="l00032"></a>00032 <span class="preprocessor">#import "SBJsonWriter.h"</span>
 <a name="l00033"></a>00033 
-<a name="l00039"></a><a class="code" href="interface_s_b_j_s_o_n.html">00039</a> <span class="keyword">@interface </span><a class="code" href="interface_s_b_j_s_o_n.html" title="Facade for parsing/writing JSON.">SBJSON</a> : <a class="code" href="interface_s_b_json_base.html" title="common base class for parsing &amp;amp; writing">SBJsonBase</a> &lt;<a class="code" href="protocol_s_b_json_parser_options-p.html">SBJsonParserOptions</a>, <a class="code" href="protocol_s_b_json_writer_options-p.html">SBJsonWriterOptions</a>&gt; {
+<a name="l00039"></a><a class="code" href="interface_s_b_j_s_o_n.html">00039</a> <span class="keyword">@interface </span><a class="code" href="interface_s_b_j_s_o_n.html" title="Facade for SBJsonWriter/SBJsonParser JSON.">SBJSON</a> : <a class="code" href="interface_s_b_json_base.html" title="common base class for parsing &amp;amp; writing">SBJsonBase</a> &lt;<a class="code" href="protocol_s_b_json_parser_options-p.html" title="Options for the parser class.">SBJsonParserOptions</a>, <a class="code" href="protocol_s_b_json_writer_options-p.html" title="Options for the writer class.">SBJsonWriterOptions</a>&gt; {
 <a name="l00040"></a>00040 
 <a name="l00041"></a>00041 <span class="keyword">@private</span>    
-<a name="l00042"></a>00042     <a class="code" href="interface_s_b_json_parser.html" title="A strict JSON parser.">SBJsonParser</a> *jsonParser;
+<a name="l00042"></a>00042     <a class="code" href="interface_s_b_json_parser.html" title="The JSON parser class.">SBJsonParser</a> *jsonParser;
 <a name="l00043"></a>00043     <a class="code" href="interface_s_b_json_writer.html" title="The JSON writer class.">SBJsonWriter</a> *jsonWriter;
 <a name="l00044"></a>00044 }
 <a name="l00045"></a>00045 
@@ -84,7 +84,7 @@
 <a name="l00074"></a>00074 
 <a name="l00075"></a>00075 <span class="keyword">@end</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sun May 10 01:34:15 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sun May 10 20:30:38 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.7 </small></address>
 </body>

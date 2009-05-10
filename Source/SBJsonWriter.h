@@ -31,12 +31,15 @@
 #import "SBJsonBase.h"
 
 /**
- Protocol for the writer options. This exists so the SBJSON facade can implement the options in the writer without having to re-declare them.
+ @brief Options for the writer class.
+ 
+ This exists so the SBJSON facade can implement the options in the writer without having to re-declare them.
  */
 @protocol SBJsonWriterOptions
 
-/// Whether we are generating human-readable (multiline) JSON
 /**
+ @brief Whether we are generating human-readable (multiline) JSON.
+ 
  Set whether or not to generate human-readable JSON. The default is NO, which produces
  JSON without any whitespace. (Except inside strings.) If set to YES, generates human-readable
  JSON with linebreaks after each array value and dictionary key/value pair, indented two
@@ -44,8 +47,12 @@
  */
 @property BOOL humanReadable;
 
-/// Whether or not to sort the dictionary keys in the output
-/** The default is to not sort the keys. */
+/**
+ @brief Whether or not to sort the dictionary keys in the output.
+ 
+ If this is set to YES, the dictionary keys in the JSON output will be in sorted order.
+ (This is useful if you need to compare two structures, for example.) The default is NO.
+ */
 @property BOOL sortKeys;
 
 @end
@@ -80,7 +87,7 @@
     NSUInteger depth;
 }
 
-/// Return JSON representation (or fragment) for the given object
+/// Return JSON representation (or fragment) for the given object.
 - (NSString*)stringWithObject:(id)value
                   allowScalar:(BOOL)x;
 

@@ -23,7 +23,10 @@
   </div>
 </div>
 <div class="contents">
-<h1>&lt; SBJsonWriterOptions &gt; Protocol Reference</h1><!-- doxytag: class="SBJsonWriterOptions-p" --><code>#import &lt;<a class="el" href="_s_b_json_writer_8h-source.html">SBJsonWriter.h</a>&gt;</code>
+<h1>&lt; SBJsonWriterOptions &gt; Protocol Reference</h1><!-- doxytag: class="SBJsonWriterOptions-p" -->Options for the writer class.  
+<a href="#_details">More...</a>
+<p>
+<code>#import &lt;<a class="el" href="_s_b_json_writer_8h-source.html">SBJsonWriter.h</a>&gt;</code>
 <p>
 <div class="dynheader">
 Inheritance diagram for &lt; SBJsonWriterOptions &gt;:</div>
@@ -48,7 +51,7 @@ Inheritance diagram for &lt; SBJsonWriterOptions &gt;:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Whether or not to sort the dictionary keys in the output.  <a href="#024096dfe5591a6345ad23dccef273b6"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
-Protocol for the writer options. This exists so the <a class="el" href="interface_s_b_j_s_o_n.html" title="Facade for parsing/writing JSON.">SBJSON</a> facade can implement the options in the writer without having to re-declare them. <hr><h2>Property Documentation</h2>
+This exists so the <a class="el" href="interface_s_b_j_s_o_n.html" title="Facade for SBJsonWriter/SBJsonParser JSON.">SBJSON</a> facade can implement the options in the writer without having to re-declare them. <hr><h2>Property Documentation</h2>
 <a class="anchor" name="8d90f02fcd6ec818fe8693440a49d5da"></a><!-- doxytag: member="SBJsonWriterOptions&#45;p::humanReadable" ref="8d90f02fcd6ec818fe8693440a49d5da" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -76,13 +79,13 @@ Set whether or not to generate human-readable JSON. The default is NO, which pro
 <div class="memdoc">
 
 <p>
-The default is to not sort the keys. 
+If this is set to YES, the dictionary keys in the JSON output will be in sorted order. (This is useful if you need to compare two structures, for example.) The default is NO. 
 </div>
 </div><p>
 <hr>The documentation for this protocol was generated from the following file:<ul>
 <li>Source/<a class="el" href="_s_b_json_writer_8h-source.html">SBJsonWriter.h</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Mar 24 08:08:17 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sun May 10 20:30:38 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.7 </small></address>
 </body>

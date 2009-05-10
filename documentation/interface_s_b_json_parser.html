@@ -23,7 +23,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>SBJsonParser Class Reference</h1><!-- doxytag: class="SBJsonParser" --><!-- doxytag: inherits="SBJsonBase,SBJsonParserOptions-p" -->A strict JSON parser.  
+<h1>SBJsonParser Class Reference</h1><!-- doxytag: class="SBJsonParser" --><!-- doxytag: inherits="SBJsonBase,SBJsonParserOptions-p" -->The JSON parser class.  
 <a href="#_details">More...</a>
 <p>
 <code>#import &lt;<a class="el" href="_s_b_json_parser_8h-source.html">SBJsonParser.h</a>&gt;</code>
@@ -43,9 +43,9 @@ Inheritance diagram for SBJsonParser:</div>
 <a href="class_s_b_json_parser-members.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">(id)&nbsp;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_b_json_parser.html#9f2ae449cd337bdda2470ddf6e04e29e">objectWithString:allowScalar:</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">(id)&nbsp;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_b_json_parser.html#476412f5643f978d384cae596228fbac">objectWithString:allowScalar:</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Parse the string and return the represented object (or scalar).  <a href="#9f2ae449cd337bdda2470ddf6e04e29e"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the object represented by the given string.  <a href="#476412f5643f978d384cae596228fbac"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 JSON is mapped to Objective-C types in the following way:<p>
@@ -59,7 +59,7 @@ JSON is mapped to Objective-C types in the following way:<p>
 </ul>
 Since Objective-C doesn't have a dedicated class for boolean values, these turns into NSNumber instances. These are initialised with the -initWithBool: method, and round-trip back to JSON properly. (They won't silently suddenly become 0 or 1; they'll be represented as 'true' and 'false' again.)<p>
 JSON numbers turn into NSDecimalNumber instances, as we can thus avoid any loss of precision. (JSON allows ridiculously large numbers.) <hr><h2>Member Function Documentation</h2>
-<a class="anchor" name="9f2ae449cd337bdda2470ddf6e04e29e"></a><!-- doxytag: member="SBJsonParser::objectWithString:allowScalar:" ref="9f2ae449cd337bdda2470ddf6e04e29e" args="(id value,[allowScalar] BOOL x)" -->
+<a class="anchor" name="476412f5643f978d384cae596228fbac"></a><!-- doxytag: member="SBJsonParser::objectWithString:allowScalar:" ref="476412f5643f978d384cae596228fbac" args="(id repr,[allowScalar] BOOL allowScalar)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -98,7 +98,7 @@ Returns the object represented by the passed-in string or nil on error. The retu
 <hr>The documentation for this class was generated from the following files:<ul>
 <li>Source/<a class="el" href="_s_b_json_parser_8h-source.html">SBJsonParser.h</a><li>Source/SBJsonParser.m</ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Mar 24 08:08:17 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sun May 10 20:30:38 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.7 </small></address>
 </body>

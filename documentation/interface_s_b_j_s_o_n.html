@@ -23,7 +23,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>SBJSON Class Reference</h1><!-- doxytag: class="SBJSON" --><!-- doxytag: inherits="SBJsonBase,SBJsonParserOptions-p,SBJsonWriterOptions-p" -->Facade for parsing/writing JSON.  
+<h1>SBJSON Class Reference</h1><!-- doxytag: class="SBJSON" --><!-- doxytag: inherits="SBJsonBase,SBJsonParserOptions-p,SBJsonWriterOptions-p" -->Facade for SBJsonWriter/SBJsonParser JSON.  
 <a href="#_details">More...</a>
 <p>
 <code>#import &lt;<a class="el" href="_s_b_j_s_o_n_8h-source.html">SBJSON.h</a>&gt;</code>
@@ -64,7 +64,7 @@ Inheritance diagram for SBJSON:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return JSON representation (or fragment) for the given object.  <a href="#dfe4a880ee09edf0c9d14508d79311d8"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
-The object now exists as a facade to keep backwards compatibility with previous releases. <hr><h2>Member Function Documentation</h2>
+This class exists for backwards compatibility with previous releases. It simply forwards requests to <a class="el" href="interface_s_b_json_writer.html" title="The JSON writer class.">SBJsonWriter</a> and <a class="el" href="interface_s_b_json_parser.html" title="The JSON parser class.">SBJsonParser</a>. <hr><h2>Member Function Documentation</h2>
 <a class="anchor" name="a88f7cb9ddc4ab7fd6e9fc0853e6da6a"></a><!-- doxytag: member="SBJSON::fragmentWithString:error:" ref="a88f7cb9ddc4ab7fd6e9fc0853e6da6a" args="(NSString *jsonrep,[error] NSError **error)" -->
 <div class="memitem">
 <div class="memproto">
@@ -298,7 +298,7 @@ Returns a string containing JSON representation of the passed in value, or nil o
 <hr>The documentation for this class was generated from the following files:<ul>
 <li>Source/<a class="el" href="_s_b_j_s_o_n_8h-source.html">SBJSON.h</a><li>Source/SBJSON.m</ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sun May 10 01:34:15 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sun May 10 20:30:38 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.7 </small></address>
 </body>
