@@ -52,4 +52,4 @@ cp -p $SOURCE_ROOT/CREDITS $DISK_IMAGE
 cp -p $SOURCE_ROOT/README $DISK_IMAGE
 cp -p $SOURCE_ROOT/Install.rtf $DISK_IMAGE
 
-# hdiutil create -fs HFS+ -volname $VOLNAME -srcfolder $DISK_IMAGE $DISK_IMAGE_FILE
+hdiutil create -fs HFS+ -volname $VOLNAME -srcfolder $DISK_IMAGE $DISK_IMAGE_FILE
