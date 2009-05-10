@@ -1,9 +1,6 @@
-JSON is a light-weight data interchange format. It's easy to read and
+JSON is a light-weight data interchange format that's easy to read and
 write for humans and computers alike. This framework implements a strict
 JSON parser and generator in Objective-C.
 
-All resources related to this framework can be found at the project
-site: http://code.google.com/p/json-framework/
-
-In particular, API documentation can be found here:
-http://json-framework.googlecode.com/svn/trunk/documentation/index.html 
+Please see the project site for more information:
+http://code.google.com/p/json-framework/

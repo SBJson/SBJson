@@ -30,7 +30,13 @@
 #import <Foundation/Foundation.h>
 
 
-/// Adds JSON generation to NSObject subclasses
+/**
+ @brief Adds JSON generation to Foundation classes
+ 
+ This is a category on NSObject that adds methods for returning JSON representations
+ of standard objects to the objects themselves. This means you can call the
+ -JSONRepresentation method on an NSArray object and it'll do what you want.
+ */
 @interface NSObject (NSObject_SBJSON)
 
 /**
