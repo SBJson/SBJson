@@ -7,12 +7,22 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		53F8A8380E571AAF00355C72 /* Documentation */ = {
+		BCC046C20FB645F100F9F2D3 /* CreateDiskImage */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 53F8A83B0E571ACE00355C72 /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildConfigurationList = BCC046C70FB6462500F9F2D3 /* Build configuration list for PBXAggregateTarget "CreateDiskImage" */;
 			buildPhases = (
-				53F8A8370E571AAF00355C72 /* Generate & install docset */,
-				535159720F7858A500C8AABD /* Generate API docs */,
+				BCC046C10FB645F100F9F2D3 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = CreateDiskImage;
+			productName = CreateDiskImage;
+		};
+		BCC047160FB651AF00F9F2D3 /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = BCC047190FB651CD00F9F2D3 /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				BCC047150FB651AF00F9F2D3 /* ShellScript */,
 			);
 			dependencies = (
 			);
@@ -22,16 +32,16 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		5351577A0F6E3BE100C8AABD /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157780F6E3BE100C8AABD /* SBJsonParser.h */; };
+		5351577A0F6E3BE100C8AABD /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157780F6E3BE100C8AABD /* SBJsonParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5351577B0F6E3BE100C8AABD /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157790F6E3BE100C8AABD /* SBJsonParser.m */; };
-		5351577C0F6E3BE100C8AABD /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157780F6E3BE100C8AABD /* SBJsonParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5351577C0F6E3BE100C8AABD /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157780F6E3BE100C8AABD /* SBJsonParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5351577D0F6E3BE100C8AABD /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157790F6E3BE100C8AABD /* SBJsonParser.m */; };
-		535157A50F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; };
+		535157A50F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		535157A60F6EE4A800C8AABD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
-		535157A70F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		535157A70F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		535157A80F6EE4A800C8AABD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
-		535158700F70DE7A00C8AABD /* SBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5351586F0F70DE7A00C8AABD /* SBJsonBase.h */; };
-		535158710F70DE7A00C8AABD /* SBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5351586F0F70DE7A00C8AABD /* SBJsonBase.h */; };
+		535158700F70DE7A00C8AABD /* SBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5351586F0F70DE7A00C8AABD /* SBJsonBase.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		535158710F70DE7A00C8AABD /* SBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5351586F0F70DE7A00C8AABD /* SBJsonBase.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		535158730F70DE7B00C8AABD /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 535158720F70DE7B00C8AABD /* SBJsonBase.m */; };
 		535158740F70DE7B00C8AABD /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 535158720F70DE7B00C8AABD /* SBJsonBase.m */; };
 		539191D20DBB896D00714DA2 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 539191D00DBB896D00714DA2 /* SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -108,8 +118,11 @@
 		53D229A10C9612E000276605 /* Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Types.m; sourceTree = "<group>"; };
 		53EF4D400DC247B3005F5E6D /* bench */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bench; sourceTree = BUILT_PRODUCTS_DIR; };
 		53EF4D4D0DC2483C005F5E6D /* bench.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bench.m; sourceTree = "<group>"; };
-		BCC0466A0FB62CA600F9F2D3 /* Installation.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Installation.rtf; sourceTree = "<group>"; };
+		BCC0466A0FB62CA600F9F2D3 /* Install.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Install.rtf; sourceTree = "<group>"; };
 		BCC0466C0FB62CF100F9F2D3 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		BCC046E00FB6478C00F9F2D3 /* CreateDiskImage.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = CreateDiskImage.sh; sourceTree = "<group>"; };
+		BCC046E10FB6478C00F9F2D3 /* InstallDocset.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = InstallDocset.sh; sourceTree = "<group>"; };
+		BCC046E20FB6478C00F9F2D3 /* RegenerateDocumentation.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = RegenerateDocumentation.sh; sourceTree = "<group>"; };
 		E7153EE80CAAABDB00054ADB /* Pretty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pretty.m; sourceTree = "<group>"; };
 		E75716430C96DB530084A449 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -171,6 +184,7 @@
 				53D229960C96124500276605 /* Tests */,
 				53D229820C96121600276605 /* Products */,
 				BCC0465E0FB62C2B00F9F2D3 /* Resources */,
+				BCC046DF0FB6478C00F9F2D3 /* Scripts */,
 			);
 			sourceTree = "<group>";
 		};
@@ -234,12 +248,22 @@
 			isa = PBXGroup;
 			children = (
 				BCC0466C0FB62CF100F9F2D3 /* README */,
-				BCC0466A0FB62CA600F9F2D3 /* Installation.rtf */,
+				BCC0466A0FB62CA600F9F2D3 /* Install.rtf */,
 				53D229830C96121600276605 /* JSON-Info.plist */,
 				53D2298E0C96122A00276605 /* Tests-Info.plist */,
 				FE2BBDAC0D8B0EE100184787 /* libjsontests-Info.plist */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		BCC046DF0FB6478C00F9F2D3 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				BCC046E00FB6478C00F9F2D3 /* CreateDiskImage.sh */,
+				BCC046E10FB6478C00F9F2D3 /* InstallDocset.sh */,
+				BCC046E20FB6478C00F9F2D3 /* RegenerateDocumentation.sh */,
+			);
+			path = Scripts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,7 +408,8 @@
 				FE2BBD7F0D8B0D3900184787 /* libjson */,
 				FE2BBDAA0D8B0EE000184787 /* libjsontests */,
 				53EF4D3F0DC247B3005F5E6D /* bench */,
-				53F8A8380E571AAF00355C72 /* Documentation */,
+				BCC046C20FB645F100F9F2D3 /* CreateDiskImage */,
+				BCC047160FB651AF00F9F2D3 /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -414,20 +439,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		535159720F7858A500C8AABD /* Generate API docs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Generate API docs";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# See also http://developer.apple.com/tools/creatingdocsetswithdoxygen.html \n\nVERS=$(agvtool mvers -terse1)\n\nDOXYFILE=$DERIVED_FILES_DIR/Doxyfile\nDOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen\nDOCSET=$SOURCE_ROOT\n\nmkdir -p $DERIVED_FILES_DIR || exit 1\nmkdir -p $DOCSET || exit 1\n\nif ! test -x $DOXYGEN ; then\n\tDOXYGEN=`which doxygen`;\nfi\n\nif ! test -x $DOXYGEN ; then\n\techo \"*** Install Doxygen to get documentation generated for you automatically ***\"\n\texit 0\nfi\n\n\n# Check that doxygen is present\ntest -f $DOXYGEN || exit 1\n\n# Create a doxygen configuration file with only the settings we care about\n\ncat <<EOF > $DOXYFILE\n\nPROJECT_NAME           = $FULL_PRODUCT_NAME\nPROJECT_NUMBER         = $VERS\nOUTPUT_DIRECTORY       = $DOCSET\nINPUT                  = $SOURCE_ROOT/Source $SOURCE_ROOT/Docs\nFILE_PATTERNS          = *.h *.m *.doxygen\n\nHIDE_UNDOC_MEMBERS     = YES\nHIDE_UNDOC_CLASSES     = YES\nHIDE_UNDOC_RELATIONS   = YES\nREPEAT_BRIEF           = NO\n\nGENERATE_LATEX         = NO\nGENERATE_HTML          = YES\nGENERATE_DOCSET        = NO\n\nHTML_OUTPUT            = documentation\n\nQUIET                  = NO\n\nEOF\n\n#  Run doxygen on the updated config file.\n#  doxygen creates a Makefile that does most of the heavy lifting.\n\n$DOXYGEN $DOXYFILE\nsvn add documentation\ncd documentation\nsvn propset svn:mime-type text/html *.html\nsvn propset svn:mime-type text/css *.css";
-		};
 		53D2298B0C96122A00276605 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -441,19 +452,31 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-		53F8A8370E571AAF00355C72 /* Generate & install docset */ = {
+		BCC046C10FB645F100F9F2D3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Generate & install docset";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# See also http://developer.apple.com/tools/creatingdocsetswithdoxygen.html \n\nVERSION=$(agvtool mvers -terse1)\n\nDOXYFILE=$DERIVED_FILES_DIR/doxygen.config\nDOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen\nDOCSET=$DSTROOT/Docset\n\nmkdir -p $DERIVED_FILES_DIR || exit 1\nmkdir -p $DOCSET || exit 1\n\nif ! test -x $DOXYGEN ; then\n\techo \"*** Install Doxygen to get documentation generated for you automatically ***\"\n\texit 1\nfi\n\n# Create a doxygen configuration file with only the settings we care about\n$DOXYGEN -g > $DOXYFILE\n\ncat <<EOF >> $DOXYFILE\n\nPROJECT_NAME           = $FULL_PRODUCT_NAME\nPROJECT_NUMBER         = $VERSION\nOUTPUT_DIRECTORY       = $DOCSET\nINPUT                  = $SOURCE_ROOT/Source\nFILE_PATTERNS          = *.h *.m\n\nHIDE_UNDOC_MEMBERS     = YES\nHIDE_UNDOC_CLASSES     = YES\nHIDE_UNDOC_RELATIONS   = YES\nREPEAT_BRIEF           = NO\n\nGENERATE_LATEX         = NO\nGENERATE_HTML          = YES\nGENERATE_DOCSET        = YES\nDOCSET_FEEDNAME        = \"brautaset.org $PROJECT Documentation\"\nDOCSET_BUNDLE_ID       = org.brautaset.$PROJECT\n\nQUIET                  = NO\n\nEOF\n\n#  Run doxygen on the updated config file.\n#  doxygen creates a Makefile that does most of the heavy lifting.\n$DOXYGEN $DOXYFILE\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\nmake -C $DOCSET/html install\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\nrm -f $TEMP_DIR/loadDocSet.scpt\n\ncat <<EOF > $TEMP_DIR/loadDocSet.scpt\ntell application \"Xcode\"\n\tload documentation set with path \"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/org.brautaset.${PROJECT}.docset/\"\nend tell\nEOF\n\n# Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt\n";
+			shellScript = "exec $SOURCE_ROOT/Scripts/CreateDiskImage.sh";
+		};
+		BCC047150FB651AF00F9F2D3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec $SOURCE_ROOT/Scripts/InstallDocumentation.sh";
 		};
 		FE2BBDA90D8B0EE000184787 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -750,7 +773,28 @@
 			};
 			name = Release;
 		};
-		53F8A8390E571AB000355C72 /* Debug */ = {
+		BCC046C30FB645F100F9F2D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = CreateDiskImage;
+			};
+			name = Debug;
+		};
+		BCC046C40FB645F100F9F2D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = CreateDiskImage;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		BCC047170FB651AF00F9F2D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -760,7 +804,7 @@
 			};
 			name = Debug;
 		};
-		53F8A83A0E571AB000355C72 /* Release */ = {
+		BCC047180FB651AF00F9F2D3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -926,11 +970,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		53F8A83B0E571ACE00355C72 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+		BCC046C70FB6462500F9F2D3 /* Build configuration list for PBXAggregateTarget "CreateDiskImage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				53F8A8390E571AB000355C72 /* Debug */,
-				53F8A83A0E571AB000355C72 /* Release */,
+				BCC046C30FB645F100F9F2D3 /* Debug */,
+				BCC046C40FB645F100F9F2D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCC047190FB651CD00F9F2D3 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCC047170FB651AF00F9F2D3 /* Debug */,
+				BCC047180FB651AF00F9F2D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
