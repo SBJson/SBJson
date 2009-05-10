@@ -24,12 +24,8 @@ cp -p -R $SOURCE_ROOT/Source $DISK_IMAGE/$PROJECT
 
 # Create the documentation
 xcodebuild -target Documentation -configuration Release install || exit 1
-cp -p -R $INSTALL_DIR/Docset/html $DISK_IMAGE/Documentation
-rm -f $DISK_IMAGE/Documentation/Makefile
-rm -f $DISK_IMAGE/Documentation/Info.plist
-rm -f $DISK_IMAGE/Documentation/Nodes.xml
-rm -f $DISK_IMAGE/Documentation/Tokens.xml
-rm -rf $DISK_IMAGE/Documentation/org.brautaset.$PROJECT.docset
+cp -p -R $INSTALL_DIR/Documentation/html $DISK_IMAGE/Documentation
+rm -rf $DISK_IMAGE/Documentation/.svn
 
 cat <<HTML > $DISK_IMAGE/Documentation.html
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
