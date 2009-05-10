@@ -122,7 +122,7 @@
 		BCC0466C0FB62CF100F9F2D3 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		BCC047320FB6584C00F9F2D3 /* InstallDocumentation.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = InstallDocumentation.sh; sourceTree = "<group>"; };
 		BCC047330FB6586100F9F2D3 /* CreateDiskImage.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = CreateDiskImage.sh; sourceTree = "<group>"; };
-		BCC047790FB7240800F9F2D3 /* CREDITS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CREDITS; sourceTree = "<group>"; };
+		BCC047920FB727F600F9F2D3 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		E7153EE80CAAABDB00054ADB /* Pretty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pretty.m; sourceTree = "<group>"; };
 		E75716430C96DB530084A449 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 		BCC0465E0FB62C2B00F9F2D3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BCC047790FB7240800F9F2D3 /* CREDITS */,
+				BCC047920FB727F600F9F2D3 /* Credits.rtf */,
 				BCC0466C0FB62CF100F9F2D3 /* README */,
 				BCC0466A0FB62CA600F9F2D3 /* Install.rtf */,
 				53D229830C96121600276605 /* JSON-Info.plist */,

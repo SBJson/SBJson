@@ -15,11 +15,11 @@ rm -f $DISK_IMAGE_FILE
 test -d $DISK_IMAGE && chmod -R +w $DISK_IMAGE && rm -rf $DISK_IMAGE
 mkdir -p $DISK_IMAGE
 
-# Create the Embedded framework
+# Create the Embedded framework and copy it to the disk image.
 xcodebuild -target JSON -configuration Release install || exit 1
-cp -p -R /tmp/Frameworks/$PROJECT.framework $DISK_IMAGE
+cp -p -R $INSTALL_DIR/../Frameworks/$PROJECT.framework $DISK_IMAGE
 
-# Copy the source verbatim into the DISK_IMAGE_FILE
+# Copy the source verbatim into the disk image.
 cp -p -R $SOURCE_ROOT/Source $DISK_IMAGE/$PROJECT
 
 # Create the documentation
@@ -48,8 +48,8 @@ failed. Please find it yourself. </p>
 </html>
 HTML
 
-cp -p $SOURCE_ROOT/CREDITS $DISK_IMAGE
 cp -p $SOURCE_ROOT/README $DISK_IMAGE
+cp -p $SOURCE_ROOT/Credits.rtf $DISK_IMAGE
 cp -p $SOURCE_ROOT/Install.rtf $DISK_IMAGE
 
 hdiutil create -fs HFS+ -volname $VOLNAME -srcfolder $DISK_IMAGE $DISK_IMAGE_FILE
