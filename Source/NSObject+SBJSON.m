@@ -30,27 +30,31 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "NSObject+SBJSON.h"
 #import "SBJsonWriter.h"
 
+static const SBJsonWriter *jsonWriter;
+
 @implementation NSObject (NSObject_SBJSON)
 
 - (NSString *)JSONFragment {
-    SBJsonWriter *writer = [[SBJsonWriter new] autorelease];
-    
-    NSString *json = [writer stringWithObject:self allowScalar:YES];
+	if (!jsonWriter)
+		jsonWriter = [SBJsonWriter new];
+	
+    NSString *json = [jsonWriter stringWithObject:self allowScalar:YES];
     if (json)
         return json;
 
-    NSLog(@"-JSONFragment failed. Error trace is: %@", [writer errorTrace]);
+    NSLog(@"-JSONFragment failed. Error trace is: %@", [jsonWriter errorTrace]);
     return nil;
 }
 
 - (NSString *)JSONRepresentation {
-    SBJsonWriter *writer = [[SBJsonWriter new] autorelease];
+	if (!jsonWriter)
+		jsonWriter = [SBJsonWriter new];
     
-    NSString *json = [writer stringWithObject:self allowScalar:NO];
+    NSString *json = [jsonWriter stringWithObject:self allowScalar:NO];
     if (json)
         return json;
     
-    NSLog(@"-JSONRepresentation failed. Error trace is: %@", [writer errorTrace]);
+    NSLog(@"-JSONRepresentation failed. Error trace is: %@", [jsonWriter errorTrace]);
     return nil;
 }
 
