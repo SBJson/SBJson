@@ -54,7 +54,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   
 */
 
-#import <JSON/SBJSON.h>
-#import <JSON/NSObject+SBJSON.h>
-#import <JSON/NSString+SBJSON.h>
+#import "SBJSON.h"
+#import "NSObject+SBJSON.h"
+#import "NSString+SBJSON.h"
 
