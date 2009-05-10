@@ -18,7 +18,7 @@ if ! test -x $DOXYGEN ; then
 fi
 
 # Create a doxygen configuration file with only the settings we care about
-$DOXYGEN -g $DOXYFILE
+$DOXYGEN -g - > $DOXYFILE
 
 cat <<EOF >> $DOXYFILE
 

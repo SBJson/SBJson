@@ -31,19 +31,26 @@
 #import "SBJsonBase.h"
 
 /**
-  Protocol for the parser options. This exists so the SBJSON facade can implement the options in the parser without having to re-declare them.
+  @brief Options for the parser class.
+ 
+ This exists so the SBJSON facade can implement the options in the parser without having to re-declare them.
  */
 @protocol SBJsonParserOptions
 
-/// The maximum depth the parser will go to
-/** Defaults to 512. */
+/**
+ @brief The maximum recursing depth of the parser.
+
+ Defaults to 512. If the input is nested deeper than this the input will be deemed to be
+ malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
+ turn off this security feature by setting the maxDepth value to 0.
+ */
 @property NSUInteger maxDepth;
 
 @end
 
 
 /**
- @brief A strict JSON parser.
+ @brief The JSON parser class.
  
  JSON is mapped to Objective-C types in the following way:
  
@@ -70,9 +77,9 @@
     NSUInteger depth, maxDepth;
 }
 
-/// Parse the string and return the represented object (or scalar)
-- (id)objectWithString:(id)value
-           allowScalar:(BOOL)x;
+/// Return the object represented by the given string.
+- (id)objectWithString:(id)repr
+           allowScalar:(BOOL)allowScalar;
 
 
 

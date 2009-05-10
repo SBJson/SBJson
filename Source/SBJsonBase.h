@@ -56,8 +56,9 @@ enum {
     NSMutableArray *errorTrace;
 }
 
-/// Return an error trace, or nil if there was no errors.
 /**
+ @brief Return an error trace, or nil if there was no errors.
+ 
  Note that this method returns the trace of the last method that failed.
  You need to check the return value of the call you're making to figure out
  if the call actually failed, before you know call this method.
