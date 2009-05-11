@@ -9,7 +9,6 @@
   <div class="tabs">
     <ul>
       <li class="current"><a href="index.html"><span>Main&nbsp;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -19,9 +18,10 @@
 <h1>A strict JSON parser and generator for Objective-C</h1>
 <p>
 <h3 align="center">2.2alpha2 </h3>JSON (JavaScript Object Notation) is a lightweight data-interchange format. This framework provides two apis for parsing and generating JSON. One standard object-based and a higher level api consisting of categories added to existing Objective-C classes.<p>
-This framework does its best to be as strict as possible, both in what it accepts and what it generates. For example, it does not support trailing commas in arrays or objects. Nor does it support embedded comments, or anything else not in the JSON specification. This is considered a feature.<p>
-Learn more on the <a href="http://code.google.com/p/json-framework">http://code.google.com/p/json-framework</a> project site. </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sun May 10 20:30:38 2009 by&nbsp;
+Learn more on the <a href="http://code.google.com/p/json-framework">http://code.google.com/p/json-framework</a> project site.<p>
+This framework does its best to be as strict as possible, both in what it accepts and what it generates. For example, it does not support trailing commas in arrays or objects. Nor does it support embedded comments, or anything else not in the JSON specification. (With one exception, explained below.) This is considered a feature.<p>
+Strictly speaking well-formed JSON text must have <b>exactly one top-level container</b>. (I.e. must be either an Array or an Object.) Scalar values, i.e. nulls, numbers, booleans and strings, are not valid JSON on their own. In can sometimes be convenient to pretend that such fragments are valid JSON however, and this is indeed permitted. It is an opt-in feature, however. A scalar is also referred to as a "fragment". </div>
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon May 11 07:34:44 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.7 </small></address>
 </body>

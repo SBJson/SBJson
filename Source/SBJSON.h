@@ -32,7 +32,7 @@
 #import "SBJsonWriter.h"
 
 /**
- @brief Facade for SBJsonWriter/SBJsonParser JSON.
+ @brief Facade for SBJsonWriter/SBJsonParser.
 
  This class exists for backwards compatibility with previous releases. It simply forwards requests to SBJsonWriter and SBJsonParser.
  */

@@ -35,23 +35,20 @@
  JSON. One standard object-based and a higher level api consisting of
  categories added to existing Objective-C classes.
 
+ Learn more on the http://code.google.com/p/json-framework project site.
+ 
  This framework does its best to be as strict as possible, both in what it
  accepts and what it generates. For example, it does not support trailing commas
  in arrays or objects. Nor does it support embedded comments, or
- anything else not in the JSON specification. This is considered a feature.
- 
- Learn more on the http://code.google.com/p/json-framework project site.
-  
- @page page_working_with_scalars Working with scalars
- 
- Strictly speaking correctly formed JSON text must have <strong>exactly
- one top-level container</strong>. (Either an Array or an Object.) Scalars,
+ anything else not in the JSON specification. (With one exception, explained below.) This is considered a feature. 
+
+ Strictly speaking well-formed JSON text must have <strong>exactly
+ one top-level container</strong>. (I.e. must be either an Array or an Object.) Scalar values,
  i.e. nulls, numbers, booleans and strings, are not valid JSON on their own.
- It can be quite convenient to pretend that such fragments are valid
- JSON however, and this framework lets you do so.
- 
+ In can sometimes be convenient to pretend that such fragments are valid
+ JSON however, and this is indeed permitted. It is an opt-in feature, however.
  A scalar is also referred to as a "fragment".
-  
+ 
 */
 
 #import "SBJSON.h"
