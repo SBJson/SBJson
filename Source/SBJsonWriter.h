@@ -88,8 +88,10 @@
 }
 
 /// Return JSON representation (or fragment) for the given object.
-- (NSString*)stringWithObject:(id)value
-                  allowScalar:(BOOL)x;
+- (NSString*)stringWithObject:(id)value;
+
+// don't use - existings for backwards compatibility.
+- (NSString*)stringWithFragment:(id)value;
 
 
 @end

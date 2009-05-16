@@ -39,7 +39,7 @@ static const SBJsonParser *jsonParser;
 	if (!jsonParser)
 		jsonParser = [SBJsonParser new];
     
-    id repr = [jsonParser objectWithString:self allowScalar:YES];
+    id repr = [jsonParser fragmentWithString:self];
     if (repr)
         return repr;
     
@@ -52,7 +52,7 @@ static const SBJsonParser *jsonParser;
 	if (!jsonParser)
 		jsonParser = [SBJsonParser new];
     
-    id repr = [jsonParser objectWithString:self allowScalar:NO];
+    id repr = [jsonParser objectWithString:self];
     if (repr)
         return repr;
     

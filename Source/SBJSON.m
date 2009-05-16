@@ -58,10 +58,12 @@
  @param value any instance that can be represented as a JSON fragment
  @param allowScalar wether to return json fragments for scalar objects
  @param error used to return an error by reference (pass NULL if this is not desired)
+ 
+@deprecated Given we bill ourselves as a "strict" JSON library, this method should be removed.
  */
 - (NSString*)stringWithObject:(id)value allowScalar:(BOOL)allowScalar error:(NSError**)error {
     
-    NSString *json = [jsonWriter stringWithObject:value allowScalar:allowScalar];
+    NSString *json = allowScalar ? [jsonWriter stringWithFragment:value] : [jsonWriter stringWithObject:value];
     if (json)
         return json;
 
@@ -79,6 +81,8 @@
  
  @param value any instance that can be represented as a JSON fragment
  @param error used to return an error by reference (pass NULL if this is not desired)
+ 
+ @deprecated Given we bill ourselves as a "strict" JSON library, this method should be removed.
  */
 - (NSString*)stringWithFragment:(id)value error:(NSError**)error {
     return [self stringWithObject:value
@@ -106,12 +110,14 @@
  a string, number, boolean, null, array or dictionary.
  
  @param value the json string to parse
- @param x whether to return objects for JSON fragments
+ @param allowScalar whether to return objects for JSON fragments
  @param error used to return an error by reference (pass NULL if this is not desired)
+ 
+ @deprecated Given we bill ourselves as a "strict" JSON library, this method should be removed.
  */
-- (id)objectWithString:(id)value allowScalar:(BOOL)x error:(NSError**)error {
+- (id)objectWithString:(id)value allowScalar:(BOOL)allowScalar error:(NSError**)error {
 
-    id obj = [jsonParser objectWithString:value allowScalar:x];
+    id obj = allowScalar ? [jsonParser fragmentWithString:value] : [jsonParser objectWithString:value];
     if (obj)
         return obj;
     
@@ -129,6 +135,8 @@
  
  @param repr the json string to parse
  @param error used to return an error by reference (pass NULL if this is not desired)
+ 
+ @deprecated Given we bill ourselves as a "strict" JSON library, this method should be removed. 
  */
 - (id)fragmentWithString:(NSString*)repr error:(NSError**)error {
     return [self objectWithString:repr

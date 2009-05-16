@@ -78,9 +78,10 @@
 }
 
 /// Return the object represented by the given string.
-- (id)objectWithString:(id)repr
-           allowScalar:(BOOL)allowScalar;
+- (id)objectWithString:(id)repr;
 
+// don't use - existings for backwards compatibility.
+- (id)fragmentWithString:(id)repr;
 
 
 @end
