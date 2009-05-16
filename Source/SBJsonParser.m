@@ -68,15 +68,11 @@ static char ctrl[0x22];
     ctrl[0x21] = 0;    
 }
 
-
 /**
- Returns the object represented by the passed-in string or nil on error. The returned object can be
- a string, number, boolean, null, array or dictionary.
- 
- @param repr the json string to parse
- @param allowScalar whether to return objects for JSON fragments
+ @deprecated This exists in order to provide fragment support in older APIs in one more version.
+ It should be removed in the next major version.
  */
-- (id)objectWithString:(id)repr allowScalar:(BOOL)allowScalar {
+- (id)fragmentWithString:(id)repr {
     [self clearErrorTrace];
     
     if (!repr) {
@@ -97,17 +93,31 @@ static char ctrl[0x22];
         [self addErrorWithCode:ETRAILGARBAGE description:@"Garbage after JSON"];
         return nil;
     }
+        
+    NSAssert1(o, @"Should have a valid object from %@", repr);
+    return o;    
+}
+
+/**
+ Returns the object represented by the passed-in string or nil on error. The returned object can be
+ a string, number, boolean, null, array or dictionary.
+ 
+ @param repr the json string to parse
+ */
+- (id)objectWithString:(id)repr {
+
+    id o = [self fragmentWithString:repr];
+    if (!o)
+        return nil;
     
-    // If we don't allow scalars, check that the object we've found is a valid JSON container.
-    if (!allowScalar && ![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]]) {
+    // Check that the object we've found is a valid JSON container.
+    if (![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]]) {
         [self addErrorWithCode:EFRAGMENT description:@"Valid fragment, but not JSON"];
         return nil;
     }
-    
-    NSAssert1(o, @"Should have a valid object from %@", repr);
+
     return o;
 }
-
 
 /*
  In contrast to the public methods, it is an error to omit the error parameter here.

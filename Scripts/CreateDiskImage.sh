@@ -19,6 +19,29 @@ mkdir -p $DISK_IMAGE
 xcodebuild -target JSON -configuration Release install || exit 1
 cp -p -R $INSTALL_DIR/../Frameworks/$PROJECT.framework $DISK_IMAGE
 
+IPHONE_SDK=2.2.1
+
+# Create the iPhone SDK directly in the disk image folder.
+xcodebuild -target libjson -configuration Release -sdk iphoneos$IPHONE_SDK install \
+    ARCHS=armv6 \
+    DSTROOT=$DISK_IMAGE/SDKs/JSON/iphoneos.sdk || exit 1
+sed -e "s/%PROJECT%/$PROJECT/g" \
+    -e "s/%VERS%/$VERS/g" \
+    -e "s/%IPHONE_SDK%/$IPHONE_SDK/g" \
+    $SOURCE_ROOT/Resources/iphoneos.sdk/SDKSettings.plist > $DISK_IMAGE/SDKs/JSON/iphoneos.sdk/SDKSettings.plist || exit 1
+
+xcodebuild -target libjson -configuration Release -sdk iphonesimulator$IPHONE_SDK install \
+    ARCHS=i386 \
+    DSTROOT=$DISK_IMAGE/SDKs/JSON/iphonesimulator.sdk || exit 1
+sed -e "s/%PROJECT%/$PROJECT/g" \
+    -e "s/%VERS%/$VERS/g" \
+    -e "s/%IPHONE_SDK%/$IPHONE_SDK/g" \
+    $SOURCE_ROOT/Resources/iphonesimulator.sdk/SDKSettings.plist > $DISK_IMAGE/SDKs/JSON/iphonesimulator.sdk/SDKSettings.plist || exit 1    
+
+# Allow linking statically into normal OS X apps
+xcodebuild -target libjson -configuration Release -sdk macosx10.5 install \
+    DSTROOT=$DISK_IMAGE/SDKs/JSON/macosx.sdk || exit 1
+
 # Copy the source verbatim into the disk image.
 cp -p -R $SOURCE_ROOT/Source $DISK_IMAGE/$PROJECT
 rm -rf $DISK_IMAGE/$PROJECT/.svn

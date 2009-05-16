@@ -45,26 +45,37 @@
 @synthesize sortKeys;
 @synthesize humanReadable;
 
+/**
+ @deprecated This exists in order to provide fragment support in older APIs in one more version.
+ It should be removed in the next major version.
+ */
+- (NSString*)stringWithFragment:(id)value {
+    [self clearErrorTrace];
+    depth = 0;
+    NSMutableString *json = [NSMutableString stringWithCapacity:128];
+    
+    if ([self appendValue:value into:json])
+        return json;
+    
+    return nil;
+}
+
 
 /**
  Returns a string containing JSON representation of the passed in value, or nil on error.
  If nil is returned and @p error is not NULL, @p *error can be interrogated to find the cause of the error.
  
  @param value any instance that can be represented as a JSON fragment
- @param allowScalar wether to return json fragments for scalar objects
+
  */
-- (NSString*)stringWithObject:(id)value allowScalar:(BOOL)allowScalar {
-    [self clearErrorTrace];
-    depth = 0;
-    NSMutableString *json = [NSMutableString stringWithCapacity:128];
+- (NSString*)stringWithObject:(id)value {
     
-    if (!allowScalar && ![value isKindOfClass:[NSDictionary class]] && ![value isKindOfClass:[NSArray class]]) {
-        [self addErrorWithCode:EFRAGMENT description:@"Not valid type for JSON"];
-        
-    } else if ([self appendValue:value into:json]) {
-        return json;
+    if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]) {
+        return [self stringWithFragment:value];
     }
-    
+
+    [self clearErrorTrace];
+    [self addErrorWithCode:EFRAGMENT description:@"Not valid type for JSON"];
     return nil;
 }
 

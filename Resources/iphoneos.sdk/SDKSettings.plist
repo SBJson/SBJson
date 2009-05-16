@@ -3,47 +3,49 @@
 <plist version="1.0">
 <dict>
 	<key>AlternateSDK</key>
-	<string>jsoniphonesimulator2.0</string>
+	<string>%PROJECT%iphonesimulator%IPHONE_SDK%</string>
 	<key>CanonicalName</key>
-	<string>jsoniphoneos2.0</string>
+	<string>%PROJECT%iphoneos%IPHONE_SDK%</string>
 	<key>CustomProperties</key>
 	<dict/>
 	<key>DefaultProperties</key>
 	<dict>
 		<key>AD_HOC_CODE_SIGNING_ALLOWED</key>
 		<string>NO</string>
+		<key>CODE_SIGNING_REQUIRED</key>
+		<string>YES</string>
 		<key>CODE_SIGN_ENTITLEMENTS</key>
 		<string></string>
-		<key>CODE_SIGN_RESOURCE_RULES_PATH</key>
-		<string>$(SDKROOT)/ResourceRules.plist</string>
 		<key>DEAD_CODE_STRIPPING</key>
 		<string>YES</string>
 		<key>ENTITLEMENTS_REQUIRED</key>
 		<string>YES</string>
 		<key>GCC_THUMB_SUPPORT</key>
 		<string>YES</string>
+		<key>GCC_VERSION</key>
+		<string>4.0</string>
 		<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-		<string>2.0</string>
+		<string>%IPHONE_SDK%</string>
 		<key>MACOSX_DEPLOYMENT_TARGET</key>
 		<string>10.5</string>
 		<key>PLATFORM_NAME</key>
 		<string>iphoneos</string>
 	</dict>
 	<key>DisplayName</key>
-	<string>Device - iPhone OS 2.0</string>
-	<key>FamilyIdentifier</key>
-	<string>iphoneos</string>
-	<key>FamilyName</key>
-	<string>iPhone OS</string>
+	<string>Device - iPhone OS %IPHONE_SDK%</string>
+	<key>DocSetFeedName</key>
+	<string>Apple iPhone OS %IPHONE_SDK%</string>
+	<key>DocSetFeedURL</key>
+	<string>http://developer.apple.com/rss/com.apple.adc.documentation.AppleiPhone2_2.1.atom</string>
 	<key>IsBaseSDK</key>
 	<string>NO</string>
 	<key>MaximumOSDeploymentTarget</key>
 	<string>10.5</string>
 	<key>MinimalDisplayName</key>
-	<string>Device</string>
+	<string>Device - %IPHONE_SDK%</string>
 	<key>MinimumSupportedToolsVersion</key>
-	<string>3.1</string>
+	<string>3.1.2</string>
 	<key>Version</key>
-	<string>2.0</string>
+	<string>%VERS%</string>
 </dict>
 </plist>

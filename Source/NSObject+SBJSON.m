@@ -38,7 +38,7 @@ static const SBJsonWriter *jsonWriter;
 	if (!jsonWriter)
 		jsonWriter = [SBJsonWriter new];
 	
-    NSString *json = [jsonWriter stringWithObject:self allowScalar:YES];
+    NSString *json = [jsonWriter stringWithFragment:self];
     if (json)
         return json;
 
@@ -50,7 +50,7 @@ static const SBJsonWriter *jsonWriter;
 	if (!jsonWriter)
 		jsonWriter = [SBJsonWriter new];
     
-    NSString *json = [jsonWriter stringWithObject:self allowScalar:NO];
+    NSString *json = [jsonWriter stringWithObject:self];
     if (json)
         return json;
     
