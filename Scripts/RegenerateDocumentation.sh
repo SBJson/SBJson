@@ -48,7 +48,7 @@ cp -p $INSTALL_DIR/Documentation/html/* $SOURCE_ROOT/documentation
 cd $SOURCE_ROOT/documentation
 
 # Revert files that differ only in the timestamp.
-svn diff *.html | diffstat | awk '$3 == "2" { print $1 }' | xargs svn revert
+svn diff *.html | diffstat | awk '$3 == 2 { print $1 }' | xargs svn revert
 
 # Add/remove files from subversion.
 svn st | awk '
