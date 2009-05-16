@@ -24,7 +24,7 @@ caption {
 	font-weight: bold;
 }
 
-div.qindex, div.navpath, div.navtab{
+div.qindex, div.navtab{
 	background-color: #e8eef2;
 	border: 1px solid #84b0c7;
 	text-align: center;
@@ -66,6 +66,10 @@ a.qindexHL {
 	background-color: #6666cc;
 	color: #ffffff;
 	border: 1px double #9295C2;
+}
+
+.contents a.qindexHL:visited {
+        color: #ffffff;
 }
 
 a.el {
@@ -320,10 +324,6 @@ hr {
 	-webkit-border-bottom-right-radius: 8px;
 	-moz-border-radius-bottomleft: 8px;
 	-moz-border-radius-bottomright: 8px;
-}
-
-.memdoc p, .memdoc dl, .memdoc ul {
-	margin: 6px 0;
 }
 
 .paramkey {
