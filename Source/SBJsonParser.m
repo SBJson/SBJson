@@ -98,13 +98,7 @@ static char ctrl[0x22];
     return o;    
 }
 
-/**
- Returns the object represented by the passed-in string or nil on error. The returned object can be
- a string, number, boolean, null, array or dictionary.
- 
- @param repr the json string to parse
- */
-- (id)objectWithString:(id)repr {
+- (id)objectWithString:(NSString *)repr {
 
     id o = [self fragmentWithString:repr];
     if (!o)

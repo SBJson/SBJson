@@ -61,13 +61,6 @@
 }
 
 
-/**
- Returns a string containing JSON representation of the passed in value, or nil on error.
- If nil is returned and @p error is not NULL, @p *error can be interrogated to find the cause of the error.
- 
- @param value any instance that can be represented as a JSON fragment
-
- */
 - (NSString*)stringWithObject:(id)value {
     
     if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]) {

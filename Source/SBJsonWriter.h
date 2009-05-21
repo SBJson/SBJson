@@ -35,7 +35,7 @@
  
  This exists so the SBJSON facade can implement the options in the writer without having to re-declare them.
  */
-@protocol SBJsonWriterOptions
+@protocol SBJsonWriter
 
 /**
  @brief Whether we are generating human-readable (multiline) JSON.
@@ -54,6 +54,17 @@
  (This is useful if you need to compare two structures, for example.) The default is NO.
  */
 @property BOOL sortKeys;
+
+/**
+ @brief Return JSON representation (or fragment) for the given object.
+ 
+ Returns a string containing JSON representation of the passed in value, or nil on error.
+ If nil is returned and @p error is not NULL, @p *error can be interrogated to find the cause of the error.
+ 
+ @param value any instance that can be represented as a JSON fragment
+ 
+ */
+- (NSString*)stringWithObject:(id)value;
 
 @end
 
@@ -80,18 +91,16 @@
  way you would expect.
  
  */
-@interface SBJsonWriter : SBJsonBase <SBJsonWriterOptions> {
+@interface SBJsonWriter : SBJsonBase <SBJsonWriter> {
 
 @private
     BOOL sortKeys, humanReadable;
     NSUInteger depth;
 }
 
-/// Return JSON representation (or fragment) for the given object.
-- (NSString*)stringWithObject:(id)value;
+@end
 
-// don't use - existings for backwards compatibility.
+// don't use - exists for backwards compatibility. Will be removed in 2.3.
+@interface SBJsonWriter (Private)
 - (NSString*)stringWithFragment:(id)value;
-
-
 @end
