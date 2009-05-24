@@ -55,7 +55,6 @@
 
 
 @implementation SBJsonParser
-@synthesize maxDepth;
 
 static char ctrl[0x22];
 

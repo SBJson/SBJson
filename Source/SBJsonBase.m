@@ -34,6 +34,14 @@ NSString * SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 @implementation SBJsonBase
 
 @synthesize errorTrace;
+@synthesize maxDepth;
+
+- (id)init {
+    self = [super init];
+    if (self)
+        self.maxDepth = 512;
+    return self;
+}
 
 - (void)dealloc {
     [errorTrace release];

@@ -38,15 +38,6 @@
 @protocol SBJsonParser
 
 /**
- @brief The maximum recursing depth of the parser.
-
- Defaults to 512. If the input is nested deeper than this the input will be deemed to be
- malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
- turn off this security feature by setting the maxDepth value to 0.
- */
-@property NSUInteger maxDepth;
-
-/**
  @brief Return the object represented by the given string.
  
  Returns the object represented by the passed-in string or nil on error. The returned object can be
@@ -84,7 +75,6 @@
     
 @private
     const char *c;
-    NSUInteger depth, maxDepth;
 }
 
 @end

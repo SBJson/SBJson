@@ -107,8 +107,11 @@
 }
 
 - (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json {
+    if (maxDepth && ++depth > maxDepth) {
+        [self addErrorWithCode:EDEPTH description: @"Nested too deep"];
+        return NO;
+    }
     [json appendString:@"["];
-    depth++;
     
     BOOL addComma = NO;    
     for (id value in fragment) {
@@ -133,8 +136,11 @@
 }
 
 - (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json {
+    if (maxDepth && ++depth > maxDepth) {
+        [self addErrorWithCode:EDEPTH description: @"Nested too deep"];
+        return NO;
+    }
     [json appendString:@"{"];
-    depth++;
     
     NSString *colon = [self humanReadable] ? @" : " : @":";
     BOOL addComma = NO;

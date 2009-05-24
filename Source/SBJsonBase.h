@@ -48,13 +48,25 @@ enum {
 };
 
 /**
- @brief common base class for parsing & writing
+ @brief Common base class for parsing & writing.
 
- This class contains the common error-handling code.
+ This class contains the common error-handling code and option between the parser/writer.
  */
 @interface SBJsonBase : NSObject {
     NSMutableArray *errorTrace;
+
+@protected
+    NSUInteger depth, maxDepth;
 }
+
+/**
+ @brief The maximum recursing depth.
+ 
+ Defaults to 512. If the input is nested deeper than this the input will be deemed to be
+ malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
+ turn off this security feature by setting the maxDepth value to 0.
+ */
+@property NSUInteger maxDepth;
 
 /**
  @brief Return an error trace, or nil if there was no errors.

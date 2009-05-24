@@ -95,7 +95,6 @@
 
 @private
     BOOL sortKeys, humanReadable;
-    NSUInteger depth;
 }
 
 @end

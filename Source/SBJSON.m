@@ -187,7 +187,7 @@
 }
 
 - (void)setMaxDepth:(NSUInteger)d {
-    jsonParser.maxDepth = d;
+     jsonWriter.maxDepth = jsonParser.maxDepth = d;
 }
 
 
