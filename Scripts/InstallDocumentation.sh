@@ -40,7 +40,7 @@ SHOW_INCLUDE_FILES     = NO
 GENERATE_LATEX         = NO
 GENERATE_HTML          = YES
 GENERATE_DOCSET        = YES
-DOCSET_FEEDNAME        = "brautaset.org $PROJECT Documentation"
+DOCSET_FEEDNAME        = "$PROJECT.framework API Documentation"
 DOCSET_BUNDLE_ID       = org.brautaset.$PROJECT
 
 EOF
