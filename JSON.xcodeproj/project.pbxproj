@@ -263,7 +263,6 @@
 		BCC0465E0FB62C2B00F9F2D3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BCC0466C0FB62CF100F9F2D3 /* README */,
 				53D229830C96121600276605 /* JSON-Info.plist */,
 				53D2298E0C96122A00276605 /* Tests-Info.plist */,
 				FE2BBDAC0D8B0EE100184787 /* libjsontests-Info.plist */,
@@ -284,6 +283,7 @@
 		BCC047D30FB742FC00F9F2D3 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
+				BCC0466C0FB62CF100F9F2D3 /* README */,
 				BCC047920FB727F600F9F2D3 /* Credits.rtf */,
 				BCC0466A0FB62CA600F9F2D3 /* Install.rtf */,
 				BCC047DA0FB743B100F9F2D3 /* Changes.rtf */,

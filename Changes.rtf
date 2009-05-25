@@ -7,7 +7,6 @@
 {\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid4}
 {\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid5}}
 {\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}}
-\vieww9000\viewh8400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
 \f0\b\fs24 \cf0 Version 2.2alpha5\
@@ -17,7 +16,7 @@
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\ql\qnatural\pardirnatural
 \ls1\ilvl0
 \b \cf0 {\listtext	\'95	}Added -jsonRepresentationProxy "delegate" method
-\b0 \uc0\u8232 This is a method that you can implement in your custom class to enable JSON.framework to create a JSON representation of its instances. See the Tests/ProxyTest.m file to see how this works.
+\b0 \uc0\u8232 This is a method that you can implement (either directly or as category) to enable JSON.framework to create a JSON representation of any object type. See the Tests/ProxyTest.m file to see how this works.
 \b \
 {\listtext	\'95	}Moved maxDepth to SBJsonBase
 \b0 \uc0\u8232 Throw errors when the input is nested too deep for writing json as well as parsing. This allows us to exit cleanly rather than break the stack if someone accidentally creates a recursive structure.
