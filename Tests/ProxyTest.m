@@ -27,7 +27,6 @@
 }
 @end
 
-
 @interface Bool : NSObject
 @end
 
@@ -36,6 +35,14 @@
     return [NSArray arrayWithObjects:[True new], [False new], nil];
 }
 @end
+
+@implementation NSDate (Private)
+- (id)jsonRepresentationProxy {
+    return [self description];
+}
+@end
+
+
 
 @implementation ProxyTest
 
@@ -54,6 +61,10 @@
 
 - (void)testUnsupportedWithNestedProxy {
     STAssertEqualObjects([writer stringWithObject:[NSArray arrayWithObject:[Bool new]]], @"[[true,false]]", nil);
+}
+
+- (void)testUnsupportedWithProxyAsCategory {
+    STAssertNotNil([writer stringWithObject:[NSArray arrayWithObject:[NSDate date]]], nil);
 }
 
 @end
