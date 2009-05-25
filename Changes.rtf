@@ -16,7 +16,10 @@
 \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\ql\qnatural\pardirnatural
 \ls1\ilvl0
-\b \cf0 {\listtext	\'95	}Moved maxDepth to SBJsonBase
+\b \cf0 {\listtext	\'95	}Added -jsonRepresentationProxy "delegate" method
+\b0 \uc0\u8232 This is a method that you can implement in your custom class to enable JSON.framework to create a JSON representation of its instances. See the Tests/ProxyTest.m file to see how this works.
+\b \
+{\listtext	\'95	}Moved maxDepth to SBJsonBase
 \b0 \uc0\u8232 Throw errors when the input is nested too deep for writing json as well as parsing. This allows us to exit cleanly rather than break the stack if someone accidentally creates a recursive structure.
 \b \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural

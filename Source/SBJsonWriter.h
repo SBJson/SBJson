@@ -103,3 +103,27 @@
 @interface SBJsonWriter (Private)
 - (NSString*)stringWithFragment:(id)value;
 @end
+
+/**
+ @brief Allows generation of JSON for otherwise unsupported classes.
+ 
+ If you have a custom class that you want to create a JSON representation for you can implement
+ this method in your class. It should return a representation of your object defined
+ in terms of objects that can be translated into JSON. For example, a Person
+ object might implement it like this:
+ 
+ @code
+ - (id)jsonProxyObject {
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+        name, @"name",
+        phone, @"phone",
+        email, @"email",
+        nil];
+ }
+ @endcode
+ 
+ */
+@interface NSObject (SBJsonRepresentationProxy)
+- (id)jsonRepresentationProxy;
+@end
+

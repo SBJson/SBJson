@@ -98,6 +98,8 @@
         
     } else if ([fragment isKindOfClass:[NSNull class]]) {
         [json appendString:@"null"];
+    } else if ([fragment respondsToSelector:@selector(jsonRepresentationProxy)]) {
+        [self appendValue:[fragment jsonRepresentationProxy] into:json];
         
     } else {
         [self addErrorWithCode:EUNSUPPORTED description:[NSString stringWithFormat:@"JSON serialisation not supported for %@", [fragment class]]];
