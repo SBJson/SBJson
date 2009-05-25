@@ -51,6 +51,16 @@
 #pragma mark Writer 
 
 
+- (NSString *)stringWithObject:(id)obj {
+    NSString *repr = [jsonWriter stringWithObject:obj];
+    if (repr)
+        return repr;
+    
+    [errorTrace release];
+    errorTrace = [[jsonWriter errorTrace] mutableCopy];
+    return nil;
+}
+
 /**
  Returns a string containing JSON representation of the passed in value, or nil on error.
  If nil is returned and @p error is not NULL, @p *error can be interrogated to find the cause of the error.
@@ -104,6 +114,17 @@
 }
 
 #pragma mark Parsing
+
+- (id)objectWithString:(NSString *)repr {
+    id obj = [jsonParser objectWithString:repr];
+    if (obj)
+        return obj;
+
+    [errorTrace release];
+    errorTrace = [[jsonParser errorTrace] mutableCopy];
+    
+    return nil;
+}
 
 /**
  Returns the object represented by the passed-in string or nil on error. The returned object can be
@@ -166,7 +187,7 @@
 }
 
 - (void)setMaxDepth:(NSUInteger)d {
-    jsonParser.maxDepth = d;
+     jsonWriter.maxDepth = jsonParser.maxDepth = d;
 }
 
 

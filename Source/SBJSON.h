@@ -34,9 +34,9 @@
 /**
  @brief Facade for SBJsonWriter/SBJsonParser.
 
- This class exists for backwards compatibility with previous releases. It simply forwards requests to SBJsonWriter and SBJsonParser.
+ Requests are forwarded to instances of SBJsonWriter and SBJsonParser.
  */
-@interface SBJSON : SBJsonBase <SBJsonParserOptions, SBJsonWriterOptions> {
+@interface SBJSON : SBJsonBase <SBJsonParser, SBJsonWriter> {
 
 @private    
     SBJsonParser *jsonParser;

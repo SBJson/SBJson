@@ -35,16 +35,17 @@
  
  This exists so the SBJSON facade can implement the options in the parser without having to re-declare them.
  */
-@protocol SBJsonParserOptions
+@protocol SBJsonParser
 
 /**
- @brief The maximum recursing depth of the parser.
-
- Defaults to 512. If the input is nested deeper than this the input will be deemed to be
- malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
- turn off this security feature by setting the maxDepth value to 0.
+ @brief Return the object represented by the given string.
+ 
+ Returns the object represented by the passed-in string or nil on error. The returned object can be
+ a string, number, boolean, null, array or dictionary.
+ 
+ @param repr the json string to parse
  */
-@property NSUInteger maxDepth;
+- (id)objectWithString:(NSString *)repr;
 
 @end
 
@@ -70,18 +71,17 @@
  as we can thus avoid any loss of precision. (JSON allows ridiculously large numbers.)
  
  */
-@interface SBJsonParser : SBJsonBase <SBJsonParserOptions> {
+@interface SBJsonParser : SBJsonBase <SBJsonParser> {
     
 @private
     const char *c;
-    NSUInteger depth, maxDepth;
 }
 
-/// Return the object represented by the given string.
-- (id)objectWithString:(id)repr;
-
-// don't use - existings for backwards compatibility.
-- (id)fragmentWithString:(id)repr;
-
-
 @end
+
+// don't use - exists for backwards compatibility with 2.1.x only. Will be removed in 2.3.
+@interface SBJsonParser (Private)
+- (id)fragmentWithString:(id)repr;
+@end
+
+

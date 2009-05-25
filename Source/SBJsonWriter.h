@@ -35,7 +35,7 @@
  
  This exists so the SBJSON facade can implement the options in the writer without having to re-declare them.
  */
-@protocol SBJsonWriterOptions
+@protocol SBJsonWriter
 
 /**
  @brief Whether we are generating human-readable (multiline) JSON.
@@ -54,6 +54,17 @@
  (This is useful if you need to compare two structures, for example.) The default is NO.
  */
 @property BOOL sortKeys;
+
+/**
+ @brief Return JSON representation (or fragment) for the given object.
+ 
+ Returns a string containing JSON representation of the passed in value, or nil on error.
+ If nil is returned and @p error is not NULL, @p *error can be interrogated to find the cause of the error.
+ 
+ @param value any instance that can be represented as a JSON fragment
+ 
+ */
+- (NSString*)stringWithObject:(id)value;
 
 @end
 
@@ -80,18 +91,39 @@
  way you would expect.
  
  */
-@interface SBJsonWriter : SBJsonBase <SBJsonWriterOptions> {
+@interface SBJsonWriter : SBJsonBase <SBJsonWriter> {
 
 @private
     BOOL sortKeys, humanReadable;
-    NSUInteger depth;
 }
 
-/// Return JSON representation (or fragment) for the given object.
-- (NSString*)stringWithObject:(id)value;
-
-// don't use - existings for backwards compatibility.
-- (NSString*)stringWithFragment:(id)value;
-
-
 @end
+
+// don't use - exists for backwards compatibility. Will be removed in 2.3.
+@interface SBJsonWriter (Private)
+- (NSString*)stringWithFragment:(id)value;
+@end
+
+/**
+ @brief Allows generation of JSON for otherwise unsupported classes.
+ 
+ If you have a custom class that you want to create a JSON representation for you can implement
+ this method in your class. It should return a representation of your object defined
+ in terms of objects that can be translated into JSON. For example, a Person
+ object might implement it like this:
+ 
+ @code
+ - (id)jsonProxyObject {
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+        name, @"name",
+        phone, @"phone",
+        email, @"email",
+        nil];
+ }
+ @endcode
+ 
+ */
+@interface NSObject (SBJsonRepresentationProxy)
+- (id)jsonRepresentationProxy;
+@end
+

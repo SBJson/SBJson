@@ -56,6 +56,10 @@
 		53EF4D4E0DC2483C005F5E6D /* bench.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EF4D4D0DC2483C005F5E6D /* bench.m */; };
 		53EF4F9F0DC52FEB005F5E6D /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2BBD800D8B0D3900184787 /* libjson.a */; };
 		53F8A8150E57158200355C72 /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2BBD800D8B0D3900184787 /* libjson.a */; };
+		BC74B6EC0FC9FAD0000BD3DD /* MaxDepth.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B6EB0FC9FAD0000BD3DD /* MaxDepth.m */; };
+		BC74B6ED0FC9FAD0000BD3DD /* MaxDepth.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B6EB0FC9FAD0000BD3DD /* MaxDepth.m */; };
+		BC74B7AE0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
+		BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
 		E7153EE90CAAABDB00054ADB /* Pretty.m in Sources */ = {isa = PBXBuildFile; fileRef = E7153EE80CAAABDB00054ADB /* Pretty.m */; };
 		E75716450C96DB530084A449 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E75716460C96DB530084A449 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+SBJSON.m */; };
@@ -119,6 +123,10 @@
 		53D229A10C9612E000276605 /* Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Types.m; sourceTree = "<group>"; };
 		53EF4D400DC247B3005F5E6D /* bench */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bench; sourceTree = BUILT_PRODUCTS_DIR; };
 		53EF4D4D0DC2483C005F5E6D /* bench.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bench.m; sourceTree = "<group>"; };
+		BC74B6EA0FC9FAD0000BD3DD /* MaxDepth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxDepth.h; sourceTree = "<group>"; };
+		BC74B6EB0FC9FAD0000BD3DD /* MaxDepth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxDepth.m; sourceTree = "<group>"; };
+		BC74B7AC0FCA8B89000BD3DD /* ProxyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxyTest.h; sourceTree = "<group>"; };
+		BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyTest.m; sourceTree = "<group>"; };
 		BC86E8BB0FB75C0200534590 /* RegenerateDocumentation.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = RegenerateDocumentation.sh; sourceTree = "<group>"; };
 		BCC0466A0FB62CA600F9F2D3 /* Install.rtf */ = {isa = PBXFileReference; explicitFileType = text.rtf; path = Install.rtf; sourceTree = "<group>"; };
 		BCC0466C0FB62CF100F9F2D3 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
@@ -236,6 +244,10 @@
 				53D229A10C9612E000276605 /* Types.m */,
 				5355C86D0E392B2A00A18C15 /* Pretty.h */,
 				E7153EE80CAAABDB00054ADB /* Pretty.m */,
+				BC74B7AC0FCA8B89000BD3DD /* ProxyTest.h */,
+				BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */,
+				BC74B6EA0FC9FAD0000BD3DD /* MaxDepth.h */,
+				BC74B6EB0FC9FAD0000BD3DD /* MaxDepth.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -251,7 +263,6 @@
 		BCC0465E0FB62C2B00F9F2D3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BCC0466C0FB62CF100F9F2D3 /* README */,
 				53D229830C96121600276605 /* JSON-Info.plist */,
 				53D2298E0C96122A00276605 /* Tests-Info.plist */,
 				FE2BBDAC0D8B0EE100184787 /* libjsontests-Info.plist */,
@@ -272,6 +283,7 @@
 		BCC047D30FB742FC00F9F2D3 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
+				BCC0466C0FB62CF100F9F2D3 /* README */,
 				BCC047920FB727F600F9F2D3 /* Credits.rtf */,
 				BCC0466A0FB62CA600F9F2D3 /* Install.rtf */,
 				BCC047DA0FB743B100F9F2D3 /* Changes.rtf */,
@@ -543,6 +555,8 @@
 				53C45B9C0C98A87600546F66 /* Errors.m in Sources */,
 				E76A1EBD0C996EFD00A0CC83 /* Examples.m in Sources */,
 				E7153EE90CAAABDB00054ADB /* Pretty.m in Sources */,
+				BC74B6ED0FC9FAD0000BD3DD /* MaxDepth.m in Sources */,
+				BC74B7AE0FCA8B89000BD3DD /* ProxyTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +589,8 @@
 				FE2BBDB60D8B0F1D00184787 /* Examples.m in Sources */,
 				FE2BBDB70D8B0F1D00184787 /* Errors.m in Sources */,
 				FE2BBDB80D8B0F1D00184787 /* Pretty.m in Sources */,
+				BC74B6EC0FC9FAD0000BD3DD /* MaxDepth.m in Sources */,
+				BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
