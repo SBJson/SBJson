@@ -62,21 +62,25 @@
 <a name="l00069"></a>00069 <span class="keyword">@end</span>
 <a name="l00070"></a>00070 
 <a name="l00071"></a>00071 
-<a name="l00094"></a><a class="code" href="interfaceSBJsonWriter.html">00094</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonWriter.html" title="The JSON writer class.">SBJsonWriter</a> : <a class="code" href="interfaceSBJsonBase.html" title="common base class for parsing &amp;amp; writing">SBJsonBase</a> &lt;<a class="code" href="protocolSBJsonWriter-p.html" title="Options for the writer class.">SBJsonWriter</a>&gt; {
+<a name="l00094"></a><a class="code" href="interfaceSBJsonWriter.html">00094</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonWriter.html" title="The JSON writer class.">SBJsonWriter</a> : <a class="code" href="interfaceSBJsonBase.html" title="Common base class for parsing &amp;amp; writing.">SBJsonBase</a> &lt;<a class="code" href="protocolSBJsonWriter-p.html" title="Options for the writer class.">SBJsonWriter</a>&gt; {
 <a name="l00095"></a>00095 
 <a name="l00096"></a>00096 <span class="keyword">@private</span>
 <a name="l00097"></a>00097     BOOL sortKeys, humanReadable;
-<a name="l00098"></a>00098     NSUInteger depth;
-<a name="l00099"></a>00099 }
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101 <span class="keyword">@end</span>
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103 <span class="comment">// don't use - exists for backwards compatibility. Will be removed in 2.3.</span>
-<a name="l00104"></a>00104 <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonWriter.html" title="The JSON writer class.">SBJsonWriter</a> (Private)
-<a name="l00105"></a>00105 - (NSString*)stringWithFragment:(<span class="keywordtype">id</span>)value;
-<a name="l00106"></a>00106 <span class="keyword">@end</span>
+<a name="l00098"></a>00098 }
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100 <span class="keyword">@end</span>
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102 <span class="comment">// don't use - exists for backwards compatibility. Will be removed in 2.3.</span>
+<a name="l00103"></a>00103 <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonWriter.html" title="The JSON writer class.">SBJsonWriter</a> (Private)
+<a name="l00104"></a>00104 - (NSString*)stringWithFragment:(<span class="keywordtype">id</span>)value;
+<a name="l00105"></a>00105 <span class="keyword">@end</span>
+<a name="l00106"></a>00106 
+<a name="l00126"></a><a class="code" href="interfaceNSObject_07SBJsonRepresentationProxy_08.html">00126</a> <span class="keyword">@interface </span>NSObject (SBJsonRepresentationProxy)
+<a name="l00127"></a>00127 - (id)jsonRepresentationProxy;
+<a name="l00128"></a>00128 <span class="keyword">@end</span>
+<a name="l00129"></a>00129 
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Thu May 21 22:46:12 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon May 25 10:11:47 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

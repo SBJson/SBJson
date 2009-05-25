@@ -44,10 +44,6 @@ Inheritance diagram for &lt; SBJsonParser &gt;:</div>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">(id)&nbsp;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocolSBJsonParser-p.html#5183c152f4a9e5e79bb9534fcbdf7bf6">objectWithString:</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the object represented by the given string.  <a href="#5183c152f4a9e5e79bb9534fcbdf7bf6"></a><br></td></tr>
-<tr><td colspan="2"><br><h2>Properties</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">NSUInteger&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocolSBJsonParser-p.html#c3cd114c19135f8cd534a229c626adee">maxDepth</a></td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The maximum recursing depth of the parser.  <a href="#c3cd114c19135f8cd534a229c626adee"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 This exists so the <a class="el" href="interfaceSBJSON.html" title="Facade for SBJsonWriter/SBJsonParser.">SBJSON</a> facade can implement the options in the parser without having to re-declare them. <hr><h2>Member Function Documentation</h2>
@@ -77,26 +73,10 @@ Returns the object represented by the passed-in string or nil on error. The retu
 
 </div>
 </div><p>
-<hr><h2>Property Documentation</h2>
-<a class="anchor" name="c3cd114c19135f8cd534a229c626adee"></a><!-- doxytag: member="SBJsonParser&#45;p::maxDepth" ref="c3cd114c19135f8cd534a229c626adee" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (NSUInteger) maxDepth<code> [read, write, assign]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Defaults to 512. If the input is nested deeper than this the input will be deemed to be malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can turn off this security feature by setting the maxDepth value to 0. 
-</div>
-</div><p>
 <hr>The documentation for this protocol was generated from the following file:<ul>
 <li>Source/<a class="el" href="SBJsonParser_8h_source.html">SBJsonParser.h</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Thu May 21 22:46:12 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon May 25 10:11:47 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

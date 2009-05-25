@@ -11,12 +11,12 @@
 
 \f0\b\fs24 \cf0 Version 2.2alpha5\
 
-\b0 Released May XX, 2009.\
+\b0 Released May 25th, 2009.\
 \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\ql\qnatural\pardirnatural
 \ls1\ilvl0
-\b \cf0 {\listtext	\'95	}Added -jsonRepresentationProxy "delegate" method
-\b0 \uc0\u8232 This is a method that you can implement (either directly or as category) to enable JSON.framework to create a JSON representation of any object type. See the Tests/ProxyTest.m file to see how this works.
+\b \cf0 {\listtext	\'95	}Added support for custom objects (generation only)
+\b0 \uc0\u8232 Added an optional -jsonRepresentationProxy method that you can implement (either directly or as category) to enable JSON.framework to create a JSON representation of any object type. See the Tests/ProxyTest.m file for more information on how this works.
 \b \
 {\listtext	\'95	}Moved maxDepth to SBJsonBase
 \b0 \uc0\u8232 Throw errors when the input is nested too deep for writing json as well as parsing. This allows us to exit cleanly rather than break the stack if someone accidentally creates a recursive structure.

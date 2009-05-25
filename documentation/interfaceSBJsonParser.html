@@ -48,6 +48,12 @@ Inheritance diagram for SBJsonParser:</div>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">NSArray *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonBase.html#a83f0ee5efade2fd26ddf6591ffd8dc0">errorTrace</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return an error trace, or nil if there was no errors.  <a href="#a83f0ee5efade2fd26ddf6591ffd8dc0"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">NSUInteger&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonBase.html#be3e47517711570a9a57e2d92a15055b">maxDepth</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The maximum recursing depth.  <a href="#be3e47517711570a9a57e2d92a15055b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">NSUInteger&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonBase.html#be3e47517711570a9a57e2d92a15055b">maxDepth</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The maximum recursing depth.  <a href="#be3e47517711570a9a57e2d92a15055b"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 JSON is mapped to Objective-C types in the following way:<p>
@@ -103,10 +109,40 @@ Returns the object represented by the passed-in string or nil on error. The retu
 Note that this method returns the trace of the last method that failed. You need to check the return value of the call you're making to figure out if the call actually failed, before you know call this method. 
 </div>
 </div><p>
+<a class="anchor" name="be3e47517711570a9a57e2d92a15055b"></a><!-- doxytag: member="SBJsonParser::maxDepth" ref="be3e47517711570a9a57e2d92a15055b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSUInteger) maxDepth<code> [read, write, assign, inherited]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Defaults to 512. If the input is nested deeper than this the input will be deemed to be malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can turn off this security feature by setting the maxDepth value to 0. 
+</div>
+</div><p>
+<a class="anchor" name="be3e47517711570a9a57e2d92a15055b"></a><!-- doxytag: member="SBJsonParser::maxDepth" ref="be3e47517711570a9a57e2d92a15055b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSUInteger) maxDepth<code> [read, write, assign, inherited]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Defaults to 512. If the input is nested deeper than this the input will be deemed to be malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can turn off this security feature by setting the maxDepth value to 0. 
+</div>
+</div><p>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li>Source/<a class="el" href="SBJsonParser_8h_source.html">SBJsonParser.h</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Thu May 21 22:46:12 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon May 25 10:11:47 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

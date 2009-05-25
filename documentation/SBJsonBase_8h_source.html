@@ -68,19 +68,24 @@
 <a name="l00047"></a>00047     EINPUT
 <a name="l00048"></a>00048 };
 <a name="l00049"></a>00049 
-<a name="l00055"></a><a class="code" href="interfaceSBJsonBase.html">00055</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonBase.html" title="common base class for parsing &amp;amp; writing">SBJsonBase</a> : NSObject {
+<a name="l00055"></a><a class="code" href="interfaceSBJsonBase.html">00055</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonBase.html" title="Common base class for parsing &amp;amp; writing.">SBJsonBase</a> : NSObject {
 <a name="l00056"></a>00056     NSMutableArray *errorTrace;
-<a name="l00057"></a>00057 }
-<a name="l00058"></a>00058 
-<a name="l00066"></a><a class="code" href="interfaceSBJsonBase.html#a83f0ee5efade2fd26ddf6591ffd8dc0">00066</a>  @property(copy,readonly) NSArray* errorTrace;
-<a name="l00067"></a>00067 
-<a name="l00069"></a>00069 - (<span class="keywordtype">void</span>)addErrorWithCode:(NSUInteger)code description:(NSString*)str;
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058 <span class="keyword">@protected</span>
+<a name="l00059"></a><a class="code" href="interfaceSBJsonBase.html#be3e47517711570a9a57e2d92a15055b">00059</a>     NSUInteger depth, <a class="code" href="interfaceSBJsonBase.html#be3e47517711570a9a57e2d92a15055b" title="The maximum recursing depth.">maxDepth</a>;
+<a name="l00060"></a>00060 }
+<a name="l00061"></a>00061 
+<a name="l00069"></a>00069 @<span class="keyword">property</span> NSUInteger maxDepth;
 <a name="l00070"></a>00070 
-<a name="l00072"></a>00072 - (<span class="keywordtype">void</span>)clearErrorTrace;
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074 @end
+<a name="l00078"></a><a class="code" href="interfaceSBJsonBase.html#a83f0ee5efade2fd26ddf6591ffd8dc0">00078</a>  @property(copy,readonly) NSArray* errorTrace;
+<a name="l00079"></a>00079 
+<a name="l00081"></a>00081 - (<span class="keywordtype">void</span>)addErrorWithCode:(NSUInteger)code description:(NSString*)str;
+<a name="l00082"></a>00082 
+<a name="l00084"></a>00084 - (<span class="keywordtype">void</span>)clearErrorTrace;
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086 @end
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Thu May 21 22:46:12 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon May 25 10:11:47 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

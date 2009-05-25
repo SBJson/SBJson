@@ -53,30 +53,27 @@
 <a name="l00032"></a>00032 
 <a name="l00038"></a><a class="code" href="protocolSBJsonParser-p.html">00038</a> <span class="keyword">@protocol </span><a class="code" href="interfaceSBJsonParser.html" title="The JSON parser class.">SBJsonParser</a>
 <a name="l00039"></a>00039 
-<a name="l00047"></a><a class="code" href="protocolSBJsonParser-p.html#c3cd114c19135f8cd534a229c626adee">00047</a> @<span class="keyword">property</span> NSUInteger maxDepth;
-<a name="l00048"></a>00048 
-<a name="l00057"></a>00057 - (id)objectWithString:(NSString *)repr;
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059 <span class="keyword">@end</span>
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061 
-<a name="l00083"></a><a class="code" href="interfaceSBJsonParser.html">00083</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonParser.html" title="The JSON parser class.">SBJsonParser</a> : <a class="code" href="interfaceSBJsonBase.html" title="common base class for parsing &amp;amp; writing">SBJsonBase</a> &lt;<a class="code" href="protocolSBJsonParser-p.html" title="Options for the parser class.">SBJsonParser</a>&gt; {
-<a name="l00084"></a>00084     
-<a name="l00085"></a>00085 <span class="keyword">@private</span>
-<a name="l00086"></a>00086     <span class="keyword">const</span> <span class="keywordtype">char</span> *c;
-<a name="l00087"></a>00087     NSUInteger depth, maxDepth;
-<a name="l00088"></a>00088 }
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090 <span class="keyword">@end</span>
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092 <span class="comment">// don't use - exists for backwards compatibility with 2.1.x only. Will be removed in 2.3.</span>
-<a name="l00093"></a>00093 <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonParser.html" title="The JSON parser class.">SBJsonParser</a> (Private)
-<a name="l00094"></a>00094 - (id)fragmentWithString:(<span class="keywordtype">id</span>)repr;
-<a name="l00095"></a>00095 <span class="keyword">@end</span>
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097 
+<a name="l00048"></a>00048 - (id)objectWithString:(NSString *)repr;
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050 <span class="keyword">@end</span>
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052 
+<a name="l00074"></a><a class="code" href="interfaceSBJsonParser.html">00074</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonParser.html" title="The JSON parser class.">SBJsonParser</a> : <a class="code" href="interfaceSBJsonBase.html" title="Common base class for parsing &amp;amp; writing.">SBJsonBase</a> &lt;<a class="code" href="protocolSBJsonParser-p.html" title="Options for the parser class.">SBJsonParser</a>&gt; {
+<a name="l00075"></a>00075     
+<a name="l00076"></a>00076 <span class="keyword">@private</span>
+<a name="l00077"></a>00077     <span class="keyword">const</span> <span class="keywordtype">char</span> *c;
+<a name="l00078"></a>00078 }
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080 <span class="keyword">@end</span>
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082 <span class="comment">// don't use - exists for backwards compatibility with 2.1.x only. Will be removed in 2.3.</span>
+<a name="l00083"></a>00083 <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonParser.html" title="The JSON parser class.">SBJsonParser</a> (Private)
+<a name="l00084"></a>00084 - (id)fragmentWithString:(<span class="keywordtype">id</span>)repr;
+<a name="l00085"></a>00085 <span class="keyword">@end</span>
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087 
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Thu May 21 22:46:12 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon May 25 10:11:47 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

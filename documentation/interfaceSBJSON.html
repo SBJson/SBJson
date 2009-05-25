@@ -70,9 +70,12 @@ Inheritance diagram for SBJSON:</div>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">NSArray *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonBase.html#a83f0ee5efade2fd26ddf6591ffd8dc0">errorTrace</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return an error trace, or nil if there was no errors.  <a href="#a83f0ee5efade2fd26ddf6591ffd8dc0"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">NSUInteger&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocolSBJsonParser-p.html#c3cd114c19135f8cd534a229c626adee">maxDepth</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">NSUInteger&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonBase.html#be3e47517711570a9a57e2d92a15055b">maxDepth</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The maximum recursing depth of the parser.  <a href="#c3cd114c19135f8cd534a229c626adee"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The maximum recursing depth.  <a href="#be3e47517711570a9a57e2d92a15055b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">NSUInteger&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonBase.html#be3e47517711570a9a57e2d92a15055b">maxDepth</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The maximum recursing depth.  <a href="#be3e47517711570a9a57e2d92a15055b"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">BOOL&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocolSBJsonWriter-p.html#69f531597668b4b3c20aabee1e3d4558">humanReadable</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Whether we are generating human-readable (multiline) JSON.  <a href="#69f531597668b4b3c20aabee1e3d4558"></a><br></td></tr>
@@ -399,7 +402,22 @@ Note that this method returns the trace of the last method that failed. You need
 Set whether or not to generate human-readable JSON. The default is NO, which produces JSON without any whitespace. (Except inside strings.) If set to YES, generates human-readable JSON with linebreaks after each array value and dictionary key/value pair, indented two spaces per nesting level. 
 </div>
 </div><p>
-<a class="anchor" name="c3cd114c19135f8cd534a229c626adee"></a><!-- doxytag: member="SBJSON::maxDepth" ref="c3cd114c19135f8cd534a229c626adee" args="" -->
+<a class="anchor" name="be3e47517711570a9a57e2d92a15055b"></a><!-- doxytag: member="SBJSON::maxDepth" ref="be3e47517711570a9a57e2d92a15055b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSUInteger) maxDepth<code> [read, write, assign, inherited]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Defaults to 512. If the input is nested deeper than this the input will be deemed to be malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can turn off this security feature by setting the maxDepth value to 0. 
+</div>
+</div><p>
+<a class="anchor" name="be3e47517711570a9a57e2d92a15055b"></a><!-- doxytag: member="SBJSON::maxDepth" ref="be3e47517711570a9a57e2d92a15055b" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -432,7 +450,7 @@ If this is set to YES, the dictionary keys in the JSON output will be in sorted 
 <hr>The documentation for this class was generated from the following files:<ul>
 <li>Source/<a class="el" href="SBJSON_8h_source.html">SBJSON.h</a><li>Source/SBJSON.m</ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Thu May 21 22:46:12 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Mon May 25 10:11:47 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>
