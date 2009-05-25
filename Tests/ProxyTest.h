@@ -3,7 +3,7 @@
 //  JSON
 //
 //  Created by Stig Brautaset on 25/05/2009.
-//  Copyright 2009 Morgan Stanley. All rights reserved.
+//  Copyright 2009 Stig Brautaset. All rights reserved.
 //
 
 #import <SenTestingKit/SenTestingKit.h>
