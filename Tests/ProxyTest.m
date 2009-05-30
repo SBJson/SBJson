@@ -13,7 +13,7 @@
 @end
 
 @implementation True
-- (id)jsonRepresentationProxy {
+- (id)proxyForJson {
     return [NSNumber numberWithBool:YES];
 }
 @end
@@ -22,7 +22,7 @@
 @end
 
 @implementation False
-- (id)jsonRepresentationProxy {
+- (id)proxyForJson {
     return [NSNumber numberWithBool:NO];
 }
 @end
@@ -31,13 +31,13 @@
 @end
 
 @implementation Bool
-- (id)jsonRepresentationProxy {
+- (id)proxyForJson {
     return [NSArray arrayWithObjects:[True new], [False new], nil];
 }
 @end
 
 @implementation NSDate (Private)
-- (id)jsonRepresentationProxy {
+- (id)proxyForJson {
     return [self description];
 }
 @end
