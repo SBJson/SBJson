@@ -30,34 +30,26 @@
 #import "NSString+SBJSON.h"
 #import "SBJsonParser.h"
 
-static const SBJsonParser *jsonParser;
-
 @implementation NSString (NSString_SBJSON)
 
 - (id)JSONFragmentValue
 {
-	if (!jsonParser)
-		jsonParser = [SBJsonParser new];
-    
-    id repr = [jsonParser fragmentWithString:self];
+    SBJsonParser *jsonParser = [SBJsonParser new];    
+    id repr = [jsonParser fragmentWithString:self];    
     if (repr)
-        return repr;
-    
-    NSLog(@"-JSONFragmentValue failed. Error trace is: %@", [jsonParser errorTrace]);
-    return nil;
+        NSLog(@"-JSONFragmentValue failed. Error trace is: %@", [jsonParser errorTrace]);
+    [jsonParser release];
+    return repr;
 }
 
 - (id)JSONValue
 {
-	if (!jsonParser)
-		jsonParser = [SBJsonParser new];
-    
+    SBJsonParser *jsonParser = [SBJsonParser new];
     id repr = [jsonParser objectWithString:self];
-    if (repr)
-        return repr;
-    
-    NSLog(@"-JSONValue failed. Error trace is: %@", [jsonParser errorTrace]);
-    return nil;
+    if (!repr)
+        NSLog(@"-JSONValue failed. Error trace is: %@", [jsonParser errorTrace]);
+    [jsonParser release];
+    return repr;
 }
 
 @end

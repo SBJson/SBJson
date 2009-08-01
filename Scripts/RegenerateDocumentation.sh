@@ -8,6 +8,7 @@ VERSION=$(agvtool mvers -terse1)
 DOXYFILE=$DERIVED_FILES_DIR/doxygen.config
 DOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen
 DOCSET=$INSTALL_DIR/Documentation
+APIDOCDIR=$SOURCE_ROOT/documentation
 
 rm -rf $DOCSET
 mkdir -p $DOCSET || exit 1
@@ -47,12 +48,12 @@ EOF
 $DOXYGEN $DOXYFILE
 
 # Replace the old dir with the newly generated one.
-rm -f $SOURCE_ROOT/documentation/*
-cp -p $INSTALL_DIR/Documentation/html/* $SOURCE_ROOT/documentation
-cd $SOURCE_ROOT/documentation
+rm -f $APIDOCDIR/*
+cp -p $DOCSET/html/* $APIDOCDIR
+cd $APIDOCDIR
 
 # Revert files that differ only in the timestamp.
-svn diff *.html | diffstat | awk '$3 == "2" { print $1 }' | xargs svn revert
+svn diff *.html | diffstat | awk '$3 == 2 { print $1 }' | xargs svn revert
 
 # Add/remove files from subversion.
 svn st | awk '
