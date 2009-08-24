@@ -36,7 +36,7 @@
 {
     SBJsonParser *jsonParser = [SBJsonParser new];    
     id repr = [jsonParser fragmentWithString:self];    
-    if (repr)
+    if (!repr)
         NSLog(@"-JSONFragmentValue failed. Error trace is: %@", [jsonParser errorTrace]);
     [jsonParser release];
     return repr;
