@@ -28,7 +28,9 @@
     json.sortKeys = YES;
     id sortKeys = [json stringWithObject:input error:NULL];
     STAssertEquals([[sortKeys componentsSeparatedByString:@"\n"] count], (NSUInteger)14, nil);
-    STAssertFalse([sortKeys isEqual:humanReadable], @"%@ == %@", sortKeys, humanReadable);
+
+// Can't make guarantees about sort order *without* sorting keys. They could come back in sorted order, or they could not.
+//    STAssertFalse([sortKeys isEqual:humanReadable], @"%@ != %@", sortKeys, humanReadable);
     
     NSString *expected = [NSString stringWithContentsOfFile:@"Tests/format/HumanReadable.json"
                                                    encoding:NSASCIIStringEncoding
