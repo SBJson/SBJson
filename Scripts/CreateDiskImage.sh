@@ -17,9 +17,9 @@ mkdir -p $DISK_IMAGE
 
 # Create the Embedded framework and copy it to the disk image.
 xcodebuild -target JSON -configuration Release install || exit 1
-cp -p -R $INSTALL_DIR/../Frameworks/$PROJECT.framework $DISK_IMAGE
+cp -p -R /tmp/Frameworks/$PROJECT.framework $DISK_IMAGE
 
-IPHONE_SDK=2.2.1
+IPHONE_SDK=3.0
 
 # Create the iPhone SDK directly in the disk image folder.
 xcodebuild -target libjson -configuration Release -sdk iphoneos$IPHONE_SDK install \
