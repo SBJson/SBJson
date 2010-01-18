@@ -58,8 +58,8 @@
 
 static char ctrl[0x22];
 
-+ (void)initialize
-{
+
++ (void)initialize {
     ctrl[0] = '\"';
     ctrl[1] = '\\';
     for (int i = 1; i < 0x20; i++)

@@ -42,6 +42,15 @@
 
 @implementation SBJsonWriter
 
+static NSMutableCharacterSet *kEscapeChars;
+
++ (void)initialize {
+	kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)]
+retain];
+	[kEscapeChars addCharactersInString: @"\"\\"];
+}
+
+
 @synthesize sortKeys;
 @synthesize humanReadable;
 
@@ -182,12 +191,6 @@
 }
 
 - (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json {
-    
-    static NSMutableCharacterSet *kEscapeChars;
-    if( ! kEscapeChars ) {
-        kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
-        [kEscapeChars addCharactersInString: @"\"\\"];
-    }
     
     [json appendString:@"\""];
     
