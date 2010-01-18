@@ -44,19 +44,19 @@ int main(int argc, char **argv) {
     SBJsonParser *parser = [SBJsonParser new];
     SBJsonWriter *writer = [SBJsonWriter new];
 
-    NSString *filename = [NSString stringWithCString:argv[1]];
-    NSString *json = [NSString stringWithContentsOfFile:filename];
+    NSString *filename = [NSString stringWithUTF8String:argv[1]];
+    NSString *json = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:nil];
     id obj = [json JSONValue];
         
     NSTimeInterval parseMin = 1e99;
     for (int i = 0; i < COUNT; i++) {
         NSAutoreleasePool *inner = [NSAutoreleasePool new];
         NSDate *date = [NSDate date];
-        [parser objectWithString:json allowScalar:NO];
-        [parser objectWithString:json allowScalar:NO];
-        [parser objectWithString:json allowScalar:NO];
-        [parser objectWithString:json allowScalar:NO];
-        [parser objectWithString:json allowScalar:NO];
+        [parser objectWithString:json];
+        [parser objectWithString:json];
+        [parser objectWithString:json];
+        [parser objectWithString:json];
+        [parser objectWithString:json];
         NSTimeInterval duration = -[date timeIntervalSinceNow];
         parseMin = MIN(duration, parseMin);
         [inner release];
@@ -66,11 +66,11 @@ int main(int argc, char **argv) {
     for (int i = 0; i < COUNT; i++) {
         NSAutoreleasePool *inner = [NSAutoreleasePool new];
         NSDate *date = [NSDate date];
-        [writer stringWithObject:obj allowScalar:NO];
-        [writer stringWithObject:obj allowScalar:NO];
-        [writer stringWithObject:obj allowScalar:NO];
-        [writer stringWithObject:obj allowScalar:NO];
-        [writer stringWithObject:obj allowScalar:NO];
+        [writer stringWithObject:obj];
+        [writer stringWithObject:obj];
+        [writer stringWithObject:obj];
+        [writer stringWithObject:obj];
+        [writer stringWithObject:obj];
         NSTimeInterval duration = -[date timeIntervalSinceNow];
         writeMin = MIN(duration, writeMin);
         [inner release];
