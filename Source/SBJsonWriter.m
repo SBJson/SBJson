@@ -45,8 +45,7 @@
 static NSMutableCharacterSet *kEscapeChars;
 
 + (void)initialize {
-	kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)]
-retain];
+	kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
 	[kEscapeChars addCharactersInString: @"\"\\"];
 }
 
@@ -75,6 +74,13 @@ retain];
     if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]) {
         return [self stringWithFragment:value];
     }
+    
+    if ([value respondsToSelector:@selector(proxyForJson)]) {
+        NSString *tmp = [self stringWithObject:[value proxyForJson]];
+        if (tmp)
+            return tmp;
+    }
+        
 
     [self clearErrorTrace];
     [self addErrorWithCode:EFRAGMENT description:@"Not valid type for JSON"];

@@ -30,7 +30,7 @@
 - (void)testUnsupportedObject
 {
     NSError *error = nil;
-    STAssertNil([json stringWithObject:[NSDate date] error:&error], nil);
+    STAssertNil([json stringWithObject:[NSData data] error:&error], nil);
     STAssertNotNil(error, nil);
 }
 
