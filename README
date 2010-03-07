@@ -4,3 +4,6 @@ JSON parser and generator in Objective-C.
 
 Please see the project site for more information:
 http://code.google.com/p/json-framework/
+
+There is an "Official Fork" of JSON.framework on github.com:
+http://github.com/stig/json-framework/tree/master

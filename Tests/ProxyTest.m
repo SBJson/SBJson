@@ -38,7 +38,7 @@
 
 @implementation NSDate (Private)
 - (id)proxyForJson {
-    return [self description];
+    return [NSArray arrayWithObject:[self description]];
 }
 @end
 
@@ -59,6 +59,10 @@
     STAssertEqualObjects([writer stringWithObject:[NSArray arrayWithObject:[True new]]], @"[true]", nil);
 }
 
+- (void)testUnsupportedWithProxyWithoutWrapper {
+    STAssertNil([writer stringWithObject:[True new]], nil);
+}
+
 - (void)testUnsupportedWithNestedProxy {
     STAssertEqualObjects([writer stringWithObject:[NSArray arrayWithObject:[Bool new]]], @"[[true,false]]", nil);
 }
@@ -66,5 +70,10 @@
 - (void)testUnsupportedWithProxyAsCategory {
     STAssertNotNil([writer stringWithObject:[NSArray arrayWithObject:[NSDate date]]], nil);
 }
+
+- (void)testUnsupportedWithProxyAsCategoryWithoutWrapper {
+    STAssertNotNil([writer stringWithObject:[NSDate date]], nil);
+}
+
 
 @end

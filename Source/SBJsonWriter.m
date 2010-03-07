@@ -42,6 +42,14 @@
 
 @implementation SBJsonWriter
 
+static NSMutableCharacterSet *kEscapeChars;
+
++ (void)initialize {
+	kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
+	[kEscapeChars addCharactersInString: @"\"\\"];
+}
+
+
 @synthesize sortKeys;
 @synthesize humanReadable;
 
@@ -66,6 +74,13 @@
     if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]) {
         return [self stringWithFragment:value];
     }
+    
+    if ([value respondsToSelector:@selector(proxyForJson)]) {
+        NSString *tmp = [self stringWithObject:[value proxyForJson]];
+        if (tmp)
+            return tmp;
+    }
+        
 
     [self clearErrorTrace];
     [self addErrorWithCode:EFRAGMENT description:@"Not valid type for JSON"];
@@ -182,12 +197,6 @@
 }
 
 - (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json {
-    
-    static NSMutableCharacterSet *kEscapeChars;
-    if( ! kEscapeChars ) {
-        kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
-        [kEscapeChars addCharactersInString: @"\"\\"];
-    }
     
     [json appendString:@"\""];
     
