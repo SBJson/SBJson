@@ -1,4 +1,5 @@
-= JSON Framework =
+JSON Framework
+==============
 
 *A strict Objective-C JSON framework.*
 
