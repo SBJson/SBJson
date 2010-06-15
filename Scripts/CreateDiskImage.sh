@@ -66,7 +66,7 @@ window.location = "Documentation/index.html"
 </html>
 HTML
 
-cp -p $SOURCE_ROOT/README $DISK_IMAGE
+cp -p $SOURCE_ROOT/README.md $DISK_IMAGE
 cp -p $SOURCE_ROOT/Credits.rtf $DISK_IMAGE
 cp -p $SOURCE_ROOT/Install.rtf $DISK_IMAGE
 cp -p $SOURCE_ROOT/Changes.rtf $DISK_IMAGE
