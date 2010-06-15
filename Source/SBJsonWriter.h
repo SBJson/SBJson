@@ -113,7 +113,7 @@
  object might implement it like this:
  
  @code
- - (id)jsonProxyObject {
+ - (id)proxyForJson {
     return [NSDictionary dictionaryWithObjectsAndKeys:
         name, @"name",
         phone, @"phone",
