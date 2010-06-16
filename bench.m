@@ -30,7 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import <stdio.h>
 #import "JSON.h"
 
-#define COUNT 50
+#define COUNT 200
 
 
 int main(int argc, char **argv) {
@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
     NSString *filename = [NSString stringWithUTF8String:argv[1]];
     NSString *json = [NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:nil];
     id obj = [json JSONValue];
-        
+
     NSTimeInterval parseMin = 1e99;
     for (int i = 0; i < COUNT; i++) {
         NSAutoreleasePool *inner = [NSAutoreleasePool new];
@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
         [parser objectWithString:json];
         NSTimeInterval duration = -[date timeIntervalSinceNow];
         parseMin = MIN(duration, parseMin);
-        [inner release];
+        [inner drain];
     }
     
     NSTimeInterval writeMin = 1e99;
@@ -73,12 +73,11 @@ int main(int argc, char **argv) {
         [writer stringWithObject:obj];
         NSTimeInterval duration = -[date timeIntervalSinceNow];
         writeMin = MIN(duration, writeMin);
-        [inner release];
+        [inner drain];
     }
     
-    printf("||  || parse || write ||\n");
-    printf("|| SBJsonParser || %f || -- ||\n", 5.0 / parseMin);
-    printf("|| SBJsonWriter || -- || %f ||\n", 5.0 / writeMin);
+    printf("SBJsonParser: %f\n", 5.0 / parseMin);
+    printf("SBJsonWriter: %f\n", 5.0 / writeMin);
 
     [outer release];
     return 0;
