@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2009 Stig Brautaset. All rights reserved.
+ Copyright (C) 2009,2010 Stig Brautaset. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -92,13 +92,13 @@ static char ctrl[0x22];
         [self addErrorWithCode:ETRAILGARBAGE description:@"Garbage after JSON"];
         return nil;
     }
-        
+    
     NSAssert1(o, @"Should have a valid object from %@", repr);
     return o;    
 }
 
 - (id)objectWithString:(NSString *)repr {
-
+    
     id o = [self fragmentWithString:repr];
     if (!o)
         return nil;
@@ -108,7 +108,7 @@ static char ctrl[0x22];
         [self addErrorWithCode:EFRAGMENT description:@"Valid fragment, but not JSON"];
         return nil;
     }
-
+    
     return o;
 }
 
@@ -285,11 +285,20 @@ static char ctrl[0x22];
 
 - (BOOL)scanRestOfString:(NSMutableString **)o 
 {
+    // if the string has no control characters in it, return it in one go, without any temporary allocations.
+    size_t len = strcspn(c, ctrl);
+    if (len && *(c + len) == '\"')
+    {
+        *o = [[[NSMutableString alloc] initWithBytes:(char*)c length:len encoding:NSUTF8StringEncoding] autorelease];
+        c += len + 1;
+        return YES;
+    }
+    
     *o = [NSMutableString stringWithCapacity:16];
     do {
         // First see if there's a portion we can grab in one go. 
         // Doing this caused a massive speedup on the long string.
-        size_t len = strcspn(c, ctrl);
+        len = strcspn(c, ctrl);
         if (len) {
             // check for 
             id t = [[NSString alloc] initWithBytesNoCopy:(char*)c
@@ -406,6 +415,8 @@ static char ctrl[0x22];
 
 - (BOOL)scanNumber:(NSNumber **)o
 {
+    BOOL simple = YES;
+    
     const char *ns = c;
     
     // The logic to test for validity of the number formatting is relicensed
@@ -431,7 +442,7 @@ static char ctrl[0x22];
     
     // Fractional part
     if ('.' == *c && c++) {
-        
+        simple = NO;
         if (!isdigit(*c)) {
             [self addErrorWithCode:EPARSENUM description: @"No digits after decimal point"];
             return NO;
@@ -441,6 +452,7 @@ static char ctrl[0x22];
     
     // Exponential part
     if ('e' == *c || 'E' == *c) {
+        simple = NO;
         c++;
         
         if ('-' == *c || '+' == *c)
@@ -453,16 +465,46 @@ static char ctrl[0x22];
         skipDigits(c);
     }
     
-    id str = [[NSString alloc] initWithBytesNoCopy:(char*)ns
-                                            length:c - ns
-                                          encoding:NSUTF8StringEncoding
-                                      freeWhenDone:NO];
-    [str autorelease];
-    if (str && (*o = [NSDecimalNumber decimalNumberWithString:str]))
+    // If we are only reading integers, don't go through the expense of creating an NSDecimal.
+    // This ends up being a very large perf win.
+    if (simple) {
+        BOOL negate = NO;
+        long long val = 0;
+        const char *d = ns;
+        
+        if (*d == '-') {
+            negate = YES;
+            d++;
+        }
+        
+        while (isdigit(*d)) {
+            val *= 10;
+            if (val < 0)
+                goto longlong_overflow;
+            val += *d - '0';
+            if (val < 0)
+                goto longlong_overflow;
+            d++;
+        }
+        
+        *o = [NSNumber numberWithLongLong:negate ? -val : val];
         return YES;
-    
-    [self addErrorWithCode:EPARSENUM description: @"Failed creating decimal instance"];
-    return NO;
+        
+    } else {
+        // jumped to by simple branch, if an overflow occured
+        longlong_overflow:;
+        
+        id str = [[NSString alloc] initWithBytesNoCopy:(char*)ns
+                                                length:c - ns
+                                              encoding:NSUTF8StringEncoding
+                                          freeWhenDone:NO];
+        [str autorelease];
+        if (str && (*o = [NSDecimalNumber decimalNumberWithString:str]))
+            return YES;
+        
+        [self addErrorWithCode:EPARSENUM description: @"Failed creating decimal instance"];
+        return NO;
+    }
 }
 
 - (BOOL)scanIsAtEnd
