@@ -41,8 +41,7 @@
     
 }
 
-- (void)testFiles {
-    
+- (void)testPass {    
     NSString *file;
     NSString *dir = @"Tests/Data";
     NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
@@ -51,9 +50,13 @@
         if (![[file pathExtension] isEqualToString:@"json"])
             continue;
         
+        NSRange range = [file rangeOfString:@"fail"];
+        if (range.location != NSNotFound)
+            continue;
+        
         NSString *jsonPath = [dir stringByAppendingPathComponent:file];        
         NSString *jsonText = [NSString stringWithContentsOfFile:jsonPath
-                                                       encoding:NSASCIIStringEncoding
+                                                       encoding:NSUTF8StringEncoding
                                                           error:nil];
         STAssertNotNil(jsonText, @"Could not load %@", jsonPath);
         
@@ -69,7 +72,7 @@
         
         NSString *goldPath = [jsonPath stringByAppendingPathExtension:@"gold"];
         NSString *goldText = [NSString stringWithContentsOfFile:goldPath
-                                                       encoding:NSASCIIStringEncoding
+                                                       encoding:NSUTF8StringEncoding
                                                           error:nil];
         STAssertNotNil(goldText, @"Could not load %@", goldPath);
 
@@ -79,26 +82,24 @@
     }
 }
 
-- (void)testJsonChecker {
-    NSString *file, *dir = @"Tests/jsonchecker";
-    NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
+- (void)testFail {
+    parser.maxDepth = 19;
     
-    SBJSON *sbjson = [SBJSON new];
-    sbjson.maxDepth = 19;
-    while ((file = [files nextObject])) {
-        if (![[file pathExtension] isEqualToString:@"json"])
-            continue;
+    NSString *file;
+    NSString *dir = @"Tests/Data";
+    NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
 
-        NSString *json = [NSString stringWithContentsOfFile:[dir stringByAppendingPathComponent:file]
-                                                   encoding:NSASCIIStringEncoding
+    while ((file = [files nextObject])) {
+        if (![file hasPrefix:@"fail"])
+            continue;
+        
+        NSString *path = [dir stringByAppendingPathComponent:file];
+        NSString *json = [NSString stringWithContentsOfFile:path
+                                                   encoding:NSUTF8StringEncoding
                                                       error:nil];
 
-        if ([file hasPrefix:@"pass"]) {
-            STAssertNotNil([sbjson objectWithString:json error:NULL], nil);
-            
-        } else {
-            STAssertNil([sbjson objectWithString:json error:NULL], json);
-        }
+        STAssertNil([parser objectWithString:json], path);
+        STAssertNotNil(parser.errorTrace, path);
     }
 }
 
