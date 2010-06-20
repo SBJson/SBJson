@@ -87,6 +87,15 @@ static NSMutableCharacterSet *kEscapeChars;
     return nil;
 }
 
+- (NSString*)stringWithObject:(id)value error:(NSError**)error {
+    NSString *tmp = [self stringWithObject:value];
+    if (tmp)
+        return tmp;
+    
+    if (error)
+        *error = [self.errorTrace lastObject];
+    return nil;
+}
 
 - (NSString*)indent {
     return [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0];

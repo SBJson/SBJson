@@ -38,4 +38,9 @@
     writer = [SBJsonWriter new];
 }
 
+- (void)tearDown {
+    [parser release];
+    [writer release];
+}
+
 @end

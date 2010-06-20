@@ -112,6 +112,17 @@ static char ctrl[0x22];
     return o;
 }
 
+- (id)objectWithString:(NSString*)repr error:(NSError**)error {
+    id tmp = [self objectWithString:repr];
+    if (tmp)
+        return tmp;
+    
+    if (error)
+        *error = [self.errorTrace lastObject];
+    return nil;
+}
+
+
 /*
  In contrast to the public methods, it is an error to omit the error parameter here.
  */
