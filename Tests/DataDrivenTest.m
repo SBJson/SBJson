@@ -28,17 +28,15 @@
  */
 
 
-#import "Examples.h"
+#import "DataDrivenTest.h"
 #import <JSON/JSON.h>
 
-@implementation Examples
+@implementation DataDrivenTest
 
 - (void)setUp {
-    parser = [SBJsonParser new];
-    writer = [SBJsonWriter new];
+    [super setUp];
     writer.humanReadable = YES;
-    writer.sortKeys = YES;
-    
+    writer.sortKeys = YES;    
 }
 
 - (void)testPass {    

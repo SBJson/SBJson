@@ -29,5 +29,5 @@
 
 #import "AbstractTest.h"
 
-@interface ProxyTest : AbstractTest
+@interface MaxDepthTest : AbstractTest
 @end

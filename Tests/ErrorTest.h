@@ -10,7 +10,7 @@
 
 @class SBJSON;
 
-@interface Errors : SenTestCase {
+@interface ErrorTest : SenTestCase {
     SBJSON *json;
 }
 @end

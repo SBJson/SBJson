@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2010 Stig Brautaset. All rights reserved.
+ Copyright (C) 2007-2010 Stig Brautaset. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -29,5 +29,5 @@
 
 #import "AbstractTest.h"
 
-@interface ProxyTest : AbstractTest
+@interface DataDrivenTest : AbstractTest
 @end

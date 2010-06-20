@@ -27,7 +27,15 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "AbstractTest.h"
 
-@interface ProxyTest : AbstractTest
+#import <SenTestingKit/SenTestingKit.h>
+
+@class SBJsonParser;
+@class SBJsonWriter;
+
+@interface AbstractTest : SenTestCase {
+  SBJsonParser * parser;
+  SBJsonWriter * writer;
+}
+
 @end

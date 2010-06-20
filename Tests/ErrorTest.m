@@ -6,7 +6,7 @@
 //  Copyright 2007 Stig Brautaset. All rights reserved.
 //
 
-#import "Errors.h"
+#import "ErrorTest.h"
 #import <JSON/JSON.h>
 
 #define assertErrorContains(e, s) \
@@ -15,7 +15,7 @@
 #define assertUnderlyingErrorContains(e, s) \
     STAssertTrue([[[[e userInfo] objectForKey:NSUnderlyingErrorKey] localizedDescription] hasPrefix:s], @"%@", [e userInfo])
 
-@implementation Errors
+@implementation ErrorTest
 
 - (void)setUp {
     json = [SBJSON new];

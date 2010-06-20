@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2007-2010 Stig Brautaset. All rights reserved.
+ Copyright (C) 2010 Stig Brautaset. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -27,14 +27,15 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
 
-@class SBJsonParser;
-@class SBJsonWriter;
+#import "AbstractTest.h"
+#import <JSON/JSON.h>
 
-@interface Examples : SenTestCase {
-    SBJsonParser *parser;
-    SBJsonWriter *writer;
+@implementation AbstractTest
+
+- (void)setUp {
+    parser = [SBJsonParser new];
+    writer = [SBJsonWriter new];
 }
-@end
 
+@end
