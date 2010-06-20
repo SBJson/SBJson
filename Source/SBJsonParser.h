@@ -92,9 +92,4 @@
 
 @end
 
-// don't use - exists for backwards compatibility with 2.1.x only. Will be removed in 2.3.
-@interface SBJsonParser (Private)
-- (id)fragmentWithString:(id)repr;
-@end
-
 
