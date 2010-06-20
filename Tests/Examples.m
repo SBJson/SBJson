@@ -75,7 +75,7 @@
 
         // Chop off newline at end of string
         goldText = [goldText substringToIndex:[goldText length]-1];
-        STAssertEqualObjects(written, goldText, @"%@: %@ != %@", jsonPath, written, goldText);
+        STAssertEqualObjects(written, goldText, @"at %@", jsonPath);
     }
 }
 
