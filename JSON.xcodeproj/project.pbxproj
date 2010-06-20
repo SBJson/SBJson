@@ -60,7 +60,6 @@
 		BC74B6ED0FC9FAD0000BD3DD /* MaxDepth.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B6EB0FC9FAD0000BD3DD /* MaxDepth.m */; };
 		BC74B7AE0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
 		BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
-		E7153EE90CAAABDB00054ADB /* Pretty.m in Sources */ = {isa = PBXBuildFile; fileRef = E7153EE80CAAABDB00054ADB /* Pretty.m */; };
 		E75716450C96DB530084A449 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E75716460C96DB530084A449 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+SBJSON.m */; };
 		E757164D0C96E39B0084A449 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E757164B0C96E39B0084A449 /* NSString+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -74,7 +73,6 @@
 		FE2BBDB50D8B0F1D00184787 /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D229A10C9612E000276605 /* Types.m */; };
 		FE2BBDB60D8B0F1D00184787 /* Examples.m in Sources */ = {isa = PBXBuildFile; fileRef = E76A1EB60C996C2000A0CC83 /* Examples.m */; };
 		FE2BBDB70D8B0F1D00184787 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C45B9B0C98A87600546F66 /* Errors.m */; };
-		FE2BBDB80D8B0F1D00184787 /* Pretty.m in Sources */ = {isa = PBXBuildFile; fileRef = E7153EE80CAAABDB00054ADB /* Pretty.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,7 +108,6 @@
 		535158720F70DE7B00C8AABD /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
 		5355C86B0E392B2A00A18C15 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
 		5355C86C0E392B2A00A18C15 /* Examples.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Examples.h; sourceTree = "<group>"; };
-		5355C86D0E392B2A00A18C15 /* Pretty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pretty.h; sourceTree = "<group>"; };
 		5355C86E0E392B2A00A18C15 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		539191D00DBB896D00714DA2 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
 		539191D10DBB896D00714DA2 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
@@ -134,7 +131,6 @@
 		BCC047330FB6586100F9F2D3 /* CreateDiskImage.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = CreateDiskImage.sh; sourceTree = "<group>"; };
 		BCC047920FB727F600F9F2D3 /* Credits.rtf */ = {isa = PBXFileReference; explicitFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		BCC047DA0FB743B100F9F2D3 /* Changes.rtf */ = {isa = PBXFileReference; explicitFileType = text.rtf; path = Changes.rtf; sourceTree = "<group>"; };
-		E7153EE80CAAABDB00054ADB /* Pretty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pretty.m; sourceTree = "<group>"; };
 		E75716430C96DB530084A449 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
 		E757164B0C96E39B0084A449 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
@@ -242,8 +238,6 @@
 				E76A1EB60C996C2000A0CC83 /* Examples.m */,
 				5355C86E0E392B2A00A18C15 /* Types.h */,
 				53D229A10C9612E000276605 /* Types.m */,
-				5355C86D0E392B2A00A18C15 /* Pretty.h */,
-				E7153EE80CAAABDB00054ADB /* Pretty.m */,
 				BC74B7AC0FCA8B89000BD3DD /* ProxyTest.h */,
 				BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */,
 				BC74B6EA0FC9FAD0000BD3DD /* MaxDepth.h */,
@@ -554,7 +548,6 @@
 				53D229A20C9612E000276605 /* Types.m in Sources */,
 				53C45B9C0C98A87600546F66 /* Errors.m in Sources */,
 				E76A1EBD0C996EFD00A0CC83 /* Examples.m in Sources */,
-				E7153EE90CAAABDB00054ADB /* Pretty.m in Sources */,
 				BC74B6ED0FC9FAD0000BD3DD /* MaxDepth.m in Sources */,
 				BC74B7AE0FCA8B89000BD3DD /* ProxyTest.m in Sources */,
 			);
@@ -588,7 +581,6 @@
 				FE2BBDB50D8B0F1D00184787 /* Types.m in Sources */,
 				FE2BBDB60D8B0F1D00184787 /* Examples.m in Sources */,
 				FE2BBDB70D8B0F1D00184787 /* Errors.m in Sources */,
-				FE2BBDB80D8B0F1D00184787 /* Pretty.m in Sources */,
 				BC74B6EC0FC9FAD0000BD3DD /* MaxDepth.m in Sources */,
 				BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */,
 			);
