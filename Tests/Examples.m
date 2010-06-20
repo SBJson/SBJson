@@ -60,12 +60,12 @@
         id parsed;
         STAssertNoThrow(parsed = [parser objectWithString:jsonText], jsonPath);
         STAssertNotNil(parsed, jsonPath);
-        STAssertNil(parser.errorTrace, jsonPath);
+        STAssertNil(parser.errorTrace, @"%@: %@", jsonPath, parser.errorTrace);
         
         NSString *written;
         STAssertNoThrow(written = [writer stringWithObject:parsed], jsonPath);
         STAssertNotNil(written, jsonPath);
-        STAssertNil(writer.errorTrace, nil);
+        STAssertNil(writer.errorTrace, @"%@: %@", jsonPath, writer.errorTrace);
         
         NSString *goldPath = [jsonPath stringByAppendingPathExtension:@"gold"];
         NSString *goldText = [NSString stringWithContentsOfFile:goldPath
@@ -75,7 +75,7 @@
 
         // Chop off newline at end of string
         goldText = [goldText substringToIndex:[goldText length]-1];
-        STAssertEqualObjects(written, goldText, @"%@: %@ != %@", jsonPath, jsonText, goldText);
+        STAssertEqualObjects(written, goldText, @"%@: %@ != %@", jsonPath, written, goldText);
     }
 }
 
