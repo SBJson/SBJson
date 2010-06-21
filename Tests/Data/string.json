@@ -12,6 +12,6 @@
 "foo\\bar",
 "foobar",
 "with internal   spaces",
-"\"\\/test\\/path\"",
-"\"\\\\/test\\\\/path\""
+"\/test\/path",
+"\\/test\\/path"
 ]
