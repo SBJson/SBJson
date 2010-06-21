@@ -35,15 +35,23 @@
 
 - (void)setUp {
     [super setUp];
-    writer.humanReadable = YES;
-    writer.sortKeys = YES;    
+    writer.sortKeys = YES;
+    
+    prettyWriter = [SBJsonWriter new];    
+    prettyWriter.humanReadable = YES;
+    prettyWriter.sortKeys = YES;
+    
+    dir = @"Tests/Data";
+    files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
 }
 
-- (void)testPass {    
-    NSString *file;
-    NSString *dir = @"Tests/Data";
-    NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
-    
+- (void)tearDown {
+    [prettyWriter release];
+    [super tearDown];
+}
+
+- (void)testTerse {    
+    NSString *file;    
     while ((file = [files nextObject])) {
         if (![[file pathExtension] isEqualToString:@"json"])
             continue;
@@ -68,15 +76,53 @@
         STAssertNotNil(written, jsonPath);
         STAssertNil(writer.errorTrace, @"%@: %@", jsonPath, writer.errorTrace);
         
-        NSString *goldPath = [jsonPath stringByAppendingPathExtension:@"gold"];
-        NSString *goldText = [NSString stringWithContentsOfFile:goldPath
+        NSString *tersePath = [jsonPath stringByAppendingPathExtension:@"terse"];
+        NSString *terseText = [NSString stringWithContentsOfFile:tersePath
                                                        encoding:NSUTF8StringEncoding
                                                           error:nil];
-        STAssertNotNil(goldText, @"Could not load %@", goldPath);
+        STAssertNotNil(terseText, @"Could not load %@", tersePath);
 
         // Chop off newline at end of string
-        goldText = [goldText substringToIndex:[goldText length]-1];
-        STAssertEqualObjects(written, goldText, @"at %@", jsonPath);
+        terseText = [terseText substringToIndex:[terseText length]-1];
+        STAssertEqualObjects(written, terseText, @"at %@", jsonPath);
+    }
+}
+
+- (void)testPretty {
+    NSString *file;
+    while ((file = [files nextObject])) {
+        if (![[file pathExtension] isEqualToString:@"json"])
+            continue;
+        
+        NSRange range = [file rangeOfString:@"fail"];
+        if (range.location != NSNotFound)
+            continue;
+        
+        NSString *jsonPath = [dir stringByAppendingPathComponent:file];        
+        NSString *jsonText = [NSString stringWithContentsOfFile:jsonPath
+                                                       encoding:NSUTF8StringEncoding
+                                                          error:nil];
+        STAssertNotNil(jsonText, @"Could not load %@", jsonPath);
+        
+        id parsed;
+        STAssertNoThrow(parsed = [parser objectWithString:jsonText], jsonPath);
+        STAssertNotNil(parsed, jsonPath);
+        STAssertNil(parser.errorTrace, @"%@: %@", jsonPath, parser.errorTrace);
+        
+        NSString *written;
+        STAssertNoThrow(written = [prettyWriter stringWithObject:parsed], jsonPath);
+        STAssertNotNil(written, jsonPath);
+        STAssertNil(prettyWriter.errorTrace, @"%@: %@", jsonPath, prettyWriter.errorTrace);
+        
+        NSString *tersePath = [jsonPath stringByAppendingPathExtension:@"pretty"];
+        NSString *terseText = [NSString stringWithContentsOfFile:tersePath
+                                                         encoding:NSUTF8StringEncoding
+                                                            error:nil];
+        STAssertNotNil(terseText, @"Could not load %@", tersePath);
+        
+        // Chop off newline at end of string
+        terseText = [terseText substringToIndex:[terseText length]-1];
+        STAssertEqualObjects(written, terseText, @"at %@", jsonPath);
     }
 }
 
@@ -84,9 +130,6 @@
     parser.maxDepth = 19;
     
     NSString *file;
-    NSString *dir = @"Tests/Data";
-    NSDirectoryEnumerator *files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
-
     while ((file = [files nextObject])) {
         if (![file hasPrefix:@"fail"])
             continue;

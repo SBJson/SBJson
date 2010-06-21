@@ -29,5 +29,9 @@
 
 #import "AbstractTest.h"
 
-@interface DataDrivenTest : AbstractTest
+@interface DataDrivenTest : AbstractTest {
+    SBJsonWriter *prettyWriter;
+    NSString *dir;
+    NSDirectoryEnumerator *files;
+}
 @end
