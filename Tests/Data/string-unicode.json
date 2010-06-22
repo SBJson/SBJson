@@ -1,0 +1,6 @@
+{
+"\u00e9\u2265": "e-acute and greater-than-or-equal-to",
+"42\u00e942\u226542": "e-acute and greater-than-or-equal-to, and 42",
+"\u00E9": "e-acute with upper-case hex",
+"\uD834\uDD1E": "G-clef (UTF16 surrogate pair)"
+}

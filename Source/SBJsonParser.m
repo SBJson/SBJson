@@ -67,11 +67,7 @@ static char ctrl[0x22];
     ctrl[0x21] = 0;    
 }
 
-/**
- @deprecated This exists in order to provide fragment support in older APIs in one more version.
- It should be removed in the next major version.
- */
-- (id)fragmentWithString:(id)repr {
+- (id)objectWithString:(NSString *)repr {
     [self clearErrorTrace];
     
     if (!repr) {
@@ -94,14 +90,6 @@ static char ctrl[0x22];
     }
     
     NSAssert1(o, @"Should have a valid object from %@", repr);
-    return o;    
-}
-
-- (id)objectWithString:(NSString *)repr {
-    
-    id o = [self fragmentWithString:repr];
-    if (!o)
-        return nil;
     
     // Check that the object we've found is a valid JSON container.
     if (![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]]) {
@@ -111,6 +99,17 @@ static char ctrl[0x22];
     
     return o;
 }
+
+- (id)objectWithString:(NSString*)repr error:(NSError**)error {
+    id tmp = [self objectWithString:repr];
+    if (tmp)
+        return tmp;
+    
+    if (error)
+        *error = [self.errorTrace lastObject];
+    return nil;
+}
+
 
 /*
  In contrast to the public methods, it is an error to omit the error parameter here.

@@ -42,6 +42,9 @@
 
 @implementation SBJsonWriter
 
+@synthesize sortKeys;
+@synthesize humanReadable;
+
 static NSMutableCharacterSet *kEscapeChars;
 
 + (void)initialize {
@@ -49,30 +52,14 @@ static NSMutableCharacterSet *kEscapeChars;
 	[kEscapeChars addCharactersInString: @"\"\\"];
 }
 
-
-@synthesize sortKeys;
-@synthesize humanReadable;
-
-/**
- @deprecated This exists in order to provide fragment support in older APIs in one more version.
- It should be removed in the next major version.
- */
-- (NSString*)stringWithFragment:(id)value {
-    [self clearErrorTrace];
-    depth = 0;
-    NSMutableString *json = [NSMutableString stringWithCapacity:128];
-    
-    if ([self appendValue:value into:json])
-        return json;
-    
-    return nil;
-}
-
-
 - (NSString*)stringWithObject:(id)value {
+    [self clearErrorTrace];
     
     if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]) {
-        return [self stringWithFragment:value];
+        depth = 0;
+        NSMutableString *json = [NSMutableString stringWithCapacity:128];
+        if ([self appendValue:value into:json])
+            return json;
     }
     
     if ([value respondsToSelector:@selector(proxyForJson)]) {
@@ -81,12 +68,19 @@ static NSMutableCharacterSet *kEscapeChars;
             return tmp;
     }
         
-
-    [self clearErrorTrace];
     [self addErrorWithCode:EFRAGMENT description:@"Not valid type for JSON"];
     return nil;
 }
 
+- (NSString*)stringWithObject:(id)value error:(NSError**)error {
+    NSString *tmp = [self stringWithObject:value];
+    if (tmp)
+        return tmp;
+    
+    if (error)
+        *error = [self.errorTrace lastObject];
+    return nil;
+}
 
 - (NSString*)indent {
     return [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0];

@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2009 Stig Brautaset. All rights reserved.
+ Copyright (C) 2009-2010 Stig Brautaset. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -27,22 +27,50 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
+#import "MaxDepthTest.h"
+#import "JSON/JSON.h"
 
-/**
- @brief Adds JSON parsing methods to NSString
- 
-This is a category on NSString that adds methods for parsing the target string.
-*/
-@interface NSString (NSString_SBJSON)
+@implementation MaxDepthTest
 
-/**
- @brief Returns the NSDictionary or NSArray represented by the current string's JSON representation.
- 
- Returns the dictionary or array represented in the receiver, or nil on error.
+- (void)setUp {
+    [super setUp];
+    parser.maxDepth = writer.maxDepth = 2;
+}
 
- Returns the NSDictionary or NSArray represented by the current string's JSON representation.
- */
-- (id)JSONValue;
+- (void)testParseDepthOk {
+    STAssertNotNil([parser objectWithString:@"[[]]"], nil);
+}
+
+- (void)testParseTooDeep {
+    STAssertNil([parser objectWithString:@"[[[]]]"], nil);
+    STAssertEquals([[parser.errorTrace objectAtIndex:0] code], (NSInteger)EDEPTH, nil);
+}
+
+- (void)testWriteDepthOk {
+    NSArray *a1 = [NSArray array];
+    NSArray *a2 = [NSArray arrayWithObject:a1];
+    STAssertNotNil([writer stringWithObject:a2], nil);
+}
+
+- (void)testWriteTooDeep {
+    NSArray *a1 = [NSArray array];
+    NSArray *a2 = [NSArray arrayWithObject:a1];
+    NSArray *a3 = [NSArray arrayWithObject:a2];
+    STAssertNil([writer stringWithObject:a3], nil);
+    STAssertEquals([[writer.errorTrace objectAtIndex:0] code], (NSInteger)EDEPTH, nil);
+}
+
+- (void)testWriteRecursion {
+    // set a high limit
+    writer.maxDepth = 100;
+    
+    // create a challenge!
+    NSMutableArray *a1 = [NSMutableArray array];
+    NSMutableArray *a2 = [NSMutableArray arrayWithObject:a1];
+    [a1 addObject:a2];
+
+    STAssertNil([writer stringWithObject:a1], nil);
+    STAssertEquals([[writer.errorTrace objectAtIndex:0] code], (NSInteger)EDEPTH, nil);
+}
 
 @end

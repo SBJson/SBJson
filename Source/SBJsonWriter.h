@@ -66,6 +66,19 @@
  */
 - (NSString*)stringWithObject:(id)value;
 
+/**
+ @brief Return JSON representation (or fragment) for the given object.
+ 
+ Returns a string containing JSON representation of the passed in value, or nil on error.
+ If nil is returned and @p error is not NULL, @p *error can be interrogated to find the cause of the error.
+ 
+ @param value any instance that can be represented as a JSON fragment
+ @param error pointer to object to be populated with NSError on failure
+ 
+ */- (NSString*)stringWithObject:(id)value
+                        error:(NSError**)error;
+
+
 @end
 
 
@@ -97,11 +110,6 @@
     BOOL sortKeys, humanReadable;
 }
 
-@end
-
-// don't use - exists for backwards compatibility. Will be removed in 2.3.
-@interface SBJsonWriter (Private)
-- (NSString*)stringWithFragment:(id)value;
 @end
 
 /**
