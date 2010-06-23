@@ -20,7 +20,7 @@ xcodebuild -target JSON -configuration Release install || exit 1
 cp -p -R /tmp/Frameworks/$PROJECT.framework $DISK_IMAGE
 
 # Copy the source verbatim into the disk image.
-cp -p -R $SOURCE_ROOT/Source $DISK_IMAGE/$PROJECT
+cp -p -R $SOURCE_ROOT/Classes $DISK_IMAGE/$PROJECT
 rm -rf $DISK_IMAGE/$PROJECT/.svn
 
 # Create the documentation

@@ -215,8 +215,7 @@
 				535157A30F6EE4A800C8AABD /* SBJsonWriter.h */,
 				535157A40F6EE4A800C8AABD /* SBJsonWriter.m */,
 			);
-			name = Classes;
-			path = Source;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		53D229960C96124500276605 /* Tests */ = {
