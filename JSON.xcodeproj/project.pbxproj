@@ -14,6 +14,8 @@
 				BCC046C10FB645F100F9F2D3 /* ShellScript */,
 			);
 			dependencies = (
+				BC25716711D67FC2001ECDFE /* PBXTargetDependency */,
+				BC25716911D67FC5001ECDFE /* PBXTargetDependency */,
 			);
 			name = CreateDiskImage;
 			productName = CreateDiskImage;
@@ -84,6 +86,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = FE2BBD7F0D8B0D3900184787;
 			remoteInfo = json;
+		};
+		BC25716611D67FC2001ECDFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 53D229730C9611FF00276605 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 53D2298C0C96122A00276605 /* Tests */;
+			remoteInfo = Tests;
+		};
+		BC25716811D67FC5001ECDFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 53D229730C9611FF00276605 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BCC047160FB651AF00F9F2D3 /* Documentation */;
+			remoteInfo = Documentation;
 		};
 		FE2BBDB30D8B0F0F00184787 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -568,6 +584,16 @@
 			isa = PBXTargetDependency;
 			target = FE2BBD7F0D8B0D3900184787 /* libjson */;
 			targetProxy = 53EF4F960DC52FD0005F5E6D /* PBXContainerItemProxy */;
+		};
+		BC25716711D67FC2001ECDFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 53D2298C0C96122A00276605 /* Tests */;
+			targetProxy = BC25716611D67FC2001ECDFE /* PBXContainerItemProxy */;
+		};
+		BC25716911D67FC5001ECDFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BCC047160FB651AF00F9F2D3 /* Documentation */;
+			targetProxy = BC25716811D67FC5001ECDFE /* PBXContainerItemProxy */;
 		};
 		FE2BBDB40D8B0F0F00184787 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

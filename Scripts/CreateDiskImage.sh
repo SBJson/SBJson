@@ -15,16 +15,8 @@ rm -f $DISK_IMAGE_FILE
 test -d $DISK_IMAGE && chmod -R +w $DISK_IMAGE && rm -rf $DISK_IMAGE
 mkdir -p $DISK_IMAGE
 
-# Create the Embedded framework and copy it to the disk image.
-xcodebuild -target JSON -configuration Release install || exit 1
-cp -p -R /tmp/Frameworks/$PROJECT.framework $DISK_IMAGE
-
 # Copy the source verbatim into the disk image.
 cp -p -R $SOURCE_ROOT/Classes $DISK_IMAGE/$PROJECT
-
-# Create the documentation
-xcodebuild -target Documentation -configuration Release install || exit 1
-cp -p -R $INSTALL_DIR/DocSet/html $DISK_IMAGE/Documentation
 
 cat <<HTML > $DISK_IMAGE/Documentation.html
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
