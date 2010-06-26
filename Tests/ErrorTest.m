@@ -83,6 +83,26 @@
     }
 }
 
+- (void)testInfinity {
+    NSArray *obj = [NSArray arrayWithObject:[NSNumber numberWithDouble:INFINITY]];
+    NSError *error = nil;
+    STAssertNil([writer stringWithObject:obj error:&error], nil);
+    assertUnderlyingErrorContains(error, @"Infinity is not a valid number in JSON");
+}
+
+- (void)testNegativeInfinity {
+    NSArray *obj = [NSArray arrayWithObject:[NSNumber numberWithDouble:-INFINITY]];
+    NSError *error = nil;
+    STAssertNil([writer stringWithObject:obj error:&error], nil);
+    assertUnderlyingErrorContains(error, @"Infinity is not a valid number in JSON");
+}
+
+- (void)testNaN {
+    NSArray *obj = [NSArray arrayWithObject:[NSDecimalNumber notANumber]];
+    NSError *error = nil;
+    STAssertNil([writer stringWithObject:obj error:&error], nil);
+    assertUnderlyingErrorContains(error, @"NaN is not a valid number in JSON");
+}
 
 #pragma mark Scanner
 
