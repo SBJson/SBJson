@@ -21,12 +21,10 @@ cp -p -R /tmp/Frameworks/$PROJECT.framework $DISK_IMAGE
 
 # Copy the source verbatim into the disk image.
 cp -p -R $SOURCE_ROOT/Classes $DISK_IMAGE/$PROJECT
-rm -rf $DISK_IMAGE/$PROJECT/.svn
 
 # Create the documentation
 xcodebuild -target Documentation -configuration Release install || exit 1
 cp -p -R $INSTALL_DIR/DocSet/html $DISK_IMAGE/Documentation
-rm -rf $DISK_IMAGE/DocSet/.svn
 
 cat <<HTML > $DISK_IMAGE/Documentation.html
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
