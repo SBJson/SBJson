@@ -31,11 +31,32 @@
 #import "SBJsonBase.h"
 
 /**
- @brief Options for the writer class.
+ @brief The JSON writer class.
  
- This exists so the SBJSON facade can implement the options in the writer without having to re-declare them.
+ Objective-C types are mapped to JSON types in the following way:
+ 
+ @li NSNull -> Null
+ @li NSString -> String
+ @li NSArray -> Array
+ @li NSDictionary -> Object
+ @li NSNumber (-initWithBool:) -> Boolean
+ @li NSNumber -> Number
+ 
+ In JSON the keys of an object must be strings. NSDictionary keys need
+ not be, but attempting to convert an NSDictionary with non-string keys
+ into JSON will throw an exception.
+ 
+ NSNumber instances created with the +initWithBool: method are
+ converted into the JSON boolean "true" and "false" values, and vice
+ versa. Any other NSNumber instances are converted to a JSON number the
+ way you would expect.
+ 
  */
-@protocol SBJsonWriter
+@interface SBJsonWriter : SBJsonBase {
+
+@private
+    BOOL sortKeys, humanReadable;
+}
 
 /**
  @brief Whether we are generating human-readable (multiline) JSON.
@@ -76,39 +97,8 @@
  @param error pointer to object to be populated with NSError on failure
  
  */- (NSString*)stringWithObject:(id)value
-                        error:(NSError**)error;
+                           error:(NSError**)error;
 
-
-@end
-
-
-/**
- @brief The JSON writer class.
- 
- Objective-C types are mapped to JSON types in the following way:
- 
- @li NSNull -> Null
- @li NSString -> String
- @li NSArray -> Array
- @li NSDictionary -> Object
- @li NSNumber (-initWithBool:) -> Boolean
- @li NSNumber -> Number
- 
- In JSON the keys of an object must be strings. NSDictionary keys need
- not be, but attempting to convert an NSDictionary with non-string keys
- into JSON will throw an exception.
- 
- NSNumber instances created with the +initWithBool: method are
- converted into the JSON boolean "true" and "false" values, and vice
- versa. Any other NSNumber instances are converted to a JSON number the
- way you would expect.
- 
- */
-@interface SBJsonWriter : SBJsonBase <SBJsonWriter> {
-
-@private
-    BOOL sortKeys, humanReadable;
-}
 
 @end
 

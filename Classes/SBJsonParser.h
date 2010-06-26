@@ -31,11 +31,31 @@
 #import "SBJsonBase.h"
 
 /**
-  @brief Options for the parser class.
+ @brief The JSON parser class.
  
- This exists so the SBJSON facade can implement the options in the parser without having to re-declare them.
+ JSON is mapped to Objective-C types in the following way:
+ 
+ @li Null -> NSNull
+ @li String -> NSMutableString
+ @li Array -> NSMutableArray
+ @li Object -> NSMutableDictionary
+ @li Boolean -> NSNumber (initialised with -initWithBool:)
+ @li Number -> (NSNumber | NSDecimalNumber)
+ 
+ Since Objective-C doesn't have a dedicated class for boolean values, these turns into NSNumber
+ instances. These are initialised with the -initWithBool: method, and 
+ round-trip back to JSON properly. (They won't silently suddenly become 0 or 1; they'll be
+ represented as 'true' and 'false' again.)
+ 
+ As an optimisation short JSON integers turn into NSNumber instances, while complex ones turn into NSDecimalNumber instances.
+ We can thus avoid any loss of precision as JSON allows ridiculously large numbers.
+ 
  */
-@protocol SBJsonParser
+@interface SBJsonParser : SBJsonBase {
+    
+@private
+    const char *c;
+}
 
 /**
  @brief Return the object represented by the given string
@@ -49,7 +69,7 @@
 
 /**
  @brief Return the object represented by the given string
-
+ 
  Returns the object represented by the passed-in string or nil on error. The returned object can be
  a string, number, boolean, null, array or dictionary.
  
@@ -60,35 +80,6 @@
 - (id)objectWithString:(NSString*)jsonText
                  error:(NSError**)error;
 
-@end
-
-
-/**
- @brief The JSON parser class.
- 
- JSON is mapped to Objective-C types in the following way:
- 
- @li Null -> NSNull
- @li String -> NSMutableString
- @li Array -> NSMutableArray
- @li Object -> NSMutableDictionary
- @li Boolean -> NSNumber (initialised with -initWithBool:)
- @li Number -> NSDecimalNumber
- 
- Since Objective-C doesn't have a dedicated class for boolean values, these turns into NSNumber
- instances. These are initialised with the -initWithBool: method, and 
- round-trip back to JSON properly. (They won't silently suddenly become 0 or 1; they'll be
- represented as 'true' and 'false' again.)
- 
- JSON numbers turn into NSDecimalNumber instances,
- as we can thus avoid any loss of precision. (JSON allows ridiculously large numbers.)
- 
- */
-@interface SBJsonParser : SBJsonBase <SBJsonParser> {
-    
-@private
-    const char *c;
-}
 
 @end
 
