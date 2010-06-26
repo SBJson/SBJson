@@ -26,7 +26,7 @@ cat <<EOF >> $DOXYFILE
 PROJECT_NAME           = $FULL_PRODUCT_NAME
 PROJECT_NUMBER         = $VERSION
 OUTPUT_DIRECTORY       = $DOCSET
-INPUT                  = $SOURCE_ROOT/Source
+INPUT                  = $SOURCE_ROOT/Classes
 FILE_PATTERNS          = *.h *.m
 
 HIDE_UNDOC_MEMBERS     = YES
