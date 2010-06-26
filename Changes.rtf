@@ -34,11 +34,13 @@
 \b0 \uc0\u8232 You should use the SBJsonParser or SBJsonWriter classes, or the category methods, instead.\
 \ls1\ilvl0
 \b {\listtext	\'95	}Removed the deprecated fragment support\uc0\u8232 
-\b0 Fragments were a bad idea from the start, but deceptively useful while writing the framework's test suite. This has now been rectified.
-\b \uc0\u8232 \
+\b0 Fragments were a bad idea from the start, but deceptively useful while writing the framework's test suite. This has now been rectified.\
+\ls1\ilvl0
+\b {\listtext	\'95	}Fix bug in handling of Infinity, -Infinity & NaN\uc0\u8232 
+\b0 The writer did not properly check for the above values in numbers and let those slip through the net when generating JSON text, even though they are explicitly forbidden. Fixed this bug.
+\b \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 \cf0 \
-\
 Version 2.2.3\
 
 \b0 Released March 7, 2010\
@@ -197,4 +199,5 @@ Released May 10th, 2009.\
 \pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 \cf0 \
 Release notes for earlier releases can be found here:\
-{\field{\*\fldinst{HYPERLINK "http://code.google.com/p/json-framework/wiki/ReleaseNotes"}}{\fldrslt http://code.google.com/p/json-framework/wiki/ReleaseNotes}}}
+\pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+{\field{\*\fldinst{HYPERLINK "http://code.google.com/p/json-framework/wiki/ReleaseNotes"}}{\fldrslt \cf0 http://code.google.com/p/json-framework/wiki/ReleaseNotes}}}
