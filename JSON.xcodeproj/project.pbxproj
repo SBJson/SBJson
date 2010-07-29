@@ -25,6 +25,7 @@
 			buildConfigurationList = BCC047190FB651CD00F9F2D3 /* Build configuration list for PBXAggregateTarget "Documentation" */;
 			buildPhases = (
 				BCC047150FB651AF00F9F2D3 /* Install Docset */,
+				BC3A1CB112023B860051A978 /* Refresh Online Docs */,
 			);
 			dependencies = (
 			);
@@ -472,6 +473,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		BC3A1CB112023B860051A978 /* Refresh Online Docs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Refresh Online Docs";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "exec $SOURCE_ROOT/Scripts/RefreshOnlineDocs.sh";
 		};
 		BCC046C10FB645F100F9F2D3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
