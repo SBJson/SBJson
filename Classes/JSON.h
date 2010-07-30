@@ -36,6 +36,8 @@
  categories added to existing Objective-C classes.
 
  Learn more on the http://code.google.com/p/json-framework project site.
+ The source is available at http://github.com/stig/json-framework. The API
+ documentation is available at http://stig.github.com/json-framework/api/ .
  
  This framework does its best to be as strict as possible, both in what it
  accepts and what it generates. For example, it does not support trailing commas

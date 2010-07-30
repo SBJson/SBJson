@@ -4,15 +4,10 @@ set -x
 
 DOCSET=$INSTALL_DIR/Docset/html
 
-apidir=~/Dropbox/Public/json-framework/api
+apidir=api
 
 if ! test -f "$DOCSET/index.html" ; then
     echo "$dir does not contain index.html"
-    exit 1
-fi
-
-if ! test -f "$apidir/index.html" ; then
-    echo "$apidir does not contain index.html"
     exit 1
 fi
 
@@ -26,5 +21,15 @@ rm -f $tmpdir/Makefile
 rm -f $tmpdir/*.xml
 rm -f $tmpdir/*.plist
 
+branch=$(git branch | awk '$1 == "*" { print $2 }' )
+git stash
+git checkout gh-pages
+
 rm -rf $apidir
 mv $tmpdir $apidir
+
+git add -A
+git commit -m 'refresh api docs'
+git checkout $branch
+git stash apply
+
