@@ -35,14 +35,23 @@
  JSON. One standard object-based and a higher level api consisting of
  categories added to existing Objective-C classes.
 
- @li Learn more on the <a href="http://code.google.com/p/json-framework">Google code project site</a>.
+ This framework does its best to be as strict as possible, both in what it accepts and what it generates. For example, it does not support trailing commas in arrays or objects. Nor does it support embedded comments, or anything else not in the JSON specification. This is considered a feature. 
+  
+ @section Features
+
+ @li Easy-to-use API.
+ @li Strict parsing & generation.
+ @li Stack of error available in case of failure so you can easily figure out what is wrong.
+ @li Optional pretty-printing of JSON output.
+ @li Optionally sorted dictionary keys in JSON output.
+ @li Configurable recursion depth for parsing, for added security.
+
+
+ @section Links
+
+ @li <a href="http://code.google.com/p/json-framework">Google code project site</a>.
  @li Browse <a href="http://github.com/stig/json-framework">the source at github</a>.
- @li There is also <a href="http://stig.github.com/json-framework/api">online API documentation</a> available.
- 
- This framework does its best to be as strict as possible, both in what it
- accepts and what it generates. For example, it does not support trailing commas
- in arrays or objects. Nor does it support embedded comments, or
- anything else not in the JSON specification. This is considered a feature. 
+ @li Online version of the <a href="http://stig.github.com/json-framework/api">API documentation</a>. 
  
 */
 
