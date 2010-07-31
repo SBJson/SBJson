@@ -2,22 +2,27 @@
 
 ## Version 2.3beta1 (July 31, 2010)
 
-* **Parsing performance improvements**  
-Dewvinci & Tobias Hoehman came up with a patch to improve parsing of short JSON texts with lots of numbers by over 60%.  
-* **Fixed header-inclusion issue in framework**  
-This was issue 38.
-* **Fix bug in handling of Infinity, -Infinity & NaN**  
-The writer did not properly check for the above values in numbers and let those slip through the net when generating JSON text, even though they are explicitly forbidden. Reported by George MacKerron. Issue 74.
-* **Fixed documentation bug**  
-Issue 68. Patch from hiroshi3110.
+### Changes
+
 * **Removed problematic SDK**  
-The vast majority of the issues people are having with this framework were related to the somewhat mystical Custom SDK. This has been removed in this version. Issues 33, 58, 63, and 64 to name a few.
+Issue 33, 58, 63, and 64--to name a few. The vast majority of the issues people are having with this framework were related to the somewhat mystical Custom SDK. This has been removed in this version. 
 * **Removed the deprecated SBJSON facade**  
-You should use the SBJsonParser or SBJsonWriter classes, or the category methods, instead. Issue 71. This also let us remove the SBJsonParser and SBJsonWriter categories; these were only there to support the facade, but made the code less transparent.
+Issue 71. You should use the SBJsonParser or SBJsonWriter classes, or the category methods, instead. This also let us remove the SBJsonParser and SBJsonWriter categories; these were only there to support the facade, but made the code less transparent.
 * **Removed the deprecated fragment support**  
-Fragments were a bad idea from the start, but deceptively useful while writing the framework's test suite. This has now been rectified. Issue 70.
-* **Refactored tests to be more data-driven**  
+Issue 70. Fragments were a bad idea from the start, but deceptively useful while writing the framework's test suite. This has now been rectified. 
+
+### Improvements
+
+* **Parsing performance improvements.**  
+Issue 56. Dewvinci & Tobias Hoehman came up with a patch to improve parsing of short JSON texts with lots of numbers by over 60%.
+* **Refactored tests to be more data-driven.**  
 This should make the source leaner and easier to maintain.
+
+### Bug Fixes
+
+* Issue 38: Fixed header-inclusion issue.
+* Issue 74: Fix bug in handling of Infinity, -Infinity & NaN.
+* Issue 68: Fixed documentation bug
 
 ## Version 2.2.3 (March 7, 2010)
 
