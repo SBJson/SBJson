@@ -18,6 +18,14 @@ mkdir -p $DISK_IMAGE
 # Copy the source verbatim into the disk image.
 cp -p -R $SOURCE_ROOT/Classes $DISK_IMAGE/$PROJECT
 
+DOCDIR=$DISK_IMAGE/Documentation
+
+cp -p -R $INSTALL_DIR/Docset/html/ $DOCDIR
+rm -rf $DOCDIR/org.brautaset.JSON.docset
+rm -f $DOCDIR/Makefile
+rm -f $DOCDIR/*.xml
+rm -f $DOCDIR/*.plist
+
 cat <<HTML > $DISK_IMAGE/Documentation.html
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -33,9 +41,9 @@ window.location = "Documentation/index.html"
 </html>
 HTML
 
-cp -p $SOURCE_ROOT/README.md $DISK_IMAGE
-cp -p $SOURCE_ROOT/Credits.rtf $DISK_IMAGE
-cp -p $SOURCE_ROOT/Install.rtf $DISK_IMAGE
-cp -p $SOURCE_ROOT/Changes.rtf $DISK_IMAGE
+for f in $SOURCE_ROOT/*.md ; do
+    dst=$(basename $f)
+    ~/Dropbox/Scripts/Markdown.pl $f > $DISK_IMAGE/${dst%.md}.html
+done
 
 hdiutil create -fs HFS+ -volname $VOLNAME -srcfolder $DISK_IMAGE $DISK_IMAGE_FILE
