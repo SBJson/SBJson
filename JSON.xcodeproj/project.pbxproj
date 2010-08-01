@@ -130,16 +130,17 @@
 		53EF4D4D0DC2483C005F5E6D /* bench.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bench.m; sourceTree = "<group>"; };
 		BC0387E611CEC07A0080C552 /* AbstractTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractTest.h; sourceTree = "<group>"; };
 		BC0387E711CEC07A0080C552 /* AbstractTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractTest.m; sourceTree = "<group>"; };
+		BC3A1CDC12060DAC0051A978 /* Changes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changes.md; sourceTree = "<group>"; };
+		BC3A1CDD12060DAC0051A978 /* Credits.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Credits.md; sourceTree = "<group>"; };
+		BC3A1CDE12060DAC0051A978 /* Installation.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installation.md; sourceTree = "<group>"; };
+		BC3A1CDF12060DAC0051A978 /* License.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License.md; sourceTree = "<group>"; };
 		BC74B6EA0FC9FAD0000BD3DD /* MaxDepthTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxDepthTest.h; sourceTree = "<group>"; };
 		BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxDepthTest.m; sourceTree = "<group>"; };
 		BC74B7AC0FCA8B89000BD3DD /* ProxyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxyTest.h; sourceTree = "<group>"; };
 		BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyTest.m; sourceTree = "<group>"; };
-		BCC0466A0FB62CA600F9F2D3 /* Install.rtf */ = {isa = PBXFileReference; explicitFileType = text.rtf; path = Install.rtf; sourceTree = "<group>"; };
 		BCC0466C0FB62CF100F9F2D3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		BCC047320FB6584C00F9F2D3 /* InstallDocumentation.sh */ = {isa = PBXFileReference; explicitFileType = text.script.sh; fileEncoding = 4; path = InstallDocumentation.sh; sourceTree = "<group>"; };
 		BCC047330FB6586100F9F2D3 /* CreateDiskImage.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = CreateDiskImage.sh; sourceTree = "<group>"; };
-		BCC047920FB727F600F9F2D3 /* Credits.rtf */ = {isa = PBXFileReference; explicitFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
-		BCC047DA0FB743B100F9F2D3 /* Changes.rtf */ = {isa = PBXFileReference; explicitFileType = text.rtf; path = Changes.rtf; sourceTree = "<group>"; };
 		E75716430C96DB530084A449 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
 		E757164B0C96E39B0084A449 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
@@ -282,10 +283,11 @@
 		BCC047D30FB742FC00F9F2D3 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
+				BC3A1CDC12060DAC0051A978 /* Changes.md */,
+				BC3A1CDD12060DAC0051A978 /* Credits.md */,
+				BC3A1CDE12060DAC0051A978 /* Installation.md */,
+				BC3A1CDF12060DAC0051A978 /* License.md */,
 				BCC0466C0FB62CF100F9F2D3 /* README.md */,
-				BCC047920FB727F600F9F2D3 /* Credits.rtf */,
-				BCC0466A0FB62CA600F9F2D3 /* Install.rtf */,
-				BCC047DA0FB743B100F9F2D3 /* Changes.rtf */,
 			);
 			name = Documents;
 			sourceTree = "<group>";
