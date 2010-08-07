@@ -31,5 +31,5 @@ mv $tmpdir $apidir
 git add -A
 git commit -m 'refresh api docs'
 git checkout $branch
-git stash apply
+git stash pop -q
 
