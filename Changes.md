@@ -1,5 +1,10 @@
 # JSON Framework Changes
 
+## Version 2.3 (August 7, 2010)
+
+* Renamed README.md to Readme.md
+* Updated version number
+
 ## Version 2.3beta1 (July 31, 2010)
 
 ### Changes
