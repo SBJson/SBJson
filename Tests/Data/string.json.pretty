@@ -12,6 +12,7 @@
   "foo\\bar",
   "foobar",
   "with internal   spaces",
-  "/test/path",
+  "/unescaped/slashes",
+  "/escaped/slashes",
   "\\/test\\/path"
 ]
