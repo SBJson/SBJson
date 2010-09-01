@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>json-framework @ github.com</title>
+    <title>{{ title }}</title>
     <style type="text/css">
       body {
         background-color: #D5D6D7;
@@ -9,13 +9,19 @@
         text-align: center;
         align: center;
       }
+      #outerContainer {
+        border:1px solid #959596;
+        font-family: "helvetica"; 
+        color: #000000;
+        margin: 0 auto;
+        background-color: #ffffff;
+      }
       #container {
         margin-left: auto;
         margin-right: auto;
         text-align: left;
         width: 700px;
         color: #333333;
-        background-color: #ffffff;
       }
       h1 { font-size: 3.8em; color: #736f30; margin-bottom: 3px; }
       h2 { font-size: 1.5em; text-align: center;}
@@ -25,9 +31,12 @@
   </head>
 
   <body>
-    <div id="container">
+    <div id="outerContainer">
+      <div id="container">
+
   {{ content }}
 
-    </div>
+      </div><!-- container -->
+    </div><!-- outerContainer -->
   </body>
 </html>
