@@ -9,16 +9,7 @@ layout: simple
 
 ## Overview
 
-This framework implements a strict JSON parser and generator in Objective-C.
-
-The framework adds categories to existing Objective-C objects for a super-simple interface, and provides classes with more flexible APIs for added control.
-
-* Easy-to-use API.
-* Strict parsing & generation.
-* Stack of error available in case of failure so you can easily figure out what is wrong.
-* Optional pretty-printing of JSON output.
-* Optionally sorted dictionary keys in JSON output.
-* Configurable recursion depth for parsing, for added security.
+This framework implements a strict JSON parser and generator in Objective-C. It adds categories to existing Objective-C objects for a super-simple interface, and provides classes with more flexible APIs for added control.
 
 ## Documentation
 
@@ -44,3 +35,11 @@ Check out the [json-framework mailing list](http://groups.google.com/group/json-
 You can also clone the project with [Git](http://git-scm.com) by running:
 > `$ git clone git://github.com/stig/json-framework`
 
+## Features
+
+* Easy-to-use API.
+* Strict parsing & generation.
+* Stack of error available in case of failure so you can easily figure out what is wrong.
+* Optional pretty-printing of JSON output.
+* Optionally sorted dictionary keys in JSON output.
+* Configurable recursion depth for parsing, for added security.
