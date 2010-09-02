@@ -3,11 +3,19 @@
 set -x
 
 DOCSET=$INSTALL_DIR/Docset/html
+VERSION=$(agvtool mvers -terse1 | perl -pe 's/(\d\.\d+)(\.\d+)*/$1/')
 
-apidir=api
+apidir=$VERSION
 
 if ! test -f "$DOCSET/index.html" ; then
     echo "$dir does not contain index.html"
+    exit 1
+fi
+
+
+status=$(git status -s)
+if ! test -z $status ; then
+    echo "Checkout has uncommitted changes"
     exit 1
 fi
 
@@ -22,14 +30,13 @@ rm -f $tmpdir/*.xml
 rm -f $tmpdir/*.plist
 
 branch=$(git branch | awk '$1 == "*" { print $2 }' )
-git stash
 git checkout gh-pages
 
 rm -rf $apidir
 mv $tmpdir $apidir
+ln -sf $apidir api
 
 git add -A
 git commit -m 'refresh api docs'
 git checkout $branch
-git stash pop -q
 
