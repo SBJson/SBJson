@@ -39,6 +39,6 @@ mv $tmpdir $apidir
 ln -s $apidir $latest
 
 git add -A
-git commit -m 'refresh api docs'
+git commit -m "refresh api docs for v$VERSION"
 git checkout $branch
 
