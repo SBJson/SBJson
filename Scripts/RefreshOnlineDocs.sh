@@ -6,6 +6,7 @@ DOCSET=$INSTALL_DIR/Docset/html
 VERSION=$(agvtool mvers -terse1 | perl -pe 's/(\d\.\d+)(\.\d+)*/$1/')
 
 apidir=$VERSION
+latest=api
 
 if ! test -f "$DOCSET/index.html" ; then
     echo "$dir does not contain index.html"
@@ -32,9 +33,10 @@ rm -f $tmpdir/*.plist
 branch=$(git branch | awk '$1 == "*" { print $2 }' )
 git checkout gh-pages
 
+rm -f $latest
 rm -rf $apidir
 mv $tmpdir $apidir
-ln -sf $apidir api
+ln -s $apidir $latest
 
 git add -A
 git commit -m 'refresh api docs'
