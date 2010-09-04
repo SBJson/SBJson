@@ -1,30 +1,28 @@
 ---
 title: JSON Framework
-layout: simple
+layout: default
 ---
 
-# JSON framework
-
-## Overview
+# Overview
 
 A strict JSON parser and generator for Objective-C. It adds categories to existing Objective-C objects for a super-simple interface. More flexible APIs are also provided for added control.
 
-## Documentation
+# Documentation
 
 API documentation generated from the source by [Doxygen](http://www.doxygen.org):
 
 * [Version 2.3](2.3/)
 
-## Code
+# Code
 
 Available on github: [github.com/stig/json-framework](http://github.com/stig/json-framework).
 
-## Support
+# Support
 
 The mailing list at Google groups:
 [groups.google.com/group/json-framework](http://groups.google.com/group/json-framework).
 
-## Download
+# Download
 
 * [latest (zip file)](http://github.com/stig/json-framework/zipball/master)
 * [latest (tarball)](http://github.com/stig/json-framework/tarball/master)
@@ -36,7 +34,7 @@ You can also clone the project with [Git](http://git-scm.com) by running:
 $ git clone git://github.com/stig/json-framework
 </pre>
 
-## Features
+# Features
 
 * Easy-to-use API.
 * Strict parsing & generation.
@@ -45,7 +43,7 @@ $ git clone git://github.com/stig/json-framework
 * Optionally sorted dictionary keys in JSON output.
 * Configurable recursion depth for parsing, for added security.
 
-## License
+# License
 
 Copyright (C) 2007--2010 Stig Brautaset. All rights reserved.
 
@@ -57,7 +55,7 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-## Author
+# Author
 
 Stig Brautaset - [stig.github.com](http://stig.github.com)
 
