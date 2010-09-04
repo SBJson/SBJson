@@ -91,9 +91,6 @@ article {
 article h1 {
   padding-left: 15px;
   margin-left: -15px;
-}
-
-article h1 {
   margin-top: 1em;
   margin-bottom: 0.5em;
   font-weight: bold;
@@ -112,20 +109,13 @@ article h1 #date {
   text-transform: lowercase;
 }
 
-article h1 p {
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-top: 1.0em;
-  margin-bottom: 1.5em;
-}
-
 article h1 a:hover {
   background: none;
   color: inherit;
   text-decoration: none;
 }
 
-article h1 a:hover .arrow {
+article h1 a:hover {
   display: inline;
 }
 
@@ -137,7 +127,6 @@ article h2 {
   border-bottom: #ddd solid 3px;
 }
 
-
 article p {
   color: #333;
   line-height: 1.5em;
@@ -148,8 +137,12 @@ article ul {
   list-style-type: circle;
 }
 
+article li {
+  margin: 0em 1.2em;
+}
+
 article p, article pre {
-  margin: 0.75em 0em;
+  margin: 0.75em 0em;  
 }
 
 pre, code {
