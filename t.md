@@ -3,9 +3,11 @@ title: JSON Framework
 layout: default
 ---
 
+<section>
 # Overview
 
 A strict JSON parser and generator for Objective-C. It adds categories to existing Objective-C objects for a super-simple interface. More flexible APIs are also provided for added control.
+</section>
 
 # Documentation
 
@@ -13,9 +15,11 @@ API documentation generated from the source by [Doxygen](http://www.doxygen.org)
 
 * [Version 2.3](2.3/)
 
+<section>
 # Code
 
 Available on github: [github.com/stig/json-framework](http://github.com/stig/json-framework).
+</section>
 
 # Support
 
