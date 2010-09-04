@@ -145,14 +145,12 @@ article p {
 article ul {
   color: #333;
   list-style-type: circle;
+  margin: 1.5em 0em;
+
 }
 
 article p, article pre {
   margin: 0.75em 0em;
-}
-
-article ul, article ol {
-  margin: 1.5em 0em;
 }
 
 pre, code {
