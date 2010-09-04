@@ -112,7 +112,10 @@ article h1 #date {
 }
 
 article h1 p {
-  margin: 0px 0px 0px 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
 }
 
 article h1 a:hover {
@@ -144,10 +147,11 @@ article ul {
   list-style-type: circle;
 }
 
-article p, article pre {
+article p, article pre, article ul {
   margin: 0.75em 0em;
 }
 
+/*
 article p:first-of-type {
   margin-top: 0em;
 }
@@ -157,13 +161,12 @@ article p:last-child {
 }
 
 section {
-  margin-top: 1.0em;
-  margin-bottom: 1.5em;
 }
 
 section:first-of-type {
   margin-top: 0.0em;
 }
+*/
 
 pre, code {
   font-family: 'Bitstream Vera Sans Mono', Courier, monospace;
