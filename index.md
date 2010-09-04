@@ -30,6 +30,7 @@ The mailing list at Google groups:
 * [version 2.3 (tarball)](http://github.com/stig/json-framework/tarball/v2.3)
 
 You can also clone the project with [Git](http://git-scm.com) by running:
+
 <pre>
 $ git clone git://github.com/stig/json-framework
 </pre>
