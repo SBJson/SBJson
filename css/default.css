@@ -147,26 +147,13 @@ article ul {
   list-style-type: circle;
 }
 
-article p, article pre, article ul {
+article p, article pre {
   margin: 0.75em 0em;
 }
 
-/*
-article p:first-of-type {
-  margin-top: 0em;
+article ul, article ol {
+  margin: 1.5em 0em;
 }
-
-article p:last-child {
-  margin-bottom: 0em;
-}
-
-section {
-}
-
-section:first-of-type {
-  margin-top: 0.0em;
-}
-*/
 
 pre, code {
   font-family: 'Bitstream Vera Sans Mono', Courier, monospace;
