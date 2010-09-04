@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>{{ page.title | strip_html }}</title>
+	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+	<meta name="author" content="JSON, Framework, Objective-C" />
+
+	<base href="http://stig.github.com/json-framework/">
+
+	<!-- Homepage CSS -->
+	<link rel="stylesheet" href="css/default.css" type="text/css" media="screen, projection" />
+
+</head>
+<body>
+
+	<div class="site">
+		<header>
+			<div class="container">
+				<hgroup>
+					<h1><a href="/">JSON Framework</a></h1>
+				</hgroup>
+			</div>
+		</header>
+
+		<div id="container" class="container">
+				{{ content }}
+		</div>
+
+		<footer>
+			<div class="container">
+				<p>Valid <a href="http://validator.w3.org/check/referer">HTML5</a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3">CSS3</a>.</p>
+				<p>This website and its content are &copy; Stig Brautaset, unless otherwise noted.</p>
+			</div>
+		</footer>
+	</div>
+
+	<a href="http://github.com/stig"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+
+</body>
+</html>

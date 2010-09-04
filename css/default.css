@@ -1,0 +1,221 @@
+@font-face {
+  font-family: "League Gothic";
+  src: local("League Gothic"), url("fonts/League-Gothic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Prociono";
+  src: local("Prociono"), url("fonts/Prociono.otf") format("opentype"),
+     url("fonts/ProcionoTT.ttf") format("truetype");
+}
+
+
+
+article, aside, details, footer, header, hgroup, nav, section {
+  display: block;
+}
+
+* {
+  text-rendering: optimizeLegibility;
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  font-family: "Prociono", Georgia, serif;
+  background-color: #fefefe;
+}
+
+.container {
+  width: 700px;
+  margin: 0px auto 0px 150px;
+}
+
+.clear {
+  clear: both;
+}
+
+a {
+  color: inherit;
+}
+
+
+header {
+  text-align: left;
+  margin-top: 3.0em;
+  margin-bottom: 0.2em;
+  padding-bottom: 0.5em;
+}
+
+header hgroup {
+  clear: both;
+}
+
+header .container {
+  position: relative;
+}
+
+header h1 {
+  color:  #555;
+  font-weight: normal;
+  font-size: 6.5em;
+  font-family: "League Gothic", "Helvetica Neue", sans-serif;
+}
+
+header:hover h1 {
+  color: #999;
+}
+
+
+header a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a {
+  color: #000;
+  text-decoration: underline;
+}
+
+a:hover {
+  background-color: #f8f8ff;
+  color: #222;
+}
+
+
+article {
+  padding: 0em 0em 1em;
+  margin-bottom: 0.7em;
+}
+
+article h1/*, article h2 */{
+  padding-left: 15px;
+  margin-left: -15px;
+}
+
+article h1 {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  font-size: 1.5em;
+  background-color: #f8f8f8;
+  border-top: #555 solid 5px;
+  border-bottom: #ddd solid 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+article h1 #date {
+  color: #ccc;
+  text-align: right;
+  padding-right: 20px;
+  text-transform: lowercase;
+}
+
+article h1 p {
+  margin: 0px 0px 0px 0px;
+}
+
+article h1 a:hover {
+  background: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+article h1 a:hover .arrow {
+  display: inline;
+}
+
+article h2 {
+  margin-top: 1.5em;
+  font-weight: normal;
+  font-size: 1.25em;
+  background-color: #fcfcfc;
+  border-bottom: #ddd solid 3px;
+}
+
+
+article p {
+  color: #333;
+  line-height: 1.5em;
+}
+
+article ul {
+  color: #333;
+  list-style-type: circle;
+}
+
+article p, article pre {
+  margin: 0.75em 0em;
+}
+
+article p:first-of-type {
+  margin-top: 0em;
+}
+
+article p:last-child {
+  margin-bottom: 0em;
+}
+
+section {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+
+section:first-of-type {
+  margin-top: 0.0em;
+}
+
+pre, code {
+  font-family: 'Bitstream Vera Sans Mono', Courier, monospace;
+  font-size: 0.8em;
+  padding: 0.2em;
+}
+
+code {
+  background-color: #f8f8f8;
+}
+
+.quiet {
+  color: #bdbdbd;
+}
+
+
+footer {
+  background-color: #f8f8f8;
+  padding-top: 2px;
+  border-top: #ddd solid 5px;
+  border-bottom: #ddd solid 1px;
+  margin-top: 20px;
+  margin-bottom: -2px;
+  font-size: 0.7em;
+  color: #666;
+}
+
+footer p {
+  margin: 0.6em 0em;
+}
+
+footer a {
+  color: #999;
+}
+
+footer a:hover {
+  text-decoration: none;
+  color: #eee;
+}
+
+blockquote {
+  margin-left: 30px;
+  margin-bottom: 1.0em;
+  font-style: italic;
+}
+
+hr {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  
+  border: 0px;
+  color: #ddd;
+  background-color: #ddd;
+  height: 1px;
+}
