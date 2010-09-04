@@ -88,12 +88,13 @@ article {
   margin-bottom: 0.7em;
 }
 
-article h1/*, article h2 */{
+article h1 {
   padding-left: 15px;
   margin-left: -15px;
 }
 
 article h1 {
+  margin-top: 1em;
   margin-bottom: 0.5em;
   font-weight: bold;
   font-size: 1.5em;
@@ -145,8 +146,6 @@ article p {
 article ul {
   color: #333;
   list-style-type: circle;
-  margin: 1.5em 0em;
-
 }
 
 article p, article pre {
