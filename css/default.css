@@ -154,6 +154,8 @@ article p, article pre {
 }
 
 pre, code {
+  background: #000;
+  color: #fff;
   font-family: 'Bitstream Vera Sans Mono', Courier, monospace;
   font-size: 0.8em;
   padding: 0.2em;
