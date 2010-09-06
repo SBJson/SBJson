@@ -106,7 +106,7 @@ static NSMutableCharacterSet *kEscapeChars;
             [self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
             return NO;
 
-        } else if ([fragment isEqualToNumber:[NSNumber numberWithDouble:INFINITY]] || [fragment isEqualToNumber:[NSNumber numberWithDouble:-INFINITY]]) {
+        } else if (isinf([fragment doubleValue])) {
             [self addErrorWithCode:EUNSUPPORTED description:@"Infinity is not a valid number in JSON"];
             return NO;
 
