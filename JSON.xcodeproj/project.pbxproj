@@ -59,6 +59,8 @@
 		BC74B6ED0FC9FAD0000BD3DD /* MaxDepthTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */; };
 		BC74B7AE0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
 		BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
+		BC8F72A71235331400678720 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F72A61235331400678720 /* WriterTest.m */; };
+		BC8F72A81235331400678720 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F72A61235331400678720 /* WriterTest.m */; };
 		BCB55A5E1221D09400ACE34F /* array.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A001221D09400ACE34F /* array.json */; };
 		BCB55A5F1221D09400ACE34F /* array.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A011221D09400ACE34F /* array.json.pretty */; };
 		BCB55A601221D09400ACE34F /* array.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A021221D09400ACE34F /* array.json.terse */; };
@@ -318,6 +320,8 @@
 		BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxDepthTest.m; sourceTree = "<group>"; };
 		BC74B7AC0FCA8B89000BD3DD /* ProxyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxyTest.h; sourceTree = "<group>"; };
 		BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyTest.m; sourceTree = "<group>"; };
+		BC8F72A51235331400678720 /* WriterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriterTest.h; sourceTree = "<group>"; };
+		BC8F72A61235331400678720 /* WriterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriterTest.m; sourceTree = "<group>"; };
 		BCB55A001221D09400ACE34F /* array.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array.json; sourceTree = "<group>"; };
 		BCB55A011221D09400ACE34F /* array.json.pretty */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array.json.pretty; sourceTree = "<group>"; };
 		BCB55A021221D09400ACE34F /* array.json.terse */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array.json.terse; sourceTree = "<group>"; };
@@ -515,14 +519,16 @@
 			children = (
 				BC0387E611CEC07A0080C552 /* AbstractTest.h */,
 				BC0387E711CEC07A0080C552 /* AbstractTest.m */,
-				5355C86B0E392B2A00A18C15 /* ErrorTest.h */,
-				53C45B9B0C98A87600546F66 /* ErrorTest.m */,
 				5355C86C0E392B2A00A18C15 /* DataDrivenTest.h */,
 				E76A1EB60C996C2000A0CC83 /* DataDrivenTest.m */,
-				BC74B7AC0FCA8B89000BD3DD /* ProxyTest.h */,
-				BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */,
+				5355C86B0E392B2A00A18C15 /* ErrorTest.h */,
+				53C45B9B0C98A87600546F66 /* ErrorTest.m */,
 				BC74B6EA0FC9FAD0000BD3DD /* MaxDepthTest.h */,
 				BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */,
+				BC74B7AC0FCA8B89000BD3DD /* ProxyTest.h */,
+				BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */,
+				BC8F72A51235331400678720 /* WriterTest.h */,
+				BC8F72A61235331400678720 /* WriterTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1133,6 +1139,7 @@
 				BC74B6ED0FC9FAD0000BD3DD /* MaxDepthTest.m in Sources */,
 				BC74B7AE0FCA8B89000BD3DD /* ProxyTest.m in Sources */,
 				BC0387E911CEC07A0080C552 /* AbstractTest.m in Sources */,
+				BC8F72A71235331400678720 /* WriterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1165,6 +1172,7 @@
 				BC74B6EC0FC9FAD0000BD3DD /* MaxDepthTest.m in Sources */,
 				BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */,
 				BC0387E811CEC07A0080C552 /* AbstractTest.m in Sources */,
+				BC8F72A81235331400678720 /* WriterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
