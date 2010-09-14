@@ -28,7 +28,12 @@
  */
 
 #import <Foundation/Foundation.h>
+
+#if (TARGET_OS_IPHONE)
 #import "SBJsonBase.h"
+#else
+#import <JSON/SBJsonBase.h>
+#endif
 
 /**
  @brief The JSON parser class.

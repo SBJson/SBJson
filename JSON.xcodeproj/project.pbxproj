@@ -37,11 +37,11 @@
 /* Begin PBXBuildFile section */
 		5351577A0F6E3BE100C8AABD /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157780F6E3BE100C8AABD /* SBJsonParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5351577B0F6E3BE100C8AABD /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157790F6E3BE100C8AABD /* SBJsonParser.m */; };
-		5351577C0F6E3BE100C8AABD /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157780F6E3BE100C8AABD /* SBJsonParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5351577C0F6E3BE100C8AABD /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157780F6E3BE100C8AABD /* SBJsonParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5351577D0F6E3BE100C8AABD /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157790F6E3BE100C8AABD /* SBJsonParser.m */; };
 		535157A50F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		535157A60F6EE4A800C8AABD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
-		535157A70F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		535157A70F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		535157A80F6EE4A800C8AABD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
 		535158700F70DE7A00C8AABD /* SBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5351586F0F70DE7A00C8AABD /* SBJsonBase.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		535158710F70DE7A00C8AABD /* SBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5351586F0F70DE7A00C8AABD /* SBJsonBase.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -241,9 +241,9 @@
 		BCB55B111221D09400ACE34F /* string.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5B1221D09400ACE34F /* string.json */; };
 		BCB55B121221D09400ACE34F /* string.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5C1221D09400ACE34F /* string.json.pretty */; };
 		BCB55B131221D09400ACE34F /* string.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5D1221D09400ACE34F /* string.json.terse */; };
-		E75716450C96DB530084A449 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E75716450C96DB530084A449 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E75716460C96DB530084A449 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+SBJSON.m */; };
-		E757164D0C96E39B0084A449 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E757164B0C96E39B0084A449 /* NSString+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E757164D0C96E39B0084A449 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E757164B0C96E39B0084A449 /* NSString+SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E757164E0C96E39B0084A449 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E757164C0C96E39B0084A449 /* NSString+SBJSON.m */; };
 		E76A1EBD0C996EFD00A0CC83 /* DataDrivenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E76A1EB60C996C2000A0CC83 /* DataDrivenTest.m */; };
 		FE2BBD860D8B0D6000184787 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
