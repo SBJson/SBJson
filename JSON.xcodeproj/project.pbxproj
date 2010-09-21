@@ -7,19 +7,6 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		BCC046C20FB645F100F9F2D3 /* CreateDiskImage */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = BCC046C70FB6462500F9F2D3 /* Build configuration list for PBXAggregateTarget "CreateDiskImage" */;
-			buildPhases = (
-				BCC046C10FB645F100F9F2D3 /* ShellScript */,
-			);
-			dependencies = (
-				BC25716711D67FC2001ECDFE /* PBXTargetDependency */,
-				BC25716911D67FC5001ECDFE /* PBXTargetDependency */,
-			);
-			name = CreateDiskImage;
-			productName = CreateDiskImage;
-		};
 		BCC047160FB651AF00F9F2D3 /* Documentation */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = BCC047190FB651CD00F9F2D3 /* Build configuration list for PBXAggregateTarget "Documentation" */;
@@ -261,20 +248,6 @@
 			remoteGlobalIDString = 53D229800C96121600276605;
 			remoteInfo = JSON;
 		};
-		BC25716611D67FC2001ECDFE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 53D229730C9611FF00276605 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 53D2298C0C96122A00276605;
-			remoteInfo = Tests;
-		};
-		BC25716811D67FC5001ECDFE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 53D229730C9611FF00276605 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BCC047160FB651AF00F9F2D3;
-			remoteInfo = Documentation;
-		};
 		FE2BBDB30D8B0F0F00184787 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 53D229730C9611FF00276605 /* Project object */;
@@ -299,6 +272,7 @@
 		53D2298D0C96122A00276605 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D2298E0C96122A00276605 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		53D2299A0C96129800276605 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		BC010B181248A5E400ACC736 /* RefreshOnlineDocs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = RefreshOnlineDocs.sh; sourceTree = "<group>"; };
 		BC0387E611CEC07A0080C552 /* AbstractTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractTest.h; sourceTree = "<group>"; };
 		BC0387E711CEC07A0080C552 /* AbstractTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractTest.m; sourceTree = "<group>"; };
 		BC3A1CDC12060DAC0051A978 /* Changes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changes.md; sourceTree = "<group>"; };
@@ -406,7 +380,6 @@
 		BCB55B441221D50500ACE34F /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		BCC0466C0FB62CF100F9F2D3 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.md; sourceTree = "<group>"; };
 		BCC047320FB6584C00F9F2D3 /* InstallDocumentation.sh */ = {isa = PBXFileReference; explicitFileType = text.script.sh; fileEncoding = 4; path = InstallDocumentation.sh; sourceTree = "<group>"; };
-		BCC047330FB6586100F9F2D3 /* CreateDiskImage.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = CreateDiskImage.sh; sourceTree = "<group>"; };
 		E75716430C96DB530084A449 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
 		E757164B0C96E39B0084A449 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
@@ -650,7 +623,7 @@
 		BCC046DF0FB6478C00F9F2D3 /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
-				BCC047330FB6586100F9F2D3 /* CreateDiskImage.sh */,
+				BC010B181248A5E400ACC736 /* RefreshOnlineDocs.sh */,
 				BCC047320FB6584C00F9F2D3 /* InstallDocumentation.sh */,
 			);
 			path = Scripts;
@@ -790,7 +763,6 @@
 				53D2298C0C96122A00276605 /* Tests */,
 				FE2BBD7F0D8B0D3900184787 /* libjson */,
 				FE2BBDAA0D8B0EE000184787 /* libjsontests */,
-				BCC046C20FB645F100F9F2D3 /* CreateDiskImage */,
 				BCC047160FB651AF00F9F2D3 /* Documentation */,
 			);
 		};
@@ -1028,19 +1000,6 @@
 			shellPath = /bin/sh;
 			shellScript = "exec $SOURCE_ROOT/Scripts/RefreshOnlineDocs.sh";
 		};
-		BCC046C10FB645F100F9F2D3 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "exec $SOURCE_ROOT/Scripts/CreateDiskImage.sh";
-		};
 		BCC047150FB651AF00F9F2D3 /* Install Docset */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1128,16 +1087,6 @@
 			isa = PBXTargetDependency;
 			target = 53D229800C96121600276605 /* JSON */;
 			targetProxy = 53D229920C96122E00276605 /* PBXContainerItemProxy */;
-		};
-		BC25716711D67FC2001ECDFE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 53D2298C0C96122A00276605 /* Tests */;
-			targetProxy = BC25716611D67FC2001ECDFE /* PBXContainerItemProxy */;
-		};
-		BC25716911D67FC5001ECDFE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BCC047160FB651AF00F9F2D3 /* Documentation */;
-			targetProxy = BC25716811D67FC5001ECDFE /* PBXContainerItemProxy */;
 		};
 		FE2BBDB40D8B0F0F00184787 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1295,27 +1244,6 @@
 				PRODUCT_NAME = Tests;
 				SDKROOT = "";
 				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
-		BCC046C30FB645F100F9F2D3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = CreateDiskImage;
-			};
-			name = Debug;
-		};
-		BCC046C40FB645F100F9F2D3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = CreateDiskImage;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -1486,15 +1414,6 @@
 			buildConfigurations = (
 				53D229900C96122A00276605 /* Debug */,
 				53D229910C96122A00276605 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BCC046C70FB6462500F9F2D3 /* Build configuration list for PBXAggregateTarget "CreateDiskImage" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BCC046C30FB645F100F9F2D3 /* Debug */,
-				BCC046C40FB645F100F9F2D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
