@@ -1,7 +1,7 @@
 JSON Framework Installation
 ===========================
 
-The simplest way to start using the JSON Framework in your iPhone, iPad, or Mac application is to import the source into your application. 
+The simplest way to start using the JSON Framework in your iPhone, iPad, or Mac application is to simply copy the JSON sources into your Xcode project.
 
 1. Drag the JSON folder from the distribution.
 1. Drop it on the **Classes** group in the **Groups & Files** menu of your Xcode project.
@@ -15,8 +15,6 @@ If you're upgrading from a previous version, make sure you're deleting the old J
 
 Trouble-shooting
 ----------------
-
 Check to see if the answers to the [Frequently Asked Questions][faq] are of any help.
 
-
-[faq]: http://code.google.com/p/json-framework/wiki/FAQ
+[faq]: http://github.com/stig/json-framework/wiki/FrequentlyAskedQuestions
