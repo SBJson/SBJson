@@ -102,7 +102,7 @@ static NSMutableCharacterSet *kEscapeChars;
     } else if ([fragment isKindOfClass:[NSNumber class]]) {
         if ('c' == *[fragment objCType]) {
             [json appendString:[fragment boolValue] ? @"true" : @"false"];
-        } else if ([fragment isEqualToNumber:[NSDecimalNumber notANumber]]) {
+        } else if ([fragment isEqualToNumber:(NSNumber*)kCFNumberNaN]) {
             [self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
             return NO;
 
