@@ -677,10 +677,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 53D229850C96121700276605 /* Build configuration list for PBXNativeTarget "JSON" */;
 			buildPhases = (
+				BC5BC69F1249767600F22EB0 /* ShellScript */,
 				53D2297C0C96121600276605 /* Headers */,
 				53D2297D0C96121600276605 /* Resources */,
 				53D2297E0C96121600276605 /* Sources */,
 				53D2297F0C96121600276605 /* Frameworks */,
+				BC5BC6BE1249E3E500F22EB0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -714,9 +716,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE2BBD950D8B0DC900184787 /* Build configuration list for PBXNativeTarget "libjson" */;
 			buildPhases = (
+				BC5BC69F1249767600F22EB0 /* ShellScript */,
 				FE2BBD7C0D8B0D3900184787 /* Headers */,
 				FE2BBD7D0D8B0D3900184787 /* Sources */,
 				FE2BBD7E0D8B0D3900184787 /* Frameworks */,
+				BC5BC6BE1249E3E500F22EB0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -999,6 +1003,34 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "exec $SOURCE_ROOT/Scripts/RefreshOnlineDocs.sh";
+		};
+		BC5BC69F1249767600F22EB0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/bin/perl -pi -e 's/#if 1/#if 0/' $SRCROOT/Classes/JSON.h\n";
+			showEnvVarsInLog = 0;
+		};
+		BC5BC6BE1249E3E500F22EB0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/bin/perl -pi -e 's/#if 0/#if 1/' $SRCROOT/Classes/JSON.h\n";
+			showEnvVarsInLog = 0;
 		};
 		BCC047150FB651AF00F9F2D3 /* Install Docset */ = {
 			isa = PBXShellScriptBuildPhase;
