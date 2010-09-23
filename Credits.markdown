@@ -37,7 +37,7 @@ Patch to install instructions for use of static library.
 ## Mike Monaco
 Pointed out embarrasing mistake in logic to report errors in the category methods of 2.2.1.
 
-## dewvinci & Tobias Hoehman
+## dewvinci & Tobias Höhmann
 Performance patch for integer numbers and strings without special characters.
 
 ## George MacKerron

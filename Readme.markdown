@@ -1,9 +1,6 @@
 JSON Framework
 ==============
 
-A strict Objective-C JSON framework
------------------------------------
-
 JSON is a light-weight data interchange format that's easy to read and
 write for humans and computers alike. This framework implements a strict
 JSON parser and generator in Objective-C.
@@ -22,10 +19,10 @@ Features
 Links
 -----
 
-* The [source][src], on GitHub.
-* Official releases are available from the Google Code [project page][proj].
+* The GitHub [project page][src].
 * The online [API documentation][api].
+* The new [website][web].
 
-[proj]: http://code.google.com/p/json-framework
 [api]: http://stig.github.com/json-framework/api
+[web]: http://stig.github.com/json-framework
 [src]: http://github.com/stig/json-framework
