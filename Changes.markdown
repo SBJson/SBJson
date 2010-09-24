@@ -1,19 +1,23 @@
 ﻿# JSON Framework Changes
 
-## Version 2.3.1 (XXX)
+## Version 2.3.1 (September 25th, 2010)
 
 ### Changes
 
-* Renamed .md files to .markdown
-* Removed bench target--instead use [Sam Soffes's benchmarks][json-benchmark].
+* Renamed .md files to .markdown.
+* Removed bench target--use [Sam Soffes's benchmarks][json-benchmark] instead.
 
 [json-benchmark]: http://github.com/samsoffes/json-benchmark
 
 ### Bug fixes
 
-* [Issue 4][issue#4]: Writer would occasionally fail infinity check.
+* [Issue 2][issue#2]: Linkage not supported by default distribution.
+* [Issue 4][issue#4]: Writer reported to occasionally fail infinity check.
+* [Issue 8][issue#8]: Installation.markdown refers to missing JSON folder.
 
+[issue#2]: http://github.com/stig/json-framework/issues/closed/#issue/2
 [issue#4]: http://github.com/stig/json-framework/issues/closed/#issue/4
+[issue#8]: http://github.com/stig/json-framework/issues/closed/#issue/8
 
 ## Version 2.3 (August 7, 2010)
 
