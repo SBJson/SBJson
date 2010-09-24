@@ -27,7 +27,7 @@ body {
 }
 
 .container {
-  width: 700px;
+  width: 600px;
   margin: 0px auto 0px 150px;
 }
 
@@ -91,6 +91,8 @@ article {
 article h1 {
   padding-left: 15px;
   margin-left: -15px;
+  margin-right: -15px;
+  padding-right: 15px;
   margin-top: 1em;
   margin-bottom: 0.5em;
   font-weight: bold;

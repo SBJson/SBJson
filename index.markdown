@@ -11,25 +11,28 @@ A strict JSON parser and generator for Objective-C. It adds categories to existi
 
 API documentation generated from the source by [Doxygen](http://www.doxygen.org):
 
+* [Version 2.3.1](2.3.1/)
 * [Version 2.3](2.3/)
-
-# Code
-
-Available on github: [github.com/stig/json-framework](http://github.com/stig/json-framework).
 
 # Support
 
-The mailing list at Google groups:
-[groups.google.com/group/json-framework](http://groups.google.com/group/json-framework).
+Got an issue you can't figure out? Try one of these:
+
+* Consult the [Frequently Asked Questions](http://github.com/stig/json-framework/wiki/FrequentlyAskedQuestions).
+* Ask the [mailing list](http://groups.google.com/group/json-framework).
+* Raise an issue in the [issue tracker](http://github.com/stig/json-framework/issues).
+
+(*Please don't email my personal address: I can't read my personal mail at work & I'm not always able to look into things straight away.*)
 
 # Download
 
-* [latest (zip file)](http://github.com/stig/json-framework/zipball/master)
-* [latest (tarball)](http://github.com/stig/json-framework/tarball/master)
-* [version 2.3 (zip file)](http://github.com/stig/json-framework/zipball/v2.3)
-* [version 2.3 (tarball)](http://github.com/stig/json-framework/tarball/v2.3)
+The code is available from [github.com/stig/json-framework](http://github.com/stig/json-framework). You can
+download a tagged release:
 
-You can also clone the project with [Git](http://git-scm.com) by running:
+* [version 2.3.1 (zip file)](http://github.com/stig/json-framework/zipball/v2.3.1)
+* [version 2.3 (zip file)](http://github.com/stig/json-framework/zipball/v2.3)
+
+You can also clone it with [Git](http://git-scm.com) by running:
 
 <pre>
 $ git clone git://github.com/stig/json-framework
