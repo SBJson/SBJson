@@ -1,4 +1,19 @@
-# JSON Framework Changes
+﻿# JSON Framework Changes
+
+## Version 2.3.1 (XXX)
+
+### Changes
+
+* Renamed .md files to .markdown
+* Removed bench target--instead use [Sam Soffes's benchmarks][json-benchmark].
+
+[json-benchmark]: http://github.com/samsoffes/json-benchmark
+
+### Bug fixes
+
+* [Issue 4][issue#4]: Writer would occasionally fail infinity check.
+
+[issue#4]: http://github.com/stig/json-framework/issues/closed/#issue/4
 
 ## Version 2.3 (August 7, 2010)
 
@@ -10,28 +25,45 @@
 ### Changes
 
 * **Parsing performance improvements.**  
-Issue 56. Dewvinci & Tobias Hoehman came up with a patch to improve parsing of short JSON texts with lots of numbers by over 60%.
+[Issue 56][issue-56]: Dewvinci & Tobias Hoehmann came up with a patch to improve parsing of short JSON texts with lots of numbers by over 60%.
 * **Refactored tests to be more data-driven.**  
 This should make the source leaner and easier to maintain.
 * **Removed problematic SDK**  
-Issue 33, 58, 63, and 64--to name a few. The vast majority of the issues people are having with this framework were related to the somewhat mystical Custom SDK. This has been removed in this version. 
+[Issue 33][issue-33], [58][issue-58], [63][issue-63], and [64][issue-64]: The vast majority of the issues people are having with this framework were related to the somewhat mystical Custom SDK. This has been removed in this version. 
 * **Removed the deprecated SBJSON facade**  
-Issue 71. You should use the SBJsonParser or SBJsonWriter classes, or the category methods, instead. This also let us remove the SBJsonParser and SBJsonWriter categories; these were only there to support the facade, but made the code less transparent.
+[Issue 71][issue-71]: You should use the SBJsonParser or SBJsonWriter classes, or the category methods, instead. This also let us remove the SBJsonParser and SBJsonWriter categories; these were only there to support the facade, but made the code less transparent.
 * **Removed the deprecated fragment support**  
-Issue 70. Fragments were a bad idea from the start, but deceptively useful while writing the framework's test suite. This has now been rectified. 
+[Issue 70][issue-70]: Fragments were a bad idea from the start, but deceptively useful while writing the framework's test suite. This has now been rectified. 
+
+[issue-56]: http://code.google.com/p/json-framework/issues/detail?id=56
+[issue-33]: http://code.google.com/p/json-framework/issues/detail?id=33
+[issue-58]: http://code.google.com/p/json-framework/issues/detail?id=58
+[issue-63]: http://code.google.com/p/json-framework/issues/detail?id=63
+[issue-64]: http://code.google.com/p/json-framework/issues/detail?id=64
+[issue-70]: http://code.google.com/p/json-framework/issues/detail?id=70
+[issue-71]: http://code.google.com/p/json-framework/issues/detail?id=71
+
 
 ### Bug Fixes
 
-* Issue 38: Fixed header-inclusion issue.
-* Issue 74: Fix bug in handling of Infinity, -Infinity & NaN.
-* Issue 68: Fixed documentation bug
+* [Issue 38][issue-38]: Fixed header-inclusion issue.
+* [Issue 74][issue-74]: Fix bug in handling of Infinity, -Infinity & NaN.
+* [Issue 68][issue-68]: Fixed documentation bug
+
+[issue-38]: http://code.google.com/p/json-framework/issues/detail?id=39
+[issue-74]: http://code.google.com/p/json-framework/issues/detail?id=74
+[issue-68]: http://code.google.com/p/json-framework/issues/detail?id=68
+
 
 ## Version 2.2.3 (March 7, 2010)
 
 * **Added -all_load to libjsontests linker flags.**  
 This allows the tests to run with more recent versions of GCC.
 * **Unable to do a JSONRepresentation for a first-level proxy object.**  
-Allow the -proxyForJson method to be called for first-level proxy objects, in addition to objects that are embedded in other objects. Reported in issues 54 & 60.
+[Issue 54][issue-54] & [60][issue-60]: Allow the -proxyForJson method to be called for first-level proxy objects, in addition to objects that are embedded in other objects. 
+
+[issue-54]: http://code.google.com/p/json-framework/issues/detail?id=54
+[issue-60]: http://code.google.com/p/json-framework/issues/detail?id=60
 
 ## Version 2.2.2 (September 12, 2009)
 
@@ -103,3 +135,4 @@ Minor updates to the documentation.
 
 Release notes for earlier releases can be found here:
 http://code.google.com/p/json-framework/wiki/ReleaseNotes
+
