@@ -27,7 +27,7 @@
 </div>
 <div class="contents">
 <div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
-<a name="l00002"></a>00002 <span class="comment"> Copyright (C) 2009 Stig Brautaset. All rights reserved.</span>
+<a name="l00002"></a>00002 <span class="comment"> Copyright (C) 2009-2010 Stig Brautaset. All rights reserved.</span>
 <a name="l00003"></a>00003 <span class="comment"> </span>
 <a name="l00004"></a>00004 <span class="comment"> Redistribution and use in source and binary forms, with or without</span>
 <a name="l00005"></a>00005 <span class="comment"> modification, are permitted provided that the following conditions are met:</span>
@@ -55,24 +55,27 @@
 <a name="l00027"></a>00027 <span class="comment"> OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
 <a name="l00028"></a>00028 <span class="comment"> */</span>
 <a name="l00029"></a>00029 
-<a name="l00047"></a>00047 <span class="preprocessor">#if (TARGET_OS_IPHONE)</span>
-<a name="l00048"></a>00048 <span class="preprocessor"></span>
-<a name="l00049"></a>00049 <span class="preprocessor">#import &quot;SBJsonParser.h&quot;</span>
-<a name="l00050"></a>00050 <span class="preprocessor">#import &quot;SBJsonWriter.h&quot;</span>
-<a name="l00051"></a>00051 <span class="preprocessor">#import &quot;NSObject+SBJSON.h&quot;</span>
-<a name="l00052"></a>00052 <span class="preprocessor">#import &quot;NSString+SBJSON.h&quot;</span>
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054 <span class="preprocessor">#else</span>
-<a name="l00055"></a>00055 <span class="preprocessor"></span>
-<a name="l00056"></a>00056 <span class="preprocessor">#import &lt;JSON/SBJsonParser.h&gt;</span>
-<a name="l00057"></a>00057 <span class="preprocessor">#import &lt;JSON/SBJsonWriter.h&gt;</span>
-<a name="l00058"></a>00058 <span class="preprocessor">#import &lt;JSON/NSObject+SBJSON.h&gt;</span>
-<a name="l00059"></a>00059 <span class="preprocessor">#import &lt;JSON/NSString+SBJSON.h&gt;</span>
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061 <span class="preprocessor">#endif</span>
+<a name="l00048"></a>00048 <span class="comment">// This setting of 1 is best if you copy the source into your project. </span>
+<a name="l00049"></a>00049 <span class="comment">// The build transforms the 1 to a 0 when building the framework and static lib.</span>
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051 <span class="preprocessor">#if 1</span>
+<a name="l00052"></a>00052 <span class="preprocessor"></span>
+<a name="l00053"></a>00053 <span class="preprocessor">#import &quot;SBJsonParser.h&quot;</span>
+<a name="l00054"></a>00054 <span class="preprocessor">#import &quot;SBJsonWriter.h&quot;</span>
+<a name="l00055"></a>00055 <span class="preprocessor">#import &quot;NSObject+SBJSON.h&quot;</span>
+<a name="l00056"></a>00056 <span class="preprocessor">#import &quot;NSString+SBJSON.h&quot;</span>
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058 <span class="preprocessor">#else</span>
+<a name="l00059"></a>00059 <span class="preprocessor"></span>
+<a name="l00060"></a>00060 <span class="preprocessor">#import &lt;JSON/SBJsonParser.h&gt;</span>
+<a name="l00061"></a>00061 <span class="preprocessor">#import &lt;JSON/SBJsonWriter.h&gt;</span>
+<a name="l00062"></a>00062 <span class="preprocessor">#import &lt;JSON/NSObject+SBJSON.h&gt;</span>
+<a name="l00063"></a>00063 <span class="preprocessor">#import &lt;JSON/NSString+SBJSON.h&gt;</span>
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Sep 2 2010 02:18:37 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Sep 25 2010 01:02:21 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>
