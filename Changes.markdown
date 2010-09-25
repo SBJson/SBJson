@@ -1,4 +1,4 @@
-﻿# JSON Framework Changes
+# JSON Framework Changes
 
 ## Version 2.3.1 (September 25th, 2010)
 
@@ -29,7 +29,7 @@
 ### Changes
 
 * **Parsing performance improvements.**  
-[Issue 56][issue-56]: Dewvinci & Tobias Hoehmann came up with a patch to improve parsing of short JSON texts with lots of numbers by over 60%.
+[Issue 56][issue-56]: Dewvinci & Tobias Höhmann came up with a patch to improve parsing of short JSON texts with lots of numbers by over 60%.
 * **Refactored tests to be more data-driven.**  
 This should make the source leaner and easier to maintain.
 * **Removed problematic SDK**  
