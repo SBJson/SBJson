@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2009 Stig Brautaset. All rights reserved.
+ Copyright (C) 2009-2010 Stig Brautaset. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -44,7 +44,11 @@
  
 */
 
-#if (TARGET_OS_IPHONE)
+
+// This setting of 1 is best if you copy the source into your project. 
+// The build transforms the 1 to a 0 when building the framework and static lib.
+
+#if 1
 
 #import "SBJsonParser.h"
 #import "SBJsonWriter.h"
