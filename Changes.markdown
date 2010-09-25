@@ -4,8 +4,10 @@
 
 ### Changes
 
+* Move to host releases on Github rather than Google code.
 * Renamed .md files to .markdown.
 * Removed bench target--use [Sam Soffes's benchmarks][json-benchmark] instead.
+* Releases are no longer a munged form of the source tree, but identical to the tagged source.
 
 [json-benchmark]: http://github.com/samsoffes/json-benchmark
 
