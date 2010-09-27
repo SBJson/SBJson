@@ -114,15 +114,15 @@
         STAssertNotNil(written, jsonPath);
         STAssertNil(prettyWriter.errorTrace, @"%@: %@", jsonPath, prettyWriter.errorTrace);
         
-        NSString *tersePath = [jsonPath stringByAppendingPathExtension:@"pretty"];
-        NSString *terseText = [NSString stringWithContentsOfFile:tersePath
+        NSString *prettyPath = [jsonPath stringByAppendingPathExtension:@"pretty"];
+        NSString *prettyText = [NSString stringWithContentsOfFile:prettyPath
                                                          encoding:NSUTF8StringEncoding
                                                             error:nil];
-        STAssertNotNil(terseText, @"Could not load %@", tersePath);
+        STAssertNotNil(prettyText, @"Could not load %@", prettyPath);
         
         // Chop off newline at end of string
-        terseText = [terseText substringToIndex:[terseText length]-1];
-        STAssertEqualObjects(written, terseText, @"at %@", jsonPath);
+        prettyText = [prettyText substringToIndex:[prettyText length]-1];
+        STAssertEqualObjects(written, prettyText, @"at %@", jsonPath);
     }
 }
 
