@@ -30,7 +30,6 @@
 #import "AbstractTest.h"
 
 @interface DataDrivenTest : AbstractTest {
-    SBJsonWriter *prettyWriter;
     NSString *dir;
     NSDirectoryEnumerator *files;
 }
