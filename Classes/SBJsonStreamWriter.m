@@ -86,16 +86,22 @@
 - (void)writeValue:(id)o {
 	if ([o isKindOfClass:[NSDictionary class]]) {
 		[self writeDictionary:o];
+
 	} else if ([o isKindOfClass:[NSArray class]]) {
 		[self writeArray:o];
+
 	} else if ([o isKindOfClass:[NSString class]]) {
 		[writer writeString:o];
+
 	} else if ([o isKindOfClass:[NSNumber class]]) {
 		[writer writeNumber:o];
+
 	} else if ([o isKindOfClass:[NSNull class]]) {
 		[writer writeNull];
+
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		[self writeValue:[o proxyForJson]];
+
 	} else {
 		@throw [NSString stringWithFormat:@"JSON serialisation not supported for @%", [o class]];
 	}
@@ -118,7 +124,7 @@
 		else
 			doSep = YES;
 
-		if (self.humanReadable) {
+		if (humanReadable) {
 			[writer writeNewline];
 			[writer writeSpaces:2 * depth];
 		}
@@ -132,7 +138,7 @@
 	
 	depth--;
 
-	if (self.humanReadable && [dict count]) {
+	if (humanReadable && [dict count]) {
 		[writer writeNewline];
 		[writer writeSpaces:2 * depth];
 	}
@@ -153,7 +159,7 @@
 		else
 			doSep = YES;
 
-		if (self.humanReadable) {
+		if (humanReadable) {
 			[writer writeNewline];
 			[writer writeSpaces:2 * depth];
 		}
@@ -163,7 +169,7 @@
 	
 	depth--;
 	
-	if (self.humanReadable && [array count]) {
+	if (humanReadable && [array count]) {
 		[writer writeNewline];
 		[writer writeSpaces:2 * depth];
 	}
