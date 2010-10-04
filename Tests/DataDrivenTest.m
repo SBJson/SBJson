@@ -64,7 +64,6 @@
         
         NSString *written;
         STAssertNoThrow(written = [writer stringWithObject:parsed], jsonPath);
-        STAssertNotNil(written, jsonPath);
         STAssertNil(writer.errorTrace, @"%@: %@", jsonPath, writer.errorTrace);
         
         NSString *path = [jsonPath stringByAppendingPathExtension:suffix];

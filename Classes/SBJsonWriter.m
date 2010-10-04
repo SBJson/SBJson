@@ -28,15 +28,12 @@
  */
 
 #import "SBJsonWriter.h"
+#import "SBJsonStreamWriter.h"
+#import "SBProxyForJson.h"
 
 @interface SBJsonWriter ()
 
-- (BOOL)appendValue:(id)fragment into:(NSMutableString*)json;
-- (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json;
-- (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json;
-- (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json;
-
-- (NSString*)indent;
+- (NSData*)dataWithObject:(id)value;
 
 @end
 
@@ -45,16 +42,18 @@
 @synthesize sortKeys;
 @synthesize humanReadable;
 
-static NSMutableCharacterSet *kEscapeChars;
-
-+ (void)initialize {
-	kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
-	[kEscapeChars addCharactersInString: @"\"\\"];
-}
 
 - (NSString*)stringWithObject:(id)value {
     [self clearErrorTrace];
     
+	NSData *data = [self dataWithObject:value];
+	char const *bytes = [data bytes];
+	if (bytes)
+		return [NSString stringWithUTF8String:bytes];
+	return nil;
+}	
+
+/*
     if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]) {
         depth = 0;
         NSMutableString *json = [NSMutableString stringWithCapacity:128];
@@ -71,6 +70,7 @@ static NSMutableCharacterSet *kEscapeChars;
     [self addErrorWithCode:EFRAGMENT description:@"Not valid type for JSON"];
     return nil;
 }
+*/
 
 - (NSString*)stringWithObject:(id)value error:(NSError**)error {
     NSString *tmp = [self stringWithObject:value];
@@ -81,6 +81,26 @@ static NSMutableCharacterSet *kEscapeChars;
         *error = [self.errorTrace lastObject];
     return nil;
 }
+
+- (NSData*)dataWithObject:(id)value {
+	NSOutputStream *stream = [[NSOutputStream alloc] initToMemory];
+	[stream open];
+	SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] initWithStream:stream];
+	streamWriter.maxDepth = self.maxDepth;
+	streamWriter.humanReadable = self.humanReadable;
+	
+	[streamWriter write:value];
+	[streamWriter release];
+	
+	[stream write:(const uint8_t *)"\0" maxLength:1];
+	NSData *data = [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+	[stream close];
+	[stream release];
+	return data;
+}
+
+
+/*
 
 - (NSString*)indent {
     return [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0];
@@ -200,40 +220,9 @@ static NSMutableCharacterSet *kEscapeChars;
 
 - (BOOL)appendString:(NSString*)fragment into:(NSMutableString*)json {
     
-    [json appendString:@"\""];
-    
-    NSRange esc = [fragment rangeOfCharacterFromSet:kEscapeChars];
-    if ( !esc.length ) {
-        // No special chars -- can just add the raw string:
-        [json appendString:fragment];
-        
-    } else {
-        NSUInteger length = [fragment length];
-        for (NSUInteger i = 0; i < length; i++) {
-            unichar uc = [fragment characterAtIndex:i];
-            switch (uc) {
-                case '"':   [json appendString:@"\\\""];       break;
-                case '\\':  [json appendString:@"\\\\"];       break;
-                case '\t':  [json appendString:@"\\t"];        break;
-                case '\n':  [json appendString:@"\\n"];        break;
-                case '\r':  [json appendString:@"\\r"];        break;
-                case '\b':  [json appendString:@"\\b"];        break;
-                case '\f':  [json appendString:@"\\f"];        break;
-                default:    
-                    if (uc < 0x20) {
-                        [json appendFormat:@"\\u%04x", uc];
-                    } else {
-                        CFStringAppendCharacters((CFMutableStringRef)json, &uc, 1);
-                    }
-                    break;
-                    
-            }
-        }
-    }
-    
-    [json appendString:@"\""];
     return YES;
 }
 
+*/
 
 @end
