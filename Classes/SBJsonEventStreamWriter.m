@@ -38,7 +38,6 @@ static const uint8_t False[] = "false";
 static const uint8_t Newline[] = "\n";
 static const uint8_t Space[] = " ";
 static const uint8_t DictionaryStart[] = "{";
-static const uint8_t KeyValueSeparator[] = ":";
 static const uint8_t DictionaryEnd[] = "}";
 static const uint8_t ArrayStart[] = "[";
 static const uint8_t ArrayEnd[] = "]";
@@ -56,6 +55,8 @@ static NSMutableCharacterSet *kEscapeChars;
 
 @implementation SBJsonEventStreamWriter
 
+@synthesize keyValueSeparator;
+
 + (void)initialize {
 	kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
 	[kEscapeChars addCharactersInString: @"\"\\"];
@@ -67,6 +68,7 @@ static NSMutableCharacterSet *kEscapeChars;
 	self = [super init];
 	if (self) {
 		stream = [stream_ retain];
+		keyValueSeparator = ":";
 	}
 	return self;
 }
@@ -84,7 +86,7 @@ static NSMutableCharacterSet *kEscapeChars;
 
 - (void)writeDictionaryKey:(NSString*)key {
 	[self writeString:key];
-	[stream write:KeyValueSeparator maxLength:sizeof KeyValueSeparator-1];
+	[stream write:(uint8_t const *)keyValueSeparator maxLength:strlen(keyValueSeparator)];
 }
 
 - (void)writeDictionaryEnd {

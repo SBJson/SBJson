@@ -65,20 +65,27 @@
 
 - (NSData*)dataWithObject:(id)value {
 	NSOutputStream *stream = [[NSOutputStream alloc] initToMemory];
-	[stream open];
+
 	SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] initWithStream:stream];
 	streamWriter.sortKeys = self.sortKeys;
 	streamWriter.maxDepth = self.maxDepth;
 	streamWriter.humanReadable = self.humanReadable;
-	
-	[streamWriter write:value];
-	[streamWriter release];
-	
-	[stream write:(const uint8_t *)"\0" maxLength:1];
-	NSData *data = [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
-	[stream close];
-	[stream release];
-	return data;
+
+	@try {
+		[stream open];		
+		[streamWriter write:value];
+		[stream write:(const uint8_t *)"\0" maxLength:1];
+		NSData *data = [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+		[stream close];
+		return data;
+	}
+	@catch (NSException * e) {
+		[self addErrorWithCode:EUNSUPPORTED description:[e description]];
+	}
+	@finally {
+		[streamWriter release];
+		[stream release];
+	}
 }
 
 @end

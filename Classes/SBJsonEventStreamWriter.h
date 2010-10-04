@@ -36,8 +36,10 @@
 @interface SBJsonEventStreamWriter : NSObject {
 	@private
 	NSOutputStream *stream;
-	BOOL needComma;
+	char const *keyValueSeparator;
 }
+
+@property(assign) char const* keyValueSeparator;
 
 - (id)initWithStream:(NSOutputStream*)stream;
 

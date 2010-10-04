@@ -45,7 +45,7 @@
 @implementation SBJsonStreamWriter
 
 @synthesize sortKeys;
-@synthesize humanReadable;
+@dynamic humanReadable;
 
 #pragma mark Housekeeping
 
@@ -175,6 +175,12 @@
 	}
 	
 	[writer writeArrayEnd];
+}
+
+- (void)setHumanReadable:(BOOL)x {
+	humanReadable = x;
+	if (x)
+		writer.keyValueSeparator = " : ";
 }
 
 @end
