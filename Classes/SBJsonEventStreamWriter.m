@@ -100,6 +100,13 @@ static NSMutableCharacterSet *kEscapeChars;
 }
 
 - (void)writeString:(NSString*)string {
+	
+	// Special case for empty string.
+	if (![string length]) {
+		[stream write:(const uint8_t *)"\"\"" maxLength:2];
+		return;
+	}
+	
 	[stream write:(const uint8_t*)"\"" maxLength:1];
     
     NSRange esc = [string rangeOfCharacterFromSet:kEscapeChars];
@@ -136,10 +143,20 @@ static NSMutableCharacterSet *kEscapeChars;
 }
 
 - (void)writeNumber:(NSNumber*)number {
-	if ((CFBooleanRef)number == kCFBooleanTrue || (CFBooleanRef)number == kCFBooleanFalse)
-		[self writeBool:[number boolValue]];
+	if ((CFBooleanRef)number == kCFBooleanTrue)
+		[self writeBool:YES];
+	else if ((CFBooleanRef)number == kCFBooleanFalse)
+		[self writeBool:NO];
+	else if ((CFNumberRef)number == kCFNumberNaN)
+		@throw @"NaN is not a valid number in JSON";
+	else if ((CFNumberRef)number == kCFNumberPositiveInfinity)
+		@throw @"+Infinity is not valid in JSON";
+	else if ((CFNumberRef)number == kCFNumberNegativeInfinity)
+		@throw @"-Infinity is not valid in JSON";
 	else {
-		[stream write:(const uint8_t *)"1000" maxLength:4];
+		// TODO: There's got to be a better way to do this.
+		char const *utf8 = [[number stringValue] UTF8String];
+		[stream write:(const uint8_t *)utf8 maxLength:strlen(utf8)];
 	}
 }
 
@@ -159,7 +176,7 @@ static NSMutableCharacterSet *kEscapeChars;
 }
 
 - (void)writeSpaces:(NSUInteger)count {
-	// This is hardly the best-performing code in the world, but it
+	// This is hardly high-performing code, but it
 	// probably doesn't matter when we're just injecting whitespace
 	// to make the file human-readable.
 	for (int i = 0; i < count; i++)

@@ -80,7 +80,7 @@
 		return;
 	}
 	
-	@throw @"GERONIMO!";
+	@throw @"Not valid type for JSON";
 }
 
 - (void)writeValue:(id)o {
@@ -97,12 +97,14 @@
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		[self writeValue:[o proxyForJson]];
 	} else {
-		@throw @"AAAIIIE!";
+		@throw [NSString stringWithFormat:@"JSON serialisation not supported for @%", [o class]];
 	}
 }
 
 - (void)writeDictionary:(NSDictionary*)dict {
-	depth++;
+	if (maxDepth && ++depth > maxDepth)
+		@throw @"Nested too deep";
+		
 	[writer writeDictionaryStart];
 	
 	NSArray *keys = [dict allKeys];
@@ -116,16 +118,32 @@
 		else
 			doSep = YES;
 
+		if (self.humanReadable) {
+			[writer writeNewline];
+			[writer writeSpaces:2 * depth];
+		}
+		
+		if (![key isKindOfClass:[NSString class]])
+			@throw @"JSON object key must be string";
+		
 		[writer writeDictionaryKey:key];
 		[self writeValue:[dict objectForKey:key]];
 	}
 	
-	[writer writeDictionaryEnd];
 	depth--;
+
+	if (self.humanReadable && [dict count]) {
+		[writer writeNewline];
+		[writer writeSpaces:2 * depth];
+	}
+	[writer writeDictionaryEnd];
+	
 }
 
 - (void)writeArray:(NSArray*)array {
-	depth++;
+	if (maxDepth && ++depth > maxDepth)
+		@throw @"Nested too deep";
+
 	[writer writeArrayStart];
 
 	BOOL doSep = NO;
@@ -134,11 +152,23 @@
 			[writer writeElementSeparator];
 		else
 			doSep = YES;
+
+		if (self.humanReadable) {
+			[writer writeNewline];
+			[writer writeSpaces:2 * depth];
+		}
+		
 		[self writeValue:value];
 	}
 	
-	[writer writeArrayEnd];
 	depth--;
+	
+	if (self.humanReadable && [array count]) {
+		[writer writeNewline];
+		[writer writeSpaces:2 * depth];
+	}
+	
+	[writer writeArrayEnd];
 }
 
 @end
