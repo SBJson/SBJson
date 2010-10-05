@@ -101,6 +101,7 @@ static NSMutableCharacterSet *kEscapeChars;
 	[stream write:ArrayEnd maxLength:sizeof ArrayEnd-1];
 }
 
+//TODO: Make this more efficient
 - (void)writeString:(NSString*)string {
 	
 	// Special case for empty string.

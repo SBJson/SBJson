@@ -47,9 +47,8 @@
     [self clearErrorTrace];
     
 	NSData *data = [self dataWithObject:value];
-	char const *bytes = [data bytes];
-	if (bytes)
-		return [NSString stringWithUTF8String:bytes];
+	if (data)
+		return [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	return nil;
 }	
 
@@ -74,9 +73,8 @@
 	@try {
 		[stream open];		
 		[streamWriter write:value];
-		[stream write:(const uint8_t *)"\0" maxLength:1];
-		NSData *data = [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
 		[stream close];
+		NSData *data = [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
 		return data;
 	}
 	@catch (NSException * e) {
