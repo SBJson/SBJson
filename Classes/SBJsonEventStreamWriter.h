@@ -56,6 +56,8 @@
 - (void)writeString:(NSString*)string;
 - (void)writeNumber:(NSNumber*)number;
 - (void)writeBool:(BOOL)x;
+- (void)writeFalse;
+- (void)writeTrue;
 - (void)writeNull;
 
 // The following are to allow writing human-readable JSON text

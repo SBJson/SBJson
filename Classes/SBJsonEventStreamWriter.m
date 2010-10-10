@@ -32,23 +32,12 @@
 
 #import "SBJsonEventStreamWriter.h"
 
-static const uint8_t Null[] = "null";
-static const uint8_t True[] = "true";
-static const uint8_t False[] = "false";
-static const uint8_t Newline[] = "\n";
-static const uint8_t Space[] = " ";
-static const uint8_t DictionaryStart[] = "{";
-static const uint8_t DictionaryEnd[] = "}";
-static const uint8_t ArrayStart[] = "[";
-static const uint8_t ArrayEnd[] = "]";
-static const uint8_t ElementSeparator[] = ",";
-
 static NSMutableCharacterSet *kEscapeChars;
-
 
 @interface SBJsonEventStreamWriter ()
 
 - (void)writeElementSeparator;
+- (void)write:(char const *)utf8 len:(NSUInteger)len;
 
 @end
 
@@ -78,27 +67,46 @@ static NSMutableCharacterSet *kEscapeChars;
 	[super dealloc];
 }
 
+#pragma mark Private methods
+
+- (void)write:(char const *)utf8 len:(NSUInteger)len {
+	NSUInteger written = 0;
+	do {
+		NSInteger w = [stream write:(const uint8_t *)utf8 maxLength:len - written];
+		if (w == -1)
+			NSLog(@"Failed writing to stream");
+		else if (w == 0)
+			NSLog(@"Not enough space in stream");
+		if (w > 0)
+			written += w;
+	} while (written < len);
+}
+
+- (void)writeElementSeparator {
+	[self write:"," len:1];
+}
+
 #pragma mark Methods
 
 - (void)writeDictionaryStart {
-	[stream write:DictionaryStart maxLength:sizeof DictionaryStart-1];
+	[self write:"{" len:1];
 }
 
 - (void)writeDictionaryKey:(NSString*)key {
 	[self writeString:key];
-	[stream write:(uint8_t const *)keyValueSeparator maxLength:strlen(keyValueSeparator)];
+	[self write:keyValueSeparator len:keyValueSeparatorLen];
 }
 
 - (void)writeDictionaryEnd {
-	[stream write:DictionaryEnd maxLength:sizeof DictionaryEnd-1];
+	[self write:"}" len:1];
 }
 
 - (void)writeArrayStart {
-	[stream write:ArrayStart maxLength:sizeof ArrayStart-1];
+	[self write:"[" len:1];
 }
 
 - (void)writeArrayEnd {
-	[stream write:ArrayEnd maxLength:sizeof ArrayEnd-1];
+	[self write:"]" len:1];
 }
 
 //TODO: Make this more efficient
@@ -106,16 +114,16 @@ static NSMutableCharacterSet *kEscapeChars;
 	
 	// Special case for empty string.
 	if (![string length]) {
-		[stream write:(const uint8_t *)"\"\"" maxLength:2];
+		[self write:"\"\"" len:2];
 		return;
 	}
-	
-	[stream write:(const uint8_t*)"\"" maxLength:1];
+
+	[self write:"\"" len:1];
     
     NSRange esc = [string rangeOfCharacterFromSet:kEscapeChars];
     if (!esc.length) {
 		const char *utf8 = [string UTF8String];
-		[stream write:(const uint8_t *)utf8 maxLength:strlen(utf8)];
+		[self write:utf8 len:strlen(utf8)];
         
     } else {
         NSUInteger length = [string length];
@@ -138,44 +146,53 @@ static NSMutableCharacterSet *kEscapeChars;
                     }
                     break;                    
             }
-			[stream write:(const uint8_t *)c maxLength:strlen(c)];
+			[self write:c len:strlen(c)];
         }
     }
     
-	[stream write:(const uint8_t*)"\"" maxLength:1];
+	[self write:"\"" len:1];
 }
 
 - (void)writeNumber:(NSNumber*)number {
 	if ((CFBooleanRef)number == kCFBooleanTrue)
-		[self writeBool:YES];
+		[self writeTrue];
+
 	else if ((CFBooleanRef)number == kCFBooleanFalse)
-		[self writeBool:NO];
+		[self writeFalse];
+
 	else if ((CFNumberRef)number == kCFNumberNaN)
 		@throw @"NaN is not a valid number in JSON";
+
 	else if ((CFNumberRef)number == kCFNumberPositiveInfinity)
 		@throw @"+Infinity is not valid in JSON";
+
 	else if ((CFNumberRef)number == kCFNumberNegativeInfinity)
 		@throw @"-Infinity is not valid in JSON";
+
 	else {
 		// TODO: There's got to be a better way to do this.
 		char const *utf8 = [[number stringValue] UTF8String];
-		[stream write:(const uint8_t *)utf8 maxLength:strlen(utf8)];
+		[self write:utf8 len:strlen(utf8)];
 	}
+}
+
+- (void)writeTrue {
+	[self write:"true" len:4];
+}
+
+- (void)writeFalse {
+	[self write:"false" len:5];
 }
 
 - (void)writeBool:(BOOL)x {
 	if (x)
-		[stream write:True maxLength:sizeof True-1];
+		[self writeTrue];
 	else
-		[stream write:False maxLength:sizeof False-1];
+		[self writeFalse];
 }
 
 - (void)writeNull {
-	[stream write:Null maxLength:sizeof Null-1];
-}
-
-- (void)writeElementSeparator {
-	[stream write:ElementSeparator maxLength:sizeof ElementSeparator-1];
+	[self write:"null" len:4];
 }
 
 - (void)writeSpaces:(NSUInteger)count {
@@ -183,11 +200,11 @@ static NSMutableCharacterSet *kEscapeChars;
 	// probably doesn't matter when we're just injecting whitespace
 	// to make the file human-readable.
 	for (int i = 0; i < count; i++)
-		[stream write:Space maxLength:1];
+		[self write:" " len:1];
 }
 
 - (void)writeNewline {
-	[stream write:Newline maxLength:1];
+	[self write:"\n" len:1];
 }
 
 
