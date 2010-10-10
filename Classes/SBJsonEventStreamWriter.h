@@ -37,6 +37,7 @@
 	@private
 	NSOutputStream *stream;
 	char const *keyValueSeparator;
+	size_t keyValueSeparatorLen;
 }
 
 @property(assign) char const* keyValueSeparator;

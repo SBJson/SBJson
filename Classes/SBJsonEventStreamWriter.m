@@ -55,7 +55,7 @@ static NSMutableCharacterSet *kEscapeChars;
 
 @implementation SBJsonEventStreamWriter
 
-@synthesize keyValueSeparator;
+@dynamic keyValueSeparator;
 
 + (void)initialize {
 	kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
@@ -68,7 +68,7 @@ static NSMutableCharacterSet *kEscapeChars;
 	self = [super init];
 	if (self) {
 		stream = [stream_ retain];
-		keyValueSeparator = ":";
+		self.keyValueSeparator = ":";
 	}
 	return self;
 }
@@ -190,5 +190,10 @@ static NSMutableCharacterSet *kEscapeChars;
 	[stream write:Newline maxLength:1];
 }
 
+
+- (void)setKeyValueSeparator:(char const *)c {
+	keyValueSeparator = c;
+	keyValueSeparatorLen = strlen(c);
+}
 
 @end
