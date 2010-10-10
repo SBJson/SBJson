@@ -36,6 +36,8 @@ static NSMutableCharacterSet *kEscapeChars;
 
 @interface SBJsonEventStreamWriter ()
 
+@property NSString *error;
+
 - (void)writeElementSeparator;
 - (void)write:(char const *)utf8 len:(NSUInteger)len;
 
@@ -45,6 +47,7 @@ static NSMutableCharacterSet *kEscapeChars;
 @implementation SBJsonEventStreamWriter
 
 @dynamic keyValueSeparator;
+@synthesize error;
 
 + (void)initialize {
 	kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
@@ -92,9 +95,16 @@ static NSMutableCharacterSet *kEscapeChars;
 	[self write:"{" len:1];
 }
 
-- (void)writeDictionaryKey:(NSString*)key {
+- (BOOL)writeDictionaryKey:(NSString*)key {
+	
+	if (![key isKindOfClass:[NSString class]]) {
+		self.error = @"JSON object key must be string";
+		return NO;
+	}
+	
 	[self writeString:key];
 	[self write:keyValueSeparator len:keyValueSeparatorLen];
+	return YES;
 }
 
 - (void)writeDictionaryEnd {
@@ -160,7 +170,7 @@ static NSMutableCharacterSet *kEscapeChars;
 	else if ((CFBooleanRef)number == kCFBooleanFalse)
 		[self writeFalse];
 
-	else if ((CFNumberRef)number == kCFNumberNaN)
+	else if ((CFNumberRef)number == kCFNumberNaN) 
 		@throw @"NaN is not a valid number in JSON";
 
 	else if ((CFNumberRef)number == kCFNumberPositiveInfinity)
@@ -212,5 +222,7 @@ static NSMutableCharacterSet *kEscapeChars;
 	keyValueSeparator = c;
 	keyValueSeparatorLen = strlen(c);
 }
+	
+	
 
 @end

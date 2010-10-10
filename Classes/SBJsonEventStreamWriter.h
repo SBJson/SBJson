@@ -38,8 +38,10 @@
 	NSOutputStream *stream;
 	char const *keyValueSeparator;
 	size_t keyValueSeparatorLen;
+	NSString *error;
 }
 
+@property(readonly) NSString *error;
 @property(assign) char const* keyValueSeparator;
 
 - (id)initWithStream:(NSOutputStream*)stream;
@@ -47,7 +49,7 @@
 - (void)writeElementSeparator;
 
 - (void)writeDictionaryStart;
-- (void)writeDictionaryKey:(NSString*)key;
+- (BOOL)writeDictionaryKey:(NSString*)key;
 - (void)writeDictionaryEnd;
 
 - (void)writeArrayStart;

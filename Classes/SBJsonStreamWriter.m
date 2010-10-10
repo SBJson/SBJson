@@ -147,10 +147,11 @@
 
 		[self writeHumanReadable];
 		
-		if (![key isKindOfClass:[NSString class]])
-			@throw @"JSON object key must be string";
+		if (![writer writeDictionaryKey:key]) {
+			[self addErrorWithCode:EUNSUPPORTED description:writer.error];
+			return NO;
+		}
 		
-		[writer writeDictionaryKey:key];
 		if (![self writeValue:[dict objectForKey:key]])
 			return NO;
 	}
