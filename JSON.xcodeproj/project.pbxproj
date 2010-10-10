@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -742,11 +742,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE2BBD950D8B0DC900184787 /* Build configuration list for PBXNativeTarget "libjson" */;
 			buildPhases = (
-				BC5BC69F1249767600F22EB0 /* ShellScript */,
+				BC5BC69F1249767600F22EB1 /* ShellScript */,
 				FE2BBD7C0D8B0D3900184787 /* Headers */,
 				FE2BBD7D0D8B0D3900184787 /* Sources */,
 				FE2BBD7E0D8B0D3900184787 /* Frameworks */,
-				BC5BC6BE1249E3E500F22EB0 /* ShellScript */,
+				BC5BC6BE1249E3E500F22EB1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -782,7 +782,7 @@
 		53D229730C9611FF00276605 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 53D229740C9611FF00276605 /* Build configuration list for PBXProject "JSON" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
 			mainGroup = 53D229710C9611FF00276605;
 			productRefGroup = 53D229820C96121600276605 /* Products */;
@@ -1044,7 +1044,35 @@
 			shellScript = "/usr/bin/perl -pi -e 's/#if 1/#if 0/' $SRCROOT/Classes/JSON.h\n";
 			showEnvVarsInLog = 0;
 		};
+		BC5BC69F1249767600F22EB1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/bin/perl -pi -e 's/#if 1/#if 0/' $SRCROOT/Classes/JSON.h\n";
+			showEnvVarsInLog = 0;
+		};
 		BC5BC6BE1249E3E500F22EB0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/bin/perl -pi -e 's/#if 0/#if 1/' $SRCROOT/Classes/JSON.h\n";
+			showEnvVarsInLog = 0;
+		};
+		BC5BC6BE1249E3E500F22EB1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
