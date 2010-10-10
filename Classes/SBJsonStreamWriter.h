@@ -46,6 +46,6 @@
 
 - (id)initWithStream:(NSOutputStream*)stream;
 
-- (void)write:(id)object;
+- (BOOL)write:(id)object;
 
 @end

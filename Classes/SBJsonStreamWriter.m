@@ -36,9 +36,9 @@
 
 @interface SBJsonStreamWriter ()
 
-- (void)writeValue:(id)value;
-- (void)writeDictionary:(NSDictionary*)dict;
-- (void)writeArray:(NSArray*)array;
+- (BOOL)writeValue:(id)value;
+- (BOOL)writeDictionary:(NSDictionary*)dict;
+- (BOOL)writeArray:(NSArray*)array;
 - (void)writeHumanReadable;
 - (BOOL)didExceedMaxDepth;
 
@@ -70,27 +70,27 @@
 
 #pragma mark Methods
 
-- (void)write:(id)object {
+- (BOOL)write:(id)object {
 	if ([object isKindOfClass:[NSDictionary class]] || [object isKindOfClass:[NSArray class]]) {
 		depth = 0;
-		[self writeValue:object];
-		return;
+		return [self writeValue:object];
 	}
 	
 	if ([object respondsToSelector:@selector(proxyForJson)]) {
-		[self write:[object proxyForJson]];
-		return;
+		return [self write:[object proxyForJson]];
+
 	}
 	
-	@throw @"Not valid type for JSON";
+	[self addErrorWithCode:EUNSUPPORTED description:@"Not valid type for JSON"];
+	return NO;
 }
 
-- (void)writeValue:(id)o {
+- (BOOL)writeValue:(id)o {
 	if ([o isKindOfClass:[NSDictionary class]]) {
-		[self writeDictionary:o];
+		return [self writeDictionary:o];
 
 	} else if ([o isKindOfClass:[NSArray class]]) {
-		[self writeArray:o];
+		return [self writeArray:o];
 
 	} else if ([o isKindOfClass:[NSString class]]) {
 		[writer writeString:o];
@@ -102,12 +102,14 @@
 		[writer writeNull];
 
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
-		[self writeValue:[o proxyForJson]];
+		return [self writeValue:[o proxyForJson]];
 
 	} else {
-
-		@throw [NSString stringWithFormat:@"JSON serialisation not supported for @%", [o class]];
+		[self addErrorWithCode:EUNSUPPORTED
+				   description:[NSString stringWithFormat:@"JSON serialisation not supported for @%", [o class]]];
+		return NO;
 	}
+	return YES;
 }
 
 - (BOOL)didExceedMaxDepth {
@@ -126,9 +128,9 @@
 	}	
 }	
 
-- (void)writeDictionary:(NSDictionary*)dict {
+- (BOOL)writeDictionary:(NSDictionary*)dict {
 	if ([self didExceedMaxDepth])
-		return;
+		return NO;
 		
 	[writer writeDictionaryStart];
 	
@@ -149,7 +151,8 @@
 			@throw @"JSON object key must be string";
 		
 		[writer writeDictionaryKey:key];
-		[self writeValue:[dict objectForKey:key]];
+		if (![self writeValue:[dict objectForKey:key]])
+			return NO;
 	}
 	
 	depth--;
@@ -158,12 +161,12 @@
 		[self writeHumanReadable];
 
 	[writer writeDictionaryEnd];
-	
+	return YES;
 }
 
-- (void)writeArray:(NSArray*)array {
+- (BOOL)writeArray:(NSArray*)array {
 	if ([self didExceedMaxDepth])
-		return;
+		return NO;
 
 	[writer writeArrayStart];
 
@@ -175,7 +178,8 @@
 			doSep = YES;
 
 		[self writeHumanReadable];
-		[self writeValue:value];
+		if (![self writeValue:value])
+			return NO;
 	}
 	
 	depth--;
@@ -184,6 +188,7 @@
 		[self writeHumanReadable];
 	
 	[writer writeArrayEnd];
+	return YES;
 }
 
 - (void)setHumanReadable:(BOOL)x {

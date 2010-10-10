@@ -70,20 +70,21 @@
 	streamWriter.maxDepth = self.maxDepth;
 	streamWriter.humanReadable = self.humanReadable;
 
-	@try {
-		[stream open];		
-		[streamWriter write:value];
-		[stream close];
-		NSData *data = [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
-		return data;
-	}
-	@catch (NSException * e) {
-		[self addErrorWithCode:EUNSUPPORTED description:[e description]];
-	}
-	@finally {
-		[streamWriter release];
-		[stream release];
-	}
+	[stream open];
+	BOOL ok = [streamWriter write:value];
+
+	[stream close];
+	
+	if (!ok)
+		errorTrace = [streamWriter.errorTrace retain];
+	
+	[streamWriter release];
+	[stream release];
+
+	if (ok)
+		return [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+		
+	return nil;
 }
 
 @end
