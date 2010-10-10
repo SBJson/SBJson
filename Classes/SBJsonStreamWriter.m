@@ -118,7 +118,6 @@
 - (BOOL)didExceedMaxDepth {
 	if (maxDepth && ++depth > maxDepth) {
 		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
-		@throw @"Nested too deep";
 		return YES;
 	}
 	return NO;
