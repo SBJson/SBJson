@@ -56,7 +56,7 @@
 - (void)writeArrayEnd;
 
 - (void)writeString:(NSString*)string;
-- (void)writeNumber:(NSNumber*)number;
+- (BOOL)writeNumber:(NSNumber*)number;
 - (void)writeBool:(BOOL)x;
 - (void)writeFalse;
 - (void)writeTrue;

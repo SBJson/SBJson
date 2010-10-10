@@ -163,27 +163,31 @@ static NSMutableCharacterSet *kEscapeChars;
 	[self write:"\"" len:1];
 }
 
-- (void)writeNumber:(NSNumber*)number {
+- (BOOL)writeNumber:(NSNumber*)number {
 	if ((CFBooleanRef)number == kCFBooleanTrue)
 		[self writeTrue];
 
 	else if ((CFBooleanRef)number == kCFBooleanFalse)
 		[self writeFalse];
 
-	else if ((CFNumberRef)number == kCFNumberNaN) 
-		@throw @"NaN is not a valid number in JSON";
-
-	else if ((CFNumberRef)number == kCFNumberPositiveInfinity)
-		@throw @"+Infinity is not valid in JSON";
-
-	else if ((CFNumberRef)number == kCFNumberNegativeInfinity)
-		@throw @"-Infinity is not valid in JSON";
-
+	else if ((CFNumberRef)number == kCFNumberNaN) {
+		self.error = @"NaN is not a valid number in JSON";
+		return NO;
+	}
+	else if ((CFNumberRef)number == kCFNumberPositiveInfinity) {
+		self.error = @"+Infinity is not a valid number in JSON";
+		return NO;
+	}
+	else if ((CFNumberRef)number == kCFNumberNegativeInfinity) {
+		self.error = @"-Infinity is not a valid number in JSON";
+		return NO;
+	}
 	else {
 		// TODO: There's got to be a better way to do this.
 		char const *utf8 = [[number stringValue] UTF8String];
 		[self write:utf8 len:strlen(utf8)];
 	}
+	return YES;
 }
 
 - (void)writeTrue {

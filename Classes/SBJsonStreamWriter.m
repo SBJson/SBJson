@@ -96,7 +96,10 @@
 		[writer writeString:o];
 
 	} else if ([o isKindOfClass:[NSNumber class]]) {
-		[writer writeNumber:o];
+		if (![writer writeNumber:o]) {
+			[self addErrorWithCode:EUNSUPPORTED description:writer.error];
+			return NO;
+		}
 
 	} else if ([o isKindOfClass:[NSNull class]]) {
 		[writer writeNull];
