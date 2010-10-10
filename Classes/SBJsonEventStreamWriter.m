@@ -170,7 +170,7 @@ static NSMutableCharacterSet *kEscapeChars;
 	else if ((CFBooleanRef)number == kCFBooleanFalse)
 		[self writeFalse];
 
-	else if ((CFNumberRef)number == kCFNumberNaN) {
+	else if ((CFNumberRef)number == kCFNumberNaN || [number isEqualToNumber:[NSDecimalNumber notANumber]]) {
 		self.error = @"NaN is not a valid number in JSON";
 		return NO;
 	}
