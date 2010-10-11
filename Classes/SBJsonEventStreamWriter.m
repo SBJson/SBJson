@@ -36,7 +36,7 @@ static NSMutableCharacterSet *kEscapeChars;
 
 @interface SBJsonEventStreamWriter ()
 
-@property NSString *error;
+@property (copy) NSString *error;
 
 - (void)writeElementSeparator;
 - (void)write:(char const *)utf8 len:(NSUInteger)len;

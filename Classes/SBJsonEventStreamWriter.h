@@ -41,7 +41,7 @@
 	NSString *error;
 }
 
-@property(readonly) NSString *error;
+@property(copy,readonly) NSString *error;
 @property(assign) char const* keyValueSeparator;
 
 - (id)initWithStream:(NSOutputStream*)stream;
