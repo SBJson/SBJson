@@ -35,26 +35,40 @@
 
 static NSMutableCharacterSet *kEscapeChars;
 
-#define maxDepthCheck() \
-	if (maxDepth && ++depth > maxDepth) {\
-		[self addErrorWithCode:EDEPTH description:@"Nested too deep"]; \
-		return NO; \
-	}
+#define maxDepthCheck()	\
+	do {																	\
+		if (maxDepth && ++depth > maxDepth) {								\
+			[self addErrorWithCode:EDEPTH description:@"Nested too deep"];	\
+			return NO;														\
+		}																	\
+	} while (0)
 
-// This is hardly high-performing code, but it
-// probably doesn't matter when we're just injecting whitespace
-// to make the file human-readable.
-#define humanReadable() \
-	if (humanReadable) { \
-		[self write:"\n" len:1]; \
-		for (int i = 0; i < 2 * depth; i++) \
-			[self write:" " len:1]; \
-	}
+#define humanReadable()	\
+	do {											\
+		if (humanReadable) {						\
+			writeToStream("\n", 1);					\
+			for (int i = 0; i < 2 * depth; i++)		\
+				writeToStream(" ", 1);				\
+		}											\
+	} while (0)
 
+#define writeToStream(utf8, lenExp) \
+	do {																					\
+		NSUInteger len = lenExp;															\
+		NSUInteger written = 0;																\
+		do {																				\
+			NSInteger w = [stream write:(const uint8_t *)utf8 maxLength:len - written];		\
+			if (w > 0)																		\
+				written += w;																\
+			else if (w == -1)																\
+				NSLog(@"Failed writing to stream");											\
+			else if (w == 0)																\
+				NSLog(@"Not enough space in stream");										\
+			} while (written < len);														\
+	} while(0)
 
 @interface SBJsonStreamWriter ()
 
-- (void)write:(char const *)utf8 len:(NSUInteger)len;
 - (void)writeString:(NSString*)string;
 - (BOOL)writeNumber:(NSNumber*)number;
 
@@ -104,25 +118,6 @@ static NSMutableCharacterSet *kEscapeChars;
 	return NO;
 }
 
-#pragma mark Private methods
-
-- (void)write:(char const *)utf8 len:(NSUInteger)len {
-	NSUInteger written = 0;
-	do {
-		NSInteger w = [stream write:(const uint8_t *)utf8 maxLength:len - written];
-		if (w == -1)
-			NSLog(@"Failed writing to stream");
-		else if (w == 0)
-			NSLog(@"Not enough space in stream");
-		if (w > 0)
-			written += w;
-	} while (written < len);
-}
-
-- (void)writeElementSeparator {
-	[self write:"," len:1];
-}
-
 #pragma mark SBJsonStreamEvents
 
 - (BOOL)writeValue:(id)o {
@@ -139,8 +134,7 @@ static NSMutableCharacterSet *kEscapeChars;
 		return [self writeNumber:o];
 
 	} else if ([o isKindOfClass:[NSNull class]]) {
-		[self write:"null" len:4];
-
+		writeToStream("null", 4);
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		return [self writeValue:[o proxyForJson]];
 
@@ -154,9 +148,8 @@ static NSMutableCharacterSet *kEscapeChars;
 
 - (BOOL)writeDictionary:(NSDictionary*)dict {
 	maxDepthCheck();
-		
-	[self write:"{" len:1];
-	
+
+	writeToStream("{", 1);	
 	NSArray *keys = [dict allKeys];
 	if (self.sortKeys)
 		keys = [keys sortedArrayUsingSelector:@selector(compare:)];
@@ -164,7 +157,7 @@ static NSMutableCharacterSet *kEscapeChars;
 	BOOL doSep = NO;
 	for (id key in keys) {
 		if (doSep)
-			[self write:"," len:1];
+			writeToStream(",", 1);
 		else
 			doSep = YES;
 
@@ -176,8 +169,7 @@ static NSMutableCharacterSet *kEscapeChars;
 		}
 		
 		[self writeString:key];
-		[self write:keyValueSeparator len:keyValueSeparatorLen];
-		
+		writeToStream(keyValueSeparator, keyValueSeparatorLen);		
 		if (![self writeValue:[dict objectForKey:key]])
 			return NO;
 	}
@@ -187,20 +179,18 @@ static NSMutableCharacterSet *kEscapeChars;
 	if ([dict count])
 		humanReadable();
 
-	[self write:"}" len:1];
+	writeToStream("}", 1);
 	return YES;
 }
 
 - (BOOL)writeArray:(NSArray*)array {
 	maxDepthCheck();
 
-	[self write:"[" len:1];
-
+	writeToStream("[", 1);
 	BOOL doSep = NO;
 	for (id value in array) {
 		if (doSep)
-			[self write:"," len:1];
-		else
+			writeToStream(",", 1);		else
 			doSep = YES;
 
 		humanReadable();
@@ -213,17 +203,17 @@ static NSMutableCharacterSet *kEscapeChars;
 	if ([array count])
 		humanReadable();
 	
-	[self write:"]" len:1];
+	writeToStream("]", 1);
 	return YES;
 }
 
 
 - (void)writeArrayStart {
-	[self write:"[" len:1];
+	writeToStream("[", 1);
 }
 
 - (void)writeArrayEnd {
-	[self write:"]" len:1];
+	writeToStream("]", 1);
 }
 
 //TODO: Make this more efficient
@@ -231,17 +221,16 @@ static NSMutableCharacterSet *kEscapeChars;
 	
 	// Special case for empty string.
 	if (![string length]) {
-		[self write:"\"\"" len:2];
+		writeToStream("\"\"", 2);
 		return;
 	}
 	
-	[self write:"\"" len:1];
-    
+	writeToStream("\"", 1);    
     NSRange esc = [string rangeOfCharacterFromSet:kEscapeChars];
     if (!esc.length) {
 		const char *utf8 = [string UTF8String];
-		[self write:utf8 len:strlen(utf8)];
-        
+		writeToStream(utf8, strlen(utf8));
+		
     } else {
         NSUInteger length = [string length];
         for (NSUInteger i = 0; i < length; i++) {
@@ -263,20 +252,18 @@ static NSMutableCharacterSet *kEscapeChars;
                     }
                     break;                    
             }
-			[self write:c len:strlen(c)];
+			writeToStream(c, strlen(c));
         }
     }
     
-	[self write:"\"" len:1];
+	writeToStream("\"", 1);
 }
 
 - (BOOL)writeNumber:(NSNumber*)number {
 	if ((CFBooleanRef)number == kCFBooleanTrue)
-		[self write:"true" len:4];
-	
+		writeToStream("true", 4);
 	else if ((CFBooleanRef)number == kCFBooleanFalse)
-		[self write:"false" len:5];
-	
+		writeToStream("false", 5);
 	else if ((CFNumberRef)number == kCFNumberNaN || [number isEqualToNumber:[NSDecimalNumber notANumber]]) {
 		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
 		return NO;
@@ -292,7 +279,7 @@ static NSMutableCharacterSet *kEscapeChars;
 	else {
 		// TODO: There's got to be a better way to do this.
 		char const *utf8 = [[number stringValue] UTF8String];
-		[self write:utf8 len:strlen(utf8)];
+		writeToStream(utf8, strlen(utf8));
 	}
 	return YES;
 }
