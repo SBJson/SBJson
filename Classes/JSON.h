@@ -52,6 +52,7 @@
 
 #import "SBJsonParser.h"
 #import "SBJsonWriter.h"
+#import "SBJsonStreamWriter.h"
 #import "NSObject+SBJSON.h"
 #import "NSString+SBJSON.h"
 
@@ -59,6 +60,7 @@
 
 #import <JSON/SBJsonParser.h>
 #import <JSON/SBJsonWriter.h>
+#import <JSON/SBJsonStreamWriter.h>
 #import <JSON/NSObject+SBJSON.h>
 #import <JSON/NSString+SBJSON.h>
 
