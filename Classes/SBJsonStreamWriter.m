@@ -31,7 +31,6 @@
  */
 
 #import "SBJsonStreamWriter.h"
-#import "SBJsonEventStreamWriter.h"
 #import "SBProxyForJson.h"
 
 static NSMutableCharacterSet *kEscapeChars;
@@ -40,9 +39,6 @@ static NSMutableCharacterSet *kEscapeChars;
 
 - (void)writeHumanReadable;
 - (BOOL)didExceedMaxDepth;
-
-- (void)writeSpaces:(NSUInteger)count;
-- (void)writeNewline;
 
 - (void)writeElementSeparator;
 - (void)write:(char const *)utf8 len:(NSUInteger)len;
@@ -121,21 +117,13 @@ static NSMutableCharacterSet *kEscapeChars;
 
 - (void)writeHumanReadable {
 	if (humanReadable) {
-		[self writeNewline];
-		[self writeSpaces:2 * depth];
+		// This is hardly high-performing code, but it
+		// probably doesn't matter when we're just injecting whitespace
+		// to make the file human-readable.
+		[self write:"\n" len:1];
+		for (int i = 0; i < 2 * depth; i++)
+			[self write:" " len:1];
 	}	
-}
-
-- (void)writeSpaces:(NSUInteger)count {	
-	// This is hardly high-performing code, but it
-	// probably doesn't matter when we're just injecting whitespace
-	// to make the file human-readable.
-	for (int i = 0; i < count; i++)
-		[self write:" " len:1];
-}
-
-- (void)writeNewline {
-	[self write:"\n" len:1];
 }
 
 #pragma mark SBJsonStreamEvents
