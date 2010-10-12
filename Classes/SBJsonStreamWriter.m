@@ -35,15 +35,31 @@
 
 static NSMutableCharacterSet *kEscapeChars;
 
+#define maxDepthCheck() \
+	if (maxDepth && ++depth > maxDepth) {\
+		[self addErrorWithCode:EDEPTH description:@"Nested too deep"]; \
+		return NO; \
+	}
+
+// This is hardly high-performing code, but it
+// probably doesn't matter when we're just injecting whitespace
+// to make the file human-readable.
+#define humanReadable() \
+	if (humanReadable) { \
+		[self write:"\n" len:1]; \
+		for (int i = 0; i < 2 * depth; i++) \
+			[self write:" " len:1]; \
+	}
+
+
 @interface SBJsonStreamWriter ()
 
-- (void)writeHumanReadable;
-- (BOOL)didExceedMaxDepth;
-
-- (void)writeElementSeparator;
 - (void)write:(char const *)utf8 len:(NSUInteger)len;
+- (void)writeString:(NSString*)string;
+- (BOOL)writeNumber:(NSNumber*)number;
 
 @end
+
 
 @implementation SBJsonStreamWriter
 
@@ -107,25 +123,6 @@ static NSMutableCharacterSet *kEscapeChars;
 	[self write:"," len:1];
 }
 
-- (BOOL)didExceedMaxDepth {
-	if (maxDepth && ++depth > maxDepth) {
-		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
-		return YES;
-	}
-	return NO;
-}
-
-- (void)writeHumanReadable {
-	if (humanReadable) {
-		// This is hardly high-performing code, but it
-		// probably doesn't matter when we're just injecting whitespace
-		// to make the file human-readable.
-		[self write:"\n" len:1];
-		for (int i = 0; i < 2 * depth; i++)
-			[self write:" " len:1];
-	}	
-}
-
 #pragma mark SBJsonStreamEvents
 
 - (BOOL)writeValue:(id)o {
@@ -142,7 +139,7 @@ static NSMutableCharacterSet *kEscapeChars;
 		return [self writeNumber:o];
 
 	} else if ([o isKindOfClass:[NSNull class]]) {
-		[self writeNull];
+		[self write:"null" len:4];
 
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		return [self writeValue:[o proxyForJson]];
@@ -156,10 +153,9 @@ static NSMutableCharacterSet *kEscapeChars;
 }
 
 - (BOOL)writeDictionary:(NSDictionary*)dict {
-	if ([self didExceedMaxDepth])
-		return NO;
+	maxDepthCheck();
 		
-	[self writeDictionaryStart];
+	[self write:"{" len:1];
 	
 	NSArray *keys = [dict allKeys];
 	if (self.sortKeys)
@@ -168,14 +164,19 @@ static NSMutableCharacterSet *kEscapeChars;
 	BOOL doSep = NO;
 	for (id key in keys) {
 		if (doSep)
-			[self writeElementSeparator];
+			[self write:"," len:1];
 		else
 			doSep = YES;
 
-		[self writeHumanReadable];
+		humanReadable();
 		
-		if (![self writeDictionaryKey:key])
+		if (![key isKindOfClass:[NSString class]]) {
+			[self addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
 			return NO;
+		}
+		
+		[self writeString:key];
+		[self write:keyValueSeparator len:keyValueSeparatorLen];
 		
 		if (![self writeValue:[dict objectForKey:key]])
 			return NO;
@@ -184,26 +185,25 @@ static NSMutableCharacterSet *kEscapeChars;
 	depth--;
 
 	if ([dict count])
-		[self writeHumanReadable];
+		humanReadable();
 
-	[self writeDictionaryEnd];
+	[self write:"}" len:1];
 	return YES;
 }
 
 - (BOOL)writeArray:(NSArray*)array {
-	if ([self didExceedMaxDepth])
-		return NO;
+	maxDepthCheck();
 
-	[self writeArrayStart];
+	[self write:"[" len:1];
 
 	BOOL doSep = NO;
 	for (id value in array) {
 		if (doSep)
-			[self writeElementSeparator];
+			[self write:"," len:1];
 		else
 			doSep = YES;
 
-		[self writeHumanReadable];
+		humanReadable();
 		if (![self writeValue:value])
 			return NO;
 	}
@@ -211,31 +211,12 @@ static NSMutableCharacterSet *kEscapeChars;
 	depth--;
 	
 	if ([array count])
-		[self writeHumanReadable];
+		humanReadable();
 	
-	[self writeArrayEnd];
+	[self write:"]" len:1];
 	return YES;
 }
 
-- (void)writeDictionaryStart {
-	[self write:"{" len:1];
-}
-
-- (BOOL)writeDictionaryKey:(NSString*)key {
-	
-	if (![key isKindOfClass:[NSString class]]) {
-		[self addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
-		return NO;
-	}
-	
-	[self writeString:key];
-	[self write:keyValueSeparator len:keyValueSeparatorLen];
-	return YES;
-}
-
-- (void)writeDictionaryEnd {
-	[self write:"}" len:1];
-}
 
 - (void)writeArrayStart {
 	[self write:"[" len:1];
@@ -291,10 +272,10 @@ static NSMutableCharacterSet *kEscapeChars;
 
 - (BOOL)writeNumber:(NSNumber*)number {
 	if ((CFBooleanRef)number == kCFBooleanTrue)
-		[self writeTrue];
+		[self write:"true" len:4];
 	
 	else if ((CFBooleanRef)number == kCFBooleanFalse)
-		[self writeFalse];
+		[self write:"false" len:5];
 	
 	else if ((CFNumberRef)number == kCFNumberNaN || [number isEqualToNumber:[NSDecimalNumber notANumber]]) {
 		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
@@ -314,25 +295,6 @@ static NSMutableCharacterSet *kEscapeChars;
 		[self write:utf8 len:strlen(utf8)];
 	}
 	return YES;
-}
-
-- (void)writeTrue {
-	[self write:"true" len:4];
-}
-
-- (void)writeFalse {
-	[self write:"false" len:5];
-}
-
-- (void)writeBool:(BOOL)x {
-	if (x)
-		[self writeTrue];
-	else
-		[self writeFalse];
-}
-
-- (void)writeNull {
-	[self write:"null" len:4];
 }
 
 #pragma mark Properties

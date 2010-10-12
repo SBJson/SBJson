@@ -56,20 +56,7 @@
 - (BOOL)writeArray:(NSArray*)array;
 - (BOOL)writeValue:(id)value;
 
-- (void)writeElementSeparator;
-
-- (void)writeDictionaryStart;
-- (BOOL)writeDictionaryKey:(NSString*)key;
-- (void)writeDictionaryEnd;
-
 - (void)writeArrayStart;
 - (void)writeArrayEnd;
-
-- (void)writeString:(NSString*)string;
-- (BOOL)writeNumber:(NSNumber*)number;
-- (void)writeBool:(BOOL)x;
-- (void)writeFalse;
-- (void)writeTrue;
-- (void)writeNull;
 
 @end
