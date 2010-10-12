@@ -40,10 +40,6 @@
 		53F8A8150E57158200355C72 /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2BBD800D8B0D3900184787 /* libjson.a */; };
 		BC0387E811CEC07A0080C552 /* AbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0387E711CEC07A0080C552 /* AbstractTest.m */; };
 		BC0387E911CEC07A0080C552 /* AbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0387E711CEC07A0080C552 /* AbstractTest.m */; };
-		BC651A33125A48D100280F5C /* SBJsonEventStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC651A31125A48D100280F5C /* SBJsonEventStreamWriter.h */; };
-		BC651A34125A48D100280F5C /* SBJsonEventStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC651A32125A48D100280F5C /* SBJsonEventStreamWriter.m */; };
-		BC651A35125A48D100280F5C /* SBJsonEventStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC651A31125A48D100280F5C /* SBJsonEventStreamWriter.h */; };
-		BC651A36125A48D100280F5C /* SBJsonEventStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC651A32125A48D100280F5C /* SBJsonEventStreamWriter.m */; };
 		BC651A6E125A502700280F5C /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */; };
 		BC651A6F125A502700280F5C /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC651A6D125A502700280F5C /* SBJsonStreamWriter.m */; };
 		BC651A70125A502700280F5C /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */; };
@@ -289,8 +285,6 @@
 		BC3A1CDD12060DAC0051A978 /* Credits.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Credits.md; sourceTree = "<group>"; };
 		BC3A1CDE12060DAC0051A978 /* Installation.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installation.md; sourceTree = "<group>"; };
 		BC3A1CDF12060DAC0051A978 /* License.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License.md; sourceTree = "<group>"; };
-		BC651A31125A48D100280F5C /* SBJsonEventStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonEventStreamWriter.h; sourceTree = "<group>"; };
-		BC651A32125A48D100280F5C /* SBJsonEventStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonEventStreamWriter.m; sourceTree = "<group>"; };
 		BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
 		BC651A6D125A502700280F5C /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
 		BC651A81125A571C00280F5C /* SBProxyForJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBProxyForJson.h; sourceTree = "<group>"; };
@@ -479,8 +473,6 @@
 				535157A40F6EE4A800C8AABD /* SBJsonWriter.m */,
 				BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */,
 				BC651A6D125A502700280F5C /* SBJsonStreamWriter.m */,
-				BC651A31125A48D100280F5C /* SBJsonEventStreamWriter.h */,
-				BC651A32125A48D100280F5C /* SBJsonEventStreamWriter.m */,
 				BC651A81125A571C00280F5C /* SBProxyForJson.h */,
 			);
 			path = Classes;
@@ -674,7 +666,6 @@
 				5351577C0F6E3BE100C8AABD /* SBJsonParser.h in Headers */,
 				535157A70F6EE4A800C8AABD /* SBJsonWriter.h in Headers */,
 				535158700F70DE7A00C8AABD /* SBJsonBase.h in Headers */,
-				BC651A33125A48D100280F5C /* SBJsonEventStreamWriter.h in Headers */,
 				BC651A6E125A502700280F5C /* SBJsonStreamWriter.h in Headers */,
 				BC651A82125A571C00280F5C /* SBProxyForJson.h in Headers */,
 			);
@@ -690,7 +681,6 @@
 				5351577A0F6E3BE100C8AABD /* SBJsonParser.h in Headers */,
 				535157A50F6EE4A800C8AABD /* SBJsonWriter.h in Headers */,
 				535158710F70DE7A00C8AABD /* SBJsonBase.h in Headers */,
-				BC651A35125A48D100280F5C /* SBJsonEventStreamWriter.h in Headers */,
 				BC651A70125A502700280F5C /* SBJsonStreamWriter.h in Headers */,
 				BC651A83125A571C00280F5C /* SBProxyForJson.h in Headers */,
 			);
@@ -1125,7 +1115,6 @@
 				5351577D0F6E3BE100C8AABD /* SBJsonParser.m in Sources */,
 				535157A80F6EE4A800C8AABD /* SBJsonWriter.m in Sources */,
 				535158730F70DE7B00C8AABD /* SBJsonBase.m in Sources */,
-				BC651A34125A48D100280F5C /* SBJsonEventStreamWriter.m in Sources */,
 				BC651A6F125A502700280F5C /* SBJsonStreamWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1152,7 +1141,6 @@
 				5351577B0F6E3BE100C8AABD /* SBJsonParser.m in Sources */,
 				535157A60F6EE4A800C8AABD /* SBJsonWriter.m in Sources */,
 				535158740F70DE7B00C8AABD /* SBJsonBase.m in Sources */,
-				BC651A36125A48D100280F5C /* SBJsonEventStreamWriter.m in Sources */,
 				BC651A71125A502700280F5C /* SBJsonStreamWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

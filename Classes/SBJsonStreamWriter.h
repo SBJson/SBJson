@@ -33,11 +33,12 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonBase.h"
 
-@class SBJsonEventStreamWriter;
-
 @interface SBJsonStreamWriter : SBJsonBase {
-	@private
-	SBJsonEventStreamWriter *writer;
+
+@private
+	NSOutputStream *stream;
+	char const *keyValueSeparator;
+	size_t keyValueSeparatorLen;
     BOOL sortKeys, humanReadable;
 }
 
@@ -45,7 +46,30 @@
 @property BOOL sortKeys;
 
 - (id)initWithStream:(NSOutputStream*)stream;
-
 - (BOOL)write:(id)object;
+
+@end
+
+@interface SBJsonStreamWriter (SBJsonStreamEvents)
+
+- (BOOL)writeDictionary:(NSDictionary*)dict;
+- (BOOL)writeArray:(NSArray*)array;
+- (BOOL)writeValue:(id)value;
+
+- (void)writeElementSeparator;
+
+- (void)writeDictionaryStart;
+- (BOOL)writeDictionaryKey:(NSString*)key;
+- (void)writeDictionaryEnd;
+
+- (void)writeArrayStart;
+- (void)writeArrayEnd;
+
+- (void)writeString:(NSString*)string;
+- (BOOL)writeNumber:(NSNumber*)number;
+- (void)writeBool:(BOOL)x;
+- (void)writeFalse;
+- (void)writeTrue;
+- (void)writeNull;
 
 @end
