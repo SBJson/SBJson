@@ -35,14 +35,6 @@
 
 static NSMutableCharacterSet *kEscapeChars;
 
-#define maxDepthCheck()	\
-	do {																	\
-		if (maxDepth && ++depth > maxDepth) {								\
-			[self addErrorWithCode:EDEPTH description:@"Nested too deep"];	\
-			return NO;														\
-		}																	\
-	} while (0)
-
 #define humanReadable()	\
 	do {											\
 		if (humanReadable) {						\
@@ -147,8 +139,11 @@ static NSMutableCharacterSet *kEscapeChars;
 }
 
 - (BOOL)writeDictionary:(NSDictionary*)dict {
-	maxDepthCheck();
-
+	if (maxDepth && ++depth > maxDepth) {
+		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
+		return NO;
+	}
+	
 	writeToStream("{", 1);	
 	NSArray *keys = [dict allKeys];
 	if (self.sortKeys)
@@ -184,8 +179,11 @@ static NSMutableCharacterSet *kEscapeChars;
 }
 
 - (BOOL)writeArray:(NSArray*)array {
-	maxDepthCheck();
-
+	if (maxDepth && ++depth > maxDepth) {
+		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
+		return NO;
+	}
+		
 	writeToStream("[", 1);
 	BOOL doSep = NO;
 	for (id value in array) {
