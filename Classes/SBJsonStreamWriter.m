@@ -38,29 +38,15 @@ static NSMutableCharacterSet *kEscapeChars;
 #define humanReadable()	\
 	do {											\
 		if (humanReadable) {						\
-			writeToStream("\n", 1);					\
+			[self write:"\n" len: 1];					\
 			for (int i = 0; i < 2 * depth; i++)		\
-				writeToStream(" ", 1);				\
+				[self write:" " len: 1];				\
 		}											\
 	} while (0)
 
-#define writeToStream(utf8, lenExp) \
-	do {																					\
-		NSUInteger len = lenExp;															\
-		NSUInteger written = 0;																\
-		do {																				\
-			NSInteger w = [stream write:(const uint8_t *)utf8 maxLength:len - written];		\
-			if (w > 0)																		\
-				written += w;																\
-			else if (w == -1)																\
-				NSLog(@"Failed writing to stream");											\
-			else if (w == 0)																\
-				NSLog(@"Not enough space in stream");										\
-			} while (written < len);														\
-	} while(0)
-
 @interface SBJsonStreamWriter ()
 
+- (void)write:(char const *)utf8 len:(NSUInteger)len;
 - (void)writeString:(NSString*)string;
 - (BOOL)writeNumber:(NSNumber*)number;
 
@@ -126,7 +112,7 @@ static NSMutableCharacterSet *kEscapeChars;
 		return [self writeNumber:o];
 
 	} else if ([o isKindOfClass:[NSNull class]]) {
-		writeToStream("null", 4);
+		[self write:"null" len: 4];
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		return [self writeValue:[o proxyForJson]];
 
@@ -144,7 +130,7 @@ static NSMutableCharacterSet *kEscapeChars;
 		return NO;
 	}
 	
-	writeToStream("{", 1);	
+	[self write:"{" len: 1];	
 	NSArray *keys = [dict allKeys];
 	if (self.sortKeys)
 		keys = [keys sortedArrayUsingSelector:@selector(compare:)];
@@ -152,7 +138,7 @@ static NSMutableCharacterSet *kEscapeChars;
 	BOOL doSep = NO;
 	for (id key in keys) {
 		if (doSep)
-			writeToStream(",", 1);
+			[self write:"," len:1];
 		else
 			doSep = YES;
 
@@ -164,7 +150,7 @@ static NSMutableCharacterSet *kEscapeChars;
 		}
 		
 		[self writeString:key];
-		writeToStream(keyValueSeparator, keyValueSeparatorLen);		
+		[self write:keyValueSeparator len: keyValueSeparatorLen];		
 		if (![self writeValue:[dict objectForKey:key]])
 			return NO;
 	}
@@ -174,7 +160,7 @@ static NSMutableCharacterSet *kEscapeChars;
 	if ([dict count])
 		humanReadable();
 
-	writeToStream("}", 1);
+	[self write:"}" len: 1];
 	return YES;
 }
 
@@ -184,11 +170,12 @@ static NSMutableCharacterSet *kEscapeChars;
 		return NO;
 	}
 		
-	writeToStream("[", 1);
+	[self write:"[" len: 1];
 	BOOL doSep = NO;
 	for (id value in array) {
 		if (doSep)
-			writeToStream(",", 1);		else
+			[self write:"," len:1];
+		else
 			doSep = YES;
 
 		humanReadable();
@@ -201,17 +188,28 @@ static NSMutableCharacterSet *kEscapeChars;
 	if ([array count])
 		humanReadable();
 	
-	writeToStream("]", 1);
+	[self write:"]" len: 1];
 	return YES;
 }
 
 
 - (void)writeArrayStart {
-	writeToStream("[", 1);
+	[self write:"[" len: 1];
 }
 
 - (void)writeArrayEnd {
-	writeToStream("]", 1);
+	[self write:"]" len: 1];
+}
+
+#pragma mark Private methods
+
+- (void)write:(char const *)utf8 len:(NSUInteger)len {
+    NSUInteger written = 0;
+    do {
+        NSInteger w = [stream write:(const uint8_t *)utf8 maxLength:len - written];	
+	    if (w > 0)																	
+		   	written += w;															
+	} while (written < len);													
 }
 
 //TODO: Make this more efficient
@@ -219,15 +217,48 @@ static NSMutableCharacterSet *kEscapeChars;
 	
 	// Special case for empty string.
 	if (![string length]) {
-		writeToStream("\"\"", 2);
+		[self write:"\"\"" len: 2];
 		return;
 	}
 	
-	writeToStream("\"", 1);    
+	[self write:"\"" len: 1];
+	
+	const char *utf8 = [string UTF8String];
+	const char *c, *s;
+	c = s = utf8;
+	
+	while (*c) {
+		if (*c < 33 || *c == '"') {
+			if (c - s)
+				[self write:s len: c - s];
+			char const *cc;
+			switch (*c) {
+                case '"':  cc = "\\\""; break;
+                case '\\': cc = "\\\\"; break;
+                case '\t': cc = "\\t"; break;
+                case '\n': cc = "\\n"; break;
+                case '\r': cc = "\\r"; break;
+                case '\b': cc = "\\b"; break;
+                case '\f': cc = "\\f"; break;
+				default:
+					cc = [[NSString stringWithFormat:@"\\u%04x", *c] UTF8String];
+					break;
+			}
+			[self write:cc len: strlen(cc)];
+			s = c;
+		}
+		c++;
+	}
+
+	[self write:s len: c - s];
+	
+	[self write:"\"" len: 1];
+
+/*	
     NSRange esc = [string rangeOfCharacterFromSet:kEscapeChars];
     if (!esc.length) {
 		const char *utf8 = [string UTF8String];
-		writeToStream(utf8, strlen(utf8));
+		[self write:utf8 len: strlen(utf8)];
 		
     } else {
         NSUInteger length = [string length];
@@ -244,25 +275,29 @@ static NSMutableCharacterSet *kEscapeChars;
                 case '\f': c = "\\f"; break;
                 default:    
                     if (uc < 0x20) {
-                        c = [[NSString stringWithFormat:@"\\u%04x", uc] UTF8String];
+                        ;
                     } else {
 						c = [[NSString stringWithCharacters:&uc length:1] UTF8String];
                     }
                     break;                    
             }
-			writeToStream(c, strlen(c));
+			[self write:c len: strlen(c)];
         }
     }
+ */
     
-	writeToStream("\"", 1);
 }
 
 - (BOOL)writeNumber:(NSNumber*)number {
 	if ((CFBooleanRef)number == kCFBooleanTrue)
-		writeToStream("true", 4);
+		[self write:"true" len: 4];
 	else if ((CFBooleanRef)number == kCFBooleanFalse)
-		writeToStream("false", 5);
-	else if ((CFNumberRef)number == kCFNumberNaN || [number isEqualToNumber:[NSDecimalNumber notANumber]]) {
+		[self write:"false" len: 5];
+	else if ((CFNumberRef)number == kCFNumberNaN) {
+		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
+		return NO;
+	}
+	 else if ([number isEqualToNumber:[NSDecimalNumber notANumber]]) {
 		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
 		return NO;
 	}
@@ -277,7 +312,7 @@ static NSMutableCharacterSet *kEscapeChars;
 	else {
 		// TODO: There's got to be a better way to do this.
 		char const *utf8 = [[number stringValue] UTF8String];
-		writeToStream(utf8, strlen(utf8));
+		[self write:utf8 len: strlen(utf8)];
 	}
 	return YES;
 }
