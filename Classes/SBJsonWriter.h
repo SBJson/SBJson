@@ -77,15 +77,23 @@
 @property BOOL sortKeys;
 
 /**
- @brief Return JSON representation (or fragment) for the given object.
+ @brief Return JSON representation for the given object.
  
  Returns a string containing JSON representation of the passed in value, or nil on error.
  If nil is returned and @p error is not NULL, @p *error can be interrogated to find the cause of the error.
  
- @param value any instance that can be represented as a JSON fragment
- 
+ @param value any instance that can be represented as JSON text.
  */
 - (NSString*)stringWithObject:(id)value;
+
+/**
+ @brief Return JSON representation for the given object.
+ 
+ Returns an NSData object containing JSON represented as UTF8 text, or nil on error.
+ 
+ @param value any instance that can be represented as JSON text.
+ */
+- (NSData*)dataWithObject:(id)value;
 
 /**
  @brief Return JSON representation (or fragment) for the given object.
