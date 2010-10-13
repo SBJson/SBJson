@@ -223,6 +223,8 @@ static NSMutableCharacterSet *kEscapeChars;
 	}
 	
 	[self write:"\"" len: 1];
+
+#if 0
 	
 	const char *utf8 = [string UTF8String];
 	const char *c, *s;
@@ -254,9 +256,8 @@ static NSMutableCharacterSet *kEscapeChars;
 
 	[self write:s len: c - s];
 	
-	[self write:"\"" len: 1];
+#else
 
-/*	
     NSRange esc = [string rangeOfCharacterFromSet:kEscapeChars];
     if (!esc.length) {
 		const char *utf8 = [string UTF8String];
@@ -277,7 +278,7 @@ static NSMutableCharacterSet *kEscapeChars;
                 case '\f': c = "\\f"; break;
                 default:    
                     if (uc < 0x20) {
-                        ;
+						c = [[NSString stringWithFormat:@"\\u%04x", uc] UTF8String];
                     } else {
 						c = [[NSString stringWithCharacters:&uc length:1] UTF8String];
                     }
@@ -286,7 +287,10 @@ static NSMutableCharacterSet *kEscapeChars;
 			[self write:c len: strlen(c)];
         }
     }
- */
+
+#endif
+	
+	[self write:"\"" len: 1];
     
 }
 
