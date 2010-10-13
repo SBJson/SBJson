@@ -35,20 +35,12 @@
 
 static NSMutableCharacterSet *kEscapeChars;
 
-#define humanReadable()	\
-	do {											\
-		if (humanReadable) {						\
-			[self write:"\n" len: 1];					\
-			for (int i = 0; i < 2 * depth; i++)		\
-				[self write:" " len: 1];				\
-		}											\
-	} while (0)
-
 @interface SBJsonStreamWriter ()
 
 - (void)write:(char const *)utf8 len:(NSUInteger)len;
 - (void)writeString:(NSString*)string;
 - (BOOL)writeNumber:(NSNumber*)number;
+- (void)writeHumanReadable;
 
 @end
 
@@ -142,7 +134,8 @@ static NSMutableCharacterSet *kEscapeChars;
 		else
 			doSep = YES;
 
-		humanReadable();
+        if (humanReadable)
+            [self writeHumanReadable];
 		
 		if (![key isKindOfClass:[NSString class]]) {
 			[self addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
@@ -157,8 +150,9 @@ static NSMutableCharacterSet *kEscapeChars;
 	
 	depth--;
 
-	if ([dict count])
-		humanReadable();
+	if (humanReadable && [dict count])
+        [self writeHumanReadable];
+		
 
 	[self write:"}" len: 1];
 	return YES;
@@ -178,15 +172,17 @@ static NSMutableCharacterSet *kEscapeChars;
 		else
 			doSep = YES;
 
-		humanReadable();
+		if (humanReadable)
+			[self writeHumanReadable];
+		
 		if (![self writeValue:value])
 			return NO;
 	}
 	
 	depth--;
 	
-	if ([array count])
-		humanReadable();
+	if (humanReadable && [array count])
+        [self writeHumanReadable];
 	
 	[self write:"]" len: 1];
 	return YES;
@@ -203,6 +199,12 @@ static NSMutableCharacterSet *kEscapeChars;
 
 #pragma mark Private methods
 
+- (void)writeHumanReadable {
+	[self write:"\n" len: 1];
+	for (int i = 0; i < 2 * depth; i++)
+	    [self write:" " len: 1];
+}
+
 - (void)write:(char const *)utf8 len:(NSUInteger)len {
     NSUInteger written = 0;
     do {
@@ -212,7 +214,6 @@ static NSMutableCharacterSet *kEscapeChars;
 	} while (written < len);													
 }
 
-//TODO: Make this more efficient
 - (void)writeString:(NSString*)string {
 	
 	// Special case for empty string.
@@ -241,6 +242,7 @@ static NSMutableCharacterSet *kEscapeChars;
                 case '\b': cc = "\\b"; break;
                 case '\f': cc = "\\f"; break;
 				default:
+    				//TODO: Make this more efficient
 					cc = [[NSString stringWithFormat:@"\\u%04x", *c] UTF8String];
 					break;
 			}
