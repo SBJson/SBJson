@@ -33,7 +33,8 @@
 #import "SBJsonStreamWriter.h"
 #import "SBProxyForJson.h"
 
-static NSMutableCharacterSet *kEscapeChars;
+static NSMutableDictionary *stringCache;
+
 
 @interface SBJsonStreamWriter ()
 
@@ -51,8 +52,7 @@ static NSMutableCharacterSet *kEscapeChars;
 @dynamic humanReadable;
 
 + (void)initialize {
-	kEscapeChars = [[NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)] retain];
-	[kEscapeChars addCharactersInString: @"\"\\"];
+	stringCache = [NSMutableDictionary new];
 }
 
 #pragma mark Housekeeping
@@ -215,9 +215,7 @@ static NSMutableCharacterSet *kEscapeChars;
 }
 
 
-static const char *strForChar(int c) {
-	
-	// for i in `seq 0 33` ; do printf 'case %d: return "\\\\u00%02x"; break;' $i $i; echo ; done
+static const char *strForChar(int c) {	
 	switch (c) {
 		case 0: return "\\u0000"; break;
 		case 1: return "\\u0001"; break;
@@ -260,35 +258,37 @@ static const char *strForChar(int c) {
 
 - (void)writeString:(NSString*)string {
 	
-	// Special case for empty string.
-	if (![string length]) {
-		[self write:"\"\"" len: 2];
+	NSMutableData *data = [stringCache objectForKey:string];
+	if (data) {
+		[self write:[data bytes] len:[data length]];
 		return;
 	}
 	
-	[self write:"\"" len: 1];
-
+	NSUInteger len = [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
 	const char *utf8 = [string UTF8String];
 	NSUInteger written = 0, i = 0;
-	NSUInteger len = [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+		
+	data = [NSMutableData dataWithCapacity:len * 1.1];
+	[data appendBytes:"\"" length:1];
 	
 	for (i = 0; i < len; i++) {
 		int c = utf8[i];
 		if (c >= 0 && c < 32 || c == '"' || c == '\\') {
 			if (i - written)
-				[self write:utf8 + written len: i - written];
+				[data appendBytes:utf8 + written length:i - written];
 			written = i + 1;
 
 			const char *t = strForChar(c);
-			[self write:t len:strlen(t)];
+			[data appendBytes:t length:strlen(t)];
 		}
 	}
 
 	if (i - written)
-		[self write:utf8 + written len: i - written];
-		
-	[self write:"\"" len: 1];
-    
+		[data appendBytes:utf8 + written length:i - written];
+
+	[data appendBytes:"\"" length:1];
+	[self write:[data bytes] len:[data length]];
+	[stringCache setObject:data forKey:string];
 }
 
 - (BOOL)writeNumber:(NSNumber*)number {
