@@ -292,31 +292,54 @@ static const char *strForChar(int c) {
 }
 
 - (BOOL)writeNumber:(NSNumber*)number {
-	if ((CFBooleanRef)number == kCFBooleanTrue)
+
+	if ((CFBooleanRef)number == kCFBooleanTrue) {
 		[self write:"true" len: 4];
-	else if ((CFBooleanRef)number == kCFBooleanFalse)
+		return YES;
+
+	} else if ((CFBooleanRef)number == kCFBooleanFalse) {
 		[self write:"false" len: 5];
-	else if ((CFNumberRef)number == kCFNumberNaN) {
-		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
-		return NO;
-	}
-	 else if ([number isEqualToNumber:[NSDecimalNumber notANumber]]) {
-		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
-		return NO;
-	}
-	else if ((CFNumberRef)number == kCFNumberPositiveInfinity) {
+		return YES;
+
+	} else if ((CFNumberRef)number == kCFNumberPositiveInfinity) {
 		[self addErrorWithCode:EUNSUPPORTED description:@"+Infinity is not a valid number in JSON"];
 		return NO;
-	}
-	else if ((CFNumberRef)number == kCFNumberNegativeInfinity) {
+
+	} else if ((CFNumberRef)number == kCFNumberNegativeInfinity) {
 		[self addErrorWithCode:EUNSUPPORTED description:@"-Infinity is not a valid number in JSON"];
 		return NO;
+
+	} else if ((CFNumberRef)number == kCFNumberNaN) {
+		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
+		return NO;
+		
+	} else if ([number isEqualToNumber:[NSDecimalNumber notANumber]]) {
+		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
+		return NO;
 	}
-	else {
-		// TODO: There's got to be a better way to do this.
-		char const *utf8 = [[number stringValue] UTF8String];
-		[self write:utf8 len: strlen(utf8)];
+	
+	const char *objcType = [number objCType];
+	char num[64];
+	size_t len;
+	
+	switch (objcType[0]) {
+		case 'c': case 'i': case 's': case 'l': case 'q':
+			len = sprintf(num, "%lld", [number longLongValue]);
+			break;
+		case 'C': case 'I': case 'S': case 'L': case 'Q':
+			len = sprintf(num, "%llu", [number unsignedLongLongValue]);
+			break;
+		case 'f': case 'd': default:
+			if ([number isKindOfClass:[NSDecimalNumber class]]) {
+				char const *s = [[number stringValue] UTF8String];
+				[self write:s len: strlen(s)];
+				return YES;
+			}
+			len = sprintf(num, "%g", [number doubleValue]);
+			break;
 	}
+	[self write:num len: len];
+
 	return YES;
 }
 
