@@ -214,6 +214,50 @@ static NSMutableCharacterSet *kEscapeChars;
 	} while (written < len);													
 }
 
+
+static const char *strForChar(int c) {
+	
+	// for i in `seq 0 33` ; do printf 'case %d: return "\\\\u00%02x"; break;' $i $i; echo ; done
+	switch (c) {
+		case 0: return "\\u0000"; break;
+		case 1: return "\\u0001"; break;
+		case 2: return "\\u0002"; break;
+		case 3: return "\\u0003"; break;
+		case 4: return "\\u0004"; break;
+		case 5: return "\\u0005"; break;
+		case 6: return "\\u0006"; break;
+		case 7: return "\\u0007"; break;
+		case 8: return "\\b"; break;
+		case 9: return "\\t"; break;
+		case 10: return "\\n"; break;
+		case 11: return "\\u000b"; break;
+		case 12: return "\\f"; break;
+		case 13: return "\\r"; break;
+		case 14: return "\\u000e"; break;
+		case 15: return "\\u000f"; break;
+		case 16: return "\\u0010"; break;
+		case 17: return "\\u0011"; break;
+		case 18: return "\\u0012"; break;
+		case 19: return "\\u0013"; break;
+		case 20: return "\\u0014"; break;
+		case 21: return "\\u0015"; break;
+		case 22: return "\\u0016"; break;
+		case 23: return "\\u0017"; break;
+		case 24: return "\\u0018"; break;
+		case 25: return "\\u0019"; break;
+		case 26: return "\\u001a"; break;
+		case 27: return "\\u001b"; break;
+		case 28: return "\\u001c"; break;
+		case 29: return "\\u001d"; break;
+		case 30: return "\\u001e"; break;
+		case 31: return "\\u001f"; break;
+		case 34: return "\\\""; break;
+		case 92: return "\\\\"; break;
+	}
+	NSLog(@"FUTFUTFUT: -->'%c'<---", c);
+	return "FUTFUTFUT";
+}
+
 - (void)writeString:(NSString*)string {
 	
 	// Special case for empty string.
@@ -224,72 +268,25 @@ static NSMutableCharacterSet *kEscapeChars;
 	
 	[self write:"\"" len: 1];
 
-#if 0
-	
 	const char *utf8 = [string UTF8String];
-	const char *c, *s;
-	c = s = utf8;
+	NSUInteger written = 0, i = 0;
+	NSUInteger len = [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
 	
-	while (*c) {
-		if (*c < 33 || *c == '"') {
-			if (c - s)
-				[self write:s len: c - s];
-			char const *cc;
-			switch (*c) {
-                case '"':  cc = "\\\""; break;
-                case '\\': cc = "\\\\"; break;
-                case '\t': cc = "\\t"; break;
-                case '\n': cc = "\\n"; break;
-                case '\r': cc = "\\r"; break;
-                case '\b': cc = "\\b"; break;
-                case '\f': cc = "\\f"; break;
-				default:
-    				//TODO: Make this more efficient
-					cc = [[NSString stringWithFormat:@"\\u%04x", *c] UTF8String];
-					break;
-			}
-			[self write:cc len: strlen(cc)];
-			s = c;
+	for (i = 0; i < len; i++) {
+		int c = utf8[i];
+		if (c >= 0 && c < 32 || c == '"' || c == '\\') {
+			if (i - written)
+				[self write:utf8 + written len: i - written];
+			written = i + 1;
+
+			const char *t = strForChar(c);
+			[self write:t len:strlen(t)];
 		}
-		c++;
 	}
 
-	[self write:s len: c - s];
-	
-#else
-
-    NSRange esc = [string rangeOfCharacterFromSet:kEscapeChars];
-    if (!esc.length) {
-		const char *utf8 = [string UTF8String];
-		[self write:utf8 len: strlen(utf8)];
+	if (i - written)
+		[self write:utf8 + written len: i - written];
 		
-    } else {
-        NSUInteger length = [string length];
-        for (NSUInteger i = 0; i < length; i++) {
-            unichar uc = [string characterAtIndex:i];
-			char const *c;
-            switch (uc) {
-                case '"':  c = "\\\""; break;
-                case '\\': c = "\\\\"; break;
-                case '\t': c = "\\t"; break;
-                case '\n': c = "\\n"; break;
-                case '\r': c = "\\r"; break;
-                case '\b': c = "\\b"; break;
-                case '\f': c = "\\f"; break;
-                default:    
-                    if (uc < 0x20) {
-						c = [[NSString stringWithFormat:@"\\u%04x", uc] UTF8String];
-                    } else {
-						c = [[NSString stringWithCharacters:&uc length:1] UTF8String];
-                    }
-                    break;                    
-            }
-			[self write:c len: strlen(c)];
-        }
-    }
-
-#endif
-	
 	[self write:"\"" len: 1];
     
 }
