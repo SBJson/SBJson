@@ -34,7 +34,7 @@
 #import "SBProxyForJson.h"
 
 static NSMutableDictionary *stringCache;
-
+static NSDecimalNumber *notANumber;
 
 @interface SBJsonStreamWriter ()
 
@@ -52,6 +52,7 @@ static NSMutableDictionary *stringCache;
 @dynamic humanReadable;
 
 + (void)initialize {
+	notANumber = [NSDecimalNumber notANumber];
 	stringCache = [NSMutableDictionary new];
 }
 
@@ -313,7 +314,7 @@ static const char *strForChar(int c) {
 		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
 		return NO;
 		
-	} else if ([number isEqualToNumber:[NSDecimalNumber notANumber]]) {
+	} else if (number == notANumber) {
 		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
 		return NO;
 	}
