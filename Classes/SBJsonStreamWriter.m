@@ -76,17 +76,23 @@ static NSDecimalNumber *notANumber;
 #pragma mark Methods
 
 - (BOOL)write:(id)object {
-	if ([object isKindOfClass:[NSDictionary class]] || [object isKindOfClass:[NSArray class]]) {
-		return [self writeValue:object];
-	}
+	[stream open];
+
+	BOOL result = NO;
 	
-	if ([object respondsToSelector:@selector(proxyForJson)]) {
-		return [self write:[object proxyForJson]];
+	if ([object isKindOfClass:[NSDictionary class]] || [object isKindOfClass:[NSArray class]]) {
+		result = [self writeValue:object];
+
+	} else if ([object respondsToSelector:@selector(proxyForJson)]) {
+		result = [self write:[object proxyForJson]];
+
+	} else {
+		[self addErrorWithCode:EUNSUPPORTED description:@"Not valid type for JSON"];
 
 	}
 	
-	[self addErrorWithCode:EUNSUPPORTED description:@"Not valid type for JSON"];
-	return NO;
+	[stream close];
+	return result;
 }
 
 #pragma mark SBJsonStreamEvents
@@ -106,6 +112,7 @@ static NSDecimalNumber *notANumber;
 
 	} else if ([o isKindOfClass:[NSNull class]]) {
 		[self write:"null" len: 4];
+		
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		return [self writeValue:[o proxyForJson]];
 
