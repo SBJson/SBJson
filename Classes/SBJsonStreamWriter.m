@@ -38,6 +38,10 @@ static NSDecimalNumber *notANumber;
 
 @interface SBJsonStreamWriter ()
 
+- (BOOL)writeDictionary:(NSDictionary*)dict;
+- (BOOL)writeArray:(NSArray*)array;
+- (BOOL)writeValue:(id)value;
+
 - (void)write:(char const *)utf8 len:(NSUInteger)len;
 - (void)writeString:(NSString*)string;
 - (BOOL)writeNumber:(NSNumber*)number;
@@ -95,7 +99,7 @@ static NSDecimalNumber *notANumber;
 	return result;
 }
 
-#pragma mark SBJsonStreamEvents
+#pragma mark Private methods
 
 - (BOOL)writeValue:(id)o {
 	if ([o isKindOfClass:[NSDictionary class]]) {
@@ -195,17 +199,6 @@ static NSDecimalNumber *notANumber;
 	[self write:"]" len: 1];
 	return YES;
 }
-
-
-- (void)writeArrayStart {
-	[self write:"[" len: 1];
-}
-
-- (void)writeArrayEnd {
-	[self write:"]" len: 1];
-}
-
-#pragma mark Private methods
 
 - (void)writeHumanReadable {
 	[self write:"\n" len: 1];

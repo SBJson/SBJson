@@ -49,14 +49,3 @@
 - (BOOL)write:(id)object;
 
 @end
-
-@interface SBJsonStreamWriter (SBJsonStreamEvents)
-
-- (BOOL)writeDictionary:(NSDictionary*)dict;
-- (BOOL)writeArray:(NSArray*)array;
-- (BOOL)writeValue:(id)value;
-
-- (void)writeArrayStart;
-- (void)writeArrayEnd;
-
-@end
