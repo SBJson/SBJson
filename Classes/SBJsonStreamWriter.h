@@ -47,20 +47,18 @@
 
 - (id)initWithStream:(NSOutputStream*)stream;
 
-// Very high level
+// High level
 - (BOOL)write:(id)value;
 
-// High-level methods
+// Mid-level methods
 - (BOOL)writeObject:(NSDictionary*)dict;
 - (BOOL)writeArray:(NSArray *)array;
 
-// Mid-level methods
+// Low-level methods
 - (BOOL)writeObjectOpen;
 - (void)writeObjectClose;
 - (BOOL)writeArrayOpen;
 - (void)writeArrayClose;
-
-// Low-level methods
 - (BOOL)writeNull;
 - (BOOL)writeBool:(BOOL)x;
 //- (BOOL)writeInteger:(long)l;
