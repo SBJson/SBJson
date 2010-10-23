@@ -184,11 +184,15 @@ static NSDecimalNumber *notANumber;
 
 #pragma mark Meta Methods
 
-- (BOOL)write:(id)value {
-	[self open];
-	BOOL status = [self writeValue:value];
-	[self close];
-	return status;
+- (BOOL)write:(id)object {
+	if ([object isKindOfClass:[NSDictionary class]] || [object isKindOfClass:[NSArray class]])
+		return [self writeValue:object];
+
+	else if ([object respondsToSelector:@selector(proxyForJson)])
+		return [self write:[object proxyForJson]];
+
+	[self addErrorWithCode:EUNSUPPORTED description:@"Not valid type for JSON"];
+	return NO;
 }
 
 #pragma mark Methods

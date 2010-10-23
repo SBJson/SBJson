@@ -64,14 +64,18 @@
 
 - (NSData*)dataWithObject:(id)value {
 	NSOutputStream *stream = [[[NSOutputStream alloc] initToMemory] autorelease];
-
+	
 	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] initWithStream:stream] autorelease];
 	streamWriter.sortKeys = self.sortKeys;
 	streamWriter.maxDepth = self.maxDepth;
 	streamWriter.humanReadable = self.humanReadable;
 
-	if ([streamWriter write:value])
-		return [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];	
+	[stream open];
+	BOOL status = [streamWriter write:value];
+	[stream close];
+	
+	if (status)
+		return [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
 	
 	errorTrace = [streamWriter.errorTrace retain];
 	return nil;
