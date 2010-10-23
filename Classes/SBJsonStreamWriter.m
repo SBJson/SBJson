@@ -214,8 +214,12 @@ static NSDecimalNumber *notANumber;
 		keys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	
 	for (id k in keys) {
-		if (![self writeValue:k])
+		if (![k isKindOfClass:[NSString class]]) {
+			[self addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
 			return NO;
+		}
+
+		[self writeString:k];
 		if (![self writeValue:[dict objectForKey:k]])
 			return NO;
 	}
