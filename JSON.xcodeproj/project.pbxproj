@@ -281,10 +281,11 @@
 		BC010B181248A5E400ACC736 /* RefreshOnlineDocs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = RefreshOnlineDocs.sh; sourceTree = "<group>"; };
 		BC0387E611CEC07A0080C552 /* AbstractTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractTest.h; sourceTree = "<group>"; };
 		BC0387E711CEC07A0080C552 /* AbstractTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractTest.m; sourceTree = "<group>"; };
-		BC3A1CDC12060DAC0051A978 /* Changes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changes.md; sourceTree = "<group>"; };
-		BC3A1CDD12060DAC0051A978 /* Credits.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Credits.md; sourceTree = "<group>"; };
-		BC3A1CDE12060DAC0051A978 /* Installation.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installation.md; sourceTree = "<group>"; };
-		BC3A1CDF12060DAC0051A978 /* License.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License.md; sourceTree = "<group>"; };
+		BC0DEEB21273A34F006964FC /* ReleaseChecklist.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReleaseChecklist.markdown; sourceTree = "<group>"; };
+		BC3A1CDC12060DAC0051A978 /* Changes.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changes.markdown; sourceTree = "<group>"; };
+		BC3A1CDD12060DAC0051A978 /* Credits.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Credits.markdown; sourceTree = "<group>"; };
+		BC3A1CDE12060DAC0051A978 /* Installation.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installation.markdown; sourceTree = "<group>"; };
+		BC3A1CDF12060DAC0051A978 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
 		BC651A6D125A502700280F5C /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
 		BC651A81125A571C00280F5C /* SBProxyForJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBProxyForJson.h; sourceTree = "<group>"; };
@@ -387,7 +388,7 @@
 		BCB55B411221D4B800ACE34F /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		BCB55B421221D4E200ACE34F /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		BCB55B441221D50500ACE34F /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		BCC0466C0FB62CF100F9F2D3 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.md; sourceTree = "<group>"; };
+		BCC0466C0FB62CF100F9F2D3 /* Readme.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.markdown; sourceTree = "<group>"; };
 		BCC047320FB6584C00F9F2D3 /* InstallDocumentation.sh */ = {isa = PBXFileReference; explicitFileType = text.script.sh; fileEncoding = 4; path = InstallDocumentation.sh; sourceTree = "<group>"; };
 		E75716430C96DB530084A449 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -644,11 +645,12 @@
 		BCC047D30FB742FC00F9F2D3 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
-				BC3A1CDC12060DAC0051A978 /* Changes.md */,
-				BC3A1CDD12060DAC0051A978 /* Credits.md */,
-				BC3A1CDE12060DAC0051A978 /* Installation.md */,
-				BC3A1CDF12060DAC0051A978 /* License.md */,
-				BCC0466C0FB62CF100F9F2D3 /* Readme.md */,
+				BC0DEEB21273A34F006964FC /* ReleaseChecklist.markdown */,
+				BC3A1CDC12060DAC0051A978 /* Changes.markdown */,
+				BC3A1CDD12060DAC0051A978 /* Credits.markdown */,
+				BC3A1CDE12060DAC0051A978 /* Installation.markdown */,
+				BC3A1CDF12060DAC0051A978 /* LICENSE */,
+				BCC0466C0FB62CF100F9F2D3 /* Readme.markdown */,
 			);
 			name = Documents;
 			sourceTree = "<group>";
