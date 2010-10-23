@@ -37,15 +37,10 @@ static NSMutableDictionary *stringCache;
 static NSDecimalNumber *notANumber;
 
 @interface SBJsonStreamWriter ()
-
 @property(readonly) NSMutableArray* states;
-
 - (BOOL)writeValue:(id)v;
-
 - (void)write:(char const *)utf8 len:(NSUInteger)len;
-
 @end
-
 
 @interface State : NSObject
 - (void)writeSeparator:(SBJsonStreamWriter*)writer;
@@ -256,14 +251,14 @@ static NSDecimalNumber *notANumber;
 }
 
 - (void)writeObjectClose {
-	[states removeLastObject];
 	State *state = [states lastObject];
+	[states removeLastObject];
 	if (humanReadable) {
 		[self write:"\n" len:1];
 		[state writeWhitespace:self];
 	}
 	[self write:"}" len:1];
-	[state appendedAtom:self];
+	[[states lastObject] appendedAtom:self];
 }
 
 - (BOOL)writeArrayOpen {
@@ -284,15 +279,15 @@ static NSDecimalNumber *notANumber;
 }
 
 - (void)writeArrayClose {
-	[states removeLastObject];
 	State *state = [states lastObject];
+	[states removeLastObject];
 	if (humanReadable) {
 		[self write:"\n" len:1];
 		[state writeWhitespace:self];
 	}
 	
 	[self write:"]" len:1];
-	[state appendedAtom:self];
+	[[states lastObject] appendedAtom:self];
 }
 
 - (BOOL)writeNull {
