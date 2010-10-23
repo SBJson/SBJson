@@ -180,11 +180,7 @@ static ArrayValueState *arrayValueState;
 	self = [super init];
 	if (self) {
 		stream = [stream_ retain];
-		states = calloc(self.maxDepth, sizeof(NSObject *));
-		if (states == NULL) {
-			[self release];
-			return nil;
-		}
+		NSAssert(states, @"States not initialised");
 		states[0] = openState;
 	}
 	return self;
