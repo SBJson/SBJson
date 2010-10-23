@@ -58,9 +58,9 @@
                      [NSDictionary dictionary],
                      nil];
     
-    for (int i = 0; i < [keys count]; i++) {
+    for (id key in keys) {
         NSError *error = nil;
-        NSDictionary *object = [NSDictionary dictionaryWithObject:@"1" forKey:[keys objectAtIndex:i]];
+        NSDictionary *object = [NSDictionary dictionaryWithObject:@"1" forKey:key];
         STAssertNil([writer stringWithObject:object error:&error], nil);
         STAssertNotNil(error, nil);
     }
