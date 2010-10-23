@@ -33,11 +33,11 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonBase.h"
 
+@class SBJsonStreamWriterStateMachine;
 
 @interface SBJsonStreamWriter : SBJsonBase {
-	NSMutableArray *states;
-	
 @private
+	SBJsonStreamWriterStateMachine **states;
 	NSOutputStream *stream;
     BOOL sortKeys, humanReadable;
 }
