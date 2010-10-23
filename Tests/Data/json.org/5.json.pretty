@@ -1,76 +1,76 @@
 {
-  "menu" : {
-    "header" : "SVG Viewer",
-    "items" : [
+  "menu": {
+    "header": "SVG Viewer",
+    "items": [
       {
-        "id" : "Open"
+        "id": "Open"
       },
       {
-        "id" : "OpenNew",
-        "label" : "Open New"
-      },
-      null,
-      {
-        "id" : "ZoomIn",
-        "label" : "Zoom In"
-      },
-      {
-        "id" : "ZoomOut",
-        "label" : "Zoom Out"
-      },
-      {
-        "id" : "OriginalView",
-        "label" : "Original View"
+        "id": "OpenNew",
+        "label": "Open New"
       },
       null,
       {
-        "id" : "Quality"
+        "id": "ZoomIn",
+        "label": "Zoom In"
       },
       {
-        "id" : "Pause"
+        "id": "ZoomOut",
+        "label": "Zoom Out"
       },
       {
-        "id" : "Mute"
-      },
-      null,
-      {
-        "id" : "Find",
-        "label" : "Find..."
-      },
-      {
-        "id" : "FindAgain",
-        "label" : "Find Again"
-      },
-      {
-        "id" : "Copy"
-      },
-      {
-        "id" : "CopyAgain",
-        "label" : "Copy Again"
-      },
-      {
-        "id" : "CopySVG",
-        "label" : "Copy SVG"
-      },
-      {
-        "id" : "ViewSVG",
-        "label" : "View SVG"
-      },
-      {
-        "id" : "ViewSource",
-        "label" : "View Source"
-      },
-      {
-        "id" : "SaveAs",
-        "label" : "Save As"
+        "id": "OriginalView",
+        "label": "Original View"
       },
       null,
       {
-        "id" : "Help"
+        "id": "Quality"
       },
       {
-        "id" : "About",
-        "label" : "About Adobe CVG Viewer..."
+        "id": "Pause"
+      },
+      {
+        "id": "Mute"
+      },
+      null,
+      {
+        "id": "Find",
+        "label": "Find..."
+      },
+      {
+        "id": "FindAgain",
+        "label": "Find Again"
+      },
+      {
+        "id": "Copy"
+      },
+      {
+        "id": "CopyAgain",
+        "label": "Copy Again"
+      },
+      {
+        "id": "CopySVG",
+        "label": "Copy SVG"
+      },
+      {
+        "id": "ViewSVG",
+        "label": "View SVG"
+      },
+      {
+        "id": "ViewSource",
+        "label": "View Source"
+      },
+      {
+        "id": "SaveAs",
+        "label": "Save As"
+      },
+      null,
+      {
+        "id": "Help"
+      },
+      {
+        "id": "About",
+        "label": "About Adobe CVG Viewer..."
       }
     ]
   }

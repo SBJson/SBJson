@@ -2,17 +2,17 @@
   {
   },
   {
-    "foo" : "bar"
+    "foo": "bar"
   },
   {
-    "foo" : {
-      "bar" : "quux"
+    "foo": {
+      "bar": "quux"
     }
   },
   {
-    "foo" : {
-      "bar" : {
-        "quux" : {
+    "foo": {
+      "bar": {
+        "quux": {
         }
       }
     }

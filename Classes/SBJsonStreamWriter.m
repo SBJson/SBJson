@@ -106,16 +106,15 @@ static NSDecimalNumber *notANumber;
 
 @implementation ObjectValue
 - (void)writeSeparator:(SBJsonStreamWriter *)writer {
-	if (writer.humanReadable)
-		[writer write:" : " len:3];
-	else	
-		[writer write:":" len:1];
+	[writer write:":" len:1];
 }
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {
 	[writer.states removeLastObject];
 	[writer.states addObject:[[ObjectKey new] autorelease]];
 }
-- (void)writeWhitespace:(SBJsonStreamWriter *)writer {}
+- (void)writeWhitespace:(SBJsonStreamWriter *)writer {
+	[writer write:" " len:1];
+}
 @end
 
 @implementation ObjectClose

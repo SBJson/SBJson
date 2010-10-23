@@ -4,7 +4,9 @@
 
 ### Changes
 
-* When the HumanReadable flag is set the writer will no longer format empty  arrays and objects on a single line.
+* Minor changes to formatting when the HumanReadable flag is set:
+  * Empty arrays and objects are no longer special-cased to appear on a single line.
+  * The separator between key and value in an object has changed to ': ' rather than ' : '.
 
 
 ## Version 2.3.1 (September 25th, 2010)
