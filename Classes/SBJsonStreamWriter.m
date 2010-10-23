@@ -33,9 +33,6 @@
 #import "SBJsonStreamWriter.h"
 #import "SBProxyForJson.h"
 
-static NSMutableDictionary *stringCache;
-static NSDecimalNumber *notANumber;
-
 @interface SBJsonStreamWriter ()
 @property(readonly) NSMutableArray* states;
 - (BOOL)writeValue:(id)v;
@@ -76,6 +73,19 @@ static NSDecimalNumber *notANumber;
 @interface Error : State
 @end
 
+static NSMutableDictionary *stringCache;
+static NSDecimalNumber *notANumber;
+
+// States
+static Open *openState;
+static Close *closeState;
+static Error *error;
+static ObjectOpen *objectOpen;
+static ObjectKey *objectKey;
+static ObjectValue *objectValue;
+static ArrayOpen *arrayOpen;
+static InArray *inArray;
+
 
 @implementation State
 - (void)writeSeparator:(SBJsonStreamWriter*)writer {}
@@ -90,7 +100,7 @@ static NSDecimalNumber *notANumber;
 @implementation ObjectOpen
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {
 	[writer.states removeLastObject];
-	[writer.states addObject:[[ObjectValue new] autorelease]];
+	[writer.states addObject:objectValue];
 }
 - (BOOL)needKey:(SBJsonStreamWriter *)writer {
 	[writer addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
@@ -110,7 +120,7 @@ static NSDecimalNumber *notANumber;
 }
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {
 	[writer.states removeLastObject];
-	[writer.states addObject:[[ObjectKey new] autorelease]];
+	[writer.states addObject:objectKey];
 }
 - (void)writeWhitespace:(SBJsonStreamWriter *)writer {
 	[writer write:" " len:1];
@@ -123,7 +133,7 @@ static NSDecimalNumber *notANumber;
 @implementation ArrayOpen
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {
 	[writer.states removeLastObject];
-	[writer.states addObject:[[InArray new] autorelease]];
+	[writer.states addObject:inArray];
 }
 @end
 
@@ -136,7 +146,7 @@ static NSDecimalNumber *notANumber;
 @implementation Open
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {
 	[writer.states removeLastObject];
-	[writer.states addObject:[[Close new] autorelease]];
+	[writer.states addObject:closeState];
 }
 @end
 
@@ -145,7 +155,6 @@ static NSDecimalNumber *notANumber;
 
 @implementation Error
 @end
-
 
 @implementation SBJsonStreamWriter
 
@@ -156,6 +165,15 @@ static NSDecimalNumber *notANumber;
 + (void)initialize {
 	notANumber = [NSDecimalNumber notANumber];
 	stringCache = [NSMutableDictionary new];
+
+	openState = [Open new];
+	closeState = [Close new];
+	error = [Error new];
+	objectOpen = [ObjectOpen new];
+	objectKey = [ObjectKey new];
+	objectValue = [ObjectValue new];
+	arrayOpen = [ArrayOpen new];
+	inArray = [InArray new];
 }
 
 #pragma mark Housekeeping
@@ -165,7 +183,7 @@ static NSDecimalNumber *notANumber;
 	if (self) {
 		stream = [stream_ retain];
 		states = [[NSMutableArray alloc] initWithCapacity:32];
-		[states addObject:[[Open new] autorelease]];
+		[states addObject:openState];
 	}
 	return self;
 }
