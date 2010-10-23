@@ -34,7 +34,8 @@
 #import "SBProxyForJson.h"
 
 @interface SBJsonStreamWriter ()
-@property(readonly) NSMutableArray* states;
+@property(readonly) NSMutableArray *states;
+@property(readonly) NSOutputStream *stream;
 - (BOOL)writeValue:(id)v;
 - (void)write:(char const *)utf8 len:(NSUInteger)len;
 @end
@@ -147,6 +148,10 @@ static InArray *inArray;
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {
 	[writer.states removeLastObject];
 	[writer.states addObject:closeState];
+	[writer.stream close];
+}
+- (void)writeSeparator:(SBJsonStreamWriter *)writer {
+	[writer.stream open];
 }
 @end
 
@@ -159,6 +164,7 @@ static InArray *inArray;
 @implementation SBJsonStreamWriter
 
 @synthesize states;
+@synthesize stream;
 @synthesize humanReadable;
 @synthesize sortKeys;
 
@@ -208,14 +214,6 @@ static InArray *inArray;
 }
 
 #pragma mark Methods
-
-- (void)open {
-	[stream open];
-}
-
-- (void)close {
-	[stream close];
-}
 
 - (BOOL)writeObject:(NSDictionary *)dict {
 	if (![self writeObjectOpen])

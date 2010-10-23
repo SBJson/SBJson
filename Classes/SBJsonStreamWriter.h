@@ -47,12 +47,6 @@
 
 - (id)initWithStream:(NSOutputStream*)stream;
 
-// You must call open on the writer before writing any element
-- (void)open;
-
-// You must call close on the writer after writing all elements
-- (void)close;
-
 // Very high level
 - (BOOL)write:(id)value;
 

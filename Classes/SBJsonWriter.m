@@ -70,11 +70,7 @@
 	streamWriter.maxDepth = self.maxDepth;
 	streamWriter.humanReadable = self.humanReadable;
 
-	[stream open];
-	BOOL status = [streamWriter write:value];
-	[stream close];
-	
-	if (status)
+	if ([streamWriter write:value])
 		return [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
 	
 	errorTrace = [streamWriter.errorTrace retain];
