@@ -5,8 +5,10 @@
       "array with 1 element"
     ]
   },
-  {},
-  [],
+  {
+  },
+  [
+  ],
   -42,
   true,
   false,
@@ -29,7 +31,8 @@
     "E" : 12345678900000000000000000000000000,
     "address" : "50 St. James Street",
     "alpha" : "abcdefghijklmnopqrstuvwyz",
-    "array" : [],
+    "array" : [
+    ],
     "backslash" : "\\",
     "comment" : "// /* <!-- --",
     "compact" : [
@@ -49,7 +52,8 @@
     "integer" : 1234567890,
     "jsontext" : "{\"object with 1 member\":[\"array with 1 element\"]}",
     "null" : null,
-    "object" : {},
+    "object" : {
+    },
     "one" : 1,
     "quote" : "\"",
     "quotes" : "&#34; \" %22 0x22 034 &#x22;",

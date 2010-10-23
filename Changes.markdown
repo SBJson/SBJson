@@ -1,5 +1,12 @@
 # JSON Framework Changes
 
+## Version 2.4 (TBD)
+
+### Changes
+
+* When the HumanReadable flag is set the writer will no longer format empty  arrays and objects on a single line.
+
+
 ## Version 2.3.1 (September 25th, 2010)
 
 ### Changes

@@ -254,7 +254,8 @@ static NSDecimalNumber *notANumber;
 	State *state = [states lastObject];
 	[states removeLastObject];
 	if (humanReadable) {
-		[self write:"\n" len:1];
+		if ([state isKindOfClass:[ObjectKey class]])
+			[self write:"\n" len:1];
 		[state writeWhitespace:self];
 	}
 	[self write:"}" len:1];
@@ -282,7 +283,8 @@ static NSDecimalNumber *notANumber;
 	State *state = [states lastObject];
 	[states removeLastObject];
 	if (humanReadable) {
-		[self write:"\n" len:1];
+		if ([state isKindOfClass:[InArray class]])
+			[self write:"\n" len:1];
 		[state writeWhitespace:self];
 	}
 	
