@@ -44,8 +44,6 @@ static NSDecimalNumber *notANumber;
 
 - (void)write:(char const *)utf8 len:(NSUInteger)len;
 
-- (void)writeHumanReadable;
-
 @end
 
 
@@ -53,6 +51,7 @@ static NSDecimalNumber *notANumber;
 - (void)writeSeparator:(SBJsonStreamWriter*)writer;
 - (BOOL)needKey:(SBJsonStreamWriter*)writer;
 - (void)appendedAtom:(SBJsonStreamWriter*)writer;
+- (void)writeWhitespace:(SBJsonStreamWriter*)writer;
 @end
 
 @interface ObjectOpen : State
@@ -87,6 +86,10 @@ static NSDecimalNumber *notANumber;
 - (void)writeSeparator:(SBJsonStreamWriter*)writer {}
 - (BOOL)needKey:(SBJsonStreamWriter*)writer { return NO; }
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {}
+- (void)writeWhitespace:(SBJsonStreamWriter*)writer {
+	for (int i = 0; i < 2 * (writer.states.count-1); i++)
+	    [writer write:" " len: 1];
+}
 @end
 
 @implementation ObjectOpen
@@ -119,6 +122,7 @@ static NSDecimalNumber *notANumber;
 	[writer.states removeLastObject];
 	[writer.states addObject:[[ObjectKey new] autorelease]];
 }
+- (void)writeWhitespace:(SBJsonStreamWriter *)writer { }
 @end
 
 @implementation ObjectClose
@@ -243,11 +247,9 @@ static NSDecimalNumber *notANumber;
 	State *s = [states lastObject];
 	if ([s needKey:self]) return NO;
 	[s writeSeparator:self];
-	if (humanReadable)
-		[self writeHumanReadable];
+	if (humanReadable) [s writeWhitespace:self];
 	
-	// TODO: replace ++depth with [state count]
-	if (maxDepth && ++depth > maxDepth) {
+	if (maxDepth && states.count > maxDepth) {
 		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
 		return NO;
 	}
@@ -258,25 +260,23 @@ static NSDecimalNumber *notANumber;
 }
 
 - (void)writeObjectClose {
-	depth--;
 	[states removeLastObject];
+	State *state = [states lastObject];
 	if (humanReadable) {
 		[self write:"\n" len:1];
-		[self writeHumanReadable];
+		[state writeWhitespace:self];
 	}
 	[self write:"}" len:1];
-	[[states lastObject] appendedAtom:self];
+	[state appendedAtom:self];
 }
 
 - (BOOL)writeArrayOpen {
 	State *s = [states lastObject];
 	if ([s needKey:self]) return NO;
 	[s writeSeparator:self];
-	if (humanReadable)
-		[self writeHumanReadable];
+	if (humanReadable) [s writeWhitespace:self];
 	
-	// TODO: replace ++depth with [state count]
-	if (maxDepth && ++depth > maxDepth) {
+	if (maxDepth && states.count > maxDepth) {
 		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
 		return NO;
 	}
@@ -289,21 +289,20 @@ static NSDecimalNumber *notANumber;
 
 - (void)writeArrayClose {
 	[states removeLastObject];
-	depth--;
+	State *state = [states lastObject];
 	if (humanReadable) {
 		[self write:"\n" len:1];
-		[self writeHumanReadable];
+		[state writeWhitespace:self];
 	}
 	[self write:"]" len:1];
-	[[states lastObject] appendedAtom:self];
+	[state appendedAtom:self];
 }
 
 - (BOOL)writeNull {
 	State *s = [states lastObject];
 	if ([s needKey:self]) return NO;
 	[s writeSeparator:self];
-	if (humanReadable)
-		[self writeHumanReadable];
+	if (humanReadable) [s writeWhitespace:self];
 
 	[self write:"null" len:4];
 	[s appendedAtom:self];
@@ -314,8 +313,7 @@ static NSDecimalNumber *notANumber;
 	State *s = [states lastObject];
 	if ([s needKey:self]) return NO;
 	[s writeSeparator:self];
-	if (humanReadable)
-		[self writeHumanReadable];
+	if (humanReadable) [s writeWhitespace:self];
 	
 	if (x)
 		[self write:"true" len:4];
@@ -394,12 +392,10 @@ static const char *strForChar(int c) {
 	return "FUTFUTFUT";
 }
 
-- (void)writeString:(NSString*)string {
-	
+- (void)writeString:(NSString*)string {	
 	State *s = [states lastObject];
 	[s writeSeparator:self];
-	if (humanReadable)
-		[self writeHumanReadable];
+	if (humanReadable) [s writeWhitespace:self];
 	
 	NSMutableData *data = [stringCache objectForKey:string];
 	if (data) {
@@ -443,8 +439,7 @@ static const char *strForChar(int c) {
 	State *s = [states lastObject];
 	if ([s needKey:self]) return NO;
 	[s writeSeparator:self];
-	if (humanReadable)
-		[self writeHumanReadable];
+	if (humanReadable) [s writeWhitespace:self];
 		
 	if ((CFNumberRef)number == kCFNumberPositiveInfinity) {
 		[self addErrorWithCode:EUNSUPPORTED description:@"+Infinity is not a valid number in JSON"];
@@ -490,12 +485,6 @@ static const char *strForChar(int c) {
 }
 
 #pragma mark Private methods
-
-
-- (void)writeHumanReadable {
-	for (int i = 0; i < 2 * depth; i++)
-	    [self write:" " len: 1];
-}
 
 - (void)write:(char const *)utf8 len:(NSUInteger)len {
     NSUInteger written = 0;
