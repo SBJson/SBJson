@@ -94,6 +94,10 @@ static NSDecimalNumber *notANumber;
 	[writer.states removeLastObject];
 	[writer.states addObject:[[ObjectValue new] autorelease]];
 }
+- (BOOL)needKey:(SBJsonStreamWriter *)writer {
+	[writer addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
+	return YES;
+}
 @end
 
 @implementation ObjectKey
@@ -101,10 +105,6 @@ static NSDecimalNumber *notANumber;
 	[writer write:"," len:1];
 	if (writer.humanReadable)
 		[writer write:"\n" len:1];
-}
-- (BOOL)needKey:(SBJsonStreamWriter *)writer {
-	[writer addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
-	return YES;
 }
 @end
 
