@@ -61,7 +61,7 @@
     for (id key in keys) {
         NSError *error = nil;
         NSDictionary *object = [NSDictionary dictionaryWithObject:@"1" forKey:key];
-        STAssertNil([writer stringWithObject:object error:&error], nil);
+        STAssertEqualObjects([writer stringWithObject:object error:&error], nil, nil);
         STAssertNotNil(error, nil);
     }
 }
