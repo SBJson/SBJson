@@ -87,8 +87,8 @@ static NSDecimalNumber *notANumber;
 - (BOOL)needKey:(SBJsonStreamWriter*)writer { return NO; }
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {}
 - (void)writeWhitespace:(SBJsonStreamWriter*)writer {
-	for (int i = 0; i < 2 * (writer.states.count-1); i++)
-	    [writer write:" " len: 1];
+	for (int i = 0; i < writer.states.count-1; i++)
+	    [writer write:"  " len: 2];
 }
 @end
 
@@ -105,9 +105,7 @@ static NSDecimalNumber *notANumber;
 
 @implementation ObjectKey
 - (void)writeSeparator:(SBJsonStreamWriter *)writer {
-	[writer write:"," len:1];
-	if (writer.humanReadable)
-		[writer write:"\n" len:1];
+	[writer write:",\n" len:writer.humanReadable ? 2 : 1];
 }
 @end
 
@@ -122,7 +120,7 @@ static NSDecimalNumber *notANumber;
 	[writer.states removeLastObject];
 	[writer.states addObject:[[ObjectKey new] autorelease]];
 }
-- (void)writeWhitespace:(SBJsonStreamWriter *)writer { }
+- (void)writeWhitespace:(SBJsonStreamWriter *)writer {}
 @end
 
 @implementation ObjectClose
@@ -137,9 +135,7 @@ static NSDecimalNumber *notANumber;
 
 @implementation InArray
 - (void)writeSeparator:(SBJsonStreamWriter *)writer {
-	[writer write:"," len:1];
-	if (writer.humanReadable)
-		[writer write:"\n" len:1];
+	[writer write:",\n" len:writer.humanReadable ? 2 : 1];
 }
 @end
 
@@ -294,6 +290,7 @@ static NSDecimalNumber *notANumber;
 		[self write:"\n" len:1];
 		[state writeWhitespace:self];
 	}
+	
 	[self write:"]" len:1];
 	[state appendedAtom:self];
 }
