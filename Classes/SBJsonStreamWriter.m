@@ -48,45 +48,42 @@
 - (void)appendWhitespace:(SBJsonStreamWriter*)writer;
 @end
 
-@interface ObjectOpen : SBJsonStreamWriterStateMachine
+@interface ObjectOpenState : SBJsonStreamWriterStateMachine
 @end
 
-@interface ObjectKey : ObjectOpen
+@interface ObjectKeyState : ObjectOpenState
 @end
 
-@interface ObjectValue : SBJsonStreamWriterStateMachine
+@interface ObjectValueState : SBJsonStreamWriterStateMachine
 @end
 
-@interface ObjectClose : SBJsonStreamWriterStateMachine
+@interface ArrayOpenState : SBJsonStreamWriterStateMachine
 @end
 
-@interface ArrayOpen : SBJsonStreamWriterStateMachine
+@interface ArrayValueState : SBJsonStreamWriterStateMachine
 @end
 
-@interface InArray : SBJsonStreamWriterStateMachine
+@interface StartState : SBJsonStreamWriterStateMachine
 @end
 
-@interface Open : SBJsonStreamWriterStateMachine
+@interface CompleteState : SBJsonStreamWriterStateMachine
 @end
 
-@interface Close : SBJsonStreamWriterStateMachine
-@end
-
-@interface Error : SBJsonStreamWriterStateMachine
+@interface ErrorState : SBJsonStreamWriterStateMachine
 @end
 
 static NSMutableDictionary *stringCache;
 static NSDecimalNumber *notANumber;
 
 // States
-static Open *openState;
-static Close *closeState;
-static Error *error;
-static ObjectOpen *objectOpen;
-static ObjectKey *objectKey;
-static ObjectValue *objectValue;
-static ArrayOpen *arrayOpen;
-static InArray *inArray;
+static StartState *openState;
+static CompleteState *closeState;
+static ErrorState *errorState;
+static ObjectOpenState *objectOpenState;
+static ObjectKeyState *objectKeyState;
+static ObjectValueState *objectValueState;
+static ArrayOpenState *arrayOpenState;
+static ArrayValueState *arrayValueState;
 
 
 @implementation SBJsonStreamWriterStateMachine
@@ -99,9 +96,9 @@ static InArray *inArray;
 }
 @end
 
-@implementation ObjectOpen
+@implementation ObjectOpenState
 - (void)transitionState:(SBJsonStreamWriter *)writer {
-	writer.states[writer.depth] = objectValue;
+	writer.states[writer.depth] = objectValueState;
 }
 - (BOOL)expectingKey:(SBJsonStreamWriter *)writer {
 	[writer addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
@@ -109,40 +106,37 @@ static InArray *inArray;
 }
 @end
 
-@implementation ObjectKey
+@implementation ObjectKeyState
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
 	[writer write:",\n" len:writer.humanReadable ? 2 : 1];
 }
 @end
 
-@implementation ObjectValue
+@implementation ObjectValueState
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
 	[writer write:":" len:1];
 }
 - (void)transitionState:(SBJsonStreamWriter *)writer {
-	writer.states[writer.depth] = objectKey;
+	writer.states[writer.depth] = objectKeyState;
 }
 - (void)appendWhitespace:(SBJsonStreamWriter *)writer {
 	[writer write:" " len:1];
 }
 @end
 
-@implementation ObjectClose
-@end
-
-@implementation ArrayOpen
+@implementation ArrayOpenState
 - (void)transitionState:(SBJsonStreamWriter *)writer {
-	writer.states[writer.depth] = inArray;
+	writer.states[writer.depth] = arrayValueState;
 }
 @end
 
-@implementation InArray
+@implementation ArrayValueState
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
 	[writer write:",\n" len:writer.humanReadable ? 2 : 1];
 }
 @end
 
-@implementation Open
+@implementation StartState
 - (void)transitionState:(SBJsonStreamWriter *)writer {
 	writer.states[writer.depth] = closeState;
 	[writer.stream close];
@@ -152,10 +146,10 @@ static InArray *inArray;
 }
 @end
 
-@implementation Close
+@implementation CompleteState
 @end
 
-@implementation Error
+@implementation ErrorState
 @end
 
 @implementation SBJsonStreamWriter
@@ -170,14 +164,14 @@ static InArray *inArray;
 	notANumber = [NSDecimalNumber notANumber];
 	stringCache = [NSMutableDictionary new];
 
-	openState = [Open new];
-	closeState = [Close new];
-	error = [Error new];
-	objectOpen = [ObjectOpen new];
-	objectKey = [ObjectKey new];
-	objectValue = [ObjectValue new];
-	arrayOpen = [ArrayOpen new];
-	inArray = [InArray new];
+	openState = [StartState new];
+	closeState = [CompleteState new];
+	errorState = [ErrorState new];
+	objectOpenState = [ObjectOpenState new];
+	objectKeyState = [ObjectKeyState new];
+	objectValueState = [ObjectValueState new];
+	arrayOpenState = [ArrayOpenState new];
+	arrayValueState = [ArrayValueState new];
 }
 
 #pragma mark Housekeeping
@@ -262,7 +256,7 @@ static InArray *inArray;
 		return NO;
 	}
 
-	states[depth] = objectOpen;
+	states[depth] = objectOpenState;
 	[self write:"{\n" len:humanReadable ? 2 : 1];
 	return YES;
 }
@@ -270,7 +264,7 @@ static InArray *inArray;
 - (void)writeObjectClose {
 	SBJsonStreamWriterStateMachine *state = states[depth--];
 	if (humanReadable) {
-		if ([state isKindOfClass:[ObjectKey class]])
+		if ([state isKindOfClass:[ObjectKeyState class]])
 			[self write:"\n" len:1];
 		[state appendWhitespace:self];
 	}
@@ -289,7 +283,7 @@ static InArray *inArray;
 		return NO;
 	}
 
-	states[depth] = arrayOpen;
+	states[depth] = arrayOpenState;
 	[self write:"[\n" len:humanReadable ? 2 : 1];
 	return YES;
 }
@@ -297,7 +291,7 @@ static InArray *inArray;
 - (void)writeArrayClose {
 	SBJsonStreamWriterStateMachine *state = states[depth--];
 	if (humanReadable) {
-		if ([state isKindOfClass:[InArray class]])
+		if ([state isKindOfClass:[ArrayValueState class]])
 			[self write:"\n" len:1];
 		[state appendWhitespace:self];
 	}
