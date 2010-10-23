@@ -35,7 +35,7 @@
 
 
 @interface SBJsonStreamWriter : SBJsonBase {
-	NSMutableArray *state;
+	NSMutableArray *states;
 	
 @private
 	NSOutputStream *stream;

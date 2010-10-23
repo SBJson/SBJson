@@ -38,7 +38,7 @@ static NSDecimalNumber *notANumber;
 
 @interface SBJsonStreamWriter ()
 
-@property(readonly) NSMutableArray* state;
+@property(readonly) NSMutableArray* states;
 
 - (BOOL)writeValue:(id)v;
 
@@ -91,8 +91,8 @@ static NSDecimalNumber *notANumber;
 
 @implementation ObjectOpen
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {
-	[writer.state removeLastObject];
-	[writer.state addObject:[[ObjectValue new] autorelease]];
+	[writer.states removeLastObject];
+	[writer.states addObject:[[ObjectValue new] autorelease]];
 }
 @end
 
@@ -116,8 +116,8 @@ static NSDecimalNumber *notANumber;
 		[writer write:":" len:1];
 }
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {
-	[writer.state removeLastObject];
-	[writer.state addObject:[[ObjectKey new] autorelease]];
+	[writer.states removeLastObject];
+	[writer.states addObject:[[ObjectKey new] autorelease]];
 }
 @end
 
@@ -126,8 +126,8 @@ static NSDecimalNumber *notANumber;
 
 @implementation ArrayOpen
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {
-	[writer.state removeLastObject];
-	[writer.state addObject:[[InArray new] autorelease]];
+	[writer.states removeLastObject];
+	[writer.states addObject:[[InArray new] autorelease]];
 }
 @end
 
@@ -141,8 +141,8 @@ static NSDecimalNumber *notANumber;
 
 @implementation Open
 - (void)appendedAtom:(SBJsonStreamWriter *)writer {
-	[writer.state removeLastObject];
-	[writer.state addObject:[[Close new] autorelease]];
+	[writer.states removeLastObject];
+	[writer.states addObject:[[Close new] autorelease]];
 }
 @end
 
@@ -155,7 +155,7 @@ static NSDecimalNumber *notANumber;
 
 @implementation SBJsonStreamWriter
 
-@synthesize state;
+@synthesize states;
 @synthesize humanReadable;
 @synthesize sortKeys;
 
@@ -170,15 +170,15 @@ static NSDecimalNumber *notANumber;
 	self = [super init];
 	if (self) {
 		stream = [stream_ retain];
-		state = [[NSMutableArray alloc] initWithCapacity:32];
-		[state addObject:[[Open new] autorelease]];
+		states = [[NSMutableArray alloc] initWithCapacity:32];
+		[states addObject:[[Open new] autorelease]];
 	}
 	return self;
 }
 
 - (void)dealloc {
 	[stream release];
-	[state release];
+	[states release];
 	[super dealloc];
 }
 
@@ -236,7 +236,7 @@ static NSDecimalNumber *notANumber;
 
 
 - (BOOL)writeObjectOpen {
-	State *s = [state lastObject];
+	State *s = [states lastObject];
 	if ([s needKey:self]) return NO;
 	[s writeSeparator:self];
 	if (humanReadable)
@@ -248,24 +248,24 @@ static NSDecimalNumber *notANumber;
 		return NO;
 	}
 
-	[state addObject:[[ObjectOpen new] autorelease]];
+	[states addObject:[[ObjectOpen new] autorelease]];
 	[self write:"{\n" len:humanReadable ? 2 : 1];
 	return YES;
 }
 
 - (void)writeObjectClose {
 	depth--;
-	[state removeLastObject];
+	[states removeLastObject];
 	if (humanReadable) {
 		[self write:"\n" len:1];
 		[self writeHumanReadable];
 	}
 	[self write:"}" len:1];
-	[[state lastObject] appendedAtom:self];
+	[[states lastObject] appendedAtom:self];
 }
 
 - (BOOL)writeArrayOpen {
-	State *s = [state lastObject];
+	State *s = [states lastObject];
 	if ([s needKey:self]) return NO;
 	[s writeSeparator:self];
 	if (humanReadable)
@@ -277,25 +277,25 @@ static NSDecimalNumber *notANumber;
 		return NO;
 	}
 
-	[state addObject:[[ArrayOpen new] autorelease]];
+	[states addObject:[[ArrayOpen new] autorelease]];
 	[self write:"[\n" len:humanReadable ? 2 : 1];
 
 	return YES;
 }
 
 - (void)writeArrayClose {
-	[state removeLastObject];
+	[states removeLastObject];
 	depth--;
 	if (humanReadable) {
 		[self write:"\n" len:1];
 		[self writeHumanReadable];
 	}
 	[self write:"]" len:1];
-	[[state lastObject] appendedAtom:self];
+	[[states lastObject] appendedAtom:self];
 }
 
 - (BOOL)writeNull {
-	State *s = [state lastObject];
+	State *s = [states lastObject];
 	if ([s needKey:self]) return NO;
 	[s writeSeparator:self];
 	if (humanReadable)
@@ -307,7 +307,7 @@ static NSDecimalNumber *notANumber;
 }
 
 - (BOOL)writeBool:(BOOL)x {
-	State *s = [state lastObject];
+	State *s = [states lastObject];
 	if ([s needKey:self]) return NO;
 	[s writeSeparator:self];
 	if (humanReadable)
@@ -392,7 +392,7 @@ static const char *strForChar(int c) {
 
 - (void)writeString:(NSString*)string {
 	
-	State *s = [state lastObject];
+	State *s = [states lastObject];
 	[s writeSeparator:self];
 	if (humanReadable)
 		[self writeHumanReadable];
@@ -436,7 +436,7 @@ static const char *strForChar(int c) {
 	if ((CFBooleanRef)number == kCFBooleanTrue || (CFBooleanRef)number == kCFBooleanFalse)
 		return [self writeBool:[number boolValue]];
 	
-	State *s = [state lastObject];
+	State *s = [states lastObject];
 	if ([s needKey:self]) return NO;
 	[s writeSeparator:self];
 	if (humanReadable)
