@@ -38,22 +38,126 @@ static NSDecimalNumber *notANumber;
 
 @interface SBJsonStreamWriter ()
 
-- (BOOL)writeDictionary:(NSDictionary*)dict;
-- (BOOL)writeArray:(NSArray*)array;
-- (BOOL)writeValue:(id)value;
+@property(readonly) NSMutableArray* state;
+
+- (BOOL)writeValue:(id)v;
 
 - (void)write:(char const *)utf8 len:(NSUInteger)len;
-- (void)writeString:(NSString*)string;
-- (BOOL)writeNumber:(NSNumber*)number;
+
 - (void)writeHumanReadable;
 
 @end
 
 
+@interface State : NSObject
+- (void)writeSeparator:(SBJsonStreamWriter*)writer;
+- (BOOL)needKey:(SBJsonStreamWriter*)writer;
+- (void)appendedAtom:(SBJsonStreamWriter*)writer;
+@end
+
+@interface ObjectOpen : State
+@end
+
+@interface ObjectKey : ObjectOpen
+@end
+
+@interface ObjectValue : State
+@end
+
+@interface ObjectClose : State
+@end
+
+@interface ArrayOpen : State
+@end
+
+@interface InArray : State
+@end
+
+@interface Open : State
+@end
+
+@interface Close : State
+@end
+
+@interface Error : State
+@end
+
+
+@implementation State
+- (void)writeSeparator:(SBJsonStreamWriter*)writer {}
+- (BOOL)needKey:(SBJsonStreamWriter*)writer { return NO; }
+- (void)appendedAtom:(SBJsonStreamWriter *)writer {}
+@end
+
+@implementation ObjectOpen
+- (void)appendedAtom:(SBJsonStreamWriter *)writer {
+	[writer.state removeLastObject];
+	[writer.state addObject:[[ObjectValue new] autorelease]];
+}
+@end
+
+@implementation ObjectKey
+- (void)writeSeparator:(SBJsonStreamWriter *)writer {
+	[writer write:"," len:1];
+	if (writer.humanReadable)
+		[writer write:"\n" len:1];
+}
+- (BOOL)needKey:(SBJsonStreamWriter *)writer {
+	[writer addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
+	return YES;
+}
+@end
+
+@implementation ObjectValue
+- (void)writeSeparator:(SBJsonStreamWriter *)writer {
+	if (writer.humanReadable)
+		[writer write:" : " len:3];
+	else	
+		[writer write:":" len:1];
+}
+- (void)appendedAtom:(SBJsonStreamWriter *)writer {
+	[writer.state removeLastObject];
+	[writer.state addObject:[[ObjectKey new] autorelease]];
+}
+@end
+
+@implementation ObjectClose
+@end
+
+@implementation ArrayOpen
+- (void)appendedAtom:(SBJsonStreamWriter *)writer {
+	[writer.state removeLastObject];
+	[writer.state addObject:[[InArray new] autorelease]];
+}
+@end
+
+@implementation InArray
+- (void)writeSeparator:(SBJsonStreamWriter *)writer {
+	[writer write:"," len:1];
+	if (writer.humanReadable)
+		[writer write:"\n" len:1];
+}
+@end
+
+@implementation Open
+- (void)appendedAtom:(SBJsonStreamWriter *)writer {
+	[writer.state removeLastObject];
+	[writer.state addObject:[[Close new] autorelease]];
+}
+@end
+
+@implementation Close
+@end
+
+@implementation Error
+@end
+
+
 @implementation SBJsonStreamWriter
 
+@synthesize state;
+@synthesize humanReadable;
 @synthesize sortKeys;
-@dynamic humanReadable;
 
 + (void)initialize {
 	notANumber = [NSDecimalNumber notANumber];
@@ -66,155 +170,180 @@ static NSDecimalNumber *notANumber;
 	self = [super init];
 	if (self) {
 		stream = [stream_ retain];
-		keyValueSeparator = ":";
-		keyValueSeparatorLen = 1;
+		state = [[NSMutableArray alloc] initWithCapacity:32];
+		[state addObject:[[Open new] autorelease]];
 	}
 	return self;
 }
 
 - (void)dealloc {
 	[stream release];
+	[state release];
 	[super dealloc];
+}
+
+#pragma mark Meta Methods
+
+- (BOOL)write:(id)value {
+	[self open];
+	BOOL status = [self writeValue:value];
+	[self close];
+	return status;
 }
 
 #pragma mark Methods
 
-- (BOOL)write:(id)object {
+- (void)open {
 	[stream open];
-
-	BOOL result = NO;
-	
-	if ([object isKindOfClass:[NSDictionary class]] || [object isKindOfClass:[NSArray class]]) {
-		result = [self writeValue:object];
-
-	} else if ([object respondsToSelector:@selector(proxyForJson)]) {
-		result = [self write:[object proxyForJson]];
-
-	} else {
-		[self addErrorWithCode:EUNSUPPORTED description:@"Not valid type for JSON"];
-
-	}
-	
-	[stream close];
-	return result;
 }
 
-#pragma mark Private methods
+- (void)close {
+	[stream close];
+}
+
+- (BOOL)writeObject:(NSDictionary *)dict {
+	if (![self writeObjectOpen])
+		return NO;
+	
+	NSArray *keys = [dict allKeys];
+	if (sortKeys)
+		keys = [keys sortedArrayUsingSelector:@selector(compare:)];
+	
+	for (id k in keys) {
+		if (![self writeValue:k])
+			return NO;
+		if (![self writeValue:[dict objectForKey:k]])
+			return NO;
+	}
+	
+	[self writeObjectClose];
+	return YES;
+}
+
+- (BOOL)writeArray:(NSArray*)array {
+	if (![self writeArrayOpen])
+		return NO;
+	for (id v in array)
+		if (![self writeValue:v])
+			return NO;
+	[self writeArrayClose];
+	return YES;
+}
+
+
+- (BOOL)writeObjectOpen {
+	State *s = [state lastObject];
+	if ([s needKey:self]) return NO;
+	[s writeSeparator:self];
+	if (humanReadable)
+		[self writeHumanReadable];
+	
+	// TODO: replace ++depth with [state count]
+	if (maxDepth && ++depth > maxDepth) {
+		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
+		return NO;
+	}
+
+	[state addObject:[[ObjectOpen new] autorelease]];
+	[self write:"{\n" len:humanReadable ? 2 : 1];
+	return YES;
+}
+
+- (void)writeObjectClose {
+	depth--;
+	[state removeLastObject];
+	if (humanReadable) {
+		[self write:"\n" len:1];
+		[self writeHumanReadable];
+	}
+	[self write:"}" len:1];
+	[[state lastObject] appendedAtom:self];
+}
+
+- (BOOL)writeArrayOpen {
+	State *s = [state lastObject];
+	if ([s needKey:self]) return NO;
+	[s writeSeparator:self];
+	if (humanReadable)
+		[self writeHumanReadable];
+	
+	// TODO: replace ++depth with [state count]
+	if (maxDepth && ++depth > maxDepth) {
+		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
+		return NO;
+	}
+
+	[state addObject:[[ArrayOpen new] autorelease]];
+	[self write:"[\n" len:humanReadable ? 2 : 1];
+
+	return YES;
+}
+
+- (void)writeArrayClose {
+	[state removeLastObject];
+	depth--;
+	if (humanReadable) {
+		[self write:"\n" len:1];
+		[self writeHumanReadable];
+	}
+	[self write:"]" len:1];
+	[[state lastObject] appendedAtom:self];
+}
+
+- (BOOL)writeNull {
+	State *s = [state lastObject];
+	if ([s needKey:self]) return NO;
+	[s writeSeparator:self];
+	if (humanReadable)
+		[self writeHumanReadable];
+
+	[self write:"null" len:4];
+	[s appendedAtom:self];
+	return YES;
+}
+
+- (BOOL)writeBool:(BOOL)x {
+	State *s = [state lastObject];
+	if ([s needKey:self]) return NO;
+	[s writeSeparator:self];
+	if (humanReadable)
+		[self writeHumanReadable];
+	
+	if (x)
+		[self write:"true" len:4];
+	else
+		[self write:"false" len:5];
+	[s appendedAtom:self];
+	return YES;
+}
+
 
 - (BOOL)writeValue:(id)o {
 	if ([o isKindOfClass:[NSDictionary class]]) {
-		return [self writeDictionary:o];
+		return [self writeObject:o];
 
 	} else if ([o isKindOfClass:[NSArray class]]) {
 		return [self writeArray:o];
 
 	} else if ([o isKindOfClass:[NSString class]]) {
 		[self writeString:o];
+		return YES;
 
 	} else if ([o isKindOfClass:[NSNumber class]]) {
 		return [self writeNumber:o];
 
 	} else if ([o isKindOfClass:[NSNull class]]) {
-		[self write:"null" len: 4];
+		return [self writeNull];
 		
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		return [self writeValue:[o proxyForJson]];
 
-	} else {
-		[self addErrorWithCode:EUNSUPPORTED
-				   description:[NSString stringWithFormat:@"JSON serialisation not supported for @%", [o class]]];
-		return NO;
-	}
-	return YES;
+	}	
+	
+	[self addErrorWithCode:EUNSUPPORTED
+			   description:[NSString stringWithFormat:@"JSON serialisation not supported for @%", [o class]]];
+	return NO;
 }
-
-- (BOOL)writeDictionary:(NSDictionary*)dict {
-	if (maxDepth && ++depth > maxDepth) {
-		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
-		return NO;
-	}
-	
-	[self write:"{" len: 1];	
-	NSArray *keys = [dict allKeys];
-	if (self.sortKeys)
-		keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	
-	BOOL doSep = NO;
-	for (id key in keys) {
-		if (doSep)
-			[self write:"," len:1];
-		else
-			doSep = YES;
-
-        if (humanReadable)
-            [self writeHumanReadable];
-		
-		if (![key isKindOfClass:[NSString class]]) {
-			[self addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
-			return NO;
-		}
-		
-		[self writeString:key];
-		[self write:keyValueSeparator len: keyValueSeparatorLen];		
-		if (![self writeValue:[dict objectForKey:key]])
-			return NO;
-	}
-	
-	depth--;
-
-	if (humanReadable && [dict count])
-        [self writeHumanReadable];
-		
-
-	[self write:"}" len: 1];
-	return YES;
-}
-
-- (BOOL)writeArray:(NSArray*)array {
-	if (maxDepth && ++depth > maxDepth) {
-		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
-		return NO;
-	}
-		
-	[self write:"[" len: 1];
-	BOOL doSep = NO;
-	for (id value in array) {
-		if (doSep)
-			[self write:"," len:1];
-		else
-			doSep = YES;
-
-		if (humanReadable)
-			[self writeHumanReadable];
-		
-		if (![self writeValue:value])
-			return NO;
-	}
-	
-	depth--;
-	
-	if (humanReadable && [array count])
-        [self writeHumanReadable];
-	
-	[self write:"]" len: 1];
-	return YES;
-}
-
-- (void)writeHumanReadable {
-	[self write:"\n" len: 1];
-	for (int i = 0; i < 2 * depth; i++)
-	    [self write:" " len: 1];
-}
-
-- (void)write:(char const *)utf8 len:(NSUInteger)len {
-    NSUInteger written = 0;
-    do {
-        NSInteger w = [stream write:(const uint8_t *)utf8 maxLength:len - written];	
-	    if (w > 0)																	
-		   	written += w;															
-	} while (written < len);													
-}
-
 
 static const char *strForChar(int c) {	
 	switch (c) {
@@ -259,9 +388,15 @@ static const char *strForChar(int c) {
 
 - (void)writeString:(NSString*)string {
 	
+	State *s = [state lastObject];
+	[s writeSeparator:self];
+	if (humanReadable)
+		[self writeHumanReadable];
+	
 	NSMutableData *data = [stringCache objectForKey:string];
 	if (data) {
 		[self write:[data bytes] len:[data length]];
+		[s appendedAtom:self];
 		return;
 	}
 	
@@ -290,19 +425,20 @@ static const char *strForChar(int c) {
 	[data appendBytes:"\"" length:1];
 	[self write:[data bytes] len:[data length]];
 	[stringCache setObject:data forKey:string];
+	[s appendedAtom:self];
 }
 
 - (BOOL)writeNumber:(NSNumber*)number {
-
-	if ((CFBooleanRef)number == kCFBooleanTrue) {
-		[self write:"true" len: 4];
-		return YES;
-
-	} else if ((CFBooleanRef)number == kCFBooleanFalse) {
-		[self write:"false" len: 5];
-		return YES;
-
-	} else if ((CFNumberRef)number == kCFNumberPositiveInfinity) {
+	if ((CFBooleanRef)number == kCFBooleanTrue || (CFBooleanRef)number == kCFBooleanFalse)
+		return [self writeBool:[number boolValue]];
+	
+	State *s = [state lastObject];
+	if ([s needKey:self]) return NO;
+	[s writeSeparator:self];
+	if (humanReadable)
+		[self writeHumanReadable];
+		
+	if ((CFNumberRef)number == kCFNumberPositiveInfinity) {
 		[self addErrorWithCode:EUNSUPPORTED description:@"+Infinity is not a valid number in JSON"];
 		return NO;
 
@@ -332,24 +468,34 @@ static const char *strForChar(int c) {
 			break;
 		case 'f': case 'd': default:
 			if ([number isKindOfClass:[NSDecimalNumber class]]) {
-				char const *s = [[number stringValue] UTF8String];
-				[self write:s len: strlen(s)];
+				char const *utf8 = [[number stringValue] UTF8String];
+				[self write:utf8 len: strlen(utf8)];
+				[s appendedAtom:self];
 				return YES;
 			}
 			len = sprintf(num, "%g", [number doubleValue]);
 			break;
 	}
 	[self write:num len: len];
-
+	[s appendedAtom:self];
 	return YES;
 }
 
-#pragma mark Properties
+#pragma mark Private methods
 
-- (void)setHumanReadable:(BOOL)x {
-	humanReadable = x;
-	keyValueSeparator = x ? " : " : ":";
-	keyValueSeparatorLen = strlen(keyValueSeparator);
+
+- (void)writeHumanReadable {
+	for (int i = 0; i < 2 * depth; i++)
+	    [self write:" " len: 1];
+}
+
+- (void)write:(char const *)utf8 len:(NSUInteger)len {
+    NSUInteger written = 0;
+    do {
+        NSInteger w = [stream write:(const uint8_t *)utf8 maxLength:len - written];	
+	    if (w > 0)																	
+		   	written += w;															
+	} while (written < len);													
 }
 
 @end

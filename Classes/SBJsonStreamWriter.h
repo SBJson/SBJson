@@ -33,12 +33,12 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonBase.h"
 
-@interface SBJsonStreamWriter : SBJsonBase {
 
+@interface SBJsonStreamWriter : SBJsonBase {
+	NSMutableArray *state;
+	
 @private
 	NSOutputStream *stream;
-	char const *keyValueSeparator;
-	size_t keyValueSeparatorLen;
     BOOL sortKeys, humanReadable;
 }
 
@@ -46,6 +46,32 @@
 @property BOOL sortKeys;
 
 - (id)initWithStream:(NSOutputStream*)stream;
-- (BOOL)write:(id)object;
+
+// You must call open on the writer before writing any element
+- (void)open;
+
+// You must call close on the writer after writing all elements
+- (void)close;
+
+// Very high level
+- (BOOL)write:(id)value;
+
+// High-level methods
+- (BOOL)writeObject:(NSDictionary*)dict;
+- (BOOL)writeArray:(NSArray *)array;
+
+// Mid-level methods
+- (BOOL)writeObjectOpen;
+- (void)writeObjectClose;
+- (BOOL)writeArrayOpen;
+- (void)writeArrayClose;
+
+// Low-level methods
+- (BOOL)writeNull;
+- (BOOL)writeBool:(BOOL)x;
+//- (BOOL)writeInteger:(long)l;
+//- (BOOL)writeDouble:(double)d;
+- (BOOL)writeNumber:(NSNumber*)n;
+- (void)writeString:(NSString*)s;
 
 @end
