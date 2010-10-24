@@ -31,7 +31,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "SBJsonBase.h"
 
 @class SBJsonStreamWriterStateMachine;
 
@@ -56,12 +55,23 @@
  
  */
 
-@interface SBJsonStreamWriter : SBJsonBase {
+@interface SBJsonStreamWriter : NSObject {
 @private
+	NSString *error;
 	SBJsonStreamWriterStateMachine **states;
 	NSOutputStream *stream;
+	NSUInteger depth, maxDepth;
     BOOL sortKeys, humanReadable;
 }
+
+/**
+ @brief The maximum recursing depth.
+ 
+ Defaults to 512. If the input is nested deeper than this the input will be deemed to be
+ malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
+ turn off this security feature by setting the maxDepth value to 0.
+ */
+@property NSUInteger maxDepth;
 
 /**
  @brief Whether we are generating human-readable (multiline) JSON.
@@ -80,6 +90,11 @@
  (This is useful if you need to compare two structures, for example.) The default is NO.
  */
 @property BOOL sortKeys;
+
+/**
+ @brief Contains the error description after an error has occured.
+ */
+@property (readonly) NSString *error;
 
 /**
  @brief Initialise a stream writer.

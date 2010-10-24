@@ -30,6 +30,9 @@
 #import "MaxDepthTest.h"
 #import "JSON/JSON.h"
 
+#define assertErrorContains(e, s) \
+	STAssertTrue([[e localizedDescription] rangeOfString:s].location != NSNotFound, @"%@", [e userInfo])
+
 @implementation MaxDepthTest
 
 - (void)setUp {
@@ -57,7 +60,7 @@
     NSArray *a2 = [NSArray arrayWithObject:a1];
     NSArray *a3 = [NSArray arrayWithObject:a2];
     STAssertNil([writer stringWithObject:a3], nil);
-    STAssertEquals([[writer.errorTrace objectAtIndex:0] code], (NSInteger)EDEPTH, nil);
+	assertErrorContains([writer.errorTrace objectAtIndex:0], @"Nested too deep");
 }
 
 - (void)testWriteRecursion {
@@ -70,7 +73,7 @@
     [a1 addObject:a2];
 
     STAssertNil([writer stringWithObject:a1], nil);
-    STAssertEquals([[writer.errorTrace objectAtIndex:0] code], (NSInteger)EDEPTH, nil);
+	assertErrorContains([writer.errorTrace objectAtIndex:0], @"Nested too deep");
 }
 
 @end

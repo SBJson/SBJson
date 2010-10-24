@@ -34,6 +34,7 @@
 #import "SBProxyForJson.h"
 
 @interface SBJsonStreamWriter ()
+@property NSString *error;
 @property(readonly) NSObject **states;
 @property(readonly) NSUInteger depth;
 @property(readonly) NSOutputStream *stream;
@@ -101,7 +102,7 @@ static ArrayValueState *arrayValueState;
 	writer.states[writer.depth] = objectValueState;
 }
 - (BOOL)expectingKey:(SBJsonStreamWriter *)writer {
-	[writer addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
+	writer.error = @"JSON object key must be string";
 	return YES;
 }
 @end
@@ -154,7 +155,9 @@ static ArrayValueState *arrayValueState;
 
 @implementation SBJsonStreamWriter
 
+@synthesize error;
 @dynamic depth;
+@synthesize maxDepth;
 @synthesize states;
 @synthesize stream;
 @synthesize humanReadable;
@@ -180,6 +183,8 @@ static ArrayValueState *arrayValueState;
 	self = [super init];
 	if (self) {
 		stream = [stream_ retain];
+		maxDepth = 512;
+		states = calloc(maxDepth, sizeof(SBJsonStreamWriterStateMachine*));
 		NSAssert(states, @"States not initialised");
 		states[0] = openState;
 	}
@@ -187,6 +192,7 @@ static ArrayValueState *arrayValueState;
 }
 
 - (void)dealloc {
+	self.error = nil;
 	free(states);
 	[stream release];
 	[super dealloc];
@@ -201,7 +207,7 @@ static ArrayValueState *arrayValueState;
 	else if ([object respondsToSelector:@selector(proxyForJson)])
 		return [self write:[object proxyForJson]];
 
-	[self addErrorWithCode:EUNSUPPORTED description:@"Not valid type for JSON"];
+	self.error = @"Not valid type for JSON";
 	return NO;
 }
 
@@ -217,7 +223,7 @@ static ArrayValueState *arrayValueState;
 	
 	for (id k in keys) {
 		if (![k isKindOfClass:[NSString class]]) {
-			[self addErrorWithCode:EUNSUPPORTED description: @"JSON object key must be string"];
+			self.error = @"JSON object key must be string";
 			return NO;
 		}
 
@@ -248,7 +254,7 @@ static ArrayValueState *arrayValueState;
 	if (humanReadable) [s appendWhitespace:self];
 	
 	if (maxDepth && ++depth > maxDepth) {
-		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
+		self.error = @"Nested too deep";
 		return NO;
 	}
 
@@ -275,7 +281,7 @@ static ArrayValueState *arrayValueState;
 	if (humanReadable) [s appendWhitespace:self];
 	
 	if (maxDepth && ++depth > maxDepth) {
-		[self addErrorWithCode:EDEPTH description:@"Nested too deep"];
+		self.error = @"Nested too deep";
 		return NO;
 	}
 
@@ -344,8 +350,7 @@ static ArrayValueState *arrayValueState;
 
 	}	
 	
-	[self addErrorWithCode:EUNSUPPORTED
-			   description:[NSString stringWithFormat:@"JSON serialisation not supported for @%", [o class]]];
+	self.error = [NSString stringWithFormat:@"JSON serialisation not supported for @%", [o class]];
 	return NO;
 }
 
@@ -440,19 +445,19 @@ static const char *strForChar(int c) {
 	if (humanReadable) [s appendWhitespace:self];
 		
 	if ((CFNumberRef)number == kCFNumberPositiveInfinity) {
-		[self addErrorWithCode:EUNSUPPORTED description:@"+Infinity is not a valid number in JSON"];
+		self.error = @"+Infinity is not a valid number in JSON";
 		return NO;
 
 	} else if ((CFNumberRef)number == kCFNumberNegativeInfinity) {
-		[self addErrorWithCode:EUNSUPPORTED description:@"-Infinity is not a valid number in JSON"];
+		self.error = @"-Infinity is not a valid number in JSON";
 		return NO;
 
 	} else if ((CFNumberRef)number == kCFNumberNaN) {
-		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
+		self.error = @"NaN is not a valid number in JSON";
 		return NO;
 		
 	} else if (number == notANumber) {
-		[self addErrorWithCode:EUNSUPPORTED description:@"NaN is not a valid number in JSON"];
+		self.error = @"NaN is not a valid number in JSON";
 		return NO;
 	}
 	
@@ -498,6 +503,7 @@ static const char *strForChar(int c) {
 }
 
 - (void)setMaxDepth:(NSUInteger)x {
+	NSAssert(x, @"maxDepth must be greater than 0");
 	maxDepth = x;
 	states = realloc(states, x);
 	NSAssert(states, @"Failed to reallocate more memory for states");

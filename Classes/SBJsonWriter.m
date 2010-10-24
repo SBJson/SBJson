@@ -73,7 +73,7 @@
 	if ([streamWriter write:value])
 		return [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
 	
-	errorTrace = [streamWriter.errorTrace retain];
+	[self addErrorWithCode:EUNSUPPORTED description:streamWriter.error];
 	return nil;
 }
 
