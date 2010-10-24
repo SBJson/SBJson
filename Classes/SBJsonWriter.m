@@ -62,19 +62,35 @@
     return nil;
 }
 
-- (NSData*)dataWithObject:(id)value {
+- (NSData*)dataWithObject:(id)object {
 	NSOutputStream *stream = [[[NSOutputStream alloc] initToMemory] autorelease];
 	
 	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] initWithStream:stream] autorelease];
 	streamWriter.sortKeys = self.sortKeys;
 	streamWriter.maxDepth = self.maxDepth;
 	streamWriter.humanReadable = self.humanReadable;
-
-	if ([streamWriter write:value])
+	
+	BOOL ok = NO;
+	if ([object isKindOfClass:[NSDictionary class]])
+		ok = [streamWriter writeObject:object];
+	
+	else if ([object isKindOfClass:[NSArray class]])
+		ok = [streamWriter writeArray:object];
+		
+	else if ([object respondsToSelector:@selector(proxyForJson)])
+		return [self dataWithObject:[object proxyForJson]];
+	else {
+		[self addErrorWithCode:EUNSUPPORTED description:@"Not valid type for JSON"];
+		return nil;
+	}
+	
+	if (ok)
 		return [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
 	
 	[self addErrorWithCode:EUNSUPPORTED description:streamWriter.error];
-	return nil;
+	return nil;	
 }
+	
+	
 
 @end

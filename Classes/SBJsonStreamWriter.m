@@ -198,19 +198,6 @@ static ArrayValueState *arrayValueState;
 	[super dealloc];
 }
 
-#pragma mark Meta Methods
-
-- (BOOL)write:(id)object {
-	if ([object isKindOfClass:[NSDictionary class]] || [object isKindOfClass:[NSArray class]])
-		return [self writeValue:object];
-
-	else if ([object respondsToSelector:@selector(proxyForJson)])
-		return [self write:[object proxyForJson]];
-
-	self.error = @"Not valid type for JSON";
-	return NO;
-}
-
 #pragma mark Methods
 
 - (BOOL)writeObject:(NSDictionary *)dict {

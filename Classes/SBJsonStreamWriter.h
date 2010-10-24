@@ -104,9 +104,6 @@
  */
 - (id)initWithStream:(NSOutputStream*)stream;
 
-/// @deprecated Please don't use this.
-- (BOOL)write:(id)value;
-
 /**
  @brief Write an NSDictionary to the JSON stream.
  */
