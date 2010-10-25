@@ -8,11 +8,15 @@
   * Empty arrays and objects are no longer special-cased to appear on a single line.
   * The separator between key and value in an object has changed to ': ' rather than ' : '.
 
-### New Features
+### Enhancements & New Features
 
 * [Issue 12][#12]: Added a SBJsonStreamWriter class that can write to any NSOutputStream. This means you can write huge JSON documents to disk, or an HTTP destination, without having to hold the entire structure in memory. You can even generate it as you go, and just stream snapshots to an external process.
+* [Issue 9][#9]: Improve performance of the SBJsonWriter. This implementation is nearly twice as fast as 2.3.x on Sam Soffes' [benchmarks][bench].
 
+
+[bench]: http://github.com/samsoffes/json-benchmarks
 [#12]: http://github.com/stig/json-framework/issues/#issue/12
+[#9]: http://github.com/stig/json-framework/issues/#issue/9
 
 ## Version 2.3.1 (September 25th, 2010)
 
