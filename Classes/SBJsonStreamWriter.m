@@ -34,7 +34,7 @@
 #import "SBProxyForJson.h"
 
 @interface SBJsonStreamWriter ()
-@property NSString *error;
+@property(retain) NSString *error;
 @property(readonly) NSObject **states;
 @property(readonly) NSUInteger depth;
 @property(readonly) NSOutputStream *stream;
