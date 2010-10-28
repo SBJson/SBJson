@@ -94,7 +94,7 @@
 /**
  @brief Contains the error description after an error has occured.
  */
-@property (readonly) NSString *error;
+@property (copy, readonly) NSString *error;
 
 /**
  @brief Initialise a stream writer.
