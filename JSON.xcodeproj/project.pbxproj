@@ -38,8 +38,6 @@
 		53D2299C0C96129800276605 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53D229AD0C961B9900276605 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D229810C96121600276605 /* JSON.framework */; };
 		53F8A8150E57158200355C72 /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2BBD800D8B0D3900184787 /* libjson.a */; };
-		BC0387E811CEC07A0080C552 /* AbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0387E711CEC07A0080C552 /* AbstractTest.m */; };
-		BC0387E911CEC07A0080C552 /* AbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0387E711CEC07A0080C552 /* AbstractTest.m */; };
 		BC651A6E125A502700280F5C /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */; };
 		BC651A6F125A502700280F5C /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC651A6D125A502700280F5C /* SBJsonStreamWriter.m */; };
 		BC651A70125A502700280F5C /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */; };
@@ -270,8 +268,6 @@
 		535157A40F6EE4A800C8AABD /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		5351586F0F70DE7A00C8AABD /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
 		535158720F70DE7B00C8AABD /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
-		5355C86B0E392B2A00A18C15 /* ErrorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorTest.h; sourceTree = "<group>"; };
-		5355C86C0E392B2A00A18C15 /* DataDrivenTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataDrivenTest.h; sourceTree = "<group>"; };
 		53C45B9B0C98A87600546F66 /* ErrorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorTest.m; sourceTree = "<group>"; };
 		53D229810C96121600276605 /* JSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D229830C96121600276605 /* JSON-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSON-Info.plist"; sourceTree = "<group>"; };
@@ -279,8 +275,6 @@
 		53D2298E0C96122A00276605 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		53D2299A0C96129800276605 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		BC010B181248A5E400ACC736 /* RefreshOnlineDocs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = RefreshOnlineDocs.sh; sourceTree = "<group>"; };
-		BC0387E611CEC07A0080C552 /* AbstractTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractTest.h; sourceTree = "<group>"; };
-		BC0387E711CEC07A0080C552 /* AbstractTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractTest.m; sourceTree = "<group>"; };
 		BC0DEEB21273A34F006964FC /* ReleaseChecklist.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReleaseChecklist.markdown; sourceTree = "<group>"; };
 		BC3A1CDC12060DAC0051A978 /* Changes.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Changes.markdown; sourceTree = "<group>"; };
 		BC3A1CDD12060DAC0051A978 /* Credits.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Credits.markdown; sourceTree = "<group>"; };
@@ -289,11 +283,8 @@
 		BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
 		BC651A6D125A502700280F5C /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
 		BC651A81125A571C00280F5C /* SBProxyForJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBProxyForJson.h; sourceTree = "<group>"; };
-		BC74B6EA0FC9FAD0000BD3DD /* MaxDepthTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaxDepthTest.h; sourceTree = "<group>"; };
 		BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxDepthTest.m; sourceTree = "<group>"; };
-		BC74B7AC0FCA8B89000BD3DD /* ProxyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxyTest.h; sourceTree = "<group>"; };
 		BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyTest.m; sourceTree = "<group>"; };
-		BC8F72A51235331400678720 /* WriterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriterTest.h; sourceTree = "<group>"; };
 		BC8F72A61235331400678720 /* WriterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriterTest.m; sourceTree = "<group>"; };
 		BCB55A001221D09400ACE34F /* array.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array.json; sourceTree = "<group>"; };
 		BCB55A011221D09400ACE34F /* array.json.pretty */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = array.json.pretty; sourceTree = "<group>"; };
@@ -482,17 +473,10 @@
 		53D229960C96124500276605 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				BC0387E611CEC07A0080C552 /* AbstractTest.h */,
-				BC0387E711CEC07A0080C552 /* AbstractTest.m */,
-				5355C86C0E392B2A00A18C15 /* DataDrivenTest.h */,
 				E76A1EB60C996C2000A0CC83 /* DataDrivenTest.m */,
-				5355C86B0E392B2A00A18C15 /* ErrorTest.h */,
 				53C45B9B0C98A87600546F66 /* ErrorTest.m */,
-				BC74B6EA0FC9FAD0000BD3DD /* MaxDepthTest.h */,
 				BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */,
-				BC74B7AC0FCA8B89000BD3DD /* ProxyTest.h */,
 				BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */,
-				BC8F72A51235331400678720 /* WriterTest.h */,
 				BC8F72A61235331400678720 /* WriterTest.m */,
 			);
 			path = Tests;
@@ -1129,7 +1113,6 @@
 				E76A1EBD0C996EFD00A0CC83 /* DataDrivenTest.m in Sources */,
 				BC74B6ED0FC9FAD0000BD3DD /* MaxDepthTest.m in Sources */,
 				BC74B7AE0FCA8B89000BD3DD /* ProxyTest.m in Sources */,
-				BC0387E911CEC07A0080C552 /* AbstractTest.m in Sources */,
 				BC8F72A71235331400678720 /* WriterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1155,7 +1138,6 @@
 				FE2BBDB70D8B0F1D00184787 /* ErrorTest.m in Sources */,
 				BC74B6EC0FC9FAD0000BD3DD /* MaxDepthTest.m in Sources */,
 				BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */,
-				BC0387E811CEC07A0080C552 /* AbstractTest.m in Sources */,
 				BC8F72A81235331400678720 /* WriterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

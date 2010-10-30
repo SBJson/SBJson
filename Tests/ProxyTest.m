@@ -27,8 +27,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ProxyTest.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import <JSON/JSON.h>
+
+#pragma mark Helper objects
 
 @interface True : NSObject
 @end
@@ -63,9 +65,23 @@
 }
 @end
 
+#pragma mark Tests
+
+@interface ProxyTest : SenTestCase {
+	SBJsonWriter * writer;
+}
+@end
 
 
 @implementation ProxyTest
+
+- (void)setUp {
+    writer = [SBJsonWriter new];
+}
+
+- (void)tearDown {
+    [writer release];
+}
 
 - (void)testUnsupportedWithoutProxy {
     STAssertNil([writer stringWithObject:[NSArray arrayWithObject:[NSObject new]]], nil);

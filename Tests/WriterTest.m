@@ -27,11 +27,24 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "WriterTest.h"
+
+#import <SenTestingKit/SenTestingKit.h>
 #import <JSON/JSON.h>
 
+@interface WriterTest : SenTestCase {
+	SBJsonWriter * writer;
+}
+@end
 
 @implementation WriterTest
+
+- (void)setUp {
+    writer = [SBJsonWriter new];
+}
+
+- (void)tearDown {
+    [writer release];
+}
 
 - (void)testInfinity {
     STAssertEqualObjects(@"[0]", [writer stringWithObject:[NSArray arrayWithObject:[NSNumber numberWithDouble:0.0]]], nil);

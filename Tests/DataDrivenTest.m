@@ -28,17 +28,32 @@
  */
 
 
-#import "DataDrivenTest.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import <JSON/JSON.h>
+
+@interface DataDrivenTest : SenTestCase {
+	NSString *dir;
+    NSDirectoryEnumerator *files;
+	SBJsonParser * parser;
+	SBJsonWriter * writer;
+}
+@end
 
 @implementation DataDrivenTest
 
 - (void)setUp {
-    [super setUp];
+    parser = [SBJsonParser new];
+    writer = [SBJsonWriter new];
     writer.sortKeys = YES;
     
     dir = @"Tests/Data";
     files = [[NSFileManager defaultManager] enumeratorAtPath:dir];
+}
+
+
+- (void)tearDown {
+    [parser release];
+    [writer release];
 }
 
 - (void)withSuffix:(NSString *)suffix {

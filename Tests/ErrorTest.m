@@ -27,8 +27,14 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ErrorTest.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import <JSON/JSON.h>
+
+@interface ErrorTest : SenTestCase {
+	SBJsonParser * parser;
+	SBJsonWriter * writer;
+}
+@end
 
 #define assertErrorContains(e, s) \
     STAssertTrue([[e localizedDescription] rangeOfString:s].location != NSNotFound, @"%@", [e userInfo])
@@ -40,6 +46,17 @@
     STAssertTrue([[[[[[e userInfo] objectForKey:NSUnderlyingErrorKey] userInfo] objectForKey:NSUnderlyingErrorKey] localizedDescription] hasPrefix:s], @"%@", [e userInfo])
 
 @implementation ErrorTest
+
+
+- (void)setUp {
+    parser = [SBJsonParser new];
+    writer = [SBJsonWriter new];
+}
+
+- (void)tearDown {
+    [parser release];
+    [writer release];
+}
 
 #pragma mark Generator
 
