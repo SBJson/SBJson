@@ -94,6 +94,7 @@ static ArrayValueState *arrayValueState;
 - (BOOL)expectingKey:(SBJsonStreamWriter*)writer { return NO; }
 - (void)transitionState:(SBJsonStreamWriter *)writer {}
 - (void)appendWhitespace:(SBJsonStreamWriter*)writer {
+	[writer write:"\n" len:1];
 	for (int i = 0; i < writer.depth; i++)
 	    [writer write:"  " len: 2];
 }
@@ -111,7 +112,7 @@ static ArrayValueState *arrayValueState;
 
 @implementation ObjectKeyState
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
-	[writer write:",\n" len:writer.humanReadable ? 2 : 1];
+	[writer write:"," len:1];
 }
 @end
 
@@ -135,7 +136,7 @@ static ArrayValueState *arrayValueState;
 
 @implementation ArrayValueState
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
-	[writer write:",\n" len:writer.humanReadable ? 2 : 1];
+	[writer write:"," len:1];
 }
 @end
 
@@ -244,7 +245,7 @@ static ArrayValueState *arrayValueState;
 	if ([s isInvalidState:self]) return NO;
 	if ([s expectingKey:self]) return NO;
 	[s appendSeparator:self];
-	if (humanReadable) [s appendWhitespace:self];
+	if (humanReadable && depth) [s appendWhitespace:self];
 	
 	if (maxDepth && ++depth > maxDepth) {
 		self.error = @"Nested too deep";
@@ -252,19 +253,14 @@ static ArrayValueState *arrayValueState;
 	}
 
 	states[depth] = objectOpenState;
-	[self write:"{\n" len:humanReadable ? 2 : 1];
+	[self write:"{" len:1];
 	return YES;
 }
 
 - (BOOL)writeObjectClose {
 	SBJsonStreamWriterStateMachine *state = states[depth--];
 	if ([state isInvalidState:self]) return NO;
-
-	if (humanReadable) {
-		if ([state isKindOfClass:[ObjectKeyState class]])
-			[self write:"\n" len:1];
-		[state appendWhitespace:self];
-	}
+	if (humanReadable) [state appendWhitespace:self];
 	[self write:"}" len:1];
 	[states[depth] transitionState:self];
 	return YES;
@@ -275,7 +271,7 @@ static ArrayValueState *arrayValueState;
 	if ([s isInvalidState:self]) return NO;
 	if ([s expectingKey:self]) return NO;
 	[s appendSeparator:self];
-	if (humanReadable) [s appendWhitespace:self];
+	if (humanReadable && depth) [s appendWhitespace:self];
 	
 	if (maxDepth && ++depth > maxDepth) {
 		self.error = @"Nested too deep";
@@ -283,7 +279,7 @@ static ArrayValueState *arrayValueState;
 	}
 
 	states[depth] = arrayOpenState;
-	[self write:"[\n" len:humanReadable ? 2 : 1];
+	[self write:"[" len:1];
 	return YES;
 }
 
@@ -291,12 +287,7 @@ static ArrayValueState *arrayValueState;
 	SBJsonStreamWriterStateMachine *state = states[depth--];
 	if ([state isInvalidState:self]) return NO;
 	if ([state expectingKey:self]) return NO;
-
-	if (humanReadable) {
-		if ([state isKindOfClass:[ArrayValueState class]])
-			[self write:"\n" len:1];
-		[state appendWhitespace:self];
-	}
+	if (humanReadable) [state appendWhitespace:self];
 	
 	[self write:"]" len:1];
 	[states[depth] transitionState:self];
