@@ -118,13 +118,13 @@
 - (BOOL)writeObjectOpen;
 
 /// Close the current object being written
-- (void)writeObjectClose;
+- (BOOL)writeObjectClose;
 
 /// Start writing an Array to the stream
 - (BOOL)writeArrayOpen;
 
 /// Close the current Array being written
-- (void)writeArrayClose;
+- (BOOL)writeArrayClose;
 
 /// Write a null to the stream
 - (BOOL)writeNull;
@@ -139,6 +139,6 @@
 - (BOOL)writeNumber:(NSNumber*)n;
 
 /// Write a String to the stream
-- (void)writeString:(NSString*)s;
+- (BOOL)writeString:(NSString*)s;
 
 @end

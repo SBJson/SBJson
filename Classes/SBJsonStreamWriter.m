@@ -214,13 +214,13 @@ static ArrayValueState *arrayValueState;
 			return NO;
 		}
 
-		[self writeString:k];
+		if (![self writeString:k])
+			return NO;
 		if (![self writeValue:[dict objectForKey:k]])
 			return NO;
 	}
 	
-	[self writeObjectClose];
-	return YES;
+	return [self writeObjectClose];
 }
 
 - (BOOL)writeArray:(NSArray*)array {
@@ -229,8 +229,7 @@ static ArrayValueState *arrayValueState;
 	for (id v in array)
 		if (![self writeValue:v])
 			return NO;
-	[self writeArrayClose];
-	return YES;
+	return [self writeArrayClose];
 }
 
 
@@ -250,8 +249,9 @@ static ArrayValueState *arrayValueState;
 	return YES;
 }
 
-- (void)writeObjectClose {
+- (BOOL)writeObjectClose {
 	SBJsonStreamWriterStateMachine *state = states[depth--];
+
 	if (humanReadable) {
 		if ([state isKindOfClass:[ObjectKeyState class]])
 			[self write:"\n" len:1];
@@ -259,6 +259,7 @@ static ArrayValueState *arrayValueState;
 	}
 	[self write:"}" len:1];
 	[states[depth] transitionState:self];
+	return YES;
 }
 
 - (BOOL)writeArrayOpen {
@@ -277,8 +278,9 @@ static ArrayValueState *arrayValueState;
 	return YES;
 }
 
-- (void)writeArrayClose {
+- (BOOL)writeArrayClose {
 	SBJsonStreamWriterStateMachine *state = states[depth--];
+	if ([state expectingKey:self]) return NO;
 	if (humanReadable) {
 		if ([state isKindOfClass:[ArrayValueState class]])
 			[self write:"\n" len:1];
@@ -287,6 +289,7 @@ static ArrayValueState *arrayValueState;
 	
 	[self write:"]" len:1];
 	[states[depth] transitionState:self];
+	return YES;
 }
 
 - (BOOL)writeNull {
@@ -382,7 +385,7 @@ static const char *strForChar(int c) {
 	return "FUTFUTFUT";
 }
 
-- (void)writeString:(NSString*)string {	
+- (BOOL)writeString:(NSString*)string {	
 	SBJsonStreamWriterStateMachine *s = states[depth];
 	[s appendSeparator:self];
 	if (humanReadable) [s appendWhitespace:self];
@@ -391,7 +394,7 @@ static const char *strForChar(int c) {
 	if (data) {
 		[self write:[data bytes] len:[data length]];
 		[s transitionState:self];
-		return;
+		return YES;
 	}
 	
 	NSUInteger len = [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
@@ -420,6 +423,7 @@ static const char *strForChar(int c) {
 	[self write:[data bytes] len:[data length]];
 	[stringCache setObject:data forKey:string];
 	[s transitionState:self];
+	return YES;
 }
 
 - (BOOL)writeNumber:(NSNumber*)number {
