@@ -66,4 +66,15 @@
 	 */
 }
 
+
+- (void)testWriteToStream {
+	NSOutputStream *stream = [NSOutputStream outputStreamToMemory];	
+	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] initWithStream:stream] autorelease];
+	
+	STAssertTrue([streamWriter writeArray:[NSArray array]], nil);
+	
+	STAssertFalse([streamWriter writeArray:[NSArray array]], nil);
+	STAssertEqualObjects(streamWriter.error, @"Stream is closed", nil);
+}
+
 @end
