@@ -32,7 +32,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class SBJsonStreamWriterStateMachine;
+@class SBJsonStreamWriterState;
 
 /**
  @brief The Stream Writer class.
@@ -58,7 +58,7 @@
 @interface SBJsonStreamWriter : NSObject {
 @private
 	NSString *error;
-	SBJsonStreamWriterStateMachine **states;
+	SBJsonStreamWriterState **states;
 	NSOutputStream *stream;
 	NSUInteger depth, maxDepth;
     BOOL sortKeys, humanReadable;
