@@ -3,7 +3,7 @@
   <title>json2objc</title>
 </head>
 <body>
-<h2>Convert any valid json to an Objective-C literal (e.g. for use with <a href="http://github.com/stig/json-framework">json-framework</a>)</h2>
+<h2>Convert any valid json to an Objective-C literal (for use with <a href="http://github.com/stig/json-framework">json-framework</a>)</h2>
 <form>
   <p>
     JSON:<br>
@@ -90,7 +90,7 @@
               o.map(function(e, i) { 
                   return json2objc(e, level+1); 
               }).join(',\n') + ',\n' + 
-              pre + 'nil //terminate array\n' +
+              pre + TABSTOP + 'nil //terminate array\n' +
               pre + ']';
           } else if (o.length === 1) {
             //length 1 - o[0] could be a big array, so let's line break...
@@ -108,7 +108,7 @@
             ret += json2objc(o[i], level+1) + ', //value\n' + 
               json2objc(i, level+1) + ', //key\n';
           }
-          return ret + pre + 'nil //terminate dictionary\n' + pre + ']';
+          return ret + pre + TABSTOP + 'nil //terminate dictionary\n' + pre + ']';
         }
         break;
       default:
