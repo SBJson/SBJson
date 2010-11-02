@@ -46,22 +46,35 @@
 <script type="text/javascript">
   //ok, I guess we have to do this old school, without jQuery…
   function go() {
+    //HTML textfield that will contain the ObjC literal
     var objc = document.getElementById('objc');
     try {
+      //take the content of the HTML textfield that contains the JSON literal
+      //parse it to get a JavaScript object
+      //convert it to an ObjC literal
+      //and put it in the HTML textfield
       objc.value = json2objc(JSON.parse(document.getElementById('json').value), 0);
     } catch(e) {
+      //something went wrong. Display error message. 
+      //Most likely: JSON parser threw an exception 
+      //(JSON HTML textfield did not contain valid JSON)
       objc.value = e.name + ": " + e.message;
     }
   };
     
   function json2objc(o, level) {
-    var ret, i,
-      TABSTOP = '  ',
-      pre = '';
-    //number of spaces to indent
+    //first argument is the JavaScript object to stringify to an ObjC literal
+    //second is the indentation level (0 at start, increased by 1 in every
+    //recursive call)
+    var ret, //value to return
+      i, //loop iterator
+      TABSTOP = '  ', //for indentation
+      pre = ''; //prefix for each returned line
+    //each returned line needs correct indentation level
     for(i = 0; i < level; ++i) {
       pre += TABSTOP;
     }
+    //return value needs correct indentation level
     ret = pre;
     
     switch(typeof(o)) {
@@ -87,13 +100,18 @@
           //array
           if (o.length > 1) {
             return ret + '[NSArray arrayWithObjects:\n' + 
+              //map call json2objc recursively for each item in the map
+              //join concatenates those results together and puts ',\n'
+              //in between them
               o.map(function(e, i) { 
                   return json2objc(e, level+1); 
               }).join(',\n') + ',\n' + 
+              //add an extra tabstop to simulate higher indentation level
+              //for nil termination
               pre + TABSTOP + 'nil //terminate array\n' +
               pre + ']';
           } else if (o.length === 1) {
-            //length 1 - o[0] could be a big array, so let's line break...
+            //length 1 - json2objc recursively
             return ret + '[NSArray arrayWithObject:\n' + 
               json2objc(o[0], level+1) + ']';
           } else {
@@ -102,22 +120,32 @@
           }
         } else {
           //plain old object 
-          //this is asking for trouble if any value is null :(
           ret += '[NSDictionary dictionaryWithObjectsAndKeys:\n';
+          //i iterates over all keys in o
+          //o[i] contains the value at i
+          //calls json2objc recursively
           for(i in o) {
             ret += json2objc(o[i], level+1) + ', //value\n' + 
               json2objc(i, level+1) + ', //key\n';
           }
+          //adds another TABSTOP to simulate higher level indentation
+          //for nil termination
           return ret + pre + TABSTOP + 'nil //terminate dictionary\n' + pre + ']';
         }
         break;
       default:
+        //this should never happen
         throw new Error('unknown type: ' + o);
     } //switch
   }; //json2objc
 </script>
 <script type="text/javascript">
-//add a JSON global object if there isn't one already
+/* 
+   Some modern browsers (like Chrome) have a builtin JSON parser. Others don't.
+   The following code creates a JSON parser/stringifier that will be used to
+   a) parse the JSON from the textfield, b) stringify strings as a lazy way of
+   escaping them.
+*/
 /*
     http://www.JSON.org/json2.js
     2010-08-25
