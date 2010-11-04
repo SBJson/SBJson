@@ -498,7 +498,7 @@ static char ctrl[0x22];
                                               encoding:NSUTF8StringEncoding
                                           freeWhenDone:NO];
         [str autorelease];
-        if (str && (*o = [NSDecimalNumber decimalNumberWithString:str]))
+        if (str && (*o = [NSDecimalNumber decimalNumberWithString:str locale:nil]))
             return YES;
         
         [self addErrorWithCode:EPARSENUM description: @"Failed creating decimal instance"];
