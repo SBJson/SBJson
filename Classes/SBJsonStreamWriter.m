@@ -164,7 +164,7 @@ static SBJsonStreamWriterStateArrayValue *kSBJsonStreamWriterStateArrayValue;
 
 @synthesize error;
 @dynamic depth;
-@synthesize maxDepth;
+@dynamic maxDepth;
 @synthesize states;
 @synthesize stream;
 @synthesize humanReadable;
