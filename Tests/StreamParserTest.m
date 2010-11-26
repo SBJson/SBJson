@@ -55,12 +55,22 @@ static NSData *x(char *s) {
 
 - (void)testEof {
 	STAssertEquals([parser parse:x("")], SBJsonStreamParserInsufficientData, nil);
-	STAssertEqualObjects(@"", delegate.string, nil);
+	STAssertEqualObjects(delegate.string, @"", nil);
 }
 
 - (void)testEmptyArray {
 	STAssertEquals([parser parse:x("[]")], SBJsonStreamParserComplete, nil);
-	STAssertEqualObjects(@"[0,]0,", delegate.string, nil);
+	STAssertEqualObjects(delegate.string, @"[0,]0,", nil);
+}
+
+- (void)testNestedEmptyArray {
+	STAssertEquals([parser parse:x("[[[]]]")], SBJsonStreamParserComplete, nil);
+	STAssertEqualObjects(delegate.string, @"[0,[1,[2,]2,]1,]0,", nil);
+}
+
+- (void)testNestedEmptyArrays {
+	STAssertEquals([parser parse:x("[[[],[]]]")], SBJsonStreamParserComplete, nil);
+	STAssertEqualObjects(delegate.string, @"[0,[1,[2,]2,[2,]2,]1,]0,", nil);
 }
 
 

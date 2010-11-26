@@ -163,15 +163,48 @@
 	return YES;
 }
 
+- (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
+	parser.states[parser.depth] = [SBJsonStreamParserStateArrayGotValue state];
+}
+
 @end
 
 #pragma mark -
 
 @implementation SBJsonStreamParserStateArrayGotValue
+
+- (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
+	return token == sbjson_token_array_end || token == sbjson_token_separator;
+}
+
+- (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
+	if (tok == sbjson_token_separator)
+		parser.states[parser.depth] = [SBJsonStreamParserStateArrayNeedValue state];
+}
+
 @end
 
 #pragma mark -
 
 @implementation SBJsonStreamParserStateArrayNeedValue
+
+- (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
+	switch (token) {
+		case sbjson_token_key_value_separator:
+		case sbjson_token_object_end:
+		case sbjson_token_separator:
+			return NO;
+			break;
+		default:
+			break;
+	}
+	return YES;
+}
+
+- (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
+	if (tok == sbjson_token_separator)
+		parser.states[parser.depth] = [SBJsonStreamParserStateArrayNeedValue state];
+}
+
 @end
 

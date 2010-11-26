@@ -68,11 +68,12 @@
 - (SBJsonStreamParserStatus)parse:(NSData *)data {
 	[tokeniser appendData:data];
 	
-	for (;;) {
+	for (;;) {		
 		if ([states[depth] parserShouldStop:self])
 			return [states[depth] parserShouldReturn:self];
 		
 		sbjson_token_t tok = [tokeniser next];
+		
 		switch (tok) {
 			case sbjson_token_eof:
 				return SBJsonStreamParserInsufficientData;
@@ -106,6 +107,11 @@
 					case sbjson_token_array_end:
 						[states[--depth] parser:self shouldTransitionTo:tok];
 						[delegate parsedArrayEnd:self];
+						break;
+						
+					case sbjson_token_separator:
+					case sbjson_token_key_value_separator:
+						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 						
 					default:
