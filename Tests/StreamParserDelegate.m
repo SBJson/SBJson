@@ -50,6 +50,18 @@
 	[super dealloc];
 }
 
+- (void)parsedObjectStart:(SBJsonStreamParser*)parser {
+	[string appendFormat:@"{%u ", parser.depth];
+}
+
+- (void)parser:(SBJsonStreamParser*)parser parsedObjectKey:(NSString*)key {
+	[string appendFormat:@"%@=", key];
+}
+
+- (void)parsedObjectEnd:(SBJsonStreamParser*)parser {
+	[string appendFormat:@"%u} ", parser.depth];
+}
+
 - (void)parsedArrayStart:(SBJsonStreamParser*)parser {
 	[string appendFormat:@"(%u ", parser.depth];
 }
@@ -73,5 +85,10 @@
 - (void)parser:(SBJsonStreamParser*)parser parsedDouble:(double)d {
 	[string appendFormat:@"%g ", d];
 }
+
+- (void)parser:(SBJsonStreamParser*)parser parsedString:(NSString*)s {
+	[string appendFormat:@"'%@' ", s];
+}
+
 
 @end

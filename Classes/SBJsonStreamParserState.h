@@ -44,6 +44,7 @@
 - (BOOL)parserShouldStop:(SBJsonStreamParser*)parser;
 - (SBJsonStreamParserStatus)parserShouldReturn:(SBJsonStreamParser*)parser;
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok;
+- (BOOL)needKey;
 
 @end
 
@@ -58,6 +59,9 @@
 
 
 @interface SBJsonStreamParserStateObjectStart : SBJsonStreamParserState
+@end
+
+@interface SBJsonStreamParserStateObjectGotKey : SBJsonStreamParserState
 @end
 
 @interface SBJsonStreamParserStateObjectSeparator : SBJsonStreamParserState

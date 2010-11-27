@@ -83,5 +83,21 @@ static NSData *x(char *s) {
 	STAssertEqualObjects(delegate.string, @"(0 0 1.98 -23700 0) ", nil);
 }
 
+- (void)testStrings {
+	STAssertEquals([parser parse:x("[\"foo\",\"bar\",\"quux\"]")], SBJsonStreamParserComplete, nil);
+	STAssertEqualObjects(delegate.string, @"(0 'foo' 'bar' 'quux' 0) ", nil);
+}
+
+- (void)testEmptyObject {
+	STAssertEquals([parser parse:x("{}")], SBJsonStreamParserComplete, nil);
+	STAssertEqualObjects(delegate.string, @"{0 0} ", nil);
+}
+
+- (void)testSimpleObject {
+	STAssertEquals([parser parse:x("{\"k\":true}")], SBJsonStreamParserComplete, nil);
+	STAssertEqualObjects(delegate.string, @"{0 k=YES 0} ", nil);
+}
+
+
 
 @end
