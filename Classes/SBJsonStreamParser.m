@@ -68,6 +68,9 @@
 - (SBJsonStreamParserStatus)parse:(NSData *)data {
 	[tokeniser appendData:data];
 	
+	const char *buf;
+	NSUInteger len;
+	
 	for (;;) {		
 		if ([states[depth] parserShouldStop:self])
 			return [states[depth] parserShouldReturn:self];
@@ -144,44 +147,37 @@
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 						
-					case sbjson_token_integer: {
-						const char *n; NSUInteger l;
-						if ([tokeniser getToken:&n length:&l]) {
+					case sbjson_token_integer:
+						if ([tokeniser getToken:&buf length:&len]) {
 							char *e;
-							NSInteger integer = strtol(n, &e, 0);
-							NSAssert(e-n == l, @"Unexpected length");
+							NSInteger integer = strtol(buf, &e, 0);
+							NSAssert(e-buf == len, @"Unexpected length");
 							[delegate parser:self parsedInteger:integer];
+							[states[depth] parser:self shouldTransitionTo:tok];
 						}
-					}
-						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 
-					case sbjson_token_double: {
-						const char *n; NSUInteger l;
-						if ([tokeniser getToken:&n length:&l]) {
-							char *e;
-							double d = strtod(n, &e);
-							NSAssert(e-n == l, @"Unexpected length");
-							[delegate parser:self parsedDouble:d];
-						}
-					}
-						[states[depth] parser:self shouldTransitionTo:tok];
-						break;
-						
-					case sbjson_token_string: {
-						const char *buf; NSUInteger len;
+					case sbjson_token_double:
 						if ([tokeniser getToken:&buf length:&len]) {
-							NSString *string = [[NSString alloc] initWithBytes:buf+1 length:len-2 encoding:NSUTF8StringEncoding];
-							if ([states[depth] needKey])							
-								[delegate parser:self parsedObjectKey:string];
-							else
-								[delegate parser:self parsedString:string];
-							[string release];
+							char *e;
+							double d = strtod(buf, &e);
+							NSAssert(e-buf == len, @"Unexpected length");
+							[delegate parser:self parsedDouble:d];
+							[states[depth] parser:self shouldTransitionTo:tok];
 						}
-					}
-						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 						
+					case sbjson_token_string:
+						NSAssert([tokeniser getToken:&buf length:&len], @"failed to get token");
+						NSString *string = [[NSString alloc] initWithBytes:buf+1 length:len-2 encoding:NSUTF8StringEncoding];
+						if ([states[depth] needKey])
+							[delegate parser:self parsedObjectKey:string];
+						else
+							[delegate parser:self parsedString:string];
+						[string release];
+						[states[depth] parser:self shouldTransitionTo:tok];
+						break;
+												
 					default:
 						break;
 				}
