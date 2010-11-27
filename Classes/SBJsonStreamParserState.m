@@ -197,36 +197,6 @@
 
 #pragma mark -
 
-@implementation SBJsonStreamParserStateObjectNeedValue
-
-- (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
-	switch (token) {
-		case sbjson_token_object_start:
-		case sbjson_token_array_start:
-		case sbjson_token_true:
-		case sbjson_token_false:
-		case sbjson_token_null:
-		case sbjson_token_integer:
-		case sbjson_token_double:
-		case sbjson_token_string:
-		case sbjson_token_string_encoded:
-			return YES;
-			break;
-			
-		default:
-			return NO;
-			break;
-	}
-}
-
-- (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.states[parser.depth] = [SBJsonStreamParserStateObjectNeedValue state];
-}
-
-@end
-
-#pragma mark -
-
 @implementation SBJsonStreamParserStateObjectGotValue
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
@@ -242,7 +212,7 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.states[parser.depth] = [SBJsonStreamParserStateObjectGotKey state];
+	parser.states[parser.depth] = [SBJsonStreamParserStateObjectNeedKey state];
 }
 
 
@@ -251,6 +221,22 @@
 #pragma mark -
 
 @implementation SBJsonStreamParserStateObjectNeedKey
+
+- (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
+	switch (token) {
+		case sbjson_token_string:
+		case sbjson_token_string_encoded:
+			return YES;
+			break;
+		default:
+			return NO;
+			break;
+	}
+}
+
+- (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
+	parser.states[parser.depth] = [SBJsonStreamParserStateObjectGotKey state];
+}
 
 - (BOOL)needKey {
 	return YES;
@@ -269,6 +255,7 @@
 		case sbjson_token_separator:
 			return NO;
 			break;
+			
 		default:
 			return YES;
 			break;
@@ -307,10 +294,11 @@
 		case sbjson_token_separator:
 			return NO;
 			break;
+
 		default:
+			return YES;
 			break;
 	}
-	return YES;
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {

@@ -98,6 +98,11 @@ static NSData *x(char *s) {
 	STAssertEqualObjects(delegate.string, @"{0 k=YES 0} ", nil);
 }
 
+- (void)testNestedObject {
+	STAssertEquals([parser parse:x("{\"k\":{\"kk\":[],\"kkk\":\"foo\"}}")], SBJsonStreamParserComplete, nil);
+	STAssertEqualObjects(delegate.string, @"{0 k={1 kk=(2 2) kkk='foo' 1} 0} ", nil);
+}
+
 
 
 @end

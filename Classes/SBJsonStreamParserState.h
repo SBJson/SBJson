@@ -67,9 +67,6 @@
 @interface SBJsonStreamParserStateObjectSeparator : SBJsonStreamParserState
 @end
 
-@interface SBJsonStreamParserStateObjectNeedValue : SBJsonStreamParserState
-@end
-
 @interface SBJsonStreamParserStateObjectGotValue : SBJsonStreamParserState
 @end
 
