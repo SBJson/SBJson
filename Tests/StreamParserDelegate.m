@@ -51,11 +51,27 @@
 }
 
 - (void)parsedArrayStart:(SBJsonStreamParser*)parser {
-	[string appendFormat:@"[%u,", parser.depth];
+	[string appendFormat:@"(%u ", parser.depth];
 }
 
 - (void)parsedArrayEnd:(SBJsonStreamParser*)parser {
-	[string appendFormat:@"]%u,", parser.depth];
+	[string appendFormat:@"%u) ", parser.depth];
+}
+
+- (void)parsedNull:(SBJsonStreamParser*)parser {
+	[string appendString:@"nil "];
+}
+
+- (void)parser:(SBJsonStreamParser*)parser parsedBoolean:(BOOL)x {
+	[string appendString:x ? @"YES " : @"NO "];
+}
+
+- (void)parser:(SBJsonStreamParser*)parser parsedInteger:(NSInteger)i {
+	[string appendFormat:@"%d ", i];
+}
+
+- (void)parser:(SBJsonStreamParser*)parser parsedDouble:(double)d {
+	[string appendFormat:@"%g ", d];
 }
 
 @end

@@ -202,8 +202,7 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	if (tok == sbjson_token_separator)
-		parser.states[parser.depth] = [SBJsonStreamParserStateArrayNeedValue state];
+	parser.states[parser.depth] = [SBJsonStreamParserStateArrayGotValue state];
 }
 
 @end

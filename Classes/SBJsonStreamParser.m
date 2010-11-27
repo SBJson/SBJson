@@ -114,6 +114,45 @@
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 						
+					case sbjson_token_true:
+						[delegate parser:self parsedBoolean:YES];
+						[states[depth] parser:self shouldTransitionTo:tok];
+						break;
+
+					case sbjson_token_false:
+						[delegate parser:self parsedBoolean:NO];
+						[states[depth] parser:self shouldTransitionTo:tok];
+						break;
+
+					case sbjson_token_null:
+						[delegate parsedNull:self];
+						[states[depth] parser:self shouldTransitionTo:tok];
+						break;
+						
+					case sbjson_token_integer: {
+						const char *n; NSUInteger l;
+						if ([tokeniser getToken:&n length:&l]) {
+							char *e;
+							NSInteger integer = strtol(n, &e, 0);
+							NSAssert(e-n == l, @"Unexpected length");
+							[delegate parser:self parsedInteger:integer];
+						}
+					}
+						[states[depth] parser:self shouldTransitionTo:tok];
+						break;
+
+					case sbjson_token_double: {
+						const char *n; NSUInteger l;
+						if ([tokeniser getToken:&n length:&l]) {
+							char *e;
+							double d = strtod(n, &e);
+							NSAssert(e-n == l, @"Unexpected length");
+							[delegate parser:self parsedDouble:d];
+						}
+					}
+						[states[depth] parser:self shouldTransitionTo:tok];
+						break;
+						
 					default:
 						break;
 				}

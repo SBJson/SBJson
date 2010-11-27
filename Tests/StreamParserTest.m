@@ -60,17 +60,27 @@ static NSData *x(char *s) {
 
 - (void)testEmptyArray {
 	STAssertEquals([parser parse:x("[]")], SBJsonStreamParserComplete, nil);
-	STAssertEqualObjects(delegate.string, @"[0,]0,", nil);
+	STAssertEqualObjects(delegate.string, @"(0 0) ", nil);
 }
 
 - (void)testNestedEmptyArray {
 	STAssertEquals([parser parse:x("[[[]]]")], SBJsonStreamParserComplete, nil);
-	STAssertEqualObjects(delegate.string, @"[0,[1,[2,]2,]1,]0,", nil);
+	STAssertEqualObjects(delegate.string, @"(0 (1 (2 2) 1) 0) ", nil);
 }
 
 - (void)testNestedEmptyArrays {
 	STAssertEquals([parser parse:x("[[[],[]]]")], SBJsonStreamParserComplete, nil);
-	STAssertEqualObjects(delegate.string, @"[0,[1,[2,]2,[2,]2,]1,]0,", nil);
+	STAssertEqualObjects(delegate.string, @"(0 (1 (2 2) (2 2) 1) 0) ", nil);
+}
+
+- (void)testBoolAndNull {
+	STAssertEquals([parser parse:x("[true,null,false]")], SBJsonStreamParserComplete, nil);
+	STAssertEqualObjects(delegate.string, @"(0 YES nil NO 0) ", nil);
+}
+
+- (void)testNumbers {
+	STAssertEquals([parser parse:x("[0,1.98,-23.7e+3]")], SBJsonStreamParserComplete, nil);
+	STAssertEqualObjects(delegate.string, @"(0 0 1.98 -23700 0) ", nil);
 }
 
 
