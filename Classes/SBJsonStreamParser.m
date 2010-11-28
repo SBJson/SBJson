@@ -63,6 +63,129 @@
 	[super dealloc];
 }
 
+#pragma mark Private methods
+
+- (int)decodeHexQuad:(const char *)buf {
+	char c;
+	int ret = 0;
+    for (int i = 0; i < 4; i++) {
+		ret *= 16;
+		switch (c = buf[i]) {
+			case '0' ... '9':
+				ret += c - '0';
+				break;
+				
+			case 'a' ... 'f':
+				ret += 10 + c - 'a';
+				break;
+				
+			case 'A' ... 'A':
+				ret += 10 + c - 'A';
+				break;
+				
+			default:
+				NSLog(@"XXX illegal digit in hex char");
+				return -1;
+				break;
+		}
+    }
+    return ret;
+}
+
+- (NSString*)decodeBytes:(const char *)buf length:(NSUInteger)len {
+	NSMutableData *data = [NSMutableData dataWithCapacity:len * 1.1];
+
+	char c;
+	NSUInteger i = 0;
+again: while (i < len) {
+		switch (c = buf[i++]) {
+			case '\\':
+				switch (c = buf[i++]) {
+					case '\\':
+					case '/':
+					case '"':
+						break;
+						
+					case 'b':
+						c = '\b';
+						break;
+						
+					case 'n':
+						c = '\n';
+						break;
+						
+					case 'r':
+						c = '\r';
+						break;
+						
+					case 't':
+						c = '\t';
+						break;
+						
+					case 'f':
+						c = '\f';
+						break;
+						
+					case 'u': {
+						int hi = [self decodeHexQuad:buf + i];
+						if (hi < 0) {
+							NSLog(@"Missing hex quad");
+							return nil;
+						}
+						i += 4;
+						
+						if (hi >= 0xd800) {     // high surrogate char?
+							if (hi < 0xdc00) {  // yes - expect a low char
+								int lo = -1;
+								if (buf[i++] == '\\' && buf[i++] == 'u')
+									lo = [self decodeHexQuad:buf + i];
+								
+								if (lo < 0) {
+									NSLog(@"Missing low character in surrogate pair");
+									return nil;
+								}
+								i += 4;
+								
+								if (lo < 0xdc00 || lo >= 0xdfff) {
+									NSLog(@"Invalid low surrogate char");
+									return nil;
+								}
+								
+								hi = (hi - 0xd800) * 0x400 + (lo - 0xdc00) + 0x10000;
+								
+							} else if (hi < 0xe000) {
+								NSLog(@"Invalid high character in surrogate pair");
+								return nil;
+							}
+						}
+						
+						unichar ch = hi;
+						NSString *s = [NSString  stringWithCharacters:&ch length:1];
+						[data appendData:[s dataUsingEncoding:NSUTF8StringEncoding]];
+						goto again;
+					}
+						break;
+						
+					default:
+						NSLog(@"XXX");
+						NSAssert(NO, @"Should never get here");
+						break;
+				}
+				break;
+				
+			case 0 ... 0x20:
+				NSLog(@"Unescaped escape char");
+				break;
+				
+			default:
+				break;
+		}
+		[data appendBytes:&c length:1];
+	}
+	
+	return [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+}
+
 #pragma mark Methods
 
 - (SBJsonStreamParserStatus)parse:(NSData *)data {
@@ -177,7 +300,20 @@
 						[string release];
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
-												
+						
+					case sbjson_token_string_encoded:
+						NSAssert([tokeniser getToken:&buf length:&len], @"failed to get token");
+						buf++;
+						len -= 2;
+						NSString *decoded = [self decodeBytes:buf length:len];
+						if ([states[depth] needKey])
+							[delegate parser:self parsedObjectKey:decoded];
+						else
+							[delegate parser:self parsedString:decoded];
+						[decoded release];
+						[states[depth] parser:self shouldTransitionTo:tok];
+						break;
+						
 					default:
 						break;
 				}
