@@ -53,7 +53,10 @@ typedef enum {
 @interface SBJsonTokeniser : NSObject {
 	NSUInteger offset, length;
 	NSMutableData *buf;
+	NSString *error;
 }
+
+@property(copy, readonly) NSString *error;
 
 - (void)appendData:(NSData*)data;
 

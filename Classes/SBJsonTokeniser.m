@@ -39,6 +39,8 @@
 
 @interface SBJsonTokeniser ()
 
+@property (copy) NSString *error;
+
 - (const char *)bytes;
 - (void)skipWhitespace;
 
@@ -50,6 +52,8 @@
 
 
 @implementation SBJsonTokeniser
+
+@synthesize error;
 
 #pragma mark Housekeeping
 
@@ -156,10 +160,15 @@
 		case '-':
 		case '0' ... '9':
 			return [self matchNumber];
-			break;
-	}	
+			break;			
+			
+		case '+':
+			self.error = [NSString stringWithFormat:@"Leading + is illegal in numbers at offset %u", offset];
+			return sbjson_token_error;
+			break;			
+	}
 	
-	NSLog(@"Unrecognised leading char at: %.20s", [self bytes]);
+	self.error = [NSString stringWithFormat:@"Unrecognised leading char at offset %u", offset];
 	return sbjson_token_error;
 }
 
@@ -198,7 +207,7 @@
 	
 	if (strncmp([self bytes], utf8, len)) {
 		NSString *format = [NSString stringWithFormat:@"Expected '%%s' but found '%%.%us'.", len];
-		NSLog(format, utf8, [self bytes]);
+		self.error = [NSString stringWithFormat:format, utf8, [self bytes]];
 		return sbjson_token_error;
 	}
 	
@@ -229,14 +238,14 @@
 					case 'u':
 						for (int i = 0; i < 4; i++) {
 							if (!isDigit(c)) {
-								NSLog(@"Broken unichar seq");
+								self.error = [NSString stringWithFormat:@"Broken unichar sequence in token at offset %u", offset];
 								return sbjson_token_error;
 							}
 							c++;
 						}
 						break;
 					default:
-						NSLog(@"Unrecognised escape");
+						self.error = [NSString stringWithFormat:@"Broken escape character in token starting at offset %u", offset];
 						return sbjson_token_error;
 						break;
 				}
@@ -266,7 +275,7 @@
 	if (*c == '0') {
 		c++;
 		if (isDigit(c)) {
-			NSLog(@"Leading zero is disallowed in number");
+			self.error = [NSString stringWithFormat:@"Leading zero is disallowed in number at offset %u", offset];
 			return sbjson_token_error;
 		}
 	}
@@ -279,7 +288,7 @@
 		c++;
 		
 		if (!isDigit(c) && *c) {
-			NSLog(@"Number cannot end with '.'");
+			self.error = [NSString stringWithFormat:@"Number cannot end with '.' at offset %u", offset];
 			return sbjson_token_error;
 		}
 		
@@ -294,7 +303,7 @@
 			c++;
 	
 		if (!isDigit(c) && *c) {
-			NSLog(@"Exponential marker must be followed by digits");
+			self.error = [NSString stringWithFormat:@"Exponential marker must be followed by digits at offset %u", offset];
 			return sbjson_token_error;
 		}
 		
