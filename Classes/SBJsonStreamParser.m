@@ -84,7 +84,7 @@
 				break;
 				
 			default:
-				NSLog(@"XXX illegal digit in hex char");
+				self.error = @"XXX illegal digit in hex char";
 				return -1;
 				break;
 		}
@@ -129,7 +129,7 @@ again: while (i < len) {
 					case 'u': {
 						int hi = [self decodeHexQuad:buf + i];
 						if (hi < 0) {
-							NSLog(@"Missing hex quad");
+							self.error = @"Missing hex quad";
 							return nil;
 						}
 						i += 4;
@@ -141,20 +141,20 @@ again: while (i < len) {
 									lo = [self decodeHexQuad:buf + i];
 								
 								if (lo < 0) {
-									NSLog(@"Missing low character in surrogate pair");
+									self.error = @"Missing low character in surrogate pair";
 									return nil;
 								}
 								i += 4;
 								
 								if (lo < 0xdc00 || lo >= 0xdfff) {
-									NSLog(@"Invalid low surrogate char");
+									self.error = @"Invalid low surrogate char";
 									return nil;
 								}
 								
 								hi = (hi - 0xd800) * 0x400 + (lo - 0xdc00) + 0x10000;
 								
 							} else if (hi < 0xe000) {
-								NSLog(@"Invalid high character in surrogate pair");
+								self.error = @"Invalid high character in surrogate pair";
 								return nil;
 							}
 						}
@@ -167,14 +167,14 @@ again: while (i < len) {
 						break;
 						
 					default:
-						NSLog(@"XXX");
 						NSAssert(NO, @"Should never get here");
 						break;
 				}
 				break;
 				
 			case 0 ... 0x20:
-				NSLog(@"Unescaped escape char");
+				self.error = @"Unescaped escape char";
+				return nil;
 				break;
 				
 			default:
@@ -207,13 +207,14 @@ again: while (i < len) {
 
 			case sbjson_token_error:
 				states[depth] = [SBJsonStreamParserStateError state];
+				self.error = tokeniser.error;
 				return SBJsonStreamParserError;
 				break;
 
 			default:
 				
 				if (![states[depth] parser:self shouldAcceptToken:tok]) {
-					NSLog(@"Token of type %u not expected at state %@", tok, states[depth]);
+					self.error = [NSString stringWithFormat:@"Token of type %u not expected at state %@", tok, states[depth]];
 					states[depth] = [SBJsonStreamParserStateError state];
 					return SBJsonStreamParserError;
 				}
@@ -221,7 +222,7 @@ again: while (i < len) {
 				switch (tok) {
 					case sbjson_token_object_start:
 						if (depth >= maxDepth) {
-							NSLog(@"Parser exceeded max depth of %lu", maxDepth);
+							self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
 							states[depth] = [SBJsonStreamParserStateError state];
 
 						} else {
@@ -237,7 +238,7 @@ again: while (i < len) {
 						
 					case sbjson_token_array_start:
 						if (depth >= maxDepth) {
-							NSLog(@"Parser exceeded max depth of %lu", maxDepth);
+							self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
 							states[depth] = [SBJsonStreamParserStateError state];
 						} else {
 							[delegate parsedArrayStart:self];
