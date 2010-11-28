@@ -406,7 +406,7 @@ static const char *strForChar(int c) {
 	const char *utf8 = [string UTF8String];
 	NSUInteger written = 0, i = 0;
 		
-	data = [NSMutableData dataWithCapacity:len * 1.1];
+	data = [NSMutableData dataWithCapacity:len * 1.1f];
 	[data appendBytes:"\"" length:1];
 	
 	for (i = 0; i < len; i++) {
