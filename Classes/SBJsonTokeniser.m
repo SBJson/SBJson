@@ -48,6 +48,8 @@
 - (sbjson_token_t)matchString;
 - (sbjson_token_t)matchNumber;
 
+- (int)parseUnicodeEscape:(const char *)bytes index:(NSUInteger *)index;
+
 @end
 
 
@@ -99,6 +101,79 @@
 	*utf8 = [self bytes];
 	return YES;
 }
+
+- (NSString*)getDecodedStringToken {
+	NSUInteger len;
+	const char *bytes;
+	NSAssert([self getToken:&bytes length:&len], @"Failed to get token");
+	
+	len -= 1;
+	
+	NSMutableData *data = [NSMutableData dataWithCapacity:len * 1.1];
+	
+	char c;
+	NSUInteger i = 1;
+again: while (i < len) {
+		switch (c = bytes[i++]) {
+			case '\\':
+				switch (c = bytes[i++]) {
+					case '\\':
+					case '/':
+					case '"':
+						break;
+						
+					case 'b':
+						c = '\b';
+						break;
+						
+					case 'n':
+						c = '\n';
+						break;
+						
+					case 'r':
+						c = '\r';
+						break;
+						
+					case 't':
+						c = '\t';
+						break;
+						
+					case 'f':
+						c = '\f';
+						break;
+						
+					case 'u': {
+						int hi = [self parseUnicodeEscape:bytes index:&i];
+						if (hi < 0)
+							return nil;
+						
+						unichar ch = hi;
+						NSString *s = [NSString stringWithCharacters:&ch length:1];
+						[data appendData:[s dataUsingEncoding:NSUTF8StringEncoding]];
+						goto again;
+						break;
+					}
+						
+					default:
+						NSAssert(NO, @"Should never get here");
+						break;
+				}
+				break;
+				
+			case 0 ... 0x20:
+				self.error = @"Unescaped control chars";
+				return nil;
+				break;
+				
+			default:
+				break;
+		}
+		[data appendBytes:&c length:1];
+	}
+	
+	return [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+}
+
 
 - (sbjson_token_t)next {
 	offset += length;
@@ -215,6 +290,70 @@
 	return tok;
 }
 
+
+- (int)decodeHexQuad:(const char *)hexQuad {
+	char c;
+	int ret = 0;
+    for (int i = 0; i < 4; i++) {
+		ret *= 16;
+		switch (c = hexQuad[i]) {
+			case '0' ... '9':
+				ret += c - '0';
+				break;
+				
+			case 'a' ... 'f':
+				ret += 10 + c - 'a';
+				break;
+				
+			case 'A' ... 'A':
+				ret += 10 + c - 'A';
+				break;
+				
+			default:
+				self.error = @"XXX illegal digit in hex char";
+				return -1;
+				break;
+		}
+    }
+    return ret;
+}
+
+- (int)parseUnicodeEscape:(const char *)bytes index:(NSUInteger *)index {
+	int hi = [self decodeHexQuad:bytes + *index];
+	if (hi < 0) {
+		self.error = @"Missing hex quad";
+		return -1;
+	}
+	*index += 4;
+	
+	if (hi >= 0xd800) {     // high surrogate char?
+		if (hi < 0xdc00) {  // yes - expect a low char
+			int lo = -1;
+			if (bytes[(*index)++] == '\\' && bytes[(*index)++] == 'u')
+				lo = [self decodeHexQuad:bytes + *index];
+			
+			if (lo < 0) {
+				self.error = @"Missing low character in surrogate pair";
+				return -1;
+			}
+			*index += 4;
+			
+			if (lo < 0xdc00 || lo >= 0xdfff) {
+				self.error = @"Invalid low surrogate char";
+				return -1;
+			}
+			
+			hi = (hi - 0xd800) * 0x400 + (lo - 0xdc00) + 0x10000;
+			
+		} else if (hi < 0xe000) {
+			self.error = @"Invalid high character in surrogate pair";
+			return -1;
+		}
+	}
+	return hi;
+}
+
+
 - (sbjson_token_t)matchString {
 	const char *c = [self bytes] + 1;
 	sbjson_token_t ret = sbjson_token_string;
@@ -235,25 +374,27 @@
 					case '/':
 						// Valid escape sequence
 						break;
-					case 'u':
-						for (int i = 0; i < 4; i++) {
-							if (!isDigit(c)) {
-								self.error = [NSString stringWithFormat:@"Broken unichar sequence in token at offset %u", offset];
-								return sbjson_token_error;
-							}
-							c++;
-						}
+						
+					case 'u': {
+						NSUInteger i = 0;
+						int ch = [self parseUnicodeEscape:c index:&i];
+						if (ch < 0)
+							return sbjson_token_error;
+						c += i;
 						break;
+					}
 					default:
 						self.error = [NSString stringWithFormat:@"Broken escape character in token starting at offset %u", offset];
 						return sbjson_token_error;
 						break;
 				}
 				break;
+				
 			case '"':
 				length = c - [self bytes];
 				return ret;
 				break;
+				
 			default:
 				// any other character
 				break;

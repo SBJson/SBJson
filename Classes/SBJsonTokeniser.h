@@ -62,5 +62,6 @@ typedef enum {
 
 - (sbjson_token_t)next;
 - (BOOL)getToken:(const char **)utf8 length:(NSUInteger*)length;
+- (NSString*)getDecodedStringToken;
 
 @end
