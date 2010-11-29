@@ -50,6 +50,14 @@
 		BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
 		BC8F72A71235331400678720 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F72A61235331400678720 /* WriterTest.m */; };
 		BC8F72A81235331400678720 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F72A61235331400678720 /* WriterTest.m */; };
+		BC9602B712A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */; };
+		BC9602B812A452CF0024BDA2 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */; };
+		BC9602B912A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */; };
+		BC9602BA12A452CF0024BDA2 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */; };
+		BC9602FE12A4564E0024BDA2 /* StreamParserAdapterDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602FD12A4564E0024BDA2 /* StreamParserAdapterDelegate.m */; };
+		BC9602FF12A4564E0024BDA2 /* StreamParserAdapterDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602FD12A4564E0024BDA2 /* StreamParserAdapterDelegate.m */; };
+		BC96030A12A45E3D0024BDA2 /* StreamParserAdapterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC96030912A45E3D0024BDA2 /* StreamParserAdapterTest.m */; };
+		BC96030B12A45E3D0024BDA2 /* StreamParserAdapterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC96030912A45E3D0024BDA2 /* StreamParserAdapterTest.m */; };
 		BCA822CA127D68F600DD3FD0 /* SBJsonTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA822C8127D68F600DD3FD0 /* SBJsonTokeniser.h */; };
 		BCA822CB127D68F600DD3FD0 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA822C9127D68F600DD3FD0 /* SBJsonTokeniser.m */; };
 		BCA822CC127D68F600DD3FD0 /* SBJsonTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA822C8127D68F600DD3FD0 /* SBJsonTokeniser.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -304,6 +312,11 @@
 		BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxDepthTest.m; sourceTree = "<group>"; };
 		BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyTest.m; sourceTree = "<group>"; };
 		BC8F72A61235331400678720 /* WriterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriterTest.m; sourceTree = "<group>"; };
+		BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		BC9602FC12A4564E0024BDA2 /* StreamParserAdapterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamParserAdapterDelegate.h; sourceTree = "<group>"; };
+		BC9602FD12A4564E0024BDA2 /* StreamParserAdapterDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamParserAdapterDelegate.m; sourceTree = "<group>"; };
+		BC96030912A45E3D0024BDA2 /* StreamParserAdapterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamParserAdapterTest.m; sourceTree = "<group>"; };
 		BCA822C8127D68F600DD3FD0 /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonTokeniser.h; sourceTree = "<group>"; };
 		BCA822C9127D68F600DD3FD0 /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
 		BCA822CF127D6A9900DD3FD0 /* JsonTokeniserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonTokeniserTest.m; sourceTree = "<group>"; };
@@ -500,6 +513,8 @@
 				BCE5E2AB129C809700C156C0 /* SBJsonStreamParser.m */,
 				BCE5E2AC129C809700C156C0 /* SBJsonStreamParserState.h */,
 				BCE5E2AD129C809700C156C0 /* SBJsonStreamParserState.m */,
+				BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */,
+				BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -516,6 +531,9 @@
 				BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */,
 				BC8F72A61235331400678720 /* WriterTest.m */,
 				BCA822CF127D6A9900DD3FD0 /* JsonTokeniserTest.m */,
+				BC9602FC12A4564E0024BDA2 /* StreamParserAdapterDelegate.h */,
+				BC9602FD12A4564E0024BDA2 /* StreamParserAdapterDelegate.m */,
+				BC96030912A45E3D0024BDA2 /* StreamParserAdapterTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -695,6 +713,7 @@
 				BCA822CA127D68F600DD3FD0 /* SBJsonTokeniser.h in Headers */,
 				BCE5E28B129C7D3300C156C0 /* SBJsonStreamParser.h in Headers */,
 				BCE5E2B2129C809700C156C0 /* SBJsonStreamParserState.h in Headers */,
+				BC9602B712A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -713,6 +732,7 @@
 				BCA822CC127D68F600DD3FD0 /* SBJsonTokeniser.h in Headers */,
 				BCE5E289129C7D3300C156C0 /* SBJsonStreamParser.h in Headers */,
 				BCE5E2AF129C809700C156C0 /* SBJsonStreamParserState.h in Headers */,
+				BC9602B912A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1149,6 +1169,7 @@
 				BCA822CB127D68F600DD3FD0 /* SBJsonTokeniser.m in Sources */,
 				BCE5E2B1129C809700C156C0 /* SBJsonStreamParser.m in Sources */,
 				BCE5E2B3129C809700C156C0 /* SBJsonStreamParserState.m in Sources */,
+				BC9602B812A452CF0024BDA2 /* SBJsonStreamParserAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1164,6 +1185,8 @@
 				BCA822D0127D6A9900DD3FD0 /* JsonTokeniserTest.m in Sources */,
 				BCE5E2F0129C825600C156C0 /* StreamParserDelegate.m in Sources */,
 				BCE5E2F1129C825700C156C0 /* StreamParserTest.m in Sources */,
+				BC9602FF12A4564E0024BDA2 /* StreamParserAdapterDelegate.m in Sources */,
+				BC96030B12A45E3D0024BDA2 /* StreamParserAdapterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1180,6 +1203,7 @@
 				BCA822CD127D68F600DD3FD0 /* SBJsonTokeniser.m in Sources */,
 				BCE5E2AE129C809700C156C0 /* SBJsonStreamParser.m in Sources */,
 				BCE5E2B0129C809700C156C0 /* SBJsonStreamParserState.m in Sources */,
+				BC9602BA12A452CF0024BDA2 /* SBJsonStreamParserAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1195,6 +1219,8 @@
 				BCA822D1127D6A9900DD3FD0 /* JsonTokeniserTest.m in Sources */,
 				BCE5E2F2129C826A00C156C0 /* StreamParserDelegate.m in Sources */,
 				BCE5E2F3129C826A00C156C0 /* StreamParserTest.m in Sources */,
+				BC9602FE12A4564E0024BDA2 /* StreamParserAdapterDelegate.m in Sources */,
+				BC96030A12A45E3D0024BDA2 /* StreamParserAdapterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
