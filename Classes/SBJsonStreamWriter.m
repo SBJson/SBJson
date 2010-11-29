@@ -411,7 +411,8 @@ static const char *strForChar(int c) {
 	
 	for (i = 0; i < len; i++) {
 		int c = utf8[i];
-		if (c >= 0 && c < 32 || c == '"' || c == '\\') {
+		BOOL isControlChar = c >= 0 && c < 32;
+		if (isControlChar || c == '"' || c == '\\') {
 			if (i - written)
 				[data appendBytes:utf8 + written length:i - written];
 			written = i + 1;
