@@ -186,7 +186,6 @@
 							[delegate parser:self parsedObjectKey:decoded];
 						else
 							[delegate parser:self parsedString:decoded];
-						[decoded release];
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 						
