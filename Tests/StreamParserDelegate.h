@@ -33,7 +33,7 @@
 #import <Foundation/Foundation.h>
 #import <JSON/JSON.h>
 
-@interface StreamParserDelegate : NSObject < SBJsonStreamParsingDelegate > {
+@interface StreamParserDelegate : NSObject < SBJsonStreamParserDelegate > {
 	NSMutableString *string;
 }
 

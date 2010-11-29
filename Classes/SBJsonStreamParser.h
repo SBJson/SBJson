@@ -42,7 +42,7 @@ typedef enum {
 	SBJsonStreamParserError,
 } SBJsonStreamParserStatus;
 
-@protocol SBJsonStreamParsingDelegate
+@protocol SBJsonStreamParserDelegate
 
 - (void)parsedObjectStart:(SBJsonStreamParser*)parser;
 - (void)parser:(SBJsonStreamParser*)parser parsedObjectKey:(NSString*)key;
@@ -64,14 +64,14 @@ typedef enum {
 
 
 @interface SBJsonStreamParser : NSObject {
-	id<SBJsonStreamParsingDelegate> delegate;
+	id<SBJsonStreamParserDelegate> delegate;
 	SBJsonTokeniser *tokeniser;
 	SBJsonStreamParserState **states;
 	NSUInteger depth, maxDepth;
 	NSString *error;
 }
 
-@property (assign) id<SBJsonStreamParsingDelegate> delegate;
+@property (assign) id<SBJsonStreamParserDelegate> delegate;
 @property (readonly) NSUInteger depth;
 @property NSUInteger maxDepth;
 @property (readonly) SBJsonStreamParserState **states;
