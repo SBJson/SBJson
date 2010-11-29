@@ -43,8 +43,8 @@ typedef enum {
 
 @protocol SBJsonStreamParserAdapterDelegate
 
-- (void)parser:(SBJsonStreamParser*)parser parsedArray:(NSArray*)array;
-- (void)parser:(SBJsonStreamParser*)parser parsedObject:(NSDictionary*)dict;
+- (void)parser:(SBJsonStreamParser*)parser foundArray:(NSArray*)array;
+- (void)parser:(SBJsonStreamParser*)parser foundObject:(NSDictionary*)dict;
 
 @end
 

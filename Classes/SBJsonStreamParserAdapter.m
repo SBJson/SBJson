@@ -89,13 +89,13 @@
 
 #pragma mark Delegate methods
 
-- (void)parsedObjectStart:(SBJsonStreamParser*)parser {}
+- (void)parserStartedObject:(SBJsonStreamParser*)parser {}
 
-- (void)parser:(SBJsonStreamParser*)parser parsedObjectKey:(NSString*)key {}
+- (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key {}
 
-- (void)parsedObjectEnd:(SBJsonStreamParser*)parser {}
+- (void)parserEndedObject:(SBJsonStreamParser*)parser {}
 
-- (void)parsedArrayStart:(SBJsonStreamParser*)parser {
+- (void)parserStartedArray:(SBJsonStreamParser*)parser {
 	NSMutableArray *arr = [NSMutableArray new];
 	if (!top)
 		top = [arr retain];
@@ -105,22 +105,22 @@
 	type = Array;
 }
 
-- (void)parsedArrayEnd:(SBJsonStreamParser*)parser {
+- (void)parserEndedArray:(SBJsonStreamParser*)parser {
 	id value = [[stack lastObject] retain];
 	NSArray *arr = array;
 	[self pop];
-	[delegate parser:parser parsedArray:value];
+	[delegate parser:parser foundArray:value];
 	[value release];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser parsedBoolean:(BOOL)x {}
+- (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x {}
 
-- (void)parsedNull:(SBJsonStreamParser*)parser {}
+- (void)parserFoundNull:(SBJsonStreamParser*)parser {}
 
-- (void)parser:(SBJsonStreamParser*)parser parsedInteger:(NSInteger)num {}
+- (void)parser:(SBJsonStreamParser*)parser foundInteger:(NSInteger)num {}
 
-- (void)parser:(SBJsonStreamParser*)parser parsedDouble:(double)num {}
+- (void)parser:(SBJsonStreamParser*)parser foundDouble:(double)num {}
 
-- (void)parser:(SBJsonStreamParser*)parser parsedString:(NSString*)string {}
+- (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string {}
 
 @end

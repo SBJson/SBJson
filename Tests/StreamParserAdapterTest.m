@@ -58,8 +58,8 @@
 }
 
 - (void)testEmptyArray {
-	[adapter parsedArrayStart:nil];
-	[adapter parsedArrayEnd:nil];
+	[adapter parserStartedArray:nil];
+	[adapter parserEndedArray:nil];
 	
 	[expected addObject:[NSArray array]];
 	STAssertEqualObjects(delegate.objects, expected, nil);	

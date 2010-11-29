@@ -43,11 +43,11 @@
 	return self;
 }
 	
-- (void)parser:(SBJsonStreamParser *)parser parsedArray:(NSArray *)array {
+- (void)parser:(SBJsonStreamParser *)parser foundArray:(NSArray *)array {
 	[objects addObject:array];
 }
 
-- (void)parser:(SBJsonStreamParser *)parser parsedObject:(NSDictionary*)dict {
+- (void)parser:(SBJsonStreamParser *)parser foundObject:(NSDictionary*)dict {
 	[objects addObject:dict];
 }
 

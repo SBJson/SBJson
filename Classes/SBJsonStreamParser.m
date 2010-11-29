@@ -103,14 +103,14 @@
 							states[depth] = [SBJsonStreamParserStateError state];
 
 						} else {
-							[delegate parsedObjectStart:self];
+							[delegate parserStartedObject:self];
 							states[++depth] = [SBJsonStreamParserStateObjectStart state];
 						}
 						break;
 						
 					case sbjson_token_object_end:
 						[states[--depth] parser:self shouldTransitionTo:tok];
-						[delegate parsedObjectEnd:self];
+						[delegate parserEndedObject:self];
 						break;
 						
 					case sbjson_token_array_start:
@@ -118,14 +118,14 @@
 							self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
 							states[depth] = [SBJsonStreamParserStateError state];
 						} else {
-							[delegate parsedArrayStart:self];
+							[delegate parserStartedArray:self];
 							states[++depth] = [SBJsonStreamParserStateArrayStart state];
 						}						
 						break;
 						
 					case sbjson_token_array_end:
 						[states[--depth] parser:self shouldTransitionTo:tok];
-						[delegate parsedArrayEnd:self];
+						[delegate parserEndedArray:self];
 						break;
 						
 					case sbjson_token_separator:
@@ -134,17 +134,17 @@
 						break;
 						
 					case sbjson_token_true:
-						[delegate parser:self parsedBoolean:YES];
+						[delegate parser:self foundBoolean:YES];
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 
 					case sbjson_token_false:
-						[delegate parser:self parsedBoolean:NO];
+						[delegate parser:self foundBoolean:NO];
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 
 					case sbjson_token_null:
-						[delegate parsedNull:self];
+						[delegate parserFoundNull:self];
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 						
@@ -153,7 +153,7 @@
 							char *e;
 							NSInteger integer = strtol(buf, &e, 0);
 							NSAssert(e-buf == len, @"Unexpected length");
-							[delegate parser:self parsedInteger:integer];
+							[delegate parser:self foundInteger:integer];
 							[states[depth] parser:self shouldTransitionTo:tok];
 						}
 						break;
@@ -163,7 +163,7 @@
 							char *e;
 							double d = strtod(buf, &e);
 							NSAssert(e-buf == len, @"Unexpected length");
-							[delegate parser:self parsedDouble:d];
+							[delegate parser:self foundDouble:d];
 							[states[depth] parser:self shouldTransitionTo:tok];
 						}
 						break;
@@ -172,9 +172,9 @@
 						NSAssert([tokeniser getToken:&buf length:&len], @"failed to get token");
 						NSString *string = [[NSString alloc] initWithBytes:buf+1 length:len-2 encoding:NSUTF8StringEncoding];
 						if ([states[depth] needKey])
-							[delegate parser:self parsedObjectKey:string];
+							[delegate parser:self foundObjectKey:string];
 						else
-							[delegate parser:self parsedString:string];
+							[delegate parser:self foundString:string];
 						[string release];
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
@@ -183,9 +183,9 @@
 						NSAssert([tokeniser getToken:&buf length:&len], @"failed to get token");
 						NSString *decoded = [tokeniser getDecodedStringToken];
 						if ([states[depth] needKey])
-							[delegate parser:self parsedObjectKey:decoded];
+							[delegate parser:self foundObjectKey:decoded];
 						else
-							[delegate parser:self parsedString:decoded];
+							[delegate parser:self foundString:decoded];
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 						

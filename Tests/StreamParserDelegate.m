@@ -50,43 +50,43 @@
 	[super dealloc];
 }
 
-- (void)parsedObjectStart:(SBJsonStreamParser*)parser {
+- (void)parserStartedObject:(SBJsonStreamParser*)parser {
 	[string appendFormat:@"{%u ", parser.depth];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser parsedObjectKey:(NSString*)key {
+- (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key {
 	[string appendFormat:@"%@=", key];
 }
 
-- (void)parsedObjectEnd:(SBJsonStreamParser*)parser {
+- (void)parserEndedObject:(SBJsonStreamParser*)parser {
 	[string appendFormat:@"%u} ", parser.depth];
 }
 
-- (void)parsedArrayStart:(SBJsonStreamParser*)parser {
+- (void)parserStartedArray:(SBJsonStreamParser*)parser {
 	[string appendFormat:@"(%u ", parser.depth];
 }
 
-- (void)parsedArrayEnd:(SBJsonStreamParser*)parser {
+- (void)parserEndedArray:(SBJsonStreamParser*)parser {
 	[string appendFormat:@"%u) ", parser.depth];
 }
 
-- (void)parsedNull:(SBJsonStreamParser*)parser {
+- (void)parserFoundNull:(SBJsonStreamParser*)parser {
 	[string appendString:@"nil "];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser parsedBoolean:(BOOL)x {
+- (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x {
 	[string appendString:x ? @"YES " : @"NO "];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser parsedInteger:(NSInteger)i {
+- (void)parser:(SBJsonStreamParser*)parser foundInteger:(NSInteger)i {
 	[string appendFormat:@"%d ", i];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser parsedDouble:(double)d {
+- (void)parser:(SBJsonStreamParser*)parser foundDouble:(double)d {
 	[string appendFormat:@"%g ", d];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser parsedString:(NSString*)s {
+- (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)s {
 	[string appendFormat:@"'%@' ", s];
 }
 

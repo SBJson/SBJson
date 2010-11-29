@@ -44,20 +44,20 @@ typedef enum {
 
 @protocol SBJsonStreamParserDelegate
 
-- (void)parsedObjectStart:(SBJsonStreamParser*)parser;
-- (void)parser:(SBJsonStreamParser*)parser parsedObjectKey:(NSString*)key;
-- (void)parsedObjectEnd:(SBJsonStreamParser*)parser;
+- (void)parserStartedObject:(SBJsonStreamParser*)parser;
+- (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key;
+- (void)parserEndedObject:(SBJsonStreamParser*)parser;
 
-- (void)parsedArrayStart:(SBJsonStreamParser*)parser;
-- (void)parsedArrayEnd:(SBJsonStreamParser*)parser;
+- (void)parserStartedArray:(SBJsonStreamParser*)parser;
+- (void)parserEndedArray:(SBJsonStreamParser*)parser;
 
-- (void)parser:(SBJsonStreamParser*)parser parsedBoolean:(BOOL)x;
-- (void)parsedNull:(SBJsonStreamParser*)parser;
+- (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x;
+- (void)parserFoundNull:(SBJsonStreamParser*)parser;
 
-- (void)parser:(SBJsonStreamParser*)parser parsedInteger:(NSInteger)num;
-- (void)parser:(SBJsonStreamParser*)parser parsedDouble:(double)num;
+- (void)parser:(SBJsonStreamParser*)parser foundInteger:(NSInteger)num;
+- (void)parser:(SBJsonStreamParser*)parser foundDouble:(double)num;
 
-- (void)parser:(SBJsonStreamParser*)parser parsedString:(NSString*)string;
+- (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string;
 
 @end
 
