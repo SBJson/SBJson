@@ -65,5 +65,43 @@
 	STAssertEqualObjects(delegate.objects, expected, nil);	
 }
 
+- (void)testEmptyObject {
+	[adapter parserStartedObject:nil];
+	[adapter parserEndedObject:nil];
+
+	[expected addObject:[NSDictionary dictionary]];
+	STAssertEqualObjects(delegate.objects, expected, nil);	
+}
+
+- (void)testScalar {
+	[adapter parserStartedArray:nil];
+	[adapter parser:nil foundString:@"foo"];
+	[adapter parser:nil foundInteger:3];
+	[adapter parser:nil foundDouble:3.14];
+	[adapter parserFoundNull:nil];
+	[adapter parser:nil foundBoolean:YES];
+	[adapter parserEndedArray:nil];
+	
+	NSMutableArray *array = [NSMutableArray array];
+	[array addObject:@"foo"];
+	[array addObject:[NSNumber numberWithInt:3]];
+	[array addObject:[NSNumber numberWithDouble:3.14]];
+	[array addObject:[NSNull null]];
+	[array addObject:[NSNumber numberWithBool:YES]];
+	
+	[expected addObject:array];
+	STAssertEqualObjects(delegate.objects, expected, nil);	
+}
+
+- (void)testObject {
+	[adapter parserStartedObject:nil];
+	[adapter parser:nil foundObjectKey:@"fut"];
+	[adapter parser:nil foundString:@"futfut"];
+	[adapter parserEndedObject:nil];
+	
+	[expected addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"futfut", @"fut", nil]];
+	STAssertEqualObjects(delegate.objects, expected, nil);	
+}
+
 
 @end

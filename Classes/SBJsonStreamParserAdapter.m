@@ -35,6 +35,7 @@
 @interface SBJsonStreamParserAdapter ()
 
 - (void)pop;
+- (void)parser:(SBJsonStreamParser*)parser foundObject:(id)obj;
 
 @end
 
@@ -85,42 +86,86 @@
 		type = Dict;
 	}
 }
-	
+
+- (void)parser:(SBJsonStreamParser*)parser foundObject:(id)obj {
+	switch (type) {
+		case Array:
+			[array addObject:obj];
+			break;
+
+		case Dict:
+			[dict setObject:obj forKey:key];
+			[keyStack removeLastObject];
+			key = [keyStack lastObject];
+			break;
+			
+		default:
+			break;
+	}
+}
+
 
 #pragma mark Delegate methods
 
-- (void)parserStartedObject:(SBJsonStreamParser*)parser {}
+- (void)parserStartedObject:(SBJsonStreamParser*)parser {
+	NSMutableDictionary *d = [NSMutableDictionary new];
+	if (!top)
+		top = [d retain];
+	[stack addObject:d];
+	[d release];
+	dict = d;
+	type = Dict;
+}
 
-- (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key {}
+- (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key_ {
+	key = key_;
+	[keyStack addObject:key_];
+}
 
-- (void)parserEndedObject:(SBJsonStreamParser*)parser {}
+- (void)parserEndedObject:(SBJsonStreamParser*)parser {
+	id value = [[stack lastObject] retain];
+	NSDictionary *d = dict;
+	[self pop];
+	[value release];
+	[delegate parser:parser foundObject:d];
+}
 
 - (void)parserStartedArray:(SBJsonStreamParser*)parser {
-	NSMutableArray *arr = [NSMutableArray new];
+	NSMutableArray *a = [NSMutableArray new];
 	if (!top)
-		top = [arr retain];
-	[stack addObject:arr];
-	[arr release];
-	array = arr;
+		top = [a retain];
+	[stack addObject:a];
+	[a release];
+	array = a;
 	type = Array;
 }
 
 - (void)parserEndedArray:(SBJsonStreamParser*)parser {
 	id value = [[stack lastObject] retain];
-	NSArray *arr = array;
+	NSArray *a = array;
 	[self pop];
-	[delegate parser:parser foundArray:value];
 	[value release];
+	[delegate parser:parser foundArray:a];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x {}
+- (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x {
+	[self parser:parser foundObject:[NSNumber numberWithBool:x]];
+}
 
-- (void)parserFoundNull:(SBJsonStreamParser*)parser {}
+- (void)parserFoundNull:(SBJsonStreamParser*)parser {
+	[self parser:parser foundObject:[NSNull null]];
+}
 
-- (void)parser:(SBJsonStreamParser*)parser foundInteger:(NSInteger)num {}
+- (void)parser:(SBJsonStreamParser*)parser foundInteger:(NSInteger)num {
+	[self parser:parser foundObject:[NSNumber numberWithInteger:num]];
+}
 
-- (void)parser:(SBJsonStreamParser*)parser foundDouble:(double)num {}
+- (void)parser:(SBJsonStreamParser*)parser foundDouble:(double)num {
+	[self parser:parser foundObject:[NSNumber numberWithDouble:num]];
+}
 
-- (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string {}
+- (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string {
+	[self parser:parser foundObject:string];
+}
 
 @end
