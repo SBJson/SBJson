@@ -53,7 +53,7 @@
 		keyStack = [NSMutableArray new];
 		stack = [NSMutableArray new];
 		
-		type = None;
+		currentType = SBJsonStreamParserAdapterNone;
 	}
 	return self;
 }	
@@ -74,26 +74,26 @@
 	[stack removeLastObject];
 	array = nil;
 	dict = nil;
-	type = None;
+	currentType = SBJsonStreamParserAdapterNone;
 	
 	id value = [stack lastObject];
 	
 	if ([value isKindOfClass:[NSArray class]]) {
 		array = (NSMutableArray*)value;
-		type = Array;
+		currentType = SBJsonStreamParserAdapterArray;
 	} else if ([value isKindOfClass:[NSDictionary class]]) {
 		dict = (NSMutableDictionary*)value;
-		type = Dict;
+		currentType = SBJsonStreamParserAdapterObject;
 	}
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundObject:(id)obj {
-	switch (type) {
-		case Array:
+	switch (currentType) {
+		case SBJsonStreamParserAdapterArray:
 			[array addObject:obj];
 			break;
 
-		case Dict:
+		case SBJsonStreamParserAdapterObject:
 			[dict setObject:obj forKey:key];
 			[keyStack removeLastObject];
 			key = [keyStack lastObject];
@@ -114,7 +114,7 @@
 	[stack addObject:d];
 	[d release];
 	dict = d;
-	type = Dict;
+	currentType = SBJsonStreamParserAdapterObject;
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key_ {
@@ -137,7 +137,7 @@
 	[stack addObject:a];
 	[a release];
 	array = a;
-	type = Array;
+	currentType = SBJsonStreamParserAdapterArray;
 }
 
 - (void)parserEndedArray:(SBJsonStreamParser*)parser {

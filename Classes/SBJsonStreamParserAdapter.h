@@ -34,10 +34,10 @@
 #import "SBJsonStreamParser.h"
 
 typedef enum {
-	None,
-	Array,
-	Dict,
-} CurrentType;
+	SBJsonStreamParserAdapterNone,
+	SBJsonStreamParserAdapterArray,
+	SBJsonStreamParserAdapterObject,
+} SBJsonStreamParserAdapterType;
 
 @class SBJsonStreamParser;
 
@@ -58,7 +58,7 @@ typedef enum {
 	NSMutableArray *keyStack;
 	NSMutableArray *stack;
 	
-	CurrentType type;
+	SBJsonStreamParserAdapterType currentType;
 }
 
 @property (assign) id<SBJsonStreamParserAdapterDelegate> delegate;

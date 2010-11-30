@@ -93,7 +93,7 @@
 	STAssertEqualObjects(delegate.objects, expected, nil);	
 }
 
-- (void)testObject {
+- (void)testSimpleObject {
 	[adapter parserStartedObject:nil];
 	[adapter parser:nil foundObjectKey:@"fut"];
 	[adapter parser:nil foundString:@"futfut"];
