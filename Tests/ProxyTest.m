@@ -55,7 +55,7 @@
 
 @implementation Bool
 - (id)proxyForJson {
-    return [NSArray arrayWithObjects:[True new], [False new], nil];
+    return [NSArray arrayWithObjects:[[True new] autorelease], [[False new] autorelease], nil];
 }
 @end
 
