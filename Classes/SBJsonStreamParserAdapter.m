@@ -60,7 +60,6 @@
 
 - (void)dealloc {
 	[top release];
-	[key release];
 	[keyStack release];
 	[stack release];
 	[super dealloc];
