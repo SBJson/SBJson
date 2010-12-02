@@ -119,6 +119,27 @@
 	
 	[expected addObject:ary];
 	STAssertEqualObjects(delegate.objects, expected, nil);	
-}	
+}
+
+- (void)testNestedObject {
+	[adapter parserStartedObject:nil];
+	[adapter parser:nil foundObjectKey:@"foo"];
+	[adapter parserStartedObject:nil];
+	[adapter parser:nil foundObjectKey:@"bar"];
+	[adapter parserStartedObject:nil];
+	[adapter parserEndedObject:nil];
+	[adapter parser:nil foundObjectKey:@"quux"];
+	[adapter parserStartedObject:nil];
+	[adapter parserEndedObject:nil];
+	[adapter parserEndedObject:nil];
+	[adapter parserEndedObject:nil];
+	
+	NSDictionary *dict = [NSDictionary dictionary];
+	dict = [NSDictionary dictionaryWithObjectsAndKeys:dict, @"bar", dict, @"quux", nil];
+	dict = [NSDictionary dictionaryWithObjectsAndKeys:dict, @"foo", nil];
+	
+	[expected addObject:dict];
+	STAssertEqualObjects(delegate.objects, expected, nil);	
+}
 
 @end
