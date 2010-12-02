@@ -44,6 +44,7 @@
 @implementation SBJsonStreamParserAdapter
 
 @synthesize delegate;
+@synthesize skip;
 
 #pragma mark Housekeeping
 
@@ -59,7 +60,6 @@
 }	
 
 - (void)dealloc {
-	[top release];
 	[keyStack release];
 	[stack release];
 	[super dealloc];
@@ -97,10 +97,10 @@
 			break;
 			
 		case SBJsonStreamParserAdapterNone:
-			if ([top isKindOfClass:[NSArray class]]) {
-				[delegate parser:parser foundArray:top];
+			if ([obj isKindOfClass:[NSArray class]]) {
+				[delegate parser:parser foundArray:obj];
 			} else {
-				[delegate parser:parser foundObject:top];
+				[delegate parser:parser foundObject:obj];
 			}				
 			break;
 
@@ -110,15 +110,14 @@
 }
 
 
-
 #pragma mark Delegate methods
 
 - (void)parserStartedObject:(SBJsonStreamParser*)parser {
-	dict = [[NSMutableDictionary new] autorelease];
-	if (!top)
-		top = [dict retain];
-	[stack addObject:dict];
-	currentType = SBJsonStreamParserAdapterObject;
+	if (++depth > skip) {
+		dict = [[NSMutableDictionary new] autorelease];
+		[stack addObject:dict];
+		currentType = SBJsonStreamParserAdapterObject;
+	}
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key_ {
@@ -127,25 +126,31 @@
 }
 
 - (void)parserEndedObject:(SBJsonStreamParser*)parser {
-	id value = [[stack lastObject] retain];
-	[self pop];
-	[self parser:parser foundObject:value];
-	[value release];
+	id value = [stack lastObject];
+	if (value) {
+		[value retain];
+		[self pop];
+		[self parser:parser foundObject:value];
+		[value release];
+	}
 }
 
 - (void)parserStartedArray:(SBJsonStreamParser*)parser {
-	array = [[NSMutableArray new] autorelease];
-	if (!top)
-		top = [array retain];
-	[stack addObject:array];
-	currentType = SBJsonStreamParserAdapterArray;
+	if (++depth > skip) {
+		array = [[NSMutableArray new] autorelease];
+		[stack addObject:array];
+		currentType = SBJsonStreamParserAdapterArray;
+	}
 }
 
 - (void)parserEndedArray:(SBJsonStreamParser*)parser {
-	id value = [[stack lastObject] retain];
-	[self pop];
-	[self parser:parser foundObject:value];
-	[value release];
+	id value = [stack lastObject];
+	if (value) {
+		[value retain];
+		[self pop];
+		[self parser:parser foundObject:value];
+		[value release];
+	}
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x {

@@ -51,7 +51,7 @@ typedef enum {
 
 @interface SBJsonStreamParserAdapter : NSObject <SBJsonStreamParserDelegate> {
 	id<SBJsonStreamParserAdapterDelegate> delegate;
-	id top;
+	NSUInteger skip, depth;
 	__weak NSString *key;
 	__weak NSMutableArray *array;
 	__weak NSMutableDictionary *dict;
@@ -61,6 +61,7 @@ typedef enum {
 	SBJsonStreamParserAdapterType currentType;
 }
 
+@property NSUInteger skip;
 @property (assign) id<SBJsonStreamParserAdapterDelegate> delegate;
 
 @end

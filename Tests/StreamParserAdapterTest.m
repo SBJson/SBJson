@@ -121,6 +121,26 @@
 	STAssertEqualObjects(delegate.objects, expected, nil);	
 }
 
+
+- (void)testSkipOuterArray {
+	adapter.skip = 1;
+	
+	[adapter parserStartedArray:nil];
+	[adapter parserStartedArray:nil];
+	[adapter parserEndedArray:nil];
+	[adapter parserStartedArray:nil];
+	[adapter parserEndedArray:nil];
+	[adapter parserStartedArray:nil];
+	[adapter parserEndedArray:nil];
+	[adapter parserEndedArray:nil];
+
+	[expected addObject:[NSArray array]];
+	[expected addObject:[NSArray array]];
+	[expected addObject:[NSArray array]];
+	
+	STAssertEqualObjects(delegate.objects, expected, nil);	
+}
+
 - (void)testNestedObject {
 	[adapter parserStartedObject:nil];
 	[adapter parser:nil foundObjectKey:@"foo"];
