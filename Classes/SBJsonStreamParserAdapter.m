@@ -79,10 +79,10 @@
 	id value = [stack lastObject];
 	
 	if ([value isKindOfClass:[NSArray class]]) {
-		array = (NSMutableArray*)value;
+		array = value;
 		currentType = SBJsonStreamParserAdapterArray;
 	} else if ([value isKindOfClass:[NSDictionary class]]) {
-		dict = (NSMutableDictionary*)value;
+		dict = value;
 		currentType = SBJsonStreamParserAdapterObject;
 	}
 }
@@ -106,11 +106,12 @@
 				[delegate parser:parser foundObject:top];
 			}				
 			break;
-			
+
 		default:
 			break;
 	}
 }
+
 
 
 #pragma mark Delegate methods
@@ -136,7 +137,7 @@
 }
 
 - (void)parserStartedArray:(SBJsonStreamParser*)parser {
-	array = [NSMutableArray new];
+	array = [[NSMutableArray new] autorelease];
 	if (!top)
 		top = [array retain];
 	[stack addObject:array];

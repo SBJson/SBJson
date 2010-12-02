@@ -103,5 +103,22 @@
 	STAssertEqualObjects(delegate.objects, expected, nil);	
 }
 
+- (void)testNestedArray {
+	[adapter parserStartedArray:nil];
+	[adapter parserStartedArray:nil];
+	[adapter parserStartedArray:nil];
+	[adapter parserEndedArray:nil];
+	[adapter parserStartedArray:nil];
+	[adapter parserEndedArray:nil];
+	[adapter parserEndedArray:nil];
+	[adapter parserEndedArray:nil];
+	
+	NSArray *ary = [NSArray array];
+	ary = [NSArray arrayWithObjects:ary, ary, nil];
+	ary = [NSArray arrayWithObject:ary];
+	
+	[expected addObject:ary];
+	STAssertEqualObjects(delegate.objects, expected, nil);	
+}	
 
 @end
