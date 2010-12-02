@@ -63,8 +63,6 @@
 	[key release];
 	[keyStack release];
 	[stack release];
-	[array release];
-	[dict release];
 	[super dealloc];
 }
 
