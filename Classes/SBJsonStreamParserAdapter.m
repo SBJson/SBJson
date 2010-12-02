@@ -99,6 +99,14 @@
 			key = [keyStack lastObject];
 			break;
 			
+		case SBJsonStreamParserAdapterNone:
+			if ([top isKindOfClass:[NSArray class]]) {
+				[delegate parser:parser foundArray:top];
+			} else {
+				[delegate parser:parser foundObject:top];
+			}				
+			break;
+			
 		default:
 			break;
 	}
@@ -108,12 +116,10 @@
 #pragma mark Delegate methods
 
 - (void)parserStartedObject:(SBJsonStreamParser*)parser {
-	NSMutableDictionary *d = [NSMutableDictionary new];
+	dict = [[NSMutableDictionary new] autorelease];
 	if (!top)
-		top = [d retain];
-	[stack addObject:d];
-	[d release];
-	dict = d;
+		top = [dict retain];
+	[stack addObject:dict];
 	currentType = SBJsonStreamParserAdapterObject;
 }
 
@@ -124,28 +130,24 @@
 
 - (void)parserEndedObject:(SBJsonStreamParser*)parser {
 	id value = [[stack lastObject] retain];
-	NSDictionary *d = dict;
 	[self pop];
+	[self parser:parser foundObject:value];
 	[value release];
-	[delegate parser:parser foundObject:d];
 }
 
 - (void)parserStartedArray:(SBJsonStreamParser*)parser {
-	NSMutableArray *a = [NSMutableArray new];
+	array = [NSMutableArray new];
 	if (!top)
-		top = [a retain];
-	[stack addObject:a];
-	[a release];
-	array = a;
+		top = [array retain];
+	[stack addObject:array];
 	currentType = SBJsonStreamParserAdapterArray;
 }
 
 - (void)parserEndedArray:(SBJsonStreamParser*)parser {
 	id value = [[stack lastObject] retain];
-	NSArray *a = array;
 	[self pop];
+	[self parser:parser foundObject:value];
 	[value release];
-	[delegate parser:parser foundArray:a];
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x {
