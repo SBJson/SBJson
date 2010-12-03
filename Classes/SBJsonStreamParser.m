@@ -37,6 +37,7 @@
 
 @implementation SBJsonStreamParser
 
+@synthesize multi;
 @synthesize error;
 @synthesize delegate;
 @synthesize maxDepth;

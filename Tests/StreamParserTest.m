@@ -108,6 +108,11 @@ static NSData *x(char *s) {
 	STAssertEqualObjects(delegate.string, @"{0 k={1 kk=(2 2) kkk='foo' 1} 0} ", nil);
 }
 
+- (void)testMulti {
+	parser.multi = YES;
+	STAssertEquals([parser parse:x("{} [] {} []")], SBJsonStreamParserInsufficientData, nil);
+	STAssertEqualObjects(delegate.string, @"{0 0} (0 0) {0 0} (0 0) ", nil);
+}
 
 
 @end

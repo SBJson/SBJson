@@ -64,6 +64,7 @@ typedef enum {
 
 
 @interface SBJsonStreamParser : NSObject {
+	BOOL multi;
 	id<SBJsonStreamParserDelegate> delegate;
 	SBJsonTokeniser *tokeniser;
 	SBJsonStreamParserState **states;
@@ -71,6 +72,7 @@ typedef enum {
 	NSString *error;
 }
 
+@property BOOL multi;
 @property (assign) id<SBJsonStreamParserDelegate> delegate;
 @property (readonly) NSUInteger depth;
 @property NSUInteger maxDepth;

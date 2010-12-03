@@ -70,6 +70,9 @@
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
 
+	if (parser.multi)
+		return;
+	
 	SBJsonStreamParserState *state = nil;
 	switch (tok) {
 		case sbjson_token_array_start:
@@ -91,6 +94,8 @@
 		default:
 			break;
 	}
+	
+	
 	parser.states[parser.depth] = state;
 }
 
