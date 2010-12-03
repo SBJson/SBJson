@@ -30,10 +30,6 @@
 		535157A60F6EE4A800C8AABD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
 		535157A70F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		535157A80F6EE4A800C8AABD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
-		535158700F70DE7A00C8AABD /* SBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5351586F0F70DE7A00C8AABD /* SBJsonBase.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		535158710F70DE7A00C8AABD /* SBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5351586F0F70DE7A00C8AABD /* SBJsonBase.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		535158730F70DE7B00C8AABD /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 535158720F70DE7B00C8AABD /* SBJsonBase.m */; };
-		535158740F70DE7B00C8AABD /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 535158720F70DE7B00C8AABD /* SBJsonBase.m */; };
 		53C45B9C0C98A87600546F66 /* ErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C45B9B0C98A87600546F66 /* ErrorTest.m */; };
 		53D2299C0C96129800276605 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53D229AD0C961B9900276605 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D229810C96121600276605 /* JSON.framework */; };
@@ -266,8 +262,6 @@
 		535157790F6E3BE100C8AABD /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		535157A30F6EE4A800C8AABD /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		535157A40F6EE4A800C8AABD /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		5351586F0F70DE7A00C8AABD /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
-		535158720F70DE7B00C8AABD /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
 		53C45B9B0C98A87600546F66 /* ErrorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorTest.m; sourceTree = "<group>"; };
 		53D229810C96121600276605 /* JSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D229830C96121600276605 /* JSON-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSON-Info.plist"; sourceTree = "<group>"; };
@@ -457,8 +451,6 @@
 				E75716440C96DB530084A449 /* NSObject+SBJSON.m */,
 				E757164B0C96E39B0084A449 /* NSString+SBJSON.h */,
 				E757164C0C96E39B0084A449 /* NSString+SBJSON.m */,
-				5351586F0F70DE7A00C8AABD /* SBJsonBase.h */,
-				535158720F70DE7B00C8AABD /* SBJsonBase.m */,
 				535157780F6E3BE100C8AABD /* SBJsonParser.h */,
 				535157790F6E3BE100C8AABD /* SBJsonParser.m */,
 				535157A30F6EE4A800C8AABD /* SBJsonWriter.h */,
@@ -651,7 +643,6 @@
 				E757164D0C96E39B0084A449 /* NSString+SBJSON.h in Headers */,
 				5351577C0F6E3BE100C8AABD /* SBJsonParser.h in Headers */,
 				535157A70F6EE4A800C8AABD /* SBJsonWriter.h in Headers */,
-				535158700F70DE7A00C8AABD /* SBJsonBase.h in Headers */,
 				BC651A6E125A502700280F5C /* SBJsonStreamWriter.h in Headers */,
 				BC651A82125A571C00280F5C /* SBProxyForJson.h in Headers */,
 			);
@@ -666,7 +657,6 @@
 				FE2BBD8B0D8B0D6000184787 /* NSString+SBJSON.h in Headers */,
 				5351577A0F6E3BE100C8AABD /* SBJsonParser.h in Headers */,
 				535157A50F6EE4A800C8AABD /* SBJsonWriter.h in Headers */,
-				535158710F70DE7A00C8AABD /* SBJsonBase.h in Headers */,
 				BC651A70125A502700280F5C /* SBJsonStreamWriter.h in Headers */,
 				BC651A83125A571C00280F5C /* SBProxyForJson.h in Headers */,
 			);
@@ -1100,7 +1090,6 @@
 				E757164E0C96E39B0084A449 /* NSString+SBJSON.m in Sources */,
 				5351577D0F6E3BE100C8AABD /* SBJsonParser.m in Sources */,
 				535157A80F6EE4A800C8AABD /* SBJsonWriter.m in Sources */,
-				535158730F70DE7B00C8AABD /* SBJsonBase.m in Sources */,
 				BC651A6F125A502700280F5C /* SBJsonStreamWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1125,7 +1114,6 @@
 				FE2BBD8C0D8B0D6000184787 /* NSString+SBJSON.m in Sources */,
 				5351577B0F6E3BE100C8AABD /* SBJsonParser.m in Sources */,
 				535157A60F6EE4A800C8AABD /* SBJsonWriter.m in Sources */,
-				535158740F70DE7B00C8AABD /* SBJsonBase.m in Sources */,
 				BC651A71125A502700280F5C /* SBJsonStreamWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

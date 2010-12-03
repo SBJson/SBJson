@@ -251,15 +251,15 @@
     
     STAssertNil([parser objectWithString:@"[\"\\uD834foo\"" error:&error], nil);
     assertUnderlyingErrorContains(error, @"Broken unicode character");
-    assertUnderlyingErrorContains2(error, @"Missing low character");
+    assertUnderlyingErrorContains(error, @"Missing low character");
         
     STAssertNil([parser objectWithString:@"[\"\\uD834\\u001E\"" error:&error], nil);
     assertUnderlyingErrorContains(error, @"Broken unicode character");
-    assertUnderlyingErrorContains2(error, @"Invalid low surrogate");
+    assertUnderlyingErrorContains(error, @"Invalid low surrogate");
     
     STAssertNil([parser objectWithString:@"[\"\\uDD1Ef\"" error:&error], nil);
     assertUnderlyingErrorContains(error, @"Broken unicode character");
-    assertUnderlyingErrorContains2(error, @"Invalid high character");
+    assertUnderlyingErrorContains(error, @"Invalid high character");
 
     
     for (NSUInteger i = 0; i < 0x20; i++) {

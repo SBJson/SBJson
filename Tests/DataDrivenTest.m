@@ -75,11 +75,11 @@
         id parsed;
         STAssertNoThrow(parsed = [parser objectWithString:jsonText], jsonPath);
         STAssertNotNil(parsed, jsonPath);
-        STAssertNil(parser.errorTrace, @"%@: %@", jsonPath, parser.errorTrace);
+        STAssertNil(parser.error, @"%@: %@", jsonPath, parser.error);
         
         NSString *written;
         STAssertNoThrow(written = [writer stringWithObject:parsed], jsonPath);
-        STAssertNil(writer.errorTrace, @"%@: %@", jsonPath, writer.errorTrace);
+        STAssertNil(writer.error, @"%@: %@", jsonPath, writer.error);
         
         NSString *path = [jsonPath stringByAppendingPathExtension:suffix];
         NSString *text = [NSString stringWithContentsOfFile:path
@@ -118,7 +118,7 @@
                                                       error:nil];
 
         STAssertNil([parser objectWithString:json], path);
-        STAssertNotNil(parser.errorTrace, path);
+        STAssertNotNil(parser.error, path);
     }
 }
 
