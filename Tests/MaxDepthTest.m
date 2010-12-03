@@ -37,7 +37,7 @@
 @end
 
 #define assertErrorContains(e, s) \
-	STAssertTrue([[e localizedDescription] rangeOfString:s].location != NSNotFound, @"%@", [e userInfo])
+	STAssertTrue([e rangeOfString:s].location != NSNotFound, nil)
 
 @implementation MaxDepthTest
 
@@ -59,7 +59,7 @@
 
 - (void)testParseTooDeep {
     STAssertNil([parser objectWithString:@"[[[]]]"], nil);
-    STAssertEquals([[parser.errorTrace objectAtIndex:0] code], (NSInteger)EDEPTH, nil);
+	assertErrorContains(parser.error, @"Nested too deep");
 }
 
 - (void)testWriteDepthOk {
@@ -73,7 +73,7 @@
     NSArray *a2 = [NSArray arrayWithObject:a1];
     NSArray *a3 = [NSArray arrayWithObject:a2];
     STAssertNil([writer stringWithObject:a3], nil);
-	assertErrorContains([writer.errorTrace objectAtIndex:0], @"Nested too deep");
+	assertErrorContains(writer.error, @"Nested too deep");
 }
 
 - (void)testWriteRecursion {
@@ -86,7 +86,7 @@
     [a1 addObject:a2];
 
     STAssertNil([writer stringWithObject:a1], nil);
-	assertErrorContains([writer.errorTrace objectAtIndex:0], @"Nested too deep");
+	assertErrorContains(writer.error, @"Nested too deep");
 }
 
 @end

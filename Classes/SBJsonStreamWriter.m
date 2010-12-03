@@ -344,7 +344,7 @@ static SBJsonStreamWriterStateArrayValue *kSBJsonStreamWriterStateArrayValue;
 
 	}	
 	
-	self.error = [NSString stringWithFormat:@"JSON serialisation not supported for @%", [o class]];
+	self.error = [NSString stringWithFormat:@"JSON serialisation not supported for %@", [o class]];
 	return NO;
 }
 

@@ -85,7 +85,7 @@
 
 - (void)testUnsupportedWithoutProxy {
     STAssertNil([writer stringWithObject:[NSArray arrayWithObject:[NSObject new]]], nil);
-    STAssertEquals([[writer.errorTrace objectAtIndex:0] code], (NSInteger)EUNSUPPORTED, nil);
+	STAssertEqualObjects(writer.error, @"JSON serialisation not supported for NSObject", nil);
 }
 
 - (void)testUnsupportedWithProxy {
