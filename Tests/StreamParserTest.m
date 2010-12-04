@@ -54,7 +54,7 @@ static NSData *x(char *s) {
 }
 
 - (void)testEof {
-	STAssertEquals([parser parse:x("")], SBJsonStreamParserInsufficientData, nil);
+	STAssertEquals([parser parse:x("")], SBJsonStreamParserWaitingForData, nil);
 	STAssertEqualObjects(delegate.string, @"", nil);
 }
 
@@ -110,7 +110,7 @@ static NSData *x(char *s) {
 
 - (void)testMulti {
 	parser.multi = YES;
-	STAssertEquals([parser parse:x("{} [] {} []")], SBJsonStreamParserInsufficientData, nil);
+	STAssertEquals([parser parse:x("{} [] {} []")], SBJsonStreamParserWaitingForData, nil);
 	STAssertEqualObjects(delegate.string, @"{0 0} (0 0) {0 0} (0 0) ", nil);
 }
 

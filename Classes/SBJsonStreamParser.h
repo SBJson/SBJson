@@ -38,7 +38,7 @@
 
 typedef enum {
 	SBJsonStreamParserComplete,
-	SBJsonStreamParserInsufficientData,
+	SBJsonStreamParserWaitingForData,
 	SBJsonStreamParserError,
 } SBJsonStreamParserStatus;
 

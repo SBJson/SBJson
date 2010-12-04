@@ -80,7 +80,7 @@
 		
 		switch (tok) {
 			case sbjson_token_eof:
-				return SBJsonStreamParserInsufficientData;
+				return SBJsonStreamParserWaitingForData;
 				break;
 
 			case sbjson_token_error:
