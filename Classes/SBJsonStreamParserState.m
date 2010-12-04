@@ -58,6 +58,10 @@
 	return NO;
 }
 
+- (NSString*)name {
+	return @"<aaiie!>";
+}
+
 @end
 
 #pragma mark -
@@ -70,9 +74,6 @@
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
 
-	if (parser.multi)
-		return;
-	
 	SBJsonStreamParserState *state = nil;
 	switch (tok) {
 		case sbjson_token_array_start:
@@ -85,13 +86,17 @@
 			
 		case sbjson_token_array_end:
 		case sbjson_token_object_end:
-			state = [SBJsonStreamParserStateComplete state];
+			if (parser.multi)
+				state = parser.states[parser.depth];
+			else
+				state = [SBJsonStreamParserStateComplete state];
 			break;
 			
 		case sbjson_token_eof:
 			return;
 			
 		default:
+			state = [SBJsonStreamParserStateError state];
 			break;
 	}
 	
@@ -99,11 +104,15 @@
 	parser.states[parser.depth] = state;
 }
 
+- (NSString*)name { return @"before outer-most array or object"; }
+
 @end
 
 #pragma mark -
 
 @implementation SBJsonStreamParserStateComplete
+
+- (NSString*)name { return @"after outer-most array or object"; }
 
 - (BOOL)parserShouldStop:(SBJsonStreamParser*)parser {
 	return YES;
@@ -119,6 +128,8 @@
 
 @implementation SBJsonStreamParserStateError
 
+- (NSString*)name { return @"in error"; }
+
 - (BOOL)parserShouldStop:(SBJsonStreamParser*)parser {
 	return YES;
 }
@@ -132,6 +143,8 @@
 #pragma mark -
 
 @implementation SBJsonStreamParserStateObjectStart
+
+- (NSString*)name { return @"at beginning of object"; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
@@ -160,6 +173,8 @@
 
 @implementation SBJsonStreamParserStateObjectGotKey
 
+- (NSString*)name { return @"after object key"; }
+
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	return token == sbjson_token_key_value_separator;
 }
@@ -173,6 +188,8 @@
 #pragma mark -
 
 @implementation SBJsonStreamParserStateObjectSeparator
+
+- (NSString*)name { return @"as object value"; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
@@ -204,6 +221,8 @@
 
 @implementation SBJsonStreamParserStateObjectGotValue
 
+- (NSString*)name { return @"after object value"; }
+
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
 		case sbjson_token_object_end:
@@ -226,6 +245,8 @@
 #pragma mark -
 
 @implementation SBJsonStreamParserStateObjectNeedKey
+
+- (NSString*)name { return @"in place of object key"; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
@@ -253,6 +274,8 @@
 
 @implementation SBJsonStreamParserStateArrayStart
 
+- (NSString*)name { return @"at array start"; }
+
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
 		case sbjson_token_object_end:
@@ -277,6 +300,9 @@
 
 @implementation SBJsonStreamParserStateArrayGotValue
 
+- (NSString*)name { return @"after array value"; }
+
+
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	return token == sbjson_token_array_end || token == sbjson_token_separator;
 }
@@ -291,6 +317,9 @@
 #pragma mark -
 
 @implementation SBJsonStreamParserStateArrayNeedValue
+
+- (NSString*)name { return @"as array value"; }
+
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {

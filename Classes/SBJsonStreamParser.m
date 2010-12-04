@@ -66,6 +66,60 @@
 
 #pragma mark Methods
 
+- (NSString*)tokenName:(sbjson_token_t)token {
+	switch (token) {
+		case sbjson_token_array_start:
+			return @"start of array";
+			break;
+			
+		case sbjson_token_array_end:
+			return @"end of array";
+			break;
+
+		case sbjson_token_double:
+		case sbjson_token_integer:
+			return @"number";
+			break;
+			
+		case sbjson_token_string:
+		case sbjson_token_string_encoded:
+			return @"string";
+			break;
+			
+		case sbjson_token_true:
+		case sbjson_token_false:
+			return @"boolean";
+			break;
+			
+		case sbjson_token_null:
+			return @"null";
+			break;
+			
+		case sbjson_token_key_value_separator:
+			return @"key-value separator";
+			break;
+			
+		case sbjson_token_separator:
+			return @"value separator";
+			break;
+			
+		case sbjson_token_object_start:
+			return @"start of object";
+			break;
+			
+		case sbjson_token_object_end:
+			return @"end of object";
+			break;
+			
+		case sbjson_token_eof:
+		case sbjson_token_error:
+			break;
+	}
+	NSAssert(NO, @"Should not get here");
+	return @"<aaiiie!>";
+}
+
+
 - (SBJsonStreamParserStatus)parse:(NSData *)data {
 	[tokeniser appendData:data];
 	
@@ -92,7 +146,9 @@
 			default:
 				
 				if (![states[depth] parser:self shouldAcceptToken:tok]) {
-					self.error = [NSString stringWithFormat:@"Token of type %u not expected at state %@", tok, states[depth]];
+					NSString *tokenName = [self tokenName:tok];
+					NSString *stateName = [states[depth] name];
+					self.error = [NSString stringWithFormat:@"Token '%@' not expected %@", tokenName, stateName];
 					states[depth] = [SBJsonStreamParserStateError state];
 					return SBJsonStreamParserError;
 				}

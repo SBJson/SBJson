@@ -45,6 +45,9 @@ static NSData *x(char *s) {
 	return [NSData dataWithBytes:s length:strlen(s)];
 }
 
+#define assertContains(e, s) STAssertTrue([e rangeOfString:s].location != NSNotFound, e)
+
+
 @implementation StreamParserTest
 
 - (void)setUp {
@@ -57,6 +60,17 @@ static NSData *x(char *s) {
 	STAssertEquals([parser parse:x("")], SBJsonStreamParserWaitingForData, nil);
 	STAssertEqualObjects(delegate.string, @"", nil);
 }
+
+- (void)testSimpleError {
+	STAssertEquals([parser parse:x("]")], SBJsonStreamParserError, nil);
+	assertContains(parser.error, @"end of array");
+	assertContains(parser.error, @"outer-most array");
+	
+	// Error is retained
+	STAssertEquals([parser parse:x("[]")], SBJsonStreamParserError, nil);
+	assertContains(parser.error, @"end of array");
+	assertContains(parser.error, @"outer-most array");	
+}	
 
 - (void)testEmptyArray {
 	STAssertEquals([parser parse:x("[]")], SBJsonStreamParserComplete, nil);

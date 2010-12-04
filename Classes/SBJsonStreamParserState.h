@@ -46,6 +46,8 @@
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok;
 - (BOOL)needKey;
 
+- (NSString*)name;
+
 @end
 
 @interface SBJsonStreamParserStateStart : SBJsonStreamParserState
