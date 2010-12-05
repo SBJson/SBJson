@@ -46,9 +46,9 @@
 		BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
 		BC8F72A71235331400678720 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F72A61235331400678720 /* WriterTest.m */; };
 		BC8F72A81235331400678720 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F72A61235331400678720 /* WriterTest.m */; };
-		BC9602B712A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */; };
+		BC9602B712A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC9602B812A452CF0024BDA2 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */; };
-		BC9602B912A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */; };
+		BC9602B912A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC9602BA12A452CF0024BDA2 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */; };
 		BC9602FE12A4564E0024BDA2 /* StreamParserAdapterDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602FD12A4564E0024BDA2 /* StreamParserAdapterDelegate.m */; };
 		BC9602FF12A4564E0024BDA2 /* StreamParserAdapterDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602FD12A4564E0024BDA2 /* StreamParserAdapterDelegate.m */; };
@@ -240,8 +240,8 @@
 		BCB55B111221D09400ACE34F /* string.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5B1221D09400ACE34F /* string.json */; };
 		BCB55B121221D09400ACE34F /* string.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5C1221D09400ACE34F /* string.json.pretty */; };
 		BCB55B131221D09400ACE34F /* string.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5D1221D09400ACE34F /* string.json.terse */; };
-		BCE5E289129C7D3300C156C0 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BCE5E287129C7D3300C156C0 /* SBJsonStreamParser.h */; };
-		BCE5E28B129C7D3300C156C0 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BCE5E287129C7D3300C156C0 /* SBJsonStreamParser.h */; };
+		BCE5E289129C7D3300C156C0 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BCE5E287129C7D3300C156C0 /* SBJsonStreamParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BCE5E28B129C7D3300C156C0 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BCE5E287129C7D3300C156C0 /* SBJsonStreamParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BCE5E2AE129C809700C156C0 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2AB129C809700C156C0 /* SBJsonStreamParser.m */; };
 		BCE5E2AF129C809700C156C0 /* SBJsonStreamParserState.h in Headers */ = {isa = PBXBuildFile; fileRef = BCE5E2AC129C809700C156C0 /* SBJsonStreamParserState.h */; };
 		BCE5E2B0129C809700C156C0 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2AD129C809700C156C0 /* SBJsonStreamParserState.m */; };
