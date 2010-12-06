@@ -33,11 +33,22 @@
 #import "SBJsonStreamParserState.h"
 #import "SBJsonStreamParser.h"
 
+static NSMutableDictionary *instances = nil;
+
 
 @implementation SBJsonStreamParserState
 
-+ (id)state {
-	return [[[self alloc] init] autorelease];
++ (id)sharedInstance {
+	if (!instances) 
+		instances = [NSMutableDictionary new];
+	
+	id instance = [instances objectForKey:[self class]];
+	if (!instance) {
+		instance = [[self alloc] init];
+		[instances setObject:instance forKey:[self class]];
+	}
+
+	return instance;
 }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
@@ -77,11 +88,11 @@
 	SBJsonStreamParserState *state = nil;
 	switch (tok) {
 		case sbjson_token_array_start:
-			state = [SBJsonStreamParserStateArrayStart state];
+			state = [SBJsonStreamParserStateArrayStart sharedInstance];
 			break;
 			
 		case sbjson_token_object_start:
-			state = [SBJsonStreamParserStateObjectStart state];
+			state = [SBJsonStreamParserStateObjectStart sharedInstance];
 			break;
 			
 		case sbjson_token_array_end:
@@ -89,14 +100,14 @@
 			if (parser.multi)
 				state = parser.states[parser.depth];
 			else
-				state = [SBJsonStreamParserStateComplete state];
+				state = [SBJsonStreamParserStateComplete sharedInstance];
 			break;
 			
 		case sbjson_token_eof:
 			return;
 			
 		default:
-			state = [SBJsonStreamParserStateError state];
+			state = [SBJsonStreamParserStateError sharedInstance];
 			break;
 	}
 	
@@ -160,7 +171,7 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.states[parser.depth] = [SBJsonStreamParserStateObjectGotKey state];
+	parser.states[parser.depth] = [SBJsonStreamParserStateObjectGotKey sharedInstance];
 }
 
 - (BOOL)needKey {
@@ -180,7 +191,7 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.states[parser.depth] = [SBJsonStreamParserStateObjectSeparator state];
+	parser.states[parser.depth] = [SBJsonStreamParserStateObjectSeparator sharedInstance];
 }
 
 @end
@@ -212,7 +223,7 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.states[parser.depth] = [SBJsonStreamParserStateObjectGotValue state];
+	parser.states[parser.depth] = [SBJsonStreamParserStateObjectGotValue sharedInstance];
 }
 
 @end
@@ -236,7 +247,7 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.states[parser.depth] = [SBJsonStreamParserStateObjectNeedKey state];
+	parser.states[parser.depth] = [SBJsonStreamParserStateObjectNeedKey sharedInstance];
 }
 
 
@@ -261,7 +272,7 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.states[parser.depth] = [SBJsonStreamParserStateObjectGotKey state];
+	parser.states[parser.depth] = [SBJsonStreamParserStateObjectGotKey sharedInstance];
 }
 
 - (BOOL)needKey {
@@ -291,7 +302,7 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.states[parser.depth] = [SBJsonStreamParserStateArrayGotValue state];
+	parser.states[parser.depth] = [SBJsonStreamParserStateArrayGotValue sharedInstance];
 }
 
 @end
@@ -309,7 +320,7 @@
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
 	if (tok == sbjson_token_separator)
-		parser.states[parser.depth] = [SBJsonStreamParserStateArrayNeedValue state];
+		parser.states[parser.depth] = [SBJsonStreamParserStateArrayNeedValue sharedInstance];
 }
 
 @end
@@ -336,7 +347,7 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.states[parser.depth] = [SBJsonStreamParserStateArrayGotValue state];
+	parser.states[parser.depth] = [SBJsonStreamParserStateArrayGotValue sharedInstance];
 }
 
 @end

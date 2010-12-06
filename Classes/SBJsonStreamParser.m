@@ -53,7 +53,7 @@
 		maxDepth = 512;
 		states = calloc(maxDepth, sizeof(SBJsonStreamParserState*));
 		NSAssert(states, @"States not initialised");
-		states[0] = [SBJsonStreamParserStateStart state];
+		states[0] = [SBJsonStreamParserStateStart sharedInstance];
 	}
 	return self;
 }
@@ -138,7 +138,7 @@
 				break;
 
 			case sbjson_token_error:
-				states[depth] = [SBJsonStreamParserStateError state];
+				states[depth] = [SBJsonStreamParserStateError sharedInstance];
 				self.error = tokeniser.error;
 				return SBJsonStreamParserError;
 				break;
@@ -149,7 +149,7 @@
 					NSString *tokenName = [self tokenName:tok];
 					NSString *stateName = [states[depth] name];
 					self.error = [NSString stringWithFormat:@"Token '%@' not expected %@", tokenName, stateName];
-					states[depth] = [SBJsonStreamParserStateError state];
+					states[depth] = [SBJsonStreamParserStateError sharedInstance];
 					return SBJsonStreamParserError;
 				}
 				
@@ -157,11 +157,11 @@
 					case sbjson_token_object_start:
 						if (depth >= maxDepth) {
 							self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
-							states[depth] = [SBJsonStreamParserStateError state];
+							states[depth] = [SBJsonStreamParserStateError sharedInstance];
 
 						} else {
 							[delegate parserStartedObject:self];
-							states[++depth] = [SBJsonStreamParserStateObjectStart state];
+							states[++depth] = [SBJsonStreamParserStateObjectStart sharedInstance];
 						}
 						break;
 						
@@ -173,10 +173,10 @@
 					case sbjson_token_array_start:
 						if (depth >= maxDepth) {
 							self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
-							states[depth] = [SBJsonStreamParserStateError state];
+							states[depth] = [SBJsonStreamParserStateError sharedInstance];
 						} else {
 							[delegate parserStartedArray:self];
-							states[++depth] = [SBJsonStreamParserStateArrayStart state];
+							states[++depth] = [SBJsonStreamParserStateArrayStart sharedInstance];
 						}						
 						break;
 						

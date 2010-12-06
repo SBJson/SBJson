@@ -38,7 +38,7 @@
 
 @interface SBJsonStreamParserState : NSObject
 
-+ (id)state;
++ (id)sharedInstance;
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token;
 - (BOOL)parserShouldStop:(SBJsonStreamParser*)parser;
