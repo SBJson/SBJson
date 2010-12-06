@@ -129,4 +129,14 @@ static NSData *x(char *s) {
 }
 
 
+- (void)testTwitterStream {
+	parser.multi = YES;
+	
+	NSData *data = [NSData dataWithContentsOfFile:@"Tests/Stream/multi.json"];
+	STAssertNotNil(data, nil);
+	
+	STAssertEquals([parser parse:data], SBJsonStreamParserWaitingForData, nil);
+	STAssertTrue([delegate.string rangeOfString:@"foooooo"].location == NSNotFound, delegate.string); 
+}
+
 @end

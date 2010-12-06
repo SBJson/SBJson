@@ -79,6 +79,11 @@
 	STAssertEquals([tokeniser next], sbjson_token_string, nil);
 	STAssertEquals([tokeniser next], sbjson_token_eof, nil);
 	
+	// ... with embedded \uXXXX escapes
+	tokeniser = [self tokeniserWithString:@"\"\\u003C=\\u003E\""];
+	STAssertEquals([tokeniser next], sbjson_token_string_encoded, nil);
+	STAssertEqualObjects([tokeniser getDecodedStringToken], @"<=>", nil);
+	
 	// ... with an embedded double-quote
 	tokeniser = [self tokeniserWithString:@"\"\\\"hello\\\" world\""];
 	STAssertEquals([tokeniser next], sbjson_token_string_encoded, nil);

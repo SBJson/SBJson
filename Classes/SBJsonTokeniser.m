@@ -305,7 +305,7 @@ again: while (i < len) {
 				ret += 10 + c - 'a';
 				break;
 				
-			case 'A' ... 'A':
+			case 'A' ... 'F':
 				ret += 10 + c - 'A';
 				break;
 				
