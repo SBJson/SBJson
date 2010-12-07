@@ -91,9 +91,8 @@
 			break;
 
 		case SBJsonStreamParserAdapterObject:
-			[dict setObject:obj forKey:key];
+			[dict setObject:obj forKey:[keyStack lastObject]];
 			[keyStack removeLastObject];
-			key = [keyStack lastObject];
 			break;
 			
 		case SBJsonStreamParserAdapterNone:
@@ -121,7 +120,6 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key_ {
-	key = key_;
 	[keyStack addObject:key_];
 }
 
