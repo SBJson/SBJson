@@ -160,7 +160,7 @@ again: while (i < len) {
 				}
 				break;
 				
-			case 0 ... 0x20:
+			case 0 ... 0x1F:
 				self.error = @"Unescaped control chars";
 				return nil;
 				break;

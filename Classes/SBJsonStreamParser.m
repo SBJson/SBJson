@@ -228,6 +228,7 @@
 					case sbjson_token_string:
 						NSAssert([tokeniser getToken:&buf length:&len], @"failed to get token");
 						NSString *string = [[NSString alloc] initWithBytes:buf+1 length:len-2 encoding:NSUTF8StringEncoding];
+						NSParameterAssert(string);
 						if ([states[depth] needKey])
 							[delegate parser:self foundObjectKey:string];
 						else
@@ -239,6 +240,7 @@
 					case sbjson_token_string_encoded:
 						NSAssert([tokeniser getToken:&buf length:&len], @"failed to get token");
 						NSString *decoded = [tokeniser getDecodedStringToken];
+						NSParameterAssert(decoded);
 						if ([states[depth] needKey])
 							[delegate parser:self foundObjectKey:decoded];
 						else

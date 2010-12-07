@@ -85,12 +85,15 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundObject:(id)obj {
+	NSParameterAssert(obj);
+	
 	switch (currentType) {
 		case SBJsonStreamParserAdapterArray:
 			[array addObject:obj];
 			break;
 
 		case SBJsonStreamParserAdapterObject:
+			NSParameterAssert(keyStack.count);
 			[dict setObject:obj forKey:[keyStack lastObject]];
 			[keyStack removeLastObject];
 			break;
