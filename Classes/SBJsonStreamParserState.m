@@ -44,7 +44,7 @@ static NSMutableDictionary *instances = nil;
 	
 	id instance = [instances objectForKey:[self class]];
 	if (!instance) {
-		instance = [[self alloc] init];
+		instance = [[[self alloc] init] autorelease];
 		[instances setObject:instance forKey:[self class]];
 	}
 
