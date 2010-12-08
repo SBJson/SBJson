@@ -334,6 +334,7 @@ static NSMutableDictionary *instances = nil;
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
+		case sbjson_token_array_end:
 		case sbjson_token_key_value_separator:
 		case sbjson_token_object_end:
 		case sbjson_token_separator:

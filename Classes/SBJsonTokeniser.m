@@ -360,22 +360,26 @@ again: while (i < len) {
 
 
 - (sbjson_token_t)matchString {
-	const char *c = [self bytes] + 1;
 	sbjson_token_t ret = sbjson_token_string;
+
+	const char *bytes = [self bytes];
+	NSUInteger idx = 1;
+	NSUInteger maxIdx = buf.length - 2 - offset;
 	
-	for (;;) {
-		switch (*c++) {
-			case '\0':
-				return sbjson_token_eof;
+	while (idx <= maxIdx) {
+		switch (bytes[idx++]) {
+			case 0 ... 0x1F:
+				self.error = [NSString stringWithFormat:@"Unescaped control char 0x%0.2X", (int)bytes[idx-1]];
+				return sbjson_token_error;
 				break;
 				
 			case '\\':
 				ret = sbjson_token_string_encoded;
-				switch (*c++) {
-					case '\0':
-						return sbjson_token_eof;
-						break;
-						
+				
+				if (idx >= maxIdx)
+					return sbjson_token_eof;
+
+				switch (bytes[idx++]) {
 					case 'b':
 					case 't':
 					case 'n':
@@ -389,13 +393,11 @@ again: while (i < len) {
 						break;
 						
 					case 'u': {
-						NSUInteger i = 0;
-						int ch = [self parseUnicodeEscape:c index:&i];
+						int ch = [self parseUnicodeEscape:bytes index:&idx];
 						if (ch == -2)
 							return sbjson_token_eof;
 						if (ch == -1)
 							return sbjson_token_error;
-						c += i;
 						break;
 					}
 					default:
@@ -406,7 +408,7 @@ again: while (i < len) {
 				break;
 				
 			case '"':
-				length = c - [self bytes];
+				length = idx;
 				return ret;
 				break;
 				
@@ -416,8 +418,7 @@ again: while (i < len) {
 		}
 	}
 
-	NSAssert(NO, @"Should never get here");
-	return sbjson_token_error;
+	return sbjson_token_eof;
 }
 
 - (sbjson_token_t)matchNumber {
