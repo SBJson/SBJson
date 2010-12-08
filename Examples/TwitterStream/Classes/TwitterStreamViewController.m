@@ -29,7 +29,6 @@
 	parser.delegate = adapter;
 	parser.multi = YES;
 	
-		//	NSString *url = @"http://search.twitter.com/search.json?result_type=mixed&q=stig";
 	NSString *url = @"http://stream.twitter.com/1/statuses/sample.json";
 	
 	NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:url]
