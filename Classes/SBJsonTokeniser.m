@@ -277,7 +277,7 @@ again: while (i < len) {
 }
 
 - (sbjson_token_t)match:(const char *)utf8 ofLength:(NSUInteger)len andReturn:(sbjson_token_t)tok {
-	if (buf.length - offset < len)
+	if (buf.length - offset - 1 < len)
 		return sbjson_token_eof;
 	
 	if (strncmp([self bytes], utf8, len)) {
@@ -297,6 +297,10 @@ again: while (i < len) {
     for (int i = 0; i < 4; i++) {
 		ret *= 16;
 		switch (c = hexQuad[i]) {
+			case '\0':
+				return -2;
+				break;
+				
 			case '0' ... '9':
 				ret += c - '0';
 				break;
@@ -320,6 +324,7 @@ again: while (i < len) {
 
 - (int)parseUnicodeEscape:(const char *)bytes index:(NSUInteger *)index {
 	int hi = [self decodeHexQuad:bytes + *index];
+	if (hi == -2) return -2; // EOF
 	if (hi < 0) {
 		self.error = @"Missing hex quad";
 		return -1;
@@ -360,9 +365,17 @@ again: while (i < len) {
 	
 	for (;;) {
 		switch (*c++) {
+			case '\0':
+				return sbjson_token_eof;
+				break;
+				
 			case '\\':
 				ret = sbjson_token_string_encoded;
 				switch (*c++) {
+					case '\0':
+						return sbjson_token_eof;
+						break;
+						
 					case 'b':
 					case 't':
 					case 'n':
@@ -378,7 +391,9 @@ again: while (i < len) {
 					case 'u': {
 						NSUInteger i = 0;
 						int ch = [self parseUnicodeEscape:c index:&i];
-						if (ch < 0)
+						if (ch == -2)
+							return sbjson_token_eof;
+						if (ch == -1)
 							return sbjson_token_error;
 						c += i;
 						break;

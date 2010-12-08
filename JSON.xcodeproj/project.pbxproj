@@ -44,8 +44,8 @@
 		BC74B6ED0FC9FAD0000BD3DD /* MaxDepthTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */; };
 		BC74B7AE0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
 		BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
-		BC81A51B12ADA115005C034C /* multi.json in Resources */ = {isa = PBXBuildFile; fileRef = BC81A51A12ADA115005C034C /* multi.json */; };
-		BC81A51C12ADA115005C034C /* multi.json in Resources */ = {isa = PBXBuildFile; fileRef = BC81A51A12ADA115005C034C /* multi.json */; };
+		BC81A69612AF019F005C034C /* StreamParserIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC81A69512AF019F005C034C /* StreamParserIntegrationTest.m */; };
+		BC81A69712AF019F005C034C /* StreamParserIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC81A69512AF019F005C034C /* StreamParserIntegrationTest.m */; };
 		BC8F72A71235331400678720 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F72A61235331400678720 /* WriterTest.m */; };
 		BC8F72A81235331400678720 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F72A61235331400678720 /* WriterTest.m */; };
 		BC9602B712A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -307,7 +307,7 @@
 		BC651A81125A571C00280F5C /* SBProxyForJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBProxyForJson.h; sourceTree = "<group>"; };
 		BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxDepthTest.m; sourceTree = "<group>"; };
 		BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyTest.m; sourceTree = "<group>"; };
-		BC81A51A12ADA115005C034C /* multi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = multi.json; path = Tests/Stream/multi.json; sourceTree = SOURCE_ROOT; };
+		BC81A69512AF019F005C034C /* StreamParserIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StreamParserIntegrationTest.m; path = Tests/StreamParserIntegrationTest.m; sourceTree = SOURCE_ROOT; };
 		BC8F72A61235331400678720 /* WriterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriterTest.m; sourceTree = "<group>"; };
 		BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
 		BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
@@ -517,6 +517,7 @@
 		53D229960C96124500276605 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				BC81A69512AF019F005C034C /* StreamParserIntegrationTest.m */,
 				BCE5E2B4129C80A000C156C0 /* StreamParserDelegate.h */,
 				BCE5E2B5129C80A000C156C0 /* StreamParserDelegate.m */,
 				BCE5E2B6129C80A000C156C0 /* StreamParserTest.m */,
@@ -536,7 +537,6 @@
 		BCB559FF1221D09300ACE34F /* Test Data */ = {
 			isa = PBXGroup;
 			children = (
-				BC81A51A12ADA115005C034C /* multi.json */,
 				BCB55A001221D09400ACE34F /* array.json */,
 				BCB55A011221D09400ACE34F /* array.json.pretty */,
 				BCB55A021221D09400ACE34F /* array.json.terse */,
@@ -934,7 +934,6 @@
 				BCB55AB61221D09400ACE34F /* string.json in Resources */,
 				BCB55AB71221D09400ACE34F /* string.json.pretty in Resources */,
 				BCB55AB81221D09400ACE34F /* string.json.terse in Resources */,
-				BC81A51C12ADA115005C034C /* multi.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1032,7 +1031,6 @@
 				BCB55B111221D09400ACE34F /* string.json in Resources */,
 				BCB55B121221D09400ACE34F /* string.json.pretty in Resources */,
 				BCB55B131221D09400ACE34F /* string.json.terse in Resources */,
-				BC81A51B12ADA115005C034C /* multi.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1182,6 +1180,7 @@
 				BCE5E2F1129C825700C156C0 /* StreamParserTest.m in Sources */,
 				BC9602FF12A4564E0024BDA2 /* StreamParserAdapterDelegate.m in Sources */,
 				BC96030B12A45E3D0024BDA2 /* StreamParserAdapterTest.m in Sources */,
+				BC81A69712AF019F005C034C /* StreamParserIntegrationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1215,6 +1214,7 @@
 				BCE5E2F3129C826A00C156C0 /* StreamParserTest.m in Sources */,
 				BC9602FE12A4564E0024BDA2 /* StreamParserAdapterDelegate.m in Sources */,
 				BC96030A12A45E3D0024BDA2 /* StreamParserAdapterTest.m in Sources */,
+				BC81A69612AF019F005C034C /* StreamParserIntegrationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
