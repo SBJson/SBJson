@@ -162,12 +162,8 @@
 	[self parser:parser foundObject:[NSNull null]];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser foundInteger:(NSInteger)num {
-	[self parser:parser foundObject:[NSNumber numberWithInteger:num]];
-}
-
-- (void)parser:(SBJsonStreamParser*)parser foundDouble:(double)num {
-	[self parser:parser foundObject:[NSNumber numberWithDouble:num]];
+- (void)parser:(SBJsonStreamParser*)parser foundNumber:(NSNumber*)num {
+	[self parser:parser foundObject:num];
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string {

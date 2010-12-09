@@ -76,8 +76,8 @@
 - (void)testScalar {
 	[adapter parserStartedArray:nil];
 	[adapter parser:nil foundString:@"foo"];
-	[adapter parser:nil foundInteger:3];
-	[adapter parser:nil foundDouble:3.14];
+	[adapter parser:nil foundNumber:[NSNumber numberWithInt:3]];
+	[adapter parser:nil foundNumber:[NSNumber numberWithDouble:3.14]];
 	[adapter parserFoundNull:nil];
 	[adapter parser:nil foundBoolean:YES];
 	[adapter parserEndedArray:nil];

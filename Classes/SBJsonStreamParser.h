@@ -54,9 +54,7 @@ typedef enum {
 - (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x;
 - (void)parserFoundNull:(SBJsonStreamParser*)parser;
 
-- (void)parser:(SBJsonStreamParser*)parser foundInteger:(NSInteger)num;
-- (void)parser:(SBJsonStreamParser*)parser foundDouble:(double)num;
-
+- (void)parser:(SBJsonStreamParser*)parser foundNumber:(NSNumber*)num;
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string;
 
 @end

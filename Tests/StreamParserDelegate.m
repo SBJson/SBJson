@@ -78,12 +78,8 @@
 	[string appendString:x ? @"YES " : @"NO "];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser foundInteger:(NSInteger)i {
-	[string appendFormat:@"%d ", i];
-}
-
-- (void)parser:(SBJsonStreamParser*)parser foundDouble:(double)d {
-	[string appendFormat:@"%g ", d];
+- (void)parser:(SBJsonStreamParser*)parser foundNumber:(NSNumber*)num {
+	[string appendFormat:@"%@ ", num];
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)s {

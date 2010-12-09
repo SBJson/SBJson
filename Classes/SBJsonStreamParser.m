@@ -206,25 +206,19 @@
 						break;
 						
 					case sbjson_token_integer:
-						if ([tokeniser getToken:&buf length:&len]) {
-							char *e;
-							NSInteger integer = strtol(buf, &e, 0);
-							NSAssert(e-buf == len, @"Unexpected length");
-							[delegate parser:self foundInteger:integer];
-							[states[depth] parser:self shouldTransitionTo:tok];
-						}
-						break;
-
 					case sbjson_token_double:
 						if ([tokeniser getToken:&buf length:&len]) {
-							char *e;
-							double d = strtod(buf, &e);
-							NSAssert(e-buf == len, @"Unexpected length");
-							[delegate parser:self foundDouble:d];
-							[states[depth] parser:self shouldTransitionTo:tok];
+							NSData *data = [NSData dataWithBytes:buf length:len];
+							NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+							NSDecimalNumber *number = [[NSDecimalNumber alloc] initWithString:string];
+							[delegate parser:self foundNumber:number];
+							[number release];
+							[string release];
+
 						}
+						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
-						
+
 					case sbjson_token_string:
 						NSAssert([tokeniser getToken:&buf length:&len], @"failed to get token");
 						NSString *string = [[NSString alloc] initWithBytes:buf+1 length:len-2 encoding:NSUTF8StringEncoding];
