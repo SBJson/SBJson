@@ -22,6 +22,9 @@
 }
 
 - (IBAction)startStreaming {
+	[userName resignFirstResponder];
+	[password resignFirstResponder];
+	
 	adapter = [SBJsonStreamParserAdapter new];
 	adapter.delegate = self;
 	
