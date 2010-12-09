@@ -68,11 +68,11 @@
 - (void)testString {	
 	tokeniser = [self tokeniserWithString:@"hello"];
 	STAssertEquals([tokeniser next], sbjson_token_error, nil);
-	STAssertEqualObjects(tokeniser.error, @"Unrecognised leading char at offset 0", nil);
+	STAssertEqualObjects(tokeniser.error, @"Unrecognised leading character at offset 0", nil);
 	
 	tokeniser = [self tokeniserWithString:@" hello"];
 	STAssertEquals([tokeniser next], sbjson_token_error, nil);
-	STAssertEqualObjects(tokeniser.error, @"Unrecognised leading char at offset 1", nil);
+	STAssertEqualObjects(tokeniser.error, @"Unrecognised leading character at offset 1", nil);
 	
 	// A JSON-style quoted string
 	tokeniser = [self tokeniserWithString:@"\"hello\""];
@@ -102,7 +102,7 @@
 - (void)testNumber {
 	tokeniser = [self tokeniserWithString:@"b+345.445"];
 	STAssertEquals([tokeniser next], sbjson_token_error, nil);
-	STAssertEqualObjects(tokeniser.error, @"Unrecognised leading char at offset 0", nil);
+	STAssertEqualObjects(tokeniser.error, @"Unrecognised leading character at offset 0", nil);
 	
 	tokeniser = [self tokeniserWithString:@"+3"];
 	STAssertEquals([tokeniser next], sbjson_token_error, nil);
@@ -111,19 +111,19 @@
 
 	tokeniser = [self tokeniserWithString:@"03"];
 	STAssertEquals([tokeniser next], sbjson_token_error, nil);
-	STAssertEqualObjects(tokeniser.error, @"Leading zero is disallowed in number at offset 0", nil);
+	STAssertEqualObjects(tokeniser.error, @"Leading zero is illegal in number at offset 0", nil);
 	
 	tokeniser = [self tokeniserWithString:@".0 "];
 	STAssertEquals([tokeniser next], sbjson_token_error, @"number must start with 0-9 or -");
-	STAssertEqualObjects(tokeniser.error, @"Unrecognised leading char at offset 0", nil);	
+	STAssertEqualObjects(tokeniser.error, @"Unrecognised leading character at offset 0", nil);	
 	
 	tokeniser = [self tokeniserWithString:@"9. "];
 	STAssertEquals([tokeniser next], sbjson_token_error, nil);
-	STAssertEqualObjects(tokeniser.error, @"Number cannot end with '.' at offset 0", nil);	
+	STAssertEqualObjects(tokeniser.error, @"No digits after decimal point at offset 0", nil);
 	
 	tokeniser = [self tokeniserWithString:@"3e "];
 	STAssertEquals([tokeniser next], sbjson_token_error, nil);
-	STAssertEqualObjects(tokeniser.error, @"Exponential marker must be followed by digits at offset 0", nil);	
+	STAssertEqualObjects(tokeniser.error, @"No digits after exponent mark at offset 0", nil);	
 	
 	tokeniser = [self tokeniserWithString:@"0"];
 	STAssertEquals([tokeniser next], sbjson_token_eof, nil);

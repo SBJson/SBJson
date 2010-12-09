@@ -37,7 +37,7 @@
 @end
 
 #define assertErrorContains(e, s) \
-	STAssertTrue([e rangeOfString:s].location != NSNotFound, nil)
+	STAssertTrue([e rangeOfString:s].location != NSNotFound, e)
 
 @implementation MaxDepthTest
 
@@ -59,7 +59,7 @@
 
 - (void)testParseTooDeep {
     STAssertNil([parser objectWithString:@"[[[]]]"], nil);
-	assertErrorContains(parser.error, @"Nested too deep");
+	assertErrorContains(parser.error, @"max depth");
 }
 
 - (void)testWriteDepthOk {

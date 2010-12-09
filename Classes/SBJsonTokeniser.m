@@ -243,7 +243,7 @@ again: while (i < len) {
 			break;			
 	}
 	
-	self.error = [NSString stringWithFormat:@"Unrecognised leading char at offset %u", offset];
+	self.error = [NSString stringWithFormat:@"Unrecognised leading character at offset %u", offset];
 	return sbjson_token_error;
 }
 
@@ -426,13 +426,18 @@ again: while (i < len) {
 	sbjson_token_t ret = sbjson_token_integer;
 	const char *c = [self bytes];
 
-	if (*c == '-')
+	if (*c == '-') {
 		c++;
+		if (!isDigit(c)) {
+			self.error = @"No digits after initial minus";
+			return sbjson_token_error;
+		}
+	}
 	
 	if (*c == '0') {
 		c++;
 		if (isDigit(c)) {
-			self.error = [NSString stringWithFormat:@"Leading zero is disallowed in number at offset %u", offset];
+			self.error = [NSString stringWithFormat:@"Leading zero is illegal in number at offset %u", offset];
 			return sbjson_token_error;
 		}
 	}
@@ -445,7 +450,7 @@ again: while (i < len) {
 		c++;
 		
 		if (!isDigit(c) && *c) {
-			self.error = [NSString stringWithFormat:@"Number cannot end with '.' at offset %u", offset];
+			self.error = [NSString stringWithFormat:@"No digits after decimal point at offset %u", offset];
 			return sbjson_token_error;
 		}
 		
@@ -460,7 +465,7 @@ again: while (i < len) {
 			c++;
 	
 		if (!isDigit(c) && *c) {
-			self.error = [NSString stringWithFormat:@"Exponential marker must be followed by digits at offset %u", offset];
+			self.error = [NSString stringWithFormat:@"No digits after exponent mark at offset %u", offset];
 			return sbjson_token_error;
 		}
 		

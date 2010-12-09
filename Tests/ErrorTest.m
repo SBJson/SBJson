@@ -40,10 +40,10 @@
     STAssertTrue([[e localizedDescription] rangeOfString:s].location != NSNotFound, @"%@", [e userInfo])
 
 #define assertUnderlyingErrorContains(e, s) \
-    STAssertTrue([[[[e userInfo] objectForKey:NSUnderlyingErrorKey] localizedDescription] rangeOfString:s].location != NSNotFound, @"%@", [e userInfo])
+	assertErrorContains(e, s)
 
 #define assertUnderlyingErrorContains2(e, s) \
-    STAssertTrue([[[[[[e userInfo] objectForKey:NSUnderlyingErrorKey] userInfo] objectForKey:NSUnderlyingErrorKey] localizedDescription] hasPrefix:s], @"%@", [e userInfo])
+	assertErrorContains(e, s)
 
 @implementation ErrorTest
 
@@ -127,109 +127,103 @@
     NSError *error;
 
     STAssertNil([parser objectWithString:@"[1,,2]" error:&error], nil);
-    assertErrorContains(error, @"Expected value");
+    assertErrorContains(error, @"not expected as array value");
     
     STAssertNil([parser objectWithString:@"[1,,]" error:&error], nil);
-    assertErrorContains(error, @"Expected value");
+    assertErrorContains(error, @"not expected as array value");
 
     STAssertNil([parser objectWithString:@"[,1]" error:&error], nil);
-    assertErrorContains(error, @"Expected value");
-
+    assertErrorContains(error, @"not expected at array start");
 
     STAssertNil([parser objectWithString:@"[1,]" error:&error], nil);
-    assertErrorContains(error, @"Trailing comma disallowed");
-    
+    assertErrorContains(error, @"not expected as array value");
     
     STAssertNil([parser objectWithString:@"[1" error:&error], nil);
-    assertErrorContains(error, @"End of input while parsing array");
+    assertErrorContains(error, @"Didn't find full object before EOF");
     
     STAssertNil([parser objectWithString:@"[[]" error:&error], nil);
-    assertErrorContains(error, @"End of input while parsing array");
+    assertErrorContains(error, @"Didn't find full object before EOF");
 
     // See if seemingly-valid arrays have nasty elements
     STAssertNil([parser objectWithString:@"[+1]" error:&error], nil);
-    assertErrorContains(error, @"Expected value");
-    assertUnderlyingErrorContains(error, @"Leading + disallowed");
+    assertErrorContains(error, @"Leading + is illegal");
 }
 
 - (void)testObject {
     NSError *error;
 
-    STAssertNil([parser objectWithString:@"{1" error:&error], nil);
-    assertErrorContains(error, @"Object key string expected");
+    STAssertNil([parser objectWithString:@"{1," error:&error], nil);
+    assertErrorContains(error, @"Token 'number' not expected at beginning of object");
         
     STAssertNil([parser objectWithString:@"{null" error:&error], nil);
-    assertErrorContains(error, @"Object key string expected");
+    assertErrorContains(error, @"Token 'null' not expected at beginning of object");
     
     STAssertNil([parser objectWithString:@"{\"a\":1,,}" error:&error], nil);
-    assertErrorContains(error, @"Object key string expected");
+    assertErrorContains(error, @"Token 'value separator' not expected in place of object key");
     
     STAssertNil([parser objectWithString:@"{,\"a\":1}" error:&error], nil);
-    assertErrorContains(error, @"Object key string expected");
+    assertErrorContains(error, @"Token 'value separator' not expected at beginning of object");
     
 
-    STAssertNil([parser objectWithString:@"{\"a\"" error:&error], nil);
-    assertErrorContains(error, @"Expected ':'");
+    STAssertNil([parser objectWithString:@"{\"a\"," error:&error], nil);
+    assertErrorContains(error, @"Token 'value separator' not expected after object key");
     
 
-    STAssertNil([parser objectWithString:@"{\"a\":" error:&error], nil);
-    assertErrorContains(error, @"Object value expected");
-    
     STAssertNil([parser objectWithString:@"{\"a\":," error:&error], nil);
-    assertErrorContains(error, @"Object value expected");
+    assertErrorContains(error, @"Token 'value separator' not expected as object value");
     
     
     STAssertNil([parser objectWithString:@"{\"a\":1,}" error:&error], nil);
-    assertErrorContains(error, @"Trailing comma disallowed");
+    assertErrorContains(error, @"Token 'end of object' not expected in place of object key");
     
     
     STAssertNil([parser objectWithString:@"{" error:&error], nil);
-    assertErrorContains(error, @"End of input while parsing object");
+    assertErrorContains(error, @"Didn't find full object before EOF");
     
     STAssertNil([parser objectWithString:@"{\"a\":{}" error:&error], nil);
-    assertErrorContains(error, @"End of input while parsing object");
+    assertErrorContains(error, @"Didn't find full object before EOF");
 }
 
 - (void)testNumber {
     NSError *error;
 
-    STAssertNil([parser objectWithString:@"[-" error:&error], nil);
+    STAssertNil([parser objectWithString:@"[- " error:&error], nil);
     assertUnderlyingErrorContains(error, @"No digits after initial minus");
         
-    STAssertNil([parser objectWithString:@"[+1" error:&error], nil);
-    assertUnderlyingErrorContains(error, @"Leading + disallowed in number");
+    STAssertNil([parser objectWithString:@"[+1 " error:&error], nil);
+    assertUnderlyingErrorContains(error, @"Leading + is illegal in number");
 
     STAssertNil([parser objectWithString:@"[01" error:&error], nil);
-    assertUnderlyingErrorContains(error, @"Leading 0 disallowed in number");
+    assertUnderlyingErrorContains(error, @"Leading zero is illegal in number");
     
-    STAssertNil([parser objectWithString:@"[0." error:&error], nil);
+    STAssertNil([parser objectWithString:@"[0. " error:&error], nil);
     assertUnderlyingErrorContains(error, @"No digits after decimal point");
     
     
-    STAssertNil([parser objectWithString:@"[1e" error:&error], nil);
+    STAssertNil([parser objectWithString:@"[1e " error:&error], nil);
     assertUnderlyingErrorContains(error, @"No digits after exponent");
     
-    STAssertNil([parser objectWithString:@"[1e-" error:&error], nil);
+    STAssertNil([parser objectWithString:@"[1e- " error:&error], nil);
     assertUnderlyingErrorContains(error, @"No digits after exponent");
     
-    STAssertNil([parser objectWithString:@"[1e+" error:&error], nil);
+    STAssertNil([parser objectWithString:@"[1e+ " error:&error], nil);
     assertUnderlyingErrorContains(error, @"No digits after exponent");
 }
 
 - (void)testNull {
     NSError *error;
     
-    STAssertNil([parser objectWithString:@"[nil" error:&error], nil);
+    STAssertNil([parser objectWithString:@"[nil " error:&error], nil);
     assertUnderlyingErrorContains(error, @"Expected 'null'");
 }
 
 - (void)testBool {
     NSError *error;
     
-    STAssertNil([parser objectWithString:@"[truth" error:&error], nil);
+    STAssertNil([parser objectWithString:@"[truth " error:&error], nil);
     assertUnderlyingErrorContains(error, @"Expected 'true'");
     
-    STAssertNil([parser objectWithString:@"[fake" error:&error], nil);
+    STAssertNil([parser objectWithString:@"[fake " error:&error], nil);
     assertUnderlyingErrorContains(error, @"Expected 'false'");
 }    
 
@@ -237,35 +231,30 @@
     NSError *error;
     
     STAssertNil([parser objectWithString:@"" error:&error], nil);
-    assertErrorContains(error, @"Unexpected end of string");
+    assertErrorContains(error, @"Didn't find full object before EOF");
 
     STAssertNil([parser objectWithString:@"" error:&error], nil);
-    assertErrorContains(error, @"Unexpected end of string");
+    assertErrorContains(error, @"Didn't find full object before EOF");
     
     STAssertNil([parser objectWithString:@"[\"" error:&error], nil);
-    assertUnderlyingErrorContains(error, @"Unescaped control character");
+    assertErrorContains(error, @"Didn't find full object before EOF");
     
     STAssertNil([parser objectWithString:@"[\"foo" error:&error], nil);
-    assertUnderlyingErrorContains(error, @"Unescaped control character");
-
+    assertErrorContains(error, @"Didn't find full object before EOF");
     
     STAssertNil([parser objectWithString:@"[\"\\uD834foo\"" error:&error], nil);
-    assertUnderlyingErrorContains(error, @"Broken unicode character");
-    assertUnderlyingErrorContains(error, @"Missing low character");
+    assertErrorContains(error, @"Missing low character");
         
     STAssertNil([parser objectWithString:@"[\"\\uD834\\u001E\"" error:&error], nil);
-    assertUnderlyingErrorContains(error, @"Broken unicode character");
-    assertUnderlyingErrorContains(error, @"Invalid low surrogate");
+    assertErrorContains(error, @"Invalid low surrogate");
     
     STAssertNil([parser objectWithString:@"[\"\\uDD1Ef\"" error:&error], nil);
-    assertUnderlyingErrorContains(error, @"Broken unicode character");
-    assertUnderlyingErrorContains(error, @"Invalid high character");
+    assertErrorContains(error, @"Invalid high character");
 
-    
     for (NSUInteger i = 0; i < 0x20; i++) {
-        NSString *str = [NSString stringWithFormat:@"\"[%C\"", i];
+        NSString *str = [NSString stringWithFormat:@"[\"%C\"]", i];
         STAssertNil([parser objectWithString:str error:&error], nil);
-        assertErrorContains(error, @"Unescaped control character");
+        assertErrorContains(error, @"Unescaped control char 0x");
     }
 }
 

@@ -50,14 +50,12 @@
  We can thus avoid any loss of precision as JSON allows ridiculously large numbers.
  
  */
+
 @interface SBJsonParser : NSObject {
-	
-@protected
+	id value;
 	NSString *error;
     NSUInteger depth, maxDepth;
 
-@private
-    const char *c;
 }
 
 /**
@@ -77,6 +75,15 @@
  if the call actually failed, before you know call this method.
  */
 @property(copy) NSString *error;
+
+/**
+ @brief Return the object represented by the given NSData object.
+ 
+ The data *must* be UTF8 encoded.
+ @param data the data to parse.
+ 
+ */
+- (id)objectWithData:(NSData*)data;
 
 /**
  @brief Return the object represented by the given string
@@ -100,7 +107,6 @@
 
 - (id)objectWithString:(NSString*)jsonText
                  error:(NSError**)error;
-
 
 @end
 
