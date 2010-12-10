@@ -85,6 +85,8 @@
 	
 		STAssertEquals([parser parse:data], SBJsonStreamParserWaitingForData, @"%@ - %@", file, parser.error);
 	}
+	STAssertEquals(arrayCount, (NSUInteger)0, nil);
+	STAssertEquals(objectCount, (NSUInteger)98, nil);
 }
 
 @end
