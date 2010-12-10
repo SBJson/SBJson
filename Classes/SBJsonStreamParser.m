@@ -50,7 +50,7 @@
 	self = [super init];
 	if (self) {
 		tokeniser = [SBJsonTokeniser new];
-		maxDepth = 512;
+		maxDepth = 32;
 		states = calloc(maxDepth, sizeof(SBJsonStreamParserState*));
 		NSAssert(states, @"States not initialised");
 		states[0] = [SBJsonStreamParserStateStart sharedInstance];
@@ -220,28 +220,22 @@
 						break;
 
 					case sbjson_token_string:
-						NSAssert([tokeniser getToken:&buf length:&len], @"failed to get token");
-						NSString *string = [[NSString alloc] initWithBytes:buf+1 length:len-2 encoding:NSUTF8StringEncoding];
+					case sbjson_token_string_encoded: {
+						NSString *string;
+						if (tok == sbjson_token_string) {
+							NSAssert([tokeniser getToken:&buf length:&len], @"failed to get token");
+							string = [[[NSString alloc] initWithBytes:buf+1 length:len-2 encoding:NSUTF8StringEncoding] autorelease];
+						} else {
+							string = [tokeniser getDecodedStringToken];
+						}
 						NSParameterAssert(string);
 						if ([states[depth] needKey])
 							[delegate parser:self foundObjectKey:string];
 						else
 							[delegate parser:self foundString:string];
-						[string release];
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
-						
-					case sbjson_token_string_encoded:
-						NSAssert([tokeniser getToken:&buf length:&len], @"failed to get token");
-						NSString *decoded = [tokeniser getDecodedStringToken];
-						NSParameterAssert(decoded);
-						if ([states[depth] needKey])
-							[delegate parser:self foundObjectKey:decoded];
-						else
-							[delegate parser:self foundString:decoded];
-						[states[depth] parser:self shouldTransitionTo:tok];
-						break;
-						
+					}
 					default:
 						break;
 				}

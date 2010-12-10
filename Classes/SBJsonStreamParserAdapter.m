@@ -51,8 +51,8 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		keyStack = [NSMutableArray new];
-		stack = [NSMutableArray new];
+		keyStack = [[NSMutableArray alloc] initWithCapacity:32];
+		stack = [[NSMutableArray alloc] initWithCapacity:32];
 		
 		currentType = SBJsonStreamParserAdapterNone;
 	}
