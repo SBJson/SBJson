@@ -74,7 +74,7 @@
  and split into 1k files. It simulates streaming by parsing
  this data incrementally.
  */
-- (void)test {
+- (void)testMultipleDocuments {
 	NSString *fileName;
     while ((fileName = [files nextObject])) {
 		NSString *file = [path stringByAppendingPathComponent:fileName];
@@ -88,5 +88,38 @@
 	STAssertEquals(arrayCount, (NSUInteger)0, nil);
 	STAssertEquals(objectCount, (NSUInteger)98, nil);
 }
+
+- (void)parseArrayOfObjects {
+	[parser parse:[NSData dataWithBytes:"[" length:1]];
+	for (int i = 1;; i++) {
+		char *utf8 = "{\"foo\":[],\"bar\":[]}";
+		[parser parse:[NSData dataWithBytes:utf8 length:strlen(utf8)]];
+		if (i == 100)
+			break;
+		[parser parse:[NSData dataWithBytes:"," length:1]];
+	}
+	[parser parse:[NSData dataWithBytes:"]" length:1]];
+}
+
+- (void)testSingleArray {
+	[self parseArrayOfObjects];
+	STAssertEquals(arrayCount, (NSUInteger)1, nil);
+	STAssertEquals(objectCount, (NSUInteger)0, nil);
+}
+
+- (void)testSkipArray {
+	adapter.skip = 1;
+	[self parseArrayOfObjects];
+	STAssertEquals(arrayCount, (NSUInteger)0, nil);
+	STAssertEquals(objectCount, (NSUInteger)100, nil);	
+}
+
+- (void)testSkipArrayAndObject {
+	adapter.skip = 2;
+	[self parseArrayOfObjects];
+	STAssertEquals(arrayCount, (NSUInteger)200, nil);
+	STAssertEquals(objectCount, (NSUInteger)0, nil);	
+}
+
 
 @end
