@@ -208,12 +208,26 @@
 					case sbjson_token_integer:
 					case sbjson_token_double:
 						if ([tokeniser getToken:&buf length:&len]) {
-							NSData *data = [NSData dataWithBytes:buf length:len];
-							NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-							NSDecimalNumber *number = [[NSDecimalNumber alloc] initWithString:string];
+							NSNumber *number;
+							if (tok == sbjson_token_integer && len < 12) {
+								char *e = NULL;
+								long l = strtol(buf, &e, 0);
+								NSAssert((e-buf) == len, @"unexpected length");
+								number = [NSNumber numberWithLong:l];
+								
+							} else if (tok == sbjson_token_double && len < 7) {
+								char *e = NULL;
+								double d = strtod(buf, &e);
+								NSAssert((e-buf) == len, @"unexpected length");
+								number = [NSNumber numberWithDouble:d];
+
+							} else {
+								NSData *data = [NSData dataWithBytes:buf length:len];
+								NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+								number = [[[NSDecimalNumber alloc] initWithString:string] autorelease];
+							}
+							NSParameterAssert(number);
 							[delegate parser:self foundNumber:number];
-							[number release];
-							[string release];
 
 						}
 						[states[depth] parser:self shouldTransitionTo:tok];
