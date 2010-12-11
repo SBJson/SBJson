@@ -29,7 +29,6 @@
 
 #import "SBJsonWriter.h"
 #import "SBJsonStreamWriter.h"
-#import "SBProxyForJson.h"
 
 @interface SBJsonWriter ()
 
