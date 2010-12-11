@@ -64,6 +64,6 @@
 #import <JSON/SBJsonStreamParser.h>
 #import <JSON/SBJsonStreamParserAdapter.h>
 #import <JSON/SBJsonStreamWriter.h>
-#import <NSObject+JSON.h>
+#import <JSON/NSObject+JSON.h>
 
 #endif
