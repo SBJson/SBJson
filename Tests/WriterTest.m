@@ -68,8 +68,7 @@
 
 
 - (void)testWriteToStream {
-	NSOutputStream *stream = [NSOutputStream outputStreamToMemory];	
-	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] initWithStream:stream] autorelease];
+	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] init] autorelease];
 	
 	STAssertTrue([streamWriter writeArray:[NSArray array]], nil);
 	

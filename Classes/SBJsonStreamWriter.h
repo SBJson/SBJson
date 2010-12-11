@@ -84,14 +84,15 @@
 @interface SBJsonStreamWriter : NSObject {
 	NSString *error;
 	SBJsonStreamWriterState **states;
-	NSOutputStream *stream;
+	NSMutableData *buf;
 	NSUInteger depth, maxDepth;
     BOOL sortKeys, humanReadable;
 }
 
+- (NSData*)dataToHere;
+
 @property(readonly) NSObject **states;
 @property(readonly) NSUInteger depth;
-@property(readonly) NSOutputStream *stream;
 
 /**
  @brief The maximum recursing depth.
@@ -124,15 +125,6 @@
  @brief Contains the error description after an error has occured.
  */
 @property (copy) NSString *error;
-
-
-/**
- @brief Initialise a stream writer.
- 
- You have to create an output stream first. You should not open/close the  stream
- manually; this class takes care of that.
- */
-- (id)initWithStream:(NSOutputStream*)stream;
 
 /** @brief Write an NSDictionary to the JSON stream.
  */

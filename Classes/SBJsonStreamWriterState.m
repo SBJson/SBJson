@@ -115,10 +115,8 @@ static SBJsonStreamWriterStateArrayValue *kSBJsonStreamWriterStateArrayValue;
 
 - (void)transitionState:(SBJsonStreamWriter *)writer {
 	writer.states[writer.depth] = kSBJsonStreamWriterStateComplete;
-	[writer.stream close];
 }
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
-	[writer.stream open];
 }
 @end
 

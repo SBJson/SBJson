@@ -70,10 +70,8 @@
     return nil;
 }
 
-- (NSData*)dataWithObject:(id)object {
-	NSOutputStream *stream = [[[NSOutputStream alloc] initToMemory] autorelease];
-	
-	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] initWithStream:stream] autorelease];
+- (NSData*)dataWithObject:(id)object {	
+	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] init] autorelease];
 	streamWriter.sortKeys = self.sortKeys;
 	streamWriter.maxDepth = self.maxDepth;
 	streamWriter.humanReadable = self.humanReadable;
@@ -93,7 +91,7 @@
 	}
 	
 	if (ok)
-		return [stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+		return [streamWriter dataToHere];
 	
 	self.error = streamWriter.error;
 	return nil;	

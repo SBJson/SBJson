@@ -42,7 +42,6 @@ static NSDecimalNumber *notANumber;
 @dynamic depth;
 @dynamic maxDepth;
 @synthesize states;
-@synthesize stream;
 @synthesize humanReadable;
 @synthesize sortKeys;
 
@@ -53,10 +52,10 @@ static NSDecimalNumber *notANumber;
 
 #pragma mark Housekeeping
 
-- (id)initWithStream:(NSOutputStream*)stream_ {
+- (id)init {
 	self = [super init];
 	if (self) {
-		stream = [stream_ retain];
+		buf = [[NSMutableData alloc] initWithCapacity:1024u];
 		maxDepth = 512;
 		states = calloc(maxDepth, sizeof(SBJsonStreamWriterState*));
 		NSAssert(states, @"States not initialised");
@@ -69,7 +68,7 @@ static NSDecimalNumber *notANumber;
 - (void)dealloc {
 	self.error = nil;
 	free(states);
-	[stream release];
+	[buf release];
 	[super dealloc];
 }
 
@@ -353,6 +352,12 @@ static const char *strForChar(int c) {
 	return YES;
 }
 
+- (NSData*)dataToHere {
+	NSData *ret = [buf autorelease];
+	buf = [NSMutableData dataWithCapacity:buf.length];
+	return ret;
+}
+
 #pragma mark Private methods
 
 - (NSUInteger)depth {
@@ -360,12 +365,7 @@ static const char *strForChar(int c) {
 }
 
 - (void)write:(char const *)utf8 len:(NSUInteger)len {
-    NSUInteger written = 0;
-    do {
-        NSInteger w = [stream write:(const uint8_t *)utf8 maxLength:len - written];	
-	    if (w > 0)																	
-		   	written += w;															
-	} while (written < len);													
+	[buf appendBytes:utf8 length:len];
 }
 
 - (void)setMaxDepth:(NSUInteger)x {
