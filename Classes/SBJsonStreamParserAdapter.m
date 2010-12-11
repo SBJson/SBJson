@@ -35,7 +35,7 @@
 @interface SBJsonStreamParserAdapter ()
 
 - (void)pop;
-- (void)parser:(SBJsonStreamParser*)parser foundObject:(id)obj;
+- (void)parser:(SBJsonStreamParser*)parser found:(id)obj;
 
 @end
 
@@ -84,7 +84,7 @@
 	}
 }
 
-- (void)parser:(SBJsonStreamParser*)parser foundObject:(id)obj {
+- (void)parser:(SBJsonStreamParser*)parser found:(id)obj {
 	NSParameterAssert(obj);
 	
 	switch (currentType) {
@@ -102,7 +102,7 @@
 			if ([obj isKindOfClass:[NSArray class]]) {
 				[delegate parser:parser foundArray:obj];
 			} else {
-				[delegate parser:parser foundObject:obj];
+				[delegate parser:parser found:obj];
 			}				
 			break;
 
@@ -130,7 +130,7 @@
 	if (depth-- > skip) {
 		id value = [[stack lastObject] retain];
 		[self pop];
-		[self parser:parser foundObject:value];
+		[self parser:parser found:value];
 		[value release];
 	}
 }
@@ -147,25 +147,25 @@
 	if (depth-- > skip) {
 		id value = [[stack lastObject] retain];
 		[self pop];
-		[self parser:parser foundObject:value];
+		[self parser:parser found:value];
 		[value release];
 	}
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x {
-	[self parser:parser foundObject:[NSNumber numberWithBool:x]];
+	[self parser:parser found:[NSNumber numberWithBool:x]];
 }
 
 - (void)parserFoundNull:(SBJsonStreamParser*)parser {
-	[self parser:parser foundObject:[NSNull null]];
+	[self parser:parser found:[NSNull null]];
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundNumber:(NSNumber*)num {
-	[self parser:parser foundObject:num];
+	[self parser:parser found:num];
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string {
-	[self parser:parser foundObject:string];
+	[self parser:parser found:string];
 }
 
 @end
