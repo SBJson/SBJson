@@ -38,10 +38,7 @@
 /**
  @brief Allows generation of JSON for otherwise unsupported classes.
  
- If you have a custom class that you want to create a JSON representation for you can implement
- this method in your class. It should return a representation of your object defined
- in terms of objects that can be translated into JSON. For example, a Person
- object might implement it like this:
+ If you have a custom class that you want to create a JSON representation for you can implement this method in your class. It should return a representation of your object defined in terms of objects that can be translated into JSON. For example, a Person object might implement it like this:
  
  @code
  - (id)proxyForJson {
@@ -62,22 +59,14 @@
 
 /**
  @brief The Stream Writer class.
+
+ Accepts a stream of messages and writes JSON of these to an internal data object. At any time you can retrieve the amount of data up to now, for example if you want to start sending data to a file before you're finished generating the JSON.
  
- SBJsonStreamWriter accepts various messages and writes JSON text to an
- NSOutputStream designated at iniatilisation time. 
+ A range of high-, mid- and low-level methods. You can mix and match calls to these. For example, you may want to call -writeArrayOpen to start an array and then repeatedly call -writeObject: with an object.
  
- A range of high-, mid- and low-level methods. You can mix and match calls
- to these. For example, you may want to call -writeArrayOpen to start an
- array and then repeatedly call -writeObject: with an object.
+ In JSON the keys of an object must be strings. NSDictionary keys need not be, but attempting to convert an NSDictionary with non-string keys into JSON will result in an error.
  
- In JSON the keys of an object must be strings. NSDictionary keys need
- not be, but attempting to convert an NSDictionary with non-string keys
- into JSON will result in an error.
- 
- NSNumber instances created with the +initWithBool: method are
- converted into the JSON boolean "true" and "false" values, and vice
- versa. Any other NSNumber instances are converted to a JSON number the
- way you would expect.
+ NSNumber instances created with the +initWithBool: method are converted into the JSON boolean "true" and "false" values, and vice versa. Any other NSNumber instances are converted to a JSON number the way you would expect.
  
  */
 
