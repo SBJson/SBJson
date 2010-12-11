@@ -354,7 +354,7 @@ static const char *strForChar(int c) {
 
 - (NSData*)dataToHere {
 	NSData *ret = [buf autorelease];
-	buf = [NSMutableData dataWithCapacity:buf.length];
+	buf = [[NSMutableData alloc] initWithCapacity:buf.length];
 	return ret;
 }
 
