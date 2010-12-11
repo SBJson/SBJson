@@ -30,12 +30,6 @@
 #import "SBJsonWriter.h"
 #import "SBJsonStreamWriter.h"
 
-@interface SBJsonWriter ()
-
-- (NSData*)dataWithObject:(id)value;
-
-@end
-
 @implementation SBJsonWriter
 
 @synthesize sortKeys;

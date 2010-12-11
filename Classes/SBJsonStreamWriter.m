@@ -33,10 +33,6 @@
 #import "SBJsonStreamWriter.h"
 
 @interface SBJsonStreamWriter ()
-@property(copy) NSString *error;
-@property(readonly) NSObject **states;
-@property(readonly) NSUInteger depth;
-@property(readonly) NSOutputStream *stream;
 - (BOOL)writeValue:(id)v;
 - (void)write:(char const *)utf8 len:(NSUInteger)len;
 @end
