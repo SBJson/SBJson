@@ -120,7 +120,7 @@ static NSDecimalNumber *notANumber;
 	}
 
 	states[depth] = kSBJsonStreamWriterStateObjectStart;
-	[self write:"{" len:1];
+	[buf appendBytes:"{" length:1];
 	return YES;
 }
 
@@ -128,7 +128,7 @@ static NSDecimalNumber *notANumber;
 	SBJsonStreamWriterState *state = states[depth--];
 	if ([state isInvalidState:self]) return NO;
 	if (humanReadable) [state appendWhitespace:self];
-	[self write:"}" len:1];
+	[buf appendBytes:"}" length:1];
 	[states[depth] transitionState:self];
 	return YES;
 }
@@ -146,7 +146,7 @@ static NSDecimalNumber *notANumber;
 	}
 
 	states[depth] = kSBJsonStreamWriterStateArrayStart;
-	[self write:"[" len:1];
+	[buf appendBytes:"[" length:1];
 	return YES;
 }
 
@@ -156,7 +156,7 @@ static NSDecimalNumber *notANumber;
 	if ([state expectingKey:self]) return NO;
 	if (humanReadable) [state appendWhitespace:self];
 	
-	[self write:"]" len:1];
+	[buf appendBytes:"]" length:1];
 	[states[depth] transitionState:self];
 	return YES;
 }
@@ -168,7 +168,7 @@ static NSDecimalNumber *notANumber;
 	[s appendSeparator:self];
 	if (humanReadable) [s appendWhitespace:self];
 
-	[self write:"null" len:4];
+	[buf appendBytes:"null" length:4];
 	[s transitionState:self];
 	return YES;
 }
@@ -181,9 +181,9 @@ static NSDecimalNumber *notANumber;
 	if (humanReadable) [s appendWhitespace:self];
 	
 	if (x)
-		[self write:"true" len:4];
+		[buf appendBytes:"true" length:4];
 	else
-		[self write:"false" len:5];
+		[buf appendBytes:"false" length:5];
 	[s transitionState:self];
 	return YES;
 }
@@ -264,7 +264,7 @@ static const char *strForChar(int c) {
 	
 	NSMutableData *data = [stringCache objectForKey:string];
 	if (data) {
-		[self write:[data bytes] len:[data length]];
+		[buf appendBytes:[data bytes] length:[data length]];
 		[s transitionState:self];
 		return YES;
 	}
@@ -293,7 +293,7 @@ static const char *strForChar(int c) {
 		[data appendBytes:utf8 + written length:i - written];
 
 	[data appendBytes:"\"" length:1];
-	[self write:[data bytes] len:[data length]];
+	[buf appendBytes:[data bytes] length:[data length]];
 	[stringCache setObject:data forKey:string];
 	[s transitionState:self];
 	return YES;
@@ -340,14 +340,14 @@ static const char *strForChar(int c) {
 		case 'f': case 'd': default:
 			if ([number isKindOfClass:[NSDecimalNumber class]]) {
 				char const *utf8 = [[number stringValue] UTF8String];
-				[self write:utf8 len: strlen(utf8)];
+				[buf appendBytes:utf8 length: strlen(utf8)];
 				[s transitionState:self];
 				return YES;
 			}
 			len = sprintf(num, "%g", [number doubleValue]);
 			break;
 	}
-	[self write:num len: len];
+	[buf appendBytes:num length: len];
 	[s transitionState:self];
 	return YES;
 }
@@ -364,15 +364,15 @@ static const char *strForChar(int c) {
 	return depth;
 }
 
-- (void)write:(char const *)utf8 len:(NSUInteger)len {
-	[buf appendBytes:utf8 length:len];
-}
-
 - (void)setMaxDepth:(NSUInteger)x {
 	NSAssert(x, @"maxDepth must be greater than 0");
 	maxDepth = x;
 	states = realloc(states, x);
 	NSAssert(states, @"Failed to reallocate more memory for states");
 }	
+
+- (NSMutableData*)buf {
+	return buf;
+}
 
 @end
