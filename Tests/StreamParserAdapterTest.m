@@ -58,29 +58,29 @@
 }
 
 - (void)testEmptyArray {
-	[adapter parserStartedArray:nil];
-	[adapter parserEndedArray:nil];
+	[adapter parserFoundArrayStart:nil];
+	[adapter parserFoundArrayEnd:nil];
 	
 	[expected addObject:[NSArray array]];
 	STAssertEqualObjects(delegate.objects, expected, nil);	
 }
 
 - (void)testEmptyObject {
-	[adapter parserStartedObject:nil];
-	[adapter parserEndedObject:nil];
+	[adapter parserFoundObjectStart:nil];
+	[adapter parserFoundObjectEnd:nil];
 
 	[expected addObject:[NSDictionary dictionary]];
 	STAssertEqualObjects(delegate.objects, expected, nil);	
 }
 
 - (void)testScalar {
-	[adapter parserStartedArray:nil];
+	[adapter parserFoundArrayStart:nil];
 	[adapter parser:nil foundString:@"foo"];
 	[adapter parser:nil foundNumber:[NSNumber numberWithInt:3]];
 	[adapter parser:nil foundNumber:[NSNumber numberWithDouble:3.14]];
 	[adapter parserFoundNull:nil];
 	[adapter parser:nil foundBoolean:YES];
-	[adapter parserEndedArray:nil];
+	[adapter parserFoundArrayEnd:nil];
 	
 	NSMutableArray *array = [NSMutableArray array];
 	[array addObject:@"foo"];
@@ -94,24 +94,24 @@
 }
 
 - (void)testSimpleObject {
-	[adapter parserStartedObject:nil];
+	[adapter parserFoundObjectStart:nil];
 	[adapter parser:nil foundObjectKey:@"fut"];
 	[adapter parser:nil foundString:@"futfut"];
-	[adapter parserEndedObject:nil];
+	[adapter parserFoundObjectEnd:nil];
 	
 	[expected addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"futfut", @"fut", nil]];
 	STAssertEqualObjects(delegate.objects, expected, nil);	
 }
 
 - (void)testNestedArray {
-	[adapter parserStartedArray:nil];
-	[adapter parserStartedArray:nil];
-	[adapter parserStartedArray:nil];
-	[adapter parserEndedArray:nil];
-	[adapter parserStartedArray:nil];
-	[adapter parserEndedArray:nil];
-	[adapter parserEndedArray:nil];
-	[adapter parserEndedArray:nil];
+	[adapter parserFoundArrayStart:nil];
+	[adapter parserFoundArrayStart:nil];
+	[adapter parserFoundArrayStart:nil];
+	[adapter parserFoundArrayEnd:nil];
+	[adapter parserFoundArrayStart:nil];
+	[adapter parserFoundArrayEnd:nil];
+	[adapter parserFoundArrayEnd:nil];
+	[adapter parserFoundArrayEnd:nil];
 	
 	NSArray *ary = [NSArray array];
 	ary = [NSArray arrayWithObjects:ary, ary, nil];
@@ -125,14 +125,14 @@
 - (void)testSkipOuterArray {
 	adapter.skip = 1;
 	
-	[adapter parserStartedArray:nil];
-	[adapter parserStartedArray:nil];
-	[adapter parserEndedArray:nil];
-	[adapter parserStartedArray:nil];
-	[adapter parserEndedArray:nil];
-	[adapter parserStartedArray:nil];
-	[adapter parserEndedArray:nil];
-	[adapter parserEndedArray:nil];
+	[adapter parserFoundArrayStart:nil];
+	[adapter parserFoundArrayStart:nil];
+	[adapter parserFoundArrayEnd:nil];
+	[adapter parserFoundArrayStart:nil];
+	[adapter parserFoundArrayEnd:nil];
+	[adapter parserFoundArrayStart:nil];
+	[adapter parserFoundArrayEnd:nil];
+	[adapter parserFoundArrayEnd:nil];
 
 	[expected addObject:[NSArray array]];
 	[expected addObject:[NSArray array]];
@@ -142,17 +142,17 @@
 }
 
 - (void)testNestedObject {
-	[adapter parserStartedObject:nil];
+	[adapter parserFoundObjectStart:nil];
 	[adapter parser:nil foundObjectKey:@"foo"];
-	[adapter parserStartedObject:nil];
+	[adapter parserFoundObjectStart:nil];
 	[adapter parser:nil foundObjectKey:@"bar"];
-	[adapter parserStartedObject:nil];
-	[adapter parserEndedObject:nil];
+	[adapter parserFoundObjectStart:nil];
+	[adapter parserFoundObjectEnd:nil];
 	[adapter parser:nil foundObjectKey:@"quux"];
-	[adapter parserStartedObject:nil];
-	[adapter parserEndedObject:nil];
-	[adapter parserEndedObject:nil];
-	[adapter parserEndedObject:nil];
+	[adapter parserFoundObjectStart:nil];
+	[adapter parserFoundObjectEnd:nil];
+	[adapter parserFoundObjectEnd:nil];
+	[adapter parserFoundObjectEnd:nil];
 	
 	NSDictionary *dict = [NSDictionary dictionary];
 	dict = [NSDictionary dictionaryWithObjectsAndKeys:dict, @"bar", dict, @"quux", nil];

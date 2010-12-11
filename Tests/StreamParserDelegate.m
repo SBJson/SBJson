@@ -50,7 +50,7 @@
 	[super dealloc];
 }
 
-- (void)parserStartedObject:(SBJsonStreamParser*)parser {
+- (void)parserFoundObjectStart:(SBJsonStreamParser*)parser {
 	[string appendFormat:@"{%u ", parser.depth];
 }
 
@@ -58,15 +58,15 @@
 	[string appendFormat:@"%@=", key];
 }
 
-- (void)parserEndedObject:(SBJsonStreamParser*)parser {
+- (void)parserFoundObjectEnd:(SBJsonStreamParser*)parser {
 	[string appendFormat:@"%u} ", parser.depth];
 }
 
-- (void)parserStartedArray:(SBJsonStreamParser*)parser {
+- (void)parserFoundArrayStart:(SBJsonStreamParser*)parser {
 	[string appendFormat:@"(%u ", parser.depth];
 }
 
-- (void)parserEndedArray:(SBJsonStreamParser*)parser {
+- (void)parserFoundArrayEnd:(SBJsonStreamParser*)parser {
 	[string appendFormat:@"%u) ", parser.depth];
 }
 

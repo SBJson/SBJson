@@ -161,14 +161,14 @@
 							states[depth] = kSBJsonStreamParserStateError;
 
 						} else {
-							[delegate parserStartedObject:self];
+							[delegate parserFoundObjectStart:self];
 							states[++depth] = kSBJsonStreamParserStateObjectStart;
 						}
 						break;
 						
 					case sbjson_token_object_end:
 						[states[--depth] parser:self shouldTransitionTo:tok];
-						[delegate parserEndedObject:self];
+						[delegate parserFoundObjectEnd:self];
 						break;
 						
 					case sbjson_token_array_start:
@@ -176,14 +176,14 @@
 							self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
 							states[depth] = kSBJsonStreamParserStateError;
 						} else {
-							[delegate parserStartedArray:self];
+							[delegate parserFoundArrayStart:self];
 							states[++depth] = kSBJsonStreamParserStateArrayStart;
 						}						
 						break;
 						
 					case sbjson_token_array_end:
 						[states[--depth] parser:self shouldTransitionTo:tok];
-						[delegate parserEndedArray:self];
+						[delegate parserFoundArrayEnd:self];
 						break;
 						
 					case sbjson_token_separator:

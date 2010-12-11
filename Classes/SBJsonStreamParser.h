@@ -52,19 +52,19 @@ typedef enum {
 @protocol SBJsonStreamParserDelegate
 
 /// Called when object start is found
-- (void)parserStartedObject:(SBJsonStreamParser*)parser;
+- (void)parserFoundObjectStart:(SBJsonStreamParser*)parser;
 
 /// Called when object key is found
 - (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key;
 
 /// Called when object end is found
-- (void)parserEndedObject:(SBJsonStreamParser*)parser;
+- (void)parserFoundObjectEnd:(SBJsonStreamParser*)parser;
 
 /// Called when array start is found
-- (void)parserStartedArray:(SBJsonStreamParser*)parser;
+- (void)parserFoundArrayStart:(SBJsonStreamParser*)parser;
 
 /// Called when array end is found
-- (void)parserEndedArray:(SBJsonStreamParser*)parser;
+- (void)parserFoundArrayEnd:(SBJsonStreamParser*)parser;
 
 /// Called when a boolean value is found
 - (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x;
