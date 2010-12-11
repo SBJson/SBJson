@@ -102,7 +102,7 @@
 			if ([obj isKindOfClass:[NSArray class]]) {
 				[delegate parser:parser foundArray:obj];
 			} else {
-				[delegate parser:parser found:obj];
+				[delegate parser:parser foundObject:obj];
 			}				
 			break;
 
