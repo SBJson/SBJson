@@ -39,11 +39,20 @@ typedef enum {
 	SBJsonStreamParserAdapterObject,
 } SBJsonStreamParserAdapterType;
 
-@class SBJsonStreamParser;
-
+/**
+ @brief Delegate for getting objects & arrays from the stream parser adapter
+ 
+ You will most likely find it much more convenient to implement this
+ than the raw SBJsonStreamParserDelegate protocol.
+ 
+ @see The TwitterStream example project.
+ */
 @protocol SBJsonStreamParserAdapterDelegate
 
+/// Called when a JSON array is found
 - (void)parser:(SBJsonStreamParser*)parser foundArray:(NSArray*)array;
+
+/// Called when a JSON object is found
 - (void)parser:(SBJsonStreamParser*)parser foundObject:(NSDictionary*)dict;
 
 @end
@@ -60,7 +69,20 @@ typedef enum {
 	SBJsonStreamParserAdapterType currentType;
 }
 
+/**
+ @brief How many levels to skip
+ 
+ This is useful for parsing HUGE JSON documents, particularly if it consists of an
+ outer array and multiple objects.
+ 
+ If you set this to N it will skip the outer N levels and call the -parser:foundArray:
+ or -parser:foundObject: methods for each of the inner objects, as appropriate.
+ 
+ @see The StreamParserIntegrationTest.m file for examples
+*/
 @property NSUInteger skip;
+
+/// Set this to the object you want to receive messages
 @property (assign) id<SBJsonStreamParserAdapterDelegate> delegate;
 
 @end

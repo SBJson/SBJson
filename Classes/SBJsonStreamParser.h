@@ -42,25 +42,49 @@ typedef enum {
 	SBJsonStreamParserError,
 } SBJsonStreamParserStatus;
 
+
+/**
+ @brief Delegate for interacting directly with the stream parser
+ 
+ You will most likely find it much more convenient to implement the
+ SBJsonStreamParserAdapterDelegate protocol instead.
+ */
 @protocol SBJsonStreamParserDelegate
 
+/// Called when object start is found
 - (void)parserStartedObject:(SBJsonStreamParser*)parser;
+
+/// Called when object key is found
 - (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key;
+
+/// Called when object end is found
 - (void)parserEndedObject:(SBJsonStreamParser*)parser;
 
+/// Called when array start is found
 - (void)parserStartedArray:(SBJsonStreamParser*)parser;
+
+/// Called when array end is found
 - (void)parserEndedArray:(SBJsonStreamParser*)parser;
 
+/// Called when a boolean value is found
 - (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x;
+
+/// Called when a null value is found
 - (void)parserFoundNull:(SBJsonStreamParser*)parser;
 
+/// Called when a number is found
 - (void)parser:(SBJsonStreamParser*)parser foundNumber:(NSNumber*)num;
+
+/// Called when a string is found
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string;
 
 @end
 
 
-
+/**
+ @brief JSON Stream-parser class
+ 
+ */
 @interface SBJsonStreamParser : NSObject {
 	BOOL multi;
 	id<SBJsonStreamParserDelegate> delegate;
@@ -70,13 +94,42 @@ typedef enum {
 	NSString *error;
 }
 
+/**
+ @brief Expect multiple documents separated by whitespace
+
+ If you set this property to true the parser will never return SBJsonStreamParserComplete.
+ Once an object is completed it will expect another object to follow, separated only by whitespace.
+
+ @see The TwitterStream example project.
+ */
 @property BOOL multi;
+
+/// Set this to the object you want to receive messages
 @property (assign) id<SBJsonStreamParserDelegate> delegate;
+
+/// The current depth in the json document (each [ and { each count 1)
 @property (readonly) NSUInteger depth;
+
+/// The max depth to allow the parser to reach
 @property NSUInteger maxDepth;
+
+/// @internal
 @property (readonly) SBJsonStreamParserState **states;
+
+/// Holds the error after SBJsonStreamParserError was returned
 @property (copy) NSString *error;
 
+/**
+ @brief Parse some JSON
+ 
+ The JSON is assumed to be UTF8 encoded. This can be a full JSON document, or a part of one.
+ 
+ @return 
+ @li SBJsonStreamParserComplete if a full document was found
+ @li SBJsonStreamParserWaitingForData if a partial document was found and more data is required to complete it
+ @li SBJsonStreamParserError if an error occured. (See the error property for details in this case.)
+ 
+ */
 - (SBJsonStreamParserStatus)parse:(NSData*)data;
 
 @end
