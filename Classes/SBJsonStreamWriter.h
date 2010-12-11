@@ -168,3 +168,9 @@
 - (BOOL)writeString:(NSString*)s;
 
 @end
+
+@interface SBJsonStreamWriter (Private)
+- (BOOL)writeValue:(id)v;
+- (void)write:(char const *)utf8 len:(NSUInteger)len;
+@end
+

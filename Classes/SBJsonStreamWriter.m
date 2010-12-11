@@ -31,129 +31,10 @@
  */
 
 #import "SBJsonStreamWriter.h"
-
-@interface SBJsonStreamWriter ()
-- (BOOL)writeValue:(id)v;
-- (void)write:(char const *)utf8 len:(NSUInteger)len;
-@end
-
-@interface SBJsonStreamWriterState : NSObject
-- (BOOL)isInvalidState:(SBJsonStreamWriter*)writer;
-- (void)appendSeparator:(SBJsonStreamWriter*)writer;
-- (BOOL)expectingKey:(SBJsonStreamWriter*)writer;
-- (void)transitionState:(SBJsonStreamWriter*)writer;
-- (void)appendWhitespace:(SBJsonStreamWriter*)writer;
-@end
-
-@interface SBJsonStreamWriterStateObjectStart : SBJsonStreamWriterState
-@end
-
-@interface SBJsonStreamWriterStateObjectKey : SBJsonStreamWriterStateObjectStart
-@end
-
-@interface SBJsonStreamWriterStateObjectValue : SBJsonStreamWriterState
-@end
-
-@interface SBJsonStreamWriterStateArrayStart : SBJsonStreamWriterState
-@end
-
-@interface SBJsonStreamWriterStateArrayValue : SBJsonStreamWriterState
-@end
-
-@interface SBJsonStreamWriterStateStart : SBJsonStreamWriterState
-@end
-
-@interface SBJsonStreamWriterStateComplete : SBJsonStreamWriterState
-@end
-
-@interface SBJsonStreamWriterStateError : SBJsonStreamWriterState
-@end
+#import "SBJsonStreamWriterState.h"
 
 static NSMutableDictionary *stringCache;
 static NSDecimalNumber *notANumber;
-
-// States
-static SBJsonStreamWriterStateStart *kSBJsonStreamWriterStateStart;
-static SBJsonStreamWriterStateComplete *kSBJsonStreamWriterStateComplete;
-static SBJsonStreamWriterStateError *kSBJsonStreamWriterStateError;
-static SBJsonStreamWriterStateObjectStart *kSBJsonStreamWriterStateObjectStart;
-static SBJsonStreamWriterStateObjectKey *kSBJsonStreamWriterStateObjectKey;
-static SBJsonStreamWriterStateObjectValue *kSBJsonStreamWriterStateObjectValue;
-static SBJsonStreamWriterStateArrayStart *kSBJsonStreamWriterStateArrayStart;
-static SBJsonStreamWriterStateArrayValue *kSBJsonStreamWriterStateArrayValue;
-
-
-@implementation SBJsonStreamWriterState
-- (BOOL)isInvalidState:(SBJsonStreamWriter*)writer { return NO; }
-- (void)appendSeparator:(SBJsonStreamWriter*)writer {}
-- (BOOL)expectingKey:(SBJsonStreamWriter*)writer { return NO; }
-- (void)transitionState:(SBJsonStreamWriter *)writer {}
-- (void)appendWhitespace:(SBJsonStreamWriter*)writer {
-	[writer write:"\n" len:1];
-	for (int i = 0; i < writer.depth; i++)
-	    [writer write:"  " len: 2];
-}
-@end
-
-@implementation SBJsonStreamWriterStateObjectStart
-- (void)transitionState:(SBJsonStreamWriter *)writer {
-	writer.states[writer.depth] = kSBJsonStreamWriterStateObjectValue;
-}
-- (BOOL)expectingKey:(SBJsonStreamWriter *)writer {
-	writer.error = @"JSON object key must be string";
-	return YES;
-}
-@end
-
-@implementation SBJsonStreamWriterStateObjectKey
-- (void)appendSeparator:(SBJsonStreamWriter *)writer {
-	[writer write:"," len:1];
-}
-@end
-
-@implementation SBJsonStreamWriterStateObjectValue
-- (void)appendSeparator:(SBJsonStreamWriter *)writer {
-	[writer write:":" len:1];
-}
-- (void)transitionState:(SBJsonStreamWriter *)writer {
-	writer.states[writer.depth] = kSBJsonStreamWriterStateObjectKey;
-}
-- (void)appendWhitespace:(SBJsonStreamWriter *)writer {
-	[writer write:" " len:1];
-}
-@end
-
-@implementation SBJsonStreamWriterStateArrayStart
-- (void)transitionState:(SBJsonStreamWriter *)writer {
-	writer.states[writer.depth] = kSBJsonStreamWriterStateArrayValue;
-}
-@end
-
-@implementation SBJsonStreamWriterStateArrayValue
-- (void)appendSeparator:(SBJsonStreamWriter *)writer {
-	[writer write:"," len:1];
-}
-@end
-
-@implementation SBJsonStreamWriterStateStart
-- (void)transitionState:(SBJsonStreamWriter *)writer {
-	writer.states[writer.depth] = kSBJsonStreamWriterStateComplete;
-	[writer.stream close];
-}
-- (void)appendSeparator:(SBJsonStreamWriter *)writer {
-	[writer.stream open];
-}
-@end
-
-@implementation SBJsonStreamWriterStateComplete
-- (BOOL)isInvalidState:(SBJsonStreamWriter*)writer {
-	writer.error = @"Stream is closed";
-	return YES;
-}
-@end
-
-@implementation SBJsonStreamWriterStateError
-@end
 
 @implementation SBJsonStreamWriter
 
@@ -168,15 +49,6 @@ static SBJsonStreamWriterStateArrayValue *kSBJsonStreamWriterStateArrayValue;
 + (void)initialize {
 	notANumber = [NSDecimalNumber notANumber];
 	stringCache = [NSMutableDictionary new];
-
-	kSBJsonStreamWriterStateStart = [SBJsonStreamWriterStateStart new];
-	kSBJsonStreamWriterStateComplete = [SBJsonStreamWriterStateComplete new];
-	kSBJsonStreamWriterStateError = [SBJsonStreamWriterStateError new];
-	kSBJsonStreamWriterStateObjectStart = [SBJsonStreamWriterStateObjectStart new];
-	kSBJsonStreamWriterStateObjectKey = [SBJsonStreamWriterStateObjectKey new];
-	kSBJsonStreamWriterStateObjectValue = [SBJsonStreamWriterStateObjectValue new];
-	kSBJsonStreamWriterStateArrayStart = [SBJsonStreamWriterStateArrayStart new];
-	kSBJsonStreamWriterStateArrayValue = [SBJsonStreamWriterStateArrayValue new];
 }
 
 #pragma mark Housekeeping
@@ -188,7 +60,8 @@ static SBJsonStreamWriterStateArrayValue *kSBJsonStreamWriterStateArrayValue;
 		maxDepth = 512;
 		states = calloc(maxDepth, sizeof(SBJsonStreamWriterState*));
 		NSAssert(states, @"States not initialised");
-		states[0] = kSBJsonStreamWriterStateStart;
+		
+		states[0] = [SBJsonStreamWriterStateStart sharedInstance];
 	}
 	return self;
 }
