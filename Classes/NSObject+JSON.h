@@ -29,20 +29,33 @@
 
 #import <Foundation/Foundation.h>
 
-/**
- @brief Adds JSON parsing methods to NSString
- 
-This is a category on NSString that adds methods for parsing the target string.
-*/
-@interface NSString (NSString_SBJSON)
+#pragma mark JSON Writing
 
-/**
- @brief Returns the NSDictionary or NSArray represented by the current string's JSON representation.
- 
- Returns the dictionary or array represented in the receiver, or nil on error.
+/// Adds JSON generation to NSArray
+@interface NSArray (NSArray_SBJsonWriting)
 
- Returns the NSDictionary or NSArray represented by the current string's JSON representation.
- */
+/// Returns a string containing the receiver encoded in JSON.
+- (NSString *)JSONRepresentation;
+
+@end
+
+
+/// Adds JSON generation to NSArray
+@interface NSDictionary (NSDictionary_SBJsonWriting)
+
+/// Returns a string containing the receiver encoded in JSON.
+- (NSString *)JSONRepresentation;
+
+@end
+
+#pragma mark JSON Parsing
+
+/// Adds JSON parsing methods to NSString
+@interface NSString (NSString_SBJsonParsing)
+
+/// Returns the NSDictionary or NSArray represented by the receiver's JSON representation, or nil on error
 - (id)JSONValue;
 
 @end
+
+

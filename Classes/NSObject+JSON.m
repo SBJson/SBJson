@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2007-2009 Stig Brautaset. All rights reserved.
+ Copyright (C) 2009 Stig Brautaset. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -27,13 +27,28 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "NSString+SBJSON.h"
+#import "NSObject+JSON.h"
+#import "SBJsonWriter.h"
 #import "SBJsonParser.h"
 
-@implementation NSString (NSString_SBJSON)
+@implementation NSObject (NSObject_SBJsonWriting)
 
-- (id)JSONValue
-{
+- (NSString *)JSONRepresentation {
+    SBJsonWriter *jsonWriter = [SBJsonWriter new];    
+    NSString *json = [jsonWriter stringWithObject:self];
+    if (!json)
+        NSLog(@"-JSONRepresentation failed. Error is: %@", jsonWriter.error);
+    [jsonWriter release];
+    return json;
+}
+
+@end
+
+
+
+@implementation NSString (NSString_SBJsonParsing)
+
+- (id)JSONValue {
     SBJsonParser *jsonParser = [SBJsonParser new];
     id repr = [jsonParser objectWithString:self];
     if (!repr)
