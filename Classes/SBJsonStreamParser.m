@@ -238,7 +238,7 @@
 					case sbjson_token_string_encoded: {
 						NSString *string;
 						if (tok == sbjson_token_string) {
-							NSAssert([tokeniser getToken:&buf length:&len], @"failed to get token");
+							[tokeniser getToken:&buf length:&len];
 							string = [[[NSString alloc] initWithBytes:buf+1 length:len-2 encoding:NSUTF8StringEncoding] autorelease];
 						} else {
 							string = [tokeniser getDecodedStringToken];

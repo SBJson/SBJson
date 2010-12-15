@@ -105,7 +105,7 @@
 - (NSString*)getDecodedStringToken {
 	NSUInteger len;
 	const char *bytes;
-	NSAssert([self getToken:&bytes length:&len], @"Failed to get token");
+	[self getToken:&bytes length:&len];
 	
 	len -= 1;
 	
