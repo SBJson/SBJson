@@ -41,7 +41,6 @@
 
 @property (copy) NSString *error;
 
-- (const char *)bytes;
 - (void)skipWhitespace;
 
 - (sbjson_token_t)match:(const char *)utf8 ofLength:(NSUInteger)len andReturn:(sbjson_token_t)tok;
@@ -91,6 +90,9 @@
 	
 	// Append NUL byte to simplify logic
 	[buf appendBytes:"\0" length:1];
+	
+	bufbytes = [buf bytes];
+	bufbytesLength = [buf length];
 }
 
 - (BOOL)getToken:(const char **)utf8 length:(NSUInteger *)len {
@@ -98,7 +100,7 @@
 		return NO;
 	
 	*len = tokenLength;
-	*utf8 = [self bytes];
+	*utf8 = bufbytes + tokenStart;
 	return YES;
 }
 
@@ -181,7 +183,7 @@ again: while (i < len) {
 
 	[self skipWhitespace];
 	
-	switch (*[self bytes]) {
+	switch (*(bufbytes + tokenStart)) {
 		case '\0':
 			return sbjson_token_eof;
 			break;
@@ -249,15 +251,9 @@ again: while (i < len) {
 
 #pragma mark Private methods
 
-- (const char *)bytes {
-	return (const char *)[buf bytes] + tokenStart;
-}
-
 - (void)skipWhitespace {
-	const char *b = [self bytes];
-	
-	for (;;) {
-		switch (*b++) {
+	while (tokenStart < bufbytesLength) {
+		switch (bufbytes[tokenStart]) {
 			case ' ':
 			case '\t':
 			case '\n':
@@ -277,9 +273,9 @@ again: while (i < len) {
 	if (buf.length - tokenStart - 1 < len)
 		return sbjson_token_eof;
 	
-	if (strncmp([self bytes], utf8, len)) {
+	if (strncmp(bufbytes + tokenStart, utf8, len)) {
 		NSString *format = [NSString stringWithFormat:@"Expected '%%s' but found '%%.%us'.", len];
-		self.error = [NSString stringWithFormat:format, utf8, [self bytes]];
+		self.error = [NSString stringWithFormat:format, utf8, bufbytes + tokenStart];
 		return sbjson_token_error;
 	}
 	
@@ -359,7 +355,7 @@ again: while (i < len) {
 - (sbjson_token_t)matchString {
 	sbjson_token_t ret = sbjson_token_string;
 
-	const char *bytes = [self bytes];
+	const char *bytes = bufbytes + tokenStart;
 	NSUInteger idx = 1;
 	NSUInteger maxIdx = buf.length - 2 - tokenStart;
 	
@@ -421,7 +417,7 @@ again: while (i < len) {
 - (sbjson_token_t)matchNumber {
 
 	sbjson_token_t ret = sbjson_token_integer;
-	const char *c = [self bytes];
+	const char *c = bufbytes + tokenStart;
 
 	if (*c == '-') {
 		c++;
@@ -472,7 +468,7 @@ again: while (i < len) {
 	if (!*c)
 		return sbjson_token_eof;
 	
-	tokenLength = c - [self bytes];
+	tokenLength = c - (bufbytes + tokenStart);
 	return ret;
 }
 
