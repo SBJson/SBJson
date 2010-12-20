@@ -51,7 +51,7 @@ typedef enum {
 } sbjson_token_t;
 
 @interface SBJsonTokeniser : NSObject {
-	NSUInteger offset, length;
+	NSUInteger tokenStart, tokenLength;
 	NSMutableData *buf;
 	NSString *error;
 }

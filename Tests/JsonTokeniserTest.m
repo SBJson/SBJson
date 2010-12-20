@@ -168,16 +168,16 @@
 
 - (void)testAppendTruncatesFront {
 	tokeniser = [self tokeniserWithString:@" 1 2 3"];
-	STAssertEqualObjects([tokeniser valueForKey:@"offset"], [NSNumber numberWithInt:0], nil);
+	STAssertEqualObjects([tokeniser valueForKey:@"tokenStart"], [NSNumber numberWithInt:0], nil);
 
 	[tokeniser next];
-	STAssertEqualObjects([tokeniser valueForKey:@"offset"], [NSNumber numberWithInt:1], nil);
+	STAssertEqualObjects([tokeniser valueForKey:@"tokenStart"], [NSNumber numberWithInt:1], nil);
 
 	[tokeniser next];
-	STAssertEqualObjects([tokeniser valueForKey:@"offset"], [NSNumber numberWithInt:3], nil);
+	STAssertEqualObjects([tokeniser valueForKey:@"tokenStart"], [NSNumber numberWithInt:3], nil);
 	
 	[tokeniser appendData:[NSData dataWithBytes:" " length:1]];
-	STAssertEqualObjects([tokeniser valueForKey:@"offset"], [NSNumber numberWithInt:0], nil);
+	STAssertEqualObjects([tokeniser valueForKey:@"tokenStart"], [NSNumber numberWithInt:0], nil);
 	
 	
 }
