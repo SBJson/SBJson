@@ -128,7 +128,7 @@
 
 - (void)parserFoundObjectEnd:(SBJsonStreamParser*)parser {
 	if (depth-- > skip) {
-		id value = [[stack lastObject] retain];
+		id value = [dict retain];
 		[self pop];
 		[self parser:parser found:value];
 		[value release];
@@ -145,7 +145,7 @@
 
 - (void)parserFoundArrayEnd:(SBJsonStreamParser*)parser {
 	if (depth-- > skip) {
-		id value = [[stack lastObject] retain];
+		id value = [array retain];
 		[self pop];
 		[self parser:parser found:value];
 		[value release];
