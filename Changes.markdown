@@ -1,22 +1,32 @@
 # JSON Framework Changes
 
-## Version 2.4 (TBD)
+## Version 3.0alpha2 (December 28th, 2010)
 
 ### Changes
 
-* Minor changes to formatting when the HumanReadable flag is set:
-  * Empty arrays and objects are no longer special-cased to appear on a single line.
-  * The separator between key and value in an object has changed to ': ' rather than ' : '.
+* Minor changes to formatting when the HumanReadable flag is set. Empty arrays and objects are no longer special-cased to appear on a single line. The separator between key and value in an object has changed to ': ' rather than ' : '.
+* [Issue 25][#25]: Simplified error handling.
 
-### Enhancements & New Features
 
-* [Issue 12][#12]: Added a SBJsonStreamWriter class that can write to any NSOutputStream. This means you can write huge JSON documents to disk, or an HTTP destination, without having to hold the entire structure in memory. You can even generate it as you go, and just stream snapshots to an external process.
+### New Features
+
+* [Issue 16][#16]: Added support for parsing a UTF8 data stream. This means you can start parsing huge documents before it's all downloaded. Supports skipping the outer-most layer of huge arrays/objects or parsing multiple whitespace-separated completed documents.
+* [Issue 12][#12]: Added support for writing JSON to a data stream. This means you can write huge JSON documents to disk, or an HTTP destination, without having to hold the entire structure in memory. You can even generate it as you go, and just stream snapshots to an external process.
+* [Issue 18][#18] & [27][#27]: Re-orient API to be NSData-based. The NSString-oriented API methods now delegates to this.
+
+### Enhancements
+
 * [Issue 9][#9]: Improve performance of the SBJsonWriter. This implementation is nearly twice as fast as 2.3.x on Sam Soffes' [benchmarks][bench].
-
+* [Issue 30][#30]: Added demo showing how to interact with Twitter's multi-document stream. (See `Examples/TwitterStream` in the distribution.)
 
 [bench]: http://github.com/samsoffes/json-benchmarks
-[#12]: http://github.com/stig/json-framework/issues/#issue/12
 [#9]: http://github.com/stig/json-framework/issues/#issue/9
+[#12]: http://github.com/stig/json-framework/issues/#issue/12
+[#16]: http://github.com/stig/json-framework/issues/#issue/16
+[#18]: http://github.com/stig/json-framework/issues/#issue/18
+[#27]: http://github.com/stig/json-framework/issues/#issue/27
+[#30]: http://github.com/stig/json-framework/issues/#issue/30
+[#25]: http://github.com/stig/json-framework/issues/#issue/25
 
 ## Version 2.3.1 (September 25th, 2010)
 
