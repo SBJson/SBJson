@@ -120,8 +120,8 @@
 }
 
 
-- (SBJsonStreamParserStatus)parse:(NSData *)data {
-	[tokeniser appendData:data];
+- (SBJsonStreamParserStatus)parse:(NSData *)data_ {
+	[tokeniser appendData:data_];
 	
 	const char *buf;
 	NSUInteger len;
