@@ -68,6 +68,7 @@
 }
 
 - (void)dealloc {
+	self.error = nil;
 	[buf release];
 	[super dealloc];
 }
