@@ -394,7 +394,7 @@ again: while (i < len) {
 						break;
 					}
 					default:
-						self.error = [NSString stringWithFormat:@"Broken escape character in token starting at offset %u", tokenStart];
+						self.error = [NSString stringWithFormat:@"Broken escape character at index %u in token starting at offset %u", idx-1, tokenStart];
 						return sbjson_token_error;
 						break;
 				}
