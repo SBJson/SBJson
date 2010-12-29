@@ -50,7 +50,7 @@
 	self = [super init];
 	if (self) {
 		tokeniser = [SBJsonTokeniser new];
-		maxDepth = 32;
+		maxDepth = 512;
 		states = calloc(maxDepth, sizeof(SBJsonStreamParserState*));
 		NSAssert(states, @"States not initialised");
 		states[0] = [SBJsonStreamParserStateStart sharedInstance];
@@ -59,8 +59,9 @@
 }
 
 - (void)dealloc {
+	self.error = nil;
+	free(states);
 	[tokeniser release];
-	[error release];
 	[super dealloc];
 }
 
@@ -260,5 +261,13 @@
 	return SBJsonStreamParserComplete;
 }
 
+#pragma mark Private methods
+
+- (void)setMaxDepth:(NSUInteger)x {
+	NSAssert(x, @"maxDepth must be greater than 0");
+	maxDepth = x;
+	states = realloc(states, x);
+	NSAssert(states, @"Failed to reallocate more memory for states");
+}
 
 @end
