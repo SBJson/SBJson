@@ -40,7 +40,7 @@
 @synthesize multi;
 @synthesize error;
 @synthesize delegate;
-@synthesize maxDepth;
+@dynamic maxDepth;
 @synthesize states;
 @synthesize depth;
 
