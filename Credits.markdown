@@ -56,3 +56,6 @@ For his work on [YAJL][yajl] (Yet Another JSON Library)
 For his work on [YAJL-ObjC][yajl-objc].
 
 [yajl-objc]: http://github.com/gabriel/yajl-objc
+
+## Andy Warwick
+Reported several build-issues that I didn't catch.
