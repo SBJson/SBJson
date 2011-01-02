@@ -1,12 +1,16 @@
 # JSON Framework Changes
 
+## Version 3.0alpha3 (January 2nd, 2011)
+
+* Added documentation to the TwitterStream sample project.
+* Fixed a few warnings, bugs & a memory leak reported by Andy Warwick.
+
 ## Version 3.0alpha2 (December 28th, 2010)
 
 ### Changes
 
 * Minor changes to formatting when the HumanReadable flag is set. Empty arrays and objects are no longer special-cased to appear on a single line. The separator between key and value in an object has changed to ': ' rather than ' : '.
 * [Issue 25][#25]: Simplified error handling.
-
 
 ### New Features
 
@@ -17,7 +21,7 @@
 ### Enhancements
 
 * [Issue 9][#9]: Improve performance of the SBJsonWriter. This implementation is nearly twice as fast as 2.3.x on Sam Soffes' [benchmarks][bench].
-* [Issue 30][#30]: Added demo showing how to interact with Twitter's multi-document stream. (See `Examples/TwitterStream` in the distribution.)
+* [Issue 30][#30]: Added *TwitterStream* example project showing how to interact with Twitter's multi-document stream. (See `Examples/TwitterStream` in the distribution.)
 
 [bench]: http://github.com/samsoffes/json-benchmarks
 [#9]: http://github.com/stig/json-framework/issues/#issue/9
