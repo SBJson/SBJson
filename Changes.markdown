@@ -1,5 +1,14 @@
 # JSON Framework Changes
 
+## Version 2.3.2 (January 10th, 2011)
+
+### Bug fixes
+
+* [Issue 13][#13]: Unable to open Targets. Fix bug introduced by trying to be clever and share PBXShellScriptBuildPhases in the project.pbxproj file.
+
+[#13]: http://github.com/stig/json-framework/issues/closed/#issue/13
+
+
 ## Version 2.3.1 (September 25th, 2010)
 
 ### Changes
