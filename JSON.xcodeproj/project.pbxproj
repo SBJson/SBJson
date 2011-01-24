@@ -259,6 +259,9 @@
 		E75716450C96DB530084A449 /* NSObject+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+JSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E75716460C96DB530084A449 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+JSON.m */; };
 		E76A1EBD0C996EFD00A0CC83 /* DataDrivenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E76A1EB60C996C2000A0CC83 /* DataDrivenTest.m */; };
+		F261341E12EDA803006EA801 /* SBJsonObjectPath.h in Headers */ = {isa = PBXBuildFile; fileRef = F261341C12EDA803006EA801 /* SBJsonObjectPath.h */; };
+		F261341F12EDA803006EA801 /* SBJsonObjectPath.m in Sources */ = {isa = PBXBuildFile; fileRef = F261341D12EDA803006EA801 /* SBJsonObjectPath.m */; };
+		F261343B12EDABCA006EA801 /* SBJsonObjectPath.m in Sources */ = {isa = PBXBuildFile; fileRef = F261341D12EDA803006EA801 /* SBJsonObjectPath.m */; };
 		FE2BBD860D8B0D6000184787 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FE2BBD870D8B0D6000184787 /* NSObject+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+JSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FE2BBD880D8B0D6000184787 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+JSON.m */; };
@@ -421,6 +424,8 @@
 		E75716430C96DB530084A449 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
 		E76A1EB60C996C2000A0CC83 /* DataDrivenTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataDrivenTest.m; sourceTree = "<group>"; };
+		F261341C12EDA803006EA801 /* SBJsonObjectPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonObjectPath.h; sourceTree = "<group>"; };
+		F261341D12EDA803006EA801 /* SBJsonObjectPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonObjectPath.m; sourceTree = "<group>"; };
 		FE2BBD800D8B0D3900184787 /* libjson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE2BBDAB0D8B0EE000184787 /* libjsontests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libjsontests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE2BBDAC0D8B0EE100184787 /* libjsontests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "libjsontests-Info.plist"; sourceTree = "<group>"; };
@@ -487,6 +492,8 @@
 		53D229950C96123C00276605 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F261341C12EDA803006EA801 /* SBJsonObjectPath.h */,
+				F261341D12EDA803006EA801 /* SBJsonObjectPath.m */,
 				53D2299A0C96129800276605 /* JSON.h */,
 				E75716430C96DB530084A449 /* NSObject+JSON.h */,
 				E75716440C96DB530084A449 /* NSObject+JSON.m */,
@@ -704,6 +711,7 @@
 				BCE5E2B2129C809700C156C0 /* SBJsonStreamParserState.h in Headers */,
 				BC9602B712A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */,
 				BCCEBEFD12B3E14500263D0F /* SBJsonStreamWriterState.h in Headers */,
+				F261341E12EDA803006EA801 /* SBJsonObjectPath.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -811,7 +819,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 53D229740C9611FF00276605 /* Build configuration list for PBXProject "JSON" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 53D229710C9611FF00276605;
 			productRefGroup = 53D229820C96121600276605 /* Products */;
 			projectDirPath = "";
@@ -1157,6 +1172,7 @@
 				BCE5E2B3129C809700C156C0 /* SBJsonStreamParserState.m in Sources */,
 				BC9602B812A452CF0024BDA2 /* SBJsonStreamParserAdapter.m in Sources */,
 				BCCEBEFE12B3E14500263D0F /* SBJsonStreamWriterState.m in Sources */,
+				F261341F12EDA803006EA801 /* SBJsonObjectPath.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1191,6 +1207,7 @@
 				BCE5E2B0129C809700C156C0 /* SBJsonStreamParserState.m in Sources */,
 				BC9602BA12A452CF0024BDA2 /* SBJsonStreamParserAdapter.m in Sources */,
 				BCCEBF0012B3E14500263D0F /* SBJsonStreamWriterState.m in Sources */,
+				F261343B12EDABCA006EA801 /* SBJsonObjectPath.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1236,6 +1253,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-Wparentheses";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -1275,7 +1293,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = JSON;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = SB;
 			};
