@@ -1069,7 +1069,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/bin/perl -pi -e 's/#if 1/#if 0/' $SRCROOT/Classes/JSON.h\n";
+			shellScript = "/usr/bin/perl -pi -e 's/#if 1/#if 0/' \"$SRCROOT/Classes/JSON.h\"";
 			showEnvVarsInLog = 0;
 		};
 		BC5BC69F1249767600F22EB1 /* ShellScript */ = {
@@ -1083,7 +1083,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/bin/perl -pi -e 's/#if 1/#if 0/' $SRCROOT/Classes/JSON.h\n";
+			shellScript = "/usr/bin/perl -pi -e 's/#if 1/#if 0/' \"$SRCROOT/Classes/JSON.h\"";
 			showEnvVarsInLog = 0;
 		};
 		BC5BC6BE1249E3E500F22EB0 /* ShellScript */ = {
@@ -1097,7 +1097,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/bin/perl -pi -e 's/#if 0/#if 1/' $SRCROOT/Classes/JSON.h\n";
+			shellScript = "/usr/bin/perl -pi -e 's/#if 0/#if 1/' \"$SRCROOT/Classes/JSON.h\"";
 			showEnvVarsInLog = 0;
 		};
 		BC5BC6BE1249E3E500F22EB1 /* ShellScript */ = {
@@ -1111,7 +1111,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/bin/perl -pi -e 's/#if 0/#if 1/' $SRCROOT/Classes/JSON.h\n";
+			shellScript = "/usr/bin/perl -pi -e 's/#if 0/#if 1/' \"$SRCROOT/Classes/JSON.h\"";
 			showEnvVarsInLog = 0;
 		};
 		BCC047150FB651AF00F9F2D3 /* Install Docset */ = {
