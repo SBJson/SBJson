@@ -7,16 +7,13 @@ VERSION=$(agvtool mvers -terse1)
 
 DOXYFILE=$DERIVED_FILES_DIR/doxygen.config
 DOXYGEN=/Applications/Doxygen.app/Contents/Resources/doxygen
-DOCSET=$INSTALL_DIR/Docset
-
-rm -rf $DOCSET
-mkdir -p $DOCSET || exit 1
-mkdir -p $DERIVED_FILES_DIR || exit 1
 
 if ! test -x $DOXYGEN ; then
 	echo "*** Install Doxygen to get documentation generated for you automatically ***"
 	exit 1
 fi
+
+mkdir -p $DERIVED_FILES_DIR || exit 1
 
 # Create a doxygen configuration file with only the settings we care about
 $DOXYGEN -g - > $DOXYFILE
@@ -25,7 +22,7 @@ cat <<EOF >> $DOXYFILE
 
 PROJECT_NAME           = $FULL_PRODUCT_NAME
 PROJECT_NUMBER         = $VERSION
-OUTPUT_DIRECTORY       = $DOCSET
+OUTPUT_DIRECTORY       = $DERIVED_FILES_DIR
 INPUT                  = $SOURCE_ROOT/Classes
 FILE_PATTERNS          = *.h *.m
 
@@ -51,7 +48,7 @@ EOF
 $DOXYGEN $DOXYFILE
 
 #  make will invoke docsetutil. Take a look at the Makefile to see how this is done.
-make -C $DOCSET/html install
+make -C $DERIVED_FILES_DIR/html install
 
 #  Construct a temporary applescript file to tell Xcode to load a docset.
 rm -f $TEMP_DIR/loadDocSet.scpt

@@ -7,17 +7,28 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		BCC047160FB651AF00F9F2D3 /* Documentation */ = {
+		BCC047160FB651AF00F9F2D3 /* DocSet */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = BCC047190FB651CD00F9F2D3 /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildConfigurationList = BCC047190FB651CD00F9F2D3 /* Build configuration list for PBXAggregateTarget "DocSet" */;
 			buildPhases = (
-				BCC047150FB651AF00F9F2D3 /* Install Docset */,
-				BC3A1CB112023B860051A978 /* Refresh Online Docs */,
+				BCC047150FB651AF00F9F2D3 /* Run Script */,
 			);
 			dependencies = (
 			);
-			name = Documentation;
+			name = DocSet;
 			productName = Documentation;
+		};
+		BCF6393B12F5FD3B0094F9AE /* RefreshOnlineDocs */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = BCF6394012F5FD6E0094F9AE /* Build configuration list for PBXAggregateTarget "RefreshOnlineDocs" */;
+			buildPhases = (
+				BCF6393A12F5FD3B0094F9AE /* ShellScript */,
+			);
+			dependencies = (
+				BCF6393F12F5FD4F0094F9AE /* PBXTargetDependency */,
+			);
+			name = RefreshOnlineDocs;
+			productName = "Refresh Online Docs";
 		};
 /* End PBXAggregateTarget section */
 
@@ -273,6 +284,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 53D229800C96121600276605;
 			remoteInfo = JSON;
+		};
+		BCF6393E12F5FD4F0094F9AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 53D229730C9611FF00276605 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BCC047160FB651AF00F9F2D3 /* Generate DocSet */;
+			remoteInfo = "Generate DocSet";
 		};
 		FE2BBDB30D8B0F0F00184787 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -821,7 +839,8 @@
 				53D2298C0C96122A00276605 /* Tests */,
 				FE2BBD7F0D8B0D3900184787 /* libjson */,
 				FE2BBDAA0D8B0EE000184787 /* libjsontests */,
-				BCC047160FB651AF00F9F2D3 /* Documentation */,
+				BCC047160FB651AF00F9F2D3 /* DocSet */,
+				BCF6393B12F5FD3B0094F9AE /* RefreshOnlineDocs */,
 			);
 		};
 /* End PBXProject section */
@@ -1044,20 +1063,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-		BC3A1CB112023B860051A978 /* Refresh Online Docs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Refresh Online Docs";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "exec $SOURCE_ROOT/Scripts/RefreshOnlineDocs.sh";
-		};
 		BC5BC69F1249767600F22EB0 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -1114,19 +1119,35 @@
 			shellScript = "/usr/bin/perl -pi -e 's/#if 0/#if 1/' \"$SRCROOT/Classes/JSON.h\"";
 			showEnvVarsInLog = 0;
 		};
-		BCC047150FB651AF00F9F2D3 /* Install Docset */ = {
+		BCC047150FB651AF00F9F2D3 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Classes/*.h",
+				"$(SRCROOT)/Classes/*.m",
+			);
+			name = "Run Script";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/doxygen.config",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec $SOURCE_ROOT/Scripts/InstallDocumentation.sh";
+		};
+		BCF6393A12F5FD3B0094F9AE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Install Docset";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exec $SOURCE_ROOT/Scripts/InstallDocumentation.sh";
+			shellScript = "exec $SOURCE_ROOT/Scripts/RefreshOnlineDocs.sh";
 		};
 		FE2BBDA90D8B0EE000184787 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1219,6 +1240,11 @@
 			isa = PBXTargetDependency;
 			target = 53D229800C96121600276605 /* JSON */;
 			targetProxy = 53D229920C96122E00276605 /* PBXContainerItemProxy */;
+		};
+		BCF6393F12F5FD4F0094F9AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BCC047160FB651AF00F9F2D3 /* DocSet */;
+			targetProxy = BCF6393E12F5FD4F0094F9AE /* PBXContainerItemProxy */;
 		};
 		FE2BBDB40D8B0F0F00184787 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1400,6 +1426,27 @@
 			};
 			name = Release;
 		};
+		BCF6393C12F5FD3B0094F9AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Refresh Online Docs";
+			};
+			name = Debug;
+		};
+		BCF6393D12F5FD3B0094F9AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Refresh Online Docs";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		FE2BBD840D8B0D3900184787 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1550,11 +1597,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCC047190FB651CD00F9F2D3 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+		BCC047190FB651CD00F9F2D3 /* Build configuration list for PBXAggregateTarget "DocSet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCC047170FB651AF00F9F2D3 /* Debug */,
 				BCC047180FB651AF00F9F2D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCF6394012F5FD6E0094F9AE /* Build configuration list for PBXAggregateTarget "RefreshOnlineDocs" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCF6393C12F5FD3B0094F9AE /* Debug */,
+				BCF6393D12F5FD3B0094F9AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
