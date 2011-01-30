@@ -73,7 +73,7 @@
 @interface SBJsonStreamWriter : NSObject {
 	NSString *error;
 	SBJsonStreamWriterState **states;
-	NSMutableData *buf;
+	NSMutableData *data;
 	NSUInteger depth, maxDepth;
     BOOL sortKeys, humanReadable;
 }
@@ -152,6 +152,6 @@
 
 @interface SBJsonStreamWriter (Private)
 - (BOOL)writeValue:(id)v;
-@property (readonly) NSMutableData*buf;
+@property (readonly) NSMutableData*data;
 @end
 

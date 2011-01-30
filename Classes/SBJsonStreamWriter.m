@@ -55,7 +55,7 @@ static NSDecimalNumber *notANumber;
 - (id)init {
 	self = [super init];
 	if (self) {
-		buf = [[NSMutableData alloc] initWithCapacity:1024u];
+		data = [[NSMutableData alloc] initWithCapacity:1024u];
 		maxDepth = 512;
 		states = calloc(maxDepth, sizeof(SBJsonStreamWriterState*));
 		NSAssert(states, @"States not initialised");
@@ -68,7 +68,7 @@ static NSDecimalNumber *notANumber;
 - (void)dealloc {
 	self.error = nil;
 	free(states);
-	[buf release];
+	[data release];
 	[super dealloc];
 }
 
@@ -120,7 +120,7 @@ static NSDecimalNumber *notANumber;
 	}
 
 	states[depth] = kSBJsonStreamWriterStateObjectStart;
-	[buf appendBytes:"{" length:1];
+	[data appendBytes:"{" length:1];
 	return YES;
 }
 
@@ -128,7 +128,7 @@ static NSDecimalNumber *notANumber;
 	SBJsonStreamWriterState *state = states[depth--];
 	if ([state isInvalidState:self]) return NO;
 	if (humanReadable) [state appendWhitespace:self];
-	[buf appendBytes:"}" length:1];
+	[data appendBytes:"}" length:1];
 	[states[depth] transitionState:self];
 	return YES;
 }
@@ -146,7 +146,7 @@ static NSDecimalNumber *notANumber;
 	}
 
 	states[depth] = kSBJsonStreamWriterStateArrayStart;
-	[buf appendBytes:"[" length:1];
+	[data appendBytes:"[" length:1];
 	return YES;
 }
 
@@ -156,7 +156,7 @@ static NSDecimalNumber *notANumber;
 	if ([state expectingKey:self]) return NO;
 	if (humanReadable) [state appendWhitespace:self];
 	
-	[buf appendBytes:"]" length:1];
+	[data appendBytes:"]" length:1];
 	[states[depth] transitionState:self];
 	return YES;
 }
@@ -168,7 +168,7 @@ static NSDecimalNumber *notANumber;
 	[s appendSeparator:self];
 	if (humanReadable) [s appendWhitespace:self];
 
-	[buf appendBytes:"null" length:4];
+	[data appendBytes:"null" length:4];
 	[s transitionState:self];
 	return YES;
 }
@@ -181,9 +181,9 @@ static NSDecimalNumber *notANumber;
 	if (humanReadable) [s appendWhitespace:self];
 	
 	if (x)
-		[buf appendBytes:"true" length:4];
+		[data appendBytes:"true" length:4];
 	else
-		[buf appendBytes:"false" length:5];
+		[data appendBytes:"false" length:5];
 	[s transitionState:self];
 	return YES;
 }
@@ -262,9 +262,9 @@ static const char *strForChar(int c) {
 	[s appendSeparator:self];
 	if (humanReadable) [s appendWhitespace:self];
 	
-	NSMutableData *data = [stringCache objectForKey:string];
-	if (data) {
-		[buf appendBytes:[data bytes] length:[data length]];
+	NSMutableData *buf = [stringCache objectForKey:string];
+	if (buf) {
+		[data appendBytes:[buf bytes] length:[buf length]];
 		[s transitionState:self];
 		return YES;
 	}
@@ -273,28 +273,28 @@ static const char *strForChar(int c) {
 	const char *utf8 = [string UTF8String];
 	NSUInteger written = 0, i = 0;
 		
-	data = [NSMutableData dataWithCapacity:len * 1.1f];
-	[data appendBytes:"\"" length:1];
+	buf = [NSMutableData dataWithCapacity:len * 1.1f];
+	[buf appendBytes:"\"" length:1];
 	
 	for (i = 0; i < len; i++) {
 		int c = utf8[i];
 		BOOL isControlChar = c >= 0 && c < 32;
 		if (isControlChar || c == '"' || c == '\\') {
 			if (i - written)
-				[data appendBytes:utf8 + written length:i - written];
+				[buf appendBytes:utf8 + written length:i - written];
 			written = i + 1;
 
 			const char *t = strForChar(c);
-			[data appendBytes:t length:strlen(t)];
+			[buf appendBytes:t length:strlen(t)];
 		}
 	}
 
 	if (i - written)
-		[data appendBytes:utf8 + written length:i - written];
+		[buf appendBytes:utf8 + written length:i - written];
 
-	[data appendBytes:"\"" length:1];
-	[buf appendBytes:[data bytes] length:[data length]];
-	[stringCache setObject:data forKey:string];
+	[buf appendBytes:"\"" length:1];
+	[data appendBytes:[buf bytes] length:[buf length]];
+	[stringCache setObject:buf forKey:string];
 	[s transitionState:self];
 	return YES;
 }
@@ -340,21 +340,21 @@ static const char *strForChar(int c) {
 		case 'f': case 'd': default:
 			if ([number isKindOfClass:[NSDecimalNumber class]]) {
 				char const *utf8 = [[number stringValue] UTF8String];
-				[buf appendBytes:utf8 length: strlen(utf8)];
+				[data appendBytes:utf8 length: strlen(utf8)];
 				[s transitionState:self];
 				return YES;
 			}
 			len = sprintf(num, "%g", [number doubleValue]);
 			break;
 	}
-	[buf appendBytes:num length: len];
+	[data appendBytes:num length: len];
 	[s transitionState:self];
 	return YES;
 }
 
 - (NSData*)dataToHere {
-	NSData *ret = [buf autorelease];
-	buf = [[NSMutableData alloc] initWithCapacity:buf.length];
+	NSData *ret = [data autorelease];
+	data = [[NSMutableData alloc] initWithCapacity:data.length];
 	return ret;
 }
 
@@ -371,8 +371,8 @@ static const char *strForChar(int c) {
 	NSAssert(states, @"Failed to reallocate more memory for states");
 }	
 
-- (NSMutableData*)buf {
-	return buf;
+- (NSMutableData*)data {
+	return data;
 }
 
 @end
