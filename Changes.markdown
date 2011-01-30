@@ -2,11 +2,15 @@
 
 ## Version 3.0alpha4 (TBD)
 
-* [Issue 36][#36]: Fix bu in build script that caused it to break if $SRCROOT has spaces.
-* Remove the hacky dataToHere method in favour of just exposing the internal NSMutableData buffer.
+### Bug Fixes
+* [Issue 36][#36]: Fix bug in build script that caused it to break if $SRCROOT has spaces.
 
 [#36]: http://github.com/stig/json-framework/issues/#issue/36
 
+### Changes
+
+* Remove the hacky dataToHere method in favour of just exposing the internal NSMutableData buffer.
+* Added a minimal Mac example project showing how to link to an external JSON framework rather than copying the sources into your project.
 
 ## Version 3.0alpha3 (January 2nd, 2011)
 
