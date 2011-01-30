@@ -78,7 +78,14 @@
     BOOL sortKeys, humanReadable;
 }
 
-- (NSData*)dataToHere;
+/**
+ @brief The data written to the stream so far.
+ 
+ This is a mutable object. This means that you can write a chunk of its
+ contents to an NSOutputStream, then chop as many bytes as you wrote off
+ the beginning of the buffer.
+ */
+@property(readonly) NSMutableData *data;
 
 @property(readonly) NSObject **states;
 @property(readonly) NSUInteger depth;
@@ -152,6 +159,5 @@
 
 @interface SBJsonStreamWriter (Private)
 - (BOOL)writeValue:(id)v;
-@property (readonly) NSMutableData*data;
 @end
 
