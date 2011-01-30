@@ -7,11 +7,20 @@ layout: default
 
 A strict JSON parser and generator for Objective-C. It adds categories to existing Objective-C objects for a super-simple interface. More flexible APIs are also provided for added control.
 
+Features:
+
+* Easy-to-use API.
+* Strict parsing & generation.
+* Stack of error available in case of failure so you can easily figure out what is wrong.
+* Optional pretty-printing of JSON output.
+* Optionally sorted dictionary keys in JSON output.
+* Configurable recursion depth for parsing, for added security.
+
 # Documentation
 
 API documentation generated from the source by [Doxygen](http://www.doxygen.org):
 
-* [Version 2.3.1](2.3.1/)
+* [Version 3.0](3.0/)
 * [Version 2.3](2.3/)
 
 # Support
@@ -26,11 +35,10 @@ Got an issue you can't figure out? Try one of these:
 
 # Download
 
-The code is available from [github.com/stig/json-framework](http://github.com/stig/json-framework). You can
-download a tagged release:
+The code is available from [github.com/stig/json-framework](http://github.com/stig/json-framework). You can download a tagged release:
 
-* [version 2.3.1 (zip file)](http://github.com/stig/json-framework/zipball/v2.3.1)
-* [version 2.3 (zip file)](http://github.com/stig/json-framework/zipball/v2.3)
+* [version 3.0beta1 (zip file)](http://github.com/stig/json-framework/zipball/v3.0beta1)
+* [version 2.3.2 (zip file)](http://github.com/stig/json-framework/zipball/v2.3.2)
 
 You can also clone it with [Git](http://git-scm.com) by running:
 
@@ -38,18 +46,9 @@ You can also clone it with [Git](http://git-scm.com) by running:
 $ git clone git://github.com/stig/json-framework
 </pre>
 
-# Features
-
-* Easy-to-use API.
-* Strict parsing & generation.
-* Stack of error available in case of failure so you can easily figure out what is wrong.
-* Optional pretty-printing of JSON output.
-* Optionally sorted dictionary keys in JSON output.
-* Configurable recursion depth for parsing, for added security.
-
 # License
 
-Copyright (C) 2007--2010 Stig Brautaset. All rights reserved.
+Copyright (C) 2007--2011 Stig Brautaset. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
