@@ -2,8 +2,8 @@
 
 set -x
 
-DOCSET=$INSTALL_DIR/Docset/html
-VERSION=$(agvtool mvers -terse1 | perl -pe 's/(\d\.\d+)(\.\d+)*/$1/')
+DOCSET=$(echo $DERIVED_FILE_DIR | sed 's/RefreshOnlineDocs/DocSet/')/html
+VERSION=$(agvtool mvers -terse1 | perl -pe 's/(\d\.\d+)((\.|alpha|beta)\d+)*/$1/')
 
 if ! test -f "$DOCSET/index.html" ; then
     echo "$dir does not contain index.html"

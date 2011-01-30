@@ -289,7 +289,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 53D229730C9611FF00276605 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = BCC047160FB651AF00F9F2D3 /* Generate DocSet */;
+			remoteGlobalIDString = BCC047160FB651AF00F9F2D3;
 			remoteInfo = "Generate DocSet";
 		};
 		FE2BBDB30D8B0F0F00184787 /* PBXContainerItemProxy */ = {
@@ -1126,6 +1126,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Classes/*.h",
+				"$(SRCROOT)/JSON-Info.plist",
 				"$(SRCROOT)/Classes/*.m",
 			);
 			name = "Run Script";
@@ -1134,7 +1135,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exec $SOURCE_ROOT/Scripts/InstallDocumentation.sh";
+			shellScript = "exec \"$SOURCE_ROOT/Scripts/InstallDocumentation.sh\"";
+			showEnvVarsInLog = 0;
 		};
 		BCF6393A12F5FD3B0094F9AE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1147,7 +1149,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exec $SOURCE_ROOT/Scripts/RefreshOnlineDocs.sh";
+			shellScript = "exec \"$SOURCE_ROOT/Scripts/RefreshOnlineDocs.sh\"";
 		};
 		FE2BBDA90D8B0EE000184787 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
