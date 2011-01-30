@@ -352,12 +352,6 @@ static const char *strForChar(int c) {
 	return YES;
 }
 
-- (NSData*)dataToHere {
-	NSData *ret = [data autorelease];
-	data = [[NSMutableData alloc] initWithCapacity:data.length];
-	return ret;
-}
-
 #pragma mark Private methods
 
 - (NSUInteger)depth {

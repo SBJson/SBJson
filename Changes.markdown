@@ -3,6 +3,7 @@
 ## Version 3.0alpha4 (TBD)
 
 * [Issue 36][#36]: Fix bu in build script that caused it to break if $SRCROOT has spaces.
+* Remove the hacky dataToHere method in favour of just exposing the internal NSMutableData buffer.
 
 [#36]: http://github.com/stig/json-framework/issues/#issue/36
 

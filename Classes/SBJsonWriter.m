@@ -91,7 +91,7 @@
 	}
 	
 	if (ok)
-		return [streamWriter dataToHere];
+		return streamWriter.data;
 	
 	self.error = streamWriter.error;
 	return nil;	
