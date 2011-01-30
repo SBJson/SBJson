@@ -1,6 +1,6 @@
 # JSON Framework Changes
 
-## Version 3.0alpha4 (TBD)
+## Version 3.0beta1 (January 30th, 2011)
 
 ### Bug Fixes
 * [Issue 36][#36]: Fix bug in build script that caused it to break if $SRCROOT has spaces.
