@@ -1,5 +1,12 @@
 # JSON Framework Changes
 
+## Version 3.0alpha4 (TBD)
+
+* [Issue 36][#36]: Fix bu in build script that caused it to break if $SRCROOT has spaces.
+
+[#36]: http://github.com/stig/json-framework/issues/#issue/36
+
+
 ## Version 3.0alpha3 (January 2nd, 2011)
 
 * Added documentation to the TwitterStream sample project.
