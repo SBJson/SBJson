@@ -49,8 +49,9 @@ typedef enum {
  You will most likely find it much more convenient to implement the
  SBJsonStreamParserAdapterDelegate protocol instead.
  */
-@protocol SBJsonStreamParserDelegate
+@protocol SBJsonStreamParserDelegate<NSObject>
 
+@optional
 /// Called when object start is found
 - (void)parserFoundObjectStart:(SBJsonStreamParser*)parser;
 
