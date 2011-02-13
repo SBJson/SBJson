@@ -290,6 +290,7 @@
 				INFOPLIST_FILE = "TwitterStream-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = TwitterStream;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -306,6 +307,7 @@
 				INFOPLIST_FILE = "TwitterStream-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = TwitterStream;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

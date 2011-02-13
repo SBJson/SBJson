@@ -12,7 +12,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		BC5E876D12F5D179009948AF /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5E875A12F5CF95009948AF /* JSON.framework */; };
+		BC5E876D12F5D179009948AF /* JSON in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5E875A12F5CF95009948AF /* JSON */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,35 +20,35 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = BC5E874E12F5CF95009948AF /* JSON.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 53D229810C96121600276605 /* JSON.framework */;
+			remoteGlobalIDString = 53D229810C96121600276605;
 			remoteInfo = JSON;
 		};
 		BC5E875B12F5CF95009948AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BC5E874E12F5CF95009948AF /* JSON.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 53D2298D0C96122A00276605 /* Tests.octest */;
+			remoteGlobalIDString = 53D2298D0C96122A00276605;
 			remoteInfo = Tests;
 		};
 		BC5E875D12F5CF95009948AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BC5E874E12F5CF95009948AF /* JSON.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = FE2BBD800D8B0D3900184787 /* libjson.a */;
+			remoteGlobalIDString = FE2BBD800D8B0D3900184787;
 			remoteInfo = libjson;
 		};
 		BC5E875F12F5CF95009948AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BC5E874E12F5CF95009948AF /* JSON.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = FE2BBDAB0D8B0EE000184787 /* libjsontests.octest */;
+			remoteGlobalIDString = FE2BBDAB0D8B0EE000184787;
 			remoteInfo = libjsontests;
 		};
 		BC5E876112F5D134009948AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BC5E874E12F5CF95009948AF /* JSON.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 53D229800C96121600276605 /* JSON */;
+			remoteGlobalIDString = 53D229800C96121600276605;
 			remoteInfo = JSON;
 		};
 /* End PBXContainerItemProxy section */
@@ -75,7 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				BC5E876D12F5D179009948AF /* JSON.framework in Frameworks */,
+				BC5E876D12F5D179009948AF /* JSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,7 +161,7 @@
 		BC5E874F12F5CF95009948AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BC5E875A12F5CF95009948AF /* JSON.framework */,
+				BC5E875A12F5CF95009948AF /* JSON */,
 				BC5E875C12F5CF95009948AF /* Tests.octest */,
 				BC5E875E12F5CF95009948AF /* libjson.a */,
 				BC5E876012F5CF95009948AF /* libjsontests.octest */,
@@ -198,7 +198,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ExternalLinkage" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* ExternalLinkage */;
 			projectDirPath = "";
 			projectReferences = (
@@ -215,10 +222,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		BC5E875A12F5CF95009948AF /* JSON.framework */ = {
+		BC5E875A12F5CF95009948AF /* JSON */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = JSON.framework;
+			path = JSON;
 			remoteRef = BC5E875912F5CF95009948AF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -311,6 +318,8 @@
 				INFOPLIST_FILE = "ExternalLinkage-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = ExternalLinkage;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -325,6 +334,8 @@
 				INFOPLIST_FILE = "ExternalLinkage-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = ExternalLinkage;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

@@ -52,7 +52,7 @@
 											  cachePolicy:NSURLRequestUseProtocolCachePolicy
 										  timeoutInterval:60.0];
 	
-	[[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+	[[[NSURLConnection alloc] initWithRequest:theRequest delegate:self] autorelease];
 }	
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
