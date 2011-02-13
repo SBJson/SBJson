@@ -23,35 +23,35 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = BC81A36212AC4B8E005C034C /* JSON.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 53D229810C96121600276605 /* JSON.framework */;
+			remoteGlobalIDString = 53D229810C96121600276605;
 			remoteInfo = JSON;
 		};
 		BC5E86FE12F5C9EC009948AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BC81A36212AC4B8E005C034C /* JSON.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 53D2298D0C96122A00276605 /* Tests.octest */;
+			remoteGlobalIDString = 53D2298D0C96122A00276605;
 			remoteInfo = Tests;
 		};
 		BC5E870012F5C9EC009948AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BC81A36212AC4B8E005C034C /* JSON.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = FE2BBD800D8B0D3900184787 /* libjson.a */;
+			remoteGlobalIDString = FE2BBD800D8B0D3900184787;
 			remoteInfo = libjson;
 		};
 		BC5E870212F5C9EC009948AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BC81A36212AC4B8E005C034C /* JSON.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = FE2BBDAB0D8B0EE000184787 /* libjsontests.octest */;
+			remoteGlobalIDString = FE2BBDAB0D8B0EE000184787;
 			remoteInfo = libjsontests;
 		};
 		BC5E872C12F5CA5E009948AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BC81A36212AC4B8E005C034C /* JSON.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = FE2BBD7F0D8B0D3900184787 /* libjson */;
+			remoteGlobalIDString = FE2BBD7F0D8B0D3900184787;
 			remoteInfo = libjson;
 		};
 /* End PBXContainerItemProxy section */
@@ -188,7 +188,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TwitterStream" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectReferences = (
@@ -278,10 +285,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TwitterStream_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = /tmp/JSON.dst/usr/local/include;
 				INFOPLIST_FILE = "TwitterStream-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = TwitterStream;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -292,10 +301,12 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TwitterStream_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = /tmp/JSON.dst/usr/local/include;
 				INFOPLIST_FILE = "TwitterStream-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = TwitterStream;
+				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

@@ -829,7 +829,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 53D229740C9611FF00276605 /* Build configuration list for PBXProject "JSON" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 53D229710C9611FF00276605;
 			productRefGroup = 53D229820C96121600276605 /* Products */;
 			projectDirPath = "";
@@ -1453,7 +1460,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1472,7 +1479,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
 				PRODUCT_NAME = json;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
-				SDKROOT = "";
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -1480,7 +1487,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = YES;
@@ -1498,7 +1505,7 @@
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
 				PRODUCT_NAME = json;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
-				SDKROOT = "";
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 			};
 			name = Release;
@@ -1507,7 +1514,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1532,7 +1539,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = libjsontests;
-				SDKROOT = "";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -1541,7 +1548,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1564,7 +1571,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = libjsontests;
-				SDKROOT = "";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
