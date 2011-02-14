@@ -36,6 +36,8 @@
 #define isDigit(x) (*x >= '0' && *x <= '9')
 #define skipDigits(x) while (isDigit(x)) x++
 
+#define SBStringIsIllegalSurrogateHighCharacter(x) (((x) >= 0xd800) && ((x) <= 0xdfff))
+
 
 @interface SBJsonTokeniser ()
 
@@ -48,9 +50,9 @@
 - (sbjson_token_t)matchNumber;
 
 - (int)parseUnicodeEscape:(const char *)bytes index:(NSUInteger *)index;
+- (NSString*)decodeUnicodeEscape:(const char *)bytes index:(NSUInteger *)index;
 
 @end
-
 
 @implementation SBJsonTokeniser
 
@@ -63,6 +65,7 @@
 	if (self) {
 		tokenStart = tokenLength = 0;
 		buf = [[NSMutableData alloc] initWithCapacity:4096];
+		illegalCharacterSet = [[NSCharacterSet illegalCharacterSet] copy];
 	}
 	return self;
 }
@@ -70,6 +73,7 @@
 - (void)dealloc {
 	self.error = nil;
 	[buf release];
+	[illegalCharacterSet release];
 	[super dealloc];
 }
 
@@ -146,12 +150,8 @@ again: while (i < len) {
 						break;
 						
 					case 'u': {
-						int hi = [self parseUnicodeEscape:bytes index:&i];
-						if (hi < 0)
-							return nil;
-						
-						unichar ch = hi;
-						NSString *s = [NSString stringWithCharacters:&ch length:1];
+						NSString *s = [self decodeUnicodeEscape:bytes index:&i];
+						NSAssert(s, @"Illegal unicode escape");
 						[data appendData:[s dataUsingEncoding:NSUTF8StringEncoding]];
 						goto again;
 						break;
@@ -325,31 +325,63 @@ again: while (i < len) {
 	}
 	*index += 4;
 	
-	if (hi >= 0xd800) {     // high surrogate char?
-		if (hi < 0xdc00) {  // yes - expect a low char
-			int lo = -1;
-			if (bytes[(*index)++] == '\\' && bytes[(*index)++] == 'u')
-				lo = [self decodeHexQuad:bytes + *index];
-			
-			if (lo < 0) {
-				self.error = @"Missing low character in surrogate pair";
-				return -1;
-			}
-			*index += 4;
-			
-			if (lo < 0xdc00 || lo >= 0xdfff) {
-				self.error = @"Invalid low surrogate char";
-				return -1;
-			}
-			
-			hi = (hi - 0xd800) * 0x400 + (lo - 0xdc00) + 0x10000;
-			
-		} else if (hi < 0xe000) {
-			self.error = @"Invalid high character in surrogate pair";
+	if (CFStringIsSurrogateHighCharacter(hi)) {
+		int lo = -1;
+		if (bytes[(*index)++] == '\\' && bytes[(*index)++] == 'u')
+			lo = [self decodeHexQuad:bytes + *index];
+		
+		if (lo < 0) {
+			self.error = @"Missing low character in surrogate pair";
 			return -1;
 		}
+		*index += 4;
+			
+		if (!CFStringIsSurrogateLowCharacter(lo)) {
+			self.error = @"Invalid low surrogate char";
+			return -1;
+		}		
+	} else if (SBStringIsIllegalSurrogateHighCharacter(hi)) {
+		self.error = @"Invalid high character in surrogate pair";
+		return -1;
 	}
+
+
 	return hi;
+}
+
+- (NSString*)decodeUnicodeEscape:(const char *)bytes index:(NSUInteger *)index {
+	unichar hi = [self decodeHexQuad:bytes + *index];
+	if (hi < 0) {
+		self.error = @"Missing hex quad";
+		return nil;
+	}
+	*index += 4;
+
+	if (CFStringIsSurrogateHighCharacter(hi)) {     // high surrogate char?
+		int lo = -1;
+		if (bytes[(*index)++] == '\\' && bytes[(*index)++] == 'u')
+			lo = [self decodeHexQuad:bytes + *index];
+			
+		if (lo < 0) {
+			self.error = @"Missing low character in surrogate pair";
+			return nil;
+		}
+		*index += 4;
+			
+		if (!CFStringIsSurrogateLowCharacter(lo)) {
+			self.error = @"Invalid low surrogate char";
+			return nil;
+		}
+			
+		unichar pair[2] = {hi, lo};
+		return [NSString stringWithCharacters:pair length:2];
+			
+	} else if (SBStringIsIllegalSurrogateHighCharacter(hi)) {		
+		self.error = @"Invalid high character in surrogate pair";
+		return nil;
+	}
+	
+	return [NSString stringWithCharacters:&hi length:1];
 }
 
 

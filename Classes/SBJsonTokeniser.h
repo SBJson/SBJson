@@ -56,6 +56,7 @@ typedef enum {
 	const char *bufbytes;
 	NSUInteger bufbytesLength;
 	NSString *error;
+	NSCharacterSet *illegalCharacterSet;
 }
 
 @property(copy, readonly) NSString *error;
