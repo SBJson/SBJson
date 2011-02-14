@@ -1,5 +1,12 @@
 # JSON Framework Changes
 
+## Version 3.0beta2 (TBD)
+
+### Bug Fixes
+* [Issue 42][#42]: Fix bug in handling of Unicode Surrogate Pairs.
+
+[#42]: http://github.com/stig/json-framework/issues/#issue/42
+
 ## Version 3.0beta1 (January 30th, 2011)
 
 ### Bug Fixes
