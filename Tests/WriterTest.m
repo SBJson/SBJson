@@ -66,6 +66,14 @@
 	 */
 }
 
+- (void)testTimeInterval {
+	NSTimeInterval interval = 319670801.45073098; // seconds since epoc
+	NSNumber *number = [NSNumber numberWithDouble:interval];
+	NSArray *array = [NSArray arrayWithObject:number];
+
+	STAssertEqualObjects(@"[319670801.45073098]", [writer stringWithObject:array], nil);
+}
+
 
 - (void)testWriteToStream {
 	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] init] autorelease];

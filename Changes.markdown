@@ -4,8 +4,10 @@
 
 ### Bug Fixes
 * [Issue 42][#42]: Fix bug in handling of Unicode Surrogate Pairs.
+* [Issue 46][#46]: Increase precision when writing floating-point numbers so NSTimeInterval instances since epoch can be represented fully.
 
 [#42]: http://github.com/stig/json-framework/issues/#issue/42
+[#46]: http://github.com/stig/json-framework/issues/#issue/46
 
 ## Version 3.0beta1 (January 30th, 2011)
 

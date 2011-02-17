@@ -327,15 +327,15 @@ static const char *strForChar(int c) {
 	}
 	
 	const char *objcType = [number objCType];
-	char num[64];
+	char num[128];
 	size_t len;
 	
 	switch (objcType[0]) {
 		case 'c': case 'i': case 's': case 'l': case 'q':
-			len = sprintf(num, "%lld", [number longLongValue]);
+			len = snprintf(num, sizeof num, "%lld", [number longLongValue]);
 			break;
 		case 'C': case 'I': case 'S': case 'L': case 'Q':
-			len = sprintf(num, "%llu", [number unsignedLongLongValue]);
+			len = snprintf(num, sizeof num, "%llu", [number unsignedLongLongValue]);
 			break;
 		case 'f': case 'd': default:
 			if ([number isKindOfClass:[NSDecimalNumber class]]) {
@@ -344,7 +344,7 @@ static const char *strForChar(int c) {
 				[s transitionState:self];
 				return YES;
 			}
-			len = sprintf(num, "%g", [number doubleValue]);
+			len = snprintf(num, sizeof num, "%.17g", [number doubleValue]);
 			break;
 	}
 	[data appendBytes:num length: len];
