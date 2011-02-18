@@ -127,7 +127,9 @@
 		states[depth] = kSBJsonStreamParserStateError;
 		
 	} else {
-		[delegate parserFoundObjectStart:self];
+		if (delegate && [delegate respondsToSelector:@selector(parserFoundObjectStart:)]) {
+            [delegate parserFoundObjectStart:self];
+        }
 		states[++depth] = kSBJsonStreamParserStateObjectStart;
 	}
 	
@@ -137,7 +139,10 @@
 		self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
 		states[depth] = kSBJsonStreamParserStateError;
 	} else {
-		[delegate parserFoundArrayStart:self];
+		
+        if (delegate && [delegate respondsToSelector:@selector(parserFoundArrayStart:)]) {
+            [delegate parserFoundArrayStart:self];
+        }
 		states[++depth] = kSBJsonStreamParserStateArrayStart;
 	}
 	
@@ -167,7 +172,9 @@
 			number = [[[NSDecimalNumber alloc] initWithString:string] autorelease];
 		}
 		NSParameterAssert(number);
-		[delegate parser:self foundNumber:number];
+		if (delegate && [delegate respondsToSelector:@selector(parser:foundNumber:)]) {
+            [delegate parser:self foundNumber:number];
+        }
 		
 	}
 }	
@@ -184,10 +191,16 @@
 		string = [tokeniser getDecodedStringToken];
 	}
 	NSParameterAssert(string);
-	if ([states[depth] needKey])
-		[delegate parser:self foundObjectKey:string];
-	else
-		[delegate parser:self foundString:string];
+	if ([states[depth] needKey]) {
+        if (delegate && [delegate respondsToSelector:@selector(parser:foundObjectKey:)]) {
+            [delegate parser:self foundObjectKey:string];
+        }
+    }
+	else {
+		if (delegate && [delegate respondsToSelector:@selector(parser:foundString:)]) {
+            [delegate parser:self foundString:string];
+        }
+    }
 }	
 
 - (SBJsonStreamParserStatus)parse:(NSData *)data_ {
@@ -229,7 +242,9 @@
 						
 					case sbjson_token_object_end:
 						[states[--depth] parser:self shouldTransitionTo:tok];
-						[delegate parserFoundObjectEnd:self];
+						if (delegate && [delegate respondsToSelector:@selector(parserFoundObjectEnd:)]) {
+                            [delegate parserFoundObjectEnd:self];
+                        }
 						break;
 						
 					case sbjson_token_array_start:
@@ -238,7 +253,9 @@
 						
 					case sbjson_token_array_end:
 						[states[--depth] parser:self shouldTransitionTo:tok];
-						[delegate parserFoundArrayEnd:self];
+						if (delegate && [delegate respondsToSelector:@selector(parserFoundArrayEnd:)]) {
+                            [delegate parserFoundArrayEnd:self];
+                        }
 						break;
 						
 					case sbjson_token_separator:
@@ -247,17 +264,23 @@
 						break;
 						
 					case sbjson_token_true:
-						[delegate parser:self foundBoolean:YES];
+						if (delegate && [delegate respondsToSelector:@selector(parser:foundBoolean:)]) {
+                            [delegate parser:self foundBoolean:YES];
+                        }
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 						
 					case sbjson_token_false:
-						[delegate parser:self foundBoolean:NO];
+						if (delegate && [delegate respondsToSelector:@selector(parser:foundBoolean:)]) {
+                            [delegate parser:self foundBoolean:NO];
+                        }
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 						
 					case sbjson_token_null:
-						[delegate parserFoundNull:self];
+						if (delegate && [delegate respondsToSelector:@selector(parserFoundNull:)]) {
+                            [delegate parserFoundNull:self];
+                        }
 						[states[depth] parser:self shouldTransitionTo:tok];
 						break;
 						

@@ -100,9 +100,13 @@
 			
 		case SBJsonStreamParserAdapterNone:
 			if ([obj isKindOfClass:[NSArray class]]) {
-				[delegate parser:parser foundArray:obj];
+				if (delegate && [delegate respondsToSelector:@selector(parser:foundArray:)]) {
+                    [delegate parser:parser foundArray:obj];
+                }
 			} else {
-				[delegate parser:parser foundObject:obj];
+				if (delegate && [delegate respondsToSelector:@selector(parser:foundObject:)]) {
+                    [delegate parser:parser foundObject:obj];
+                }
 			}				
 			break;
 
