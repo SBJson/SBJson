@@ -42,6 +42,20 @@
     return json;
 }
 
+- (NSString *)JSONRepresentationSmallest {
+	return [self JSONRepresentation];
+}
+
+- (NSData *)JSONDataRepresentation {
+	NSString *json = [self JSONRepresentation];
+	if (!json) {
+		NSLog(@"Failed to create JSON: %@", self); 
+		return nil;
+	}
+
+	return [NSData dataWithBytes:[json UTF8String] length:[json lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
+}
+
 @end
 
 
@@ -55,6 +69,30 @@
         NSLog(@"-JSONValue failed. Error is: %@", jsonParser.error);
     [jsonParser release];
     return repr;
+}
+
+@end
+
+
+@implementation NSData (SBJSON)
+
+- (id)JSONValue {
+	if ([self length] == 0) {
+		return [@"" JSONValue];
+	}
+
+	NSUInteger length = [self length];
+	const char *bytes = [self bytes];
+
+	while (length > 0 && bytes[length - 1] == 0) {
+		length -= 1; // removing traling '\0'
+	}
+
+	NSString *s = [[NSString alloc] initWithBytes:bytes length:length encoding:NSUTF8StringEncoding];
+	id result = [s JSONValue];
+	[s release];
+
+	return result;
 }
 
 @end

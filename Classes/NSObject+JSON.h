@@ -37,6 +37,9 @@
 /// Returns a string containing the receiver encoded in JSON.
 - (NSString *)JSONRepresentation;
 
+/// Similar to JSONRepresentation, converts result into NSData
+- (NSData *)JSONDataRepresentation;
+
 @end
 
 
@@ -45,6 +48,9 @@
 
 /// Returns a string containing the receiver encoded in JSON.
 - (NSString *)JSONRepresentation;
+
+/// Similar to JSONRepresentation, converts result into NSData
+- (NSData *)JSONDataRepresentation;
 
 @end
 
@@ -58,4 +64,7 @@
 
 @end
 
+@interface NSData (SBJSON)
+- (id)JSONValue;
+@end
 
