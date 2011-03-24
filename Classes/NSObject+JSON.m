@@ -42,10 +42,6 @@
     return json;
 }
 
-- (NSString *)JSONRepresentationSmallest {
-	return [self JSONRepresentation];
-}
-
 - (NSData *)JSONDataRepresentation {
 	NSString *json = [self JSONRepresentation];
 	if (!json) {
