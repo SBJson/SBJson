@@ -157,13 +157,13 @@
 		if (tok == sbjson_token_integer && len < 12) {
 			char *e = NULL;
 			long l = strtol(buf, &e, 0);
-			NSAssert((e-buf) == len, @"unexpected length");
+			NSAssert((e-buf) == (long)len, @"unexpected length");
 			number = [NSNumber numberWithLong:l];
 			
 		} else if (tok == sbjson_token_double && len < 7) {
 			char *e = NULL;
 			double d = strtod(buf, &e);
-			NSAssert((e-buf) == len, @"unexpected length");
+			NSAssert((e-buf) == (long)len, @"unexpected length");
 			number = [NSNumber numberWithDouble:d];
 			
 		} else {
