@@ -57,7 +57,7 @@ static NSDecimalNumber *notANumber;
 	if (self) {
 		data = [[NSMutableData alloc] initWithCapacity:1024u];
 		maxDepth = 512;
-		states = calloc(maxDepth, sizeof(SBJsonStreamWriterState*));
+		states = (SBJsonStreamWriterState**)calloc(maxDepth, sizeof(SBJsonStreamWriterState*));
 		NSAssert(states, @"States not initialised");
 		
 		states[0] = [SBJsonStreamWriterStateStart sharedInstance];
@@ -361,7 +361,7 @@ static const char *strForChar(int c) {
 - (void)setMaxDepth:(NSUInteger)x {
 	NSAssert(x, @"maxDepth must be greater than 0");
 	maxDepth = x;
-	states = realloc(states, x);
+	states = (SBJsonStreamWriterState**)realloc(states, x);
 	NSAssert(states, @"Failed to reallocate more memory for states");
 }	
 

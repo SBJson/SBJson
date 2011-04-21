@@ -96,7 +96,7 @@
 	// Append NUL byte to simplify logic
 	[buf appendBytes:"\0" length:1];
 	
-	bufbytes = [buf bytes];
+	bufbytes = (const char*)[buf bytes];
 	bufbytesLength = [buf length];
 }
 

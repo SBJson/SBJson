@@ -87,7 +87,7 @@
  */
 @property(readonly) NSMutableData *data;
 
-@property(readonly) NSObject **states;
+@property(readonly) SBJsonStreamWriterState **states;
 @property(readonly) NSUInteger depth;
 
 /**
