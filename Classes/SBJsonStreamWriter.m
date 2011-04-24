@@ -33,7 +33,7 @@
 #import "SBJsonStreamWriter.h"
 #import "SBJsonStreamWriterState.h"
 
-static NSMutableDictionary *stringCache;
+static NSCache *stringCache;
 static NSDecimalNumber *notANumber;
 
 @implementation SBJsonStreamWriter
@@ -47,7 +47,8 @@ static NSDecimalNumber *notANumber;
 
 + (void)initialize {
 	notANumber = [NSDecimalNumber notANumber];
-	stringCache = [NSMutableDictionary new];
+	stringCache = [[NSCache alloc] init];
+	[stringCache setEvictsObjectsWithDiscardedContent:YES];
 }
 
 #pragma mark Housekeeping
