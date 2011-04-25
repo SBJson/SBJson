@@ -47,8 +47,8 @@ typedef enum {
  
  @see The TwitterStream example project.
  */
-@protocol SBJsonStreamParserAdapterDelegate<NSObject>
-@optional
+@protocol SBJsonStreamParserAdapterDelegate
+
 /// Called when a JSON array is found
 - (void)parser:(SBJsonStreamParser*)parser foundArray:(NSArray*)array;
 
