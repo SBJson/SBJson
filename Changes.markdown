@@ -2,9 +2,6 @@
 
 ## Version 3.0beta2 (TBD)
 
-## Changes
-* [Issue 46][#46]: Stream Parser delegate methods are now optional.
-
 ### Bug Fixes
 * [Issue 42][#42]: Fix bug in handling of Unicode Surrogate Pairs.
 * [Issue 48][#48]: Increase precision when writing floating-point numbers so NSTimeInterval instances since epoch can be represented fully.
