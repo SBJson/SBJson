@@ -43,7 +43,7 @@
 		535157A80F6EE4A800C8AABD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
 		53C45B9C0C98A87600546F66 /* ErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C45B9B0C98A87600546F66 /* ErrorTest.m */; };
 		53D2299C0C96129800276605 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		53D229AD0C961B9900276605 /* JSON in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D229810C96121600276605 /* JSON */; };
+		53D229AD0C961B9900276605 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D229810C96121600276605 /* JSON.framework */; };
 		53F8A8150E57158200355C72 /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2BBD800D8B0D3900184787 /* libjson.a */; };
 		BC651A6E125A502700280F5C /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC651A6F125A502700280F5C /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC651A6D125A502700280F5C /* SBJsonStreamWriter.m */; };
@@ -307,7 +307,7 @@
 		535157A30F6EE4A800C8AABD /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		535157A40F6EE4A800C8AABD /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		53C45B9B0C98A87600546F66 /* ErrorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorTest.m; sourceTree = "<group>"; };
-		53D229810C96121600276605 /* JSON */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.framework; path = JSON; sourceTree = BUILT_PRODUCTS_DIR; };
+		53D229810C96121600276605 /* JSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D229830C96121600276605 /* JSON-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSON-Info.plist"; sourceTree = "<group>"; };
 		53D2298D0C96122A00276605 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D2298E0C96122A00276605 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
@@ -456,7 +456,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53D229AD0C961B9900276605 /* JSON in Frameworks */,
+				53D229AD0C961B9900276605 /* JSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,7 +494,7 @@
 		53D229820C96121600276605 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				53D229810C96121600276605 /* JSON */,
+				53D229810C96121600276605 /* JSON.framework */,
 				53D2298D0C96122A00276605 /* Tests.octest */,
 				FE2BBD800D8B0D3900184787 /* libjson.a */,
 				FE2BBDAB0D8B0EE000184787 /* libjsontests.octest */,
@@ -762,7 +762,7 @@
 			);
 			name = JSON;
 			productName = JSON;
-			productReference = 53D229810C96121600276605 /* JSON */;
+			productReference = 53D229810C96121600276605 /* JSON.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		53D2298C0C96122A00276605 /* Tests */ = {
