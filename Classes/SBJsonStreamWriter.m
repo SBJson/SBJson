@@ -58,7 +58,7 @@ static NSDecimalNumber *notANumber;
 		states = calloc(maxDepth, sizeof(SBJsonStreamWriterState*));
 		NSAssert(states, @"States not initialised");
 		
-		states[0] = [SBJsonStreamWriterStateStart sharedInstance];
+        [self reset];
 
 		stringCache = [[NSCache alloc] init];
     }
@@ -73,6 +73,11 @@ static NSDecimalNumber *notANumber;
 }
 
 #pragma mark Methods
+
+- (void)reset {
+    states[0] = [SBJsonStreamWriterStateStart sharedInstance];
+    [data setLength:0];
+}
 
 - (BOOL)writeObject:(NSDictionary *)dict {
 	if (![self writeObjectOpen])

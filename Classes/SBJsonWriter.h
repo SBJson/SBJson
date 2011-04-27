@@ -29,6 +29,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class SBJsonStreamWriter;
+
 /**
  @brief The JSON writer class.
  
@@ -52,13 +54,9 @@
  
  */
 @interface SBJsonWriter : NSObject {
-	
 @protected
     NSString *error;
-    NSUInteger maxDepth;
-	
-@private
-    BOOL sortKeys, humanReadable;
+    SBJsonStreamWriter *writer;
 }
 
 /**
@@ -77,7 +75,7 @@
  You need to check the return value of the call you're making to figure out
  if the call actually failed, before you know call this method.
  */
-@property(copy) NSString *error;
+@property(readonly, copy) NSString *error;
 
 /**
  @brief Whether we are generating human-readable (multiline) JSON.
