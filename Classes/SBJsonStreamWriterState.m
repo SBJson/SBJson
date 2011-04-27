@@ -52,7 +52,7 @@ static SBJsonStreamWriterStateArrayValue *kSBJsonStreamWriterStateArrayValue;
 - (void)transitionState:(SBJsonStreamWriter *)writer {}
 - (void)appendWhitespace:(SBJsonStreamWriter*)writer {
 	[writer.data appendBytes:"\n" length:1];
-	for (int i = 0; i < writer.depth; i++)
+	for (NSUInteger i = 0; i < writer.depth; i++)
 	    [writer.data appendBytes:"  " length:2];
 }
 @end
