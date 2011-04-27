@@ -51,9 +51,9 @@ static SBJsonStreamWriterStateArrayValue *kSBJsonStreamWriterStateArrayValue;
 - (BOOL)expectingKey:(SBJsonStreamWriter*)writer { return NO; }
 - (void)transitionState:(SBJsonStreamWriter *)writer {}
 - (void)appendWhitespace:(SBJsonStreamWriter*)writer {
-	[writer.data appendBytes:"\n" length:1];
+	[writer appendBytes:"\n" length:1];
 	for (NSUInteger i = 0; i < writer.depth; i++)
-	    [writer.data appendBytes:"  " length:2];
+	    [writer appendBytes:"  " length:2];
 }
 @end
 
@@ -69,19 +69,19 @@ static SBJsonStreamWriterStateArrayValue *kSBJsonStreamWriterStateArrayValue;
 
 @implementation SBJsonStreamWriterStateObjectKey
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
-	[writer.data appendBytes:"," length:1];
+	[writer appendBytes:"," length:1];
 }
 @end
 
 @implementation SBJsonStreamWriterStateObjectValue
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
-	[writer.data appendBytes:":" length:1];
+	[writer appendBytes:":" length:1];
 }
 - (void)transitionState:(SBJsonStreamWriter *)writer {
 	writer.states[writer.depth] = kSBJsonStreamWriterStateObjectKey;
 }
 - (void)appendWhitespace:(SBJsonStreamWriter *)writer {
-	[writer.data appendBytes:" " length:1];
+	[writer appendBytes:" " length:1];
 }
 @end
 
@@ -93,7 +93,7 @@ static SBJsonStreamWriterStateArrayValue *kSBJsonStreamWriterStateArrayValue;
 
 @implementation SBJsonStreamWriterStateArrayValue
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
-	[writer.data appendBytes:"," length:1];
+	[writer appendBytes:"," length:1];
 }
 @end
 

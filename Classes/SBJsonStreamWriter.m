@@ -50,10 +50,11 @@ static NSDecimalNumber *notANumber;
 
 #pragma mark Housekeeping
 
+@synthesize delegate;
+
 - (id)init {
 	self = [super init];
 	if (self) {
-		data = [[NSMutableData alloc] initWithCapacity:1024u];
 		maxDepth = 512;
 		states = calloc(maxDepth, sizeof(SBJsonStreamWriterState*));
 		NSAssert(states, @"States not initialised");
@@ -68,7 +69,6 @@ static NSDecimalNumber *notANumber;
 - (void)dealloc {
 	self.error = nil;
 	free(states);
-	[data release];
 	[super dealloc];
 }
 
@@ -76,7 +76,10 @@ static NSDecimalNumber *notANumber;
 
 - (void)reset {
     states[0] = [SBJsonStreamWriterStateStart sharedInstance];
-    [data setLength:0];
+}
+
+- (void)appendBytes:(const void *)bytes length:(NSUInteger)length {
+    [delegate writer:self appendBytes:bytes length:length];
 }
 
 - (BOOL)writeObject:(NSDictionary *)dict {
@@ -125,7 +128,7 @@ static NSDecimalNumber *notANumber;
 	}
 
 	states[depth] = kSBJsonStreamWriterStateObjectStart;
-	[data appendBytes:"{" length:1];
+	[delegate writer:self appendBytes:"{" length:1];
 	return YES;
 }
 
@@ -133,7 +136,7 @@ static NSDecimalNumber *notANumber;
 	SBJsonStreamWriterState *state = states[depth--];
 	if ([state isInvalidState:self]) return NO;
 	if (humanReadable) [state appendWhitespace:self];
-	[data appendBytes:"}" length:1];
+	[delegate writer:self appendBytes:"}" length:1];
 	[states[depth] transitionState:self];
 	return YES;
 }
@@ -151,7 +154,7 @@ static NSDecimalNumber *notANumber;
 	}
 
 	states[depth] = kSBJsonStreamWriterStateArrayStart;
-	[data appendBytes:"[" length:1];
+	[delegate writer:self appendBytes:"[" length:1];
 	return YES;
 }
 
@@ -161,7 +164,7 @@ static NSDecimalNumber *notANumber;
 	if ([state expectingKey:self]) return NO;
 	if (humanReadable) [state appendWhitespace:self];
 	
-	[data appendBytes:"]" length:1];
+	[delegate writer:self appendBytes:"]" length:1];
 	[states[depth] transitionState:self];
 	return YES;
 }
@@ -173,7 +176,7 @@ static NSDecimalNumber *notANumber;
 	[s appendSeparator:self];
 	if (humanReadable) [s appendWhitespace:self];
 
-	[data appendBytes:"null" length:4];
+	[delegate writer:self appendBytes:"null" length:4];
 	[s transitionState:self];
 	return YES;
 }
@@ -186,9 +189,9 @@ static NSDecimalNumber *notANumber;
 	if (humanReadable) [s appendWhitespace:self];
 	
 	if (x)
-		[data appendBytes:"true" length:4];
+		[delegate writer:self appendBytes:"true" length:4];
 	else
-		[data appendBytes:"false" length:5];
+		[delegate writer:self appendBytes:"false" length:5];
 	[s transitionState:self];
 	return YES;
 }
@@ -269,7 +272,7 @@ static const char *strForChar(int c) {
 	
 	NSMutableData *buf = [stringCache objectForKey:string];
 	if (buf) {
-		[data appendBytes:[buf bytes] length:[buf length]];
+		[delegate writer:self appendBytes:[buf bytes] length:[buf length]];
 		[s transitionState:self];
 		return YES;
 	}
@@ -298,7 +301,7 @@ static const char *strForChar(int c) {
 		[buf appendBytes:utf8 + written length:i - written];
 
 	[buf appendBytes:"\"" length:1];
-	[data appendBytes:[buf bytes] length:[buf length]];
+	[delegate writer:self appendBytes:[buf bytes] length:[buf length]];
 	[stringCache setObject:buf forKey:string];
 	[s transitionState:self];
 	return YES;
@@ -345,14 +348,14 @@ static const char *strForChar(int c) {
 		case 'f': case 'd': default:
 			if ([number isKindOfClass:[NSDecimalNumber class]]) {
 				char const *utf8 = [[number stringValue] UTF8String];
-				[data appendBytes:utf8 length: strlen(utf8)];
+				[delegate writer:self appendBytes:utf8 length: strlen(utf8)];
 				[s transitionState:self];
 				return YES;
 			}
 			len = snprintf(num, sizeof num, "%.17g", [number doubleValue]);
 			break;
 	}
-	[data appendBytes:num length: len];
+	[delegate writer:self appendBytes:num length: len];
 	[s transitionState:self];
 	return YES;
 }
@@ -368,10 +371,6 @@ static const char *strForChar(int c) {
 	maxDepth = x;
 	states = realloc(states, x);
 	NSAssert(states, @"Failed to reallocate more memory for states");
-}	
-
-- (NSMutableData*)data {
-	return data;
 }
 
 @end
