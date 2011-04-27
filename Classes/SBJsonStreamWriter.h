@@ -55,6 +55,14 @@
 
 @end
 
+@class SBJsonStreamWriter;
+
+@protocol SBJsonStreamWriterDelegate
+
+- (void)writer:(SBJsonStreamWriter*)writer appendBytes:(const void *)bytes length:(NSUInteger)length;
+
+@end
+
 @class SBJsonStreamWriterState;
 
 /**
@@ -73,20 +81,16 @@
 @interface SBJsonStreamWriter : NSObject {
 	NSString *error;
 	SBJsonStreamWriterState **states;
-	NSMutableData *data;
+    id<SBJsonStreamWriterDelegate> delegate;
 	NSUInteger depth, maxDepth;
     BOOL sortKeys, humanReadable;
     NSCache *stringCache;
 }
 
 /**
- @brief The data written to the stream so far.
- 
- This is a mutable object. This means that you can write a chunk of its
- contents to an NSOutputStream, then chop as many bytes as you wrote off
- the beginning of the buffer.
+ Delegate that will receive messages with output.
  */
-@property(readonly) NSMutableData *data;
+@property (assign) id<SBJsonStreamWriterDelegate> delegate;
 
 @property(readonly) NSObject **states;
 @property(readonly) NSUInteger depth;
@@ -163,5 +167,6 @@
 
 @interface SBJsonStreamWriter (Private)
 - (BOOL)writeValue:(id)v;
+- (void)appendBytes:(const void *)bytes length:(NSUInteger)length;
 @end
 

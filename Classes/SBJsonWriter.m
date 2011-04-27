@@ -40,14 +40,19 @@
 
 - (id)init {
     self = [super init];
-    if (self)
-        writer = [[SBJsonStreamWriter alloc] init];
+    if (self) {
+        _writer = [[SBJsonStreamWriter alloc] init];
+        _writer.delegate = self;
+        
+        _data = [[NSMutableData alloc] initWithCapacity:1024u];
+    }
     return self;
 }
 
 - (void)dealloc {
-    [writer release];
+    [_writer release];
     [error release];
+    [_data release];
     [super dealloc];
 }
 
@@ -73,14 +78,15 @@
 
 - (NSData*)dataWithObject:(id)object {
     self.error = nil;
-    [writer reset];
+    [_data setLength:0];
+    [_writer reset];
     
 	BOOL ok = NO;
 	if ([object isKindOfClass:[NSDictionary class]])
-		ok = [writer writeObject:object];
+		ok = [_writer writeObject:object];
 	
 	else if ([object isKindOfClass:[NSArray class]])
-		ok = [writer writeArray:object];
+		ok = [_writer writeArray:object];
 		
 	else if ([object respondsToSelector:@selector(proxyForJson)])
 		return [self dataWithObject:[object proxyForJson]];
@@ -91,34 +97,40 @@
 	}
 	
 	if (ok)
-		return writer.data;
+		return [[_data copy] autorelease];
 	
-    self.error = writer.error;
+    self.error = _writer.error;
 	return nil;	
 }
 
 - (NSUInteger)maxDepth {
-    return writer.maxDepth;
+    return _writer.maxDepth;
 }
 
 - (void)setMaxDepth:(NSUInteger)maxDepth {
-    writer.maxDepth = maxDepth;
+    _writer.maxDepth = maxDepth;
 }
 
 - (BOOL)humanReadable {
-    return writer.humanReadable;
+    return _writer.humanReadable;
 }
 
 - (void)setHumanReadable:(BOOL)humanReadable {
-    writer.humanReadable = humanReadable;
+    _writer.humanReadable = humanReadable;
 }
 
 - (BOOL)sortKeys {
-    return writer.sortKeys;
+    return _writer.sortKeys;
 }
 
 - (void)setSortKeys:(BOOL)sortKeys {
-    writer.sortKeys = sortKeys;
+    _writer.sortKeys = sortKeys;
+}
+
+#pragma mark SBJsonStreamWriterDelegate
+
+- (void)writer:(SBJsonStreamWriter *)writer appendBytes:(const void *)bytes length:(NSUInteger)length {
+    [_data appendBytes:bytes length:length];
 }
 
 @end
