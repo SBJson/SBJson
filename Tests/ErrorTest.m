@@ -87,7 +87,7 @@
 - (void)testScalar
 {    
     NSArray *fragments = [NSArray arrayWithObjects:@"foo", @"", [NSNull null], [NSNumber numberWithInt:1], [NSNumber numberWithBool:YES], nil];
-    for (int i = 0; i < [fragments count]; i++) {
+    for (NSUInteger i = 0; i < [fragments count]; i++) {
         NSString *fragment = [fragments objectAtIndex:i];
         
         // We don't check the convenience category here, like we do for parsing,
