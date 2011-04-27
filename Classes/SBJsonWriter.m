@@ -30,22 +30,23 @@
 #import "SBJsonWriter.h"
 #import "SBJsonStreamWriter.h"
 
+@interface SBJsonWriter ()
+@property (copy) NSString *error;
+@end
+
 @implementation SBJsonWriter
 
-@synthesize sortKeys;
-@synthesize humanReadable;
-
 @synthesize error;
-@synthesize maxDepth;
 
 - (id)init {
     self = [super init];
     if (self)
-        self.maxDepth = 512;
+        writer = [[SBJsonStreamWriter alloc] init];
     return self;
 }
 
 - (void)dealloc {
+    [writer release];
     [error release];
     [super dealloc];
 }
@@ -63,40 +64,61 @@
         return tmp;
     
     if (error_) {
-		NSDictionary *ui = [NSDictionary dictionaryWithObjectsAndKeys:error, NSLocalizedDescriptionKey, nil];
+		NSDictionary *ui = [NSDictionary dictionaryWithObjectsAndKeys:self.error, NSLocalizedDescriptionKey, nil];
         *error_ = [NSError errorWithDomain:@"org.brautaset.json.parser.ErrorDomain" code:0 userInfo:ui];
 	}
 	
     return nil;
 }
 
-- (NSData*)dataWithObject:(id)object {	
-	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] init] autorelease];
-	streamWriter.sortKeys = self.sortKeys;
-	streamWriter.maxDepth = self.maxDepth;
-	streamWriter.humanReadable = self.humanReadable;
-	
+- (NSData*)dataWithObject:(id)object {
+    self.error = nil;
+    [writer reset];
+    
 	BOOL ok = NO;
 	if ([object isKindOfClass:[NSDictionary class]])
-		ok = [streamWriter writeObject:object];
+		ok = [writer writeObject:object];
 	
 	else if ([object isKindOfClass:[NSArray class]])
-		ok = [streamWriter writeArray:object];
+		ok = [writer writeArray:object];
 		
 	else if ([object respondsToSelector:@selector(proxyForJson)])
 		return [self dataWithObject:[object proxyForJson]];
+
 	else {
 		self.error = @"Not valid type for JSON";
 		return nil;
 	}
 	
 	if (ok)
-		return streamWriter.data;
+		return writer.data;
 	
-	self.error = streamWriter.error;
+    self.error = writer.error;
 	return nil;	
 }
-	
-	
+
+- (NSUInteger)maxDepth {
+    return writer.maxDepth;
+}
+
+- (void)setMaxDepth:(NSUInteger)maxDepth {
+    writer.maxDepth = maxDepth;
+}
+
+- (BOOL)humanReadable {
+    return writer.humanReadable;
+}
+
+- (void)setHumanReadable:(BOOL)humanReadable {
+    writer.humanReadable = humanReadable;
+}
+
+- (BOOL)sortKeys {
+    return writer.sortKeys;
+}
+
+- (void)setSortKeys:(BOOL)sortKeys {
+    writer.sortKeys = sortKeys;
+}
 
 @end
