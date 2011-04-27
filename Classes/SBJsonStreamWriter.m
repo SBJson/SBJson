@@ -33,7 +33,6 @@
 #import "SBJsonStreamWriter.h"
 #import "SBJsonStreamWriterState.h"
 
-static NSMutableDictionary *stringCache;
 static NSDecimalNumber *notANumber;
 
 @implementation SBJsonStreamWriter
@@ -47,7 +46,6 @@ static NSDecimalNumber *notANumber;
 
 + (void)initialize {
 	notANumber = [NSDecimalNumber notANumber];
-	stringCache = [NSMutableDictionary new];
 }
 
 #pragma mark Housekeeping
@@ -61,7 +59,9 @@ static NSDecimalNumber *notANumber;
 		NSAssert(states, @"States not initialised");
 		
 		states[0] = [SBJsonStreamWriterStateStart sharedInstance];
-	}
+
+		stringCache = [[NSCache alloc] init];
+    }
 	return self;
 }
 
