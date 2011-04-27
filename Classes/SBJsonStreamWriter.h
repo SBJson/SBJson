@@ -76,6 +76,7 @@
 	NSMutableData *data;
 	NSUInteger depth, maxDepth;
     BOOL sortKeys, humanReadable;
+    NSCache *stringCache;
 }
 
 /**
