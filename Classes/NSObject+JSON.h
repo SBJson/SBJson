@@ -40,23 +40,6 @@
 @end
 
 
-/// Adds JSON generation to NSArray
-@interface NSArray (NSArray_SBJsonWriting)
-
-/// Returns a string containing the receiver encoded in JSON.
-- (NSString *)JSONRepresentation;
-
-@end
-
-
-/// Adds JSON generation to NSArray
-@interface NSDictionary (NSDictionary_SBJsonWriting)
-
-/// Returns a string containing the receiver encoded in JSON.
-- (NSString *)JSONRepresentation;
-
-@end
-
 #pragma mark JSON Parsing
 
 /// Adds JSON parsing methods to NSString
