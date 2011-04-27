@@ -271,38 +271,36 @@ static const char *strForChar(int c) {
 	if (humanReadable) [s appendWhitespace:self];
 	
 	NSMutableData *buf = [stringCache objectForKey:string];
-	if (buf) {
-		[delegate writer:self appendBytes:[buf bytes] length:[buf length]];
-		[s transitionState:self];
-		return YES;
-	}
-	
-	NSUInteger len = [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
-	const char *utf8 = [string UTF8String];
-	NSUInteger written = 0, i = 0;
+	if (!buf) {
+        
+        NSUInteger len = [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+        const char *utf8 = [string UTF8String];
+        NSUInteger written = 0, i = 0;
 		
-	buf = [NSMutableData dataWithCapacity:len * 1.1f];
-	[buf appendBytes:"\"" length:1];
-	
-	for (i = 0; i < len; i++) {
-		int c = utf8[i];
-		BOOL isControlChar = c >= 0 && c < 32;
-		if (isControlChar || c == '"' || c == '\\') {
-			if (i - written)
-				[buf appendBytes:utf8 + written length:i - written];
-			written = i + 1;
+        buf = [NSMutableData dataWithCapacity:len * 1.1f];
+        [buf appendBytes:"\"" length:1];
+        
+        for (i = 0; i < len; i++) {
+            int c = utf8[i];
+            BOOL isControlChar = c >= 0 && c < 32;
+            if (isControlChar || c == '"' || c == '\\') {
+                if (i - written)
+                    [buf appendBytes:utf8 + written length:i - written];
+                written = i + 1;
+                
+                const char *t = strForChar(c);
+                [buf appendBytes:t length:strlen(t)];
+            }
+        }
+        
+        if (i - written)
+            [buf appendBytes:utf8 + written length:i - written];
+        
+        [buf appendBytes:"\"" length:1];
+        [stringCache setObject:buf forKey:string];
+    }
 
-			const char *t = strForChar(c);
-			[buf appendBytes:t length:strlen(t)];
-		}
-	}
-
-	if (i - written)
-		[buf appendBytes:utf8 + written length:i - written];
-
-	[buf appendBytes:"\"" length:1];
 	[delegate writer:self appendBytes:[buf bytes] length:[buf length]];
-	[stringCache setObject:buf forKey:string];
 	[s transitionState:self];
 	return YES;
 }
