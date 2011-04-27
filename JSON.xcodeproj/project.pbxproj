@@ -1270,7 +1270,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_SIGN_COMPARE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-Wparentheses";
@@ -1284,7 +1283,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_SIGN_COMPARE = YES;
 				OTHER_CFLAGS = "-Wparentheses";
 			};
