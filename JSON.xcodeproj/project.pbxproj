@@ -67,7 +67,7 @@
 		BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
 		BC81A69612AF019F005C034C /* StreamParserIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC81A69512AF019F005C034C /* StreamParserIntegrationTest.m */; };
 		BC8778E7136CDE4400549A6D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC8778E5136CDE4400549A6D /* InfoPlist.strings */; };
-		BC8778F2136CDE4400549A6D /* Colchis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8778DA136CDE4400549A6D /* Colchis.framework */; };
+		BC8778F2136CDE4400549A6D /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8778DA136CDE4400549A6D /* JSON.framework */; };
 		BC8778F8136CDE4400549A6D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC8778F6136CDE4400549A6D /* InfoPlist.strings */; };
 		BC877904136CDF9D00549A6D /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
 		BC877905136CDF9D00549A6D /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC651A6D125A502700280F5C /* SBJsonStreamWriter.m */; };
@@ -196,7 +196,7 @@
 			containerPortal = 53D229730C9611FF00276605 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BC8778D9136CDE4400549A6D;
-			remoteInfo = Colchis;
+			remoteInfo = JSON;
 		};
 		BCF6393E12F5FD4F0094F9AE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -232,15 +232,15 @@
 		BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaxDepthTest.m; sourceTree = "<group>"; };
 		BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyTest.m; sourceTree = "<group>"; };
 		BC81A69512AF019F005C034C /* StreamParserIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StreamParserIntegrationTest.m; path = Tests/StreamParserIntegrationTest.m; sourceTree = SOURCE_ROOT; };
-		BC8778DA136CDE4400549A6D /* Colchis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Colchis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC8778DA136CDE4400549A6D /* JSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8778E1136CDE4400549A6D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		BC8778E4136CDE4400549A6D /* Colchis-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Colchis-Info.plist"; sourceTree = "<group>"; };
+		BC8778E4136CDE4400549A6D /* JSON-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSON-Info.plist"; sourceTree = "<group>"; };
 		BC8778E6136CDE4400549A6D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BC8778E8136CDE4400549A6D /* Colchis-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Colchis-Prefix.pch"; sourceTree = "<group>"; };
-		BC8778EE136CDE4400549A6D /* ColchisTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColchisTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC8778F5136CDE4400549A6D /* ColchisTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ColchisTests-Info.plist"; sourceTree = "<group>"; };
+		BC8778E8136CDE4400549A6D /* JSON-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSON-Prefix.pch"; sourceTree = "<group>"; };
+		BC8778EE136CDE4400549A6D /* JSONTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JSONTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC8778F5136CDE4400549A6D /* JSONTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSONTests-Info.plist"; sourceTree = "<group>"; };
 		BC8778F7136CDE4400549A6D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BC8778F9136CDE4400549A6D /* ColchisTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ColchisTests-Prefix.pch"; sourceTree = "<group>"; };
+		BC8778F9136CDE4400549A6D /* JSONTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONTests-Prefix.pch"; sourceTree = "<group>"; };
 		BC8F72A61235331400678720 /* WriterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriterTest.m; sourceTree = "<group>"; };
 		BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
 		BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
@@ -376,7 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC024D69136CE13F001FD388 /* Foundation.framework in Frameworks */,
-				BC8778F2136CDE4400549A6D /* Colchis.framework in Frameworks */,
+				BC8778F2136CDE4400549A6D /* JSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,8 +404,8 @@
 				53D229950C96123C00276605 /* Classes */,
 				53D229960C96124500276605 /* Tests */,
 				BCB559FF1221D09300ACE34F /* Test Data */,
-				BC8778E2136CDE4400549A6D /* Colchis */,
-				BC8778F3136CDE4400549A6D /* ColchisTests */,
+				BC8778E2136CDE4400549A6D /* JSON */,
+				BC8778F3136CDE4400549A6D /* JSONTests */,
 				BC8778DB136CDE4400549A6D /* Frameworks */,
 				53D229820C96121600276605 /* Products */,
 				BCC0465E0FB62C2B00F9F2D3 /* Resources */,
@@ -419,8 +419,8 @@
 			children = (
 				FE2BBD800D8B0D3900184787 /* libjson.a */,
 				FE2BBDAB0D8B0EE000184787 /* libjsontests.octest */,
-				BC8778DA136CDE4400549A6D /* Colchis.framework */,
-				BC8778EE136CDE4400549A6D /* ColchisTests.octest */,
+				BC8778DA136CDE4400549A6D /* JSON.framework */,
+				BC8778EE136CDE4400549A6D /* JSONTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -479,38 +479,38 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BC8778E2136CDE4400549A6D /* Colchis */ = {
+		BC8778E2136CDE4400549A6D /* JSON */ = {
 			isa = PBXGroup;
 			children = (
 				BC8778E3136CDE4400549A6D /* Supporting Files */,
 			);
-			path = Colchis;
+			path = JSON;
 			sourceTree = "<group>";
 		};
 		BC8778E3136CDE4400549A6D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BC8778E4136CDE4400549A6D /* Colchis-Info.plist */,
+				BC8778E4136CDE4400549A6D /* JSON-Info.plist */,
 				BC8778E5136CDE4400549A6D /* InfoPlist.strings */,
-				BC8778E8136CDE4400549A6D /* Colchis-Prefix.pch */,
+				BC8778E8136CDE4400549A6D /* JSON-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BC8778F3136CDE4400549A6D /* ColchisTests */ = {
+		BC8778F3136CDE4400549A6D /* JSONTests */ = {
 			isa = PBXGroup;
 			children = (
 				BC8778F4136CDE4400549A6D /* Supporting Files */,
 			);
-			path = ColchisTests;
+			path = JSONTests;
 			sourceTree = "<group>";
 		};
 		BC8778F4136CDE4400549A6D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BC8778F5136CDE4400549A6D /* ColchisTests-Info.plist */,
+				BC8778F5136CDE4400549A6D /* JSONTests-Info.plist */,
 				BC8778F6136CDE4400549A6D /* InfoPlist.strings */,
-				BC8778F9136CDE4400549A6D /* ColchisTests-Prefix.pch */,
+				BC8778F9136CDE4400549A6D /* JSONTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -710,9 +710,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		BC8778D9136CDE4400549A6D /* Colchis */ = {
+		BC8778D9136CDE4400549A6D /* JSON */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC877902136CDE4400549A6D /* Build configuration list for PBXNativeTarget "Colchis" */;
+			buildConfigurationList = BC877902136CDE4400549A6D /* Build configuration list for PBXNativeTarget "JSON" */;
 			buildPhases = (
 				BC8778D5136CDE4400549A6D /* Sources */,
 				BC8778D6136CDE4400549A6D /* Frameworks */,
@@ -723,14 +723,14 @@
 			);
 			dependencies = (
 			);
-			name = Colchis;
-			productName = Colchis;
-			productReference = BC8778DA136CDE4400549A6D /* Colchis.framework */;
+			name = JSON;
+			productName = JSON;
+			productReference = BC8778DA136CDE4400549A6D /* JSON.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		BC8778ED136CDE4400549A6D /* ColchisTests */ = {
+		BC8778ED136CDE4400549A6D /* JSONTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC877903136CDE4400549A6D /* Build configuration list for PBXNativeTarget "ColchisTests" */;
+			buildConfigurationList = BC877903136CDE4400549A6D /* Build configuration list for PBXNativeTarget "JSONTests" */;
 			buildPhases = (
 				BC8778E9136CDE4400549A6D /* Sources */,
 				BC8778EA136CDE4400549A6D /* Frameworks */,
@@ -742,9 +742,9 @@
 			dependencies = (
 				BC8778F1136CDE4400549A6D /* PBXTargetDependency */,
 			);
-			name = ColchisTests;
-			productName = ColchisTests;
-			productReference = BC8778EE136CDE4400549A6D /* ColchisTests.octest */;
+			name = JSONTests;
+			productName = JSONTests;
+			productReference = BC8778EE136CDE4400549A6D /* JSONTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 		FE2BBD7F0D8B0D3900184787 /* libjson */ = {
@@ -810,8 +810,8 @@
 				FE2BBDAA0D8B0EE000184787 /* libjsontests */,
 				BCC047160FB651AF00F9F2D3 /* DocSet */,
 				BCF6393B12F5FD3B0094F9AE /* RefreshOnlineDocs */,
-				BC8778D9136CDE4400549A6D /* Colchis */,
-				BC8778ED136CDE4400549A6D /* ColchisTests */,
+				BC8778D9136CDE4400549A6D /* JSON */,
+				BC8778ED136CDE4400549A6D /* JSONTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1094,7 +1094,7 @@
 /* Begin PBXTargetDependency section */
 		BC8778F1136CDE4400549A6D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BC8778D9136CDE4400549A6D /* Colchis */;
+			target = BC8778D9136CDE4400549A6D /* JSON */;
 			targetProxy = BC8778F0136CDE4400549A6D /* PBXContainerItemProxy */;
 		};
 		BCF6393F12F5FD4F0094F9AE /* PBXTargetDependency */ = {
@@ -1165,14 +1165,14 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Colchis/Colchis-Prefix.pch";
+				GCC_PREFIX_HEADER = "JSON/JSON-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Colchis/Colchis-Info.plist";
+				INFOPLIST_FILE = "JSON/JSON-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1192,12 +1192,12 @@
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Colchis/Colchis-Prefix.pch";
+				GCC_PREFIX_HEADER = "JSON/JSON-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Colchis/Colchis-Info.plist";
+				INFOPLIST_FILE = "JSON/JSON-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1216,14 +1216,14 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ColchisTests/ColchisTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "JSONTests/JSONTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "ColchisTests/ColchisTests-Info.plist";
+				INFOPLIST_FILE = "JSONTests/JSONTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1245,12 +1245,12 @@
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ColchisTests/ColchisTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "JSONTests/JSONTests-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "ColchisTests/ColchisTests-Info.plist";
+				INFOPLIST_FILE = "JSONTests/JSONTests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1424,7 +1424,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC877902136CDE4400549A6D /* Build configuration list for PBXNativeTarget "Colchis" */ = {
+		BC877902136CDE4400549A6D /* Build configuration list for PBXNativeTarget "JSON" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC8778FE136CDE4400549A6D /* Debug */,
@@ -1433,7 +1433,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC877903136CDE4400549A6D /* Build configuration list for PBXNativeTarget "ColchisTests" */ = {
+		BC877903136CDE4400549A6D /* Build configuration list for PBXNativeTarget "JSONTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC877900136CDE4400549A6D /* Debug */,
