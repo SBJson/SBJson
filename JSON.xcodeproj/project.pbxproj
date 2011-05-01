@@ -35,15 +35,8 @@
 /* Begin PBXBuildFile section */
 		5351577A0F6E3BE100C8AABD /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157780F6E3BE100C8AABD /* SBJsonParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5351577B0F6E3BE100C8AABD /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157790F6E3BE100C8AABD /* SBJsonParser.m */; };
-		5351577C0F6E3BE100C8AABD /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157780F6E3BE100C8AABD /* SBJsonParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		5351577D0F6E3BE100C8AABD /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157790F6E3BE100C8AABD /* SBJsonParser.m */; };
 		535157A50F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		535157A60F6EE4A800C8AABD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
-		535157A70F6EE4A800C8AABD /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		535157A80F6EE4A800C8AABD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 535157A40F6EE4A800C8AABD /* SBJsonWriter.m */; };
-		53C45B9C0C98A87600546F66 /* ErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C45B9B0C98A87600546F66 /* ErrorTest.m */; };
-		53D2299C0C96129800276605 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		53D229AD0C961B9900276605 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D229810C96121600276605 /* JSON.framework */; };
 		53F8A8150E57158200355C72 /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2BBD800D8B0D3900184787 /* libjson.a */; };
 		BC024D53136CDFF6001FD388 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8778E1136CDE4400549A6D /* Foundation.framework */; };
 		BC024D54136CE05A001FD388 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -68,16 +61,11 @@
 		BC024D67136CE0EC001FD388 /* StreamParserAdapterDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602FD12A4564E0024BDA2 /* StreamParserAdapterDelegate.m */; };
 		BC024D68136CE0EC001FD388 /* StreamParserAdapterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC96030912A45E3D0024BDA2 /* StreamParserAdapterTest.m */; };
 		BC024D69136CE13F001FD388 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8778E1136CDE4400549A6D /* Foundation.framework */; };
-		BC651A6E125A502700280F5C /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BC651A6F125A502700280F5C /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC651A6D125A502700280F5C /* SBJsonStreamWriter.m */; };
 		BC651A70125A502700280F5C /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC651A71125A502700280F5C /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC651A6D125A502700280F5C /* SBJsonStreamWriter.m */; };
 		BC74B6EC0FC9FAD0000BD3DD /* MaxDepthTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */; };
-		BC74B6ED0FC9FAD0000BD3DD /* MaxDepthTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */; };
-		BC74B7AE0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
 		BC74B7AF0FCA8B89000BD3DD /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
 		BC81A69612AF019F005C034C /* StreamParserIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC81A69512AF019F005C034C /* StreamParserIntegrationTest.m */; };
-		BC81A69712AF019F005C034C /* StreamParserIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC81A69512AF019F005C034C /* StreamParserIntegrationTest.m */; };
 		BC8778E7136CDE4400549A6D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC8778E5136CDE4400549A6D /* InfoPlist.strings */; };
 		BC8778F2136CDE4400549A6D /* Colchis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8778DA136CDE4400549A6D /* Colchis.framework */; };
 		BC8778F8136CDE4400549A6D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC8778F6136CDE4400549A6D /* InfoPlist.strings */; };
@@ -89,112 +77,14 @@
 		BC877909136CDF9D00549A6D /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2AB129C809700C156C0 /* SBJsonStreamParser.m */; };
 		BC87790A136CDF9D00549A6D /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2AD129C809700C156C0 /* SBJsonStreamParserState.m */; };
 		BC87790B136CDF9D00549A6D /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */; };
-		BC8F72A71235331400678720 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F72A61235331400678720 /* WriterTest.m */; };
 		BC8F72A81235331400678720 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F72A61235331400678720 /* WriterTest.m */; };
-		BC9602B712A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BC9602B812A452CF0024BDA2 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */; };
 		BC9602B912A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9602B512A452CF0024BDA2 /* SBJsonStreamParserAdapter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC9602BA12A452CF0024BDA2 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */; };
 		BC9602FE12A4564E0024BDA2 /* StreamParserAdapterDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602FD12A4564E0024BDA2 /* StreamParserAdapterDelegate.m */; };
-		BC9602FF12A4564E0024BDA2 /* StreamParserAdapterDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602FD12A4564E0024BDA2 /* StreamParserAdapterDelegate.m */; };
 		BC96030A12A45E3D0024BDA2 /* StreamParserAdapterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC96030912A45E3D0024BDA2 /* StreamParserAdapterTest.m */; };
-		BC96030B12A45E3D0024BDA2 /* StreamParserAdapterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC96030912A45E3D0024BDA2 /* StreamParserAdapterTest.m */; };
-		BCA822CA127D68F600DD3FD0 /* SBJsonTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA822C8127D68F600DD3FD0 /* SBJsonTokeniser.h */; };
-		BCA822CB127D68F600DD3FD0 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA822C9127D68F600DD3FD0 /* SBJsonTokeniser.m */; };
 		BCA822CC127D68F600DD3FD0 /* SBJsonTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA822C8127D68F600DD3FD0 /* SBJsonTokeniser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BCA822CD127D68F600DD3FD0 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA822C9127D68F600DD3FD0 /* SBJsonTokeniser.m */; };
-		BCA822D0127D6A9900DD3FD0 /* JsonTokeniserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA822CF127D6A9900DD3FD0 /* JsonTokeniserTest.m */; };
 		BCA822D1127D6A9900DD3FD0 /* JsonTokeniserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA822CF127D6A9900DD3FD0 /* JsonTokeniserTest.m */; };
-		BCB55A5E1221D09400ACE34F /* array.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A001221D09400ACE34F /* array.json */; };
-		BCB55A5F1221D09400ACE34F /* array.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A011221D09400ACE34F /* array.json.pretty */; };
-		BCB55A601221D09400ACE34F /* array.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A021221D09400ACE34F /* array.json.terse */; };
-		BCB55A611221D09400ACE34F /* bool.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A031221D09400ACE34F /* bool.json */; };
-		BCB55A621221D09400ACE34F /* bool.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A041221D09400ACE34F /* bool.json.pretty */; };
-		BCB55A631221D09400ACE34F /* bool.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A051221D09400ACE34F /* bool.json.terse */; };
-		BCB55A641221D09400ACE34F /* format.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A061221D09400ACE34F /* format.json */; };
-		BCB55A651221D09400ACE34F /* format.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A071221D09400ACE34F /* format.json.pretty */; };
-		BCB55A661221D09400ACE34F /* format.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A081221D09400ACE34F /* format.json.terse */; };
-		BCB55A671221D09400ACE34F /* 1.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A0A1221D09400ACE34F /* 1.json */; };
-		BCB55A681221D09400ACE34F /* 1.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A0B1221D09400ACE34F /* 1.json.pretty */; };
-		BCB55A691221D09400ACE34F /* 1.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A0C1221D09400ACE34F /* 1.json.terse */; };
-		BCB55A6A1221D09400ACE34F /* 2.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A0D1221D09400ACE34F /* 2.json */; };
-		BCB55A6B1221D09400ACE34F /* 2.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A0E1221D09400ACE34F /* 2.json.pretty */; };
-		BCB55A6C1221D09400ACE34F /* 2.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A0F1221D09400ACE34F /* 2.json.terse */; };
-		BCB55A6D1221D09400ACE34F /* 3.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A101221D09400ACE34F /* 3.json */; };
-		BCB55A6E1221D09400ACE34F /* 3.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A111221D09400ACE34F /* 3.json.pretty */; };
-		BCB55A6F1221D09400ACE34F /* 3.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A121221D09400ACE34F /* 3.json.terse */; };
-		BCB55A701221D09400ACE34F /* 4.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A131221D09400ACE34F /* 4.json */; };
-		BCB55A711221D09400ACE34F /* 4.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A141221D09400ACE34F /* 4.json.pretty */; };
-		BCB55A721221D09400ACE34F /* 4.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A151221D09400ACE34F /* 4.json.terse */; };
-		BCB55A731221D09400ACE34F /* 5.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A161221D09400ACE34F /* 5.json */; };
-		BCB55A741221D09400ACE34F /* 5.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A171221D09400ACE34F /* 5.json.pretty */; };
-		BCB55A751221D09400ACE34F /* 5.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A181221D09400ACE34F /* 5.json.terse */; };
-		BCB55A761221D09400ACE34F /* fail1.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A1A1221D09400ACE34F /* fail1.json */; };
-		BCB55A771221D09400ACE34F /* fail10.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A1B1221D09400ACE34F /* fail10.json */; };
-		BCB55A781221D09400ACE34F /* fail11.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A1C1221D09400ACE34F /* fail11.json */; };
-		BCB55A791221D09400ACE34F /* fail12.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A1D1221D09400ACE34F /* fail12.json */; };
-		BCB55A7A1221D09400ACE34F /* fail13.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A1E1221D09400ACE34F /* fail13.json */; };
-		BCB55A7B1221D09400ACE34F /* fail14.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A1F1221D09400ACE34F /* fail14.json */; };
-		BCB55A7C1221D09400ACE34F /* fail15.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A201221D09400ACE34F /* fail15.json */; };
-		BCB55A7D1221D09400ACE34F /* fail16.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A211221D09400ACE34F /* fail16.json */; };
-		BCB55A7E1221D09400ACE34F /* fail17.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A221221D09400ACE34F /* fail17.json */; };
-		BCB55A7F1221D09400ACE34F /* fail18.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A231221D09400ACE34F /* fail18.json */; };
-		BCB55A801221D09400ACE34F /* fail19.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A241221D09400ACE34F /* fail19.json */; };
-		BCB55A811221D09400ACE34F /* fail2.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A251221D09400ACE34F /* fail2.json */; };
-		BCB55A821221D09400ACE34F /* fail20.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A261221D09400ACE34F /* fail20.json */; };
-		BCB55A831221D09400ACE34F /* fail21.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A271221D09400ACE34F /* fail21.json */; };
-		BCB55A841221D09400ACE34F /* fail22.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A281221D09400ACE34F /* fail22.json */; };
-		BCB55A851221D09400ACE34F /* fail23.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A291221D09400ACE34F /* fail23.json */; };
-		BCB55A861221D09400ACE34F /* fail24.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A2A1221D09400ACE34F /* fail24.json */; };
-		BCB55A871221D09400ACE34F /* fail25.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A2B1221D09400ACE34F /* fail25.json */; };
-		BCB55A881221D09400ACE34F /* fail26.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A2C1221D09400ACE34F /* fail26.json */; };
-		BCB55A891221D09400ACE34F /* fail27.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A2D1221D09400ACE34F /* fail27.json */; };
-		BCB55A8A1221D09400ACE34F /* fail28.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A2E1221D09400ACE34F /* fail28.json */; };
-		BCB55A8B1221D09400ACE34F /* fail29.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A2F1221D09400ACE34F /* fail29.json */; };
-		BCB55A8C1221D09400ACE34F /* fail3.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A301221D09400ACE34F /* fail3.json */; };
-		BCB55A8D1221D09400ACE34F /* fail30.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A311221D09400ACE34F /* fail30.json */; };
-		BCB55A8E1221D09400ACE34F /* fail31.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A321221D09400ACE34F /* fail31.json */; };
-		BCB55A8F1221D09400ACE34F /* fail32.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A331221D09400ACE34F /* fail32.json */; };
-		BCB55A901221D09400ACE34F /* fail33.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A341221D09400ACE34F /* fail33.json */; };
-		BCB55A911221D09400ACE34F /* fail4.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A351221D09400ACE34F /* fail4.json */; };
-		BCB55A921221D09400ACE34F /* fail5.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A361221D09400ACE34F /* fail5.json */; };
-		BCB55A931221D09400ACE34F /* fail6.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A371221D09400ACE34F /* fail6.json */; };
-		BCB55A941221D09400ACE34F /* fail7.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A381221D09400ACE34F /* fail7.json */; };
-		BCB55A951221D09400ACE34F /* fail8.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A391221D09400ACE34F /* fail8.json */; };
-		BCB55A961221D09400ACE34F /* fail9.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A3A1221D09400ACE34F /* fail9.json */; };
-		BCB55A971221D09400ACE34F /* pass1.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A3B1221D09400ACE34F /* pass1.json */; };
-		BCB55A981221D09400ACE34F /* pass1.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A3C1221D09400ACE34F /* pass1.json.pretty */; };
-		BCB55A991221D09400ACE34F /* pass1.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A3D1221D09400ACE34F /* pass1.json.terse */; };
-		BCB55A9A1221D09400ACE34F /* pass2.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A3E1221D09400ACE34F /* pass2.json */; };
-		BCB55A9B1221D09400ACE34F /* pass2.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A3F1221D09400ACE34F /* pass2.json.pretty */; };
-		BCB55A9C1221D09400ACE34F /* pass2.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A401221D09400ACE34F /* pass2.json.terse */; };
-		BCB55A9D1221D09400ACE34F /* pass3.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A411221D09400ACE34F /* pass3.json */; };
-		BCB55A9E1221D09400ACE34F /* pass3.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A421221D09400ACE34F /* pass3.json.pretty */; };
-		BCB55A9F1221D09400ACE34F /* pass3.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A431221D09400ACE34F /* pass3.json.terse */; };
-		BCB55AA01221D09400ACE34F /* null.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A441221D09400ACE34F /* null.json */; };
-		BCB55AA11221D09400ACE34F /* null.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A451221D09400ACE34F /* null.json.pretty */; };
-		BCB55AA21221D09400ACE34F /* null.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A461221D09400ACE34F /* null.json.terse */; };
-		BCB55AA31221D09400ACE34F /* number.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A471221D09400ACE34F /* number.json */; };
-		BCB55AA41221D09400ACE34F /* number.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A481221D09400ACE34F /* number.json.pretty */; };
-		BCB55AA51221D09400ACE34F /* number.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A491221D09400ACE34F /* number.json.terse */; };
-		BCB55AA61221D09400ACE34F /* object.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A4A1221D09400ACE34F /* object.json */; };
-		BCB55AA71221D09400ACE34F /* object.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A4B1221D09400ACE34F /* object.json.pretty */; };
-		BCB55AA81221D09400ACE34F /* object.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A4C1221D09400ACE34F /* object.json.terse */; };
-		BCB55AAA1221D09400ACE34F /* a.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A4F1221D09400ACE34F /* a.json */; };
-		BCB55AAB1221D09400ACE34F /* a.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A501221D09400ACE34F /* a.json.pretty */; };
-		BCB55AAC1221D09400ACE34F /* a.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A511221D09400ACE34F /* a.json.terse */; };
-		BCB55AAD1221D09400ACE34F /* b.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A521221D09400ACE34F /* b.json */; };
-		BCB55AAE1221D09400ACE34F /* b.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A531221D09400ACE34F /* b.json.pretty */; };
-		BCB55AAF1221D09400ACE34F /* b.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A541221D09400ACE34F /* b.json.terse */; };
-		BCB55AB01221D09400ACE34F /* string-ctrl.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A551221D09400ACE34F /* string-ctrl.json */; };
-		BCB55AB11221D09400ACE34F /* string-ctrl.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A561221D09400ACE34F /* string-ctrl.json.pretty */; };
-		BCB55AB21221D09400ACE34F /* string-ctrl.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A571221D09400ACE34F /* string-ctrl.json.terse */; };
-		BCB55AB31221D09400ACE34F /* string-unicode.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A581221D09400ACE34F /* string-unicode.json */; };
-		BCB55AB41221D09400ACE34F /* string-unicode.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A591221D09400ACE34F /* string-unicode.json.pretty */; };
-		BCB55AB51221D09400ACE34F /* string-unicode.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5A1221D09400ACE34F /* string-unicode.json.terse */; };
-		BCB55AB61221D09400ACE34F /* string.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5B1221D09400ACE34F /* string.json */; };
-		BCB55AB71221D09400ACE34F /* string.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5C1221D09400ACE34F /* string.json.pretty */; };
-		BCB55AB81221D09400ACE34F /* string.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5D1221D09400ACE34F /* string.json.terse */; };
 		BCB55AB91221D09400ACE34F /* array.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A001221D09400ACE34F /* array.json */; };
 		BCB55ABA1221D09400ACE34F /* array.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A011221D09400ACE34F /* array.json.pretty */; };
 		BCB55ABB1221D09400ACE34F /* array.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A021221D09400ACE34F /* array.json.terse */; };
@@ -285,25 +175,14 @@
 		BCB55B111221D09400ACE34F /* string.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5B1221D09400ACE34F /* string.json */; };
 		BCB55B121221D09400ACE34F /* string.json.pretty in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5C1221D09400ACE34F /* string.json.pretty */; };
 		BCB55B131221D09400ACE34F /* string.json.terse in Resources */ = {isa = PBXBuildFile; fileRef = BCB55A5D1221D09400ACE34F /* string.json.terse */; };
-		BCCEBEFD12B3E14500263D0F /* SBJsonStreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = BCCEBEFB12B3E14500263D0F /* SBJsonStreamWriterState.h */; };
-		BCCEBEFE12B3E14500263D0F /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCEBEFC12B3E14500263D0F /* SBJsonStreamWriterState.m */; };
 		BCCEBEFF12B3E14500263D0F /* SBJsonStreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = BCCEBEFB12B3E14500263D0F /* SBJsonStreamWriterState.h */; };
 		BCCEBF0012B3E14500263D0F /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCEBEFC12B3E14500263D0F /* SBJsonStreamWriterState.m */; };
 		BCE5E289129C7D3300C156C0 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BCE5E287129C7D3300C156C0 /* SBJsonStreamParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BCE5E28B129C7D3300C156C0 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BCE5E287129C7D3300C156C0 /* SBJsonStreamParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BCE5E2AE129C809700C156C0 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2AB129C809700C156C0 /* SBJsonStreamParser.m */; };
 		BCE5E2AF129C809700C156C0 /* SBJsonStreamParserState.h in Headers */ = {isa = PBXBuildFile; fileRef = BCE5E2AC129C809700C156C0 /* SBJsonStreamParserState.h */; };
 		BCE5E2B0129C809700C156C0 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2AD129C809700C156C0 /* SBJsonStreamParserState.m */; };
-		BCE5E2B1129C809700C156C0 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2AB129C809700C156C0 /* SBJsonStreamParser.m */; };
-		BCE5E2B2129C809700C156C0 /* SBJsonStreamParserState.h in Headers */ = {isa = PBXBuildFile; fileRef = BCE5E2AC129C809700C156C0 /* SBJsonStreamParserState.h */; };
-		BCE5E2B3129C809700C156C0 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2AD129C809700C156C0 /* SBJsonStreamParserState.m */; };
-		BCE5E2F0129C825600C156C0 /* StreamParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2B5129C80A000C156C0 /* StreamParserDelegate.m */; };
-		BCE5E2F1129C825700C156C0 /* StreamParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2B6129C80A000C156C0 /* StreamParserTest.m */; };
 		BCE5E2F2129C826A00C156C0 /* StreamParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2B5129C80A000C156C0 /* StreamParserDelegate.m */; };
 		BCE5E2F3129C826A00C156C0 /* StreamParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2B6129C80A000C156C0 /* StreamParserTest.m */; };
-		E75716450C96DB530084A449 /* NSObject+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+JSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E75716460C96DB530084A449 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+JSON.m */; };
-		E76A1EBD0C996EFD00A0CC83 /* DataDrivenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E76A1EB60C996C2000A0CC83 /* DataDrivenTest.m */; };
 		FE2BBD860D8B0D6000184787 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FE2BBD870D8B0D6000184787 /* NSObject+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+JSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FE2BBD880D8B0D6000184787 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+JSON.m */; };
@@ -312,13 +191,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		53D229920C96122E00276605 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 53D229730C9611FF00276605 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 53D229800C96121600276605;
-			remoteInfo = JSON;
-		};
 		BC8778F0136CDE4400549A6D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 53D229730C9611FF00276605 /* Project object */;
@@ -348,10 +220,6 @@
 		535157A30F6EE4A800C8AABD /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		535157A40F6EE4A800C8AABD /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		53C45B9B0C98A87600546F66 /* ErrorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorTest.m; sourceTree = "<group>"; };
-		53D229810C96121600276605 /* JSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		53D229830C96121600276605 /* JSON-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSON-Info.plist"; sourceTree = "<group>"; };
-		53D2298D0C96122A00276605 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		53D2298E0C96122A00276605 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		53D2299A0C96129800276605 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		BC010B181248A5E400ACC736 /* RefreshOnlineDocs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = RefreshOnlineDocs.sh; sourceTree = "<group>"; };
 		BC0DEEB21273A34F006964FC /* ReleaseChecklist.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReleaseChecklist.markdown; sourceTree = "<group>"; };
@@ -495,21 +363,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		53D2297F0C96121600276605 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		53D2298A0C96122A00276605 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				53D229AD0C961B9900276605 /* JSON.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BC8778D6136CDE4400549A6D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -564,8 +417,6 @@
 		53D229820C96121600276605 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				53D229810C96121600276605 /* JSON.framework */,
-				53D2298D0C96122A00276605 /* Tests.octest */,
 				FE2BBD800D8B0D3900184787 /* libjson.a */,
 				FE2BBDAB0D8B0EE000184787 /* libjsontests.octest */,
 				BC8778DA136CDE4400549A6D /* Colchis.framework */,
@@ -792,8 +643,6 @@
 		BCC0465E0FB62C2B00F9F2D3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				53D229830C96121600276605 /* JSON-Info.plist */,
-				53D2298E0C96122A00276605 /* Tests-Info.plist */,
 				FE2BBDAC0D8B0EE100184787 /* libjsontests-Info.plist */,
 			);
 			name = Resources;
@@ -824,23 +673,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		53D2297C0C96121600276605 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				53D2299C0C96129800276605 /* JSON.h in Headers */,
-				E75716450C96DB530084A449 /* NSObject+JSON.h in Headers */,
-				5351577C0F6E3BE100C8AABD /* SBJsonParser.h in Headers */,
-				535157A70F6EE4A800C8AABD /* SBJsonWriter.h in Headers */,
-				BC651A6E125A502700280F5C /* SBJsonStreamWriter.h in Headers */,
-				BCA822CA127D68F600DD3FD0 /* SBJsonTokeniser.h in Headers */,
-				BCE5E28B129C7D3300C156C0 /* SBJsonStreamParser.h in Headers */,
-				BCE5E2B2129C809700C156C0 /* SBJsonStreamParserState.h in Headers */,
-				BC9602B712A452CF0024BDA2 /* SBJsonStreamParserAdapter.h in Headers */,
-				BCCEBEFD12B3E14500263D0F /* SBJsonStreamWriterState.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BC8778D7136CDE4400549A6D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -878,45 +710,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		53D229800C96121600276605 /* JSON */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 53D229850C96121700276605 /* Build configuration list for PBXNativeTarget "JSON" */;
-			buildPhases = (
-				BC5BC69F1249767600F22EB0 /* ShellScript */,
-				53D2297C0C96121600276605 /* Headers */,
-				53D2297D0C96121600276605 /* Resources */,
-				53D2297E0C96121600276605 /* Sources */,
-				53D2297F0C96121600276605 /* Frameworks */,
-				BC5BC6BE1249E3E500F22EB0 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = JSON;
-			productName = JSON;
-			productReference = 53D229810C96121600276605 /* JSON.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		53D2298C0C96122A00276605 /* Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 53D2298F0C96122A00276605 /* Build configuration list for PBXNativeTarget "Tests" */;
-			buildPhases = (
-				53D229880C96122A00276605 /* Resources */,
-				53D229890C96122A00276605 /* Sources */,
-				53D2298A0C96122A00276605 /* Frameworks */,
-				53D2298B0C96122A00276605 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				53D229930C96122E00276605 /* PBXTargetDependency */,
-			);
-			name = Tests;
-			productName = Tests;
-			productReference = 53D2298D0C96122A00276605 /* Tests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 		BC8778D9136CDE4400549A6D /* Colchis */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC877902136CDE4400549A6D /* Build configuration list for PBXNativeTarget "Colchis" */;
@@ -1013,8 +806,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				53D229800C96121600276605 /* JSON */,
-				53D2298C0C96122A00276605 /* Tests */,
 				FE2BBD7F0D8B0D3900184787 /* libjson */,
 				FE2BBDAA0D8B0EE000184787 /* libjsontests */,
 				BCC047160FB651AF00F9F2D3 /* DocSet */,
@@ -1026,110 +817,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		53D2297D0C96121600276605 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		53D229880C96122A00276605 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BCB55A5E1221D09400ACE34F /* array.json in Resources */,
-				BCB55A5F1221D09400ACE34F /* array.json.pretty in Resources */,
-				BCB55A601221D09400ACE34F /* array.json.terse in Resources */,
-				BCB55A611221D09400ACE34F /* bool.json in Resources */,
-				BCB55A621221D09400ACE34F /* bool.json.pretty in Resources */,
-				BCB55A631221D09400ACE34F /* bool.json.terse in Resources */,
-				BCB55A641221D09400ACE34F /* format.json in Resources */,
-				BCB55A651221D09400ACE34F /* format.json.pretty in Resources */,
-				BCB55A661221D09400ACE34F /* format.json.terse in Resources */,
-				BCB55A671221D09400ACE34F /* 1.json in Resources */,
-				BCB55A681221D09400ACE34F /* 1.json.pretty in Resources */,
-				BCB55A691221D09400ACE34F /* 1.json.terse in Resources */,
-				BCB55A6A1221D09400ACE34F /* 2.json in Resources */,
-				BCB55A6B1221D09400ACE34F /* 2.json.pretty in Resources */,
-				BCB55A6C1221D09400ACE34F /* 2.json.terse in Resources */,
-				BCB55A6D1221D09400ACE34F /* 3.json in Resources */,
-				BCB55A6E1221D09400ACE34F /* 3.json.pretty in Resources */,
-				BCB55A6F1221D09400ACE34F /* 3.json.terse in Resources */,
-				BCB55A701221D09400ACE34F /* 4.json in Resources */,
-				BCB55A711221D09400ACE34F /* 4.json.pretty in Resources */,
-				BCB55A721221D09400ACE34F /* 4.json.terse in Resources */,
-				BCB55A731221D09400ACE34F /* 5.json in Resources */,
-				BCB55A741221D09400ACE34F /* 5.json.pretty in Resources */,
-				BCB55A751221D09400ACE34F /* 5.json.terse in Resources */,
-				BCB55A761221D09400ACE34F /* fail1.json in Resources */,
-				BCB55A771221D09400ACE34F /* fail10.json in Resources */,
-				BCB55A781221D09400ACE34F /* fail11.json in Resources */,
-				BCB55A791221D09400ACE34F /* fail12.json in Resources */,
-				BCB55A7A1221D09400ACE34F /* fail13.json in Resources */,
-				BCB55A7B1221D09400ACE34F /* fail14.json in Resources */,
-				BCB55A7C1221D09400ACE34F /* fail15.json in Resources */,
-				BCB55A7D1221D09400ACE34F /* fail16.json in Resources */,
-				BCB55A7E1221D09400ACE34F /* fail17.json in Resources */,
-				BCB55A7F1221D09400ACE34F /* fail18.json in Resources */,
-				BCB55A801221D09400ACE34F /* fail19.json in Resources */,
-				BCB55A811221D09400ACE34F /* fail2.json in Resources */,
-				BCB55A821221D09400ACE34F /* fail20.json in Resources */,
-				BCB55A831221D09400ACE34F /* fail21.json in Resources */,
-				BCB55A841221D09400ACE34F /* fail22.json in Resources */,
-				BCB55A851221D09400ACE34F /* fail23.json in Resources */,
-				BCB55A861221D09400ACE34F /* fail24.json in Resources */,
-				BCB55A871221D09400ACE34F /* fail25.json in Resources */,
-				BCB55A881221D09400ACE34F /* fail26.json in Resources */,
-				BCB55A891221D09400ACE34F /* fail27.json in Resources */,
-				BCB55A8A1221D09400ACE34F /* fail28.json in Resources */,
-				BCB55A8B1221D09400ACE34F /* fail29.json in Resources */,
-				BCB55A8C1221D09400ACE34F /* fail3.json in Resources */,
-				BCB55A8D1221D09400ACE34F /* fail30.json in Resources */,
-				BCB55A8E1221D09400ACE34F /* fail31.json in Resources */,
-				BCB55A8F1221D09400ACE34F /* fail32.json in Resources */,
-				BCB55A901221D09400ACE34F /* fail33.json in Resources */,
-				BCB55A911221D09400ACE34F /* fail4.json in Resources */,
-				BCB55A921221D09400ACE34F /* fail5.json in Resources */,
-				BCB55A931221D09400ACE34F /* fail6.json in Resources */,
-				BCB55A941221D09400ACE34F /* fail7.json in Resources */,
-				BCB55A951221D09400ACE34F /* fail8.json in Resources */,
-				BCB55A961221D09400ACE34F /* fail9.json in Resources */,
-				BCB55A971221D09400ACE34F /* pass1.json in Resources */,
-				BCB55A981221D09400ACE34F /* pass1.json.pretty in Resources */,
-				BCB55A991221D09400ACE34F /* pass1.json.terse in Resources */,
-				BCB55A9A1221D09400ACE34F /* pass2.json in Resources */,
-				BCB55A9B1221D09400ACE34F /* pass2.json.pretty in Resources */,
-				BCB55A9C1221D09400ACE34F /* pass2.json.terse in Resources */,
-				BCB55A9D1221D09400ACE34F /* pass3.json in Resources */,
-				BCB55A9E1221D09400ACE34F /* pass3.json.pretty in Resources */,
-				BCB55A9F1221D09400ACE34F /* pass3.json.terse in Resources */,
-				BCB55AA01221D09400ACE34F /* null.json in Resources */,
-				BCB55AA11221D09400ACE34F /* null.json.pretty in Resources */,
-				BCB55AA21221D09400ACE34F /* null.json.terse in Resources */,
-				BCB55AA31221D09400ACE34F /* number.json in Resources */,
-				BCB55AA41221D09400ACE34F /* number.json.pretty in Resources */,
-				BCB55AA51221D09400ACE34F /* number.json.terse in Resources */,
-				BCB55AA61221D09400ACE34F /* object.json in Resources */,
-				BCB55AA71221D09400ACE34F /* object.json.pretty in Resources */,
-				BCB55AA81221D09400ACE34F /* object.json.terse in Resources */,
-				BCB55AAA1221D09400ACE34F /* a.json in Resources */,
-				BCB55AAB1221D09400ACE34F /* a.json.pretty in Resources */,
-				BCB55AAC1221D09400ACE34F /* a.json.terse in Resources */,
-				BCB55AAD1221D09400ACE34F /* b.json in Resources */,
-				BCB55AAE1221D09400ACE34F /* b.json.pretty in Resources */,
-				BCB55AAF1221D09400ACE34F /* b.json.terse in Resources */,
-				BCB55AB01221D09400ACE34F /* string-ctrl.json in Resources */,
-				BCB55AB11221D09400ACE34F /* string-ctrl.json.pretty in Resources */,
-				BCB55AB21221D09400ACE34F /* string-ctrl.json.terse in Resources */,
-				BCB55AB31221D09400ACE34F /* string-unicode.json in Resources */,
-				BCB55AB41221D09400ACE34F /* string-unicode.json.pretty in Resources */,
-				BCB55AB51221D09400ACE34F /* string-unicode.json.terse in Resources */,
-				BCB55AB61221D09400ACE34F /* string.json in Resources */,
-				BCB55AB71221D09400ACE34F /* string.json.pretty in Resources */,
-				BCB55AB81221D09400ACE34F /* string.json.terse in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BC8778D8136CDE4400549A6D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1246,33 +933,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		53D2298B0C96122A00276605 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		BC5BC69F1249767600F22EB0 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/bin/perl -pi -e 's/#if 1/#if 0/' \"$SRCROOT/Classes/JSON.h\"";
-			showEnvVarsInLog = 0;
-		};
 		BC5BC69F1249767600F22EB1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -1285,20 +945,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/bin/perl -pi -e 's/#if 1/#if 0/' \"$SRCROOT/Classes/JSON.h\"";
-			showEnvVarsInLog = 0;
-		};
-		BC5BC6BE1249E3E500F22EB0 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/bin/perl -pi -e 's/#if 0/#if 1/' \"$SRCROOT/Classes/JSON.h\"";
 			showEnvVarsInLog = 0;
 		};
 		BC5BC6BE1249E3E500F22EB1 /* ShellScript */ = {
@@ -1376,40 +1022,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		53D2297E0C96121600276605 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E75716460C96DB530084A449 /* NSObject+JSON.m in Sources */,
-				5351577D0F6E3BE100C8AABD /* SBJsonParser.m in Sources */,
-				535157A80F6EE4A800C8AABD /* SBJsonWriter.m in Sources */,
-				BC651A6F125A502700280F5C /* SBJsonStreamWriter.m in Sources */,
-				BCA822CB127D68F600DD3FD0 /* SBJsonTokeniser.m in Sources */,
-				BCE5E2B1129C809700C156C0 /* SBJsonStreamParser.m in Sources */,
-				BCE5E2B3129C809700C156C0 /* SBJsonStreamParserState.m in Sources */,
-				BC9602B812A452CF0024BDA2 /* SBJsonStreamParserAdapter.m in Sources */,
-				BCCEBEFE12B3E14500263D0F /* SBJsonStreamWriterState.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		53D229890C96122A00276605 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				53C45B9C0C98A87600546F66 /* ErrorTest.m in Sources */,
-				E76A1EBD0C996EFD00A0CC83 /* DataDrivenTest.m in Sources */,
-				BC74B6ED0FC9FAD0000BD3DD /* MaxDepthTest.m in Sources */,
-				BC74B7AE0FCA8B89000BD3DD /* ProxyTest.m in Sources */,
-				BC8F72A71235331400678720 /* WriterTest.m in Sources */,
-				BCA822D0127D6A9900DD3FD0 /* JsonTokeniserTest.m in Sources */,
-				BCE5E2F0129C825600C156C0 /* StreamParserDelegate.m in Sources */,
-				BCE5E2F1129C825700C156C0 /* StreamParserTest.m in Sources */,
-				BC9602FF12A4564E0024BDA2 /* StreamParserAdapterDelegate.m in Sources */,
-				BC96030B12A45E3D0024BDA2 /* StreamParserAdapterTest.m in Sources */,
-				BC81A69712AF019F005C034C /* StreamParserIntegrationTest.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BC8778D5136CDE4400549A6D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1480,11 +1092,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		53D229930C96122E00276605 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 53D229800C96121600276605 /* JSON */;
-			targetProxy = 53D229920C96122E00276605 /* PBXContainerItemProxy */;
-		};
 		BC8778F1136CDE4400549A6D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BC8778D9136CDE4400549A6D /* Colchis */;
@@ -1542,128 +1149,6 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				OTHER_CFLAGS = "-Wparentheses";
-			};
-			name = Release;
-		};
-		53D229860C96121700276605 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CURRENT_PROJECT_VERSION = 12;
-				DYLIB_COMPATIBILITY_VERSION = 4;
-				DYLIB_CURRENT_VERSION = 12;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_ENABLE_OBJC_GC = supported;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Foundation.framework/Headers/Foundation.h";
-				INFOPLIST_FILE = "JSON-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = JSON;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = SB;
-			};
-			name = Debug;
-		};
-		53D229870C96121700276605 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CURRENT_PROJECT_VERSION = 12;
-				DYLIB_COMPATIBILITY_VERSION = 4;
-				DYLIB_CURRENT_VERSION = 12;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_GC = supported;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Foundation.framework/Headers/Foundation.h";
-				INFOPLIST_FILE = "JSON-Info.plist";
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = JSON;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = SB;
-			};
-			name = Release;
-		};
-		53D229900C96122A00276605 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(value)",
-					"$(DEVELOPER_FRAMEWORKS_DIR_QUOTED)",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Foundation.framework/Headers/Foundation.h";
-				INFOPLIST_FILE = "Tests-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = Tests;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		53D229910C96122A00276605 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(value)",
-					"$(DEVELOPER_FRAMEWORKS_DIR_QUOTED)",
-				);
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Foundation.framework/Headers/Foundation.h";
-				INFOPLIST_FILE = "Tests-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = Tests;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -1935,24 +1420,6 @@
 			buildConfigurations = (
 				53D229750C9611FF00276605 /* Debug */,
 				53D229760C9611FF00276605 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		53D229850C96121700276605 /* Build configuration list for PBXNativeTarget "JSON" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				53D229860C96121700276605 /* Debug */,
-				53D229870C96121700276605 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		53D2298F0C96122A00276605 /* Build configuration list for PBXNativeTarget "Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				53D229900C96122A00276605 /* Debug */,
-				53D229910C96122A00276605 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
