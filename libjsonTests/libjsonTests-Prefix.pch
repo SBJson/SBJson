@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'libjsonTests' target in the 'libjsonTests' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+#endif
