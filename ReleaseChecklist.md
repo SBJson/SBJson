@@ -1,4 +1,4 @@
-* Update Changes.markdown
+* Update Changes.md
 * % agvtool new-marketing-version XXX
 * % agvtool bump
 * Update website

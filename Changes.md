@@ -6,16 +6,16 @@
 * [Issue 42][#42]: Fix bug in handling of Unicode Surrogate Pairs.
 * [Issue 48][#48]: Increase precision when writing floating-point numbers so NSTimeInterval instances since epoch can be represented fully.
 
-[#42]: http://github.com/stig/json-framework/issues/#issue/42
-[#46]: http://github.com/stig/json-framework/issues/#issue/46
-[#48]: http://github.com/stig/json-framework/issues/#issue/48
+[#42]: http://github.com/stig/json-framework/issues/42
+[#46]: http://github.com/stig/json-framework/issues/46
+[#48]: http://github.com/stig/json-framework/issues/48
 
 ## Version 3.0beta1 (January 30th, 2011)
 
 ### Bug Fixes
 * [Issue 36][#36]: Fix bug in build script that caused it to break if $SRCROOT has spaces.
 
-[#36]: http://github.com/stig/json-framework/issues/#issue/36
+[#36]: http://github.com/stig/json-framework/issues/36
 
 ### Changes
 
@@ -46,13 +46,13 @@
 * [Issue 30][#30]: Added *TwitterStream* example project showing how to interact with Twitter's multi-document stream. (See `Examples/TwitterStream` in the distribution.)
 
 [bench]: http://github.com/samsoffes/json-benchmarks
-[#9]: http://github.com/stig/json-framework/issues/#issue/9
-[#12]: http://github.com/stig/json-framework/issues/#issue/12
-[#16]: http://github.com/stig/json-framework/issues/#issue/16
-[#18]: http://github.com/stig/json-framework/issues/#issue/18
-[#27]: http://github.com/stig/json-framework/issues/#issue/27
-[#30]: http://github.com/stig/json-framework/issues/#issue/30
-[#25]: http://github.com/stig/json-framework/issues/#issue/25
+[#9]: http://github.com/stig/json-framework/issues/9
+[#12]: http://github.com/stig/json-framework/issues/12
+[#16]: http://github.com/stig/json-framework/issues/16
+[#18]: http://github.com/stig/json-framework/issues/18
+[#27]: http://github.com/stig/json-framework/issues/27
+[#30]: http://github.com/stig/json-framework/issues/30
+[#25]: http://github.com/stig/json-framework/issues/25
 
 ## Version 2.3.1 (September 25th, 2010)
 
