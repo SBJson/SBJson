@@ -2,6 +2,11 @@
 
 ## Version 3.0beta2 (TBD)
 
+### Enhancements
+* [Issue 40][#40]: Remove unnecessary script phase build
+
+[#40]: http://github.com/stig/json-framework/issues/40
+
 ### Bug Fixes
 * [Issue 42][#42]: Fix bug in handling of Unicode Surrogate Pairs.
 * [Issue 48][#48]: Increase precision when writing floating-point numbers so NSTimeInterval instances since epoch can be represented fully.

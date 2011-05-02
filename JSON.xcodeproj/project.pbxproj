@@ -34,7 +34,6 @@
 
 /* Begin PBXBuildFile section */
 		BC024D53136CDFF6001FD388 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8778E1136CDE4400549A6D /* Foundation.framework */; };
-		BC024D54136CE05A001FD388 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC024D55136CE06A001FD388 /* NSObject+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+JSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC024D56136CE06A001FD388 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC024D57136CE06A001FD388 /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -56,6 +55,10 @@
 		BC024D67136CE0EC001FD388 /* StreamParserAdapterDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602FD12A4564E0024BDA2 /* StreamParserAdapterDelegate.m */; };
 		BC024D68136CE0EC001FD388 /* StreamParserAdapterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC96030912A45E3D0024BDA2 /* StreamParserAdapterTest.m */; };
 		BC024D69136CE13F001FD388 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8778E1136CDE4400549A6D /* Foundation.framework */; };
+		BC11C971136E5A17005CBB19 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = BC11C970136E5A17005CBB19 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC11C972136E5A17005CBB19 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = BC11C970136E5A17005CBB19 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC11C975136E5A4D005CBB19 /* SBJsonIncludes.h in Headers */ = {isa = PBXBuildFile; fileRef = BC11C974136E5A4D005CBB19 /* SBJsonIncludes.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BC11C976136E5A4D005CBB19 /* SBJsonIncludes.h in Headers */ = {isa = PBXBuildFile; fileRef = BC11C974136E5A4D005CBB19 /* SBJsonIncludes.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC2BC02D136CE6B30073BC4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8778E1136CDE4400549A6D /* Foundation.framework */; };
 		BC2BC039136CE6B30073BC4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8778E1136CDE4400549A6D /* Foundation.framework */; };
 		BC2BC03E136CE6B30073BC4B /* liblibjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2BC02C136CE6B30073BC4B /* liblibjson.a */; };
@@ -69,7 +72,6 @@
 		BC2BC056136CE6D40073BC4B /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2AB129C809700C156C0 /* SBJsonStreamParser.m */; };
 		BC2BC057136CE6D40073BC4B /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2AD129C809700C156C0 /* SBJsonStreamParserState.m */; };
 		BC2BC058136CE6D40073BC4B /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */; };
-		BC2BC059136CE6EB0073BC4B /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC2BC05A136CE6EB0073BC4B /* NSObject+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+JSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC2BC05B136CE6EB0073BC4B /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 535157A30F6EE4A800C8AABD /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC2BC05C136CE6EB0073BC4B /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC651A6C125A502700280F5C /* SBJsonStreamWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -136,6 +138,8 @@
 		53D2299A0C96129800276605 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		BC010B181248A5E400ACC736 /* RefreshOnlineDocs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = RefreshOnlineDocs.sh; sourceTree = "<group>"; };
 		BC0DEEB21273A34F006964FC /* ReleaseChecklist.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReleaseChecklist.markdown; sourceTree = "<group>"; };
+		BC11C970136E5A17005CBB19 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		BC11C974136E5A4D005CBB19 /* SBJsonIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonIncludes.h; sourceTree = "<group>"; };
 		BC2BC02C136CE6B30073BC4B /* liblibjson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibjson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC2BC030136CE6B30073BC4B /* libjson-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libjson-Prefix.pch"; sourceTree = "<group>"; };
 		BC2BC036136CE6B30073BC4B /* libjsonTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libjsonTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -349,6 +353,7 @@
 		53D229950C96123C00276605 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				BC11C974136E5A4D005CBB19 /* SBJsonIncludes.h */,
 				53D2299A0C96129800276605 /* JSON.h */,
 				E75716430C96DB530084A449 /* NSObject+JSON.h */,
 				E75716440C96DB530084A449 /* NSObject+JSON.m */,
@@ -439,6 +444,7 @@
 		BC8778E2136CDE4400549A6D /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				BC11C970136E5A17005CBB19 /* JSON.h */,
 				BC8778E3136CDE4400549A6D /* Supporting Files */,
 			);
 			path = JSON;
@@ -626,7 +632,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC2BC059136CE6EB0073BC4B /* JSON.h in Headers */,
+				BC11C972136E5A17005CBB19 /* JSON.h in Headers */,
+				BC11C976136E5A4D005CBB19 /* SBJsonIncludes.h in Headers */,
 				BC2BC05A136CE6EB0073BC4B /* NSObject+JSON.h in Headers */,
 				BC2BC05B136CE6EB0073BC4B /* SBJsonWriter.h in Headers */,
 				BC2BC05C136CE6EB0073BC4B /* SBJsonStreamWriter.h in Headers */,
@@ -643,7 +650,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC024D54136CE05A001FD388 /* JSON.h in Headers */,
+				BC11C971136E5A17005CBB19 /* JSON.h in Headers */,
+				BC11C975136E5A4D005CBB19 /* SBJsonIncludes.h in Headers */,
 				BC024D5D136CE06A001FD388 /* SBJsonStreamParserAdapter.h in Headers */,
 				BC024D55136CE06A001FD388 /* NSObject+JSON.h in Headers */,
 				BC024D56136CE06A001FD388 /* SBJsonWriter.h in Headers */,
@@ -1253,6 +1261,7 @@
 				BC2BC04C136CE6B30073BC4B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BC2BC04D136CE6B30073BC4B /* Build configuration list for PBXNativeTarget "libjsonTests" */ = {
 			isa = XCConfigurationList;
@@ -1261,6 +1270,7 @@
 				BC2BC04F136CE6B30073BC4B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BC877902136CDE4400549A6D /* Build configuration list for PBXNativeTarget "JSON" */ = {
 			isa = XCConfigurationList;
