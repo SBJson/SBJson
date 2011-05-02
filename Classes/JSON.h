@@ -35,7 +35,11 @@
  JSON. One standard object-based and a higher level api consisting of
  categories added to existing Objective-C classes.
 
- This framework does its best to be as strict as possible, both in what it accepts and what it generates. For example, it does not support trailing commas in arrays or objects. Nor does it support embedded comments, or anything else not in the JSON specification. This is considered a feature. 
+ This framework does its best to be as strict as possible, both in what
+ it accepts and what it generates. For example, it does not support
+ trailing commas in arrays or objects. Nor does it support embedded
+ comments, or anything else not in the JSON specification. This is
+ considered a feature. 
   
  @section Links
 
