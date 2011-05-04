@@ -93,8 +93,8 @@ static NSData *x(char *s) {
 }
 
 - (void)testNumbers {
-	STAssertEquals([parser parse:x("[0,1.98,-23.7e+3]")], SBJsonStreamParserComplete, nil);
-	STAssertEqualObjects(delegate.string, @"(0 0 1.98 -23700 0) ", nil);
+	STAssertEquals([parser parse:x("[0,1.98,-23.7e+3,20023767592]")], SBJsonStreamParserComplete, nil);
+	STAssertEqualObjects(delegate.string, @"(0 0 1.98 -23700 20023767592 0) ", nil);
 }
 
 - (void)testSimpleStrings {

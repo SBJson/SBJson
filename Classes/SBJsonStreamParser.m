@@ -33,7 +33,7 @@
 #import "SBJsonStreamParser.h"
 #import "SBJsonTokeniser.h"
 #import "SBJsonStreamParserState.h"
-
+#import <limits.h>
 
 @implementation SBJsonStreamParser
 
@@ -151,9 +151,12 @@
 		NSNumber *number;
 		if (tok == sbjson_token_integer && len < 12) {
 			char *e = NULL;
-			long l = strtol(buf, &e, 0);
-			number = [NSNumber numberWithLong:l];
-			
+			long long l = strtoll(buf, &e, 0);
+            if (l > INT_MAX) {
+                number = [NSNumber numberWithLongLong:l];
+            } else {
+                number = [NSNumber numberWithLong:l];
+            }
 		} else if (tok == sbjson_token_double && len < 7) {
 			char *e = NULL;
 			double d = strtod(buf, &e);
