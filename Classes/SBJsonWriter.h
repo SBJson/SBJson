@@ -28,7 +28,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "SBJsonStreamWriter.h"
 
 /**
  @brief The JSON writer class.
@@ -52,7 +51,10 @@
  way you would expect.
  
  */
-@interface SBJsonWriter : NSObject <SBJsonStreamWriterDelegate> {
+
+@class SBJsonStreamWriter;
+
+@interface SBJsonWriter : NSObject {
 @protected
     NSMutableData *_data;
     NSString *error;

@@ -30,7 +30,7 @@
 #import "SBJsonWriter.h"
 #import "SBJsonStreamWriter.h"
 
-@interface SBJsonWriter ()
+@interface SBJsonWriter () <SBJsonStreamWriterDelegate>
 @property (copy) NSString *error;
 @end
 
