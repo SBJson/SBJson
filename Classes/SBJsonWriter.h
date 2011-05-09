@@ -55,7 +55,6 @@
 @interface SBJsonWriter : NSObject {
 	
 @protected
-    NSMutableData *_data;
     NSString *error;
     NSUInteger maxDepth;
 	
