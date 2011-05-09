@@ -22,7 +22,6 @@
 - (void)setUp {
     parser = [[SBJsonParser alloc] init];
     writer = [[SBJsonWriter alloc] init];
-    writer.sortKeys = YES;
 }
 
 - (void)tearDown {
