@@ -9,7 +9,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import <JSON/JSON.h>
 
-@interface ValidTest : SenTestCase {
+@interface ValidDataTest : SenTestCase {
 @private
     SBJsonParser * parser;
     SBJsonWriter * writer;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation ValidTest
+@implementation ValidDataTest
 
 - (void)setUp {
     parser = [[SBJsonParser alloc] init];
