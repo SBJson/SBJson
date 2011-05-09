@@ -36,21 +36,22 @@
 
 @implementation SBJsonWriter
 
+@synthesize sortKeys;
+@synthesize humanReadable;
+
 @synthesize error;
+@synthesize maxDepth;
 
 - (id)init {
     self = [super init];
     if (self) {
-        _writer = [[SBJsonStreamWriter alloc] init];
-        _writer.delegate = self;
-        
+        self.maxDepth = 512;        
         _data = [[NSMutableData alloc] initWithCapacity:1024u];
     }
     return self;
 }
 
 - (void)dealloc {
-    [_writer release];
     [error release];
     [_data release];
     [super dealloc];
@@ -69,28 +70,32 @@
         return tmp;
     
     if (error_) {
-		NSDictionary *ui = [NSDictionary dictionaryWithObjectsAndKeys:self.error, NSLocalizedDescriptionKey, nil];
+		NSDictionary *ui = [NSDictionary dictionaryWithObjectsAndKeys:error, NSLocalizedDescriptionKey, nil];
         *error_ = [NSError errorWithDomain:@"org.brautaset.json.parser.ErrorDomain" code:0 userInfo:ui];
 	}
 	
     return nil;
 }
 
-- (NSData*)dataWithObject:(id)object {
+- (NSData*)dataWithObject:(id)object {	
     self.error = nil;
     [_data setLength:0];
-    [_writer reset];
-    
+
+	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] init] autorelease];
+	streamWriter.sortKeys = self.sortKeys;
+	streamWriter.maxDepth = self.maxDepth;
+	streamWriter.humanReadable = self.humanReadable;
+    streamWriter.delegate = self;
+	
 	BOOL ok = NO;
 	if ([object isKindOfClass:[NSDictionary class]])
-		ok = [_writer writeObject:object];
+		ok = [streamWriter writeObject:object];
 	
 	else if ([object isKindOfClass:[NSArray class]])
-		ok = [_writer writeArray:object];
+		ok = [streamWriter writeArray:object];
 		
 	else if ([object respondsToSelector:@selector(proxyForJson)])
 		return [self dataWithObject:[object proxyForJson]];
-
 	else {
 		self.error = @"Not valid type for JSON";
 		return nil;
@@ -99,32 +104,8 @@
 	if (ok)
 		return [[_data copy] autorelease];
 	
-    self.error = _writer.error;
+	self.error = streamWriter.error;
 	return nil;	
-}
-
-- (NSUInteger)maxDepth {
-    return _writer.maxDepth;
-}
-
-- (void)setMaxDepth:(NSUInteger)maxDepth {
-    _writer.maxDepth = maxDepth;
-}
-
-- (BOOL)humanReadable {
-    return _writer.humanReadable;
-}
-
-- (void)setHumanReadable:(BOOL)humanReadable {
-    _writer.humanReadable = humanReadable;
-}
-
-- (BOOL)sortKeys {
-    return _writer.sortKeys;
-}
-
-- (void)setSortKeys:(BOOL)sortKeys {
-    _writer.sortKeys = sortKeys;
 }
 
 #pragma mark SBJsonStreamWriterDelegate
@@ -133,4 +114,6 @@
     [_data appendBytes:bytes length:length];
 }
 
+	
+	
 @end

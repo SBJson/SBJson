@@ -160,9 +160,6 @@
 /// Write a String to the stream
 - (BOOL)writeString:(NSString*)s;
 
-/// Reset the state and prepare to start writing a fresh object
-- (void)reset;
-
 @end
 
 @interface SBJsonStreamWriter (Private)

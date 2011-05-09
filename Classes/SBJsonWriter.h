@@ -52,13 +52,15 @@
  
  */
 
-@class SBJsonStreamWriter;
-
 @interface SBJsonWriter : NSObject {
+	
 @protected
     NSMutableData *_data;
     NSString *error;
-    SBJsonStreamWriter *_writer;
+    NSUInteger maxDepth;
+	
+@private
+    BOOL sortKeys, humanReadable;
 }
 
 /**
@@ -77,7 +79,7 @@
  You need to check the return value of the call you're making to figure out
  if the call actually failed, before you know call this method.
  */
-@property(readonly, copy) NSString *error;
+@property (readonly, copy) NSString *error;
 
 /**
  @brief Whether we are generating human-readable (multiline) JSON.
