@@ -44,6 +44,53 @@
     }
 }
 
+- (void)testPrettyString {
+    writer.humanReadable = YES;
+    writer.sortKeys = YES;
+    
+    [self foreachTestInSuite:@"Tests/Data/format" apply:^(NSString *inpath, NSString *outpath) {
+        NSError *error = nil;
+        NSString *input = [NSString stringWithContentsOfFile:inpath encoding:NSUTF8StringEncoding error:&error];
+        STAssertNotNil(input, @"%@ - %@", inpath, error);
+        
+        NSString *output = [NSString stringWithContentsOfFile:outpath encoding:NSUTF8StringEncoding error:&error];
+        STAssertNotNil(output, @"%@ - %@", outpath, error);
+        
+        id object = [parser objectWithString:input];
+        STAssertNotNil(object, nil);
+        
+        NSString *json = [writer stringWithObject:object];
+        STAssertNotNil(json, nil);
+        
+        json = [json stringByAppendingString:@"\n"];
+        STAssertEqualObjects(json, output, nil);
+    }];
+}
+
+- (void)testPrettyData {
+    writer.humanReadable = YES;
+    writer.sortKeys = YES;
+    
+    [self foreachTestInSuite:@"Tests/Data/format" apply:^(NSString *inpath, NSString *outpath) {
+        NSError *error = nil;
+        NSData *input = [NSData dataWithContentsOfFile:inpath];
+        STAssertNotNil(input, @"%@ - %@", inpath, error);
+        
+        id object = [parser objectWithData:input];
+        STAssertNotNil(object, nil);
+        
+        NSData *json = [writer dataWithObject:object];
+        STAssertNotNil(json, nil);
+        
+        NSData *output = [NSData dataWithContentsOfFile:outpath];
+        STAssertNotNil(output, @"%@ - %@", outpath, error);
+        
+        output = [NSData dataWithBytes:output.bytes length:output.length-1];
+        STAssertEqualObjects(json, output, nil);
+    }];
+}
+
+
 - (void)testString {
     [self foreachTestInSuite:@"Tests/Data/valid" apply:^(NSString *inpath, NSString *outpath) {
         NSError *error = nil;
