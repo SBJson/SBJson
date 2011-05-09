@@ -30,25 +30,12 @@
 #import "SBJsonParser.h"
 #import "SBJsonStreamParser.h"
 #import "SBJsonStreamParserAdapter.h"
-
-@interface SBJsonParser () <SBJsonStreamParserAdapterDelegate>
-@end
-
+#import "SBJsonStreamParserAccumulator.h"
 
 @implementation SBJsonParser
 
 @synthesize maxDepth;
 @synthesize error;
-
-#pragma mark SBJsonStreamParserAdapterDelegate
-
-- (void)parser:(SBJsonStreamParser*)parser foundArray:(NSArray *)array {
-	value = [array retain];
-}
-
-- (void)parser:(SBJsonStreamParser*)parser foundObject:(NSDictionary *)dict {
-	value = [dict retain];
-}
 
 - (id)init {
     self = [super init];
@@ -71,17 +58,18 @@
         return nil;
     }
 
-	SBJsonStreamParserAdapter *adapter = [SBJsonStreamParserAdapter new];
-	adapter.delegate =  self;
+	SBJsonStreamParserAccumulator *accumulator = [[[SBJsonStreamParserAccumulator alloc] init] autorelease];
+    
+    SBJsonStreamParserAdapter *adapter = [[[SBJsonStreamParserAdapter alloc] init] autorelease];
+    adapter.delegate = accumulator;
 	
-	SBJsonStreamParser *parser = [SBJsonStreamParser new];
+	SBJsonStreamParser *parser = [[[SBJsonStreamParser alloc] init] autorelease];
 	parser.maxDepth = self.maxDepth;
 	parser.delegate = adapter;
 	
-	id retval = nil;
 	switch ([parser parse:data]) {
 		case SBJsonStreamParserComplete:
-			retval = [value autorelease];
+            return accumulator.value;
 			break;
 			
 		case SBJsonStreamParserWaitingForData:
@@ -93,11 +81,7 @@
 			break;
 	}
 	
-
-	[adapter release];
-	[parser release];
-	
-	return retval;
+	return nil;
 }
 
 - (id)objectWithString:(NSString *)repr {
