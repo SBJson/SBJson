@@ -53,10 +53,6 @@ static SBJsonStreamParserState *kSBJsonStreamParserStateArrayNeedValue;
 	return NO;
 }
 
-- (BOOL)parserShouldStop:(SBJsonStreamParser*)parser {
-	return NO;
-}
-
 - (SBJsonStreamParserStatus)parserShouldReturn:(SBJsonStreamParser*)parser {
 	return SBJsonStreamParserWaitingForData;
 }
@@ -140,10 +136,6 @@ static SBJsonStreamParserState *kSBJsonStreamParserStateArrayNeedValue;
 
 - (NSString*)name { return @"after outer-most array or object"; }
 
-- (BOOL)parserShouldStop:(SBJsonStreamParser*)parser {
-	return YES;
-}
-
 - (SBJsonStreamParserStatus)parserShouldReturn:(SBJsonStreamParser*)parser {
 	return SBJsonStreamParserComplete;
 }
@@ -155,10 +147,6 @@ static SBJsonStreamParserState *kSBJsonStreamParserStateArrayNeedValue;
 @implementation SBJsonStreamParserStateError
 
 - (NSString*)name { return @"in error"; }
-
-- (BOOL)parserShouldStop:(SBJsonStreamParser*)parser {
-	return YES;
-}
 
 - (SBJsonStreamParserStatus)parserShouldReturn:(SBJsonStreamParser*)parser {
 	return SBJsonStreamParserError;

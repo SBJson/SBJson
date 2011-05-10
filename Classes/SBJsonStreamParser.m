@@ -195,15 +195,15 @@
 	[tokeniser appendData:data_];
 	
 	
-	for (;;) {		
-		if ([states[depth] parserShouldStop:self])
-			return [states[depth] parserShouldReturn:self];
-		
+	for (;;) {
+        
+        if ([states[depth] isKindOfClass:[SBJsonStreamParserStateError class]])
+            return SBJsonStreamParserError;
+        
 		sbjson_token_t tok = [tokeniser next];
-		
 		switch (tok) {
 			case sbjson_token_eof:
-				return SBJsonStreamParserWaitingForData;
+                return [states[depth] parserShouldReturn:self];
 				break;
 				
 			case sbjson_token_error:

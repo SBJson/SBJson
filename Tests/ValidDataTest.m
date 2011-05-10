@@ -11,6 +11,7 @@
 
 @interface ValidDataTest : SenTestCase {
 @private
+    NSUInteger count;
     SBJsonParser * parser;
     SBJsonWriter * writer;
 }
@@ -20,6 +21,7 @@
 @implementation ValidDataTest
 
 - (void)setUp {
+    count = 0;
     parser = [[SBJsonParser alloc] init];
     writer = [[SBJsonWriter alloc] init];
 }
@@ -27,6 +29,21 @@
 - (void)tearDown {
     [parser release];
     [writer release];
+}
+
+- (void)foreachFilePrefixedBy:(NSString*)prefix inSuite:(NSString*)suite apply:(void(^)(NSString*))block {
+    NSString *file;
+    NSDirectoryEnumerator* enumerator = [[NSFileManager defaultManager] enumeratorAtPath:suite];
+    while ((file = [enumerator nextObject])) {
+        if (![file hasPrefix:prefix])
+            continue;
+        
+        NSString *path = [suite stringByAppendingPathComponent:file];        
+        if ([[NSFileManager defaultManager] isReadableFileAtPath:path]) {
+            block(path);
+            count++;
+        }
+    }
 }
 
 - (void)foreachTestInSuite:(NSString*)suite apply:(void(^)(NSString*, NSString*))block {
@@ -40,8 +57,39 @@
             NSString *outpath = [path stringByAppendingPathComponent:@"output"];
             STAssertTrue([[NSFileManager defaultManager] isReadableFileAtPath:outpath], nil);
             block(inpath, outpath);
+            count++;
         }
     }
+}
+
+- (void)testJsonCheckerPass {
+    [self foreachFilePrefixedBy:@"pass" inSuite:@"Tests/Data/jsonchecker" apply:^(NSString* path) {
+        NSError *error = nil;
+        NSString *input = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+        STAssertNotNil(input, @"%@ - %@", path, error);
+        
+        id object = [parser objectWithString:input];
+        STAssertNotNil(object, path);
+        STAssertNil(parser.error, path);
+        
+    }];
+    STAssertEquals(count, (NSUInteger)3, nil);
+}
+
+
+- (void)testJsonCheckerFail {
+    parser.maxDepth = 19;
+    
+    [self foreachFilePrefixedBy:@"fail" inSuite:@"Tests/Data/jsonchecker" apply:^(NSString* path) {
+        NSError *error = nil;
+        NSString *input = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+        STAssertNotNil(input, @"%@ - %@", path, error);
+        
+        STAssertNil([parser objectWithString:input], @"%@ - %@", input, path);
+        STAssertNotNil(parser.error, path);
+    }];
+    
+    STAssertEquals(count, (NSUInteger)33, nil);
 }
 
 - (void)testPrettyString {
@@ -65,6 +113,8 @@
         json = [json stringByAppendingString:@"\n"];
         STAssertEqualObjects(json, output, nil);
     }];
+    
+    STAssertEquals(count, (NSUInteger)8, nil);
 }
 
 - (void)testPrettyData {
@@ -88,6 +138,8 @@
         output = [NSData dataWithBytes:output.bytes length:output.length-1];
         STAssertEqualObjects(json, output, nil);
     }];
+    
+    STAssertEquals(count, (NSUInteger)8, nil);
 }
 
 
@@ -109,6 +161,8 @@
         json = [json stringByAppendingString:@"\n"];
         STAssertEqualObjects(json, output, nil);
     }];
+    
+    STAssertEquals(count, (NSUInteger)14, nil);
 }
 
 
@@ -130,6 +184,8 @@
         output = [NSData dataWithBytes:output.bytes length:output.length-1];
         STAssertEqualObjects(json, output, nil);
     }];
+    
+    STAssertEquals(count, (NSUInteger)14, nil);
 }
 
 
@@ -151,6 +207,8 @@
         json = [json stringByAppendingString:@"\n"];
         STAssertEqualObjects(json, output, nil);
     }];
+    
+    STAssertEquals(count, (NSUInteger)14, nil);
 }
 
 @end

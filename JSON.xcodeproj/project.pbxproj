@@ -46,7 +46,6 @@
 		BC024D5E136CE0EC001FD388 /* StreamParserIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC81A69512AF019F005C034C /* StreamParserIntegrationTest.m */; };
 		BC024D5F136CE0EC001FD388 /* StreamParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2B5129C80A000C156C0 /* StreamParserDelegate.m */; };
 		BC024D60136CE0EC001FD388 /* StreamParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2B6129C80A000C156C0 /* StreamParserTest.m */; };
-		BC024D61136CE0EC001FD388 /* DataDrivenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E76A1EB60C996C2000A0CC83 /* DataDrivenTest.m */; };
 		BC024D62136CE0EC001FD388 /* ErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C45B9B0C98A87600546F66 /* ErrorTest.m */; };
 		BC024D63136CE0EC001FD388 /* MaxDepthTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */; };
 		BC024D64136CE0EC001FD388 /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
@@ -84,7 +83,6 @@
 		BC2BC063136CE7450073BC4B /* StreamParserIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC81A69512AF019F005C034C /* StreamParserIntegrationTest.m */; };
 		BC2BC064136CE7450073BC4B /* StreamParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2B5129C80A000C156C0 /* StreamParserDelegate.m */; };
 		BC2BC065136CE7450073BC4B /* StreamParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2B6129C80A000C156C0 /* StreamParserTest.m */; };
-		BC2BC066136CE7450073BC4B /* DataDrivenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E76A1EB60C996C2000A0CC83 /* DataDrivenTest.m */; };
 		BC2BC067136CE7450073BC4B /* ErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C45B9B0C98A87600546F66 /* ErrorTest.m */; };
 		BC2BC068136CE7450073BC4B /* MaxDepthTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */; };
 		BC2BC069136CE7450073BC4B /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */; };
@@ -297,7 +295,6 @@
 		BCE5E2B6129C80A000C156C0 /* StreamParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamParserTest.m; sourceTree = "<group>"; };
 		E75716430C96DB530084A449 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
-		E76A1EB60C996C2000A0CC83 /* DataDrivenTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataDrivenTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -404,7 +401,6 @@
 				BCE5E2B4129C80A000C156C0 /* StreamParserDelegate.h */,
 				BCE5E2B5129C80A000C156C0 /* StreamParserDelegate.m */,
 				BCE5E2B6129C80A000C156C0 /* StreamParserTest.m */,
-				E76A1EB60C996C2000A0CC83 /* DataDrivenTest.m */,
 				53C45B9B0C98A87600546F66 /* ErrorTest.m */,
 				BC74B6EB0FC9FAD0000BD3DD /* MaxDepthTest.m */,
 				BC74B7AD0FCA8B89000BD3DD /* ProxyTest.m */,
@@ -910,7 +906,6 @@
 				BC2BC063136CE7450073BC4B /* StreamParserIntegrationTest.m in Sources */,
 				BC2BC064136CE7450073BC4B /* StreamParserDelegate.m in Sources */,
 				BC2BC065136CE7450073BC4B /* StreamParserTest.m in Sources */,
-				BC2BC066136CE7450073BC4B /* DataDrivenTest.m in Sources */,
 				BC2BC067136CE7450073BC4B /* ErrorTest.m in Sources */,
 				BC2BC068136CE7450073BC4B /* MaxDepthTest.m in Sources */,
 				BC2BC069136CE7450073BC4B /* ProxyTest.m in Sources */,
@@ -947,7 +942,6 @@
 				BC024D5E136CE0EC001FD388 /* StreamParserIntegrationTest.m in Sources */,
 				BC024D5F136CE0EC001FD388 /* StreamParserDelegate.m in Sources */,
 				BC024D60136CE0EC001FD388 /* StreamParserTest.m in Sources */,
-				BC024D61136CE0EC001FD388 /* DataDrivenTest.m in Sources */,
 				BC024D62136CE0EC001FD388 /* ErrorTest.m in Sources */,
 				BC024D63136CE0EC001FD388 /* MaxDepthTest.m in Sources */,
 				BC024D64136CE0EC001FD388 /* ProxyTest.m in Sources */,

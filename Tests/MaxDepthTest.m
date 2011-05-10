@@ -36,9 +36,6 @@
 }
 @end
 
-#define assertErrorContains(e, s) \
-	STAssertTrue([e rangeOfString:s].location != NSNotFound, e)
-
 @implementation MaxDepthTest
 
 
@@ -53,27 +50,20 @@
 	[writer release];
 }
 
-- (void)testParseDepthOk {
+- (void)testParseDepth {
     STAssertNotNil([parser objectWithString:@"[[]]"], nil);
-}
-
-- (void)testParseTooDeep {
     STAssertNil([parser objectWithString:@"[[[]]]"], nil);
-	assertErrorContains(parser.error, @"max depth");
+    STAssertEqualObjects(parser.error, @"Parser exceeded max depth of 2", parser.error);
 }
 
-- (void)testWriteDepthOk {
+- (void)testWriteDepth {
     NSArray *a1 = [NSArray array];
     NSArray *a2 = [NSArray arrayWithObject:a1];
     STAssertNotNil([writer stringWithObject:a2], nil);
-}
 
-- (void)testWriteTooDeep {
-    NSArray *a1 = [NSArray array];
-    NSArray *a2 = [NSArray arrayWithObject:a1];
     NSArray *a3 = [NSArray arrayWithObject:a2];
     STAssertNil([writer stringWithObject:a3], nil);
-	assertErrorContains(writer.error, @"Nested too deep");
+    STAssertEqualObjects(writer.error, @"Nested too deep", writer.error);
 }
 
 - (void)testWriteRecursion {
@@ -86,7 +76,7 @@
     [a1 addObject:a2];
 
     STAssertNil([writer stringWithObject:a1], nil);
-	assertErrorContains(writer.error, @"Nested too deep");
+    STAssertEqualObjects(writer.error, @"Nested too deep", writer.error);
 }
 
 @end
