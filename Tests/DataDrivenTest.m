@@ -9,7 +9,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import <JSON/JSON.h>
 
-@interface ValidDataTest : SenTestCase {
+@interface DataDrivenTest : SenTestCase {
 @private
     NSUInteger count;
     SBJsonParser * parser;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation ValidDataTest
+@implementation DataDrivenTest
 
 - (void)setUp {
     count = 0;
