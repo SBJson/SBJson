@@ -162,7 +162,7 @@
         STAssertEqualObjects(json, output, nil);
     }];
     
-    STAssertEquals(count, (NSUInteger)14, nil);
+    STAssertEquals(count, (NSUInteger)16, nil);
 }
 
 
@@ -185,7 +185,7 @@
         STAssertEqualObjects(json, output, nil);
     }];
     
-    STAssertEquals(count, (NSUInteger)14, nil);
+    STAssertEquals(count, (NSUInteger)16, nil);
 }
 
 
@@ -208,7 +208,7 @@
         STAssertEqualObjects(json, output, nil);
     }];
     
-    STAssertEquals(count, (NSUInteger)14, nil);
+    STAssertEquals(count, (NSUInteger)16, nil);
 }
 
 @end
