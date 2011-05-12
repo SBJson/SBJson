@@ -68,6 +68,7 @@ static NSDecimalNumber *notANumber;
 
 - (void)dealloc {
 	self.error = nil;
+	[stringCache release];
 	free(states);
 	[super dealloc];
 }
