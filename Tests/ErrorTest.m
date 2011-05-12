@@ -274,4 +274,37 @@
     assertErrorContains(error, @"Input was 'nil'");
 }
 
+- (void)testParseDepth {
+    parser.maxDepth = 2;
+    
+    STAssertNotNil([parser objectWithString:@"[[]]"], nil);
+    STAssertNil([parser objectWithString:@"[[[]]]"], nil);
+    STAssertEqualObjects(parser.error, @"Parser exceeded max depth of 2", parser.error);
+}
+
+- (void)testWriteDepth {
+    writer.maxDepth = 2;
+    
+    NSArray *a1 = [NSArray array];
+    NSArray *a2 = [NSArray arrayWithObject:a1];
+    STAssertNotNil([writer stringWithObject:a2], nil);
+    
+    NSArray *a3 = [NSArray arrayWithObject:a2];
+    STAssertNil([writer stringWithObject:a3], nil);
+    STAssertEqualObjects(writer.error, @"Nested too deep", writer.error);
+}
+
+- (void)testWriteRecursion {
+    // set a high limit
+    writer.maxDepth = 100;
+    
+    // create a challenge!
+    NSMutableArray *a1 = [NSMutableArray array];
+    NSMutableArray *a2 = [NSMutableArray arrayWithObject:a1];
+    [a1 addObject:a2];
+    
+    STAssertNil([writer stringWithObject:a1], nil);
+    STAssertEqualObjects(writer.error, @"Nested too deep", writer.error);
+}
+
 @end
