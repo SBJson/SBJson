@@ -89,10 +89,14 @@ typedef enum {
 	BOOL multi;
 	id<SBJsonStreamParserDelegate> delegate;
 	SBJsonTokeniser *tokeniser;
-	SBJsonStreamParserState **states;
-	NSUInteger depth, maxDepth;
+    NSMutableArray *stateStack;
+	SBJsonStreamParserState *state;
+	NSUInteger maxDepth;
 	NSString *error;
 }
+
+@property (retain) SBJsonStreamParserState *state; /// Private
+@property (readonly, retain) NSMutableArray *stateStack; /// Private
 
 /**
  @brief Expect multiple documents separated by whitespace
@@ -107,14 +111,8 @@ typedef enum {
 /// Set this to the object you want to receive messages
 @property (assign) id<SBJsonStreamParserDelegate> delegate;
 
-/// The current depth in the json document (each [ and { each count 1)
-@property (readonly) NSUInteger depth;
-
 /// The max depth to allow the parser to reach
 @property NSUInteger maxDepth;
-
-/// @internal
-@property (readonly) SBJsonStreamParserState **states;
 
 /// Holds the error after SBJsonStreamParserError was returned
 @property (copy) NSString *error;

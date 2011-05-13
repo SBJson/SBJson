@@ -1,22 +1,22 @@
 /*
  Copyright (c) 2010, Stig Brautaset.
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are
  met:
- 
+
    Redistributions of source code must retain the above copyright
    notice, this list of conditions and the following disclaimer.
-  
+
    Redistributions in binary form must reproduce the above copyright
    notice, this list of conditions and the following disclaimer in the
    documentation and/or other materials provided with the distribution.
- 
+
    Neither the name of the the author nor the names of its contributors
    may be used to endorse or promote products derived from this software
    without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
@@ -38,9 +38,9 @@ static NSDecimalNumber *notANumber;
 @implementation SBJsonStreamWriter
 
 @synthesize error;
-@dynamic depth;
-@dynamic maxDepth;
-@synthesize states;
+@synthesize maxDepth;
+@synthesize state;
+@synthesize stateStack;
 @synthesize humanReadable;
 @synthesize sortKeys;
 
@@ -56,11 +56,8 @@ static NSDecimalNumber *notANumber;
 	self = [super init];
 	if (self) {
 		maxDepth = 512;
-		states = calloc(maxDepth, sizeof(SBJsonStreamWriterState*));
-		NSAssert(states, @"States not initialised");
-		
-		states[0] = [SBJsonStreamWriterStateStart sharedInstance];
-
+        stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
+        state = [[SBJsonStreamWriterStateStart alloc] init];
 		stringCache = [[NSCache alloc] init];
     }
 	return self;
@@ -68,8 +65,9 @@ static NSDecimalNumber *notANumber;
 
 - (void)dealloc {
 	self.error = nil;
+    self.state = nil;
 	[stringCache release];
-	free(states);
+    [stateStack release];
 	[super dealloc];
 }
 
@@ -82,11 +80,11 @@ static NSDecimalNumber *notANumber;
 - (BOOL)writeObject:(NSDictionary *)dict {
 	if (![self writeObjectOpen])
 		return NO;
-	
+
 	NSArray *keys = [dict allKeys];
 	if (sortKeys)
 		keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	
+
 	for (id k in keys) {
 		if (![k isKindOfClass:[NSString class]]) {
 			self.error = [NSString stringWithFormat:@"JSON object key must be string: %@", k];
@@ -98,7 +96,7 @@ static NSDecimalNumber *notANumber;
 		if (![self writeValue:[dict objectForKey:k]])
 			return NO;
 	}
-	
+
 	return [self writeObjectClose];
 }
 
@@ -113,83 +111,94 @@ static NSDecimalNumber *notANumber;
 
 
 - (BOOL)writeObjectOpen {
-	SBJsonStreamWriterState *s = states[depth];
-	if ([s isInvalidState:self]) return NO;
-	if ([s expectingKey:self]) return NO;
-	[s appendSeparator:self];
-	if (humanReadable && depth) [s appendWhitespace:self];
-	
-	if (maxDepth && ++depth > maxDepth) {
+	if ([state isInvalidState:self]) return NO;
+	if ([state expectingKey:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable && stateStack.count) [state appendWhitespace:self];
+
+    [stateStack addObject:state];
+    self.state = [SBJsonStreamWriterStateObjectStart state];
+
+	if (maxDepth && stateStack.count > maxDepth) {
 		self.error = @"Nested too deep";
 		return NO;
 	}
 
-	states[depth] = kSBJsonStreamWriterStateObjectStart;
 	[delegate writer:self appendBytes:"{" length:1];
 	return YES;
 }
 
 - (BOOL)writeObjectClose {
-	SBJsonStreamWriterState *state = states[depth--];
 	if ([state isInvalidState:self]) return NO;
-	if (humanReadable) [state appendWhitespace:self];
+
+    SBJsonStreamWriterState *prev = state;
+
+    self.state = [stateStack lastObject];
+    [stateStack removeLastObject];
+
+	if (humanReadable) [prev appendWhitespace:self];
 	[delegate writer:self appendBytes:"}" length:1];
-	[states[depth] transitionState:self];
+
+	[state transitionState:self];
 	return YES;
 }
 
 - (BOOL)writeArrayOpen {
-	SBJsonStreamWriterState *s = states[depth];
-	if ([s isInvalidState:self]) return NO;
-	if ([s expectingKey:self]) return NO;
-	[s appendSeparator:self];
-	if (humanReadable && depth) [s appendWhitespace:self];
-	
-	if (maxDepth && ++depth > maxDepth) {
+	if ([state isInvalidState:self]) return NO;
+	if ([state expectingKey:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable && stateStack.count) [state appendWhitespace:self];
+
+    [stateStack addObject:state];
+	self.state = [SBJsonStreamWriterStateArrayStart state];
+
+	if (maxDepth && stateStack.count > maxDepth) {
 		self.error = @"Nested too deep";
 		return NO;
 	}
 
-	states[depth] = kSBJsonStreamWriterStateArrayStart;
 	[delegate writer:self appendBytes:"[" length:1];
 	return YES;
 }
 
 - (BOOL)writeArrayClose {
-	SBJsonStreamWriterState *state = states[depth--];
 	if ([state isInvalidState:self]) return NO;
 	if ([state expectingKey:self]) return NO;
-	if (humanReadable) [state appendWhitespace:self];
-	
+
+    SBJsonStreamWriterState *prev = state;
+
+    self.state = [stateStack lastObject];
+    [stateStack removeLastObject];
+
+	if (humanReadable) [prev appendWhitespace:self];
 	[delegate writer:self appendBytes:"]" length:1];
-	[states[depth] transitionState:self];
+
+	[state transitionState:self];
 	return YES;
 }
 
 - (BOOL)writeNull {
-	SBJsonStreamWriterState *s = states[depth];
-	if ([s isInvalidState:self]) return NO;
-	if ([s expectingKey:self]) return NO;
-	[s appendSeparator:self];
-	if (humanReadable) [s appendWhitespace:self];
+	if ([state isInvalidState:self]) return NO;
+	if ([state expectingKey:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable) [state appendWhitespace:self];
 
 	[delegate writer:self appendBytes:"null" length:4];
-	[s transitionState:self];
+	[state transitionState:self];
 	return YES;
 }
 
 - (BOOL)writeBool:(BOOL)x {
-	SBJsonStreamWriterState *s = states[depth];
-	if ([s isInvalidState:self]) return NO;
-	if ([s expectingKey:self]) return NO;
-	[s appendSeparator:self];
-	if (humanReadable) [s appendWhitespace:self];
-	
+	if ([state isInvalidState:self]) return NO;
+	if ([state expectingKey:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable) [state appendWhitespace:self];
+
 	if (x)
 		[delegate writer:self appendBytes:"true" length:4];
 	else
 		[delegate writer:self appendBytes:"false" length:5];
-	[s transitionState:self];
+	[state transitionState:self];
 	return YES;
 }
 
@@ -210,17 +219,17 @@ static NSDecimalNumber *notANumber;
 
 	} else if ([o isKindOfClass:[NSNull class]]) {
 		return [self writeNull];
-		
+
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		return [self writeValue:[o proxyForJson]];
 
-	}	
-	
+	}
+
 	self.error = [NSString stringWithFormat:@"JSON serialisation not supported for %@", [o class]];
 	return NO;
 }
 
-static const char *strForChar(int c) {	
+static const char *strForChar(int c) {
 	switch (c) {
 		case 0: return "\\u0000"; break;
 		case 1: return "\\u0001"; break;
@@ -261,22 +270,21 @@ static const char *strForChar(int c) {
 	return "FUTFUTFUT";
 }
 
-- (BOOL)writeString:(NSString*)string {	
-	SBJsonStreamWriterState *s = states[depth];
-	if ([s isInvalidState:self]) return NO;
-	[s appendSeparator:self];
-	if (humanReadable) [s appendWhitespace:self];
-	
+- (BOOL)writeString:(NSString*)string {
+	if ([state isInvalidState:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable) [state appendWhitespace:self];
+
 	NSMutableData *buf = [stringCache objectForKey:string];
 	if (!buf) {
-        
+
         NSUInteger len = [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
         const char *utf8 = [string UTF8String];
         NSUInteger written = 0, i = 0;
-		
+
         buf = [NSMutableData dataWithCapacity:len * 1.1f];
         [buf appendBytes:"\"" length:1];
-        
+
         for (i = 0; i < len; i++) {
             int c = utf8[i];
             BOOL isControlChar = c >= 0 && c < 32;
@@ -284,34 +292,33 @@ static const char *strForChar(int c) {
                 if (i - written)
                     [buf appendBytes:utf8 + written length:i - written];
                 written = i + 1;
-                
+
                 const char *t = strForChar(c);
                 [buf appendBytes:t length:strlen(t)];
             }
         }
-        
+
         if (i - written)
             [buf appendBytes:utf8 + written length:i - written];
-        
+
         [buf appendBytes:"\"" length:1];
         [stringCache setObject:buf forKey:string];
     }
 
 	[delegate writer:self appendBytes:[buf bytes] length:[buf length]];
-	[s transitionState:self];
+	[state transitionState:self];
 	return YES;
 }
 
 - (BOOL)writeNumber:(NSNumber*)number {
 	if ((CFBooleanRef)number == kCFBooleanTrue || (CFBooleanRef)number == kCFBooleanFalse)
 		return [self writeBool:[number boolValue]];
-	
-	SBJsonStreamWriterState *s = states[depth];
-	if ([s isInvalidState:self]) return NO;
-	if ([s expectingKey:self]) return NO;
-	[s appendSeparator:self];
-	if (humanReadable) [s appendWhitespace:self];
-		
+
+	if ([state isInvalidState:self]) return NO;
+	if ([state expectingKey:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable) [state appendWhitespace:self];
+
 	if ((CFNumberRef)number == kCFNumberPositiveInfinity) {
 		self.error = @"+Infinity is not a valid number in JSON";
 		return NO;
@@ -323,16 +330,16 @@ static const char *strForChar(int c) {
 	} else if ((CFNumberRef)number == kCFNumberNaN) {
 		self.error = @"NaN is not a valid number in JSON";
 		return NO;
-		
+
 	} else if (number == notANumber) {
 		self.error = @"NaN is not a valid number in JSON";
 		return NO;
 	}
-	
+
 	const char *objcType = [number objCType];
 	char num[128];
 	size_t len;
-	
+
 	switch (objcType[0]) {
 		case 'c': case 'i': case 's': case 'l': case 'q':
 			len = snprintf(num, sizeof num, "%lld", [number longLongValue]);
@@ -344,28 +351,15 @@ static const char *strForChar(int c) {
 			if ([number isKindOfClass:[NSDecimalNumber class]]) {
 				char const *utf8 = [[number stringValue] UTF8String];
 				[delegate writer:self appendBytes:utf8 length: strlen(utf8)];
-				[s transitionState:self];
+				[state transitionState:self];
 				return YES;
 			}
 			len = snprintf(num, sizeof num, "%.17g", [number doubleValue]);
 			break;
 	}
 	[delegate writer:self appendBytes:num length: len];
-	[s transitionState:self];
+	[state transitionState:self];
 	return YES;
-}
-
-#pragma mark Private methods
-
-- (NSUInteger)depth {
-	return depth;
-}
-
-- (void)setMaxDepth:(NSUInteger)x {
-	NSAssert(x, @"maxDepth must be greater than 0");
-	maxDepth = x;
-	states = realloc(states, x);
-	NSAssert(states, @"Failed to reallocate more memory for states");
 }
 
 @end

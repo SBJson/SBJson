@@ -80,20 +80,21 @@
 
 @interface SBJsonStreamWriter : NSObject {
 	NSString *error;
-	SBJsonStreamWriterState **states;
+    NSMutableArray *stateStack;
+    SBJsonStreamWriterState *state;
     id<SBJsonStreamWriterDelegate> delegate;
-	NSUInteger depth, maxDepth;
+	NSUInteger maxDepth;
     BOOL sortKeys, humanReadable;
     NSCache *stringCache;
 }
+
+@property (retain) SBJsonStreamWriterState *state; /// Internal
+@property (readonly, retain) NSMutableArray *stateStack; /// Internal 
 
 /**
  Delegate that will receive messages with output.
  */
 @property (assign) id<SBJsonStreamWriterDelegate> delegate;
-
-@property(readonly) NSObject **states;
-@property(readonly) NSUInteger depth;
 
 /**
  @brief The maximum recursing depth.
