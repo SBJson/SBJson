@@ -137,7 +137,6 @@
 	switch (token) {
 		case sbjson_token_object_end:
 		case sbjson_token_string:
-		case sbjson_token_string_encoded:
 			return YES;
 			break;
 		default:
@@ -163,7 +162,7 @@
 - (NSString*)name { return @"after object key"; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
-	return token == sbjson_token_key_value_separator;
+	return token == sbjson_token_keyval_separator;
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
@@ -185,10 +184,8 @@
 		case sbjson_token_true:
 		case sbjson_token_false:
 		case sbjson_token_null:
-		case sbjson_token_integer:
-		case sbjson_token_double:
+		case sbjson_token_number:
 		case sbjson_token_string:
-		case sbjson_token_string_encoded:
 			return YES;
 			break;
 
@@ -236,15 +233,7 @@
 - (NSString*)name { return @"in place of object key"; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
-	switch (token) {
-		case sbjson_token_string:
-		case sbjson_token_string_encoded:
-			return YES;
-			break;
-		default:
-			return NO;
-			break;
-	}
+    return sbjson_token_string == token;
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
@@ -266,7 +255,7 @@
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
 		case sbjson_token_object_end:
-		case sbjson_token_key_value_separator:
+		case sbjson_token_keyval_separator:
 		case sbjson_token_separator:
 			return NO;
 			break;
@@ -311,7 +300,7 @@
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
 		case sbjson_token_array_end:
-		case sbjson_token_key_value_separator:
+		case sbjson_token_keyval_separator:
 		case sbjson_token_object_end:
 		case sbjson_token_separator:
 			return NO;

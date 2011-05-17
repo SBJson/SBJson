@@ -79,7 +79,7 @@
         STAssertNotNil(input, @"%@ - %@", path, error);
 
         STAssertNil([parser objectWithString:input], @"%@ - %@", input, path);
-        STAssertNotNil(parser.error, path);
+        STAssertNotNil(parser.error, @"%@ at %@", input, path);
     }];
 
     STAssertEquals(count, (NSUInteger)33, nil);

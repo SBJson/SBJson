@@ -48,13 +48,13 @@
         STAssertNotNil(output, @"%@ - %@", outpath, error);
 
         id object = [parser objectWithString:input];
-        STAssertNotNil(object, nil);
+        STAssertNotNil(object, parser.error);
 
         NSString *json = [writer stringWithObject:object];
-        STAssertNotNil(json, nil);
+        STAssertNotNil(json, writer.error);
 
         json = [json stringByAppendingString:@"\n"];
-        STAssertEqualObjects(json, output, nil);
+        STAssertEqualObjects(json, output, @"%@ vs %@", json, output);
     }];
 
     STAssertEquals(count, (NSUInteger)16, nil);

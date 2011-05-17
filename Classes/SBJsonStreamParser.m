@@ -77,13 +77,11 @@
 			return @"end of array";
 			break;
 
-		case sbjson_token_double:
-		case sbjson_token_integer:
+		case sbjson_token_number:
 			return @"number";
 			break;
 
 		case sbjson_token_string:
-		case sbjson_token_string_encoded:
 			return @"string";
 			break;
 
@@ -96,7 +94,7 @@
 			return @"null";
 			break;
 
-		case sbjson_token_key_value_separator:
+		case sbjson_token_keyval_separator:
 			return @"key-value separator";
 			break;
 
@@ -145,54 +143,6 @@
 
 }
 
-- (void)handleNumber:(sbjson_token_t)tok {
-	const char *buf;
-	NSUInteger len;
-
-	if ([tokeniser getToken:&buf length:&len]) {
-		NSNumber *number;
-		if (tok == sbjson_token_integer && len < 12) {
-			char *e = NULL;
-			long long l = strtoll(buf, &e, 0);
-            if (l > INT_MAX) {
-                number = [NSNumber numberWithLongLong:l];
-            } else {
-                number = [NSNumber numberWithLong:l];
-            }
-		} else if (tok == sbjson_token_double && len < 7) {
-			char *e = NULL;
-			double d = strtod(buf, &e);
-			number = [NSNumber numberWithDouble:d];
-
-		} else {
-			NSData *data = [NSData dataWithBytes:buf length:len];
-			NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-			number = [[[NSDecimalNumber alloc] initWithString:string] autorelease];
-		}
-		NSParameterAssert(number);
-		[delegate parser:self foundNumber:number];
-
-	}
-}
-
-- (void)handleString:(sbjson_token_t)tok {
-	const char *buf;
-	NSUInteger len;
-
-	NSString *string;
-	if (tok == sbjson_token_string) {
-		[tokeniser getToken:&buf length:&len];
-		string = [[[NSString alloc] initWithBytes:buf+1 length:len-2 encoding:NSUTF8StringEncoding] autorelease];
-	} else {
-		string = [tokeniser getDecodedStringToken];
-	}
-	NSParameterAssert(string);
-	if ([state needKey])
-		[delegate parser:self foundObjectKey:string];
-	else
-		[delegate parser:self foundString:string];
-}
-
 - (SBJsonStreamParserStatus)parse:(NSData *)data_ {
 	[tokeniser appendData:data_];
 
@@ -202,7 +152,8 @@
         if ([state isKindOfClass:[SBJsonStreamParserStateError class]])
             return SBJsonStreamParserError;
 
-		sbjson_token_t tok = [tokeniser next];
+        NSObject *token;
+		sbjson_token_t tok = [tokeniser getToken:&token];
 		switch (tok) {
 			case sbjson_token_eof:
                 return [state parserShouldReturn:self];
@@ -249,7 +200,7 @@
 						break;
 
 					case sbjson_token_separator:
-					case sbjson_token_key_value_separator:
+					case sbjson_token_keyval_separator:
 						[state parser:self shouldTransitionTo:tok];
 						break;
 
@@ -268,15 +219,16 @@
 						[state parser:self shouldTransitionTo:tok];
 						break;
 
-					case sbjson_token_integer:
-					case sbjson_token_double:
-						[self handleNumber:tok];
+					case sbjson_token_number:
+                        [delegate parser:self foundNumber:(NSNumber*)token];
 						[state parser:self shouldTransitionTo:tok];
 						break;
 
 					case sbjson_token_string:
-					case sbjson_token_string_encoded:
-						[self handleString:tok];
+                        if ([state needKey])
+                            [delegate parser:self foundObjectKey:(NSString*)token];
+                        else
+                            [delegate parser:self foundString:(NSString*)token];
 						[state parser:self shouldTransitionTo:tok];
 						break;
 

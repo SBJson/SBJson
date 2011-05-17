@@ -176,7 +176,6 @@
 
 - (void)testNumber {
     STAssertNil([parser objectWithString:@"[- "], nil);
-
     SBAssertStringContains(parser.error, @"No digits after initial minus");
 
     STAssertNil([parser objectWithString:@"[+1 "], nil);
@@ -225,11 +224,11 @@
     STAssertNil([parser objectWithString:@"[\"foo"], nil);
     SBAssertStringContains(parser.error, @"Didn't find full object before EOF");
 
-    STAssertNil([parser objectWithString:@"[\"\\uD834foo\""], nil);
+    STAssertNil([parser objectWithString:@"[\"\\uD834foobar\""], nil);
     SBAssertStringContains(parser.error, @"Missing low character");
 
     STAssertNil([parser objectWithString:@"[\"\\uD834\\u001E\""], nil);
-    SBAssertStringContains(parser.error, @"Invalid low surrogate");
+    SBAssertStringContains(parser.error, @"Invalid low character in surrogate pair");
 
     STAssertNil([parser objectWithString:@"[\"\\uDD1Ef\""], nil);
     SBAssertStringContains(parser.error, @"Invalid high character");
