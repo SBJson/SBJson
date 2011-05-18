@@ -34,7 +34,7 @@
 #import "SBJsonStreamParser.h"
 
 #define SINGLETON \
-+ (id)state { \
++ (id)sharedInstance { \
     static id state; \
     if (!state) state = [[self alloc] init]; \
     return state; \
@@ -42,7 +42,7 @@
 
 @implementation SBJsonStreamParserState
 
-+ (id)state { return nil; }
++ (id)sharedInstance { return nil; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	return NO;
@@ -79,11 +79,11 @@ SINGLETON
 	SBJsonStreamParserState *state = nil;
 	switch (tok) {
 		case sbjson_token_array_start:
-			state = [SBJsonStreamParserStateArrayStart state];
+			state = [SBJsonStreamParserStateArrayStart sharedInstance];
 			break;
 
 		case sbjson_token_object_start:
-			state = [SBJsonStreamParserStateObjectStart state];
+			state = [SBJsonStreamParserStateObjectStart sharedInstance];
 			break;
 
 		case sbjson_token_array_end:
@@ -91,14 +91,14 @@ SINGLETON
 			if (parser.multi)
 				state = parser.state;
 			else
-				state = [SBJsonStreamParserStateComplete state];
+				state = [SBJsonStreamParserStateComplete sharedInstance];
 			break;
 
 		case sbjson_token_eof:
 			return;
 
 		default:
-			state = [SBJsonStreamParserStateError state];
+			state = [SBJsonStreamParserStateError sharedInstance];
 			break;
 	}
 
@@ -159,7 +159,7 @@ SINGLETON
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.state = [SBJsonStreamParserStateObjectGotKey state];
+	parser.state = [SBJsonStreamParserStateObjectGotKey sharedInstance];
 }
 
 - (BOOL)needKey {
@@ -181,7 +181,7 @@ SINGLETON
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.state = [SBJsonStreamParserStateObjectSeparator state];
+	parser.state = [SBJsonStreamParserStateObjectSeparator sharedInstance];
 }
 
 @end
@@ -213,7 +213,7 @@ SINGLETON
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.state = [SBJsonStreamParserStateObjectGotValue state];
+	parser.state = [SBJsonStreamParserStateObjectGotValue sharedInstance];
 }
 
 @end
@@ -239,7 +239,7 @@ SINGLETON
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.state = [SBJsonStreamParserStateObjectNeedKey state];
+	parser.state = [SBJsonStreamParserStateObjectNeedKey sharedInstance];
 }
 
 
@@ -258,7 +258,7 @@ SINGLETON
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.state = [SBJsonStreamParserStateObjectGotKey state];
+	parser.state = [SBJsonStreamParserStateObjectGotKey sharedInstance];
 }
 
 - (BOOL)needKey {
@@ -290,7 +290,7 @@ SINGLETON
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.state = [SBJsonStreamParserStateArrayGotValue state];
+	parser.state = [SBJsonStreamParserStateArrayGotValue sharedInstance];
 }
 
 @end
@@ -310,7 +310,7 @@ SINGLETON
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
 	if (tok == sbjson_token_separator)
-		parser.state = [SBJsonStreamParserStateArrayNeedValue state];
+		parser.state = [SBJsonStreamParserStateArrayNeedValue sharedInstance];
 }
 
 @end
@@ -340,7 +340,7 @@ SINGLETON
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	parser.state = [SBJsonStreamParserStateArrayGotValue state];
+	parser.state = [SBJsonStreamParserStateArrayGotValue sharedInstance];
 }
 
 @end

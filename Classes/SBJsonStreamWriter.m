@@ -118,7 +118,7 @@ static NSCache *kStaticStringCache;
 	if (humanReadable && stateStack.count) [state appendWhitespace:self];
 
     [stateStack addObject:state];
-    self.state = [SBJsonStreamWriterStateObjectStart state];
+    self.state = [SBJsonStreamWriterStateObjectStart sharedInstance];
 
 	if (maxDepth && stateStack.count > maxDepth) {
 		self.error = @"Nested too deep";
@@ -151,7 +151,7 @@ static NSCache *kStaticStringCache;
 	if (humanReadable && stateStack.count) [state appendWhitespace:self];
 
     [stateStack addObject:state];
-	self.state = [SBJsonStreamWriterStateArrayStart state];
+	self.state = [SBJsonStreamWriterStateArrayStart sharedInstance];
 
 	if (maxDepth && stateStack.count > maxDepth) {
 		self.error = @"Nested too deep";

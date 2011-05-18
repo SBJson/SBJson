@@ -36,7 +36,7 @@
 #import "SBJsonStreamParser.h"
 
 @interface SBJsonStreamParserState : NSObject
-+ (id)state;
++ (id)sharedInstance;
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token;
 - (SBJsonStreamParserStatus)parserShouldReturn:(SBJsonStreamParser*)parser;
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok;

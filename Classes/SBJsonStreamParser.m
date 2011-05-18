@@ -122,23 +122,23 @@
 - (void)handleObjectStart {
 	if (stateStack.count >= maxDepth) {
 		self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
-		self.state = [SBJsonStreamParserStateError state];
+		self.state = [SBJsonStreamParserStateError sharedInstance];
 
 	} else {
 		[delegate parserFoundObjectStart:self];
         [stateStack addObject:state];
-        self.state = [SBJsonStreamParserStateObjectStart state];
+        self.state = [SBJsonStreamParserStateObjectStart sharedInstance];
 	}
 
 }
 - (void)handleArrayStart {
 	if (stateStack.count >= maxDepth) {
 		self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
-		self.state = [SBJsonStreamParserStateError state];
+		self.state = [SBJsonStreamParserStateError sharedInstance];
 	} else {
 		[delegate parserFoundArrayStart:self];
         [stateStack addObject:state];
-        self.state = [SBJsonStreamParserStateArrayStart state];
+        self.state = [SBJsonStreamParserStateArrayStart sharedInstance];
 	}
 
 }
@@ -160,7 +160,7 @@
 				break;
 
 			case sbjson_token_error:
-				self.state = [SBJsonStreamParserStateError state];
+				self.state = [SBJsonStreamParserStateError sharedInstance];
 				self.error = tokeniser.error;
 				return SBJsonStreamParserError;
 				break;
@@ -172,7 +172,7 @@
 					NSString *stateName = [state name];
 
 					self.error = [NSString stringWithFormat:@"Token '%@' not expected %@", tokenName, stateName];
-					self.state = [SBJsonStreamParserStateError state];
+					self.state = [SBJsonStreamParserStateError sharedInstance];
 					return SBJsonStreamParserError;
 				}
 

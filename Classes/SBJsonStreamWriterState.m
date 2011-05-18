@@ -34,7 +34,7 @@
 #import "SBJsonStreamWriter.h"
 
 #define SINGLETON \
-+ (id)state { \
++ (id)sharedInstance { \
     static id state; \
     if (!state) state = [[self alloc] init]; \
     return state; \
@@ -42,7 +42,7 @@
 
 
 @implementation SBJsonStreamWriterState
-+ (id)state { return nil; }
++ (id)sharedInstance { return nil; }
 - (BOOL)isInvalidState:(SBJsonStreamWriter*)writer { return NO; }
 - (void)appendSeparator:(SBJsonStreamWriter*)writer {}
 - (BOOL)expectingKey:(SBJsonStreamWriter*)writer { return NO; }
@@ -59,7 +59,7 @@
 SINGLETON
 
 - (void)transitionState:(SBJsonStreamWriter *)writer {
-	writer.state = [SBJsonStreamWriterStateObjectValue state];
+	writer.state = [SBJsonStreamWriterStateObjectValue sharedInstance];
 }
 - (BOOL)expectingKey:(SBJsonStreamWriter *)writer {
 	writer.error = @"JSON object key must be string";
@@ -84,7 +84,7 @@ SINGLETON
 	[writer appendBytes:":" length:1];
 }
 - (void)transitionState:(SBJsonStreamWriter *)writer {
-    writer.state = [SBJsonStreamWriterStateObjectKey state];
+    writer.state = [SBJsonStreamWriterStateObjectKey sharedInstance];
 }
 - (void)appendWhitespace:(SBJsonStreamWriter *)writer {
 	[writer appendBytes:" " length:1];
@@ -96,7 +96,7 @@ SINGLETON
 SINGLETON
 
 - (void)transitionState:(SBJsonStreamWriter *)writer {
-    writer.state = [SBJsonStreamWriterStateArrayValue state];
+    writer.state = [SBJsonStreamWriterStateArrayValue sharedInstance];
 }
 @end
 
@@ -115,7 +115,7 @@ SINGLETON
 
 
 - (void)transitionState:(SBJsonStreamWriter *)writer {
-    writer.state = [SBJsonStreamWriterStateComplete state];
+    writer.state = [SBJsonStreamWriterStateComplete sharedInstance];
 }
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
 }
