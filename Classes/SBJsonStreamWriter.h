@@ -85,7 +85,6 @@
     id<SBJsonStreamWriterDelegate> delegate;
 	NSUInteger maxDepth;
     BOOL sortKeys, humanReadable;
-    NSCache *stringCache;
 }
 
 @property (retain) SBJsonStreamWriterState *state; /// Internal

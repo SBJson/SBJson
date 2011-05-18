@@ -33,7 +33,9 @@
 #import "SBJsonStreamWriter.h"
 #import "SBJsonStreamWriterState.h"
 
-static NSDecimalNumber *notANumber;
+static NSDecimalNumber *kNotANumber;
+static NSCache *kStaticStringCache;
+
 
 @implementation SBJsonStreamWriter
 
@@ -45,7 +47,8 @@ static NSDecimalNumber *notANumber;
 @synthesize sortKeys;
 
 + (void)initialize {
-	notANumber = [NSDecimalNumber notANumber];
+	kNotANumber = [NSDecimalNumber notANumber];
+    kStaticStringCache = [[NSCache alloc] init];
 }
 
 #pragma mark Housekeeping
@@ -58,7 +61,6 @@ static NSDecimalNumber *notANumber;
 		maxDepth = 512;
         stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
         state = [[SBJsonStreamWriterStateStart alloc] init];
-		stringCache = [[NSCache alloc] init];
     }
 	return self;
 }
@@ -66,7 +68,6 @@ static NSDecimalNumber *notANumber;
 - (void)dealloc {
 	self.error = nil;
     self.state = nil;
-	[stringCache release];
     [stateStack release];
 	[super dealloc];
 }
@@ -275,7 +276,7 @@ static const char *strForChar(int c) {
 	[state appendSeparator:self];
 	if (humanReadable) [state appendWhitespace:self];
 
-	NSMutableData *buf = [stringCache objectForKey:string];
+	NSMutableData *buf = [kStaticStringCache objectForKey:string];
 	if (!buf) {
 
         NSUInteger len = [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
@@ -302,7 +303,7 @@ static const char *strForChar(int c) {
             [buf appendBytes:utf8 + written length:i - written];
 
         [buf appendBytes:"\"" length:1];
-        [stringCache setObject:buf forKey:string];
+        [kStaticStringCache setObject:buf forKey:string];
     }
 
 	[delegate writer:self appendBytes:[buf bytes] length:[buf length]];
@@ -331,7 +332,7 @@ static const char *strForChar(int c) {
 		self.error = @"NaN is not a valid number in JSON";
 		return NO;
 
-	} else if (number == notANumber) {
+	} else if (number == kNotANumber) {
 		self.error = @"NaN is not a valid number in JSON";
 		return NO;
 	}
