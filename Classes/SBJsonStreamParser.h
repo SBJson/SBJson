@@ -90,13 +90,13 @@ typedef enum {
 	id<SBJsonStreamParserDelegate> delegate;
 	SBJsonTokeniser *tokeniser;
     NSMutableArray *stateStack;
-	SBJsonStreamParserState *state;
+	__weak SBJsonStreamParserState *state;
 	NSUInteger maxDepth;
 	NSString *error;
 }
 
-@property (retain) SBJsonStreamParserState *state; /// Private
-@property (readonly, retain) NSMutableArray *stateStack; /// Private
+@property (nonatomic, assign) SBJsonStreamParserState *state; /// Private
+@property (nonatomic, readonly, retain) NSMutableArray *stateStack; /// Private
 
 /**
  @brief Expect multiple documents separated by whitespace
