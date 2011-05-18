@@ -56,6 +56,8 @@ typedef enum {
 
 @interface SBJsonTokeniser : NSObject {
 @private
+    const char *_bytes;
+    NSUInteger _length;
     NSMutableData *_data;
     NSUInteger _index;
     NSUInteger _discarded;

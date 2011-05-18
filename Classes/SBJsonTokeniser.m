@@ -68,20 +68,26 @@
 	}
 
     [_data appendData:data_];
+    
+    // This is an optimisation. 
+    _bytes = [_data bytes];
+    _length = [_data length];
 }
 
 - (BOOL)getUnichar:(unichar*)ch {
-    if (_index < [_data length]) {
-        uint8_t *bytes = (uint8_t*)[_data bytes];
-        *ch = (unichar)bytes[_index];
+    if (_index < _length) {
+        *ch = (unichar)_bytes[_index];
         return YES;
     }
     return NO;
 }
 
 - (BOOL)getNextUnichar:(unichar*)ch {
-    _index++;
-    return [self getUnichar:ch];
+    if (++_index < _length) {
+        *ch = (unichar)_bytes[_index];
+        return YES;
+    }
+    return NO;
 }
 
 - (void)skipWhitespace {
