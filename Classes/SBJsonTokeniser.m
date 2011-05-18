@@ -178,7 +178,7 @@
 
 - (sbjson_token_t)getStringToken:(NSObject**)token {
     unichar ch;
-    NSMutableString *string = [[NSMutableString alloc] initWithCapacity:128u];
+    NSMutableString *string = [[[NSMutableString alloc] initWithCapacity:128u] autorelease];
     while ([self getNextUnichar:&ch]) {
         switch (ch) {
             case 0 ... 0x1F:
@@ -188,7 +188,7 @@
 
             case '"':
                 (void)[self getNextUnichar:&ch];
-                *token = [string autorelease];
+                *token = string;
                 return sbjson_token_string;
                 break;
 
