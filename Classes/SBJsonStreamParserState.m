@@ -33,11 +33,16 @@
 #import "SBJsonStreamParserState.h"
 #import "SBJsonStreamParser.h"
 
+#define SINGLETON \
++ (id)state { \
+    static id state; \
+    if (!state) state = [[self alloc] init]; \
+    return state; \
+}
+
 @implementation SBJsonStreamParserState
 
-+ (id)state {
-    return [[[self alloc] init] autorelease];
-}
++ (id)state { return nil; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	return NO;
@@ -62,6 +67,8 @@
 #pragma mark -
 
 @implementation SBJsonStreamParserStateStart
+
+SINGLETON
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	return token == sbjson_token_array_start || token == sbjson_token_object_start;
@@ -107,6 +114,8 @@
 
 @implementation SBJsonStreamParserStateComplete
 
+SINGLETON
+
 - (NSString*)name { return @"after outer-most array or object"; }
 
 - (SBJsonStreamParserStatus)parserShouldReturn:(SBJsonStreamParser*)parser {
@@ -119,6 +128,8 @@
 
 @implementation SBJsonStreamParserStateError
 
+SINGLETON
+
 - (NSString*)name { return @"in error"; }
 
 - (SBJsonStreamParserStatus)parserShouldReturn:(SBJsonStreamParser*)parser {
@@ -130,6 +141,8 @@
 #pragma mark -
 
 @implementation SBJsonStreamParserStateObjectStart
+
+SINGLETON
 
 - (NSString*)name { return @"at beginning of object"; }
 
@@ -159,6 +172,8 @@
 
 @implementation SBJsonStreamParserStateObjectGotKey
 
+SINGLETON
+
 - (NSString*)name { return @"after object key"; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
@@ -174,6 +189,8 @@
 #pragma mark -
 
 @implementation SBJsonStreamParserStateObjectSeparator
+
+SINGLETON
 
 - (NSString*)name { return @"as object value"; }
 
@@ -205,6 +222,8 @@
 
 @implementation SBJsonStreamParserStateObjectGotValue
 
+SINGLETON
+
 - (NSString*)name { return @"after object value"; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
@@ -230,6 +249,8 @@
 
 @implementation SBJsonStreamParserStateObjectNeedKey
 
+SINGLETON
+
 - (NSString*)name { return @"in place of object key"; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
@@ -249,6 +270,8 @@
 #pragma mark -
 
 @implementation SBJsonStreamParserStateArrayStart
+
+SINGLETON
 
 - (NSString*)name { return @"at array start"; }
 
@@ -276,6 +299,8 @@
 
 @implementation SBJsonStreamParserStateArrayGotValue
 
+SINGLETON
+
 - (NSString*)name { return @"after array value"; }
 
 
@@ -293,6 +318,8 @@
 #pragma mark -
 
 @implementation SBJsonStreamParserStateArrayNeedValue
+
+SINGLETON
 
 - (NSString*)name { return @"as array value"; }
 

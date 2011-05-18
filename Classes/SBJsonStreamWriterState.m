@@ -33,8 +33,16 @@
 #import "SBJsonStreamWriterState.h"
 #import "SBJsonStreamWriter.h"
 
+#define SINGLETON \
++ (id)state { \
+    static id state; \
+    if (!state) state = [[self alloc] init]; \
+    return state; \
+}
+
+
 @implementation SBJsonStreamWriterState
-+ (id)state { return [[[self alloc] init] autorelease]; }
++ (id)state { return nil; }
 - (BOOL)isInvalidState:(SBJsonStreamWriter*)writer { return NO; }
 - (void)appendSeparator:(SBJsonStreamWriter*)writer {}
 - (BOOL)expectingKey:(SBJsonStreamWriter*)writer { return NO; }
@@ -47,6 +55,9 @@
 @end
 
 @implementation SBJsonStreamWriterStateObjectStart
+
+SINGLETON
+
 - (void)transitionState:(SBJsonStreamWriter *)writer {
 	writer.state = [SBJsonStreamWriterStateObjectValue state];
 }
@@ -57,12 +68,18 @@
 @end
 
 @implementation SBJsonStreamWriterStateObjectKey
+
+SINGLETON
+
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
 	[writer appendBytes:"," length:1];
 }
 @end
 
 @implementation SBJsonStreamWriterStateObjectValue
+
+SINGLETON
+
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
 	[writer appendBytes:":" length:1];
 }
@@ -75,18 +92,27 @@
 @end
 
 @implementation SBJsonStreamWriterStateArrayStart
+
+SINGLETON
+
 - (void)transitionState:(SBJsonStreamWriter *)writer {
     writer.state = [SBJsonStreamWriterStateArrayValue state];
 }
 @end
 
 @implementation SBJsonStreamWriterStateArrayValue
+
+SINGLETON
+
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
 	[writer appendBytes:"," length:1];
 }
 @end
 
 @implementation SBJsonStreamWriterStateStart
+
+SINGLETON
+
 
 - (void)transitionState:(SBJsonStreamWriter *)writer {
     writer.state = [SBJsonStreamWriterStateComplete state];
@@ -96,6 +122,9 @@
 @end
 
 @implementation SBJsonStreamWriterStateComplete
+
+SINGLETON
+
 - (BOOL)isInvalidState:(SBJsonStreamWriter*)writer {
 	writer.error = @"Stream is closed";
 	return YES;
@@ -103,5 +132,8 @@
 @end
 
 @implementation SBJsonStreamWriterStateError
+
+SINGLETON
+
 @end
 
