@@ -73,7 +73,7 @@
 			break;
 			
 		case SBJsonStreamParserWaitingForData:
-		    self.error = @"Didn't find full object before EOF";
+		    self.error = @"Unexpected end of input";
 			break;
 
 		case SBJsonStreamParserError:

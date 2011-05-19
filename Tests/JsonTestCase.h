@@ -40,5 +40,8 @@
     NSUInteger  count;    
 }
 
+- (NSString*)otherFileName;
+
 - (void) foreachTestInSuite: (NSString*) suite apply: (void (^)(NSString *, NSString *)) block ;
+
 @end

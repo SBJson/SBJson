@@ -46,6 +46,10 @@
     [writer release];
 }
 
+- (NSString*)otherFileName {
+    return @"output";
+}
+
 - (void)foreachTestInSuite:(NSString*)suite apply:(void(^)(NSString*, NSString*))block {
     NSString *file;
     NSDirectoryEnumerator* enumerator = [[NSFileManager defaultManager] enumeratorAtPath:suite];
@@ -54,7 +58,7 @@
         NSString *inpath = [path stringByAppendingPathComponent:@"input"];
 
         if ([[NSFileManager defaultManager] isReadableFileAtPath:inpath]) {
-            NSString *outpath = [path stringByAppendingPathComponent:@"output"];
+            NSString *outpath = [path stringByAppendingPathComponent:[self otherFileName]];
             STAssertTrue([[NSFileManager defaultManager] isReadableFileAtPath:outpath], nil);
             block(inpath, outpath);
             count++;

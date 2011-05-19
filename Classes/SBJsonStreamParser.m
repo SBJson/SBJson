@@ -119,29 +119,31 @@
 	return @"<aaiiie!>";
 }
 
+- (void)maxDepthError {
+    self.error = [NSString stringWithFormat:@"Input depth exceeds max depth of %lu", maxDepth];
+    self.state = [SBJsonStreamParserStateError sharedInstance];
+}
 
 - (void)handleObjectStart {
 	if (stateStack.count >= maxDepth) {
-		self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
-		self.state = [SBJsonStreamParserStateError sharedInstance];
-
-	} else {
-		[delegate parserFoundObjectStart:self];
-        [stateStack push:state];
-        self.state = [SBJsonStreamParserStateObjectStart sharedInstance];
+        [self maxDepthError];
+        return;
 	}
 
+    [delegate parserFoundObjectStart:self];
+    [stateStack push:state];
+    self.state = [SBJsonStreamParserStateObjectStart sharedInstance];
 }
+
 - (void)handleArrayStart {
 	if (stateStack.count >= maxDepth) {
-		self.error = [NSString stringWithFormat:@"Parser exceeded max depth of %lu", maxDepth];
-		self.state = [SBJsonStreamParserStateError sharedInstance];
-	} else {
-		[delegate parserFoundArrayStart:self];
-        [stateStack push:state];
-        self.state = [SBJsonStreamParserStateArrayStart sharedInstance];
-	}
-
+        [self maxDepthError];
+        return;
+    }
+	
+	[delegate parserFoundArrayStart:self];
+    [stateStack push:state];
+    self.state = [SBJsonStreamParserStateArrayStart sharedInstance];
 }
 
 - (SBJsonStreamParserStatus)parse:(NSData *)data_ {

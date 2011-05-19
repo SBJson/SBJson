@@ -114,7 +114,7 @@
         return token;
     }
 
-    NSString *fmt = [NSString stringWithFormat:@"Expected '%%s' but found %%.%us", len];
+    NSString *fmt = [NSString stringWithFormat:@"Expected '%%s' but found '%%.%us'", len];
     self.error = [NSString stringWithFormat:fmt, pattern, (const char*)bytes];
     return sbjson_token_error;
 }
@@ -189,7 +189,7 @@
     while ([self getNextUnichar:&ch]) {
         switch (ch) {
             case 0 ... 0x1F:
-                self.error = [NSString stringWithFormat:@"Unescaped control char 0x%0.2X", (int)ch];
+                self.error = [NSString stringWithFormat:@"Unescaped control character [0x%0.2X]", (int)ch];
                 return sbjson_token_error;
                 break;
 
@@ -349,7 +349,7 @@
         }
 
         if (exp_length == 0) {
-            self.error = @"No digits after exponent mark";
+            self.error = @"No digits in exponent";
             return sbjson_token_error;
         }
 
@@ -449,12 +449,12 @@
             break;
 
         case '+':
-            self.error = @"Leading + is illegal in numbers";
+            self.error = @"Leading + is illegal in number";
             tok = sbjson_token_error;
             break;
 
         default:
-            self.error = @"Unrecognised leading character of token";
+            self.error = [NSString stringWithFormat:@"Illegal start of token [%c]", ch];
             tok = sbjson_token_error;
             break;
     }
