@@ -33,6 +33,7 @@
 #import "SBJsonStreamParser.h"
 #import "SBJsonTokeniser.h"
 #import "SBJsonStreamParserState.h"
+#import "SBStateStack.h"
 #import <limits.h>
 
 @implementation SBJsonStreamParser
@@ -50,7 +51,7 @@
 	self = [super init];
 	if (self) {
 		maxDepth = 512;
-        stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
+        stateStack = [[SBStateStack alloc] initWithCapacity:maxDepth];
         state = [[SBJsonStreamParserStateStart alloc] init];
 		tokeniser = [[SBJsonTokeniser alloc] init];
 	}
@@ -126,7 +127,7 @@
 
 	} else {
 		[delegate parserFoundObjectStart:self];
-        [stateStack addObject:state];
+        [stateStack push:state];
         self.state = [SBJsonStreamParserStateObjectStart sharedInstance];
 	}
 
@@ -137,7 +138,7 @@
 		self.state = [SBJsonStreamParserStateError sharedInstance];
 	} else {
 		[delegate parserFoundArrayStart:self];
-        [stateStack addObject:state];
+        [stateStack push:state];
         self.state = [SBJsonStreamParserStateArrayStart sharedInstance];
 	}
 
@@ -182,8 +183,7 @@
 						break;
 
 					case sbjson_token_object_end:
-                        self.state = [stateStack lastObject];
-                        [stateStack removeLastObject];
+                        self.state = [stateStack pop];
                         [state parser:self shouldTransitionTo:tok];
 						[delegate parserFoundObjectEnd:self];
 						break;
@@ -193,8 +193,7 @@
 						break;
 
 					case sbjson_token_array_end:
-                        self.state = [stateStack lastObject];
-                        [stateStack removeLastObject];
+                        self.state = [stateStack pop];
                         [state parser:self shouldTransitionTo:tok];
 						[delegate parserFoundArrayEnd:self];
 						break;

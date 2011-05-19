@@ -32,6 +32,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class SBStateStack;
 @class SBJsonTokeniser;
 @class SBJsonStreamParser;
 @class SBJsonStreamParserState;
@@ -89,14 +90,14 @@ typedef enum {
 	BOOL multi;
 	id<SBJsonStreamParserDelegate> delegate;
 	SBJsonTokeniser *tokeniser;
-    NSMutableArray *stateStack;
+    SBStateStack *stateStack;
 	__weak SBJsonStreamParserState *state;
 	NSUInteger maxDepth;
 	NSString *error;
 }
 
 @property (nonatomic, assign) SBJsonStreamParserState *state; /// Private
-@property (nonatomic, readonly, retain) NSMutableArray *stateStack; /// Private
+@property (nonatomic, readonly, retain) SBStateStack *stateStack; /// Private
 
 /**
  @brief Expect multiple documents separated by whitespace

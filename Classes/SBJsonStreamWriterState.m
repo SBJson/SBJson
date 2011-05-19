@@ -32,6 +32,7 @@
 
 #import "SBJsonStreamWriterState.h"
 #import "SBJsonStreamWriter.h"
+#import "SBStateStack.h"
 
 #define SINGLETON \
 + (id)sharedInstance { \

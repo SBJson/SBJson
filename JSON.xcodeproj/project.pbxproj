@@ -106,6 +106,10 @@
 		BCC77C181376526700EFEB38 /* SBJsonStreamParserAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC77C151376526700EFEB38 /* SBJsonStreamParserAccumulator.h */; };
 		BCC77C191376526700EFEB38 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC77C161376526700EFEB38 /* SBJsonStreamParserAccumulator.m */; };
 		BCC77C1A1376526700EFEB38 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC77C161376526700EFEB38 /* SBJsonStreamParserAccumulator.m */; };
+		BCEA0C25138492F600072AE3 /* SBStateStack.h in Headers */ = {isa = PBXBuildFile; fileRef = BCEA0C23138492F600072AE3 /* SBStateStack.h */; };
+		BCEA0C26138492F600072AE3 /* SBStateStack.h in Headers */ = {isa = PBXBuildFile; fileRef = BCEA0C23138492F600072AE3 /* SBStateStack.h */; };
+		BCEA0C27138492F600072AE3 /* SBStateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0C24138492F600072AE3 /* SBStateStack.m */; };
+		BCEA0C28138492F600072AE3 /* SBStateStack.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0C24138492F600072AE3 /* SBStateStack.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -283,6 +287,8 @@
 		BCE5E2AB129C809700C156C0 /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
 		BCE5E2AC129C809700C156C0 /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
 		BCE5E2AD129C809700C156C0 /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		BCEA0C23138492F600072AE3 /* SBStateStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBStateStack.h; sourceTree = "<group>"; };
+		BCEA0C24138492F600072AE3 /* SBStateStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBStateStack.m; sourceTree = "<group>"; };
 		E75716430C96DB530084A449 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -380,6 +386,8 @@
 				BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */,
 				BCC77C151376526700EFEB38 /* SBJsonStreamParserAccumulator.h */,
 				BCC77C161376526700EFEB38 /* SBJsonStreamParserAccumulator.m */,
+				BCEA0C23138492F600072AE3 /* SBStateStack.h */,
+				BCEA0C24138492F600072AE3 /* SBStateStack.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -648,6 +656,7 @@
 				BC2BC061136CE6EB0073BC4B /* SBJsonStreamParserState.h in Headers */,
 				BCC77C181376526700EFEB38 /* SBJsonStreamParserAccumulator.h in Headers */,
 				BC78D189137851BF00F5DBA3 /* SBJsonStreamWriterAccumulator.h in Headers */,
+				BCEA0C26138492F600072AE3 /* SBStateStack.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,6 +677,7 @@
 				BC024D5C136CE06A001FD388 /* SBJsonStreamParserState.h in Headers */,
 				BCC77C171376526700EFEB38 /* SBJsonStreamParserAccumulator.h in Headers */,
 				BC78D188137851BF00F5DBA3 /* SBJsonStreamWriterAccumulator.h in Headers */,
+				BCEA0C25138492F600072AE3 /* SBStateStack.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,6 +892,7 @@
 				BC2BC058136CE6D40073BC4B /* SBJsonStreamParserAdapter.m in Sources */,
 				BCC77C1A1376526700EFEB38 /* SBJsonStreamParserAccumulator.m in Sources */,
 				BC78D18B137851BF00F5DBA3 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				BCEA0C28138492F600072AE3 /* SBStateStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -915,6 +926,7 @@
 				BC87790B136CDF9D00549A6D /* SBJsonStreamParserAdapter.m in Sources */,
 				BCC77C191376526700EFEB38 /* SBJsonStreamParserAccumulator.m in Sources */,
 				BC78D18A137851BF00F5DBA3 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				BCEA0C27138492F600072AE3 /* SBStateStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
