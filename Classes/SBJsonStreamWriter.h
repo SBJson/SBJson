@@ -88,7 +88,7 @@
     BOOL sortKeys, humanReadable;
 }
 
-@property (nonatomic, assign) SBJsonStreamWriterState *state; /// Internal
+@property (nonatomic, assign) __weak SBJsonStreamWriterState *state; /// Internal
 @property (nonatomic, readonly, retain) SBStateStack *stateStack; /// Internal 
 
 /**
