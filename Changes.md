@@ -4,25 +4,20 @@
 
 ### Enhancements
 * [Issue 40][#40]: Remove unnecessary script phase build
+* [Issue 55][#55]: SBJsonStreamWriter stringCache is now using NSCache instead of NSMutableDictionary. This means it a) is now thread-safe, and b) will free up memory automaticall if the OS requests it.
 
 [#40]: http://github.com/stig/json-framework/issues/40
 
 ### Bug Fixes
+* [Issue 64][#64]: Handle really long integers better.
 * [Issue 66][#66]: Parser fails to ignore trailing garbage
 * [Issue 42][#42]: Fix bug in handling of Unicode Surrogate Pairs.
 * [Issue 48][#48]: Increase precision when writing floating-point numbers so NSTimeInterval instances since epoch can be represented fully.
-
-[#66]: http://github.com/stig/json-framework/issues/66
-[#42]: http://github.com/stig/json-framework/issues/42
-[#46]: http://github.com/stig/json-framework/issues/46
-[#48]: http://github.com/stig/json-framework/issues/48
 
 ## Version 3.0beta1 (January 30th, 2011)
 
 ### Bug Fixes
 * [Issue 36][#36]: Fix bug in build script that caused it to break if $SRCROOT has spaces.
-
-[#36]: http://github.com/stig/json-framework/issues/36
 
 ### Changes
 
@@ -52,14 +47,6 @@
 * [Issue 9][#9]: Improve performance of the SBJsonWriter. This implementation is nearly twice as fast as 2.3.x on Sam Soffes' [benchmarks][bench].
 * [Issue 30][#30]: Added *TwitterStream* example project showing how to interact with Twitter's multi-document stream. (See `Examples/TwitterStream` in the distribution.)
 
-[bench]: http://github.com/samsoffes/json-benchmarks
-[#9]: http://github.com/stig/json-framework/issues/9
-[#12]: http://github.com/stig/json-framework/issues/12
-[#16]: http://github.com/stig/json-framework/issues/16
-[#18]: http://github.com/stig/json-framework/issues/18
-[#27]: http://github.com/stig/json-framework/issues/27
-[#30]: http://github.com/stig/json-framework/issues/30
-[#25]: http://github.com/stig/json-framework/issues/25
 
 ## Version 2.3.1 (September 25th, 2010)
 
@@ -67,20 +54,18 @@
 
 * Move to host releases on Github rather than Google code.
 * Renamed .md files to .markdown.
-* Removed bench target--use [Sam Soffes's benchmarks][json-benchmark] instead.
+* Removed bench target--use [Sam Soffes's benchmarks][bench] instead.
 * Releases are no longer a munged form of the source tree, but identical to the tagged source.
-
-[json-benchmark]: http://github.com/samsoffes/json-benchmark
 
 ### Bug fixes
 
-* [Issue 2][issue#2]: Linkage not supported by default distribution.
-* [Issue 4][issue#4]: Writer reported to occasionally fail infinity check.
-* [Issue 8][issue#8]: Installation.markdown refers to missing JSON folder.
+* [Issue 2][#2]: Linkage not supported by default distribution.
+* [Issue 4][#4]: Writer reported to occasionally fail infinity check.
+* [Issue 8][#8]: Installation.markdown refers to missing JSON folder.
 
-[issue#2]: http://github.com/stig/json-framework/issues/closed/#issue/2
-[issue#4]: http://github.com/stig/json-framework/issues/closed/#issue/4
-[issue#8]: http://github.com/stig/json-framework/issues/closed/#issue/8
+[#2]: http://github.com/stig/json-framework/issues/2
+[#4]: http://github.com/stig/json-framework/issues/4
+[#8]: http://github.com/stig/json-framework/issues/8
 
 ## Version 2.3 (August 7, 2010)
 
@@ -203,3 +188,105 @@ Minor updates to the documentation.
 Release notes for earlier releases can be found here:
 http://code.google.com/p/json-framework/wiki/ReleaseNotes
 
+[#100]: http://github.com/stig/json-framework/issues/100
+[#99]: http://github.com/stig/json-framework/issues/99
+[#98]: http://github.com/stig/json-framework/issues/98
+[#97]: http://github.com/stig/json-framework/issues/97
+[#96]: http://github.com/stig/json-framework/issues/96
+[#95]: http://github.com/stig/json-framework/issues/95
+[#94]: http://github.com/stig/json-framework/issues/94
+[#93]: http://github.com/stig/json-framework/issues/93
+[#92]: http://github.com/stig/json-framework/issues/92
+[#91]: http://github.com/stig/json-framework/issues/91
+[#90]: http://github.com/stig/json-framework/issues/90
+[#89]: http://github.com/stig/json-framework/issues/89
+[#88]: http://github.com/stig/json-framework/issues/88
+[#87]: http://github.com/stig/json-framework/issues/87
+[#86]: http://github.com/stig/json-framework/issues/86
+[#85]: http://github.com/stig/json-framework/issues/85
+[#84]: http://github.com/stig/json-framework/issues/84
+[#83]: http://github.com/stig/json-framework/issues/83
+[#82]: http://github.com/stig/json-framework/issues/82
+[#81]: http://github.com/stig/json-framework/issues/81
+[#80]: http://github.com/stig/json-framework/issues/80
+[#79]: http://github.com/stig/json-framework/issues/79
+[#78]: http://github.com/stig/json-framework/issues/78
+[#77]: http://github.com/stig/json-framework/issues/77
+[#76]: http://github.com/stig/json-framework/issues/76
+[#75]: http://github.com/stig/json-framework/issues/75
+[#74]: http://github.com/stig/json-framework/issues/74
+[#73]: http://github.com/stig/json-framework/issues/73
+[#72]: http://github.com/stig/json-framework/issues/72
+[#71]: http://github.com/stig/json-framework/issues/71
+[#70]: http://github.com/stig/json-framework/issues/70
+[#69]: http://github.com/stig/json-framework/issues/69
+[#68]: http://github.com/stig/json-framework/issues/68
+[#67]: http://github.com/stig/json-framework/issues/67
+[#66]: http://github.com/stig/json-framework/issues/66
+[#65]: http://github.com/stig/json-framework/issues/65
+[#64]: http://github.com/stig/json-framework/issues/64
+[#63]: http://github.com/stig/json-framework/issues/63
+[#62]: http://github.com/stig/json-framework/issues/62
+[#61]: http://github.com/stig/json-framework/issues/61
+[#60]: http://github.com/stig/json-framework/issues/60
+[#59]: http://github.com/stig/json-framework/issues/59
+[#58]: http://github.com/stig/json-framework/issues/58
+[#57]: http://github.com/stig/json-framework/issues/57
+[#56]: http://github.com/stig/json-framework/issues/56
+[#55]: http://github.com/stig/json-framework/issues/55
+[#54]: http://github.com/stig/json-framework/issues/54
+[#53]: http://github.com/stig/json-framework/issues/53
+[#52]: http://github.com/stig/json-framework/issues/52
+[#51]: http://github.com/stig/json-framework/issues/51
+[#50]: http://github.com/stig/json-framework/issues/50
+[#49]: http://github.com/stig/json-framework/issues/49
+[#48]: http://github.com/stig/json-framework/issues/48
+[#47]: http://github.com/stig/json-framework/issues/47
+[#46]: http://github.com/stig/json-framework/issues/46
+[#45]: http://github.com/stig/json-framework/issues/45
+[#44]: http://github.com/stig/json-framework/issues/44
+[#43]: http://github.com/stig/json-framework/issues/43
+[#42]: http://github.com/stig/json-framework/issues/42
+[#41]: http://github.com/stig/json-framework/issues/41
+[#40]: http://github.com/stig/json-framework/issues/40
+[#39]: http://github.com/stig/json-framework/issues/39
+[#38]: http://github.com/stig/json-framework/issues/38
+[#37]: http://github.com/stig/json-framework/issues/37
+[#36]: http://github.com/stig/json-framework/issues/36
+[#35]: http://github.com/stig/json-framework/issues/35
+[#34]: http://github.com/stig/json-framework/issues/34
+[#33]: http://github.com/stig/json-framework/issues/33
+[#32]: http://github.com/stig/json-framework/issues/32
+[#31]: http://github.com/stig/json-framework/issues/31
+[#30]: http://github.com/stig/json-framework/issues/30
+[#29]: http://github.com/stig/json-framework/issues/29
+[#28]: http://github.com/stig/json-framework/issues/28
+[#27]: http://github.com/stig/json-framework/issues/27
+[#26]: http://github.com/stig/json-framework/issues/26
+[#25]: http://github.com/stig/json-framework/issues/25
+[#24]: http://github.com/stig/json-framework/issues/24
+[#23]: http://github.com/stig/json-framework/issues/23
+[#22]: http://github.com/stig/json-framework/issues/22
+[#21]: http://github.com/stig/json-framework/issues/21
+[#20]: http://github.com/stig/json-framework/issues/20
+[#19]: http://github.com/stig/json-framework/issues/19
+[#18]: http://github.com/stig/json-framework/issues/18
+[#17]: http://github.com/stig/json-framework/issues/17
+[#16]: http://github.com/stig/json-framework/issues/16
+[#15]: http://github.com/stig/json-framework/issues/15
+[#14]: http://github.com/stig/json-framework/issues/14
+[#13]: http://github.com/stig/json-framework/issues/13
+[#12]: http://github.com/stig/json-framework/issues/12
+[#11]: http://github.com/stig/json-framework/issues/11
+[#10]: http://github.com/stig/json-framework/issues/10
+[#9]: http://github.com/stig/json-framework/issues/9
+[#8]: http://github.com/stig/json-framework/issues/8
+[#7]: http://github.com/stig/json-framework/issues/7
+[#6]: http://github.com/stig/json-framework/issues/6
+[#5]: http://github.com/stig/json-framework/issues/5
+[#4]: http://github.com/stig/json-framework/issues/4
+[#3]: http://github.com/stig/json-framework/issues/3
+[#2]: http://github.com/stig/json-framework/issues/2
+[#1]: http://github.com/stig/json-framework/issues/1
+
+[bench]: http://github.com/samsoffes/json-benchmarks
