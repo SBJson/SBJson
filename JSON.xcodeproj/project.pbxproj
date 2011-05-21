@@ -100,6 +100,10 @@
 		BC87790A136CDF9D00549A6D /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5E2AD129C809700C156C0 /* SBJsonStreamParserState.m */; };
 		BC87790B136CDF9D00549A6D /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9602B612A452CF0024BDA2 /* SBJsonStreamParserAdapter.m */; };
 		BC9270CC136F7E0A002A7F26 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+JSON.m */; };
+		BCB6451A1387C567000CD9B0 /* SBUTF8Stream.h in Headers */ = {isa = PBXBuildFile; fileRef = BCB645181387C567000CD9B0 /* SBUTF8Stream.h */; };
+		BCB6451B1387C567000CD9B0 /* SBUTF8Stream.h in Headers */ = {isa = PBXBuildFile; fileRef = BCB645181387C567000CD9B0 /* SBUTF8Stream.h */; };
+		BCB6451C1387C567000CD9B0 /* SBUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB645191387C567000CD9B0 /* SBUTF8Stream.m */; };
+		BCB6451D1387C567000CD9B0 /* SBUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB645191387C567000CD9B0 /* SBUTF8Stream.m */; };
 		BCBF785C136EBA3500D4E84B /* RoundTripTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF785B136EBA3500D4E84B /* RoundTripTest.m */; };
 		BCBF785D136EBA3500D4E84B /* RoundTripTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBF785B136EBA3500D4E84B /* RoundTripTest.m */; };
 		BCC77C171376526700EFEB38 /* SBJsonStreamParserAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = BCC77C151376526700EFEB38 /* SBJsonStreamParserAccumulator.h */; };
@@ -276,6 +280,8 @@
 		BCB55B411221D4B800ACE34F /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		BCB55B421221D4E200ACE34F /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		BCB55B441221D50500ACE34F /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		BCB645181387C567000CD9B0 /* SBUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBUTF8Stream.h; sourceTree = "<group>"; };
+		BCB645191387C567000CD9B0 /* SBUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUTF8Stream.m; sourceTree = "<group>"; };
 		BCBF785B136EBA3500D4E84B /* RoundTripTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundTripTest.m; sourceTree = "<group>"; };
 		BCC0466C0FB62CF100F9F2D3 /* Readme.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.markdown; sourceTree = "<group>"; };
 		BCC047320FB6584C00F9F2D3 /* InstallDocumentation.sh */ = {isa = PBXFileReference; explicitFileType = text.script.sh; fileEncoding = 4; path = InstallDocumentation.sh; sourceTree = "<group>"; };
@@ -374,6 +380,8 @@
 				BC78D187137851BF00F5DBA3 /* SBJsonStreamWriterAccumulator.m */,
 				BCCEBEFB12B3E14500263D0F /* SBJsonStreamWriterState.h */,
 				BCCEBEFC12B3E14500263D0F /* SBJsonStreamWriterState.m */,
+				BCB645181387C567000CD9B0 /* SBUTF8Stream.h */,
+				BCB645191387C567000CD9B0 /* SBUTF8Stream.m */,
 				BCA822C8127D68F600DD3FD0 /* SBJsonTokeniser.h */,
 				BCA822C9127D68F600DD3FD0 /* SBJsonTokeniser.m */,
 				535157780F6E3BE100C8AABD /* SBJsonParser.h */,
@@ -657,6 +665,7 @@
 				BCC77C181376526700EFEB38 /* SBJsonStreamParserAccumulator.h in Headers */,
 				BC78D189137851BF00F5DBA3 /* SBJsonStreamWriterAccumulator.h in Headers */,
 				BCEA0C26138492F600072AE3 /* SBStateStack.h in Headers */,
+				BCB6451B1387C567000CD9B0 /* SBUTF8Stream.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,6 +687,7 @@
 				BCC77C171376526700EFEB38 /* SBJsonStreamParserAccumulator.h in Headers */,
 				BC78D188137851BF00F5DBA3 /* SBJsonStreamWriterAccumulator.h in Headers */,
 				BCEA0C25138492F600072AE3 /* SBStateStack.h in Headers */,
+				BCB6451A1387C567000CD9B0 /* SBUTF8Stream.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -893,6 +903,7 @@
 				BCC77C1A1376526700EFEB38 /* SBJsonStreamParserAccumulator.m in Sources */,
 				BC78D18B137851BF00F5DBA3 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				BCEA0C28138492F600072AE3 /* SBStateStack.m in Sources */,
+				BCB6451D1387C567000CD9B0 /* SBUTF8Stream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,6 +938,7 @@
 				BCC77C191376526700EFEB38 /* SBJsonStreamParserAccumulator.m in Sources */,
 				BC78D18A137851BF00F5DBA3 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				BCEA0C27138492F600072AE3 /* SBStateStack.m in Sources */,
+				BCB6451C1387C567000CD9B0 /* SBUTF8Stream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

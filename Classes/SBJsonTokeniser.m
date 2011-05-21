@@ -30,7 +30,7 @@
  */
 
 #import "SBJsonTokeniser.h"
-
+#import "SBUTF8Stream.h"
 
 #define SBStringIsIllegalSurrogateHighCharacter(x) (((x) >= 0xd800) && ((x) <= 0xdfff))
 
@@ -42,7 +42,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        _data = [[NSMutableData alloc] initWithCapacity:4096u];
+        _stream = [[SBUTF8Stream alloc] init];
 
     }
 
@@ -50,72 +50,27 @@
 }
 
 - (void)dealloc {
-    [_data release];
+    [_stream release];
     [super dealloc];
 }
 
 - (void)appendData:(NSData *)data_ {
-
-    if (_index) {
-        // Discard data we've already parsed
-		[_data replaceBytesInRange:NSMakeRange(0, _index) withBytes:"" length:0];
-
-        // Keep track of how much we have discarded
-        _discarded += _index;
-
-        // Reset index to point to current position
-		_index = 0;
-	}
-
-    [_data appendData:data_];
-    
-    // This is an optimisation. 
-    _bytes = [_data bytes];
-    _length = [_data length];
+    [_stream appendData:data_];
 }
 
-- (BOOL)getUnichar:(unichar*)ch {
-    if (_index < _length) {
-        *ch = (unichar)_bytes[_index];
-        return YES;
-    }
-    return NO;
-}
 
-- (BOOL)getNextUnichar:(unichar*)ch {
-    if (++_index < _length) {
-        *ch = (unichar)_bytes[_index];
-        return YES;
-    }
-    return NO;
-}
-
-- (void)skipWhitespace {
-    NSCharacterSet *ws = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    unichar ch;
-    if (![self getUnichar:&ch])
-        return;
-
-    while ([ws characterIsMember:ch] && [self getNextUnichar:&ch])
-        ;
-}
-
-- (BOOL)ensureChars:(NSUInteger)chars {
-    return [_data length] - _index >= chars;
-}
-
-- (sbjson_token_t)match:(char *)pattern length:(NSUInteger)len retval:(sbjson_token_t)token {
-    if (![self ensureChars:len])
+- (sbjson_token_t)match:(const char *)pattern length:(NSUInteger)len retval:(sbjson_token_t)token {
+    if (![_stream ensureChars:len])
         return sbjson_token_eof;
 
-    const void *bytes = [_data bytes] + _index;
-    if (!memcmp(bytes, pattern, len)) {
-        _index += len;
+    if ([_stream skipCharacters:pattern length:len])
         return token;
-    }
+
+    char bytes[len+1];
+    (void)[_stream getBytes:bytes length:len];
 
     NSString *fmt = [NSString stringWithFormat:@"Expected '%%s' but found '%%.%us'", len];
-    self.error = [NSString stringWithFormat:fmt, pattern, (const char*)bytes];
+    self.error = [NSString stringWithFormat:fmt, pattern, bytes];
     return sbjson_token_error;
 }
 
@@ -159,7 +114,7 @@
     unichar c, tmp = 0;
 
     for (int i = 0; i < 4; i++) {
-        (void)[self getNextUnichar:&c];
+        (void)[_stream getNextUnichar:&c];
         tmp *= 16;
         switch (c) {
             case '0' ... '9':
@@ -186,7 +141,7 @@
     unichar ch;
     NSMutableData *data = [NSMutableData dataWithCapacity:128u];
 
-    while ([self getNextUnichar:&ch]) {
+    while ([_stream getNextUnichar:&ch]) {
         switch (ch) {
             case 0 ... 0x1F:
                 self.error = [NSString stringWithFormat:@"Unescaped control character [0x%0.2X]", (int)ch];
@@ -194,17 +149,17 @@
                 break;
 
             case '"':
-                (void)[self getNextUnichar:&ch];
+                (void)[_stream getNextUnichar:&ch];
                 *token = [[[NSString alloc] initWithData:data encoding:NSUTF16LittleEndianStringEncoding] autorelease];
                 return sbjson_token_string;
                 break;
 
             case '\\':
-                if (![self getNextUnichar:&ch])
+                if (![_stream getNextUnichar:&ch])
                     return sbjson_token_eof;
 
                 if (ch == 'u') {
-                    if (![self ensureChars:5])
+                    if (![_stream ensureChars:5])
                         return sbjson_token_eof;
 
                     unichar hi;
@@ -216,11 +171,11 @@
                     if (CFStringIsSurrogateHighCharacter(hi)) {
                         unichar lo;
 
-                        if (![self ensureChars:6])
+                        if (![_stream ensureChars:6])
                             return sbjson_token_eof;
 
-                        (void)[self getNextUnichar:&ch];
-                        (void)[self getNextUnichar:&lo];
+                        (void)[_stream getNextUnichar:&ch];
+                        (void)[_stream getNextUnichar:&lo];
                         if (ch != '\\' || lo != 'u' || ![self decodeHexQuad:&lo]) {
                             self.error = @"Missing low character in surrogate pair";
                             return sbjson_token_error;
@@ -259,22 +214,22 @@
 
 - (sbjson_token_t)getNumberToken:(NSObject**)token {
 
-    NSUInteger numberStart = _index;
+    NSUInteger numberStart = _stream.index;
     NSCharacterSet *digits = [NSCharacterSet decimalDigitCharacterSet];
 
     unichar ch;
-    if (![self getUnichar:&ch])
+    if (![_stream getUnichar:&ch])
         return sbjson_token_eof;
 
     BOOL isNegative = NO;
     if (ch == '-') {
         isNegative = YES;
-        if (![self getNextUnichar:&ch])
+        if (![_stream getNextUnichar:&ch])
             return sbjson_token_eof;
     }
 
     if (ch == '0') {
-        if (![self getNextUnichar:&ch])
+        if (![_stream getNextUnichar:&ch])
             return sbjson_token_eof;
 
         if ([digits characterIsMember:ch]) {
@@ -291,7 +246,7 @@
         mantissa += (ch - '0');
         mantissa_length++;
 
-        if (![self getNextUnichar:&ch])
+        if (![_stream getNextUnichar:&ch])
             return sbjson_token_eof;
     }
 
@@ -300,7 +255,7 @@
 
     if (ch == '.') {
         isFloat = YES;
-        if (![self getNextUnichar:&ch])
+        if (![_stream getNextUnichar:&ch])
             return sbjson_token_eof;
 
         while ([digits characterIsMember:ch]) {
@@ -309,7 +264,7 @@
             mantissa_length++;
             exponent--;
 
-            if (![self getNextUnichar:&ch])
+            if (![_stream getNextUnichar:&ch])
                 return sbjson_token_eof;
         }
 
@@ -323,17 +278,17 @@
     if (ch == 'e' || ch == 'E') {
         hasExponent = YES;
 
-        if (![self getNextUnichar:&ch])
+        if (![_stream getNextUnichar:&ch])
             return sbjson_token_eof;
 
         BOOL expIsNegative = NO;
         if (ch == '-') {
             expIsNegative = YES;
-            if (![self getNextUnichar:&ch])
+            if (![_stream getNextUnichar:&ch])
                 return sbjson_token_eof;
 
         } else if (ch == '+') {
-            if (![self getNextUnichar:&ch])
+            if (![_stream getNextUnichar:&ch])
                 return sbjson_token_eof;
         }
 
@@ -344,7 +299,7 @@
             exp += (ch - '0');
             exp_length++;
 
-            if (![self getNextUnichar:&ch])
+            if (![_stream getNextUnichar:&ch])
                 return sbjson_token_eof;
         }
 
@@ -364,11 +319,16 @@
         return sbjson_token_error;
 
     } else if (mantissa_length >= 19) {
+        // The super slow path... for REALLY long numbers
+        NSUInteger index = _stream.index;        
+        NSUInteger length = index - numberStart;
+        char bytes[length+1];
 
-        // The slow path... for REALLY long numbers
-        char *bytes = (char*)[_data bytes] + numberStart;
-        NSUInteger len = _index - numberStart;
-        NSString *numberString = [[[NSString alloc] initWithBytes:bytes length:len encoding:NSUTF8StringEncoding] autorelease];
+        _stream.index = numberStart;
+        [_stream getBytes:bytes length:length];
+        _stream.index = index;
+
+        NSString *numberString = [[[NSString alloc] initWithBytes:bytes length:length encoding:NSUTF8StringEncoding] autorelease];
         *token = [NSDecimalNumber decimalNumberWithString:numberString];
 
     } else if (!isFloat && !hasExponent) {
@@ -387,44 +347,44 @@
 
 - (sbjson_token_t)getToken:(NSObject **)token {
 
-    [self skipWhitespace];
+    [_stream skipWhitespace];
 
     unichar ch;
-    if (![self getUnichar:&ch])
+    if (![_stream getUnichar:&ch])
         return sbjson_token_eof;
 
-    NSUInteger oldIndexLocation = _index;
+    NSUInteger oldIndexLocation = _stream.index;
     sbjson_token_t tok;
 
     switch (ch) {
         case '[':
             tok = sbjson_token_array_start;
-            _index++;
+            [_stream skip];
             break;
 
         case ']':
             tok = sbjson_token_array_end;
-            _index++;
+            [_stream skip];
             break;
 
         case '{':
             tok = sbjson_token_object_start;
-            _index++;
+            [_stream skip];
             break;
 
         case ':':
             tok = sbjson_token_keyval_separator;
-            _index++;
+            [_stream skip];
             break;
 
         case '}':
             tok = sbjson_token_object_end;
-            _index++;
+            [_stream skip];
             break;
 
         case ',':
             tok = sbjson_token_separator;
-            _index++;
+            [_stream skip];
             break;
 
         case 'n':
@@ -460,9 +420,11 @@
     }
 
     if (tok == sbjson_token_eof) {
-
-        // Reset index pointer for next call
-        _index = oldIndexLocation;
+        // We ran out of bytes in the middle of a token.
+        // We don't know how to restart in mid-flight, so
+        // rewind to the start of the token for next attempt.
+        // Hopefully we'll have more data then.
+        _stream.index = oldIndexLocation;
     }
 
     return tok;
