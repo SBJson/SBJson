@@ -4,7 +4,7 @@
 
 ### Enhancements
 * [Issue 40][#40]: Remove unnecessary script phase build
-* [Issue 55][#55]: SBJsonStreamWriter stringCache is now using NSCache instead of NSMutableDictionary. This means it a) is now thread-safe, and b) will free up memory automaticall if the OS requests it.
+* [Issue 55][#55]: SBJsonStreamWriter stringCache is now using NSCache instead of NSMutableDictionary. This firstly means it is now thread-safe, and secondly that it will free up memory automatically if the OS requests it.
 
 [#40]: http://github.com/stig/json-framework/issues/40
 
