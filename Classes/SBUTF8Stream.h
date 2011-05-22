@@ -50,6 +50,7 @@
 
 - (BOOL)getUnichar:(unichar*)ch;
 - (BOOL)getNextUnichar:(unichar*)ch;
+- (BOOL)getSimpleString:(NSString**)string;
 
 - (BOOL)ensureChars:(NSUInteger)chars;
 - (BOOL)getBytes:(char *)bytes length:(NSUInteger)length;

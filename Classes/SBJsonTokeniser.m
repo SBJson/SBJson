@@ -138,10 +138,26 @@
 }
 
 - (sbjson_token_t)getStringToken:(NSObject**)token {
-    *token = [NSMutableString stringWithCapacity:32u];
+    NSMutableString *acc = nil;
 
-    unichar ch;
-    while ([_stream getNextUnichar:&ch]) {
+    for (;;) {
+        [_stream skip];
+        
+        {
+            NSMutableString *string = nil;
+            if (![_stream getSimpleString:&string])
+                return sbjson_token_eof;
+        
+            if (acc)
+                [acc appendString:string];
+            else
+                acc = [[string mutableCopy] autorelease];
+        }
+        
+        unichar ch;
+        if (![_stream getUnichar:&ch])
+            return sbjson_token_eof;
+        
         switch (ch) {
             case 0 ... 0x1F:
                 self.error = [NSString stringWithFormat:@"Unescaped control character [0x%0.2X]", (int)ch];
@@ -149,7 +165,8 @@
                 break;
 
             case '"':
-                (void)[_stream getNextUnichar:&ch];
+                *token = acc;
+                [_stream skip];
                 return sbjson_token_string;
                 break;
 
@@ -186,12 +203,12 @@
                         }
 
                         unichar pair[2] = {hi, lo};
-                        CFStringAppendCharacters((CFMutableStringRef)*token, pair, 2);
+                        CFStringAppendCharacters((CFMutableStringRef)acc, pair, 2);
                     } else if (SBStringIsIllegalSurrogateHighCharacter(hi)) {
                         self.error = @"Invalid high character in surrogate pair";
                         return sbjson_token_error;
                     } else {
-                        CFStringAppendCharacters((CFMutableStringRef)*token, &hi, 1);
+                        CFStringAppendCharacters((CFMutableStringRef)acc, &hi, 1);
                     }
 
 
@@ -199,13 +216,17 @@
                     unichar decoded;
                     if (![self decodeEscape:ch into:&decoded])
                         return sbjson_token_error;
-                    CFStringAppendCharacters((CFMutableStringRef)*token, &decoded, 1);
+                    CFStringAppendCharacters((CFMutableStringRef)acc, &decoded, 1);
                 }
 
                 break;
 
-            default:
-                CFStringAppendCharacters((CFMutableStringRef)*token, &ch, 1);
+            default: {
+                char bytes[1];
+                [_stream getBytes:bytes length:1];
+                [NSException raise:@"unexpected error" format:@"Should not get here: '%c'", *bytes];
+                break;
+            }
         }
     }
     return sbjson_token_eof;

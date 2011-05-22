@@ -86,6 +86,24 @@
     return NO;
 }
 
+- (BOOL)getSimpleString:(NSString **)string {
+    NSUInteger start = _index;
+    while (_index < _length) {
+        switch (_bytes[_index]) {
+            case '"':
+            case '\\':
+            case 0 ... 0x1f:
+                *string = [[[NSString alloc] initWithBytes:(_bytes + start) length:(_index - start) encoding:NSUTF8StringEncoding] autorelease];
+                return YES;
+                break;
+            default:
+                _index++;
+                break;
+        }
+    }
+    return NO;
+}
+
 - (void)skip {
     _index++;
 }
