@@ -109,13 +109,19 @@
 }
 
 - (void)skipWhitespace {
-    NSCharacterSet *ws = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    unichar ch;
-    if (![self getUnichar:&ch])
-        return;
-    
-    while ([ws characterIsMember:ch] && [self getNextUnichar:&ch])
-        ;
+    while (_index < _length) {
+        switch (_bytes[_index]) {
+            case ' ':
+            case '\t':
+            case '\r':
+            case '\n':
+                _index++;
+                break;
+            default:
+                return;
+                break;
+        }
+    }
 }
 
 - (BOOL)ensureChars:(NSUInteger)chars {
