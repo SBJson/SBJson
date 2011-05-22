@@ -138,9 +138,9 @@
 }
 
 - (sbjson_token_t)getStringToken:(NSObject**)token {
-    unichar ch;
-    NSMutableData *data = [NSMutableData dataWithCapacity:128u];
+    *token = [NSMutableString stringWithCapacity:32u];
 
+    unichar ch;
     while ([_stream getNextUnichar:&ch]) {
         switch (ch) {
             case 0 ... 0x1F:
@@ -150,7 +150,6 @@
 
             case '"':
                 (void)[_stream getNextUnichar:&ch];
-                *token = [[[NSString alloc] initWithData:data encoding:NSUTF16LittleEndianStringEncoding] autorelease];
                 return sbjson_token_string;
                 break;
 
@@ -187,12 +186,12 @@
                         }
 
                         unichar pair[2] = {hi, lo};
-                        [data appendBytes:pair length:4];
+                        CFStringAppendCharacters((CFMutableStringRef)*token, pair, 2);
                     } else if (SBStringIsIllegalSurrogateHighCharacter(hi)) {
                         self.error = @"Invalid high character in surrogate pair";
                         return sbjson_token_error;
                     } else {
-                        [data appendBytes:&hi length:2];
+                        CFStringAppendCharacters((CFMutableStringRef)*token, &hi, 1);
                     }
 
 
@@ -200,13 +199,13 @@
                     unichar decoded;
                     if (![self decodeEscape:ch into:&decoded])
                         return sbjson_token_error;
-                    [data appendBytes:&decoded length:2];
+                    CFStringAppendCharacters((CFMutableStringRef)*token, &decoded, 1);
                 }
 
                 break;
 
             default:
-                [data appendBytes:&ch length:2];
+                CFStringAppendCharacters((CFMutableStringRef)*token, &ch, 1);
         }
     }
     return sbjson_token_eof;
