@@ -1,6 +1,6 @@
 # JSON Framework Changes
 
-## Version 3.0beta2 (TBD)
+## Version 3.0beta2 (May 24th, 2011)
 
 ### Changes
 
