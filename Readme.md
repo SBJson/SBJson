@@ -8,14 +8,12 @@ strict JSON parser and generator in Objective-C.
 Features
 --------
 
-Core features:
 * BSD license.
 * Easy-to-use API.
 * Strict parsing & generation.
-
-Optional features include (but not limited to):
-* Pretty-printing of JSON output.
-* Sorted dictionary keys in JSON output.
+* Supports garbage collection.
+* Optional pretty-printing of JSON output.
+* Optional sorted dictionary keys in JSON output.
 * Configurable recursion depth limit for added security.
 
 Links
