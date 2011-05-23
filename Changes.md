@@ -2,6 +2,9 @@
 
 ## Version 3.0beta2 (TBD)
 
+### Changes
+* The parser used to always return NSMutableStrings, but may now return NSString instead, for strings with no escapes in them. This change speeded up the parser by about 30% on samsoffes' benchmark.
+
 ### Enhancements
 * [Issue 40][#40]: Remove unnecessary script phase build
 * [Issue 55][#55]: SBJsonStreamWriter stringCache is now using NSCache instead of NSMutableDictionary. This firstly means it is now thread-safe, and secondly that it will free up memory automatically if the OS requests it.

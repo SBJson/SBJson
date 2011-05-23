@@ -143,20 +143,27 @@
     for (;;) {
         [_stream skip];
         
+        unichar ch;
         {
             NSMutableString *string = nil;
             if (![_stream getSimpleString:&string])
                 return sbjson_token_eof;
         
-            if (acc)
+            if (![_stream getUnichar:&ch])
+                return sbjson_token_eof;
+
+            if (acc) {
                 [acc appendString:string];
-            else
+            
+            } else if (ch == '"') {
+                *token = string;
+                [_stream skip];
+                return sbjson_token_string;
+
+            } else {
                 acc = [[string mutableCopy] autorelease];
+            }
         }
-        
-        unichar ch;
-        if (![_stream getUnichar:&ch])
-            return sbjson_token_eof;
         
         switch (ch) {
             case 0 ... 0x1F:
