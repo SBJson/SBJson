@@ -1,5 +1,11 @@
 # JSON Framework Changes
 
+## Version 3.0beta3 (TBD)
+
+### Bug Fixes
+* [Issue 70][#70]: SBStateStack breaks when running with GC. This was fixed by removing the class altogether and just using an NSMutableArray. This turns out to have very little measurable effect on performance.
+
+
 ## Version 3.0beta2 (May 24th, 2011)
 
 ### Changes

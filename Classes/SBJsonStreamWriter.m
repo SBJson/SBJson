@@ -32,7 +32,6 @@
 
 #import "SBJsonStreamWriter.h"
 #import "SBJsonStreamWriterState.h"
-#import "SBStateStack.h"
 
 static NSDecimalNumber *kNotANumber;
 static NSCache *kStaticStringCache;
@@ -60,7 +59,7 @@ static NSCache *kStaticStringCache;
 	self = [super init];
 	if (self) {
 		maxDepth = 512;
-        stateStack = [[SBStateStack alloc] initWithCapacity:maxDepth];
+        stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
         state = [[SBJsonStreamWriterStateStart alloc] init];
     }
 	return self;
@@ -118,7 +117,7 @@ static NSCache *kStaticStringCache;
 	[state appendSeparator:self];
 	if (humanReadable && stateStack.count) [state appendWhitespace:self];
 
-    [stateStack push:state];
+    [stateStack addObject:state];
     self.state = [SBJsonStreamWriterStateObjectStart sharedInstance];
 
 	if (maxDepth && stateStack.count > maxDepth) {
@@ -135,7 +134,8 @@ static NSCache *kStaticStringCache;
 
     SBJsonStreamWriterState *prev = state;
 
-    self.state = [stateStack pop];
+    self.state = [stateStack lastObject];
+    [stateStack removeLastObject];
 
 	if (humanReadable) [prev appendWhitespace:self];
 	[delegate writer:self appendBytes:"}" length:1];
@@ -150,7 +150,7 @@ static NSCache *kStaticStringCache;
 	[state appendSeparator:self];
 	if (humanReadable && stateStack.count) [state appendWhitespace:self];
 
-    [stateStack push:state];
+    [stateStack addObject:state];
 	self.state = [SBJsonStreamWriterStateArrayStart sharedInstance];
 
 	if (maxDepth && stateStack.count > maxDepth) {
@@ -168,7 +168,8 @@ static NSCache *kStaticStringCache;
 
     SBJsonStreamWriterState *prev = state;
 
-    self.state = [stateStack pop];
+    self.state = [stateStack lastObject];
+    [stateStack removeLastObject];
 
 	if (humanReadable) [prev appendWhitespace:self];
 	[delegate writer:self appendBytes:"]" length:1];
