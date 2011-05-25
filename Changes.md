@@ -2,7 +2,15 @@
 
 ## Version 3.0beta3 (TBD)
 
+### Changes
+
+* Extracted the example applications to [their own
+project](https://github.com/stig/json-framework-examples) on GitHub.
+Expanded the Mac version to be a fully functional application that
+reformats JSON you put into one text field into another one.
+
 ### Bug Fixes
+
 * [Issue 70][#70]: SBStateStack breaks when running with GC. This was fixed by removing the class altogether and just using an NSMutableArray. This turns out to have very little measurable effect on performance.
 
 
