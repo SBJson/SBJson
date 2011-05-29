@@ -6,20 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		BCF6393B12F5FD3B0094F9AE /* RefreshOnlineDocs */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = BCF6394012F5FD6E0094F9AE /* Build configuration list for PBXAggregateTarget "RefreshOnlineDocs" */;
-			buildPhases = (
-				BCF6393A12F5FD3B0094F9AE /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = RefreshOnlineDocs;
-			productName = "Refresh Online Docs";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		BC024D53136CDFF6001FD388 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8778E1136CDE4400549A6D /* Foundation.framework */; };
 		BC024D55136CE06A001FD388 /* NSObject+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+JSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -759,7 +745,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BCF6393B12F5FD3B0094F9AE /* RefreshOnlineDocs */,
 				BC8778D9136CDE4400549A6D /* JSON */,
 				BC8778ED136CDE4400549A6D /* JSONTests */,
 				BC2BC02B136CE6B30073BC4B /* libjson */,
@@ -821,19 +806,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		BCF6393A12F5FD3B0094F9AE /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "exec \"$SOURCE_ROOT/Scripts/RefreshOnlineDocs.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1178,26 +1150,6 @@
 			};
 			name = Release;
 		};
-		BCF6393C12F5FD3B0094F9AE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				PRODUCT_NAME = "Refresh Online Docs";
-			};
-			name = Debug;
-		};
-		BCF6393D12F5FD3B0094F9AE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = "Refresh Online Docs";
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1242,15 +1194,6 @@
 			buildConfigurations = (
 				BC877900136CDE4400549A6D /* Debug */,
 				BC877901136CDE4400549A6D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BCF6394012F5FD6E0094F9AE /* Build configuration list for PBXAggregateTarget "RefreshOnlineDocs" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BCF6393C12F5FD3B0094F9AE /* Debug */,
-				BCF6393D12F5FD3B0094F9AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
