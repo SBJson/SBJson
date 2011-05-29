@@ -28,7 +28,7 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <JSON/JSON.h>
+#import <SBJson/SBJson.h>
 
 #pragma mark Helper objects
 

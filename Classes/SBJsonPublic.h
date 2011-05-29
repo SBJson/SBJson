@@ -55,12 +55,12 @@
 
 #if SBJSON_IS_LIBRARY
 
-#import <JSON/SBJsonParser.h>
-#import <JSON/SBJsonWriter.h>
-#import <JSON/SBJsonStreamParser.h>
-#import <JSON/SBJsonStreamParserAdapter.h>
-#import <JSON/SBJsonStreamWriter.h>
-#import <JSON/NSObject+JSON.h>
+#import <SBJson/SBJsonParser.h>
+#import <SBJson/SBJsonWriter.h>
+#import <SBJson/SBJsonStreamParser.h>
+#import <SBJson/SBJsonStreamParserAdapter.h>
+#import <SBJson/SBJsonStreamWriter.h>
+#import <SBJson/NSObject+JSON.h>
 
 #else
 

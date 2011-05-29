@@ -32,7 +32,7 @@
 
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <JSON/JSON.h>
+#import <SBJson/SBJson.h>
 
 @interface StreamParserIntegrationTest : SenTestCase < SBJsonStreamParserAdapterDelegate> {
 	SBJsonStreamParser *parser;
