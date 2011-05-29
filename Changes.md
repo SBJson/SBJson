@@ -4,6 +4,7 @@
 
 ### Changes
 
+* Remove the (admittedly rather cool) JavaScript hack from the Contrib directory, as I don't want to get stuck maintaining JavaScript I don't understand after 3.0.
 * Extracted the example applications to [their own
 project](https://github.com/stig/json-framework-examples) on GitHub.
 Expanded the Mac version to be a fully functional application that
