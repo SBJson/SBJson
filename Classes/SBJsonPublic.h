@@ -60,7 +60,7 @@
 #import <SBJson/SBJsonStreamParser.h>
 #import <SBJson/SBJsonStreamParserAdapter.h>
 #import <SBJson/SBJsonStreamWriter.h>
-#import <SBJson/NSObject+JSON.h>
+#import <SBJson/NSObject+SBJson.h>
 
 #else
 
@@ -69,6 +69,6 @@
 #import "SBJsonStreamWriter.h"
 #import "SBJsonStreamParser.h"
 #import "SBJsonStreamParserAdapter.h"
-#import "NSObject+JSON.h"
+#import "NSObject+SBJson.h"
 
 #endif

@@ -10,8 +10,8 @@
 		BC12324B1391D5CC00131607 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC1232491391D5CC00131607 /* InfoPlist.strings */; };
 		BC1232561391D5CC00131607 /* SBJson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC12323D1391D5CC00131607 /* SBJson.framework */; };
 		BC12325C1391D5CC00131607 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC12325A1391D5CC00131607 /* InfoPlist.strings */; };
-		BC88513F1391D6CD00370E55 /* NSObject+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851251391D6CD00370E55 /* NSObject+JSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BC8851401391D6CD00370E55 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851261391D6CD00370E55 /* NSObject+JSON.m */; };
+		BC88513F1391D6CD00370E55 /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851251391D6CD00370E55 /* NSObject+SBJson.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BC8851401391D6CD00370E55 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851261391D6CD00370E55 /* NSObject+SBJson.m */; };
 		BC8851411391D6CD00370E55 /* SBJsonPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851271391D6CD00370E55 /* SBJsonPublic.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC8851421391D6CD00370E55 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851281391D6CD00370E55 /* SBJsonParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BC8851431391D6CD00370E55 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851291391D6CD00370E55 /* SBJsonParser.m */; };
@@ -46,7 +46,7 @@
 		BC8853BD1391E0E700370E55 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8853BC1391E0E700370E55 /* SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7CC139210AC0057A705 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8853BC1391E0E700370E55 /* SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7CE139210C90057A705 /* SBJsonPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851271391D6CD00370E55 /* SBJsonPublic.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BCADB7CF139210C90057A705 /* NSObject+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851251391D6CD00370E55 /* NSObject+JSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BCADB7CF139210C90057A705 /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851251391D6CD00370E55 /* NSObject+SBJson.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BCADB7D0139210C90057A705 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851281391D6CD00370E55 /* SBJsonParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BCADB7D1139210C90057A705 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512A1391D6CD00370E55 /* SBJsonStreamParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BCADB7D2139210C90057A705 /* SBJsonStreamParserAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512C1391D6CD00370E55 /* SBJsonStreamParserAccumulator.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -64,7 +64,7 @@
 		BCC2627613920FC7003D9994 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8853981391D74C00370E55 /* Foundation.framework */; };
 		BCC2627B13920FC7003D9994 /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC2626913920FC7003D9994 /* libsbjson-ios.a */; };
 		BCC2628113920FC7003D9994 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCC2627F13920FC7003D9994 /* InfoPlist.strings */; };
-		BCC2628D13921035003D9994 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851261391D6CD00370E55 /* NSObject+JSON.m */; };
+		BCC2628D13921035003D9994 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851261391D6CD00370E55 /* NSObject+SBJson.m */; };
 		BCC2628E13921035003D9994 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851291391D6CD00370E55 /* SBJsonParser.m */; };
 		BCC2628F13921035003D9994 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88512B1391D6CD00370E55 /* SBJsonStreamParser.m */; };
 		BCC2629013921035003D9994 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88512D1391D6CD00370E55 /* SBJsonStreamParserAccumulator.m */; };
@@ -104,8 +104,8 @@
 		BC1232591391D5CC00131607 /* SBJsonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SBJsonTests-Info.plist"; sourceTree = "<group>"; };
 		BC12325B1391D5CC00131607 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BC12325D1391D5CC00131607 /* SBJsonTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBJsonTests-Prefix.pch"; sourceTree = "<group>"; };
-		BC8851251391D6CD00370E55 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
-		BC8851261391D6CD00370E55 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
+		BC8851251391D6CD00370E55 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
+		BC8851261391D6CD00370E55 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		BC8851271391D6CD00370E55 /* SBJsonPublic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonPublic.h; sourceTree = "<group>"; };
 		BC8851281391D6CD00370E55 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		BC8851291391D6CD00370E55 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
@@ -260,8 +260,8 @@
 			children = (
 				BC8853BC1391E0E700370E55 /* SBJson.h */,
 				BC8851271391D6CD00370E55 /* SBJsonPublic.h */,
-				BC8851251391D6CD00370E55 /* NSObject+JSON.h */,
-				BC8851261391D6CD00370E55 /* NSObject+JSON.m */,
+				BC8851251391D6CD00370E55 /* NSObject+SBJson.h */,
+				BC8851261391D6CD00370E55 /* NSObject+SBJson.m */,
 				BC8851281391D6CD00370E55 /* SBJsonParser.h */,
 				BC8851291391D6CD00370E55 /* SBJsonParser.m */,
 				BC88512A1391D6CD00370E55 /* SBJsonStreamParser.h */,
@@ -346,7 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC8853BD1391E0E700370E55 /* SBJson.h in Headers */,
-				BC88513F1391D6CD00370E55 /* NSObject+JSON.h in Headers */,
+				BC88513F1391D6CD00370E55 /* NSObject+SBJson.h in Headers */,
 				BC8851411391D6CD00370E55 /* SBJsonPublic.h in Headers */,
 				BC8851421391D6CD00370E55 /* SBJsonParser.h in Headers */,
 				BC8851441391D6CD00370E55 /* SBJsonStreamParser.h in Headers */,
@@ -368,7 +368,7 @@
 			files = (
 				BCADB7CC139210AC0057A705 /* SBJson.h in Headers */,
 				BCADB7CE139210C90057A705 /* SBJsonPublic.h in Headers */,
-				BCADB7CF139210C90057A705 /* NSObject+JSON.h in Headers */,
+				BCADB7CF139210C90057A705 /* NSObject+SBJson.h in Headers */,
 				BCADB7D0139210C90057A705 /* SBJsonParser.h in Headers */,
 				BCADB7D1139210C90057A705 /* SBJsonStreamParser.h in Headers */,
 				BCADB7D2139210C90057A705 /* SBJsonStreamParserAccumulator.h in Headers */,
@@ -548,7 +548,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC8851401391D6CD00370E55 /* NSObject+JSON.m in Sources */,
+				BC8851401391D6CD00370E55 /* NSObject+SBJson.m in Sources */,
 				BC8851431391D6CD00370E55 /* SBJsonParser.m in Sources */,
 				BC8851451391D6CD00370E55 /* SBJsonStreamParser.m in Sources */,
 				BC8851471391D6CD00370E55 /* SBJsonStreamParserAccumulator.m in Sources */,
@@ -582,7 +582,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCC2628D13921035003D9994 /* NSObject+JSON.m in Sources */,
+				BCC2628D13921035003D9994 /* NSObject+SBJson.m in Sources */,
 				BCC2628E13921035003D9994 /* SBJsonParser.m in Sources */,
 				BCC2628F13921035003D9994 /* SBJsonStreamParser.m in Sources */,
 				BCC2629013921035003D9994 /* SBJsonStreamParserAccumulator.m in Sources */,

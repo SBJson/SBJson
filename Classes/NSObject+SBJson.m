@@ -27,7 +27,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "NSObject+JSON.h"
+#import "NSObject+SBJson.h"
 #import "SBJsonWriter.h"
 #import "SBJsonParser.h"
 
