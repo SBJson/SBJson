@@ -5,6 +5,10 @@
 ### Changes
 
 * Remove the (admittedly rather cool) JavaScript hack from the Contrib directory, as I don't want to get stuck maintaining JavaScript I don't understand after 3.0.
+* Moved content of Installation file to Readme.
+* [Issue 73][#73]: Project rename
+  * Renamed Mac framework to SBJson.framework
+  * Renamed iOS static lib to sbjson-ios.
 * Extracted the example applications to [their own
 project](https://github.com/stig/json-framework-examples) on GitHub.
 Expanded the Mac version to be a fully functional application that
