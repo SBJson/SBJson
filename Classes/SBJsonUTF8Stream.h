@@ -32,7 +32,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface SBUTF8Stream : NSObject {
+@interface SBJsonUTF8Stream : NSObject {
     const char *_bytes;
     NSUInteger _length;
     NSMutableData *_data;

@@ -30,7 +30,7 @@
  */
 
 #import "SBJsonTokeniser.h"
-#import "SBUTF8Stream.h"
+#import "SBJsonUTF8Stream.h"
 
 #define SBStringIsIllegalSurrogateHighCharacter(x) (((x) >= 0xd800) && ((x) <= 0xdfff))
 
@@ -42,7 +42,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        _stream = [[SBUTF8Stream alloc] init];
+        _stream = [[SBJsonUTF8Stream alloc] init];
 
     }
 
