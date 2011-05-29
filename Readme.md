@@ -17,6 +17,13 @@ Features
 * Optional sorted dictionary keys in JSON output.
 * Configurable recursion depth limit for added security.
 
+
+
+Install API documentation into Xcode
+------------------------------------
+
+From the top-level project directory, run the `./InstallDocumentation.sh` program. This compiles the documentation and installs it so it integrates with Xcode. Now open Xcode documentation and search for SBJson. You should see a lot of the classes.
+
 Links
 -----
 
