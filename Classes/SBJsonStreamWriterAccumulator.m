@@ -47,7 +47,7 @@
     [super dealloc];
 }
 
-#pragma SBJsonStreamWriterDelegate
+#pragma mark SBJsonStreamWriterDelegate
 
 - (void)writer:(SBJsonStreamWriter *)writer appendBytes:(const void *)bytes length:(NSUInteger)length {
     [data appendBytes:bytes length:length];
