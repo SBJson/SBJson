@@ -45,18 +45,18 @@
 		BC8853921391D6DE00370E55 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852981391D6DE00370E55 /* WriterTest.m */; };
 		BC8853BD1391E0E700370E55 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8853BC1391E0E700370E55 /* SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7CC139210AC0057A705 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8853BC1391E0E700370E55 /* SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BCADB7CE139210C90057A705 /* SBJsonPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851271391D6CD00370E55 /* SBJsonPublic.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BCADB7CF139210C90057A705 /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851251391D6CD00370E55 /* NSObject+SBJson.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BCADB7D0139210C90057A705 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851281391D6CD00370E55 /* SBJsonParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BCADB7D1139210C90057A705 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512A1391D6CD00370E55 /* SBJsonStreamParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BCADB7CE139210C90057A705 /* SBJsonPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851271391D6CD00370E55 /* SBJsonPublic.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BCADB7CF139210C90057A705 /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851251391D6CD00370E55 /* NSObject+SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BCADB7D0139210C90057A705 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851281391D6CD00370E55 /* SBJsonParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BCADB7D1139210C90057A705 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512A1391D6CD00370E55 /* SBJsonStreamParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7D2139210C90057A705 /* SBJsonStreamParserAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512C1391D6CD00370E55 /* SBJsonStreamParserAccumulator.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BCADB7D3139210C90057A705 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512E1391D6CD00370E55 /* SBJsonStreamParserAdapter.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BCADB7D3139210C90057A705 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512E1391D6CD00370E55 /* SBJsonStreamParserAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7D4139210C90057A705 /* SBJsonStreamParserState.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851301391D6CD00370E55 /* SBJsonStreamParserState.h */; };
-		BCADB7D5139210C90057A705 /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851321391D6CD00370E55 /* SBJsonStreamWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BCADB7D5139210C90057A705 /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851321391D6CD00370E55 /* SBJsonStreamWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7D6139210C90057A705 /* SBJsonStreamWriterAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851341391D6CD00370E55 /* SBJsonStreamWriterAccumulator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BCADB7D7139210C90057A705 /* SBJsonStreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851361391D6CD00370E55 /* SBJsonStreamWriterState.h */; };
 		BCADB7D8139210C90057A705 /* SBJsonTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851381391D6CD00370E55 /* SBJsonTokeniser.h */; };
-		BCADB7D9139210C90057A705 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88513A1391D6CD00370E55 /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BCADB7D9139210C90057A705 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88513A1391D6CD00370E55 /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7DA139210C90057A705 /* SBJsonUTF8Stream.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88513C1391D6CD00370E55 /* SBJsonUTF8Stream.h */; };
 		BCC2626313920EE8003D9994 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8853981391D74C00370E55 /* Foundation.framework */; };
 		BCC2626413920F25003D9994 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8853981391D74C00370E55 /* Foundation.framework */; };
@@ -400,14 +400,14 @@
 			files = (
 				BCADB7CC139210AC0057A705 /* SBJson.h in Headers */,
 				BCADB7CE139210C90057A705 /* SBJsonPublic.h in Headers */,
-				BCADB7CF139210C90057A705 /* NSObject+SBJson.h in Headers */,
 				BCADB7D0139210C90057A705 /* SBJsonParser.h in Headers */,
+				BCADB7D9139210C90057A705 /* SBJsonWriter.h in Headers */,
 				BCADB7D1139210C90057A705 /* SBJsonStreamParser.h in Headers */,
-				BCADB7D2139210C90057A705 /* SBJsonStreamParserAccumulator.h in Headers */,
 				BCADB7D3139210C90057A705 /* SBJsonStreamParserAdapter.h in Headers */,
 				BCADB7D5139210C90057A705 /* SBJsonStreamWriter.h in Headers */,
+				BCADB7CF139210C90057A705 /* NSObject+SBJson.h in Headers */,
+				BCADB7D2139210C90057A705 /* SBJsonStreamParserAccumulator.h in Headers */,
 				BCADB7D6139210C90057A705 /* SBJsonStreamWriterAccumulator.h in Headers */,
-				BCADB7D9139210C90057A705 /* SBJsonWriter.h in Headers */,
 				BCADB7D4139210C90057A705 /* SBJsonStreamParserState.h in Headers */,
 				BCADB7D7139210C90057A705 /* SBJsonStreamWriterState.h in Headers */,
 				BCADB7D8139210C90057A705 /* SBJsonTokeniser.h in Headers */,
@@ -804,9 +804,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sbjson-ios/sbjson-ios-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				HEADER_SEARCH_PATHS = (
+					include/,
+					"$(BUILT_PRODUCTS_DIR)/usr/local/lib/include/",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = include/SBJson/;
 				SDKROOT = iphoneos;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -821,10 +826,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sbjson-ios/sbjson-ios-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/include/";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = include/SBJson/;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
