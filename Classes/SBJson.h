@@ -48,11 +48,6 @@
  
 */
 
-// You should not include this header directly: you should include the
-// JSON.h header instead. This hack is necessary to allow using the same
-// header name for the Mac framework, the iOS static library and when
-// someone just copies the classes into their project.
-
 #import "SBJsonParser.h"
 #import "SBJsonWriter.h"
 #import "SBJsonStreamParser.h"
