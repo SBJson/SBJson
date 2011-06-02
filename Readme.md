@@ -1,20 +1,27 @@
 SBJson (aka json-framework)
 ===========================
 
-JSON is a light-weight data interchange format that's easy to read and
-write for humans and computers alike. This framework implements
-a strict JSON parser and generator in Objective-C.
+JSON (JavaScript Object Notation) is a light-weight data interchange
+format that's easy to read and write for humans and computers alike.
+This framework implements a strict JSON parser and generator in
+Objective-C.
 
 Features
 --------
 
 * BSD license.
-* Easy-to-use API.
-* Strict parsing & generation.
-* Streaming JSON support. Start parsing a JSON document before it has finished downloading from the server!
-* Supports garbage collection, but does not require it.
-* Optional pretty-printing of JSON output.
-* Optional sorted dictionary keys in JSON output.
+* Super-simple high-level API:
+  * Calling `-JSONValue` on any NSString instance parses the JSON text in that string.
+  * Calling `-JSONRepresentation` on any NSArray or NSDictionary returns an NSString with the JSON representation of the object.
+* Object-oriented API providing a good balance between simplicity and flexibility. Check out:
+  * `SBJsonParser`
+  * `SBJsonWriter`
+* Streaming JSON support. You can start parsing a JSON document--*and return parsed chunks of it to your program*--before it has finished downloading from the server. Check out:
+  * `SBJsonStreamParser`
+  * `SBJsonStreamWriter`
+* Works with/without garbage collection.
+* Pretty-printing of JSON output.
+* Sorted dictionary keys in JSON output.
 * Configurable recursion depth limit for added security.
 
 Simple Installation

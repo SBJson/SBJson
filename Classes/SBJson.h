@@ -27,27 +27,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**
- @mainpage A strict JSON parser and generator for Objective-C
-
- JSON (JavaScript Object Notation) is a lightweight data-interchange
- format. This framework provides two apis for parsing and generating
- JSON. One standard object-based and a higher level api consisting of
- categories added to existing Objective-C classes.
-
- This framework does its best to be as strict as possible, both in what
- it accepts and what it generates. For example, it does not support
- trailing commas in arrays or objects. Nor does it support embedded
- comments, or anything else not in the JSON specification. This is
- considered a feature. 
-  
- @section Links
-
- @li <a href="http://stig.github.com/json-framework">Project home page</a>.
- @li Online version of the <a href="http://stig.github.com/json-framework/api">API documentation</a>. 
- 
-*/
-
 #import "SBJsonParser.h"
 #import "SBJsonWriter.h"
 #import "SBJsonStreamParser.h"
