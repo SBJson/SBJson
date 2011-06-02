@@ -51,7 +51,7 @@
 	if (self) {
 		maxDepth = 512;
         stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
-        state = [[SBJsonStreamParserStateStart alloc] init];
+        state = [SBJsonStreamParserStateStart sharedInstance];
 		tokeniser = [[SBJsonTokeniser alloc] init];
 	}
 	return self;
