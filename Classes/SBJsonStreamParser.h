@@ -83,7 +83,7 @@ typedef enum {
 
 /**
  @brief JSON Stream-parser class
- 
+ @see @ref objc2json
  */
 @interface SBJsonStreamParser : NSObject {
 	BOOL multi;

@@ -34,7 +34,10 @@
 /// Adds JSON generation to NSObject
 @interface NSObject (NSObject_SBJsonWriting)
 
-/// Returns a string containing the receiver encoded in JSON.
+/**
+ Returns a string containing the receiver encoded in JSON, or nil on error.
+ @see @ref objc2json
+ */
 - (NSString *)JSONRepresentation;
 
 @end
@@ -45,7 +48,10 @@
 /// Adds JSON parsing methods to NSString
 @interface NSString (NSString_SBJsonParsing)
 
-/// Returns the NSDictionary or NSArray represented by the receiver's JSON representation, or nil on error
+/**
+ Returns the NSDictionary or NSArray represented by the receiver's JSON representation, or nil on error
+ @see @ref json2objc
+ */
 - (id)JSONValue;
 
 @end
