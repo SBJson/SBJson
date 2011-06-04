@@ -47,7 +47,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.maxDepth = 512;        
+        self.maxDepth = 32u;        
     }
     return self;
 }

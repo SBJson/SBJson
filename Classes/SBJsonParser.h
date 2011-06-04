@@ -47,18 +47,21 @@
 /**
  @brief The maximum recursing depth.
 
- Defaults to 512. If the input is nested deeper than this the input will be deemed to be
+ Defaults to 32. If the input is nested deeper than this the input will be deemed to be
  malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
  turn off this security feature by setting the maxDepth value to 0.
  */
 @property NSUInteger maxDepth;
 
 /**
- @brief Return an error trace, or nil if there was no errors.
+ @brief Description of parse error
 
- Note that this method returns the trace of the last method that failed.
+ This method returns the trace of the last method that failed.
  You need to check the return value of the call you're making to figure out
  if the call actually failed, before you know call this method.
+
+ @return A string describing the error encountered, or nil if no error occured.
+
  */
 @property(copy) NSString *error;
 
