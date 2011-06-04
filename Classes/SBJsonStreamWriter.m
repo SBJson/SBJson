@@ -34,7 +34,7 @@
 #import "SBJsonStreamWriterState.h"
 
 static NSDecimalNumber *kNotANumber;
-static NSCache *kStaticStringCache;
+static id kStaticStringCache;
 
 
 @implementation SBJsonStreamWriter
@@ -48,7 +48,16 @@ static NSCache *kStaticStringCache;
 
 + (void)initialize {
 	kNotANumber = [NSDecimalNumber notANumber];
-    kStaticStringCache = [[NSCache alloc] init];
+    
+    Class cacheClass = NSClassFromString(@"NSCache");
+    if (cacheClass) {
+        NSLog(@"%s NSCache supported", __FUNCTION__);
+        kStaticStringCache = [[cacheClass alloc] init];
+    }else {
+        NSLog(@"%s NSCache not supported", __FUNCTION__);
+    }
+
+    
 }
 
 #pragma mark Housekeeping
