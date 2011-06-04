@@ -88,7 +88,7 @@ SINGLETON
 
 		case sbjson_token_array_end:
 		case sbjson_token_object_end:
-			if (parser.multi)
+			if (parser.supportMultipleDocuments)
 				state = parser.state;
 			else
 				state = [SBJsonStreamParserStateComplete sharedInstance];

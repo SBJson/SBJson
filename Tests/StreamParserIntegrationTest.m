@@ -51,7 +51,7 @@
 	
 	parser = [SBJsonStreamParser new];
 	parser.delegate = adapter;
-	parser.multi = YES;
+	parser.supportMultipleDocuments = YES;
 	
 	arrayCount = objectCount = 0u;
 

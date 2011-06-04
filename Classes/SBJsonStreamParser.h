@@ -82,11 +82,23 @@ typedef enum {
 
 
 /**
- @brief JSON Stream-parser class
+ @brief Parse a stream of JSON data.
+ 
+ Using this class directly you can reduce the apparent latency for each
+ download/parse cycle of documents over a slow connection. You can start
+ parsing *and return chunks of the parsed document* before the entire
+ document is downloaded.
+ 
+ Using this class is also useful to parse huge documents on disk
+ bit by bit so you don't have to keep them all in memory. 
+ 
+ @see SBJsonStreamParserAdapter for more information.
+ 
  @see @ref objc2json
+ 
  */
 @interface SBJsonStreamParser : NSObject {
-	BOOL multi;
+	BOOL supportMultipleDocuments;
 	id<SBJsonStreamParserDelegate> delegate;
 	SBJsonTokeniser *tokeniser;
     NSMutableArray *stateStack;
@@ -101,17 +113,36 @@ typedef enum {
 /**
  @brief Expect multiple documents separated by whitespace
 
- If you set this property to true the parser will never return SBJsonStreamParserComplete.
- Once an object is completed it will expect another object to follow, separated only by whitespace.
+ Normally the @p -parse: method returns SBJsonStreamParserComplete when it's found a complete JSON document.
+ Attempting to parse any more data at that point is considered an error. ("Garbage after JSON".)
+ 
+ If you set this property to true the parser will never return SBJsonStreamParserComplete. Rather,
+ once an object is completed it will expect another object to immediately follow, separated
+ only by (optional) whitespace.
 
- @see The TwitterStream example project.
+ @see The TweetStream app in the Examples
  */
-@property BOOL multi;
+@property BOOL supportMultipleDocuments;
 
-/// Set this to the object you want to receive messages
+/**
+ @brief Delegate to receive messages
+
+ The object set here receives a series of messages as the parser breaks down the JSON stream
+ into valid tokens.
+
+ @note
+ Usually this should be an instance of SBJsonStreamParserAdapter, but you can
+ substitute your own implementation of the SBJsonStreamParserDelegate protocol if you need to. 
+ */
 @property (assign) id<SBJsonStreamParserDelegate> delegate;
 
-/// The max depth to allow the parser to reach
+/**
+ @brief The max parse depth
+ 
+ If the input is nested deeper than this the parser will halt parsing and return an error.
+
+ Defaults to 32. 
+ */
 @property NSUInteger maxDepth;
 
 /// Holds the error after SBJsonStreamParserError was returned
