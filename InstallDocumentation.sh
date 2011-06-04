@@ -56,9 +56,8 @@ $DOXYGEN $DOXYFILE
 #  make will invoke docsetutil. Take a look at the Makefile to see how this is done.
 make -C $TMPDIR/html install
 
-#  Construct a temporary applescript file to tell Xcode to load a docset.
-rm -f $TMPDIR/loadDocSet.scpt
-
+#  Construct a temporary applescript file to tell Xcode to load a
+#  docset.
 cat <<EOF > $TMPDIR/loadDocSet.scpt
 tell application "Xcode"
 	load documentation set with path "/Users/$USER/Library/Developer/Shared/Documentation/DocSets/org.brautaset.${PROJECT}.docset/"

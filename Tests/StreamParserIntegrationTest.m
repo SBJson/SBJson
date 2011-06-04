@@ -51,7 +51,7 @@
 	
 	parser = [SBJsonStreamParser new];
 	parser.delegate = adapter;
-	parser.multi = YES;
+	parser.supportMultipleDocuments = YES;
 	
 	arrayCount = objectCount = 0u;
 
@@ -108,14 +108,14 @@
 }
 
 - (void)testSkipArray {
-	adapter.skip = 1;
+	adapter.levelsToSkip = 1;
 	[self parseArrayOfObjects];
 	STAssertEquals(arrayCount, (NSUInteger)0, nil);
 	STAssertEquals(objectCount, (NSUInteger)100, nil);	
 }
 
 - (void)testSkipArrayAndObject {
-	adapter.skip = 2;
+	adapter.levelsToSkip = 2;
 	[self parseArrayOfObjects];
 	STAssertEquals(arrayCount, (NSUInteger)200, nil);
 	STAssertEquals(objectCount, (NSUInteger)0, nil);	

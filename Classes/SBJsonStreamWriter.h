@@ -38,7 +38,10 @@
 /**
  @brief Allows generation of JSON for otherwise unsupported classes.
  
- If you have a custom class that you want to create a JSON representation for you can implement this method in your class. It should return a representation of your object defined in terms of objects that can be translated into JSON. For example, a Person object might implement it like this:
+ If you have a custom class that you want to create a JSON representation
+ for you can implement this method in your class. It should return a
+ representation of your object defined in terms of objects that can be
+ translated into JSON. For example, a Person object might implement it like this:
  
  @code
  - (id)proxyForJson {
@@ -67,18 +70,20 @@
 
 /**
  @brief The Stream Writer class.
+ 
+ Accepts a stream of messages and writes JSON of these to its delegate object.
+ 
+ This class provides a range of high-, mid- and low-level methods. You can mix
+ and match calls to these. For example, you may want to call -writeArrayOpen
+ to start an array and then repeatedly call -writeObject: with various objects
+ before finishing off with a -writeArrayClose call.
+  
+ @see @ref json2objc
 
- Accepts a stream of messages and writes JSON of these to an internal data object. At any time you can retrieve the amount of data up to now, for example if you want to start sending data to a file before you're finished generating the JSON.
- 
- A range of high-, mid- and low-level methods. You can mix and match calls to these. For example, you may want to call -writeArrayOpen to start an array and then repeatedly call -writeObject: with an object.
- 
- In JSON the keys of an object must be strings. NSDictionary keys need not be, but attempting to convert an NSDictionary with non-string keys into JSON will result in an error.
- 
- NSNumber instances created with the +initWithBool: method are converted into the JSON boolean "true" and "false" values, and vice versa. Any other NSNumber instances are converted to a JSON number the way you would expect.
- 
  */
 
 @interface SBJsonStreamWriter : NSObject {
+@private
 	NSString *error;
     NSMutableArray *stateStack;
     __weak SBJsonStreamWriterState *state;
@@ -87,10 +92,11 @@
     BOOL sortKeys, humanReadable;
 }
 
-@property (nonatomic, assign) __weak SBJsonStreamWriterState *state; /// Internal
-@property (nonatomic, readonly, retain) NSMutableArray *stateStack; /// Internal 
+@property (nonatomic, assign) __weak SBJsonStreamWriterState *state; // Internal
+@property (nonatomic, readonly, retain) NSMutableArray *stateStack; // Internal 
 
 /**
+ @brief delegate to receive JSON output
  Delegate that will receive messages with output.
  */
 @property (assign) id<SBJsonStreamWriterDelegate> delegate;
@@ -122,42 +128,61 @@
  */
 @property BOOL sortKeys;
 
-/**
- @brief Contains the error description after an error has occured.
- */
+/// Contains the error description after an error has occured.
 @property (copy) NSString *error;
 
-/** @brief Write an NSDictionary to the JSON stream.
+/** 
+ Write an NSDictionary to the JSON stream.
+ @return YES if successful, or NO on failure
  */
 - (BOOL)writeObject:(NSDictionary*)dict;
 
 /**
- @brief Write an NSArray to the JSON stream.
+ Write an NSArray to the JSON stream.
+ @return YES if successful, or NO on failure
  */
 - (BOOL)writeArray:(NSArray *)array;
 
-/// Start writing an Object to the stream
+/** 
+ Start writing an Object to the stream
+ @return YES if successful, or NO on failure
+*/
 - (BOOL)writeObjectOpen;
 
-/// Close the current object being written
+/**
+ Close the current object being written
+ @return YES if successful, or NO on failure
+*/
 - (BOOL)writeObjectClose;
 
-/// Start writing an Array to the stream
+/** Start writing an Array to the stream
+ @return YES if successful, or NO on failure
+*/
 - (BOOL)writeArrayOpen;
 
-/// Close the current Array being written
+/** Close the current Array being written
+ @return YES if successful, or NO on failure
+*/
 - (BOOL)writeArrayClose;
 
-/// Write a null to the stream
+/** Write a null to the stream
+ @return YES if successful, or NO on failure
+*/
 - (BOOL)writeNull;
 
-/// Write a boolean to the stream
+/** Write a boolean to the stream
+ @return YES if successful, or NO on failure
+*/
 - (BOOL)writeBool:(BOOL)x;
 
-/// Write a Number to the stream
+/** Write a Number to the stream
+ @return YES if successful, or NO on failure
+*/
 - (BOOL)writeNumber:(NSNumber*)n;
 
-/// Write a String to the stream
+/** Write a String to the stream
+ @return YES if successful, or NO on failure
+*/
 - (BOOL)writeString:(NSString*)s;
 
 @end
