@@ -98,6 +98,7 @@ typedef enum {
  
  */
 @interface SBJsonStreamParser : NSObject {
+@private
 	BOOL supportMultipleDocuments;
 	id<SBJsonStreamParserDelegate> delegate;
 	SBJsonTokeniser *tokeniser;

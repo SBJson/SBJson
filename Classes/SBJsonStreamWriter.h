@@ -77,6 +77,7 @@
  */
 
 @interface SBJsonStreamWriter : NSObject {
+@private
 	NSString *error;
     NSMutableArray *stateStack;
     __weak SBJsonStreamWriterState *state;
