@@ -4,6 +4,7 @@
 
 ### Changes
 
+* Updated documentation.
 * Remove the (admittedly rather cool) JavaScript hack from the Contrib directory, as I don't want to get stuck maintaining JavaScript I don't understand after 3.0.
 * Moved content of Installation file to Readme.
 * [Issue 73][#73]: Project rename, to avoid clashing with Apple's internal JSON.framework
@@ -18,7 +19,9 @@ reformats JSON you put into one text field into another one.
 
 ### Bug Fixes
 
-* [Issue 70][#70]: SBStateStack breaks when running with GC. This was fixed by removing the class altogether and just using an NSMutableArray. This turns out to have very little measurable effect on performance.
+* [Issue 70][#70]: SBStateStack breaks when running with GC. This was
+fixed by removing it and just using an NSMutableArray. This turns out
+to have very little measurable effect on performance.
 
 
 ## Version 3.0beta2 (May 24th, 2011)
