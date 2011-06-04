@@ -38,8 +38,8 @@
  @li object  -> NSMutableDictionary
  @li true    -> NSNumber's -numberWithBool:YES
  @li false   -> NSNumber's -numberWithBool:NO
- @li integer up to 19 digits -> NSNumber's numberWithLongLong:
- @li other numbers           -> NSDecimalNumber
+ @li integer up to 19 digits -> NSNumber's -numberWithLongLong:
+ @li all other numbers       -> NSDecimalNumber
  
  Since Objective-C doesn't have a dedicated class for boolean values,
  these turns into NSNumber instances. However, since these are
@@ -81,3 +81,4 @@
 #import "SBJsonStreamParserAdapter.h"
 #import "SBJsonStreamWriter.h"
 #import "NSObject+SBJson.h"
+

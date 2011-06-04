@@ -95,8 +95,8 @@ typedef enum {
 	NSString *error;
 }
 
-@property (nonatomic, assign) __weak SBJsonStreamParserState *state; /// Private
-@property (nonatomic, readonly, retain) NSMutableArray *stateStack; /// Private
+@property (nonatomic, assign) __weak SBJsonStreamParserState *state; // Private
+@property (nonatomic, readonly, retain) NSMutableArray *stateStack; // Private
 
 /**
  @brief Expect multiple documents separated by whitespace
@@ -121,7 +121,9 @@ typedef enum {
  @brief Parse some JSON
  
  The JSON is assumed to be UTF8 encoded. This can be a full JSON document, or a part of one.
- 
+
+ @param data An NSData object containing the next chunk of JSON
+
  @return 
  @li SBJsonStreamParserComplete if a full document was found
  @li SBJsonStreamParserWaitingForData if a partial document was found and more data is required to complete it

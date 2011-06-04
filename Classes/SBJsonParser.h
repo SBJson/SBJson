@@ -30,7 +30,7 @@
 #import <Foundation/Foundation.h>
 
 /**
- @brief The JSON parser class.
+ @brief Parse JSON Strings and NSData objects
 
  This uses SBJsonStreamParser internally.
 
@@ -69,7 +69,9 @@
  @brief Return the object represented by the given NSData object.
 
  The data *must* be UTF8 encoded.
- @param data the data to parse.
+ 
+ @param data An NSData containing UTF8 encoded data to parse.
+ @return The NSArray or NSDictionary represented by the object, or nil if an error occured.
 
  */
 - (id)objectWithData:(NSData*)data;
@@ -77,21 +79,22 @@
 /**
  @brief Return the object represented by the given string
 
- Returns the object represented by the passed-in string or nil on error. The returned object can be
- a string, number, boolean, null, array or dictionary.
+ This method converts its input to an NSData object containing UTF8 and calls -objectWithData: with it.
 
- @param repr the json string to parse
+ @return The NSArray or NSDictionary represented by the object, or nil if an error occured.
  */
 - (id)objectWithString:(NSString *)repr;
 
 /**
  @brief Return the object represented by the given string
 
- Returns the object represented by the passed-in string or nil on error. The returned object can be
- a string, number, boolean, null, array or dictionary.
+ This method calls objectWithString: internally. If an error occurs, and if @p error
+ is not nil, it creates an NSError object and returns this through its second argument.
 
  @param jsonText the json string to parse
  @param error pointer to an NSError object to populate on error
+
+ @return The NSArray or NSDictionary represented by the object, or nil if an error occured.
  */
 
 - (id)objectWithString:(NSString*)jsonText

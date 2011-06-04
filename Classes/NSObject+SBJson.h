@@ -35,7 +35,12 @@
 @interface NSObject (NSObject_SBJsonWriting)
 
 /**
- Returns a string containing the receiver encoded in JSON, or nil on error.
+ @brief Encodes the receiver into a JSON string
+ 
+ Although defined as a category on NSObject it is only defined for NSArray and NSDictionary.
+ 
+ @return the receiver encoded in JSON, or nil on error.
+ 
  @see @ref objc2json
  */
 - (NSString *)JSONRepresentation;
@@ -49,7 +54,10 @@
 @interface NSString (NSString_SBJsonParsing)
 
 /**
- Returns the NSDictionary or NSArray represented by the receiver's JSON representation, or nil on error
+ @brief Decodes the receiver's JSON text
+ 
+ @return the NSDictionary or NSArray represented by the receiver, or nil on error.
+ 
  @see @ref json2objc
  */
 - (id)JSONValue;
