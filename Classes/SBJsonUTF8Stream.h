@@ -45,6 +45,8 @@
 
 - (void)appendData:(NSData*)data_;
 
+- (BOOL)haveRemainingCharacters:(NSUInteger)chars;
+
 - (void)skip;
 - (void)skipWhitespace;
 - (BOOL)skipCharacters:(const char *)chars length:(NSUInteger)len;
@@ -53,7 +55,6 @@
 - (BOOL)getNextUnichar:(unichar*)ch;
 - (BOOL)getSimpleString:(NSString**)string;
 
-- (BOOL)ensureChars:(NSUInteger)chars;
 - (BOOL)getBytes:(char *)bytes length:(NSUInteger)length;
 
 @end

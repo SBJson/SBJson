@@ -124,7 +124,7 @@
     }
 }
 
-- (BOOL)ensureChars:(NSUInteger)chars {
+- (BOOL)haveRemainingCharacters:(NSUInteger)chars {
     return [_data length] - _index >= chars;
 }
 
@@ -138,7 +138,7 @@
 }
 
 - (BOOL)getBytes:(char *)bytes length:(NSUInteger)length {
-    if (![self ensureChars:length])
+    if (![self haveCharactersRemaining:length])
         return NO;
     
     memcpy(bytes, _bytes + _index, length);

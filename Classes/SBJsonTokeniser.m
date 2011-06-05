@@ -60,7 +60,7 @@
 
 
 - (sbjson_token_t)match:(const char *)pattern length:(NSUInteger)len retval:(sbjson_token_t)token {
-    if (![_stream ensureChars:len])
+    if (![_stream haveRemainingCharacters:len])
         return sbjson_token_eof;
 
     if ([_stream skipCharacters:pattern length:len])
@@ -182,7 +182,7 @@
                     return sbjson_token_eof;
 
                 if (ch == 'u') {
-                    if (![_stream ensureChars:5])
+                    if (![_stream haveRemainingCharacters:5])
                         return sbjson_token_eof;
 
                     unichar hi;
@@ -194,7 +194,7 @@
                     if (CFStringIsSurrogateHighCharacter(hi)) {
                         unichar lo;
 
-                        if (![_stream ensureChars:6])
+                        if (![_stream haveRemainingCharacters:6])
                             return sbjson_token_eof;
 
                         (void)[_stream getNextUnichar:&ch];
