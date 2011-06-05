@@ -57,6 +57,4 @@
 
 - (NSString*)stringWithRange:(NSRange)range;
 
-- (BOOL)getBytes:(char *)bytes length:(NSUInteger)length;
-
 @end

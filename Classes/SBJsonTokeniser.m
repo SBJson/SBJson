@@ -66,11 +66,7 @@
     if ([_stream skipCharacters:pattern length:len])
         return token;
 
-    char bytes[len+1];
-    (void)[_stream getBytes:bytes length:len];
-
-    NSString *fmt = [NSString stringWithFormat:@"Expected '%%s' but found '%%.%us'", len];
-    self.error = [NSString stringWithFormat:fmt, pattern, bytes];
+    self.error = [NSString stringWithFormat:@"Expected '%s' after initial '%.1s'", pattern, pattern];
     return sbjson_token_error;
 }
 
@@ -229,9 +225,8 @@
                 break;
 
             default: {
-                char bytes[1];
-                [_stream getBytes:bytes length:1];
-                [NSException raise:@"unexpected error" format:@"Should not get here: '%c'", *bytes];
+                self.error = [NSString stringWithFormat:@"Invalid UTF-8: '%x'", (int)ch];
+                return sbjson_token_error;
                 break;
             }
         }

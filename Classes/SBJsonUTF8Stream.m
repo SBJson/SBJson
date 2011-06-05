@@ -142,14 +142,5 @@
     
 }
 
-- (BOOL)getBytes:(char *)bytes length:(NSUInteger)length {
-    if (![self haveCharactersRemaining:length])
-        return NO;
-    
-    memcpy(bytes, _bytes + _index, length);
-    bytes[length] = 0x0; // terminating NUL byte
-    return YES;
-}
-
 
 @end
