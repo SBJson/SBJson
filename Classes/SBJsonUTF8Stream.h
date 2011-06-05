@@ -55,6 +55,8 @@
 - (BOOL)getNextUnichar:(unichar*)ch;
 - (BOOL)getSimpleString:(NSString**)string;
 
+- (NSString*)stringWithRange:(NSRange)range;
+
 - (BOOL)getBytes:(char *)bytes length:(NSUInteger)length;
 
 @end

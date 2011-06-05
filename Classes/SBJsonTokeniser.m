@@ -346,17 +346,9 @@
         return sbjson_token_error;
 
     } else if (mantissa_length >= 19) {
-        // The super slow path... for REALLY long numbers
-        NSUInteger index = _stream.index;        
-        NSUInteger length = index - numberStart;
-        char bytes[length+1];
-
-        _stream.index = numberStart;
-        [_stream getBytes:bytes length:length];
-        _stream.index = index;
-
-        NSString *numberString = [[[NSString alloc] initWithBytes:bytes length:length encoding:NSUTF8StringEncoding] autorelease];
-        *token = [NSDecimalNumber decimalNumberWithString:numberString];
+        
+        NSString *number = [_stream stringWithRange:NSMakeRange(numberStart, _stream.index - numberStart)];
+        *token = [NSDecimalNumber decimalNumberWithString:number];
 
     } else if (!isFloat && !hasExponent) {
         if (!isNegative)

@@ -137,6 +137,11 @@
     return NO;
 }
 
+- (NSString*)stringWithRange:(NSRange)range {
+    return [[[NSString alloc] initWithBytes:_bytes + range.location length:range.length encoding:NSUTF8StringEncoding] autorelease];
+    
+}
+
 - (BOOL)getBytes:(char *)bytes length:(NSUInteger)length {
     if (![self haveCharactersRemaining:length])
         return NO;
