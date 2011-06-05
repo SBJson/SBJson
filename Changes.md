@@ -16,6 +16,7 @@ project](https://github.com/stig/json-framework-examples) on GitHub.
 Expanded the Mac version to be a fully functional application that
 reformats JSON you put into one text field into another one.
 * Removed the header indirection
+* Detect if NSCache is available and only use it if it is. This lets us support iOS versions prior to 4.0.
 
 ### Bug Fixes
 
