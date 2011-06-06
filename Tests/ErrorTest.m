@@ -44,32 +44,31 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
 
 - (void)setUp {
     [super setUp];
-    parser.maxDepth = 4;
-    writer.maxDepth = 4;
+    parser.maxDepth = 4u;
+    writer.maxDepth = 4u;
 }
 
 - (NSString*)otherFileName {
     return @"error";
 }
 
-- (void)testString {
+- (void)testData {
     [self foreachTestInSuite:@"Tests/Data/invalid" apply:^(NSString *inpath, NSString *errpath) {
-        NSString *input = [NSString stringWithContentsOfFile:inpath encoding:NSUTF8StringEncoding error:nil];
+        NSData *input = [NSData dataWithContentsOfFile:inpath options:0 error:nil];
         STAssertNotNil(input, inpath);
-
+        
         NSString *error = [NSString stringWithContentsOfFile:errpath encoding:NSUTF8StringEncoding error:nil];
         STAssertNotNil(error, errpath);
         
         error = [error stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-
-        STAssertNil([parser objectWithString:input], inpath);
+        
+        STAssertNil([parser objectWithData:input], inpath);
         STAssertEqualObjects(parser.error, error, @"%@: %@", inpath, input);
-
+        
     }];
-
-    STAssertEquals(count, (NSUInteger)27, nil);
+    
+    STAssertEquals(count, (NSUInteger)28, nil);
 }
-
 
 - (void)testWriteRecursion {
     // create a challenge!
@@ -118,9 +117,8 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
 }
 
 - (void)testInfinity {
-    NSArray *obj = [NSArray arrayWithObject:[NSNumber numberWithDouble:INFINITY]];
-    
-    STAssertNil([writer stringWithObject:obj], nil);
+    NSArray *obj = [NSArray arrayWithObject:[NSNumber numberWithDouble:INFINITY]];    
+    STAssertNil([writer stringWithObject:obj], @"%@", obj);
     SBAssertStringContains(parser.error, @"Infinity is not a valid number in JSON");
 }
 

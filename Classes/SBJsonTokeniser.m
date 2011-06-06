@@ -144,6 +144,12 @@
             NSMutableString *string = nil;
             if (![_stream getSimpleString:&string])
                 return sbjson_token_eof;
+            
+            if (!string) {
+                self.error = @"Broken Unicode encoding";
+                return sbjson_token_error;
+            }
+                
         
             if (![_stream getUnichar:&ch])
                 return sbjson_token_eof;
