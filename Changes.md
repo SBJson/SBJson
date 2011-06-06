@@ -20,6 +20,7 @@ reformats JSON you put into one text field into another one.
 
 ### Bug Fixes
 
+* [Issue 43][#43]: Don't crash on parsing broken UTF8.
 * [Issue 70][#70]: SBStateStack breaks when running with GC. This was
 fixed by removing it and just using an NSMutableArray. This turns out
 to have very little measurable effect on performance.
