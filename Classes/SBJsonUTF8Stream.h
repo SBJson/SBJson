@@ -35,10 +35,9 @@
 @interface SBJsonUTF8Stream : NSObject {
 @private
     const char *_bytes;
-    NSUInteger _length;
     NSMutableData *_data;
+    NSUInteger _length;
     NSUInteger _index;
-    NSUInteger _discarded;
 }
 
 @property (assign) NSUInteger index;

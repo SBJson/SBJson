@@ -55,9 +55,6 @@
         // Discard data we've already parsed
 		[_data replaceBytesInRange:NSMakeRange(0, _index) withBytes:"" length:0];
         
-        // Keep track of how much we have discarded
-        _discarded += _index;
-        
         // Reset index to point to current position
 		_index = 0;
 	}
