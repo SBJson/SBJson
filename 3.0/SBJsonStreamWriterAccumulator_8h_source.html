@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Classes/NSObject+JSON.h Source File</title>
+<title>SBJson: Classes/SBJsonStreamWriterAccumulator.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -12,6 +12,7 @@
   <div class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -23,11 +24,11 @@
   </div>
 <div class="header">
   <div class="headertitle">
-<h1>Classes/NSObject+JSON.h</h1>  </div>
+<h1>Classes/SBJsonStreamWriterAccumulator.h</h1>  </div>
 </div>
 <div class="contents">
 <div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
-<a name="l00002"></a>00002 <span class="comment"> Copyright (C) 2009 Stig Brautaset. All rights reserved.</span>
+<a name="l00002"></a>00002 <span class="comment"> Copyright (C) 2011 Stig Brautaset. All rights reserved.</span>
 <a name="l00003"></a>00003 <span class="comment"> </span>
 <a name="l00004"></a>00004 <span class="comment"> Redistribution and use in source and binary forms, with or without</span>
 <a name="l00005"></a>00005 <span class="comment"> modification, are permitted provided that the following conditions are met:</span>
@@ -55,35 +56,19 @@
 <a name="l00027"></a>00027 <span class="comment"> OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
 <a name="l00028"></a>00028 <span class="comment"> */</span>
 <a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span>
+<a name="l00030"></a>00030 <span class="preprocessor">#import &quot;SBJsonStreamWriter.h&quot;</span>
 <a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="preprocessor">#pragma mark JSON Writing</span>
-<a name="l00033"></a>00033 <span class="preprocessor"></span>
-<a name="l00035"></a><a class="code" href="interfaceNSArray_07NSArray__SBJsonWriting_08.html">00035</a> <span class="keyword">@interface </span>NSArray (NSArray_SBJsonWriting)
+<a name="l00032"></a>00032 <span class="keyword">@interface </span>SBJsonStreamWriterAccumulator : NSObject &lt;SBJsonStreamWriterDelegate&gt; {
+<a name="l00033"></a>00033 <span class="keyword">@private</span>
+<a name="l00034"></a>00034     NSMutableData *data;
+<a name="l00035"></a>00035 }
 <a name="l00036"></a>00036 
-<a name="l00038"></a>00038 - (NSString *)JSONRepresentation;
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040 <span class="keyword">@end</span>
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042 
-<a name="l00044"></a><a class="code" href="interfaceNSDictionary_07NSDictionary__SBJsonWriting_08.html">00044</a> <span class="keyword">@interface </span>NSDictionary (NSDictionary_SBJsonWriting)
-<a name="l00045"></a>00045 
-<a name="l00047"></a>00047 - (NSString *)JSONRepresentation;
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049 <span class="keyword">@end</span>
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="preprocessor">#pragma mark JSON Parsing</span>
-<a name="l00052"></a>00052 <span class="preprocessor"></span>
-<a name="l00054"></a>00054 <span class="keyword">@interface </span>NSString (NSString_SBJsonParsing)
-<a name="l00055"></a>00055 
-<a name="l00057"></a>00057 - (id)JSONValue;
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059 <span class="keyword">@end</span>
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061 
+<a name="l00037"></a>00037 @property (readonly, copy) NSData* data;
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 @end
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jan 30 2011 21:47:39 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 8 2011 23:17:39 for SBJson by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

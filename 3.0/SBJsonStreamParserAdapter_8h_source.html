@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Classes/SBJsonStreamParserAdapter.h Source File</title>
+<title>SBJson: Classes/SBJsonStreamParserAdapter.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -12,6 +12,7 @@
   <div class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -67,34 +68,34 @@
 <a name="l00039"></a>00039         SBJsonStreamParserAdapterObject,
 <a name="l00040"></a>00040 } SBJsonStreamParserAdapterType;
 <a name="l00041"></a>00041 
-<a name="l00050"></a><a class="code" href="protocolSBJsonStreamParserAdapterDelegate-p.html">00050</a> <span class="keyword">@protocol </span><a class="code" href="protocolSBJsonStreamParserAdapterDelegate-p.html" title="Delegate for getting objects &amp;amp; arrays from the stream parser adapter.">SBJsonStreamParserAdapterDelegate</a>
-<a name="l00051"></a>00051 
-<a name="l00053"></a>00053 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>*)parser foundArray:(NSArray*)array;
-<a name="l00054"></a>00054 
-<a name="l00056"></a>00056 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>*)parser foundObject:(NSDictionary*)dict;
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058 <span class="keyword">@end</span>
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061 <span class="keyword">@interface </span>SBJsonStreamParserAdapter : NSObject &lt;<a class="code" href="protocolSBJsonStreamParserDelegate-p.html" title="Delegate for interacting directly with the stream parser.">SBJsonStreamParserDelegate</a>&gt; {
-<a name="l00062"></a>00062         id&lt;SBJsonStreamParserAdapterDelegate&gt; delegate;
-<a name="l00063"></a>00063         NSUInteger skip, depth;
-<a name="l00064"></a>00064         __weak NSMutableArray *array;
-<a name="l00065"></a>00065         __weak NSMutableDictionary *dict;
-<a name="l00066"></a>00066         NSMutableArray *keyStack;
-<a name="l00067"></a>00067         NSMutableArray *stack;
-<a name="l00068"></a>00068         
-<a name="l00069"></a>00069         SBJsonStreamParserAdapterType currentType;
-<a name="l00070"></a>00070 }
-<a name="l00071"></a>00071 
-<a name="l00083"></a>00083 @<span class="keyword">property</span> NSUInteger skip;
-<a name="l00084"></a>00084 
-<a name="l00086"></a>00086 @property (assign) id&lt;<a class="code" href="protocolSBJsonStreamParserAdapterDelegate-p.html" title="Delegate for getting objects &amp;amp; arrays from the stream parser adapter.">SBJsonStreamParserAdapterDelegate</a>&gt; delegate;
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088 @end
+<a name="l00047"></a><a class="code" href="protocolSBJsonStreamParserAdapterDelegate-p.html">00047</a> <span class="keyword">@protocol </span><a class="code" href="protocolSBJsonStreamParserAdapterDelegate-p.html" title="Delegate for getting objects &amp;amp; arrays from the stream parser adapter.">SBJsonStreamParserAdapterDelegate</a>
+<a name="l00048"></a>00048 
+<a name="l00055"></a>00055 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser foundArray:(NSArray*)array;
+<a name="l00056"></a>00056 
+<a name="l00062"></a>00062 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser foundObject:(NSDictionary*)dict;
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 <span class="keyword">@end</span>
+<a name="l00065"></a>00065 
+<a name="l00118"></a><a class="code" href="interfaceSBJsonStreamParserAdapter.html">00118</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonStreamParserAdapter.html" title="SBJsonStreamParserDelegate protocol adapter.">SBJsonStreamParserAdapter</a> : NSObject &lt;<a class="code" href="protocolSBJsonStreamParserDelegate-p.html" title="Delegate for interacting directly with the stream parser.">SBJsonStreamParserDelegate</a>&gt; {
+<a name="l00119"></a>00119 <span class="keyword">@private</span>
+<a name="l00120"></a><a class="code" href="interfaceSBJsonStreamParserAdapter.html#ae64dd83cfbaa69e35a5c8b0ec1da070b">00120</a>         id&lt;SBJsonStreamParserAdapterDelegate&gt; delegate;
+<a name="l00121"></a><a class="code" href="interfaceSBJsonStreamParserAdapter.html#a1b7451c67d9149b14632c228909659bb">00121</a>         NSUInteger levelsToSkip, depth;
+<a name="l00122"></a>00122         __weak NSMutableArray *array;
+<a name="l00123"></a>00123         __weak NSMutableDictionary *dict;
+<a name="l00124"></a>00124         NSMutableArray *keyStack;
+<a name="l00125"></a>00125         NSMutableArray *stack;
+<a name="l00126"></a>00126         
+<a name="l00127"></a>00127         SBJsonStreamParserAdapterType currentType;
+<a name="l00128"></a>00128 }
+<a name="l00129"></a>00129 
+<a name="l00140"></a>00140 @<span class="keyword">property</span> NSUInteger levelsToSkip;
+<a name="l00141"></a>00141 
+<a name="l00146"></a>00146 @property (assign) id&lt;<a class="code" href="protocolSBJsonStreamParserAdapterDelegate-p.html" title="Delegate for getting objects &amp;amp; arrays from the stream parser adapter.">SBJsonStreamParserAdapterDelegate</a>&gt; delegate;
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148 @end
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jan 30 2011 21:47:39 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 8 2011 23:17:39 for SBJson by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

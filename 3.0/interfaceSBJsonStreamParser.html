@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>SBJsonStreamParser Class Reference</title>
+<title>SBJson: SBJsonStreamParser Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -12,6 +12,7 @@
   <div class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -34,8 +35,8 @@
 </div>
 <div class="contents">
 <!-- doxytag: class="SBJsonStreamParser" --><!-- doxytag: inherits="NSObject" -->
-<p>JSON Stream-parser class.  
-</p>
+<p>Parse a stream of JSON data.  
+<a href="#_details">More...</a></p>
 
 <p>Inherits NSObject.</p>
 
@@ -47,21 +48,22 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Parse some JSON.  <a href="#a9c4b15221e738a1eb49079e266daa1bf"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="properties"></a>
 Properties</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">BOOL&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonStreamParser.html#ae526f90329122e9aa0a196672747b4ed">multi</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Expect multiple documents separated by whitespace.  <a href="#ae526f90329122e9aa0a196672747b4ed"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae07425e91e0329ab3a1adeacf3122051"></a><!-- doxytag: member="SBJsonStreamParser::delegate" ref="ae07425e91e0329ab3a1adeacf3122051" args="" -->
-id&lt; <a class="el" href="protocolSBJsonStreamParserDelegate-p.html">SBJsonStreamParserDelegate</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonStreamParser.html#ae07425e91e0329ab3a1adeacf3122051">delegate</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set this to the object you want to receive messages. <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeaaa3e73d5d67488cbf1a31329a9b1e2"></a><!-- doxytag: member="SBJsonStreamParser::depth" ref="aeaaa3e73d5d67488cbf1a31329a9b1e2" args="" -->
-NSUInteger&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonStreamParser.html#aeaaa3e73d5d67488cbf1a31329a9b1e2">depth</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The current depth in the json document (each [ and { each count 1). <br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c6f49cb5dd676452994d96498bb5a3f"></a><!-- doxytag: member="SBJsonStreamParser::maxDepth" ref="a1c6f49cb5dd676452994d96498bb5a3f" args="" -->
-NSUInteger&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonStreamParser.html#a1c6f49cb5dd676452994d96498bb5a3f">maxDepth</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The max depth to allow the parser to reach. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">BOOL&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonStreamParser.html#afd976c605b67edbb8b7abbebcc5b4093">supportMultipleDocuments</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Expect multiple documents separated by whitespace.  <a href="#afd976c605b67edbb8b7abbebcc5b4093"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">id&lt; <a class="el" href="protocolSBJsonStreamParserDelegate-p.html">SBJsonStreamParserDelegate</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonStreamParser.html#ae07425e91e0329ab3a1adeacf3122051">delegate</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Delegate to receive messages.  <a href="#ae07425e91e0329ab3a1adeacf3122051"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">NSUInteger&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonStreamParser.html#a1c6f49cb5dd676452994d96498bb5a3f">maxDepth</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The max parse depth.  <a href="#a1c6f49cb5dd676452994d96498bb5a3f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2345c486bc9f4de7bcd69eb7f6286f3b"></a><!-- doxytag: member="SBJsonStreamParser::error" ref="a2345c486bc9f4de7bcd69eb7f6286f3b" args="" -->
 NSString *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonStreamParser.html#a2345c486bc9f4de7bcd69eb7f6286f3b">error</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Holds the error after SBJsonStreamParserError was returned. <br/></td></tr>
 </table>
+<hr/><a name="_details"></a><h2>Detailed Description</h2>
+<p>Using this class directly you can reduce the apparent latency for each download/parse cycle of documents over a slow connection. You can start parsing *and return chunks of the parsed document* before the entire document is downloaded.</p>
+<p>Using this class is also useful to parse huge documents on disk bit by bit so you don't have to keep them all in memory.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interfaceSBJsonStreamParserAdapter.html" title="SBJsonStreamParserDelegate protocol adapter.">SBJsonStreamParserAdapter</a> for more information.</dd>
+<dd>
+<a class="el" href="objc2json.html">Objective-C to JSON</a> </dd></dl>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a9c4b15221e738a1eb49079e266daa1bf"></a><!-- doxytag: member="SBJsonStreamParser::parse:" ref="a9c4b15221e738a1eb49079e266daa1bf" args="(NSData *data)" -->
 <div class="memitem">
@@ -79,6 +81,12 @@ NSString *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href
 </div>
 <div class="memdoc">
 <p>The JSON is assumed to be UTF8 encoded. This can be a full JSON document, or a part of one.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>data</em>&nbsp;</td><td>An NSData object containing the next chunk of JSON</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd><ul>
 <li>SBJsonStreamParserComplete if a full document was found </li>
 <li>SBJsonStreamParserWaitingForData if a partial document was found and more data is required to complete it </li>
@@ -89,18 +97,49 @@ NSString *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href
 </div>
 </div>
 <hr/><h2>Property Documentation</h2>
-<a class="anchor" id="ae526f90329122e9aa0a196672747b4ed"></a><!-- doxytag: member="SBJsonStreamParser::multi" ref="ae526f90329122e9aa0a196672747b4ed" args="" -->
+<a class="anchor" id="ae07425e91e0329ab3a1adeacf3122051"></a><!-- doxytag: member="SBJsonStreamParser::delegate" ref="ae07425e91e0329ab3a1adeacf3122051" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (BOOL) multi<code> [read, write, assign]</code></td>
+          <td class="memname">- (id&lt; <a class="el" href="protocolSBJsonStreamParserDelegate-p.html">SBJsonStreamParserDelegate</a> &gt;) delegate<code> [read, write, assign]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>If you set this property to true the parser will never return SBJsonStreamParserComplete. Once an object is completed it will expect another object to follow, separated only by whitespace.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd>The TwitterStream example project. </dd></dl>
+<p>The object set here receives a series of messages as the parser breaks down the JSON stream into valid tokens.</p>
+<dl class="note"><dt><b>Note:</b></dt><dd>Usually this should be an instance of <a class="el" href="interfaceSBJsonStreamParserAdapter.html" title="SBJsonStreamParserDelegate protocol adapter.">SBJsonStreamParserAdapter</a>, but you can substitute your own implementation of the <a class="el" href="protocolSBJsonStreamParserDelegate-p.html" title="Delegate for interacting directly with the stream parser.">SBJsonStreamParserDelegate</a> protocol if you need to. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1c6f49cb5dd676452994d96498bb5a3f"></a><!-- doxytag: member="SBJsonStreamParser::maxDepth" ref="a1c6f49cb5dd676452994d96498bb5a3f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSUInteger) maxDepth<code> [read, write, assign]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If the input is nested deeper than this the parser will halt parsing and return an error.</p>
+<p>Defaults to 32. </p>
+
+</div>
+</div>
+<a class="anchor" id="afd976c605b67edbb8b7abbebcc5b4093"></a><!-- doxytag: member="SBJsonStreamParser::supportMultipleDocuments" ref="afd976c605b67edbb8b7abbebcc5b4093" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) supportMultipleDocuments<code> [read, write, assign]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Normally the <code>-parse</code>: method returns SBJsonStreamParserComplete when it's found a complete JSON document. Attempting to parse any more data at that point is considered an error. ("Garbage after JSON".)</p>
+<p>If you set this property to true the parser will never return SBJsonStreamParserComplete. Rather, once an object is completed it will expect another object to immediately follow, separated only by (optional) whitespace.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd>The TweetStream app in the Examples </dd></dl>
 
 </div>
 </div>
@@ -109,7 +148,7 @@ NSString *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <li>Classes/SBJsonStreamParser.m</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jan 30 2011 21:47:39 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 8 2011 23:17:39 for SBJson by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

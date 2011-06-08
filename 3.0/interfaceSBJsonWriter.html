@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>SBJsonWriter Class Reference</title>
+<title>SBJson: SBJsonWriter Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -12,6 +12,7 @@
   <div class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -61,17 +62,8 @@ Properties</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Whether or not to sort the dictionary keys in the output.  <a href="#af25807a58a322b56cb5d3593532228e5"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>Objective-C types are mapped to JSON types in the following way:</p>
-<ul>
-<li>NSNull -&gt; Null </li>
-<li>NSString -&gt; String </li>
-<li>NSArray -&gt; Array </li>
-<li>NSDictionary -&gt; Object </li>
-<li>NSNumber (-initWithBool:) -&gt; Boolean </li>
-<li>NSNumber -&gt; Number</li>
-</ul>
-<p>In JSON the keys of an object must be strings. NSDictionary keys need not be, but attempting to convert an NSDictionary with non-string keys into JSON will throw an exception.</p>
-<p>NSNumber instances created with the +initWithBool: method are converted into the JSON boolean "true" and "false" values, and vice versa. Any other NSNumber instances are converted to a JSON number the way you would expect. </p>
+<p>This uses <a class="el" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a> internally.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="json2objc.html">JSON to Objective-C</a> </dd></dl>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="ad16f43f23b20d93983dae3441675a028"></a><!-- doxytag: member="SBJsonWriter::dataWithObject:" ref="ad16f43f23b20d93983dae3441675a028" args="(id value)" -->
 <div class="memitem">
@@ -164,7 +156,7 @@ Properties</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (NSString *) error<code> [read, write, copy]</code></td>
+          <td class="memname">- (NSString *) error<code> [read, copy]</code></td>
         </tr>
       </table>
 </div>
@@ -197,7 +189,7 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Defaults to 512. If the input is nested deeper than this the input will be deemed to be malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can turn off this security feature by setting the maxDepth value to 0. </p>
+<p>Defaults to 32. If the input is nested deeper than this the input will be deemed to be malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can turn off this security feature by setting the maxDepth value to 0. </p>
 
 </div>
 </div>
@@ -220,7 +212,7 @@ Properties</h2></td></tr>
 <li>Classes/SBJsonWriter.m</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jan 30 2011 21:47:39 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 8 2011 23:17:39 for SBJson by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>A strict JSON parser and generator for Objective-C</title>
+<title>SBJson: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -12,6 +12,7 @@
   <div class="tabs">
     <ul class="tablist">
       <li class="current"><a href="index.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -19,19 +20,86 @@
 </div>
 <div class="header">
   <div class="headertitle">
-<h1>A strict JSON parser and generator for Objective-C </h1>  </div>
+<h1>SBJson Documentation</h1>  </div>
 </div>
 <div class="contents">
-<h3 class="version">3.0beta1 </h3><p>JSON (JavaScript Object Notation) is a lightweight data-interchange format. This framework provides two apis for parsing and generating JSON. One standard object-based and a higher level api consisting of categories added to existing Objective-C classes.</p>
-<p>This framework does its best to be as strict as possible, both in what it accepts and what it generates. For example, it does not support trailing commas in arrays or objects. Nor does it support embedded comments, or anything else not in the JSON specification. This is considered a feature.</p>
-<h2><a class="anchor" id="Links"></a>
-Links</h2>
+<h3 class="version">3.0beta3 </h3><h1>SBJson (aka json-framework)</h1>
+<p>JSON (JavaScript Object Notation) is a light-weight data interchange format that's easy to read and write for humans and computers alike. This framework implements a strict JSON parser and generator in Objective-C.</p>
+<h2>Features</h2>
 <ul>
-<li><a href="http://stig.github.com/json-framework">Project home page</a>. </li>
-<li>Online version of the <a href="http://stig.github.com/json-framework/api">API documentation</a>. </li>
+<li>
+BSD license. </li>
+<li>
+Super-simple high-level API: <ul>
+<li>
+Calling <code>-JSONValue</code> on any NSString instance parses the JSON text in that string. </li>
+<li>
+Calling <code>-JSONRepresentation</code> on any NSArray or NSDictionary returns an NSString with the JSON representation of the object. </li>
+</ul>
+</li>
+<li>
+Object-oriented API providing a good balance between simplicity and flexibility. Check out: <ul>
+<li>
+<code><a class="el" href="interfaceSBJsonParser.html" title="Parse JSON Strings and NSData objects.">SBJsonParser</a></code> </li>
+<li>
+<code><a class="el" href="interfaceSBJsonWriter.html" title="The JSON writer class.">SBJsonWriter</a></code> </li>
+</ul>
+</li>
+<li>
+Streaming JSON support. You can start parsing a JSON document--<em>and return parsed chunks of it to your program</em>--before it has finished downloading from the server. Check out: <ul>
+<li>
+<code><a class="el" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a></code> </li>
+<li>
+<code><a class="el" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a></code> </li>
+</ul>
+</li>
+<li>
+Works with/without garbage collection. </li>
+<li>
+Pretty-printing of JSON output. </li>
+<li>
+Sorted dictionary keys in JSON output. </li>
+<li>
+Configurable recursion depth limit for added security. </li>
+</ul>
+<h1>Simple Installation</h1>
+<p>The simplest way to start using JSON in your application is to simply copy all the source files (the contents of the <code>Classes</code> folder) into your own Xcode project.</p>
+<ol>
+<li>
+In the Finder, navigate to the <code>$PATH_TO_SBJSON/Classes</code> folder and select all the files. </li>
+<li>
+Drop-and-drop them into your Xcode project. </li>
+<li>
+Tick the <b>Copy items into destination group's folder</b> option. </li>
+<li>
+Use <code>import "SBJson.h"</code> in your source files. (or simply include the particular classes you wish to use.) </li>
+</ol>
+<p>That should be it. Now create that Twitter client!</p>
+<h2>Upgrading</h2>
+<p>If you're upgrading from a previous version, make sure you're deleting the old SBJson classes first, moving all the files to Trash.</p>
+<h1>Install API documentation into Xcode</h1>
+<p>From the top-level project directory, run the <code>./InstallDocumentation.sh</code> program. This compiles the documentation and installs it so it integrates with Xcode. Now open Xcode documentation and search for SBJson. You should see a lot of the classes. (Generating the documentation requires <a href="http://doxygen.org">Doxygen</a> to be installed.)</p>
+<h1>Alternative installation instructions</h1>
+<p>Copying the SBJson classes into your project isn't the only way to use this framework. (Though it is the simplest.) I've created a couple of examples that link to this framework rather than copy the sources. Check them out at github:</p>
+<ul>
+<li>
+<a href="http://github.com/stig/JsonSampleIPhone">Linking to JSON Framework on iOS</a> </li>
+<li>
+<a href="http://github.com/stig/JsonSampleMac">Linking to JSON Framework on the Mac</a> </li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li>
+<a href="http://github.com/stig/json-framework">GitHub project page</a>. </li>
+<li>
+<a href="http://github.com/stig/json-framework-examples">Example Projects</a>. </li>
+<li>
+<a href="http://stig.github.com/json-framework/api">Online API docs</a>. </li>
+<li>
+<a href="http://github.com/stig/json-framework/wiki/FrequentlyAskedQuestions">Frequently Asked Questions</a> </li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jan 30 2011 21:47:39 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 8 2011 23:17:39 for SBJson by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Classes/SBJsonStreamParser.h Source File</title>
+<title>SBJson: Classes/SBJsonStreamParser.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -12,6 +12,7 @@
   <div class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -61,7 +62,7 @@
 <a name="l00033"></a>00033 <span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span>
 <a name="l00034"></a>00034 
 <a name="l00035"></a>00035 <span class="keyword">@class</span> SBJsonTokeniser;
-<a name="l00036"></a>00036 <span class="keyword">@class</span> <a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>;
+<a name="l00036"></a>00036 <span class="keyword">@class</span> <a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>;
 <a name="l00037"></a>00037 <span class="keyword">@class</span> SBJsonStreamParserState;
 <a name="l00038"></a>00038 
 <a name="l00039"></a>00039 <span class="keyword">typedef</span> <span class="keyword">enum</span> {
@@ -73,54 +74,55 @@
 <a name="l00045"></a>00045 
 <a name="l00052"></a><a class="code" href="protocolSBJsonStreamParserDelegate-p.html">00052</a> <span class="keyword">@protocol </span><a class="code" href="protocolSBJsonStreamParserDelegate-p.html" title="Delegate for interacting directly with the stream parser.">SBJsonStreamParserDelegate</a>
 <a name="l00053"></a>00053 
-<a name="l00055"></a>00055 - (void)parserFoundObjectStart:(<a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>*)parser;
+<a name="l00055"></a>00055 - (void)parserFoundObjectStart:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser;
 <a name="l00056"></a>00056 
-<a name="l00058"></a>00058 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>*)parser foundObjectKey:(NSString*)key;
+<a name="l00058"></a>00058 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser foundObjectKey:(NSString*)key;
 <a name="l00059"></a>00059 
-<a name="l00061"></a>00061 - (void)parserFoundObjectEnd:(<a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>*)parser;
+<a name="l00061"></a>00061 - (void)parserFoundObjectEnd:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser;
 <a name="l00062"></a>00062 
-<a name="l00064"></a>00064 - (void)parserFoundArrayStart:(<a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>*)parser;
+<a name="l00064"></a>00064 - (void)parserFoundArrayStart:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser;
 <a name="l00065"></a>00065 
-<a name="l00067"></a>00067 - (void)parserFoundArrayEnd:(<a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>*)parser;
+<a name="l00067"></a>00067 - (void)parserFoundArrayEnd:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser;
 <a name="l00068"></a>00068 
-<a name="l00070"></a>00070 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>*)parser foundBoolean:(BOOL)x;
+<a name="l00070"></a>00070 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser foundBoolean:(BOOL)x;
 <a name="l00071"></a>00071 
-<a name="l00073"></a>00073 - (void)parserFoundNull:(<a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>*)parser;
+<a name="l00073"></a>00073 - (void)parserFoundNull:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser;
 <a name="l00074"></a>00074 
-<a name="l00076"></a>00076 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>*)parser foundNumber:(NSNumber*)num;
+<a name="l00076"></a>00076 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser foundNumber:(NSNumber*)num;
 <a name="l00077"></a>00077 
-<a name="l00079"></a>00079 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a>*)parser foundString:(NSString*)string;
+<a name="l00079"></a>00079 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser foundString:(NSString*)string;
 <a name="l00080"></a>00080 
 <a name="l00081"></a>00081 <span class="keyword">@end</span>
 <a name="l00082"></a>00082 
 <a name="l00083"></a>00083 
-<a name="l00088"></a><a class="code" href="interfaceSBJsonStreamParser.html">00088</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonStreamParser.html" title="JSON Stream-parser class.">SBJsonStreamParser</a> : NSObject {
-<a name="l00089"></a><a class="code" href="interfaceSBJsonStreamParser.html#ae526f90329122e9aa0a196672747b4ed">00089</a>         BOOL multi;
-<a name="l00090"></a><a class="code" href="interfaceSBJsonStreamParser.html#ae07425e91e0329ab3a1adeacf3122051">00090</a>         id&lt;SBJsonStreamParserDelegate&gt; delegate;
-<a name="l00091"></a>00091         SBJsonTokeniser *tokeniser;
-<a name="l00092"></a>00092         SBJsonStreamParserState **states;
-<a name="l00093"></a><a class="code" href="interfaceSBJsonStreamParser.html#a1c6f49cb5dd676452994d96498bb5a3f">00093</a>         NSUInteger depth, maxDepth;
-<a name="l00094"></a><a class="code" href="interfaceSBJsonStreamParser.html#a2345c486bc9f4de7bcd69eb7f6286f3b">00094</a>         NSString *error;
-<a name="l00095"></a>00095 }
-<a name="l00096"></a>00096 
-<a name="l00105"></a>00105 @<span class="keyword">property</span> BOOL multi;
-<a name="l00106"></a>00106 
-<a name="l00108"></a>00108 @property (assign) id&lt;<a class="code" href="protocolSBJsonStreamParserDelegate-p.html" title="Delegate for interacting directly with the stream parser.">SBJsonStreamParserDelegate</a>&gt; delegate;
-<a name="l00109"></a>00109 
-<a name="l00111"></a>00111 @property (readonly) NSUInteger depth;
-<a name="l00112"></a>00112 
-<a name="l00114"></a>00114 @property NSUInteger maxDepth;
-<a name="l00115"></a>00115 
-<a name="l00117"></a>00117 @property (readonly) SBJsonStreamParserState **states;
-<a name="l00118"></a>00118 
-<a name="l00120"></a>00120 @property (copy) NSString *error;
-<a name="l00121"></a>00121 
-<a name="l00133"></a>00133 - (SBJsonStreamParserStatus)parse:(NSData*)data;
-<a name="l00134"></a>00134 
-<a name="l00135"></a>00135 @end
+<a name="l00100"></a><a class="code" href="interfaceSBJsonStreamParser.html">00100</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a> : NSObject {
+<a name="l00101"></a>00101 <span class="keyword">@private</span>
+<a name="l00102"></a><a class="code" href="interfaceSBJsonStreamParser.html#afd976c605b67edbb8b7abbebcc5b4093">00102</a>         BOOL supportMultipleDocuments;
+<a name="l00103"></a><a class="code" href="interfaceSBJsonStreamParser.html#ae07425e91e0329ab3a1adeacf3122051">00103</a>         id&lt;SBJsonStreamParserDelegate&gt; delegate;
+<a name="l00104"></a>00104         SBJsonTokeniser *tokeniser;
+<a name="l00105"></a>00105     NSMutableArray *stateStack;
+<a name="l00106"></a>00106         __weak SBJsonStreamParserState *state;
+<a name="l00107"></a><a class="code" href="interfaceSBJsonStreamParser.html#a1c6f49cb5dd676452994d96498bb5a3f">00107</a>         NSUInteger maxDepth;
+<a name="l00108"></a><a class="code" href="interfaceSBJsonStreamParser.html#a2345c486bc9f4de7bcd69eb7f6286f3b">00108</a>         NSString *error;
+<a name="l00109"></a>00109 }
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111 @property (nonatomic, assign) __weak SBJsonStreamParserState *state; <span class="comment">// Private</span>
+<a name="l00112"></a>00112 @property (nonatomic, readonly, retain) NSMutableArray *stateStack; <span class="comment">// Private</span>
+<a name="l00113"></a>00113 
+<a name="l00126"></a>00126 @property BOOL supportMultipleDocuments;
+<a name="l00127"></a>00127 
+<a name="l00138"></a>00138 @property (assign) <span class="keywordtype">id</span>&lt;<a class="code" href="protocolSBJsonStreamParserDelegate-p.html" title="Delegate for interacting directly with the stream parser.">SBJsonStreamParserDelegate</a>&gt; delegate;
+<a name="l00139"></a>00139 
+<a name="l00147"></a>00147 @property NSUInteger maxDepth;
+<a name="l00148"></a>00148 
+<a name="l00150"></a>00150 @property (copy) NSString *error;
+<a name="l00151"></a>00151 
+<a name="l00165"></a>00165 - (SBJsonStreamParserStatus)parse:(NSData*)data;
+<a name="l00166"></a>00166 
+<a name="l00167"></a>00167 @end
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jan 30 2011 21:47:39 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 8 2011 23:17:39 for SBJson by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

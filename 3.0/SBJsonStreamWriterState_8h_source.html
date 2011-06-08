@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Classes/SBJsonStreamWriterState.h Source File</title>
+<title>SBJson: Classes/SBJsonStreamWriterState.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -12,6 +12,7 @@
   <div class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -63,47 +64,41 @@
 <a name="l00035"></a>00035 <span class="keyword">@class</span> <a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>;
 <a name="l00036"></a>00036 
 <a name="l00037"></a>00037 <span class="keyword">@interface </span>SBJsonStreamWriterState : NSObject
-<a name="l00038"></a>00038 - (BOOL)isInvalidState:(<a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>*)writer;
-<a name="l00039"></a>00039 - (void)appendSeparator:(<a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>*)writer;
-<a name="l00040"></a>00040 - (BOOL)expectingKey:(<a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>*)writer;
-<a name="l00041"></a>00041 - (void)transitionState:(<a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>*)writer;
-<a name="l00042"></a>00042 - (void)appendWhitespace:(<a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>*)writer;
-<a name="l00043"></a>00043 <span class="keyword">@end</span>
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045 <span class="keyword">@interface </span>SBJsonStreamWriterStateObjectStart : SBJsonStreamWriterState
-<a name="l00046"></a>00046 @end
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048 @interface SBJsonStreamWriterStateObjectKey : SBJsonStreamWriterStateObjectStart
-<a name="l00049"></a>00049 @end
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 @interface SBJsonStreamWriterStateObjectValue : SBJsonStreamWriterState
-<a name="l00052"></a>00052 @end
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054 @interface SBJsonStreamWriterStateArrayStart : SBJsonStreamWriterState
-<a name="l00055"></a>00055 @end
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057 @interface SBJsonStreamWriterStateArrayValue : SBJsonStreamWriterState
-<a name="l00058"></a>00058 @end
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060 @interface SBJsonStreamWriterStateStart : SBJsonStreamWriterState
-<a name="l00061"></a>00061 + (id)sharedInstance;
-<a name="l00062"></a>00062 <span class="keyword">@end</span>
+<a name="l00038"></a>00038 + (id)sharedInstance;
+<a name="l00039"></a>00039 - (BOOL)isInvalidState:(<a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>*)writer;
+<a name="l00040"></a>00040 - (void)appendSeparator:(<a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>*)writer;
+<a name="l00041"></a>00041 - (BOOL)expectingKey:(<a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>*)writer;
+<a name="l00042"></a>00042 - (void)transitionState:(<a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>*)writer;
+<a name="l00043"></a>00043 - (void)appendWhitespace:(<a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>*)writer;
+<a name="l00044"></a>00044 <span class="keyword">@end</span>
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046 <span class="keyword">@interface </span>SBJsonStreamWriterStateObjectStart : SBJsonStreamWriterState
+<a name="l00047"></a>00047 @end
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049 @interface SBJsonStreamWriterStateObjectKey : SBJsonStreamWriterStateObjectStart
+<a name="l00050"></a>00050 @end
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052 @interface SBJsonStreamWriterStateObjectValue : SBJsonStreamWriterState
+<a name="l00053"></a>00053 @end
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055 @interface SBJsonStreamWriterStateArrayStart : SBJsonStreamWriterState
+<a name="l00056"></a>00056 @end
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058 @interface SBJsonStreamWriterStateArrayValue : SBJsonStreamWriterState
+<a name="l00059"></a>00059 @end
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061 @interface SBJsonStreamWriterStateStart : SBJsonStreamWriterState
+<a name="l00062"></a>00062 @end
 <a name="l00063"></a>00063 
-<a name="l00064"></a>00064 <span class="keyword">@interface </span>SBJsonStreamWriterStateComplete : SBJsonStreamWriterState
+<a name="l00064"></a>00064 @interface SBJsonStreamWriterStateComplete : SBJsonStreamWriterState
 <a name="l00065"></a>00065 @end
 <a name="l00066"></a>00066 
 <a name="l00067"></a>00067 @interface SBJsonStreamWriterStateError : SBJsonStreamWriterState
 <a name="l00068"></a>00068 @end
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070 extern SBJsonStreamWriterStateStart *kSBJsonStreamWriterStateStart;
-<a name="l00071"></a>00071 extern SBJsonStreamWriterStateComplete *kSBJsonStreamWriterStateComplete;
-<a name="l00072"></a>00072 extern SBJsonStreamWriterStateError *kSBJsonStreamWriterStateError;
-<a name="l00073"></a>00073 extern SBJsonStreamWriterStateObjectStart *kSBJsonStreamWriterStateObjectStart;
-<a name="l00074"></a>00074 extern SBJsonStreamWriterStateArrayStart *kSBJsonStreamWriterStateArrayStart;
-<a name="l00075"></a>00075 
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jan 30 2011 21:47:39 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 8 2011 23:17:39 for SBJson by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

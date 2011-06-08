@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Classes/SBJsonStreamWriter.h Source File</title>
+<title>SBJson: Classes/SBJsonStreamWriter.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -12,6 +12,7 @@
   <div class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -62,62 +63,73 @@
 <a name="l00034"></a>00034 
 <a name="l00036"></a>00036 <span class="keyword">@interface </span>NSObject (SBProxyForJson)
 <a name="l00037"></a>00037 
-<a name="l00054"></a>00054 - (id)proxyForJson;
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056 <span class="keyword">@end</span>
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058 <span class="keyword">@class</span> SBJsonStreamWriterState;
-<a name="l00059"></a>00059 
-<a name="l00073"></a><a class="code" href="interfaceSBJsonStreamWriter.html">00073</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a> : NSObject {
-<a name="l00074"></a><a class="code" href="interfaceSBJsonStreamWriter.html#af9ad1ac60aaa480f4b4543e42e40fcf2">00074</a>         NSString *error;
-<a name="l00075"></a>00075         SBJsonStreamWriterState **states;
-<a name="l00076"></a><a class="code" href="interfaceSBJsonStreamWriter.html#a12523a0a0f27604fa52a5da8e78e1ff3">00076</a>         NSMutableData *data;
-<a name="l00077"></a><a class="code" href="interfaceSBJsonStreamWriter.html#a146e7e950ab74a0e766ffd860e454fc9">00077</a>         NSUInteger depth, maxDepth;
-<a name="l00078"></a><a class="code" href="interfaceSBJsonStreamWriter.html#ab206c6844a0fd20307b5dfe881e17bf2">00078</a>     BOOL sortKeys, humanReadable;
-<a name="l00079"></a>00079 }
-<a name="l00080"></a>00080 
-<a name="l00088"></a>00088 @property(readonly) NSMutableData *data;
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090 @property(readonly) NSObject **states;
-<a name="l00091"></a>00091 @property(readonly) NSUInteger depth;
-<a name="l00092"></a>00092 
-<a name="l00100"></a>00100 @property NSUInteger maxDepth;
-<a name="l00101"></a>00101 
-<a name="l00110"></a>00110 @property BOOL humanReadable;
-<a name="l00111"></a>00111 
-<a name="l00118"></a>00118 @property BOOL sortKeys;
-<a name="l00119"></a>00119 
-<a name="l00123"></a>00123 @property (copy) NSString *error;
-<a name="l00124"></a>00124 
-<a name="l00127"></a>00127 - (BOOL)writeObject:(NSDictionary*)dict;
-<a name="l00128"></a>00128 
-<a name="l00132"></a>00132 - (BOOL)writeArray:(NSArray *)array;
+<a name="l00057"></a>00057 - (id)proxyForJson;
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 <span class="keyword">@end</span>
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061 <span class="keyword">@class</span> <a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>;
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063 <span class="keyword">@protocol </span>SBJsonStreamWriterDelegate
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065 - (void)writer:(<a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a>*)writer appendBytes:(const <span class="keywordtype">void</span> *)bytes length:(NSUInteger)length;
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067 <span class="keyword">@end</span>
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 <span class="keyword">@class</span> SBJsonStreamWriterState;
+<a name="l00070"></a>00070 
+<a name="l00085"></a><a class="code" href="interfaceSBJsonStreamWriter.html">00085</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a> : NSObject {
+<a name="l00086"></a>00086 <span class="keyword">@private</span>
+<a name="l00087"></a><a class="code" href="interfaceSBJsonStreamWriter.html#af9ad1ac60aaa480f4b4543e42e40fcf2">00087</a>         NSString *error;
+<a name="l00088"></a>00088     NSMutableArray *stateStack;
+<a name="l00089"></a>00089     __weak SBJsonStreamWriterState *state;
+<a name="l00090"></a><a class="code" href="interfaceSBJsonStreamWriter.html#a7ab6ec363a52e32056130dbcefadd952">00090</a>     id&lt;SBJsonStreamWriterDelegate&gt; delegate;
+<a name="l00091"></a><a class="code" href="interfaceSBJsonStreamWriter.html#a146e7e950ab74a0e766ffd860e454fc9">00091</a>         NSUInteger maxDepth;
+<a name="l00092"></a><a class="code" href="interfaceSBJsonStreamWriter.html#ab206c6844a0fd20307b5dfe881e17bf2">00092</a>     BOOL sortKeys, humanReadable;
+<a name="l00093"></a>00093 }
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095 @property (nonatomic, assign) __weak SBJsonStreamWriterState *state; <span class="comment">// Internal</span>
+<a name="l00096"></a>00096 @property (nonatomic, readonly, retain) NSMutableArray *stateStack; <span class="comment">// Internal </span>
+<a name="l00097"></a>00097 
+<a name="l00102"></a>00102 @property (assign) <span class="keywordtype">id</span>&lt;SBJsonStreamWriterDelegate&gt; delegate;
+<a name="l00103"></a>00103 
+<a name="l00111"></a>00111 @property NSUInteger maxDepth;
+<a name="l00112"></a>00112 
+<a name="l00121"></a>00121 @property BOOL humanReadable;
+<a name="l00122"></a>00122 
+<a name="l00129"></a>00129 @property BOOL sortKeys;
+<a name="l00130"></a>00130 
+<a name="l00132"></a>00132 @property (copy) NSString *error;
 <a name="l00133"></a>00133 
-<a name="l00135"></a>00135 - (BOOL)writeObjectOpen;
-<a name="l00136"></a>00136 
-<a name="l00138"></a>00138 - (BOOL)writeObjectClose;
+<a name="l00138"></a>00138 - (BOOL)writeObject:(NSDictionary*)dict;
 <a name="l00139"></a>00139 
-<a name="l00141"></a>00141 - (BOOL)writeArrayOpen;
-<a name="l00142"></a>00142 
-<a name="l00144"></a>00144 - (BOOL)writeArrayClose;
+<a name="l00144"></a>00144 - (BOOL)writeArray:(NSArray *)array;
 <a name="l00145"></a>00145 
-<a name="l00147"></a>00147 - (BOOL)writeNull;
-<a name="l00148"></a>00148 
-<a name="l00150"></a>00150 - (BOOL)writeBool:(BOOL)x;
+<a name="l00150"></a>00150 - (BOOL)writeObjectOpen;
 <a name="l00151"></a>00151 
-<a name="l00153"></a>00153 - (BOOL)writeNumber:(NSNumber*)n;
-<a name="l00154"></a>00154 
-<a name="l00156"></a>00156 - (BOOL)writeString:(NSString*)s;
+<a name="l00156"></a>00156 - (BOOL)writeObjectClose;
 <a name="l00157"></a>00157 
-<a name="l00158"></a>00158 @end
-<a name="l00159"></a>00159 
-<a name="l00160"></a>00160 @interface <a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a> (Private)
-<a name="l00161"></a>00161 - (BOOL)writeValue:(<span class="keywordtype">id</span>)v;
-<a name="l00162"></a>00162 @end
-<a name="l00163"></a>00163 
+<a name="l00161"></a>00161 - (BOOL)writeArrayOpen;
+<a name="l00162"></a>00162 
+<a name="l00166"></a>00166 - (BOOL)writeArrayClose;
+<a name="l00167"></a>00167 
+<a name="l00171"></a>00171 - (BOOL)writeNull;
+<a name="l00172"></a>00172 
+<a name="l00176"></a>00176 - (BOOL)writeBool:(BOOL)x;
+<a name="l00177"></a>00177 
+<a name="l00181"></a>00181 - (BOOL)writeNumber:(NSNumber*)n;
+<a name="l00182"></a>00182 
+<a name="l00186"></a>00186 - (BOOL)writeString:(NSString*)s;
+<a name="l00187"></a>00187 
+<a name="l00188"></a>00188 @end
+<a name="l00189"></a>00189 
+<a name="l00190"></a>00190 @interface <a class="code" href="interfaceSBJsonStreamWriter.html" title="The Stream Writer class.">SBJsonStreamWriter</a> (Private)
+<a name="l00191"></a>00191 - (BOOL)writeValue:(<span class="keywordtype">id</span>)v;
+<a name="l00192"></a>00192 - (<span class="keywordtype">void</span>)appendBytes:(const <span class="keywordtype">void</span> *)bytes length:(NSUInteger)length;
+<a name="l00193"></a>00193 @end
+<a name="l00194"></a>00194 
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jan 30 2011 21:47:39 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 8 2011 23:17:39 for SBJson by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

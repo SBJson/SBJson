@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>SBJsonParser Class Reference</title>
+<title>SBJson: SBJsonParser Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -12,6 +12,7 @@
   <div class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&nbsp;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&nbsp;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
     </ul>
@@ -34,7 +35,7 @@
 </div>
 <div class="contents">
 <!-- doxytag: class="SBJsonParser" --><!-- doxytag: inherits="NSObject" -->
-<p>The JSON parser class.  
+<p>Parse JSON Strings and NSData objects.  
 <a href="#_details">More...</a></p>
 
 <p>Inherits NSObject.</p>
@@ -54,20 +55,11 @@ Properties</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">NSUInteger&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonParser.html#a0378b4ce99a1caeddc4a05da37ca4ffa">maxDepth</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The maximum recursing depth.  <a href="#a0378b4ce99a1caeddc4a05da37ca4ffa"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">NSString *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceSBJsonParser.html#ab9b74d7c752a03042edb78beeafaa6ce">error</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return an error trace, or nil if there was no errors.  <a href="#ab9b74d7c752a03042edb78beeafaa6ce"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Description of parse error.  <a href="#ab9b74d7c752a03042edb78beeafaa6ce"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>JSON is mapped to Objective-C types in the following way:</p>
-<ul>
-<li>Null -&gt; NSNull </li>
-<li>String -&gt; NSMutableString </li>
-<li>Array -&gt; NSMutableArray </li>
-<li>Object -&gt; NSMutableDictionary </li>
-<li>Boolean -&gt; NSNumber (initialised with -initWithBool:) </li>
-<li>Number -&gt; (NSNumber | NSDecimalNumber)</li>
-</ul>
-<p>Since Objective-C doesn't have a dedicated class for boolean values, these turns into NSNumber instances. These are initialised with the -initWithBool: method, and round-trip back to JSON properly. (They won't silently suddenly become 0 or 1; they'll be represented as 'true' and 'false' again.)</p>
-<p>As an optimisation short JSON integers turn into NSNumber instances, while complex ones turn into NSDecimalNumber instances. We can thus avoid any loss of precision as JSON allows ridiculously large numbers. </p>
+<p>This uses <a class="el" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a> internally.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="objc2json.html">Objective-C to JSON</a> </dd></dl>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a66d7be591cdf0d9ee85c21c863ef5cbf"></a><!-- doxytag: member="SBJsonParser::objectWithData:" ref="a66d7be591cdf0d9ee85c21c863ef5cbf" args="(NSData *data)" -->
 <div class="memitem">
@@ -84,13 +76,14 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>The data *must* be UTF8 encoded. </p>
+<p>The data *must* be UTF8 encoded.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>data</em>&nbsp;</td><td>the data to parse. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>data</em>&nbsp;</td><td>An NSData containing UTF8 encoded data to parse. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The NSArray or NSDictionary represented by the object, or nil if an error occured. </dd></dl>
 
 </div>
 </div>
@@ -109,13 +102,8 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Returns the object represented by the passed-in string or nil on error. The returned object can be a string, number, boolean, null, array or dictionary.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>repr</em>&nbsp;</td><td>the json string to parse </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>This method converts its input to an NSData object containing UTF8 and calls -objectWithData: with it.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The NSArray or NSDictionary represented by the object, or nil if an error occured. </dd></dl>
 
 </div>
 </div>
@@ -143,14 +131,15 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Returns the object represented by the passed-in string or nil on error. The returned object can be a string, number, boolean, null, array or dictionary.</p>
+<p>This method calls objectWithString: internally. If an error occurs, and if <code>error</code> is not nil, it creates an NSError object and returns this through its second argument.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>jsonText</em>&nbsp;</td><td>the json string to parse </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>error</em>&nbsp;</td><td>pointer to an NSError object to populate on error </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>error</em>&nbsp;</td><td>pointer to an NSError object to populate on error</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The NSArray or NSDictionary represented by the object, or nil if an error occured. </dd></dl>
 
 </div>
 </div>
@@ -165,7 +154,8 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Note that this method returns the trace of the last method that failed. You need to check the return value of the call you're making to figure out if the call actually failed, before you know call this method. </p>
+<p>This method returns the trace of the last method that failed. You need to check the return value of the call you're making to figure out if the call actually failed, before you know call this method.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>A string describing the error encountered, or nil if no error occured. </dd></dl>
 
 </div>
 </div>
@@ -179,7 +169,7 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Defaults to 512. If the input is nested deeper than this the input will be deemed to be malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can turn off this security feature by setting the maxDepth value to 0. </p>
+<p>Defaults to 32. If the input is nested deeper than this the input will be deemed to be malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can turn off this security feature by setting the maxDepth value to 0. </p>
 
 </div>
 </div>
@@ -188,7 +178,7 @@ Properties</h2></td></tr>
 <li>Classes/SBJsonParser.m</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jan 30 2011 21:47:39 by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 8 2011 23:17:39 for SBJson by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>
