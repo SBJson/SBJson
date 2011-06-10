@@ -827,6 +827,9 @@
 /* Begin PBXProject section */
 		53D229730C9611FF00276605 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 53D229740C9611FF00276605 /* Build configuration list for PBXProject "JSON" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -1269,6 +1272,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-Wparentheses";
 			};
@@ -1280,6 +1284,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				OTHER_CFLAGS = "-Wparentheses";
 			};
 			name = Release;
@@ -1294,7 +1299,6 @@
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G5;
@@ -1308,7 +1312,6 @@
 					"-framework",
 					Foundation,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = JSON;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = "";
@@ -1326,7 +1329,6 @@
 				DYLIB_CURRENT_VERSION = 12;
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_GC = supported;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
@@ -1339,7 +1341,6 @@
 					"-framework",
 					Foundation,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = JSON;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = "";
@@ -1359,7 +1360,6 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -1376,7 +1376,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = Tests;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = "";
@@ -1394,7 +1393,6 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR_QUOTED)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -1410,7 +1408,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = Tests;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = "";
@@ -1433,7 +1430,6 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = Documentation;
 				ZERO_LINK = NO;
 			};
@@ -1454,7 +1450,6 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = "Refresh Online Docs";
 				ZERO_LINK = NO;
 			};
@@ -1469,7 +1464,6 @@
 				DEPLOYMENT_LOCATION = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1479,7 +1473,6 @@
 					"-framework",
 					Foundation,
 				);
-				PREBINDING = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
 				PRODUCT_NAME = json;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
@@ -1497,7 +1490,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1506,7 +1498,6 @@
 					"-framework",
 					Foundation,
 				);
-				PREBINDING = NO;
 				PRIVATE_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
 				PRODUCT_NAME = json;
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/JSON;
@@ -1525,7 +1516,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
@@ -1543,7 +1533,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = libjsontests;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
@@ -1559,7 +1548,6 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
@@ -1576,7 +1564,6 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = libjsontests;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
