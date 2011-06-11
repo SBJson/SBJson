@@ -25,15 +25,16 @@ Selected features:
 * Streaming Support. See [SBJsonStreamParserAdapter][] API documentation.
 * Pretty-printing of JSON output.
 * Sorted dictionary keys in JSON output.
-* Configurable recursion depth for parsing for added security.
-* Pure Objective-C. No external dependencies.
+* Configurable max recursion depth for parsing and writing.
+* Pure Objective-C.
+* No external dependencies.
 
 # API Documentation
 
 API documentation generated from the source by [Doxygen](http://www.doxygen.org):
 
-* [Version 3.0](3.0/)
-* [Version 2.3](2.3/)
+* [Version 3.0](api/3.0/)
+* [Version 2.3](api/2.3/)
 
 # Examples
 
