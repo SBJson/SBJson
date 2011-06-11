@@ -56,15 +56,19 @@ header .container {
 }
 
 header h1 {
-  color:  #555;
+  color:  #444;
   font-weight: normal;
   font-size: 6.5em;
   font-family: "League Gothic", "Helvetica Neue", sans-serif;
 }
 
-header:hover h1 {
-  color: #999;
+header h2 {
+  color:  #444;
+  font-weight: normal;
+  font-size: 2em;
+  font-family: "League Gothic", "Helvetica Neue", sans-serif;
 }
+
 
 
 header a {
@@ -144,7 +148,7 @@ article li {
 }
 
 article p, article pre {
-  margin: 0.75em 0em;  
+  margin: 0.75em 0em;
 }
 
 pre, code {
@@ -197,7 +201,7 @@ blockquote {
 hr {
   margin-top: 0.25em;
   margin-bottom: 0.25em;
-  
+
   border: 0px;
   color: #ddd;
   background-color: #ddd;
