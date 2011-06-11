@@ -1,10 +1,10 @@
 # JSON Framework Changes
 
-## Version 3.0beta3 (TBD)
+## Version 3.0beta3 (June 11th, 2011)
 
 ### Changes
 
-* Updated documentation.
+* Fleshed out [API documentation](http://stig.github.com/json-framework/3.0/)
 * Remove the (admittedly rather cool) JavaScript hack from the Contrib directory, as I don't want to get stuck maintaining JavaScript I don't understand after 3.0.
 * Moved content of Installation file to Readme.
 * [Issue 73][#73]: Project rename, to avoid clashing with Apple's internal JSON.framework
