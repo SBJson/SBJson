@@ -62,6 +62,6 @@ Links
 -----
 
 * [GitHub project page](http://github.com/stig/json-framework).
-* [Example Projects](http://github.com/stig/json-framework-examples).
+* [Example Projects](http://github.com/stig/json-framework/Examples).
 * [Online API docs](http://stig.github.com/json-framework/api).
 * [Frequently Asked Questions](http://github.com/stig/json-framework/wiki/FrequentlyAskedQuestions)
