@@ -50,20 +50,17 @@
     STAssertEqualObjects(@"[0]", [writer stringWithObject:[NSArray arrayWithObject:[NSNumber numberWithDouble:0.0]]], nil);
     STAssertEqualObjects(@"[-0]", [writer stringWithObject:[NSArray arrayWithObject:[NSNumber numberWithDouble:-0.0]]], nil);
     
-    STAssertEqualObjects(@"[0]", [writer stringWithObject:[NSArray arrayWithObject:[NSNumber numberWithFloat:0.0]]], nil);
-    STAssertEqualObjects(@"[-0]", [writer stringWithObject:[NSArray arrayWithObject:[NSNumber numberWithFloat:-0.0]]], nil);
+    STAssertEqualObjects(@"[0]", [writer stringWithObject:[NSArray arrayWithObject:[NSNumber numberWithFloat:(float)0.0]]], nil);
+    STAssertEqualObjects(@"[-0]", [writer stringWithObject:[NSArray arrayWithObject:[NSNumber numberWithFloat:(float)-0.0]]], nil);
     
     STAssertEqualObjects(@"[0]", [writer stringWithObject:[NSArray arrayWithObject:[NSNumber numberWithInt:0]]], nil);
     STAssertEqualObjects(@"[0]", [writer stringWithObject:[NSArray arrayWithObject:[NSNumber numberWithInt:-0]]], nil);
-		
-	/** TODO: I cannot get these tests to pass for the libjsontests target.
-	 
+			 
     STAssertEqualObjects(@"[0]", [writer stringWithObject:[NSArray arrayWithObject:[NSDecimalNumber numberWithDouble:0]]], nil);
     STAssertEqualObjects(@"[0]", [writer stringWithObject:[NSArray arrayWithObject:[NSDecimalNumber numberWithDouble:-0]]], nil);
 	
     STAssertEqualObjects(@"[0]", [writer stringWithObject:[NSArray arrayWithObject:[NSDecimalNumber numberWithFloat:0]]], nil);
     STAssertEqualObjects(@"[0]", [writer stringWithObject:[NSArray arrayWithObject:[NSDecimalNumber numberWithFloat:-0]]], nil);    
-	 */
 }
 
 - (void)testTimeInterval {
