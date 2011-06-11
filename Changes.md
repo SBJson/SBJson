@@ -11,11 +11,9 @@
   * Renamed Mac framework to SBJson.framework
   * Renamed iOS static lib to sbjson-ios.
   * Changed name of main header to be SBJson.h rather than JSON.h. A backward compatibility header is included, but this will be removed in the future.
-* Extracted the example applications to [their own
-project](https://github.com/stig/json-framework-examples) on GitHub.
-Expanded the Mac version to be a fully functional application that
-reformats JSON you put into one text field into another one.
-* Removed the header indirection
+* Expanded the Mac example app to be a fully functional application
+that reformats JSON you put into a text field.
+* Removed the header indirection hack by making more headers public.
 * Detect if NSCache is available and only use it if it is. This lets us support iOS versions prior to 4.0.
 
 ### Bug Fixes
