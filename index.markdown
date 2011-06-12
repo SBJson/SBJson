@@ -12,7 +12,7 @@ layout: default
 [download]: http://github.com/stig/json-framework/downloads
 [Git]: http://git-scm.com
 [Author]: http://stig.github.com
-[SBJsonStreamParserAdapter]: http://stig.github.com/json-framework/3.0/interfaceSBJsonStreamParserAdapter.html
+[api]: http://stig.github.com/json-framework/api/3.0
 
 # Overview
 
@@ -22,7 +22,7 @@ Selected features:
 
 * New BSD Lisence.
 * Easy-to-use API.
-* Streaming Support. See [SBJsonStreamParserAdapter][] API documentation.
+* Streaming Support. See SBJsonStreamParserAdapter in the [API docs][api].
 * Pretty-printing of JSON output.
 * Sorted dictionary keys in JSON output.
 * Configurable max recursion depth for parsing and writing.
