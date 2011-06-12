@@ -4,7 +4,7 @@
 
 ### Changes
 
-* Fleshed out [API documentation](http://stig.github.com/json-framework/3.0/)
+* Fleshed out the [API documentation][api].
 * Remove the (admittedly rather cool) JavaScript hack from the Contrib directory, as I don't want to get stuck maintaining JavaScript I don't understand after 3.0.
 * Moved content of Installation file to Readme.
 * [Issue 73][#73]: Project rename, to avoid clashing with Apple's internal JSON.framework
@@ -320,3 +320,4 @@ http://code.google.com/p/json-framework/wiki/ReleaseNotes
 [#1]: http://github.com/stig/json-framework/issues/1
 
 [bench]: http://github.com/samsoffes/json-benchmarks
+[api]: http://stig.github.com/json-framework/api/3.0
