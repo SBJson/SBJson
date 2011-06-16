@@ -172,7 +172,7 @@
 
 	for (;;) {
 
-        if ([state isKindOfClass:[SBJsonStreamParserStateError class]])
+        if ([state isError])
             return SBJsonStreamParserError;
 
         NSObject *token;
