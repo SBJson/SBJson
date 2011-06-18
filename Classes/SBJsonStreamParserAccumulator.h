@@ -30,11 +30,8 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonStreamParserAdapter.h"
 
-@interface SBJsonStreamParserAccumulator : NSObject <SBJsonStreamParserAdapterDelegate> {
-@private
-    id value;    
-}
+@interface SBJsonStreamParserAccumulator : NSObject <SBJsonStreamParserAdapterDelegate>
 
-@property (readonly, copy) id value;
+@property (copy) id value;
 
 @end

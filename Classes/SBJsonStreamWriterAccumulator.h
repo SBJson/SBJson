@@ -29,11 +29,8 @@
 
 #import "SBJsonStreamWriter.h"
 
-@interface SBJsonStreamWriterAccumulator : NSObject <SBJsonStreamWriterDelegate> {
-@private
-    NSMutableData *data;
-}
+@interface SBJsonStreamWriterAccumulator : NSObject <SBJsonStreamWriterDelegate>
 
-@property (readonly, copy) NSData* data;
+@property (readonly, copy) NSMutableData* data;
 
 @end

@@ -37,12 +37,7 @@
  @see @ref json2objc
  */
 
-@interface SBJsonWriter : NSObject {
-@private
-    NSString *error;
-    NSUInteger maxDepth;
-    BOOL sortKeys, humanReadable;
-}
+@interface SBJsonWriter : NSObject
 
 /**
  @brief The maximum recursing depth.

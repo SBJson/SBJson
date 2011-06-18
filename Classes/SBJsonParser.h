@@ -38,13 +38,7 @@
 
  */
 
-@interface SBJsonParser : NSObject {
-
-@private
-	NSString *error;
-    NSUInteger depth, maxDepth;
-
-}
+@interface SBJsonParser : NSObject
 
 /**
  @brief The maximum recursing depth.

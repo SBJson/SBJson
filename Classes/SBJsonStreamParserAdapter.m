@@ -115,7 +115,7 @@
 #pragma mark Delegate methods
 
 - (void)parserFoundObjectStart:(SBJsonStreamParser*)parser {
-	if (++depth > levelsToSkip) {
+	if (++depth > self.levelsToSkip) {
 		dict = [[NSMutableDictionary new] autorelease];
 		[stack addObject:dict];
 		currentType = SBJsonStreamParserAdapterObject;
@@ -127,7 +127,7 @@
 }
 
 - (void)parserFoundObjectEnd:(SBJsonStreamParser*)parser {
-	if (depth-- > levelsToSkip) {
+	if (depth-- > self.levelsToSkip) {
 		id value = [dict retain];
 		[self pop];
 		[self parser:parser found:value];
@@ -136,7 +136,7 @@
 }
 
 - (void)parserFoundArrayStart:(SBJsonStreamParser*)parser {
-	if (++depth > levelsToSkip) {
+	if (++depth > self.levelsToSkip) {
 		array = [[NSMutableArray new] autorelease];
 		[stack addObject:array];
 		currentType = SBJsonStreamParserAdapterArray;
@@ -144,7 +144,7 @@
 }
 
 - (void)parserFoundArrayEnd:(SBJsonStreamParser*)parser {
-	if (depth-- > levelsToSkip) {
+	if (depth-- > self.levelsToSkip) {
 		id value = [array retain];
 		[self pop];
 		[self parser:parser found:value];

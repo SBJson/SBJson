@@ -38,6 +38,7 @@
 @implementation SBJsonTokeniser
 
 @synthesize error = _error;
+@synthesize stream = _stream;
 
 - (id)init {
     self = [super init];
