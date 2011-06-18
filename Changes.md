@@ -1,5 +1,9 @@
 # JSON Framework Changes
 
+## Version 3.0 (June 18th, 2011)
+
+* Bump version number
+
 ## Version 3.0beta3 (June 11th, 2011)
 
 ### Changes
