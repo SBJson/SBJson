@@ -76,9 +76,9 @@ Copying the SBJson classes into your project isn't the only way to use this fram
 Links
 =====
 
-* [GitHub project page](http://github.com/stig/json-framework).
-* [Example Projects](http://github.com/stig/json-framework/Examples).
-* [Online API docs](http://stig.github.com/json-framework/api).
+* [GitHub project page](http://github.com/stig/json-framework)
+* [Example Projects](http://github.com/stig/json-framework/Examples)
+* [Online API docs][api]
 * [Frequently Asked Questions](http://github.com/stig/json-framework/wiki/FrequentlyAskedQuestions)
 
 [api]: http://stig.github.com/json-framework/api/3.0/
