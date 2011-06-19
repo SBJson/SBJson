@@ -16,6 +16,7 @@
     IBOutlet UITextField *password;
     IBOutlet UITextView *tweet;
     
+    NSURLConnection *theConnection;
     SBJsonStreamParser *parser;
     SBJsonStreamParserAdapter *adapter;
 }

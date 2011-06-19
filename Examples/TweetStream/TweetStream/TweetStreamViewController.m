@@ -14,10 +14,6 @@
 
 @implementation TweetStreamViewController
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -77,7 +73,7 @@
 											  cachePolicy:NSURLRequestUseProtocolCachePolicy
 										  timeoutInterval:60.0];
 	
-	[[[NSURLConnection alloc] initWithRequest:theRequest delegate:self] autorelease];
+	theConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
 }
 
 #pragma mark SBJsonStreamParserAdapterDelegate methods
@@ -130,9 +126,6 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [connection release];
-    [adapter release];
-    [parser release];
 }
 
 
