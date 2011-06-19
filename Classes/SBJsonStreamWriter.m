@@ -69,7 +69,7 @@ static id kStaticStringCache;
 	if (self) {
 		maxDepth = 32u;
         stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
-        state = [[SBJsonStreamWriterStateStart alloc] init];
+        state = [SBJsonStreamWriterStateStart sharedInstance];
     }
 	return self;
 }
