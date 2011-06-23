@@ -44,10 +44,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [_data release];
-    [super dealloc];
-}
 
 - (void)appendData:(NSData *)data_ {
     
@@ -90,7 +86,7 @@
             case '"':
             case '\\':
             case 0 ... 0x1f:
-                *string = [[[NSString alloc] initWithBytes:(_bytes + start) length:(_index - start) encoding:NSUTF8StringEncoding] autorelease];
+                *string = [[NSString alloc] initWithBytes:(_bytes + start) length:(_index - start) encoding:NSUTF8StringEncoding];
                 return YES;
                 break;
             default:
@@ -135,7 +131,7 @@
 }
 
 - (NSString*)stringWithRange:(NSRange)range {
-    return [[[NSString alloc] initWithBytes:_bytes + range.location length:range.length encoding:NSUTF8StringEncoding] autorelease];
+    return [[NSString alloc] initWithBytes:_bytes + range.location length:range.length encoding:NSUTF8StringEncoding];
     
 }
 

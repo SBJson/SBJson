@@ -41,11 +41,6 @@
     writer = [[SBJsonWriter alloc] init];
 }
 
-- (void)tearDown {
-    [parser release];
-    [writer release];
-}
-
 - (NSString*)otherFileName {
     return @"output";
 }

@@ -55,7 +55,7 @@
 
 @implementation Bool
 - (id)proxyForJson {
-    return [NSArray arrayWithObjects:[[True new] autorelease], [[False new] autorelease], nil];
+    return [NSArray arrayWithObjects:[[True alloc] init], [[False alloc] init], nil];
 }
 @end
 
@@ -76,11 +76,7 @@
 @implementation ProxyTest
 
 - (void)setUp {
-    writer = [SBJsonWriter new];
-}
-
-- (void)tearDown {
-    [writer release];
+    writer = [[SBJsonWriter alloc] init];
 }
 
 - (void)testUnsupportedWithoutProxy {

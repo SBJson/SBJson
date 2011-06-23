@@ -39,11 +39,7 @@
 @implementation WriterTest
 
 - (void)setUp {
-    writer = [SBJsonWriter new];
-}
-
-- (void)tearDown {
-    [writer release];
+    writer = [[SBJsonWriter alloc] init];
 }
 
 - (void)testInfinity {
@@ -73,7 +69,7 @@
 
 
 - (void)testWriteToStream {
-	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] init] autorelease];
+	SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] init];
 	
 	STAssertTrue([streamWriter writeArray:[NSArray array]], nil);
 	

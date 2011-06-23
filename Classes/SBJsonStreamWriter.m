@@ -83,13 +83,6 @@ static id kStaticStringCache;
 	return self;
 }
 
-- (void)dealloc {
-	self.error = nil;
-    self.state = nil;
-    [stateStack release];
-	[super dealloc];
-}
-
 #pragma mark Methods
 
 - (void)appendBytes:(const void *)bytes length:(NSUInteger)length {
