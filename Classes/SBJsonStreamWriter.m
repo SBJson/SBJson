@@ -34,6 +34,11 @@
 #import "SBJsonStreamWriterState.h"
 
 static NSDecimalNumber *kNotANumber;
+static NSNumber *kTrue;
+static NSNumber *kFalse;
+static NSNumber *kPositiveInfinity;
+static NSNumber *kNegativeInfinity;
+
 static id kStaticStringCache;
 
 
@@ -48,6 +53,10 @@ static id kStaticStringCache;
 
 + (void)initialize {
 	kNotANumber = [NSDecimalNumber notANumber];
+    kPositiveInfinity = [NSNumber numberWithDouble:+INFINITY];
+    kNegativeInfinity = [NSNumber numberWithDouble:-INFINITY];
+    kTrue = [NSNumber numberWithBool:YES];
+    kFalse = [NSNumber numberWithBool:NO];
     
     Class cacheClass = NSClassFromString(@"NSCache");
     if (cacheClass) {
@@ -321,7 +330,7 @@ static const char *strForChar(int c) {
 }
 
 - (BOOL)writeNumber:(NSNumber*)number {
-	if ((CFBooleanRef)number == kCFBooleanTrue || (CFBooleanRef)number == kCFBooleanFalse)
+	if (number == kTrue || number == kFalse)
 		return [self writeBool:[number boolValue]];
 
 	if ([state isInvalidState:self]) return NO;
@@ -329,19 +338,15 @@ static const char *strForChar(int c) {
 	[state appendSeparator:self];
 	if (humanReadable) [state appendWhitespace:self];
 
-	if ((CFNumberRef)number == kCFNumberPositiveInfinity) {
+	if ([kPositiveInfinity isEqualToNumber:number]) {
 		self.error = @"+Infinity is not a valid number in JSON";
 		return NO;
 
-	} else if ((CFNumberRef)number == kCFNumberNegativeInfinity) {
+	} else if ([kNegativeInfinity isEqualToNumber:number]) {
 		self.error = @"-Infinity is not a valid number in JSON";
 		return NO;
 
-	} else if ((CFNumberRef)number == kCFNumberNaN) {
-		self.error = @"NaN is not a valid number in JSON";
-		return NO;
-
-	} else if (number == kNotANumber) {
+	} else if ([kNotANumber isEqualToNumber:number]) {
 		self.error = @"NaN is not a valid number in JSON";
 		return NO;
 	}
