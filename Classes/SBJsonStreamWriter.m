@@ -33,7 +33,7 @@
 #import "SBJsonStreamWriter.h"
 #import "SBJsonStreamWriterState.h"
 
-static NSDecimalNumber *kNotANumber;
+static NSNumber *kNotANumber;
 static NSNumber *kTrue;
 static NSNumber *kFalse;
 static NSNumber *kPositiveInfinity;
