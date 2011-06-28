@@ -98,8 +98,14 @@ typedef enum {
  
  */
 @interface SBJsonStreamParser : NSObject {
+    BOOL supportMultipleDocuments;
+    NSString *error;    
+    id<SBJsonStreamParserDelegate> delegate;
+    NSUInteger maxDepth;
 @private
 	SBJsonTokeniser *tokeniser;
+    SBJsonStreamParserState *state;
+    NSMutableArray *stateStack;
 }
 
 @property (nonatomic, assign) SBJsonStreamParserState *state; // Private
