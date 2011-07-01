@@ -1,5 +1,6 @@
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
+!*.xcodeproj/project.xcworkspace
 /build
 *.pbxuser
 *.mode1v3
@@ -10,6 +11,4 @@ target/*
 profile
 *.svn
 /.svn/*
-*/*/xcuserdata
-*/*/*/xcuserdata
-*/*/*/*/xcuserdata
+xcuserdata
