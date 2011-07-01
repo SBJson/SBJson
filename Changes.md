@@ -1,5 +1,11 @@
 # JSON Framework Changes
 
+## Version 3.0.1 (July 1st, 2011)
+
+* [Issue80][#80]: Kill memory leak reported by DinosaurDad.
+* Fix typo in Readme
+* Bump versions.
+
 ## Version 3.0 (June 18th, 2011)
 
 * Bump version number
