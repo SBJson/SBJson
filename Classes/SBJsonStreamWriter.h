@@ -82,7 +82,9 @@
 
  */
 
-@interface SBJsonStreamWriter : NSObject
+@interface SBJsonStreamWriter : NSObject {
+    NSMutableDictionary *cache;
+}
 
 @property (nonatomic, assign) SBJsonStreamWriterState *state; // Internal
 @property (nonatomic, readonly, retain) NSMutableArray *stateStack; // Internal 
