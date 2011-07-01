@@ -9,11 +9,7 @@
 #import "TweetStreamViewController.h"
 #import <SBJson/SBJson.h>
 
-@interface TweetStreamViewController () <SBJsonStreamParserAdapterDelegate>
-@end
-
 @implementation TweetStreamViewController
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -46,25 +42,16 @@
     [username resignFirstResponder];
 	[password resignFirstResponder];
 	
-	// We don't want *all* the individual messages from the
-	// SBJsonStreamParser, just the top-level objects. The stream
-	// parser adapter exists for this purpose.
-	adapter = [[SBJsonStreamParserAdapter alloc] init];
-	
-	// Set ourselves as the delegate, so we receive the messages
-	// from the adapter.
-	adapter.delegate = self;
-	
-	// Create a new stream parser..
+	// Instantiate a stream parser. 
 	parser = [[SBJsonStreamParser alloc] init];
 	
-	// .. and set our adapter as its delegate.
-	parser.delegate = adapter;
-	
+	// Set ourselves as the delegate, so we receive messages from the parser.
+	parser.delegate = self;
+		
 	// Normally it's an error if JSON is followed by anything but
 	// whitespace. Setting this means that the parser will be
-	// expecting the stream to contain multiple whitespace-separated
-	// JSON documents.
+	// expecting the stream to contain multiple (possibly white-space separated)
+	// documents.
 	parser.supportMultipleDocuments = YES;
 	
 	NSString *url = @"http://stream.twitter.com/1/statuses/sample.json";
@@ -76,7 +63,7 @@
 	theConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
 }
 
-#pragma mark SBJsonStreamParserAdapterDelegate methods
+#pragma mark SBJsonStreamParserDelegate methods
 
 - (void)parser:(SBJsonStreamParser *)parser foundArray:(NSArray *)array {
     [NSException raise:@"unexpected" format:@"Should not get here"];

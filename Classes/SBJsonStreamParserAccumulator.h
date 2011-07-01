@@ -28,9 +28,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "SBJsonStreamParserAdapter.h"
+#import "SBJsonStreamParser.h"
 
-@interface SBJsonStreamParserAccumulator : NSObject <SBJsonStreamParserAdapterDelegate>
+@interface SBJsonStreamParserAccumulator : NSObject <SBJsonStreamParserDelegate>
 
 @property (copy) id value;
 
