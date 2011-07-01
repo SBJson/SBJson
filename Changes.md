@@ -1,9 +1,5 @@
 # JSON Framework Changes
 
-## Version 3.1 (TBD)
-
-* [Issue 79][#79]: Memory management is hard. Converted project to use Automatic Reference Counting (ARC).
-
 ## Version 3.0 (June 18th, 2011)
 
 * Bump version number
