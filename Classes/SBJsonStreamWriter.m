@@ -292,7 +292,7 @@ static const char *strForChar(int c) {
         const char *utf8 = [string UTF8String];
         NSUInteger written = 0, i = 0;
 
-        buf = [NSMutableData dataWithCapacity:len * 1.1f];
+        buf = [NSMutableData dataWithCapacity:(NSUInteger)(len * 1.1f)];
         [buf appendBytes:"\"" length:1];
 
         for (i = 0; i < len; i++) {
