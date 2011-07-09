@@ -32,8 +32,9 @@
 #import "SBJsonTokeniser.h"
 #import "SBJsonUTF8Stream.h"
 
-#define SBStringIsIllegalSurrogateHighCharacter(x) (((x) >= 0xd800) && ((x) <= 0xdfff))
-
+#define SBStringIsIllegalSurrogateHighCharacter(character) (((character) >= 0xD800UL) && ((character) <= 0xDFFFUL))
+#define SBStringIsSurrogateLowCharacter(character) ((character >= 0xDC00UL) && (character <= 0xDFFFUL))
+#define SBStringIsSurrogateHighCharacter(character) ((character >= 0xD800UL) && (character <= 0xDBFFUL))
 
 @implementation SBJsonTokeniser
 
@@ -194,7 +195,7 @@
                         return sbjson_token_error;
                     }
 
-                    if (CFStringIsSurrogateHighCharacter(hi)) {
+                    if (SBStringIsSurrogateHighCharacter(hi)) {
                         unichar lo;
 
                         if (![_stream haveRemainingCharacters:6])
@@ -207,7 +208,7 @@
                             return sbjson_token_error;
                         }
 
-                        if (!CFStringIsSurrogateLowCharacter(lo)) {
+                        if (!SBStringIsSurrogateLowCharacter(lo)) {
                             self.error = @"Invalid low character in surrogate pair";
                             return sbjson_token_error;
                         }
