@@ -501,6 +501,7 @@
 		BC1232331391D5CC00131607 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Stig Brautaset";
 			};
 			buildConfigurationList = BC1232361391D5CC00131607 /* Build configuration list for PBXProject "SBJson" */;
