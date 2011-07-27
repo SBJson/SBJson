@@ -257,7 +257,11 @@
             return sbjson_token_eof;
     }
 
+    unsigned long long mantissa = 0;
+    int mantissa_length = 0;
+    
     if (ch == '0') {
+        mantissa_length++;
         if (![_stream getNextUnichar:&ch])
             return sbjson_token_eof;
 
@@ -266,9 +270,6 @@
             return sbjson_token_error;
         }
     }
-
-    unsigned long long mantissa = 0;
-    int mantissa_length = 0;
 
     while ([digits characterIsMember:ch]) {
         mantissa *= 10;
