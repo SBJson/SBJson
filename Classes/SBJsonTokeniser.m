@@ -322,26 +322,26 @@
                 return sbjson_token_eof;
         }
 
-        short exp = 0;
-        short exp_length = 0;
+        short explicit_exponent = 0;
+        short explicit_exponent_length = 0;
         while ([digits characterIsMember:ch]) {
-            exp *= 10;
-            exp += (ch - '0');
-            exp_length++;
+            explicit_exponent *= 10;
+            explicit_exponent += (ch - '0');
+            explicit_exponent_length++;
 
             if (![_stream getNextUnichar:&ch])
                 return sbjson_token_eof;
         }
 
-        if (exp_length == 0) {
+        if (explicit_exponent_length == 0) {
             self.error = @"No digits in exponent";
             return sbjson_token_error;
         }
 
         if (expIsNegative)
-            exponent -= exp;
+            exponent -= explicit_exponent;
         else
-            exponent += exp;
+            exponent += explicit_exponent;
     }
 
     if (!mantissa_length && isNegative) {
