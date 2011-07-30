@@ -6,7 +6,6 @@ layout: default
 [issues]: http://github.com/stig/json-framework/issues
 [list]: http://groups.google.com/group/json-framework
 [faq]: http://github.com/stig/json-framework/wiki/FrequentlyAskedQuestions
-[examples]: http://github.com/stig/json-framework-examples
 [GitHub]: http://github.com/
 [browse]: http://github.com/stig/json-framework
 [download]: http://github.com/stig/json-framework/downloads
@@ -22,7 +21,7 @@ Selected features:
 
 * New BSD Lisence.
 * Easy-to-use API.
-* Streaming Support. See SBJsonStreamParserAdapter in the [API docs][api].
+* Streaming Support. See SBJsonStreamParser in the [API docs][api].
 * Pretty-printing of JSON output.
 * Sorted dictionary keys in JSON output.
 * Configurable max recursion depth for parsing and writing.
@@ -33,12 +32,8 @@ Selected features:
 
 API documentation generated from the source by [Doxygen](http://www.doxygen.org):
 
-* [Version 3.0](api/3.0/)
-* [Version 2.3](api/2.3/)
-
-# Examples
-
-Please check out the [examples][] available on [GitHub][].
+* [Version 3.1](api/3.1/) (Alpha)
+* [Version 3.0](api/3.0/) (Stable)
 
 # Support
 
