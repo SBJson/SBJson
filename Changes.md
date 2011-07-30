@@ -1,5 +1,11 @@
 # JSON Framework Changes
 
+## Version 3.1alpha1 (July 30th, 2011)
+
+* [Issue 9][#9]: Improve writing speed in samsoffes' benchmark.
+* [Issue 79][#79]: Automatic Reference Counting (ARC) Support.
+* [Issue 83][#83]: Roll SBJsonStreamParserAdapter into SBJsonStreamParser.
+
 ## Version 3.0.2 (July 27th, 2011)
 
 * [Issue 88][#88]: Fix parsing of -0 into the integer 0.
