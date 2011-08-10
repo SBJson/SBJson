@@ -1,5 +1,10 @@
 # JSON Framework Changes
 
+## Version 3.0.3 (August 10th, 2011)
+
+* [Issue 91][#91]: Fix memory leak of error string in certain situations.
+* [Issue 89][#89]: Avoid shadowing global variable.
+
 ## Version 3.0.2 (July 27th, 2011)
 
 * [Issue 88][#88]: Fix parsing of -0 into the integer 0.
