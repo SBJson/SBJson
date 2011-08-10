@@ -51,6 +51,7 @@
 }
 
 - (void)dealloc {
+    [_error release];
     [_stream release];
     [super dealloc];
 }
