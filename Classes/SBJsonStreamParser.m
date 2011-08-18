@@ -266,19 +266,25 @@ static NSNull *kNull;
 - (SBJsonStreamParserStatus)parse:(NSData *)data_ {
 	[tokeniser appendData:data_];
 
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
 	for (;;) {
 
-        if ([state isError])
+        if ([state isError]) {
+			[pool drain];
             return SBJsonStreamParserError;
+		}
 
         NSObject *token;
 		sbjson_token_t tok = [tokeniser getToken:&token];
 		switch (tok) {
 			case sbjson_token_eof:
+				[pool drain];
                 return [state parserShouldReturn:self];
 				break;
 
 			case sbjson_token_error:
+				[pool drain];
 				self.state = [SBJsonStreamParserStateError sharedInstance];
 				self.error = tokeniser.error;
 				return SBJsonStreamParserError;
@@ -287,6 +293,7 @@ static NSNull *kNull;
 			default:
 
 				if (![state parser:self shouldAcceptToken:tok]) {
+					[pool drain];
                     [self handleTokenNotExpectedHere: tok];
 					return SBJsonStreamParserError;
 				}
@@ -347,6 +354,8 @@ static NSNull *kNull;
 				break;
 		}
 	}
+	
+	[pool drain];	
 	return SBJsonStreamParserComplete;
 }
 

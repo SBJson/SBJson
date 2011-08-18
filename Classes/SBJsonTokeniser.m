@@ -152,23 +152,28 @@
                 self.error = @"Broken Unicode encoding";
                 return sbjson_token_error;
             }
-                
-        
-            if (![_stream getUnichar:&ch])
+            
+            if (![_stream getUnichar:&ch]) {
+                [string release];
                 return sbjson_token_eof;
-
+            }
+            
             if (acc) {
                 [acc appendString:string];
-            
+                
             } else if (ch == '"') {
-                *token = string;
+                *token = [[string retain] autorelease];
+                [string release];
                 [_stream skip];
                 return sbjson_token_string;
-
+                
             } else {
                 acc = [[string mutableCopy] autorelease];
             }
+            
+            [string release];
         }
+
         
         switch (ch) {
             case 0 ... 0x1F:
