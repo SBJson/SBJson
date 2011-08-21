@@ -1,5 +1,10 @@
 # JSON Framework Changes
 
+## Version 3.0.4 (TBD)
+
+* Make the two examples part of the default workspace.
+* [Issue 93][#91]: Fix memory issue when parsing massive documents.
+
 ## Version 3.0.3 (August 10th, 2011)
 
 * [Issue 91][#91]: Fix memory leak of error string in certain situations.
