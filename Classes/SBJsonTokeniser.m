@@ -144,30 +144,36 @@
         unichar ch;
         {
             NSMutableString *string = nil;
-            if (![_stream getSimpleString:&string])
-                return sbjson_token_eof;
+            @try {
+                if (![_stream getRetainedStringFragment:&string])
+                    return sbjson_token_eof;
             
-            if (!string) {
-                self.error = @"Broken Unicode encoding";
-                return sbjson_token_error;
-            }
+                if (!string) {
+                    self.error = @"Broken Unicode encoding";
+                    return sbjson_token_error;
+                }
+            
+                if (![_stream getUnichar:&ch]) {
+                    return sbjson_token_eof;
+                }
+            
+                if (acc) {
+                    [acc appendString:string];
+
+                } else if (ch == '"') {
+                    *token = [[string copy] autorelease];
+                    [_stream skip];
+                    return sbjson_token_string;
                 
-        
-            if (![_stream getUnichar:&ch])
-                return sbjson_token_eof;
-
-            if (acc) {
-                [acc appendString:string];
-            
-            } else if (ch == '"') {
-                *token = string;
-                [_stream skip];
-                return sbjson_token_string;
-
-            } else {
-                acc = [[string mutableCopy] autorelease];
+                } else {
+                    acc = [[string mutableCopy] autorelease];
+                }
+            }
+            @finally {
+                [string release];
             }
         }
+
         
         switch (ch) {
             case 0 ... 0x1F:

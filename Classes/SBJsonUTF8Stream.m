@@ -83,7 +83,7 @@
     return NO;
 }
 
-- (BOOL)getSimpleString:(NSString **)string {
+- (BOOL)getRetainedStringFragment:(NSString **)string {
     NSUInteger start = _index;
     while (_index < _length) {
         switch (_bytes[_index]) {
