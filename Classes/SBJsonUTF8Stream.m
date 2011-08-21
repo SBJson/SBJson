@@ -83,14 +83,14 @@
     return NO;
 }
 
-- (BOOL)getSimpleString:(NSString **)string {
+- (BOOL)getRetainedStringFragment:(NSString **)string {
     NSUInteger start = _index;
     while (_index < _length) {
         switch (_bytes[_index]) {
             case '"':
             case '\\':
             case 0 ... 0x1f:
-                *string = [[[NSString alloc] initWithBytes:(_bytes + start) length:(_index - start) encoding:NSUTF8StringEncoding] autorelease];
+                *string = [[NSString alloc] initWithBytes:(_bytes + start) length:(_index - start) encoding:NSUTF8StringEncoding];
                 return YES;
                 break;
             default:

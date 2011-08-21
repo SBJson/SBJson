@@ -264,90 +264,97 @@ static NSNull *kNull;
 }
 
 - (SBJsonStreamParserStatus)parse:(NSData *)data_ {
-	[tokeniser appendData:data_];
-
-	for (;;) {
-
-        if ([state isError])
-            return SBJsonStreamParserError;
-
-        NSObject *token;
-		sbjson_token_t tok = [tokeniser getToken:&token];
-		switch (tok) {
-			case sbjson_token_eof:
-                return [state parserShouldReturn:self];
-				break;
-
-			case sbjson_token_error:
-				self.state = [SBJsonStreamParserStateError sharedInstance];
-				self.error = tokeniser.error;
-				return SBJsonStreamParserError;
-				break;
-
-			default:
-
-				if (![state parser:self shouldAcceptToken:tok]) {
-                    [self handleTokenNotExpectedHere: tok];
-					return SBJsonStreamParserError;
-				}
-
-				switch (tok) {
-					case sbjson_token_object_start:
-						[self handleObjectStart];
-						break;
-
-					case sbjson_token_object_end:
-                        [self handleObjectEnd: tok];
-						break;
-
-					case sbjson_token_array_start:
-						[self handleArrayStart];
-						break;
-
-					case sbjson_token_array_end:
-                        [self handleArrayEnd: tok];
-						break;
-
-					case sbjson_token_separator:
-					case sbjson_token_keyval_separator:
-						[state parser:self shouldTransitionTo:tok];
-						break;
-
-					case sbjson_token_true:
-                        [self parserFoundObject:kTrue];
-						[state parser:self shouldTransitionTo:tok];
-						break;
-
-					case sbjson_token_false:
-                        [self parserFoundObject:kFalse];
-						[state parser:self shouldTransitionTo:tok];
-						break;
-
-					case sbjson_token_null:
-                        [self parserFoundObject:kNull];
-						[state parser:self shouldTransitionTo:tok];
-						break;
-
-					case sbjson_token_number:
-                        [self parserFoundObject:token];
-						[state parser:self shouldTransitionTo:tok];
-						break;
-
-					case sbjson_token_string:
-                        if ([state needKey])
-                            [keyStack addObject:token];
-                        else
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    @try {
+        [tokeniser appendData:data_];
+        
+        for (;;) {
+            
+            if ([state isError])
+                return SBJsonStreamParserError;
+            
+            NSObject *token;
+            sbjson_token_t tok = [tokeniser getToken:&token];
+            switch (tok) {
+                case sbjson_token_eof:
+                    return [state parserShouldReturn:self];
+                    break;
+                    
+                case sbjson_token_error:
+                    self.state = [SBJsonStreamParserStateError sharedInstance];
+                    self.error = tokeniser.error;
+                    return SBJsonStreamParserError;
+                    break;
+                    
+                default:
+                    
+                    if (![state parser:self shouldAcceptToken:tok]) {
+                        [self handleTokenNotExpectedHere: tok];
+                        return SBJsonStreamParserError;
+                    }
+                    
+                    switch (tok) {
+                        case sbjson_token_object_start:
+                            [self handleObjectStart];
+                            break;
+                            
+                        case sbjson_token_object_end:
+                            [self handleObjectEnd: tok];
+                            break;
+                            
+                        case sbjson_token_array_start:
+                            [self handleArrayStart];
+                            break;
+                            
+                        case sbjson_token_array_end:
+                            [self handleArrayEnd: tok];
+                            break;
+                            
+                        case sbjson_token_separator:
+                        case sbjson_token_keyval_separator:
+                            [state parser:self shouldTransitionTo:tok];
+                            break;
+                            
+                        case sbjson_token_true:
+                            [self parserFoundObject:kTrue];
+                            [state parser:self shouldTransitionTo:tok];
+                            break;
+                            
+                        case sbjson_token_false:
+                            [self parserFoundObject:kFalse];
+                            [state parser:self shouldTransitionTo:tok];
+                            break;
+                            
+                        case sbjson_token_null:
+                            [self parserFoundObject:kNull];
+                            [state parser:self shouldTransitionTo:tok];
+                            break;
+                            
+                        case sbjson_token_number:
                             [self parserFoundObject:token];
-						[state parser:self shouldTransitionTo:tok];
-						break;
-
-					default:
-						break;
-				}
-				break;
-		}
-	}
-	return SBJsonStreamParserComplete;
+                            [state parser:self shouldTransitionTo:tok];
+                            break;
+                            
+                        case sbjson_token_string:
+                            if ([state needKey])
+                                [keyStack addObject:token];
+                            else
+                                [self parserFoundObject:token];
+                            [state parser:self shouldTransitionTo:tok];
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                    break;
+            }
+        }
+        return SBJsonStreamParserComplete;
+        
+    }
+    @finally {
+        [pool drain];
+    }
 }
 
 
