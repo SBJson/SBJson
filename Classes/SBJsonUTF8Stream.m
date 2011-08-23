@@ -90,7 +90,7 @@
             case '"':
             case '\\':
             case 0 ... 0x1f:
-                *string = [[[NSString alloc] initWithBytes:(_bytes + start) length:(_index - start) encoding:NSUTF8StringEncoding] autorelease];
+                *string = [[NSString alloc] initWithBytes:(_bytes + start) length:(_index - start) encoding:NSUTF8StringEncoding];
                 return YES;
                 break;
             default:
