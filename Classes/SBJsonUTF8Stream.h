@@ -37,6 +37,7 @@
     const char *_bytes;
     NSMutableData *_data;
     NSUInteger _length;
+	NSUInteger _index;
 }
 
 @property (assign) NSUInteger index;

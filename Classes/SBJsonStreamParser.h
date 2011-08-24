@@ -136,6 +136,14 @@ typedef enum {
 	NSMutableArray *stack;
 	
 	SBJsonStreamParserType currentType;
+	
+	NSUInteger levelsToSkip;
+	BOOL supportMultipleDocuments;
+	NSString *error;
+	id<SBJsonStreamParserDelegate> delegate;
+	NSUInteger maxDepth;
+	SBJsonStreamParserState *state;
+	NSMutableArray *stateStack;
 }
 
 @property (nonatomic, assign) SBJsonStreamParserState *state; // Private
