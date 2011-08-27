@@ -1,9 +1,9 @@
 # JSON Framework Changes
 
-## Version 3.0.4 (TBD)
+## Version 3.0.4 (August 27th, 2011)
 
 * Make the two examples part of the default workspace.
-* [Issue 93][#91]: Fix memory issue when parsing massive documents.
+* [Issue 93][#91]: Add a couple of autorelease pools so we can parse massive documents without eating all available memory.
 
 ## Version 3.0.3 (August 10th, 2011)
 
