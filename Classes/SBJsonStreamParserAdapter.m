@@ -59,11 +59,6 @@
 	return self;
 }	
 
-- (void)dealloc {
-	[keyStack release];
-	[stack release];
-	[super dealloc];
-}
 
 #pragma mark Private methods
 
@@ -116,7 +111,7 @@
 
 - (void)parserFoundObjectStart:(SBJsonStreamParser*)parser {
 	if (++depth > self.levelsToSkip) {
-		dict = [[NSMutableDictionary new] autorelease];
+		dict = [NSMutableDictionary new];
 		[stack addObject:dict];
 		currentType = SBJsonStreamParserAdapterObject;
 	}
@@ -128,16 +123,15 @@
 
 - (void)parserFoundObjectEnd:(SBJsonStreamParser*)parser {
 	if (depth-- > self.levelsToSkip) {
-		id value = [dict retain];
+		id value = dict;
 		[self pop];
 		[self parser:parser found:value];
-		[value release];
 	}
 }
 
 - (void)parserFoundArrayStart:(SBJsonStreamParser*)parser {
 	if (++depth > self.levelsToSkip) {
-		array = [[NSMutableArray new] autorelease];
+		array = [NSMutableArray new];
 		[stack addObject:array];
 		currentType = SBJsonStreamParserAdapterArray;
 	}
@@ -145,10 +139,9 @@
 
 - (void)parserFoundArrayEnd:(SBJsonStreamParser*)parser {
 	if (depth-- > self.levelsToSkip) {
-		id value = [array retain];
+		id value = array;
 		[self pop];
 		[self parser:parser found:value];
-		[value release];
 	}
 }
 

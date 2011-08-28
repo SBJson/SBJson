@@ -33,19 +33,15 @@
 
 @synthesize value;
 
-- (void)dealloc {
-    [value release];
-    [super dealloc];
-}
 
 #pragma mark SBJsonStreamParserAdapterDelegate
 
 - (void)parser:(SBJsonStreamParser*)parser foundArray:(NSArray *)array {
-	value = [array retain];
+	value = array;
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundObject:(NSDictionary *)dict {
-	value = [dict retain];
+	value = dict;
 }
 
 @end
