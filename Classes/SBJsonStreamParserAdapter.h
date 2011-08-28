@@ -70,8 +70,9 @@ typedef enum {
  most likely find it much more convenient to use an instance of this class and
  implement the SBJsonStreamParserAdapterDelegate protocol instead.
  
- Normally you would only get one call from either the -parser:foundArray: or
- -parser:foundObject: method. However, if your inputs contains multiple JSON
+ The default behaviour is that the delegate only receives one call from
+ either the -parser:foundArray: or -parser:foundObject: method when the
+ document is fully parsed. However, if your inputs contains multiple JSON
  documents and you set the parser's -supportMultipleDocuments property to YES
  you will get one call for each full method.
  
