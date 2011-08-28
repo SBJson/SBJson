@@ -3,11 +3,25 @@ SBJson (aka json-framework)
 
 JSON (JavaScript Object Notation) is a light-weight data interchange format that's easy to read and write for humans and computers alike. This library implements strict JSON parsing and generation in Objective-C.
 
-### Streaming JSON Support
+New Features, Changes, and Notable Enhancements in 3.0
+------------------------------------------------------
 
-SBJson supports parsing of documents chunk-by-chunk, suitable for use with *NSURLConnection*. This means you can start parsing a JSON document before it is fully downloaded. Depending how you configure the delegates you can choose to have the entire document delivered to your process when it's finished parsing, or delivered bit-by-bit as records on a particular depth finishes downloading. For more details see *SBJsonStreamParser* in the [API docs][api].
+### JSON Stream Support
+
+We now support parsing of documents split into several NSData chunks, like those returned by *NSURLConnection*. This means you can start parsing a JSON document before it is fully downloaded. Depending how you configure the delegates you can chose to have the entire document delivered to your process when it's finished parsing, or delivered bit-by-bit as records on a particular level finishes downloading. For more details see *SBJsonStreamParser* and *SBJsonStreamParserAdapter* in the [API docs][api].
 
 There is also support for *writing to* JSON streams. This means you can write huge JSON documents to disk, or an HTTP destination, without having to hold the entire structure in memory. You can use this to generate a stream of tick data for a stock trading simulation, for example. For more information see *SBJsonStreamWriter* in the [API docs][api].
+
+### Parse and write UTF8-encoded NSData
+
+The internals of *SBJsonParser* and *SBJsonWriter* have been rewritten to be NSData based. It is no longer necessary to convert data returned by NSURLConnection into an NSString before feeding it to the parser. The old NSString-oriented API methods still exists, but now converts their inputs to NSData objects and delegates to the new methods.
+
+### Project renamed to SBJson
+
+The project was renamed to avoid clashing with Apple's private JSON.framework. (And to make it easier to Google for.)
+
+* If you copy the classes into your project then all you need to update is to change the header inclusion from `#import "JSON.h"` to `#import "SBJson.h"`.
+* If you link to the library rather than copy the classes you have to change the library you link to. On the Mac `JSON.framework` became `SBJson.framework`. On iOS `libjson.a` became `libsbjson-ios.a`. In both cases you now have to `#import <SBJson/SBJson.h>` in your code.
 
 ### API documentation integrated with Xcode
 
@@ -53,7 +67,11 @@ If you're upgrading from a previous version, make sure you're deleting the old S
 Linking rather than copying
 ---------------------------
 
-Copying the SBJson classes into your project isn't the only way to use this framework. (Though it is the simplest.) With Xcode 4's workspaces it has become much simpler to link to dependant projects. Linking is required if you want to use it with ARC (Automatic Reference Counting). The two examples in this distribution shows how to do the linking, for both Mac and iOS projects.
+Copying the SBJson classes into your project isn't the only way to use this framework. (Though it is the simplest.) With Xcode 4's workspaces it has become much simpler to link to dependant projects. The examples in the distribution link to the iOS library and Mac framework, respectively.
+
+* [Linking to JSON Framework on iOS](http://github.com/stig/JsonSampleIPhone)
+* [Linking to JSON Framework on the Mac](http://github.com/stig/JsonSampleMac)
+
 
 Links
 =====

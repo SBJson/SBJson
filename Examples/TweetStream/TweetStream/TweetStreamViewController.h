@@ -7,15 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <SBJson/SBJson.h>
- 
-@interface TweetStreamViewController : UIViewController <SBJsonStreamParserDelegate> {
+
+@class SBJsonStreamParser;
+@class SBJsonStreamParserAdapter;
+
+@interface TweetStreamViewController : UIViewController {
     IBOutlet UITextField *username;
     IBOutlet UITextField *password;
     IBOutlet UITextView *tweet;
     
     NSURLConnection *theConnection;
     SBJsonStreamParser *parser;
+    SBJsonStreamParserAdapter *adapter;
 }
 
 - (IBAction)go;

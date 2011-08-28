@@ -35,20 +35,8 @@
 #import "SBJsonStreamParserState.h"
 #import <limits.h>
 
-static NSNumber *kTrue;
-static NSNumber *kFalse;
-static NSNull *kNull;
-
-@interface SBJsonStreamParser ()
-
-- (void)pop;
-- (void)parserFoundObject:(id)obj;
-
-@end
-
 @implementation SBJsonStreamParser
 
-@synthesize levelsToSkip;
 @synthesize supportMultipleDocuments;
 @synthesize error;
 @synthesize delegate;
@@ -58,12 +46,6 @@ static NSNull *kNull;
 
 #pragma mark Housekeeping
 
-+ (void)initialize {
-    kTrue = [[NSNumber alloc] initWithBool:YES];
-    kFalse = [[NSNumber alloc] initWithBool:NO];
-    kNull = [NSNull null];
-}
-
 - (id)init {
 	self = [super init];
 	if (self) {
@@ -71,19 +53,13 @@ static NSNull *kNull;
         stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
         state = [SBJsonStreamParserStateStart sharedInstance];
 		tokeniser = [[SBJsonTokeniser alloc] init];
-        
-        keyStack = [[NSMutableArray alloc] initWithCapacity:32];
-		stack = [[NSMutableArray alloc] initWithCapacity:32];		
-		currentType = SBJsonStreamParserNone;
-
 	}
 	return self;
 }
 
 - (void)dealloc {
-    [keyStack release];
-	[stack release];
-    [error release];
+	self.error = nil;
+    self.state = nil;
 	[stateStack release];
 	[tokeniser release];
 	[super dealloc];
@@ -147,112 +123,40 @@ static NSNull *kNull;
     self.state = [SBJsonStreamParserStateError sharedInstance];
 }
 
-
-- (void)pop {
-	[stack removeLastObject];
-	array = nil;
-	dict = nil;
-	currentType = SBJsonStreamParserNone;
-	
-	id value = [stack lastObject];
-	
-	if ([value isKindOfClass:[NSArray class]]) {
-		array = value;
-		currentType = SBJsonStreamParserArray;
-	} else if ([value isKindOfClass:[NSDictionary class]]) {
-		dict = value;
-		currentType = SBJsonStreamParserObject;
-	}
-}
-
-- (void)parserFoundObject:(id)obj {
-	NSParameterAssert(obj);
-	
-	switch (currentType) {
-		case SBJsonStreamParserArray:
-			[array addObject:obj];
-			break;
-            
-		case SBJsonStreamParserObject:
-			NSParameterAssert(keyStack.count);
-			[dict setObject:obj forKey:[keyStack lastObject]];
-			[keyStack removeLastObject];
-			break;
-			
-		case SBJsonStreamParserNone:
-			if ([obj isKindOfClass:[NSArray class]]) {
-				[delegate parser:self foundArray:obj];
-			} else {
-				[delegate parser:self foundObject:obj];
-			}				
-			break;
-            
-		default:
-			break;
-	}
-}
-
 - (void)handleObjectStart {
-	if (depth >= maxDepth) {
+	if (stateStack.count >= maxDepth) {
         [self maxDepthError];
         return;
 	}
-    
+
+    [delegate parserFoundObjectStart:self];
     [stateStack addObject:state];
     self.state = [SBJsonStreamParserStateObjectStart sharedInstance];
-
-	if (++depth > levelsToSkip) {
-		dict = [[NSMutableDictionary alloc] init];
-		[stack addObject:dict];
-        [dict release];
-        
-		currentType = SBJsonStreamParserObject;
-	}
 }
 
 - (void)handleObjectEnd: (sbjson_token_t) tok  {
     self.state = [stateStack lastObject];
     [stateStack removeLastObject];
     [state parser:self shouldTransitionTo:tok];
-
-	if (depth-- > levelsToSkip) {
-		id value = [dict retain];
-		[self pop];
-		[self parserFoundObject:value];
-		[value release];
-	}
+    [delegate parserFoundObjectEnd:self];
 }
 
 - (void)handleArrayStart {
-    
-	if (depth >= maxDepth) {
+	if (stateStack.count >= maxDepth) {
         [self maxDepthError];
         return;
     }
-    
+	
+	[delegate parserFoundArrayStart:self];
     [stateStack addObject:state];
     self.state = [SBJsonStreamParserStateArrayStart sharedInstance];
-    
-	if (++depth > levelsToSkip) {
-		array = [[NSMutableArray alloc] init];
-		[stack addObject:array];
-        [array release];
-        
-		currentType = SBJsonStreamParserArray;
-	}
 }
 
 - (void)handleArrayEnd: (sbjson_token_t) tok  {
     self.state = [stateStack lastObject];
     [stateStack removeLastObject];
     [state parser:self shouldTransitionTo:tok];
-
-	if (depth-- > levelsToSkip) {
-		id value = [array retain];
-		[self pop];
-		[self parserFoundObject:value];
-		[value release];
-	}
+    [delegate parserFoundArrayEnd:self];
 }
 
 - (void) handleTokenNotExpectedHere: (sbjson_token_t) tok  {
@@ -314,30 +218,30 @@ static NSNull *kNull;
 						break;
 
 					case sbjson_token_true:
-                        [self parserFoundObject:kTrue];
+						[delegate parser:self foundBoolean:YES];
 						[state parser:self shouldTransitionTo:tok];
 						break;
 
 					case sbjson_token_false:
-                        [self parserFoundObject:kFalse];
+						[delegate parser:self foundBoolean:NO];
 						[state parser:self shouldTransitionTo:tok];
 						break;
 
 					case sbjson_token_null:
-                        [self parserFoundObject:kNull];
+						[delegate parserFoundNull:self];
 						[state parser:self shouldTransitionTo:tok];
 						break;
 
 					case sbjson_token_number:
-                        [self parserFoundObject:token];
+                        [delegate parser:self foundNumber:(NSNumber*)token];
 						[state parser:self shouldTransitionTo:tok];
 						break;
 
 					case sbjson_token_string:
                         if ([state needKey])
-                            [keyStack addObject:token];
+                            [delegate parser:self foundObjectKey:(NSString*)token];
                         else
-                            [self parserFoundObject:token];
+                            [delegate parser:self foundString:(NSString*)token];
 						[state parser:self shouldTransitionTo:tok];
 						break;
 
@@ -349,6 +253,5 @@ static NSNull *kNull;
 	}
 	return SBJsonStreamParserComplete;
 }
-
 
 @end

@@ -38,7 +38,7 @@
     [super dealloc];
 }
 
-#pragma mark SBJsonStreamParserDelegate
+#pragma mark SBJsonStreamParserAdapterDelegate
 
 - (void)parser:(SBJsonStreamParser*)parser foundArray:(NSArray *)array {
 	value = [array retain];
