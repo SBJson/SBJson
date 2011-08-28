@@ -1,5 +1,12 @@
 # JSON Framework Changes
 
+## Version 3.1alpha2 (August 28th, 2011)
+
+* Revert fix to [Issue 83][#83]. People are already using the low-level protocol.
+* [Issue 88][#88]: Fix parsing of -0 into the integer 0.
+* [Issue 86][#86]: Make framework compile on Leopard.
+* [Issue 91][#91]: Fix leak of error string in certain situations.
+
 ## Version 3.1alpha1 (July 30th, 2011)
 
 * [Issue 9][#9]: Improve writing speed in samsoffes' benchmark.
