@@ -168,8 +168,7 @@
 }
 
 - (SBJsonStreamParserStatus)parse:(NSData *)data_ {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    @try {
+    @autoreleasepool {
         [tokeniser appendData:data_];
         
         for (;;) {
@@ -254,10 +253,6 @@
             }
         }
         return SBJsonStreamParserComplete;
-
-    }
-    @finally {
-        [pool drain];
     }
 }
 
