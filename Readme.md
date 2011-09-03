@@ -67,10 +67,12 @@ If you're upgrading from a previous version, make sure you're deleting the old S
 Linking rather than copying
 ---------------------------
 
-Copying the SBJson classes into your project isn't the only way to use this framework. (Though it is the simplest.) With Xcode 4's workspaces it has become much simpler to link to dependant projects. The examples in the distribution link to the iOS library and Mac framework, respectively.
+Copying the SBJson classes into your project isn't the only way to use this framework. 
+With Xcode 4's workspaces it has become much simpler to link to dependant projects.
+The examples in the distribution link to the iOS library and Mac framework, respectively. 
+Des Hartman wrote [a blog post with step-by-step instructions for iOS][link-ios].
 
-* [Linking to JSON Framework on iOS](http://github.com/stig/JsonSampleIPhone)
-* [Linking to JSON Framework on the Mac](http://github.com/stig/JsonSampleMac)
+[link-ios]: http://deshartman.wordpress.com/2011/09/02/configuring-sbjson-framework-for-xcode-4-2/
 
 
 Links
