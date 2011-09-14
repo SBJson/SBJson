@@ -62,7 +62,7 @@
     [_data appendData:data_];
     
     // This is an optimisation. 
-    _bytes = [_data bytes];
+    _bytes = (const char*)[_data bytes];
     _length = [_data length];
 }
 
@@ -126,7 +126,7 @@
 }
 
 - (BOOL)skipCharacters:(const char *)chars length:(NSUInteger)len {
-    const void *bytes = [_data bytes] + _index;
+    const void *bytes = ((const char*)[_data bytes]) + _index;
     if (!memcmp(bytes, chars, len)) {
         _index += len;
         return YES;
