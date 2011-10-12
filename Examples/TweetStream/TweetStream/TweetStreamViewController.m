@@ -67,7 +67,7 @@
 	// JSON documents.
 	parser.supportMultipleDocuments = YES;
 	
-	NSString *url = @"http://stream.twitter.com/1/statuses/sample.json";
+	NSString *url = @"https://stream.twitter.com/1/statuses/sample.json";
 	
 	NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:url]
 											  cachePolicy:NSURLRequestUseProtocolCachePolicy
