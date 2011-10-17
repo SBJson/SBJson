@@ -3,6 +3,14 @@ SBJson (aka json-framework)
 
 JSON (JavaScript Object Notation) is a light-weight data interchange format that's easy to read and write for humans and computers alike. This library implements strict JSON parsing and generation in Objective-C.
 
+Notable changes in 3.1
+----------------------
+
+### Automatic Reference Counting (ARC) Support
+
+Version 3.1 requires Xcode 4.2 to build, because previous versions did not have ARC support. If you can't use Xcode 4.2, or for some reason can't use ARC, you need to stick with SBJson version 3.0.
+
+
 New Features, Changes, and Notable Enhancements in 3.0
 ------------------------------------------------------
 
@@ -67,9 +75,9 @@ If you're upgrading from a previous version, make sure you're deleting the old S
 Linking rather than copying
 ---------------------------
 
-Copying the SBJson classes into your project isn't the only way to use this framework. 
+Copying the SBJson classes into your project isn't the only way to use this framework.
 With Xcode 4's workspaces it has become much simpler to link to dependant projects.
-The examples in the distribution link to the iOS library and Mac framework, respectively. 
+The examples in the distribution link to the iOS library and Mac framework, respectively.
 Des Hartman wrote [a blog post with step-by-step instructions for iOS][link-ios].
 
 [link-ios]: http://deshartman.wordpress.com/2011/09/02/configuring-sbjson-framework-for-xcode-4-2/
