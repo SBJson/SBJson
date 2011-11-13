@@ -35,13 +35,11 @@ The project was renamed to avoid clashing with Apple's private JSON.framework. (
 
 The *InstallDocumentation.sh* script allows you to generate [API documentation][api] from the source and install it into Xcode, so it's always at your fingertips. (This script requires [Doxygen][] to be installed.) After running the script from the top-level directory, open Xcode's documentation window and search for SBJson. (You might have to close and re-open Xcode for the changes to take effect.)
 
-### TweetStream Example Project
+### Example Projects
 
-An example project showing how to use the new streaming functionality to interact with Twitter's multi-document streams. This also shows how to link to the iOS static lib rather than having to copy the classes into your project.
-
-### DisplayPretty Example Project
-
-A small Mac example project showing how to link to an external JSON framework rather than copying the sources into your project. This is a fully functional (though simplistic) application that takes JSON input from a text field and presents it nicely formatted into another text field.
+These can be found in the Examples folder in the distribution.
+* TweetStream: An exampleshowing how to use the new streaming functionality to interact with Twitter's multi-document streams. This also shows how to link to the iOS static lib rather than having to copy the classes into your project.
+* DisplayPretty: A small Mac example project showing how to link to an external JSON framework rather than copying the sources into your project. This is a fully functional (though simplistic) application that takes JSON input from a text field and presents it nicely formatted into another text field.
 
 Features also present in previous versions
 ------------------------------------------
@@ -87,7 +85,6 @@ Links
 =====
 
 * [GitHub project page](http://github.com/stig/json-framework)
-* [Example Projects](http://github.com/stig/json-framework/Examples)
 * [Online API docs][api]
 * [Frequently Asked Questions](http://github.com/stig/json-framework/wiki/FrequentlyAskedQuestions)
 
