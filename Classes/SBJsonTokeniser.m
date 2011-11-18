@@ -141,7 +141,7 @@
         {
             NSMutableString *string = nil;
             
-            if (![_stream getRetainedStringFragment:&string])
+            if (![_stream getStringFragment:&string])
                 return sbjson_token_eof;
             
             if (!string) {
@@ -149,9 +149,8 @@
                 return sbjson_token_error;
             }
             
-            if (![_stream getUnichar:&ch]) {
+            if (![_stream getUnichar:&ch])
                 return sbjson_token_eof;
-            }
             
             if (acc) {
                 [acc appendString:string];

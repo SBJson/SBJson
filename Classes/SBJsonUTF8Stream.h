@@ -51,7 +51,7 @@
 
 - (BOOL)getUnichar:(unichar*)ch;
 - (BOOL)getNextUnichar:(unichar*)ch;
-- (BOOL)getRetainedStringFragment:(NSString**)string;
+- (BOOL)getStringFragment:(NSString**)string;
 
 - (NSString*)stringWithRange:(NSRange)range;
 
