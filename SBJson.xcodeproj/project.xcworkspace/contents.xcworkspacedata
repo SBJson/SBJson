@@ -4,10 +4,4 @@
    <FileRef
       location = "self:SBJson.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "self:Examples/DisplayPretty/DisplayPretty.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "self:Examples/TweetStream/TweetStream.xcodeproj">
-   </FileRef>
 </Workspace>
