@@ -42,10 +42,6 @@
     writer = [SBJsonWriter new];
 }
 
-- (void)tearDown {
-    [writer release];
-}
-
 - (void)testInfinity {
     STAssertEqualObjects(@"[0]", [writer stringWithObject:[NSArray arrayWithObject:[NSNumber numberWithDouble:0.0]]], nil);
     STAssertEqualObjects(@"[-0]", [writer stringWithObject:[NSArray arrayWithObject:[NSNumber numberWithDouble:-0.0]]], nil);
@@ -73,7 +69,7 @@
 
 
 - (void)testWriteToStream {
-	SBJsonStreamWriter *streamWriter = [[[SBJsonStreamWriter alloc] init] autorelease];
+	SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] init];
 	
 	STAssertTrue([streamWriter writeArray:[NSArray array]], nil);
 	
