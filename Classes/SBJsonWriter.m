@@ -56,7 +56,7 @@
 - (NSString*)stringWithObject:(id)value {
 	NSData *data = [self dataWithObject:value];
 	if (data)
-		return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		return [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	return nil;
 }	
 
@@ -77,6 +77,7 @@
     self.error = nil;
 
     SBJsonStreamWriterAccumulator *accumulator = [[SBJsonStreamWriterAccumulator alloc] init];
+    NSData *data = nil;
     
 	SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] init];
 	streamWriter.sortKeys = self.sortKeys;
@@ -85,24 +86,27 @@
     streamWriter.delegate = accumulator;
 	
 	BOOL ok = NO;
-	if ([object isKindOfClass:[NSDictionary class]])
+	if ([object isKindOfClass:[NSDictionary class]]) {
 		ok = [streamWriter writeObject:object];
-	
-	else if ([object isKindOfClass:[NSArray class]])
+	}
+	else if ([object isKindOfClass:[NSArray class]]) {
 		ok = [streamWriter writeArray:object];
-		
-	else if ([object respondsToSelector:@selector(proxyForJson)])
-		return [self dataWithObject:[object proxyForJson]];
+    }
+	else if ([object respondsToSelector:@selector(proxyForJson)]) {
+		data = [self dataWithObject:[object proxyForJson]];
+    }
 	else {
 		self.error = @"Not valid type for JSON";
-		return nil;
 	}
 	
 	if (ok)
-		return accumulator.data;
+		data = accumulator.data;
 	
 	self.error = streamWriter.error;
-	return nil;	
+    [streamWriter release];
+    [accumulator release];
+    
+	return data;	
 }
 	
 	

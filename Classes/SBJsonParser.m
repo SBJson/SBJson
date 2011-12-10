@@ -54,6 +54,7 @@
         return nil;
     }
 
+    id value = nil;
 	SBJsonStreamParserAccumulator *accumulator = [[SBJsonStreamParserAccumulator alloc] init];
     
     SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] init];
@@ -65,7 +66,7 @@
 	
 	switch ([parser parse:data]) {
 		case SBJsonStreamParserComplete:
-            return accumulator.value;
+            value = accumulator.value;
 			break;
 			
 		case SBJsonStreamParserWaitingForData:
@@ -77,7 +78,11 @@
 			break;
 	}
 	
-	return nil;
+    [parser release];
+    [adapter release];
+    [accumulator release];
+    
+	return value;
 }
 
 - (id)objectWithString:(NSString *)repr {
