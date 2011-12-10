@@ -51,6 +51,11 @@
     return self;
 }
 
+- (void)dealloc {
+    [_stream release];
+    
+    [super dealloc];
+}
 
 - (void)appendData:(NSData *)data_ {
     [_stream appendData:data_];
@@ -156,12 +161,12 @@
                 [acc appendString:string];
                 
             } else if (ch == '"') {
-                *token = [string copy];
+                *token = [[string copy] autorelease];
                 [_stream skip];
                 return sbjson_token_string;
                 
             } else {
-                acc = [string mutableCopy];
+                acc = [[string mutableCopy] autorelease];
             }
         }
 

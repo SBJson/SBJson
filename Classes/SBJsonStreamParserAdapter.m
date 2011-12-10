@@ -57,7 +57,13 @@
 		currentType = SBJsonStreamParserAdapterNone;
 	}
 	return self;
-}	
+}
+- (void)dealloc {
+    [keyStack release];
+    [stack release];
+    
+    [super dealloc];
+}
 
 
 #pragma mark Private methods

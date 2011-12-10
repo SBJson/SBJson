@@ -59,6 +59,10 @@
 
 - (void)dealloc {
     self.state = nil;
+    [stateStack release];
+    [tokeniser release];
+    
+    [super dealloc];
 }
 
 #pragma mark Methods
@@ -166,13 +170,13 @@
 - (SBJsonStreamParserStatus)parse:(NSData *)data_ {
     @autoreleasepool {
         [tokeniser appendData:data_];
+        NSObject *token = nil;
         
         for (;;) {
             
             if ([state isError])
                 return SBJsonStreamParserError;
             
-            NSObject *token;
             sbjson_token_t tok = [tokeniser getToken:&token];
             switch (tok) {
                 case sbjson_token_eof:

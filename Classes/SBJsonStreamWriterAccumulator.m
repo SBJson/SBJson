@@ -42,6 +42,12 @@
     return self;
 }
 
+- (void)dealloc {
+    [data release];
+    
+    [super dealloc];
+}
+
 
 #pragma mark SBJsonStreamWriterDelegate
 
