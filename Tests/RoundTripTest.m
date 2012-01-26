@@ -87,20 +87,28 @@
 - (void)testCategory {
     [self foreachTestInSuite:@"Tests/Data/valid" apply:^(NSString *inpath, NSString *outpath) {
         NSError *error = nil;
-        NSString *input = [NSString stringWithContentsOfFile:inpath encoding:NSUTF8StringEncoding error:&error];
-        STAssertNotNil(input, @"%@ - %@", inpath, error);
+        NSString *strInput = [NSString stringWithContentsOfFile:inpath encoding:NSUTF8StringEncoding error:&error];
+        STAssertNotNil(strInput, @"%@ - %@", inpath, error);
 
         NSString *output = [NSString stringWithContentsOfFile:outpath encoding:NSUTF8StringEncoding error:&error];
         STAssertNotNil(output, @"%@ - %@", outpath, error);
 
-        id object = [input JSONValue];
-        STAssertNotNil(object, nil);
+        id objFromStr = [strInput JSONValue];
+        STAssertNotNil(objFromStr, nil);
 
-        NSString *json = [object JSONRepresentation];
+        NSString *json = [objFromStr JSONRepresentation];
         STAssertNotNil(json, nil);
 
         json = [json stringByAppendingString:@"\n"];
         STAssertEqualObjects(json, output, nil);
+        
+        NSData *dataInput = [NSData dataWithContentsOfFile:inpath];
+        STAssertNotNil(dataInput, @"%@", inpath);
+        
+        id objFromData = [dataInput JSONValue];
+        STAssertNotNil(objFromData, nil);
+        
+        STAssertEqualObjects(objFromData, objFromStr, nil);
     }];
 
     STAssertEquals(count, (NSUInteger)16, nil);
