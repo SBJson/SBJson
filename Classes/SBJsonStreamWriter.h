@@ -84,6 +84,15 @@
 
 @interface SBJsonStreamWriter : NSObject {
     NSMutableDictionary *cache;
+
+    /* For 32-Bit Systems */
+    NSString *error;
+    NSUInteger maxDepth;
+    SBJsonStreamWriterState *state; // Internal
+    NSMutableArray *stateStack; // Internal 
+    BOOL humanReadable;
+    BOOL sortKeys;
+    id<SBJsonStreamWriterDelegate> delegate;
 }
 
 @property (nonatomic, unsafe_unretained) SBJsonStreamWriterState *state; // Internal

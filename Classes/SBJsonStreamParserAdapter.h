@@ -125,6 +125,10 @@ typedef enum {
 	NSMutableArray *stack;
 	
 	SBJsonStreamParserAdapterType currentType;
+    
+    /* For 32-Bit Systems */
+    id<SBJsonStreamParserAdapterDelegate> delegate;
+    NSUInteger levelsToSkip;
 }
 
 /**
