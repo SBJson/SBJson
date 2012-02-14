@@ -44,6 +44,8 @@
 @synthesize error;
 @synthesize maxDepth;
 
+@synthesize comparator;
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -81,6 +83,7 @@
 	SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] init];
 	streamWriter.sortKeys = self.sortKeys;
 	streamWriter.maxDepth = self.maxDepth;
+	streamWriter.comparator = self.comparator;
 	streamWriter.humanReadable = self.humanReadable;
     streamWriter.delegate = accumulator;
 	
