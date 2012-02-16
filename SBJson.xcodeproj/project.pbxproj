@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BB5955C14EAA4B8001BE91E /* SortedFormatTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB5955B14EAA4B8001BE91E /* SortedFormatTest.m */; };
+		3BB5955D14EAA4B8001BE91E /* SortedFormatTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB5955B14EAA4B8001BE91E /* SortedFormatTest.m */; };
 		BC12324B1391D5CC00131607 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC1232491391D5CC00131607 /* InfoPlist.strings */; };
 		BC1232561391D5CC00131607 /* SBJson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC12323D1391D5CC00131607 /* SBJson.framework */; };
 		BC12325C1391D5CC00131607 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC12325A1391D5CC00131607 /* InfoPlist.strings */; };
@@ -102,6 +104,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3BB5955B14EAA4B8001BE91E /* SortedFormatTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortedFormatTest.m; sourceTree = "<group>"; };
 		BC12323D1391D5CC00131607 /* SBJson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SBJson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1232481391D5CC00131607 /* SBJson-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SBJson-Info.plist"; sourceTree = "<group>"; };
 		BC12324A1391D5CC00131607 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -284,6 +287,7 @@
 				BC8852311391D6DD00370E55 /* RoundTripTest.m */,
 				BC8852971391D6DE00370E55 /* StreamParserIntegrationTest.m */,
 				BC8852981391D6DE00370E55 /* WriterTest.m */,
+				3BB5955B14EAA4B8001BE91E /* SortedFormatTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -610,6 +614,7 @@
 				BC88532C1391D6DE00370E55 /* RoundTripTest.m in Sources */,
 				BC8853911391D6DE00370E55 /* StreamParserIntegrationTest.m in Sources */,
 				BC8853921391D6DE00370E55 /* WriterTest.m in Sources */,
+				3BB5955C14EAA4B8001BE91E /* SortedFormatTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,6 +649,7 @@
 				BC417FFA13A1008F00C8BC49 /* RoundTripTest.m in Sources */,
 				BC417FFB13A1008F00C8BC49 /* StreamParserIntegrationTest.m in Sources */,
 				BC417FFC13A1008F00C8BC49 /* WriterTest.m in Sources */,
+				3BB5955D14EAA4B8001BE91E /* SortedFormatTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
