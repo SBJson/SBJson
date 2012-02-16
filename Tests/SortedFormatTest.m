@@ -41,7 +41,7 @@
     [super setUp];
     writer.humanReadable = YES;
     writer.sortKeys = YES;    
-	writer.comparator = ^(id obj1, id obj2) {
+	writer.sortKeysComparator = ^(id obj1, id obj2) {
 		return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSLiteralSearch];
 	};
 }
@@ -65,7 +65,7 @@
         STAssertEqualObjects(json, output, nil);
     }];
 	
-    STAssertEquals(count, (NSUInteger)8, nil);
+    STAssertEquals(count, (NSUInteger)3, nil);
 }
 
 - (void)testData {
@@ -87,7 +87,7 @@
         STAssertEqualObjects(json, output, nil);
     }];
 	
-    STAssertEquals(count, (NSUInteger)8, nil);
+    STAssertEquals(count, (NSUInteger)3, nil);
 }
 
 @end
