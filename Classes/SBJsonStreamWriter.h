@@ -127,7 +127,7 @@
  
  If this is nil, sorting will be done via @selector(compare:).
  */
-@property (copy) NSComparator comparator;
+@property (copy) NSComparator sortKeysComparator;
 
 /// Contains the error description after an error has occured.
 @property (copy) NSString *error;

@@ -80,7 +80,7 @@
  
  If this is nil, sorting will be done via @selector(compare:).
  */
-@property (copy) NSComparator comparator;
+@property (copy) NSComparator sortKeysComparator;
 
 /**
  @brief Return JSON representation for the given object.
