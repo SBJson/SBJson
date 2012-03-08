@@ -1,4 +1,5 @@
-# Credits
+Credits
+=======
 
 My thanks to the following people and organisations, without whom this
 library wouldn't be what it is today:
