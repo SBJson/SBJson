@@ -31,7 +31,6 @@
  */
 
 
-#import <SenTestingKit/SenTestingKit.h>
 #import <SBJson/SBJson.h>
 
 @interface JsonTestCase : SenTestCase {
