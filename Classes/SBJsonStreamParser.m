@@ -57,9 +57,6 @@
 	return self;
 }
 
-- (void)dealloc {
-    self.state = nil;
-}
 
 #pragma mark Methods
 
