@@ -4,3 +4,5 @@
 *.xcworkspace/xcuserdata
 !*.xcworkspace/contents.xcworkspacedata
 .DS_Store
+.idea/*
+build/*
