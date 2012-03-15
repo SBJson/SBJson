@@ -57,6 +57,7 @@
 @interface SBJsonStreamParserStateError : SBJsonStreamParserState
 @end
 
+
 @interface SBJsonStreamParserStateObjectStart : SBJsonStreamParserState
 @end
 

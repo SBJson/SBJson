@@ -33,14 +33,12 @@
 #import "SBJsonStreamWriterState.h"
 #import "SBJsonStreamWriter.h"
 
-static SBJsonStreamWriterState *kStart;
-static SBJsonStreamWriterState *kComplete;
-static SBJsonStreamWriterState *kError;
-static SBJsonStreamWriterState *kObjectStart;
-static SBJsonStreamWriterState *kObjectKey;
-static SBJsonStreamWriterState *kObjectValue;
-static SBJsonStreamWriterState *kArrayStart;
-static SBJsonStreamWriterState *kArrayValue;
+#define SINGLETON \
++ (id)sharedInstance { \
+    static id state; \
+    if (!state) state = [[self alloc] init]; \
+    return state; \
+}
 
 
 @implementation SBJsonStreamWriterState
@@ -58,9 +56,7 @@ static SBJsonStreamWriterState *kArrayValue;
 
 @implementation SBJsonStreamWriterStateObjectStart
 
-+ (void)initialize { kObjectStart = [[self alloc] init]; }
-
-- (id)sharedInstance { return kObjectStart; }
+SINGLETON
 
 - (void)transitionState:(SBJsonStreamWriter *)writer {
 	writer.state = [SBJsonStreamWriterStateObjectValue sharedInstance];
@@ -73,9 +69,7 @@ static SBJsonStreamWriterState *kArrayValue;
 
 @implementation SBJsonStreamWriterStateObjectKey
 
-+ (void)initialize { kObjectKey = [[self alloc] init]; }
-
-- (id)sharedInstance { return kObjectKey; }
+SINGLETON
 
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
 	[writer appendBytes:"," length:1];
@@ -84,9 +78,7 @@ static SBJsonStreamWriterState *kArrayValue;
 
 @implementation SBJsonStreamWriterStateObjectValue
 
-+ (void)initialize { kObjectValue = [[self alloc] init]; }
-
-- (id)sharedInstance { return kObjectValue; }
+SINGLETON
 
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
 	[writer appendBytes:":" length:1];
@@ -101,9 +93,7 @@ static SBJsonStreamWriterState *kArrayValue;
 
 @implementation SBJsonStreamWriterStateArrayStart
 
-+ (void)initialize { kArrayStart = [[self alloc] init]; }
-
-- (id)sharedInstance { return kArrayStart; }
+SINGLETON
 
 - (void)transitionState:(SBJsonStreamWriter *)writer {
     writer.state = [SBJsonStreamWriterStateArrayValue sharedInstance];
@@ -112,9 +102,7 @@ static SBJsonStreamWriterState *kArrayValue;
 
 @implementation SBJsonStreamWriterStateArrayValue
 
-+ (void)initialize { kArrayValue = [[self alloc] init]; }
-
-- (id)sharedInstance { return kArrayValue; }
+SINGLETON
 
 - (void)appendSeparator:(SBJsonStreamWriter *)writer {
 	[writer appendBytes:"," length:1];
@@ -123,9 +111,8 @@ static SBJsonStreamWriterState *kArrayValue;
 
 @implementation SBJsonStreamWriterStateStart
 
-+ (void)initialize { kStart = [[self alloc] init]; }
+SINGLETON
 
-- (id)sharedInstance { return kStart; }
 
 - (void)transitionState:(SBJsonStreamWriter *)writer {
     writer.state = [SBJsonStreamWriterStateComplete sharedInstance];
@@ -136,9 +123,7 @@ static SBJsonStreamWriterState *kArrayValue;
 
 @implementation SBJsonStreamWriterStateComplete
 
-+ (void)initialize { kComplete = [[self alloc] init]; }
-
-- (id)sharedInstance { return kComplete; }
+SINGLETON
 
 - (BOOL)isInvalidState:(SBJsonStreamWriter*)writer {
 	writer.error = @"Stream is closed";
@@ -148,10 +133,7 @@ static SBJsonStreamWriterState *kArrayValue;
 
 @implementation SBJsonStreamWriterStateError
 
-+ (void)initialize { kError = [[self alloc] init]; }
-
-- (id)sharedInstance { return kError; }
-
+SINGLETON
 
 @end
 

@@ -33,21 +33,15 @@
 #import "SBJsonStreamParserState.h"
 #import "SBJsonStreamParser.h"
 
-static SBJsonStreamParserState *kStart;
-static SBJsonStreamParserState *kComplete;
-static SBJsonStreamParserState *kError;
-static SBJsonStreamParserState *kObjectStart;
-static SBJsonStreamParserState *kObjectGotKey;
-static SBJsonStreamParserState *kObjectSeparator;
-static SBJsonStreamParserState *kObjectGotValue;
-static SBJsonStreamParserState *kObjectNeedKey;
-static SBJsonStreamParserState *kArrayStart;
-static SBJsonStreamParserState *kArrayGotValue;
-static SBJsonStreamParserState *kArrayNeedValue;
+#define SINGLETON \
++ (id)sharedInstance { \
+    static id state; \
+    if (!state) state = [[self alloc] init]; \
+    return state; \
+}
 
 @implementation SBJsonStreamParserState
 
-// Return nil as we should not instantiate the base class.
 + (id)sharedInstance { return nil; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
@@ -78,9 +72,7 @@ static SBJsonStreamParserState *kArrayNeedValue;
 
 @implementation SBJsonStreamParserStateStart
 
-+ (void)initialize { kStart = [[self alloc] init]; }
-
-- (id)sharedInstance { return kStart; }
+SINGLETON
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	return token == sbjson_token_array_start || token == sbjson_token_object_start;
@@ -126,10 +118,7 @@ static SBJsonStreamParserState *kArrayNeedValue;
 
 @implementation SBJsonStreamParserStateComplete
 
-+ (void)initialize { kComplete = [[self alloc] init]; }
-
-- (id)sharedInstance { return kComplete; }
-
+SINGLETON
 
 - (NSString*)name { return @"after outer-most array or object"; }
 
@@ -143,9 +132,7 @@ static SBJsonStreamParserState *kArrayNeedValue;
 
 @implementation SBJsonStreamParserStateError
 
-+ (void)initialize { kError = [[self alloc] init]; }
-
-- (id)sharedInstance { return kError; }
+SINGLETON
 
 - (NSString*)name { return @"in error"; }
 
@@ -163,9 +150,7 @@ static SBJsonStreamParserState *kArrayNeedValue;
 
 @implementation SBJsonStreamParserStateObjectStart
 
-+ (void)initialize { kObjectStart = [[self alloc] init]; }
-
-- (id)sharedInstance { return kObjectStart; }
+SINGLETON
 
 - (NSString*)name { return @"at beginning of object"; }
 
@@ -195,9 +180,7 @@ static SBJsonStreamParserState *kArrayNeedValue;
 
 @implementation SBJsonStreamParserStateObjectGotKey
 
-+ (void)initialize { kObjectGotKey = [[self alloc] init]; }
-
-- (id)sharedInstance { return kObjectGotKey; }
+SINGLETON
 
 - (NSString*)name { return @"after object key"; }
 
@@ -215,9 +198,7 @@ static SBJsonStreamParserState *kArrayNeedValue;
 
 @implementation SBJsonStreamParserStateObjectSeparator
 
-+ (void)initialize { kObjectSeparator = [[self alloc] init]; }
-
-- (id)sharedInstance { return kObjectSeparator; }
+SINGLETON
 
 - (NSString*)name { return @"as object value"; }
 
@@ -249,9 +230,7 @@ static SBJsonStreamParserState *kArrayNeedValue;
 
 @implementation SBJsonStreamParserStateObjectGotValue
 
-+ (void)initialize { kObjectGotValue = [[self alloc] init]; }
-
-- (id)sharedInstance { return kObjectGotValue; }
+SINGLETON
 
 - (NSString*)name { return @"after object value"; }
 
@@ -278,9 +257,7 @@ static SBJsonStreamParserState *kArrayNeedValue;
 
 @implementation SBJsonStreamParserStateObjectNeedKey
 
-+ (void)initialize { kObjectNeedKey = [[self alloc] init]; }
-
-- (id)sharedInstance { return kObjectNeedKey; }
+SINGLETON
 
 - (NSString*)name { return @"in place of object key"; }
 
@@ -302,9 +279,7 @@ static SBJsonStreamParserState *kArrayNeedValue;
 
 @implementation SBJsonStreamParserStateArrayStart
 
-+ (void)initialize { kArrayStart = [[self alloc] init]; }
-
-- (id)sharedInstance { return kArrayStart; }
+SINGLETON
 
 - (NSString*)name { return @"at array start"; }
 
@@ -332,9 +307,7 @@ static SBJsonStreamParserState *kArrayNeedValue;
 
 @implementation SBJsonStreamParserStateArrayGotValue
 
-+ (void)initialize { kArrayGotValue = [[self alloc] init]; }
-
-- (id)sharedInstance { return kArrayGotValue; }
+SINGLETON
 
 - (NSString*)name { return @"after array value"; }
 
@@ -354,11 +327,10 @@ static SBJsonStreamParserState *kArrayNeedValue;
 
 @implementation SBJsonStreamParserStateArrayNeedValue
 
-+ (void)initialize { kArrayNeedValue = [[self alloc] init]; }
-
-- (id)sharedInstance { return kArrayNeedValue; }
+SINGLETON
 
 - (NSString*)name { return @"as array value"; }
+
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
