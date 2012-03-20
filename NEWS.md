@@ -17,6 +17,7 @@ Miscellaneous
 * Added an optional comparator that is used when sorting keys.
 * Be more memory-efficient when parsing long strings containing escaped characters.
 * Add a Workspace that includes the sample projects, for ease of browsing.
+* Report error for numbers with exponents outside range of -128 to 127.
 
 
 3.0 (June 18th, 2011)
