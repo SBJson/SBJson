@@ -1,4 +1,4 @@
-3.1 (To Be Announced)
+3.1 (March 26th, 2012)
 =====================
 
 Automatic Reference Counting
