@@ -78,8 +78,7 @@
 	NSString *fileName;
     while ((fileName = [files nextObject])) {
 		NSString *file = [path stringByAppendingPathComponent:fileName];
-		NSLog(@"Parsing file: %@", file);
-		
+
 		NSData *data = [NSData dataWithContentsOfMappedFile:file];
 		STAssertNotNil(data, nil);
 	
