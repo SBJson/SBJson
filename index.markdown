@@ -11,7 +11,7 @@ layout: default
 [download]: http://github.com/stig/json-framework/downloads
 [Git]: http://git-scm.com
 [Author]: http://stig.github.com
-[api]: http://stig.github.com/json-framework/3.1
+[api]: http://stig.github.com/json-framework/api/3.1
 
 # Overview
 
@@ -32,8 +32,8 @@ Selected features:
 
 API documentation generated from the source by [Doxygen](http://www.doxygen.org):
 
-* [Version 3.1](3.1/) (Stable ARC)
-* [Version 3.0](3.0/) (Stable non-ARC)
+* [Version 3.1](api/3.1/) (Stable ARC)
+* [Version 3.0](api/3.0/) (Stable non-ARC)
 
 # Support
 
