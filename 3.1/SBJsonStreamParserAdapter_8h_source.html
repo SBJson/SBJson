@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>SBJson: Classes/SBJsonStreamParserState.h Source File</title>
+<title>SBJson: Classes/SBJsonStreamParserAdapter.h Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -52,7 +52,7 @@
 </div>
 <div class="header">
   <div class="headertitle">
-<div class="title">Classes/SBJsonStreamParserState.h</div>  </div>
+<div class="title">Classes/SBJsonStreamParserAdapter.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
@@ -88,56 +88,38 @@
 <a name="l00031"></a>00031 <span class="comment"> */</span>
 <a name="l00032"></a>00032 
 <a name="l00033"></a>00033 <span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span>
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035 <span class="preprocessor">#import &quot;SBJsonTokeniser.h&quot;</span>
-<a name="l00036"></a>00036 <span class="preprocessor">#import &quot;SBJsonStreamParser.h&quot;</span>
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">@interface </span>SBJsonStreamParserState : NSObject
-<a name="l00039"></a>00039 + (id)sharedInstance;
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041 - (BOOL)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser shouldAcceptToken:(sbjson_token_t)token;
-<a name="l00042"></a>00042 - (SBJsonStreamParserStatus)parserShouldReturn:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser;
-<a name="l00043"></a>00043 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser shouldTransitionTo:(sbjson_token_t)tok;
-<a name="l00044"></a>00044 - (BOOL)needKey;
-<a name="l00045"></a>00045 - (BOOL)isError;
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047 - (NSString*)name;
+<a name="l00034"></a>00034 <span class="preprocessor">#import &quot;SBJsonStreamParser.h&quot;</span>
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="keyword">typedef</span> <span class="keyword">enum</span> {
+<a name="l00037"></a>00037         SBJsonStreamParserAdapterNone,
+<a name="l00038"></a>00038         SBJsonStreamParserAdapterArray,
+<a name="l00039"></a>00039         SBJsonStreamParserAdapterObject,
+<a name="l00040"></a>00040 } SBJsonStreamParserAdapterType;
+<a name="l00041"></a>00041 
+<a name="l00047"></a><a class="code" href="protocolSBJsonStreamParserAdapterDelegate-p.html">00047</a> <span class="keyword">@protocol </span><a class="code" href="protocolSBJsonStreamParserAdapterDelegate-p.html" title="Delegate for getting objects &amp; arrays from the stream parser adapter.">SBJsonStreamParserAdapterDelegate</a>
 <a name="l00048"></a>00048 
-<a name="l00049"></a>00049 <span class="keyword">@end</span>
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="keyword">@interface </span>SBJsonStreamParserStateStart : SBJsonStreamParserState
-<a name="l00052"></a>00052 @end
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054 @interface SBJsonStreamParserStateComplete : SBJsonStreamParserState
-<a name="l00055"></a>00055 @end
+<a name="l00055"></a>00055 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser foundArray:(NSArray*)array;
 <a name="l00056"></a>00056 
-<a name="l00057"></a>00057 @interface SBJsonStreamParserStateError : SBJsonStreamParserState
-<a name="l00058"></a>00058 @end
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061 @interface SBJsonStreamParserStateObjectStart : SBJsonStreamParserState
-<a name="l00062"></a>00062 @end
+<a name="l00062"></a>00062 - (void)parser:(<a class="code" href="interfaceSBJsonStreamParser.html" title="Parse a stream of JSON data.">SBJsonStreamParser</a>*)parser foundObject:(NSDictionary*)dict;
 <a name="l00063"></a>00063 
-<a name="l00064"></a>00064 @interface SBJsonStreamParserStateObjectGotKey : SBJsonStreamParserState
-<a name="l00065"></a>00065 @end
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067 @interface SBJsonStreamParserStateObjectSeparator : SBJsonStreamParserState
-<a name="l00068"></a>00068 @end
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070 @interface SBJsonStreamParserStateObjectGotValue : SBJsonStreamParserState
-<a name="l00071"></a>00071 @end
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073 @interface SBJsonStreamParserStateObjectNeedKey : SBJsonStreamParserState
-<a name="l00074"></a>00074 @end
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076 @interface SBJsonStreamParserStateArrayStart : SBJsonStreamParserState
-<a name="l00077"></a>00077 @end
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079 @interface SBJsonStreamParserStateArrayGotValue : SBJsonStreamParserState
-<a name="l00080"></a>00080 @end
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082 @interface SBJsonStreamParserStateArrayNeedValue : SBJsonStreamParserState
-<a name="l00083"></a>00083 @end
+<a name="l00064"></a>00064 <span class="keyword">@end</span>
+<a name="l00065"></a>00065 
+<a name="l00119"></a><a class="code" href="interfaceSBJsonStreamParserAdapter.html">00119</a> <span class="keyword">@interface </span><a class="code" href="interfaceSBJsonStreamParserAdapter.html" title="SBJsonStreamParserDelegate protocol adapter.">SBJsonStreamParserAdapter</a> : NSObject &lt;<a class="code" href="protocolSBJsonStreamParserDelegate-p.html" title="Delegate for interacting directly with the stream parser.">SBJsonStreamParserDelegate</a>&gt; {
+<a name="l00120"></a>00120 <span class="keyword">@private</span>
+<a name="l00121"></a>00121         NSUInteger depth;
+<a name="l00122"></a>00122     NSMutableArray *array;
+<a name="l00123"></a>00123         NSMutableDictionary *dict;
+<a name="l00124"></a>00124         NSMutableArray *keyStack;
+<a name="l00125"></a>00125         NSMutableArray *stack;
+<a name="l00126"></a>00126         
+<a name="l00127"></a>00127         SBJsonStreamParserAdapterType currentType;
+<a name="l00128"></a>00128 }
+<a name="l00129"></a>00129 
+<a name="l00140"></a><a class="code" href="interfaceSBJsonStreamParserAdapter.html#a1b7451c67d9149b14632c228909659bb">00140</a> <span class="keyword">@property</span> NSUInteger <a class="code" href="interfaceSBJsonStreamParserAdapter.html#a1b7451c67d9149b14632c228909659bb" title="How many levels to skip.">levelsToSkip</a>;
+<a name="l00141"></a>00141 
+<a name="l00146"></a><a class="code" href="interfaceSBJsonStreamParserAdapter.html#a9d336f9c9e1caf3291f80918cb13188e">00146</a> <span class="keyword">@property</span> (unsafe_unretained) id&lt;SBJsonStreamParserAdapterDelegate&gt; delegate;
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148 <span class="keyword">@end</span>
 </pre></div></div><!-- contents -->
 
 
