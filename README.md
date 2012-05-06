@@ -24,6 +24,6 @@ Links
 =====
 
 * [GitHub project page](http://github.com/stig/json-framework)
-* [Online API docs](http://stig.github.com/json-framework/api/3.0/)
+* [Online API docs](http://stig.github.com/json-framework/api/3.1)
 * [Frequently Asked Questions](http://github.com/stig/json-framework/wiki/FrequentlyAskedQuestions)
 
