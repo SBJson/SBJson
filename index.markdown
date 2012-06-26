@@ -19,7 +19,7 @@ A strict JSON parser and generator for Objective-C. It adds categories to existi
 
 Selected features:
 
-* New BSD Lisence.
+* New BSD License.
 * Easy-to-use API.
 * Streaming Support. See SBJsonStreamParser in the [API docs][api].
 * Pretty-printing of JSON output.
