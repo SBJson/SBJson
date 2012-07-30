@@ -36,7 +36,8 @@
 #define SINGLETON \
 + (id)sharedInstance { \
     static id state = nil; \
-    if (!state) state = [[self alloc] init]; \
+    static dispatch_once_t once = 0; \
+    dispatch_once(&once, ^{state = [[self alloc] init];}); \
     return state; \
 }
 
