@@ -39,7 +39,7 @@
 static int const DECIMAL_MAX_PRECISION = 38;
 static int const DECIMAL_EXPONENT_MAX = 127;
 static short const DECIMAL_EXPONENT_MIN = -128;
-static int const LONG_LONG_DIGITS = 20;
+static int const LONG_LONG_DIGITS = 19;
 
 static NSCharacterSet *kDecimalDigitCharacterSet;
 
