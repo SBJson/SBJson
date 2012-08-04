@@ -1,3 +1,16 @@
+3.1.1 (August 4th, 2012)
+========================
+
+Bugfix release. This release is special in that it mainly contains code by other people. Thanks guys!
+
+* Fix bug that could result in a long long overflow (Ole André Vadla Ravnås)
+* Make SINGLETON thread safe (Alen Zhou)
+* Updated .gitattributes to say that tests are binary files (Phill Baker)
+* Fix string formatter warning in new XCode (Andy Brett)
+* Fix issue that could lead to "bad access" or zombie errors (jonkean)
+* Update links to API docs
+
+
 3.1 (March 26th, 2012)
 =====================
 
