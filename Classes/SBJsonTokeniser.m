@@ -369,6 +369,9 @@ static NSCharacterSet *kDecimalDigitCharacterSet;
             *token = [NSNumber numberWithLongLong: isNegative ? -mantissa : mantissa];
 
         } else {
+            if (mantissa == 0) {
+                isNegative = NO;
+            }
             *token = [NSDecimalNumber decimalNumberWithMantissa:mantissa
                                                        exponent:exponent
                                                      isNegative:isNegative];
