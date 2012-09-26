@@ -368,7 +368,7 @@ static NSCharacterSet *kDecimalDigitCharacterSet;
         if (!isFloat && !hasExponent) {
             *token = [NSNumber numberWithLongLong: isNegative ? -mantissa : mantissa];
         } else if (mantissa == 0) {
-            *token = [NSNumber numberWithInt:0];
+            *token = [NSNumber numberWithFloat:-0.0f];
         } else {
             *token = [NSDecimalNumber decimalNumberWithMantissa:mantissa
                                                        exponent:exponent
