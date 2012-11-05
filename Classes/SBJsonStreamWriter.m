@@ -52,8 +52,8 @@ static NSNumber *kNegativeInfinity;
 
 + (void)initialize {
 	kNotANumber = [NSDecimalNumber notANumber];
-    kPositiveInfinity = [NSNumber numberWithDouble:+INFINITY];
-    kNegativeInfinity = [NSNumber numberWithDouble:-INFINITY];
+    kPositiveInfinity = [NSNumber numberWithFloat:+INFINITY];
+    kNegativeInfinity = [NSNumber numberWithFloat:-INFINITY];
     kTrue = [NSNumber numberWithBool:YES];
     kFalse = [NSNumber numberWithBool:NO];
 }
