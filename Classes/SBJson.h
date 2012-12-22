@@ -1,4 +1,5 @@
 /*
+weibo.com/croath    just a test
  Copyright (C) 2009-2011 Stig Brautaset. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
