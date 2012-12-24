@@ -109,9 +109,12 @@
  
  @param value any instance that can be represented as a JSON fragment
  @param error pointer to object to be populated with NSError on failure
- 
- */- (NSString*)stringWithObject:(id)value
-                           error:(NSError**)error;
+
+  @deprecated in Version 3.2; will be removed in 4.0
+
+ */
+- (NSString*)stringWithObject:(id)value
+                        error:(NSError**)error __attribute__ ((deprecated));
 
 
 @end

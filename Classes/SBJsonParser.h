@@ -91,10 +91,13 @@
  @param error pointer to an NSError object to populate on error
 
  @return The NSArray or NSDictionary represented by the object, or nil if an error occured.
+
+ @deprecated in Version 3.2; will be removed in 4.0
+
  */
 
 - (id)objectWithString:(NSString*)jsonText
-                 error:(NSError**)error;
+                 error:(NSError**)error __attribute__ ((deprecated));
 
 @end
 
