@@ -42,8 +42,11 @@
  @return the receiver encoded in JSON, or nil on error.
  
  @see @ref objc2json
+
+ @deprecated in Version 3.2; will be removed in 4.0
+
  */
-- (NSString *)JSONRepresentation;
+- (NSString *)JSONRepresentation __attribute__ ((deprecated));
 
 @end
 
@@ -59,8 +62,11 @@
  @return the NSDictionary or NSArray represented by the receiver, or nil on error.
  
  @see @ref json2objc
+
+ @deprecated in Version 3.2; will be removed in 4.0
+
  */
-- (id)JSONValue;
+- (id)JSONValue __attribute__ ((deprecated));
 
 @end
 
@@ -73,7 +79,10 @@
  @return the NSDictionary or NSArray represented by the receiver, or nil on error.
  
  @see @ref json2objc
+
+ @deprecated in Version 3.2; will be removed in 4.0
+
  */
-- (id)JSONValue;
+- (id)JSONValue __attribute__ ((deprecated));
 
 @end
