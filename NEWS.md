@@ -1,3 +1,8 @@
+3.2 (TBD)
+=========
+
+* Replace use of INFINITY with HUGE_VAL where used as double.
+
 3.1.1 (August 4th, 2012)
 ========================
 
