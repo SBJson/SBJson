@@ -8,7 +8,7 @@ layout: default
 [faq]: http://github.com/stig/json-framework/wiki/FrequentlyAskedQuestions
 [GitHub]: http://github.com/
 [browse]: http://github.com/stig/json-framework
-[download]: http://github.com/stig/json-framework/downloads
+[download]: https://github.com/stig/json-framework/archive/v3.1.1.zip
 [Git]: http://git-scm.com
 [Author]: http://stig.github.com
 [api]: http://stig.github.com/json-framework/api/3.1
@@ -50,7 +50,7 @@ Got an issue you can't figure out? Try one of these:
 The code is available on [GitHub][]. You can:
 
 * [Browse][] the source.
-* [Download][] one of the zipped releases.
+* [Download][] the latest release as a zip file.
 * Clone the latest (development) release with [Git][]: <pre>
 $ git clone git://github.com/stig/json-framework
 </pre>
