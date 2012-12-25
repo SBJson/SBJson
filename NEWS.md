@@ -1,7 +1,26 @@
-3.2 (TBD)
-=========
+3.2.0 (TBD)
+===========
 
-* Replace use of INFINITY with HUGE_VAL where used as double.
+**Deprecations**
+
+* Deprecated the `JSONValue` and `JSONRepresentation` category methods.
+* Deprecated several methods that return an error through an `NSError**` argument.
+
+These will be removed in a later major version release.
+
+**Changes**
+
+* Absorb LICENSE and INSTALL files into README.
+* Remove the Xcode Workspace from the top-level source checkout; the less
+  clutter the better and this doesn't seem to serve any function.
+* Change to use AppleDoc for creating API documentation. This results in
+  output looking more consistent with Apple's documentation.
+
+**Bugfixes**
+
+* Replace use of INFINITY with HUGE_VAL where used as double (reported by
+Antoine Cœur)
+* Correctly parse -0.0 as a JSON number (Cary Yang)
 
 3.1.1 (August 4th, 2012)
 ========================
