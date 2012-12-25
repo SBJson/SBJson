@@ -31,7 +31,6 @@
  */
 
 #import "SBJsonStreamParserState.h"
-#import "SBJsonStreamParser.h"
 
 #define SINGLETON \
 + (id)sharedInstance { \
