@@ -1,3 +1,5 @@
 # Xcode
 .DS_Store
 _site/
+docset/
+docset-installed.txt
