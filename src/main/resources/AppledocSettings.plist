@@ -5,7 +5,7 @@
 <dict>
 	<key>--input</key>
 	<array>
-		<string>../../../Classes</string>
+		<string>../objc</string>
 	</array>
 	<key>--project-name</key>
 	<string>SBJson</string>

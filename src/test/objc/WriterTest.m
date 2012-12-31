@@ -29,7 +29,7 @@
 
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <SBJson/SBJson.h>
+#import "SBJson.h"
 
 @interface WriterTest : SenTestCase {
 	SBJsonWriter * writer;

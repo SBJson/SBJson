@@ -194,18 +194,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A0E92A8E16276E3F0091EDF6 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Assets;
-			sourceTree = "<group>";
-		};
 		BC1232311391D5CC00131607 = {
 			isa = PBXGroup;
 			children = (
-				BC8851231391D6CD00370E55 /* Classes */,
-				BC8851581391D6DD00370E55 /* Tests */,
+				D7F64E201692549E009DF12E /* src */,
 				BC1232461391D5CC00131607 /* SBJson */,
 				BC1232571391D5CC00131607 /* SBJsonTests */,
 				BCC2626B13920FC7003D9994 /* sbjson-ios */,
@@ -270,88 +262,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BC8851231391D6CD00370E55 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				BC8851271391D6CD00370E55 /* SBJson.h */,
-				BC8851251391D6CD00370E55 /* NSObject+SBJson.h */,
-				BC8851261391D6CD00370E55 /* NSObject+SBJson.m */,
-				BCADB7DD139213960057A705 /* Parser */,
-				BCADB7DE139213A10057A705 /* Writer */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		BC8851581391D6DD00370E55 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				A0E92A8E16276E3F0091EDF6 /* Assets */,
-				BC88522B1391D6DD00370E55 /* ErrorTest.m */,
-				BC88522C1391D6DD00370E55 /* FormatTest.m */,
-				BC88522D1391D6DD00370E55 /* JsonCheckerTest.m */,
-				BC88522E1391D6DD00370E55 /* JsonTestCase.h */,
-				BC88522F1391D6DD00370E55 /* JsonTestCase.m */,
-				BC8852301391D6DD00370E55 /* ProxyTest.m */,
-				BC8852311391D6DD00370E55 /* RoundTripTest.m */,
-				BC8852971391D6DE00370E55 /* StreamParserIntegrationTest.m */,
-				BC8852981391D6DE00370E55 /* WriterTest.m */,
-				3BB5955B14EAA4B8001BE91E /* SortedFormatTest.m */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		BCADB7DB139213450057A705 /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				BC8851361391D6CD00370E55 /* SBJsonStreamWriterState.h */,
-				BC8851371391D6CD00370E55 /* SBJsonStreamWriterState.m */,
-			);
-			name = Private;
-			sourceTree = "<group>";
-		};
-		BCADB7DD139213960057A705 /* Parser */ = {
-			isa = PBXGroup;
-			children = (
-				BCADB7DF139213D70057A705 /* Private */,
-				BC8851281391D6CD00370E55 /* SBJsonParser.h */,
-				BC8851291391D6CD00370E55 /* SBJsonParser.m */,
-				BC88512A1391D6CD00370E55 /* SBJsonStreamParser.h */,
-				BC88512B1391D6CD00370E55 /* SBJsonStreamParser.m */,
-				BC88512C1391D6CD00370E55 /* SBJsonStreamParserAccumulator.h */,
-				BC88512D1391D6CD00370E55 /* SBJsonStreamParserAccumulator.m */,
-				BC88512E1391D6CD00370E55 /* SBJsonStreamParserAdapter.h */,
-				BC88512F1391D6CD00370E55 /* SBJsonStreamParserAdapter.m */,
-			);
-			name = Parser;
-			sourceTree = "<group>";
-		};
-		BCADB7DE139213A10057A705 /* Writer */ = {
-			isa = PBXGroup;
-			children = (
-				BCADB7DB139213450057A705 /* Private */,
-				BC88513A1391D6CD00370E55 /* SBJsonWriter.h */,
-				BC88513B1391D6CD00370E55 /* SBJsonWriter.m */,
-				BC8851321391D6CD00370E55 /* SBJsonStreamWriter.h */,
-				BC8851331391D6CD00370E55 /* SBJsonStreamWriter.m */,
-				BC8851341391D6CD00370E55 /* SBJsonStreamWriterAccumulator.h */,
-				BC8851351391D6CD00370E55 /* SBJsonStreamWriterAccumulator.m */,
-			);
-			name = Writer;
-			sourceTree = "<group>";
-		};
-		BCADB7DF139213D70057A705 /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				BC8851301391D6CD00370E55 /* SBJsonStreamParserState.h */,
-				BC8851311391D6CD00370E55 /* SBJsonStreamParserState.m */,
-				BC8851381391D6CD00370E55 /* SBJsonTokeniser.h */,
-				BC8851391391D6CD00370E55 /* SBJsonTokeniser.m */,
-				BC88513C1391D6CD00370E55 /* SBJsonUTF8Stream.h */,
-				BC88513D1391D6CD00370E55 /* SBJsonUTF8Stream.m */,
-			);
-			name = Private;
-			sourceTree = "<group>";
-		};
 		BCC2626B13920FC7003D9994 /* sbjson-ios */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,6 +294,80 @@
 				BCC2628213920FC7003D9994 /* sbjson-iosTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D7F64E201692549E009DF12E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				D7F64E211692549E009DF12E /* main */,
+				D7F64E251692549E009DF12E /* test */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		D7F64E211692549E009DF12E /* main */ = {
+			isa = PBXGroup;
+			children = (
+				D7F64E221692549E009DF12E /* objc */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
+		D7F64E221692549E009DF12E /* objc */ = {
+			isa = PBXGroup;
+			children = (
+				BC8851261391D6CD00370E55 /* NSObject+SBJson.m */,
+				BC8851271391D6CD00370E55 /* SBJson.h */,
+				BC8851371391D6CD00370E55 /* SBJsonStreamWriterState.m */,
+				BC8851361391D6CD00370E55 /* SBJsonStreamWriterState.h */,
+				BC88513D1391D6CD00370E55 /* SBJsonUTF8Stream.m */,
+				BC8851301391D6CD00370E55 /* SBJsonStreamParserState.h */,
+				BC8851341391D6CD00370E55 /* SBJsonStreamWriterAccumulator.h */,
+				BC8851321391D6CD00370E55 /* SBJsonStreamWriter.h */,
+				BC8851291391D6CD00370E55 /* SBJsonParser.m */,
+				BC8851281391D6CD00370E55 /* SBJsonParser.h */,
+				BC8851331391D6CD00370E55 /* SBJsonStreamWriter.m */,
+				BC8851391391D6CD00370E55 /* SBJsonTokeniser.m */,
+				BC8851251391D6CD00370E55 /* NSObject+SBJson.h */,
+				BC88512D1391D6CD00370E55 /* SBJsonStreamParserAccumulator.m */,
+				BC88512A1391D6CD00370E55 /* SBJsonStreamParser.h */,
+				BC88512E1391D6CD00370E55 /* SBJsonStreamParserAdapter.h */,
+				BC88512B1391D6CD00370E55 /* SBJsonStreamParser.m */,
+				BC88512F1391D6CD00370E55 /* SBJsonStreamParserAdapter.m */,
+				BC88513C1391D6CD00370E55 /* SBJsonUTF8Stream.h */,
+				BC88513B1391D6CD00370E55 /* SBJsonWriter.m */,
+				BC8851351391D6CD00370E55 /* SBJsonStreamWriterAccumulator.m */,
+				BC88513A1391D6CD00370E55 /* SBJsonWriter.h */,
+				BC8851381391D6CD00370E55 /* SBJsonTokeniser.h */,
+				BC88512C1391D6CD00370E55 /* SBJsonStreamParserAccumulator.h */,
+				BC8851311391D6CD00370E55 /* SBJsonStreamParserState.m */,
+			);
+			path = objc;
+			sourceTree = "<group>";
+		};
+		D7F64E251692549E009DF12E /* test */ = {
+			isa = PBXGroup;
+			children = (
+				D7F64E261692549E009DF12E /* objc */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		D7F64E261692549E009DF12E /* objc */ = {
+			isa = PBXGroup;
+			children = (
+				BC88522D1391D6DD00370E55 /* JsonCheckerTest.m */,
+				BC8852971391D6DE00370E55 /* StreamParserIntegrationTest.m */,
+				BC88522E1391D6DD00370E55 /* JsonTestCase.h */,
+				BC88522B1391D6DD00370E55 /* ErrorTest.m */,
+				BC8852981391D6DE00370E55 /* WriterTest.m */,
+				BC8852311391D6DD00370E55 /* RoundTripTest.m */,
+				3BB5955B14EAA4B8001BE91E /* SortedFormatTest.m */,
+				BC88522C1391D6DD00370E55 /* FormatTest.m */,
+				BC88522F1391D6DD00370E55 /* JsonTestCase.m */,
+				BC8852301391D6DD00370E55 /* ProxyTest.m */,
+			);
+			path = objc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -31,7 +31,7 @@
  */
 
 
-#import <SBJson/SBJson.h>
+#import "SBJson.h"
 
 typedef void (^ JsonTestCaseBlock)(NSString *, NSString *);
 
