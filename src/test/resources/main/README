@@ -1,0 +1,6 @@
+This directory contains lots of tests:
+
+* foo.in -> foo.out - test that JSON can be parsed and written back out
+* foo.in -> foo.err - test that the parser correctly handles invalid JSON
+* foo.plist -> foo.out - test that native structures are handled by the writer
+* foo.plist -> foo.err - test that native invalid structures are handled by the writer

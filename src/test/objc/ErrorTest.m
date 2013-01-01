@@ -52,41 +52,6 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
     return @"error";
 }
 
-- (void)testData {
-    [self foreachTestInSuite:@"Tests/Data/invalid" apply:^(NSString *inpath, NSString *errpath) {
-        NSData *input = [NSData dataWithContentsOfFile:inpath options:0 error:nil];
-        STAssertNotNil(input, inpath);
-        
-        NSString *error = [NSString stringWithContentsOfFile:errpath encoding:NSUTF8StringEncoding error:nil];
-        STAssertNotNil(error, errpath);
-        
-        error = [error stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        
-        STAssertNil([parser objectWithData:input], inpath);
-        STAssertEqualObjects(parser.error, error, @"%@: %@", inpath, input);
-        
-    }];
-    
-    STAssertEquals(count, (NSUInteger)31, nil);
-}
-
-- (void)testWriteRecursion {
-    // create a challenge!
-    NSMutableArray *a1 = [NSMutableArray array];
-    NSMutableArray *a2 = [NSMutableArray arrayWithObject:a1];
-    [a1 addObject:a2];
-    
-    STAssertNil([writer stringWithObject:a1], nil);
-    STAssertEqualObjects(writer.error, @"Nested too deep", writer.error);
-}
-
-
-- (void)testUnsupportedObject {
-    
-    STAssertNil([writer stringWithObject:[NSData data]], nil);
-    STAssertNotNil(writer.error, nil);
-}
-
 - (void)testNonStringDictionaryKey {
     NSArray *keys = [NSArray arrayWithObjects:[NSNull null],
                      [NSNumber numberWithInt:1],
@@ -101,60 +66,27 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
     }
 }
 
-
 - (void)testScalar {
     NSArray *fragments = [NSArray arrayWithObjects:@"foo", @"", [NSNull null], [NSNumber numberWithInt:1], [NSNumber numberWithBool:YES], nil];
     for (NSUInteger i = 0; i < [fragments count]; i++) {
         NSString *fragment = [fragments objectAtIndex:i];
-        
+
         // We don't check the convenience category here, like we do for parsing,
         // because the category is explicitly on the NSArray and NSDictionary objects.
         // STAssertNil([fragment JSONRepresentation], nil);
-        
+
         STAssertNil([writer stringWithObject:fragment], @"%@", fragment);
         SBAssertStringContains(parser.error, @"Not valid type for JSON");
     }
 }
 
-- (void)testInfinity {
-    NSArray *obj = [NSArray arrayWithObject:[NSNumber numberWithDouble:INFINITY]];    
-    STAssertNil([writer stringWithObject:obj], @"%@", obj);
-    SBAssertStringContains(parser.error, @"Infinity is not a valid number in JSON");
-}
-
-- (void)testNegativeInfinity {
-    NSArray *obj = [NSArray arrayWithObject:[NSNumber numberWithDouble:-INFINITY]];
-    
-    STAssertNil([writer stringWithObject:obj], nil);
-    SBAssertStringContains(parser.error, @"Infinity is not a valid number in JSON");
-}
-
-- (void)testNaN {
-    NSArray *obj = [NSArray arrayWithObject:[NSDecimalNumber notANumber]];
-    
-    STAssertNil([writer stringWithObject:obj], nil);
-    SBAssertStringContains(parser.error, @"NaN is not a valid number in JSON");
-}
-
 - (void)testNil {
     STAssertNil([parser objectWithString:nil], nil);
     STAssertEqualObjects(parser.error, @"Input was 'nil'", nil);
-    
+
     STAssertNil([writer stringWithObject:nil], nil);
     SBAssertStringContains(parser.error, @"Input was 'nil'");
-    
-}
 
-- (void)testWriteDepth {
-    writer.maxDepth = 2;
-    
-    NSArray *a1 = [NSArray array];
-    NSArray *a2 = [NSArray arrayWithObject:a1];
-    STAssertNotNil([writer stringWithObject:a2], nil);
-    
-    NSArray *a3 = [NSArray arrayWithObject:a2];
-    STAssertNil([writer stringWithObject:a3], nil);
-    STAssertEqualObjects(writer.error, @"Nested too deep", writer.error);
 }
 
 @end
