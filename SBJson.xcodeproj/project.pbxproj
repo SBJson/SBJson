@@ -18,7 +18,7 @@
 		BC417FF813A1008F00C8BC49 /* JsonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522F1391D6DD00370E55 /* JsonTestCase.m */; };
 		BC417FF913A1008F00C8BC49 /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852301391D6DD00370E55 /* ProxyTest.m */; };
 		BC417FFA13A1008F00C8BC49 /* RoundTripTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852311391D6DD00370E55 /* RoundTripTest.m */; };
-		BC417FFB13A1008F00C8BC49 /* StreamParserIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852971391D6DE00370E55 /* StreamParserIntegrationTest.m */; };
+		BC417FFB13A1008F00C8BC49 /* StreamSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852971391D6DE00370E55 /* StreamSuite.m */; };
 		BC417FFC13A1008F00C8BC49 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852981391D6DE00370E55 /* WriterTest.m */; };
 		BC88513F1391D6CD00370E55 /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851251391D6CD00370E55 /* NSObject+SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC8851401391D6CD00370E55 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851261391D6CD00370E55 /* NSObject+SBJson.m */; };
@@ -51,7 +51,7 @@
 		BC88532A1391D6DE00370E55 /* JsonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522F1391D6DD00370E55 /* JsonTestCase.m */; };
 		BC88532B1391D6DE00370E55 /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852301391D6DD00370E55 /* ProxyTest.m */; };
 		BC88532C1391D6DE00370E55 /* RoundTripTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852311391D6DD00370E55 /* RoundTripTest.m */; };
-		BC8853911391D6DE00370E55 /* StreamParserIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852971391D6DE00370E55 /* StreamParserIntegrationTest.m */; };
+		BC8853911391D6DE00370E55 /* StreamSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852971391D6DE00370E55 /* StreamSuite.m */; };
 		BC8853921391D6DE00370E55 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852981391D6DE00370E55 /* WriterTest.m */; };
 		BCADB7CE139210C90057A705 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851271391D6CD00370E55 /* SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7CF139210C90057A705 /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851251391D6CD00370E55 /* NSObject+SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -86,6 +86,8 @@
 		BCC2629813921035003D9994 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88513D1391D6CD00370E55 /* SBJsonUTF8Stream.m */; };
 		D7F64E60169262AE009DF12E /* jsonchecker in Resources */ = {isa = PBXBuildFile; fileRef = D7F64E5F169262AE009DF12E /* jsonchecker */; };
 		D7F64E61169262AE009DF12E /* jsonchecker in Resources */ = {isa = PBXBuildFile; fileRef = D7F64E5F169262AE009DF12E /* jsonchecker */; };
+		D7F64E661692697D009DF12E /* stream in Resources */ = {isa = PBXBuildFile; fileRef = D7F64E651692697D009DF12E /* stream */; };
+		D7F64E671692697D009DF12E /* stream in Resources */ = {isa = PBXBuildFile; fileRef = D7F64E651692697D009DF12E /* stream */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,7 +149,7 @@
 		BC88522F1391D6DD00370E55 /* JsonTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonTestCase.m; sourceTree = "<group>"; };
 		BC8852301391D6DD00370E55 /* ProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyTest.m; sourceTree = "<group>"; };
 		BC8852311391D6DD00370E55 /* RoundTripTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundTripTest.m; sourceTree = "<group>"; };
-		BC8852971391D6DE00370E55 /* StreamParserIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamParserIntegrationTest.m; sourceTree = "<group>"; };
+		BC8852971391D6DE00370E55 /* StreamSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamSuite.m; sourceTree = "<group>"; };
 		BC8852981391D6DE00370E55 /* WriterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriterTest.m; sourceTree = "<group>"; };
 		BC8853981391D74C00370E55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BCC2626913920FC7003D9994 /* libsbjson-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libsbjson-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +159,7 @@
 		BCC2628013920FC7003D9994 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCC2628213920FC7003D9994 /* sbjson-iosTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sbjson-iosTests-Prefix.pch"; sourceTree = "<group>"; };
 		D7F64E5F169262AE009DF12E /* jsonchecker */ = {isa = PBXFileReference; lastKnownFileType = folder; path = jsonchecker; sourceTree = "<group>"; };
+		D7F64E651692697D009DF12E /* stream */ = {isa = PBXFileReference; lastKnownFileType = folder; path = stream; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,7 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				BC88522D1391D6DD00370E55 /* JsonCheckerSuite.m */,
-				BC8852971391D6DE00370E55 /* StreamParserIntegrationTest.m */,
+				BC8852971391D6DE00370E55 /* StreamSuite.m */,
 				BC88522E1391D6DD00370E55 /* JsonTestCase.h */,
 				BC88522B1391D6DD00370E55 /* ErrorTest.m */,
 				BC8852981391D6DE00370E55 /* WriterTest.m */,
@@ -377,6 +380,7 @@
 		D7F64E381692629C009DF12E /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				D7F64E651692697D009DF12E /* stream */,
 				D7F64E5F169262AE009DF12E /* jsonchecker */,
 			);
 			path = resources;
@@ -546,6 +550,7 @@
 			files = (
 				BC12325C1391D5CC00131607 /* InfoPlist.strings in Resources */,
 				D7F64E60169262AE009DF12E /* jsonchecker in Resources */,
+				D7F64E661692697D009DF12E /* stream in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +560,7 @@
 			files = (
 				BCC2628113920FC7003D9994 /* InfoPlist.strings in Resources */,
 				D7F64E61169262AE009DF12E /* jsonchecker in Resources */,
+				D7F64E671692697D009DF12E /* stream in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,7 +579,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mkdir -p \"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/Tests/\"\ncp -r \"${PROJECT_DIR}/Tests/Data/\" \"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/Tests/Data\"\ncp -r \"${PROJECT_DIR}/Tests/Stream/\" \"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/Tests/Stream\"";
+			shellScript = "mkdir -p \"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/Tests/\"\ncp -r \"${PROJECT_DIR}/Tests/Data/\" \"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/Tests/Data\"";
 		};
 		BC1232501391D5CC00131607 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -633,7 +639,7 @@
 				BC88532A1391D6DE00370E55 /* JsonTestCase.m in Sources */,
 				BC88532B1391D6DE00370E55 /* ProxyTest.m in Sources */,
 				BC88532C1391D6DE00370E55 /* RoundTripTest.m in Sources */,
-				BC8853911391D6DE00370E55 /* StreamParserIntegrationTest.m in Sources */,
+				BC8853911391D6DE00370E55 /* StreamSuite.m in Sources */,
 				BC8853921391D6DE00370E55 /* WriterTest.m in Sources */,
 				3BB5955C14EAA4B8001BE91E /* SortedFormatTest.m in Sources */,
 			);
@@ -668,7 +674,7 @@
 				BC417FF813A1008F00C8BC49 /* JsonTestCase.m in Sources */,
 				BC417FF913A1008F00C8BC49 /* ProxyTest.m in Sources */,
 				BC417FFA13A1008F00C8BC49 /* RoundTripTest.m in Sources */,
-				BC417FFB13A1008F00C8BC49 /* StreamParserIntegrationTest.m in Sources */,
+				BC417FFB13A1008F00C8BC49 /* StreamSuite.m in Sources */,
 				BC417FFC13A1008F00C8BC49 /* WriterTest.m in Sources */,
 				3BB5955D14EAA4B8001BE91E /* SortedFormatTest.m in Sources */,
 			);

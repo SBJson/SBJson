@@ -2,4 +2,4 @@
 * text=auto
 
 # Ignore whitespace in these files
-Tests/Stream/* binary
+src/test/resources/stream/* binary

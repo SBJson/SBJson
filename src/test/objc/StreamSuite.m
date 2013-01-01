@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2010, Stig Brautaset.
+ Copyright (c) 2010-2013, Stig Brautaset.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -31,21 +31,16 @@
  */
 
 
-#import <SenTestingKit/SenTestingKit.h>
 #import "SBJson.h"
 
-#import "JsonTestCase.h"
+@interface StreamSuite : SenTestCase < SBJsonStreamParserAdapterDelegate >
+@end
 
-@interface StreamParserIntegrationTest : SenTestCase < SBJsonStreamParserAdapterDelegate> {
+@implementation StreamSuite {
 	SBJsonStreamParser *parser;
 	SBJsonStreamParserAdapter *adapter;
 	NSUInteger arrayCount, objectCount;
-	NSDirectoryEnumerator *files;
-	NSString *path;
 }
-@end
-
-@implementation StreamParserIntegrationTest
 
 - (void)setUp {
 	adapter = [SBJsonStreamParserAdapter new];
@@ -56,11 +51,6 @@
 	parser.supportMultipleDocuments = YES;
 	
 	arrayCount = objectCount = 0u;
-
-	NSString *suite = @"Tests/Stream/";
-    path = [JsonTestCase pathForSuite:suite];
-	files = [[NSFileManager defaultManager] enumeratorAtPath:path];
-
 }
 
 - (void)parser:(SBJsonStreamParser *)parser foundArray:(NSArray *)array {
@@ -78,9 +68,11 @@
  this data incrementally.
  */
 - (void)testMultipleDocuments {
-	NSString *fileName;
-    while ((fileName = [files nextObject])) {
-		NSString *file = [path stringByAppendingPathComponent:fileName];
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *root = [[bundle resourcePath] stringByAppendingPathComponent:@"stream"];
+
+    for (NSString *fileName in [[NSFileManager defaultManager] enumeratorAtPath:root]) {
+		NSString *file = [root stringByAppendingPathComponent:fileName];
 
         // Don't accidentally test directories. That would be bad.
         BOOL isDir = NO;
