@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2011 Stig Brautaset. All rights reserved.
+ Copyright (C) 2011-2013 Stig Brautaset. All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -31,24 +31,27 @@
  */
 
 
-#import "JsonTestCase.h"
+#import "SBJson.h"
 
-@interface JsonCheckerTest : JsonTestCase
+@interface JsonCheckerSuite : SenTestCase
 @end
 
-@implementation JsonCheckerTest
+@implementation JsonCheckerSuite {
+    SBJsonParser *parser;
+    NSUInteger count;
+}
 
 - (void)setUp {
-    [super setUp];
+    count = 0;
+    parser = [[SBJsonParser alloc] init];
     parser.maxDepth = 19;
 }
 
-- (void)foreachFilePrefixedBy:(NSString*)prefix inSuite:(NSString*)suite apply:(void(^)(NSString*))block {
-    NSString *file;
-    NSString *rootPath = [[self class] pathForSuite:suite];
-    NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:rootPath];
+- (void)foreachFilePrefixedBy:(NSString*)prefix apply:(void(^)(NSString*))block {
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *rootPath = [[bundle resourcePath] stringByAppendingPathComponent:@"jsonchecker"];
     
-    while ((file = [enumerator nextObject])) {
+    for (NSString *file in [[NSFileManager defaultManager] enumeratorAtPath:rootPath]) {
         if (![file hasPrefix:prefix])
             continue;
 
@@ -61,7 +64,7 @@
 }
 
 - (void)testPass {
-    [self foreachFilePrefixedBy:@"pass" inSuite:@"Tests/Data/jsonchecker" apply:^(NSString* path) {
+    [self foreachFilePrefixedBy:@"pass" apply:^(NSString* path) {
         NSError *error = nil;
         NSString *input = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
         STAssertNotNil(input, @"%@ - %@", path, error);
@@ -75,7 +78,7 @@
 }
 
 - (void)testFail {
-    [self foreachFilePrefixedBy:@"fail" inSuite:@"Tests/Data/jsonchecker" apply:^(NSString* path) {
+    [self foreachFilePrefixedBy:@"fail" apply:^(NSString* path) {
         NSError *error = nil;
         NSString *input = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
         STAssertNotNil(input, @"%@ - %@", path, error);
