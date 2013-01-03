@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3BB5955C14EAA4B8001BE91E /* SortedFormatTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB5955B14EAA4B8001BE91E /* SortedFormatTest.m */; };
-		3BB5955D14EAA4B8001BE91E /* SortedFormatTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB5955B14EAA4B8001BE91E /* SortedFormatTest.m */; };
 		BC12324B1391D5CC00131607 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC1232491391D5CC00131607 /* InfoPlist.strings */; };
 		BC1232561391D5CC00131607 /* SBJson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC12323D1391D5CC00131607 /* SBJson.framework */; };
 		BC12325C1391D5CC00131607 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC12325A1391D5CC00131607 /* InfoPlist.strings */; };
 		BC417FF413A1008F00C8BC49 /* ErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522B1391D6DD00370E55 /* ErrorTest.m */; };
-		BC417FF513A1008F00C8BC49 /* FormatTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522C1391D6DD00370E55 /* FormatTest.m */; };
 		BC417FF613A1008F00C8BC49 /* JsonCheckerSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522D1391D6DD00370E55 /* JsonCheckerSuite.m */; };
 		BC417FF813A1008F00C8BC49 /* JsonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522F1391D6DD00370E55 /* JsonTestCase.m */; };
 		BC417FF913A1008F00C8BC49 /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852301391D6DD00370E55 /* ProxyTest.m */; };
@@ -45,7 +42,6 @@
 		BC8851561391D6CD00370E55 /* SBJsonUTF8Stream.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88513C1391D6CD00370E55 /* SBJsonUTF8Stream.h */; };
 		BC8851571391D6CD00370E55 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88513D1391D6CD00370E55 /* SBJsonUTF8Stream.m */; };
 		BC8853271391D6DE00370E55 /* ErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522B1391D6DD00370E55 /* ErrorTest.m */; };
-		BC8853281391D6DE00370E55 /* FormatTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522C1391D6DD00370E55 /* FormatTest.m */; };
 		BC8853291391D6DE00370E55 /* JsonCheckerSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522D1391D6DD00370E55 /* JsonCheckerSuite.m */; };
 		BC88532A1391D6DE00370E55 /* JsonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522F1391D6DD00370E55 /* JsonTestCase.m */; };
 		BC88532B1391D6DE00370E55 /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852301391D6DD00370E55 /* ProxyTest.m */; };
@@ -88,6 +84,10 @@
 		D7F64E671692697D009DF12E /* stream in Resources */ = {isa = PBXBuildFile; fileRef = D7F64E651692697D009DF12E /* stream */; };
 		D7F64E7D1692D24D009DF12E /* main in Resources */ = {isa = PBXBuildFile; fileRef = D7F64E7C1692D24D009DF12E /* main */; };
 		D7F64E7E1692D24D009DF12E /* main in Resources */ = {isa = PBXBuildFile; fileRef = D7F64E7C1692D24D009DF12E /* main */; };
+		D7F64EB91696C3F8009DF12E /* comparatorsort in Resources */ = {isa = PBXBuildFile; fileRef = D7F64EB71696C3F8009DF12E /* comparatorsort */; };
+		D7F64EBA1696C3F8009DF12E /* comparatorsort in Resources */ = {isa = PBXBuildFile; fileRef = D7F64EB71696C3F8009DF12E /* comparatorsort */; };
+		D7F64EBB1696C3F8009DF12E /* format in Resources */ = {isa = PBXBuildFile; fileRef = D7F64EB81696C3F8009DF12E /* format */; };
+		D7F64EBC1696C3F8009DF12E /* format in Resources */ = {isa = PBXBuildFile; fileRef = D7F64EB81696C3F8009DF12E /* format */; };
 		F8D0486A2C9EF8BAACFBD35D /* MainSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04A94F7A4284E41E96B8F /* MainSuite.m */; };
 		F8D04BAE63C501747C6B5303 /* MainSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04A94F7A4284E41E96B8F /* MainSuite.m */; };
 /* End PBXBuildFile section */
@@ -110,7 +110,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3BB5955B14EAA4B8001BE91E /* SortedFormatTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortedFormatTest.m; sourceTree = "<group>"; };
 		BC12323D1391D5CC00131607 /* SBJson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SBJson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1232481391D5CC00131607 /* SBJson-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SBJson-Info.plist"; sourceTree = "<group>"; };
 		BC12324A1391D5CC00131607 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -145,7 +144,6 @@
 		BC88513C1391D6CD00370E55 /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonUTF8Stream.h; sourceTree = "<group>"; };
 		BC88513D1391D6CD00370E55 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		BC88522B1391D6DD00370E55 /* ErrorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorTest.m; sourceTree = "<group>"; };
-		BC88522C1391D6DD00370E55 /* FormatTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatTest.m; sourceTree = "<group>"; };
 		BC88522D1391D6DD00370E55 /* JsonCheckerSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonCheckerSuite.m; sourceTree = "<group>"; };
 		BC88522E1391D6DD00370E55 /* JsonTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonTestCase.h; sourceTree = "<group>"; };
 		BC88522F1391D6DD00370E55 /* JsonTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonTestCase.m; sourceTree = "<group>"; };
@@ -162,6 +160,8 @@
 		D7F64E5F169262AE009DF12E /* jsonchecker */ = {isa = PBXFileReference; lastKnownFileType = folder; path = jsonchecker; sourceTree = "<group>"; };
 		D7F64E651692697D009DF12E /* stream */ = {isa = PBXFileReference; lastKnownFileType = folder; path = stream; sourceTree = "<group>"; };
 		D7F64E7C1692D24D009DF12E /* main */ = {isa = PBXFileReference; lastKnownFileType = folder; path = main; sourceTree = "<group>"; };
+		D7F64EB71696C3F8009DF12E /* comparatorsort */ = {isa = PBXFileReference; lastKnownFileType = folder; path = comparatorsort; sourceTree = "<group>"; };
+		D7F64EB81696C3F8009DF12E /* format */ = {isa = PBXFileReference; lastKnownFileType = folder; path = format; sourceTree = "<group>"; };
 		F8D04A94F7A4284E41E96B8F /* MainSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSuite.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -371,8 +371,6 @@
 				BC88522E1391D6DD00370E55 /* JsonTestCase.h */,
 				BC88522B1391D6DD00370E55 /* ErrorTest.m */,
 				BC8852981391D6DE00370E55 /* WriterTest.m */,
-				3BB5955B14EAA4B8001BE91E /* SortedFormatTest.m */,
-				BC88522C1391D6DD00370E55 /* FormatTest.m */,
 				BC88522F1391D6DD00370E55 /* JsonTestCase.m */,
 				BC8852301391D6DD00370E55 /* ProxyTest.m */,
 				F8D04A94F7A4284E41E96B8F /* MainSuite.m */,
@@ -383,6 +381,8 @@
 		D7F64E381692629C009DF12E /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				D7F64EB71696C3F8009DF12E /* comparatorsort */,
+				D7F64EB81696C3F8009DF12E /* format */,
 				D7F64E7C1692D24D009DF12E /* main */,
 				D7F64E651692697D009DF12E /* stream */,
 				D7F64E5F169262AE009DF12E /* jsonchecker */,
@@ -556,6 +556,8 @@
 				D7F64E60169262AE009DF12E /* jsonchecker in Resources */,
 				D7F64E661692697D009DF12E /* stream in Resources */,
 				D7F64E7D1692D24D009DF12E /* main in Resources */,
+				D7F64EB91696C3F8009DF12E /* comparatorsort in Resources */,
+				D7F64EBB1696C3F8009DF12E /* format in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,6 +569,8 @@
 				D7F64E61169262AE009DF12E /* jsonchecker in Resources */,
 				D7F64E671692697D009DF12E /* stream in Resources */,
 				D7F64E7E1692D24D009DF12E /* main in Resources */,
+				D7F64EBA1696C3F8009DF12E /* comparatorsort in Resources */,
+				D7F64EBC1696C3F8009DF12E /* format in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,13 +644,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC8853271391D6DE00370E55 /* ErrorTest.m in Sources */,
-				BC8853281391D6DE00370E55 /* FormatTest.m in Sources */,
 				BC8853291391D6DE00370E55 /* JsonCheckerSuite.m in Sources */,
 				BC88532A1391D6DE00370E55 /* JsonTestCase.m in Sources */,
 				BC88532B1391D6DE00370E55 /* ProxyTest.m in Sources */,
 				BC8853911391D6DE00370E55 /* StreamSuite.m in Sources */,
 				BC8853921391D6DE00370E55 /* WriterTest.m in Sources */,
-				3BB5955C14EAA4B8001BE91E /* SortedFormatTest.m in Sources */,
 				F8D04BAE63C501747C6B5303 /* MainSuite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -675,13 +677,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC417FF413A1008F00C8BC49 /* ErrorTest.m in Sources */,
-				BC417FF513A1008F00C8BC49 /* FormatTest.m in Sources */,
 				BC417FF613A1008F00C8BC49 /* JsonCheckerSuite.m in Sources */,
 				BC417FF813A1008F00C8BC49 /* JsonTestCase.m in Sources */,
 				BC417FF913A1008F00C8BC49 /* ProxyTest.m in Sources */,
 				BC417FFB13A1008F00C8BC49 /* StreamSuite.m in Sources */,
 				BC417FFC13A1008F00C8BC49 /* WriterTest.m in Sources */,
-				3BB5955D14EAA4B8001BE91E /* SortedFormatTest.m in Sources */,
 				F8D0486A2C9EF8BAACFBD35D /* MainSuite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

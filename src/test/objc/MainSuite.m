@@ -7,7 +7,7 @@
 
 #import "SBJson.h"
 
-static NSString *slurpd(NSString *path) {
+static NSData *slurpd(NSString *path) {
     return [NSData dataWithContentsOfFile:path];
 }
 
@@ -25,21 +25,22 @@ static NSString *chomp(NSString *str) {
 @implementation MainSuite {
     SBJsonParser *parser;
     SBJsonWriter *writer;
+    NSUInteger count;
 }
 
 - (void)setUp {
-    parser = [[SBJsonParser alloc] init];
-    parser.maxDepth = 3u;
-    
+    parser = [[SBJsonParser alloc] init];    
     writer = [[SBJsonWriter alloc] init];
-    writer.maxDepth = 4u;
-    writer.sortKeys = YES;
+    count = 0u;
 }
 
-- (void)foreachInput:(NSString *)inext output:(NSString *)outext block:(void (^)(NSString*, NSString*))block {
+- (NSString*)suitePath:(NSString*)suite {
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString *root = [[bundle resourcePath] stringByAppendingPathComponent:@"main"];
+    return [[bundle resourcePath] stringByAppendingPathComponent:suite];
+}
 
+- (void)inExtForeachInSuite:(NSString *)suite inext:(NSString *)inext outExt:(NSString *)outext block:(void (^)(NSString *, NSString *))block {
+    NSString *root = [self suitePath:suite];
     for (NSString *fileName in [[NSFileManager defaultManager] enumeratorAtPath:root]) {
         if (![inext isEqualToString:[fileName pathExtension]])
             continue;
@@ -49,14 +50,14 @@ static NSString *chomp(NSString *str) {
         if (![[NSFileManager defaultManager] isReadableFileAtPath:outpath])
             continue;
 
-        NSLog(@"Running test named: %@", [fileName stringByDeletingPathExtension]);
+        count++;
+        NSLog(@"Running test: %@", [fileName stringByDeletingPathExtension]);
         block(inpath, outpath);
     }
-
 }
 
 - (void)testRoundtrip {
-    [self foreachInput:@"in" output:@"out" block:^(NSString *inpath, NSString *outpath) {
+    [self inExtForeachInSuite:@"main" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
         id value = [parser objectWithData:slurpd(inpath)];
         STAssertNotNil(value, parser.error);
 
@@ -64,30 +65,80 @@ static NSString *chomp(NSString *str) {
         STAssertNotNil(output, writer.error);
         STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
     }];
+    
+    STAssertEquals(count, (NSUInteger)40, nil);
 }
 
 - (void)testParseError {
-    [self foreachInput:@"in" output:@"err" block:^(NSString *inpath, NSString *outpath) {
+    parser.maxDepth = 3u;
+
+    [self inExtForeachInSuite:@"main" inext:@"in" outExt:@"err" block:^(NSString *inpath, NSString *outpath) {
         STAssertNil([parser objectWithData:slurpd(inpath)], nil);
         STAssertEqualObjects(parser.error, chomp(slurp(outpath)), nil);
     }];
+    
+    STAssertEquals(count, (NSUInteger)39, nil);
+
 }
 
 - (void)testWriteSuccess {
-    [self foreachInput:@"plist" output:@"out" block:^(NSString *inpath, NSString *outpath) {
+    [self inExtForeachInSuite:@"main" inext:@"plist" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
         id value = [NSArray arrayWithContentsOfFile:inpath];
         NSString *output = [writer stringWithObject:value];
-        STAssertNotNil(output, outpath);
+        STAssertNotNil(output, writer.error);
         STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
     }];
+    
+    STAssertEquals(count, (NSUInteger)1, nil);
+
 }
 
 - (void)testWriteError {
-    [self foreachInput:@"plist" output:@"err" block:^(NSString *inpath, NSString *outpath) {
+    writer.maxDepth = 4u;
+
+    [self inExtForeachInSuite:@"main" inext:@"plist" outExt:@"err" block:^(NSString *inpath, NSString *outpath) {
         id value = [NSArray arrayWithContentsOfFile:inpath];
         STAssertNil([writer stringWithObject:value], nil);
         STAssertEqualObjects(writer.error, chomp(slurp(outpath)), nil);
     }];
+    
+    STAssertEquals(count, (NSUInteger)5, nil);
+}
+
+
+- (void)testFormat {
+    writer.humanReadable = YES;
+    writer.sortKeys = YES;
+    
+    [self inExtForeachInSuite:@"format" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
+        id value = [parser objectWithData:slurpd(inpath)];
+        STAssertNotNil(value, parser.error);
+
+        NSString *output = [writer stringWithObject:value];
+        STAssertNotNil(output, writer.error);
+        STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
+    }];
+    
+    STAssertEquals(count, (NSUInteger)8, nil);
+}
+
+- (void)testComparatorSort {
+    writer.humanReadable = YES;
+    writer.sortKeys = YES;
+	writer.sortKeysComparator = ^(id obj1, id obj2) {
+		return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSLiteralSearch];
+	};
+
+    [self inExtForeachInSuite:@"comparatorsort" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
+        id value = [parser objectWithData:slurpd(inpath)];
+        STAssertNotNil(value, parser.error);
+        
+        NSString *output = [writer stringWithObject:value];
+        STAssertNotNil(output, writer.error);
+        STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
+    }];
+    
+    STAssertEquals(count, (NSUInteger)3, nil);
 }
 
 @end
