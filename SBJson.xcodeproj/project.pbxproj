@@ -497,7 +497,6 @@
 				BCC2626E13920FC7003D9994 /* Sources */,
 				BCC2626F13920FC7003D9994 /* Frameworks */,
 				BCC2627013920FC7003D9994 /* Resources */,
-				A0E92BF5162772BB0091EDF6 /* ShellScript */,
 				BCC2627113920FC7003D9994 /* ShellScript */,
 			);
 			buildRules = (
@@ -577,20 +576,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A0E92BF5162772BB0091EDF6 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "mkdir -p \"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/Tests/\"\ncp -r \"${PROJECT_DIR}/Tests/Data/\" \"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/Tests/Data\"";
-		};
 		BC1232501391D5CC00131607 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
