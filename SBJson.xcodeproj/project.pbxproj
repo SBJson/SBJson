@@ -14,7 +14,6 @@
 		BC417FF613A1008F00C8BC49 /* JsonCheckerSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522D1391D6DD00370E55 /* JsonCheckerSuite.m */; };
 		BC417FF913A1008F00C8BC49 /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852301391D6DD00370E55 /* ProxyTest.m */; };
 		BC417FFB13A1008F00C8BC49 /* StreamSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852971391D6DE00370E55 /* StreamSuite.m */; };
-		BC417FFC13A1008F00C8BC49 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852981391D6DE00370E55 /* WriterTest.m */; };
 		BC8851411391D6CD00370E55 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851271391D6CD00370E55 /* SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC8851421391D6CD00370E55 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851281391D6CD00370E55 /* SBJsonParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC8851431391D6CD00370E55 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851291391D6CD00370E55 /* SBJsonParser.m */; };
@@ -42,7 +41,6 @@
 		BC8853291391D6DE00370E55 /* JsonCheckerSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88522D1391D6DD00370E55 /* JsonCheckerSuite.m */; };
 		BC88532B1391D6DE00370E55 /* ProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852301391D6DD00370E55 /* ProxyTest.m */; };
 		BC8853911391D6DE00370E55 /* StreamSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852971391D6DE00370E55 /* StreamSuite.m */; };
-		BC8853921391D6DE00370E55 /* WriterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8852981391D6DE00370E55 /* WriterTest.m */; };
 		BCADB7CE139210C90057A705 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851271391D6CD00370E55 /* SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7D0139210C90057A705 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851281391D6CD00370E55 /* SBJsonParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7D1139210C90057A705 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512A1391D6CD00370E55 /* SBJsonStreamParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -139,7 +137,6 @@
 		BC88522D1391D6DD00370E55 /* JsonCheckerSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonCheckerSuite.m; sourceTree = "<group>"; };
 		BC8852301391D6DD00370E55 /* ProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyTest.m; sourceTree = "<group>"; };
 		BC8852971391D6DE00370E55 /* StreamSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamSuite.m; sourceTree = "<group>"; };
-		BC8852981391D6DE00370E55 /* WriterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriterTest.m; sourceTree = "<group>"; };
 		BC8853981391D74C00370E55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BCC2626913920FC7003D9994 /* libsbjson-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libsbjson-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC2626D13920FC7003D9994 /* sbjson-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sbjson-ios-Prefix.pch"; sourceTree = "<group>"; };
@@ -357,7 +354,6 @@
 				BC88522D1391D6DD00370E55 /* JsonCheckerSuite.m */,
 				BC8852971391D6DE00370E55 /* StreamSuite.m */,
 				BC88522B1391D6DD00370E55 /* ErrorTest.m */,
-				BC8852981391D6DE00370E55 /* WriterTest.m */,
 				BC8852301391D6DD00370E55 /* ProxyTest.m */,
 				F8D04A94F7A4284E41E96B8F /* MainSuite.m */,
 			);
@@ -615,7 +611,6 @@
 				BC8853291391D6DE00370E55 /* JsonCheckerSuite.m in Sources */,
 				BC88532B1391D6DE00370E55 /* ProxyTest.m in Sources */,
 				BC8853911391D6DE00370E55 /* StreamSuite.m in Sources */,
-				BC8853921391D6DE00370E55 /* WriterTest.m in Sources */,
 				F8D04BAE63C501747C6B5303 /* MainSuite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -646,7 +641,6 @@
 				BC417FF613A1008F00C8BC49 /* JsonCheckerSuite.m in Sources */,
 				BC417FF913A1008F00C8BC49 /* ProxyTest.m in Sources */,
 				BC417FFB13A1008F00C8BC49 /* StreamSuite.m in Sources */,
-				BC417FFC13A1008F00C8BC49 /* WriterTest.m in Sources */,
 				F8D0486A2C9EF8BAACFBD35D /* MainSuite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

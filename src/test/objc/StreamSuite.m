@@ -120,5 +120,13 @@
 	STAssertEquals(objectCount, (NSUInteger)0, nil);	
 }
 
+- (void)testWriteToStream {
+    SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] init];
+
+    STAssertTrue([streamWriter writeArray:[NSArray array]], nil);
+
+    STAssertFalse([streamWriter writeArray:[NSArray array]], nil);
+    STAssertEqualObjects(streamWriter.error, @"Stream is closed", nil);
+}
 
 @end
