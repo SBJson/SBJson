@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# set -x
+
+ME=$(basename $0)
+
+HEAD=$(mktemp -t $ME)
+TAIL=$(mktemp -t $ME)
+
+grep -v '^*' CREDITS.md > $HEAD
+grep '^*' CREDITS.md > $TAIL
+git shortlog -s | sed 's/^......./* /' >> $TAIL
+
+(cat $HEAD; sort -u $TAIL) > CREDITS.md
+
+git diff

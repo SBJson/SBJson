@@ -13,6 +13,7 @@ mistakenly omitted anyone.)
 * Antoine Perdaens
 * Ben Rimmington
 * Blake Seely
+* Cary Yang
 * David Keegan
 * Gabriel Handford
 * George MacKerron
@@ -33,6 +34,7 @@ mistakenly omitted anyone.)
 * Robert McNally
 * Robin Lu
 * Ryan Smale
+* Sam Dean
 * Sam Soffes
 * Sean Scanlon
 * Stig Brautaset
