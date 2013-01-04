@@ -16,8 +16,8 @@ Links
 =====
 
 * [GitHub project page](http://github.com/stig/json-framework)
-* [Online API docs](http://stig.github.com/json-framework/api/3.1)
-* [Frequently Asked Questions](http://github.com/stig/json-framework/wiki/FrequentlyAskedQuestions)
+* [Online API docs](http://sbjson.org/api/3.2)
+* [SBJson tag on Stack Overflow](http://stackoverflow.com/questions/tagged/sbjson)
 
 
 Installation

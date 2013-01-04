@@ -1,12 +1,12 @@
-3.2.0 (TBD)
-===========
+3.2.0-rc1 (January 4th, 2013)
+=============================
 
 **Deprecations**
 
 * Deprecated the `JSONValue` and `JSONRepresentation` category methods.
 * Deprecated several methods that return an error through an `NSError**` argument.
 
-These will be removed in a later major version release.
+These will be removed in the next major version release.
 
 **Changes**
 
