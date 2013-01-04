@@ -30,22 +30,22 @@
 
  */
 
-
-#import "JsonTestCase.h"
-
+#import "SBJson.h"
 
 #define SBAssertStringContains(e, s) \
 STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
 
-@interface ErrorTest : JsonTestCase
+@interface ErrorTest : SenTestCase
 @end
 
-@implementation ErrorTest
+@implementation ErrorTest {
+    SBJsonWriter * writer;
+    SBJsonParser * parser;
+}
 
 - (void)setUp {
-    [super setUp];
-    parser.maxDepth = 4u;
-    writer.maxDepth = 4u;
+    parser = [SBJsonParser new];
+    writer = [SBJsonWriter new];
 }
 
 - (NSString*)otherFileName {
