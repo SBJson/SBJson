@@ -1,7 +1,7 @@
 ---
 title: SBJson
 layout: default
-current_api: 3.1
+current_api: 3.2
 ---
 
 # Overview
@@ -23,8 +23,7 @@ Selected features:
 
 # API Documentation
 
-API documentation generated from the source by [Doxygen](http://www.doxygen.org):
-
+* [Version 3.2](api/3.2/) (Releases Candidate 1 - ARC)
 * [Version 3.1](api/3.1/) (Stable ARC)
 * [Version 3.0](api/3.0/) (Stable non-ARC)
 
