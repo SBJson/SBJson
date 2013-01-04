@@ -76,7 +76,7 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
         // STAssertNil([fragment JSONRepresentation], nil);
 
         STAssertNil([writer stringWithObject:fragment], @"%@", fragment);
-        SBAssertStringContains(parser.error, @"Not valid type for JSON");
+        SBAssertStringContains(writer.error, @"Not valid type for JSON");
     }
 }
 
@@ -85,7 +85,7 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
     STAssertEqualObjects(parser.error, @"Input was 'nil'", nil);
 
     STAssertNil([writer stringWithObject:nil], nil);
-    SBAssertStringContains(parser.error, @"Input was 'nil'");
+    SBAssertStringContains(writer.error, @"Not valid type for JSON");
 
 }
 
