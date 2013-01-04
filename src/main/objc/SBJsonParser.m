@@ -84,21 +84,8 @@
 	return nil;
 }
 
-- (id)objectWithString:(NSString *)repr {
-	return [self objectWithData:[repr dataUsingEncoding:NSUTF8StringEncoding]];
-}
-
-- (id)objectWithString:(NSString*)repr error:(NSError**)error_ {
-	id tmp = [self objectWithString:repr];
-    if (tmp)
-        return tmp;
-    
-    if (error_) {
-		NSDictionary *ui = [NSDictionary dictionaryWithObjectsAndKeys:error, NSLocalizedDescriptionKey, nil];
-        *error_ = [NSError errorWithDomain:@"org.brautaset.SBJsonParser.ErrorDomain" code:0 userInfo:ui];
-	}
-	
-    return nil;
+- (id)objectWithString:(NSString *)string {
+	return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 @end
