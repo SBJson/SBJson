@@ -82,23 +82,23 @@
 SINGLETON
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
-	return token == sbjson_token_array_start || token == sbjson_token_object_start;
+	return token == sbjson_token_array_open || token == sbjson_token_object_open;
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
 
 	SBJsonStreamParserState *state = nil;
 	switch (tok) {
-		case sbjson_token_array_start:
+		case sbjson_token_array_open:
 			state = [SBJsonStreamParserStateArrayStart sharedInstance];
 			break;
 
-		case sbjson_token_object_start:
+		case sbjson_token_object_open:
 			state = [SBJsonStreamParserStateObjectStart sharedInstance];
 			break;
 
-		case sbjson_token_array_end:
-		case sbjson_token_object_end:
+		case sbjson_token_array_close:
+		case sbjson_token_object_close:
 			if (parser.supportMultipleDocuments)
 				state = parser.state;
 			else
@@ -163,8 +163,9 @@ SINGLETON
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
-		case sbjson_token_object_end:
+		case sbjson_token_object_close:
 		case sbjson_token_string:
+        case sbjson_token_encoded:
 			return YES;
 			break;
 		default:
@@ -192,7 +193,7 @@ SINGLETON
 - (NSString*)name { return @"after object key"; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
-	return token == sbjson_token_keyval_separator;
+	return token == sbjson_token_entry_sep;
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
@@ -211,13 +212,14 @@ SINGLETON
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
-		case sbjson_token_object_start:
-		case sbjson_token_array_start:
-		case sbjson_token_true:
-		case sbjson_token_false:
+		case sbjson_token_object_open:
+		case sbjson_token_array_open:
+		case sbjson_token_bool:
 		case sbjson_token_null:
-		case sbjson_token_number:
-		case sbjson_token_string:
+        case sbjson_token_integer:
+        case sbjson_token_real:
+        case sbjson_token_string:
+        case sbjson_token_encoded:
 			return YES;
 			break;
 
@@ -243,8 +245,8 @@ SINGLETON
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
-		case sbjson_token_object_end:
-		case sbjson_token_separator:
+		case sbjson_token_object_close:
+        case sbjson_token_value_sep:
 			return YES;
 			break;
 		default:
@@ -269,7 +271,7 @@ SINGLETON
 - (NSString*)name { return @"in place of object key"; }
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
-    return sbjson_token_string == token;
+    return sbjson_token_string == token || sbjson_token_encoded == token;
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
@@ -292,9 +294,9 @@ SINGLETON
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
-		case sbjson_token_object_end:
-		case sbjson_token_keyval_separator:
-		case sbjson_token_separator:
+		case sbjson_token_object_close:
+        case sbjson_token_entry_sep:
+        case sbjson_token_value_sep:
 			return NO;
 			break;
 
@@ -320,11 +322,11 @@ SINGLETON
 
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
-	return token == sbjson_token_array_end || token == sbjson_token_separator;
+	return token == sbjson_token_array_close || token == sbjson_token_value_sep;
 }
 
 - (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok {
-	if (tok == sbjson_token_separator)
+	if (tok == sbjson_token_value_sep)
 		parser.state = [SBJsonStreamParserStateArrayNeedValue sharedInstance];
 }
 
@@ -341,10 +343,10 @@ SINGLETON
 
 - (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token {
 	switch (token) {
-		case sbjson_token_array_end:
-		case sbjson_token_keyval_separator:
-		case sbjson_token_object_end:
-		case sbjson_token_separator:
+		case sbjson_token_array_close:
+        case sbjson_token_entry_sep:
+		case sbjson_token_object_close:
+		case sbjson_token_value_sep:
 			return NO;
 			break;
 
