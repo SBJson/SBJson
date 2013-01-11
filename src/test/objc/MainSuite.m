@@ -69,6 +69,20 @@ static NSString *chomp(NSString *str) {
     STAssertEquals(count, (NSUInteger)40, nil);
 }
 
+- (void)IGNOREDtestReallyBrokenUTF8 {
+    [self inExtForeachInSuite:@"kuhn" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
+        id value = [parser objectWithData:slurpd(inpath)];
+        STAssertNotNil(value, parser.error);
+
+        NSString *output = [writer stringWithObject:value];
+        STAssertNotNil(output, writer.error);
+        STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
+    }];
+
+    STAssertEquals(count, (NSUInteger)1, nil);
+}
+
+
 - (void)testParseError {
     parser.maxDepth = 3u;
 

@@ -19,7 +19,7 @@
 }
 
 - (void)setError:(NSString *)error {
-    _error = [NSString stringWithFormat:@"%@ at index %u", error, offset + index];
+    _error = [NSString stringWithFormat:@"%@ at index %lu", error, (unsigned long)(offset + index)];
 }
 
 - (void)appendData:(NSData *)data_ {
@@ -98,15 +98,15 @@
         switch (c) {
             case '0' ... '9':
                 tmp += c - '0';
-            break;
+                break;
 
             case 'a' ... 'f':
                 tmp += 10 + c - 'a';
-            break;
+                break;
 
             case 'A' ... 'F':
                 tmp += 10 + c - 'A';
-            break;
+                break;
 
             default:
                 return NO;

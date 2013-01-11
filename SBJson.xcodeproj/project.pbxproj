@@ -73,6 +73,7 @@
 		D7F64EBB1696C3F8009DF12E /* format in Resources */ = {isa = PBXBuildFile; fileRef = D7F64EB81696C3F8009DF12E /* format */; };
 		D7F64EBC1696C3F8009DF12E /* format in Resources */ = {isa = PBXBuildFile; fileRef = D7F64EB81696C3F8009DF12E /* format */; };
 		F8D04131C6B0E02EC6FB1D39 /* SBJsonStreamTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = F8D041B0DB689CC78ABDF64D /* SBJsonStreamTokeniser.h */; };
+		F8D0414D5B6D665D141013D1 /* kuhn in Resources */ = {isa = PBXBuildFile; fileRef = F8D04F2055A30B07D7E8AEAF /* kuhn */; };
 		F8D0434D37D8894CD87E4982 /* SBJsonStreamTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04518FD72EFA646581EAB /* SBJsonStreamTokeniser.m */; };
 		F8D046ED6DA44EDBA6FA50FC /* SBJsonStreamTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = F8D041B0DB689CC78ABDF64D /* SBJsonStreamTokeniser.h */; };
 		F8D0486A2C9EF8BAACFBD35D /* MainSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04A94F7A4284E41E96B8F /* MainSuite.m */; };
@@ -80,6 +81,7 @@
 		F8D04BAE63C501747C6B5303 /* MainSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04A94F7A4284E41E96B8F /* MainSuite.m */; };
 		F8D04C40AB8E50C09F7534AE /* SBJsonStreamTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04518FD72EFA646581EAB /* SBJsonStreamTokeniser.m */; };
 		F8D04F5F7E70FC5FAFCB6856 /* JsonStreamTokeniserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04F629C26EB98D2031F46 /* JsonStreamTokeniserTest.m */; };
+		F8D04FA987CD1C73A4CF0A71 /* kuhn in Resources */ = {isa = PBXBuildFile; fileRef = F8D04F2055A30B07D7E8AEAF /* kuhn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +148,7 @@
 		F8D041B0DB689CC78ABDF64D /* SBJsonStreamTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamTokeniser.h; sourceTree = "<group>"; };
 		F8D04518FD72EFA646581EAB /* SBJsonStreamTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamTokeniser.m; sourceTree = "<group>"; };
 		F8D04A94F7A4284E41E96B8F /* MainSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSuite.m; sourceTree = "<group>"; };
+		F8D04F2055A30B07D7E8AEAF /* kuhn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = kuhn; sourceTree = "<group>"; };
 		F8D04F629C26EB98D2031F46 /* JsonStreamTokeniserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonStreamTokeniserTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -364,6 +367,7 @@
 				D7F64E7C1692D24D009DF12E /* main */,
 				D7F64E651692697D009DF12E /* stream */,
 				D7F64E5F169262AE009DF12E /* jsonchecker */,
+				F8D04F2055A30B07D7E8AEAF /* kuhn */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -531,6 +535,7 @@
 				D7F64E7D1692D24D009DF12E /* main in Resources */,
 				D7F64EB91696C3F8009DF12E /* comparatorsort in Resources */,
 				D7F64EBB1696C3F8009DF12E /* format in Resources */,
+				F8D04FA987CD1C73A4CF0A71 /* kuhn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,6 +549,7 @@
 				D7F64E7E1692D24D009DF12E /* main in Resources */,
 				D7F64EBA1696C3F8009DF12E /* comparatorsort in Resources */,
 				D7F64EBC1696C3F8009DF12E /* format in Resources */,
+				F8D0414D5B6D665D141013D1 /* kuhn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
