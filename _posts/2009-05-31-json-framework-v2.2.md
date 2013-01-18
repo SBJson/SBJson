@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: JSON Framework v2.2 released!
 ---
 

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: JSON Framework 2.2 released!
 ---
 I am proud to present version 2.2 of <a href="http://code.google.com/p/json-framework/">JSON.framework</a>, the strict JSON parser/generator for Cocoa and the iPhone. You can get the latest version from <a href="http://code.google.com/p/json-framework/downloads/list">the download page</a>.

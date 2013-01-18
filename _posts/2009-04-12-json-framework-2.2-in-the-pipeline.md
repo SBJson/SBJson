@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: JSON Framework 2.2 in the Pipeline
 ---
 

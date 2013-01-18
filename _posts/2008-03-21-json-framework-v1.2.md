@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: JSON Framework v1.2
 ---
 A couple days ago I released a new version of my JSON framework for Objective-C. This release saw the parser being completely rewritten to be a lot cleaner and about 10–20% faster at decoding short inputs. (Long inputs stay about the same.) This also fixed a bizarre bug, reported by David Zhao, where strings would not always be decoded properly.
