@@ -1,29 +1,24 @@
 ---
-title: SBJson
+title: SBJson for Objective-C
 layout: default
 current_api: 3.2
 ---
 
-# Overview
-
-A strict JSON parser and generator for Objective-C. It adds categories to
-existing Objective-C objects for a super-simple interface. More flexible
-APIs are also provided for added control.
+A strict JSON parser and generator for Objective-C.
 
 Selected features:
 
-* New BSD License.
 * Easy-to-use API.
-* Streaming Support. See SBJsonStreamParser in the [API docs](http://stig.github.com/json-framework/api/{{ page.current_api }}).
-* Pretty-printing of JSON output.
-* Sorted dictionary keys in JSON output.
-* Configurable max recursion depth for parsing and writing.
+* Streaming Support.
+* Pretty-printing.
+* Sorted dictionary keys.
+* Configurable max recursion depth.
 * Pure Objective-C.
 * No external dependencies.
 
 # API Documentation
 
-* [Version 3.2](api/3.2/) (Releases Candidate 1 - ARC)
+* [Version 3.2](api/3.2/) (Release Candidate 1 - ARC)
 * [Version 3.1](api/3.1/) (Stable ARC)
 * [Version 3.0](api/3.0/) (Stable non-ARC)
 
