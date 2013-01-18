@@ -7,7 +7,7 @@ title: JSON Framework Update
 
 <em>Is this thing on?</em>
 
-This blog's been quiet for a while, but I'm still here&mdash;I've not fallen off the Earth. I've been busy at work, but also working on version 2 of my <a href="http://code.google.com/p/json-framework/">JSON framework</a>. The move to Google Code have turned out well. The issue tracker (although it's only me who have used it yet, and I haven't really used it in anger) has been helpful and it's been nice to have a wiki to do a quick edit of content.
+This blog's been quiet for a while, but I'm still here---I've not fallen off the Earth. I've been busy at work, but also working on version 2 of my <a href="http://code.google.com/p/json-framework/">JSON framework</a>. The move to Google Code have turned out well. The issue tracker (although it's only me who have used it yet, and I haven't really used it in anger) has been helpful and it's been nice to have a wiki to do a quick edit of content.
 
 It's also been great to see the <a href="http://groups.google.com/group/json-framework">mailing list</a> becoming a great resource. There's a couple of guys out there that are doing (hopefully!) interesting stuff with this framework on the iPhone. This platform has some quirks, such as not supporting frameworks, that makes development there a little different.
 

@@ -8,7 +8,7 @@ I am proud to present version 2.2 of <a href="http://code.google.com/p/json-fram
 Here are the more significant changes from the 2.1 series:
 
 <ul>
-<li><strong>New, fresh API&mdash;particularly for errors</strong>
+<li><strong>New, fresh API---particularly for errors</strong>
 
 Extracted the SBJsonWriter and SBJsonParser classes from the SBJSON class. These present a fresh, simple API. If a method returns nil, you can now simply call a method to get an array of NSError objects containing the error trace.
 

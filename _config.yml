@@ -1,3 +1,6 @@
 auto: true
 server: true
 permalink: /news/:year/:title.html
+
+url: http://sbjson.org
+name: SBJson news and updates

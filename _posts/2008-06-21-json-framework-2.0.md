@@ -17,7 +17,7 @@ The existing API looks the same on the surface but in the case of failure will n
 The <a href="http://code.brautaset.org/JSON/interface_s_b_j_s_o_n.html">new lower-level API</a> optionally returns an NSError object via a parameter. A lot of work has gone into making the error reporting more accurate. For example, we now report "trailing comma not allowed in dictionary" rather than "invalid JSON".
 
 * **Consolidated formatting options**<br/>
-For simplicity the SpaceBefore, SpaceAfter, and MultiLine formatting options have been rolled into the new HumanReadable option. The Pretty and MultiLine options&mdash;though they continue to function as aliases to HumanReadable&mdash;are now deprecated.
+For simplicity the SpaceBefore, SpaceAfter, and MultiLine formatting options have been rolled into the new HumanReadable option. The Pretty and MultiLine options---though they continue to function as aliases to HumanReadable---are now deprecated.
 
 * **Xcode-integrated API documentation**<br/>
 Having switched to <a href="http://www.stack.nl/~dimitri/doxygen/">Doxygen</a> for generating API docs, I got Xcode&nbsp;3 integration for free. This lets you search the JSON API information directly from within Xcode. To install it open the .dmg and, in Terminal.app, cd into the <code>html</code> folder it contains and type <code>make install</code>.

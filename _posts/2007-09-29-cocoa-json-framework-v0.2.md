@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Cocoa JSON Framework v0.2&mdash;now with pretty-printing!
+title: Cocoa JSON Framework v0.2---now with pretty-printing!
 ---
 
 You can now produce human-readable JSON! There is a new method that takes options to control the formatting.
