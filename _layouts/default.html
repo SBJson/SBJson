@@ -1,15 +1,14 @@
 <!doctype html>
 
-<!-- layout cribbed from http://jonsterling.github.com/ -->
-
 <html>
 <head>
-	<title>{{ page.title | strip_html }}</title>
-	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<meta name="author" content="JSON, Framework, Objective-C" />
+	<title>{{ page.title | strip_html }} SBJson</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="author" content="Stig Brautaset" />
+	<meta name="viewport" content="width = device-width, initial-scale = 1, maximum-scale = 1, user-scalable = no" />
 
 	<!-- Homepage CSS -->
-	<link rel="stylesheet" href="css/default.css" type="text/css" media="screen, projection" />
+	<link rel="stylesheet" href="/css/default.css" type="text/css" media="screen, projection" />
 
 </head>
 <body>
@@ -18,8 +17,12 @@
 		<header>
 			<div class="container">
 				<hgroup>
-					<h1>SBJson</h1>
-					<h2>(Previously known as json-framework)</h2>
+				    <ul>
+				        <li><a href="/">Home</a></li>
+    				    <li><a href="/news.html">NEWS</a></li>
+    				</ul>
+				    <hr/>
+					<h1>{{ page.title }}</h1>
 				</hgroup>
 			</div>
 		</header>
@@ -32,12 +35,10 @@
 
 		<footer>
 			<div class="container">
-				<p>All content is Copyright &copy; Stig Brautaset unless otherwise noted.<br/> Layout cribbed from an old version of <a href="http://jonmsterling.com/">Jon Sterling</a>'s site</a>.</p>
+				<p>Copyright &copy; 2013 Stig Brautaset</p>
 			</div>
 		</footer>
 	</div>
-
-	<a href="http://github.com/stig/json-framework"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
 
 </body>
 </html>

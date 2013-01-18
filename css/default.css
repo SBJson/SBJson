@@ -1,16 +1,3 @@
-@font-face {
-  font-family: "League Gothic";
-  src: local("League Gothic"), url("fonts/League-Gothic.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "Prociono";
-  src: local("Prociono"), url("fonts/Prociono.otf") format("opentype"),
-     url("fonts/ProcionoTT.ttf") format("truetype");
-}
-
-
-
 article, aside, details, footer, header, hgroup, nav, section {
   display: block;
 }
@@ -22,13 +9,13 @@ article, aside, details, footer, header, hgroup, nav, section {
 }
 
 body {
-  font-family: "Prociono", Georgia, serif;
+  font-family: Georgia, serif;
   background-color: #fefefe;
 }
 
 .container {
-  width: 600px;
-  margin: 0px auto 0px 150px;
+  width: 800px;
+  margin: 0px auto 0px auto;
 }
 
 .clear {
@@ -39,12 +26,22 @@ a {
   color: inherit;
 }
 
+header ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+header ul li {
+    display: inline;
+}
+
+header ul li + li {
+    padding-left: 0.7em;
+}
 
 header {
-  text-align: left;
-  margin-top: 3.0em;
-  margin-bottom: 0.2em;
-  padding-bottom: 0.5em;
+  margin-top: 2.0em;
 }
 
 header hgroup {
@@ -56,20 +53,10 @@ header .container {
 }
 
 header h1 {
-  color:  #444;
   font-weight: normal;
-  font-size: 6.5em;
-  font-family: "League Gothic", "Helvetica Neue", sans-serif;
+  font-size: 3em;
+  font-family: "Helvetica Neue", sans-serif;
 }
-
-header h2 {
-  color:  #444;
-  font-weight: normal;
-  font-size: 2em;
-  font-family: "League Gothic", "Helvetica Neue", sans-serif;
-}
-
-
 
 header a {
   color: inherit;
@@ -88,24 +75,27 @@ a:hover {
 
 
 article {
-  padding: 0em 0em 1em;
+  font-size: 1.2em;
+  padding: 0;
   margin-bottom: 0.7em;
 }
 
+article h1, h2, h3 {
+    font-family: "Helvetica Neue", sans-serif;
+}
+
 article h1 {
-  padding-left: 15px;
-  margin-left: -15px;
-  margin-right: -15px;
-  padding-right: 15px;
   margin-top: 1em;
-  margin-bottom: 0.5em;
+  font-size: 1.4em;
   font-weight: bold;
-  font-size: 1.5em;
-  background-color: #f8f8f8;
-  border-top: #555 solid 5px;
-  border-bottom: #ddd solid 5px;
-  padding-top: 3px;
-  padding-bottom: 3px;
+}
+
+article h2 {
+  font-size: 1.2em;
+}
+
+article #related {
+    margin-top: 1.5em;
 }
 
 article h1 #date {
@@ -125,42 +115,64 @@ article h1 a:hover {
   display: inline;
 }
 
-article h2 {
-  margin-top: 1.5em;
-  font-weight: normal;
-  font-size: 1.25em;
-  background-color: #fcfcfc;
-  border-bottom: #ddd solid 3px;
-}
-
-article p {
+article p, article ul, article pre {
   color: #333;
   line-height: 1.5em;
+  margin: 0.75em 0em;
 }
 
 article ul {
   color: #333;
   list-style-type: circle;
+  margin-left: 1.2em;
 }
 
-article li {
-  margin: 0em 1.2em;
+article #pagination {
+    margin: 0;
+    padding: 0;
 }
 
-article p, article pre {
-  margin: 0.75em 0em;
+article #pagination p {
+    text-align: center;
+}
+
+article #meta p {
+    text-size: 80%;
+    color: #aaa;
+    margin: 0;
+    padding: 0;
+}
+
+article #pagination ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+article #pagination ul li { display: inline; }
+
+article #pagination ul li a {
+    text-decoration: none;
+    padding: .2em 1em;
+}
+
+/* Dates in archive listings... */
+ul.posts span {
+    color: #aaa;
+    font-family: Menlo, Monaco, Courier, monospace;
+    font-size: 80%;
+  }
+
+pre {
+    border: 1px solid #ddd;
 }
 
 pre, code {
-  background: #000;
-  color: #fff;
-  font-family: 'Bitstream Vera Sans Mono', Courier, monospace;
-  font-size: 0.8em;
+  background-color: #eef;
+  font-family: Menlo, Monaco, Courier, monospace;
+  font-size: 0.9em;
   padding: 0.2em;
-}
-
-code {
-  background-color: #f8f8f8;
 }
 
 .quiet {
@@ -169,17 +181,12 @@ code {
 
 
 footer {
-  background-color: #f8f8f8;
-  padding-top: 2px;
-  border-top: #ddd solid 5px;
-  border-bottom: #ddd solid 1px;
-  margin-top: 20px;
-  margin-bottom: -2px;
-  font-size: 0.7em;
-  color: #666;
+  border-top: #ddd solid 1px;
+  font-size: 0.8em;
 }
 
 footer p {
+  text-align: center;
   margin: 0.6em 0em;
 }
 
@@ -206,4 +213,16 @@ hr {
   color: #ddd;
   background-color: #ddd;
   height: 1px;
+}
+
+@media print, screen and (max-width: 900px) {
+    .container {
+        width: 90%;
+    }
+}
+@media only screen and (max-width: 700px), only screen and (max-device-width: 700px) {  
+    .container {
+        width: 100%;
+        margin: 0 5px;
+    }
 }
