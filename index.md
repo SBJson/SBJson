@@ -18,9 +18,9 @@ Selected features:
 
 # API Documentation
 
-* [Version 3.2](api/3.2/) (Release Candidate 1 - ARC)
-* [Version 3.1](api/3.1/) (Stable ARC)
-* [Version 3.0](api/3.0/) (Stable non-ARC)
+* [Version 3.2](api/3.2/) (Stable)
+* [Version 3.1](api/3.1/) (Previous stable)
+* [Version 3.0](api/3.0/) (Legacy *Please upgrade if you use this*)
 
 # Source
 
@@ -37,11 +37,7 @@ $ git clone git://github.com/stig/json-framework
 * Check [StackOverflow questions tagged with SBJson](http://stackoverflow.com/questions/tagged/sbjson) if you have questions about how to use the library. I eventually read all questions with this tag.
 * Use the [issue tracker](http://github.com/stig/json-framework/issues) if you have found a bug.
 
-Please **DO NOT** use my personal email address for support requests. If
-you're lucky I will simply redirect you to one of the above. If you're
-unlucky I'll ignore you. Please don't take it personal, but I already gave
-you the source; I don't have the time nor money to also give one-on-one
-support for free.
+Please *do not* use my personal email address for support requests.
 
 # License
 
