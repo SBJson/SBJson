@@ -1,3 +1,8 @@
+3.2.0 (January 19th, 2013)
+==========================
+
+Version 3.2.0 was released, with no changes since rc1.
+
 3.2.0-rc1 (January 4th, 2013)
 =============================
 
