@@ -61,6 +61,25 @@
 	objectCount++;
 }
 
+- (void) testParsingWithShortWorkBuffer{   
+   char* validjson = "[{\"description\": \"Lorem ipsum dolor sit amet, "\
+   "consectetur adipiscing elit. Donec ultrices ornare gravida. Vestibulum"\
+   " ante ipsum primisin faucibus orci luctus et ultrices posuere\"}]";
+
+   parser.supportMultipleDocuments = NO;
+   SBJsonStreamParserStatus status = SBJsonStreamParserWaitingForData;
+   NSData* data = nil;
+   
+   for (int i=0, e=(int)strlen(validjson); i<e; ++i){
+      data = [NSData dataWithBytes:validjson+i length:1];
+      status = [parser parse:data];
+      if(status == SBJsonStreamParserError){
+         break;
+      }
+   }
+   STAssertEquals(status, SBJsonStreamParserComplete, nil);
+}
+
 /*
  This test reads a 100k chunk of data downloaded from 
  http://stream.twitter.com/1/statuses/sample.json 
