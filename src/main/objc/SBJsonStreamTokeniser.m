@@ -38,6 +38,9 @@
         index = 0u;
 
     }
+    else {
+       [data appendData:data_];       
+    }
 
     bytes = [data bytes];
 }
