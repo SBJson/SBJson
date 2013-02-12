@@ -72,10 +72,10 @@
 		D7F64EBA1696C3F8009DF12E /* comparatorsort in Resources */ = {isa = PBXBuildFile; fileRef = D7F64EB71696C3F8009DF12E /* comparatorsort */; };
 		D7F64EBB1696C3F8009DF12E /* format in Resources */ = {isa = PBXBuildFile; fileRef = D7F64EB81696C3F8009DF12E /* format */; };
 		D7F64EBC1696C3F8009DF12E /* format in Resources */ = {isa = PBXBuildFile; fileRef = D7F64EB81696C3F8009DF12E /* format */; };
-		F8D04131C6B0E02EC6FB1D39 /* SBJsonStreamTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = F8D041B0DB689CC78ABDF64D /* SBJsonStreamTokeniser.h */; };
+		F8D04131C6B0E02EC6FB1D39 /* SBJsonStreamTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = F8D041B0DB689CC78ABDF64D /* SBJsonStreamTokeniser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F8D0414D5B6D665D141013D1 /* kuhn in Resources */ = {isa = PBXBuildFile; fileRef = F8D04F2055A30B07D7E8AEAF /* kuhn */; };
 		F8D0434D37D8894CD87E4982 /* SBJsonStreamTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04518FD72EFA646581EAB /* SBJsonStreamTokeniser.m */; };
-		F8D046ED6DA44EDBA6FA50FC /* SBJsonStreamTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = F8D041B0DB689CC78ABDF64D /* SBJsonStreamTokeniser.h */; };
+		F8D046ED6DA44EDBA6FA50FC /* SBJsonStreamTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = F8D041B0DB689CC78ABDF64D /* SBJsonStreamTokeniser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F8D0486A2C9EF8BAACFBD35D /* MainSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04A94F7A4284E41E96B8F /* MainSuite.m */; };
 		F8D048869423310097A4889E /* JsonStreamTokeniserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04F629C26EB98D2031F46 /* JsonStreamTokeniserTest.m */; };
 		F8D04BAE63C501747C6B5303 /* MainSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04A94F7A4284E41E96B8F /* MainSuite.m */; };
@@ -387,9 +387,9 @@
 				BC88514E1391D6CD00370E55 /* SBJsonStreamWriterAccumulator.h in Headers */,
 				BC8851541391D6CD00370E55 /* SBJsonWriter.h in Headers */,
 				BC8851411391D6CD00370E55 /* SBJson.h in Headers */,
+				F8D04131C6B0E02EC6FB1D39 /* SBJsonStreamTokeniser.h in Headers */,
 				BC88514A1391D6CD00370E55 /* SBJsonStreamParserState.h in Headers */,
 				BC8851501391D6CD00370E55 /* SBJsonStreamWriterState.h in Headers */,
-				F8D04131C6B0E02EC6FB1D39 /* SBJsonStreamTokeniser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,9 +405,9 @@
 				BCADB7D5139210C90057A705 /* SBJsonStreamWriter.h in Headers */,
 				BCADB7D2139210C90057A705 /* SBJsonStreamParserAccumulator.h in Headers */,
 				BCADB7D6139210C90057A705 /* SBJsonStreamWriterAccumulator.h in Headers */,
+				F8D046ED6DA44EDBA6FA50FC /* SBJsonStreamTokeniser.h in Headers */,
 				BCADB7D4139210C90057A705 /* SBJsonStreamParserState.h in Headers */,
 				BCADB7D7139210C90057A705 /* SBJsonStreamWriterState.h in Headers */,
-				F8D046ED6DA44EDBA6FA50FC /* SBJsonStreamTokeniser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
