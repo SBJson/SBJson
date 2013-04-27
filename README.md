@@ -24,7 +24,7 @@ Installation
 ============
 
 The simplest way to start using JSON in your application is to copy all
-the source files (the contents of the `Classes` folder) into your own
+the source files (the contents of the `src/main/objc` folder) into your own
 Xcode project.
 
 1. In the Finder, navigate into the `Classes` folder.
