@@ -8,8 +8,13 @@
 
 #import "TweetStreamViewController.h"
 #import <SBJson/SBJson.h>
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
 
 @interface TweetStreamViewController () <SBJsonStreamParserAdapterDelegate>
+
+@property (nonatomic) ACAccountStore *accountStore;
+
 @end
 
 @implementation TweetStreamViewController
@@ -27,7 +32,29 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+
     [super viewDidLoad];
+
+    ACAccountStore *accountStore = ACAccountStore.new;
+    ACAccountType *at = [accountStore accountTypeWithAccountTypeIdentifier: ACAccountTypeIdentifierTwitter];
+
+    [accountStore requestAccessToAccountsWithType: at options: nil completion: ^(BOOL granted, NSError *error) {
+
+        if (granted) {
+
+            [NSOperationQueue.mainQueue addOperationWithBlock: ^{
+
+                if (accountStore.accounts.count) {
+
+                    self.accountStore = accountStore;
+
+                    username.text = [@"@" stringByAppendingString: [accountStore.accounts[0] username]];
+                    goButton.enabled = YES;
+                }
+            }];
+        }
+        else { NSLog(@"Error: %@", error.userInfo); }
+    }];
 }
 
 - (void)viewDidUnload {
@@ -43,37 +70,37 @@
 #pragma mark Actions
 
 - (IBAction)go {
-    [username resignFirstResponder];
-	[password resignFirstResponder];
-	
-	// We don't want *all* the individual messages from the
-	// SBJsonStreamParser, just the top-level objects. The stream
-	// parser adapter exists for this purpose.
-	adapter = [[SBJsonStreamParserAdapter alloc] init];
-	
-	// Set ourselves as the delegate, so we receive the messages
-	// from the adapter.
-	adapter.delegate = self;
-	
-	// Create a new stream parser..
-	parser = [[SBJsonStreamParser alloc] init];
-	
-	// .. and set our adapter as its delegate.
-	parser.delegate = adapter;
-	
-	// Normally it's an error if JSON is followed by anything but
-	// whitespace. Setting this means that the parser will be
-	// expecting the stream to contain multiple whitespace-separated
-	// JSON documents.
-	parser.supportMultipleDocuments = YES;
-	
-	NSString *url = @"https://stream.twitter.com/1/statuses/sample.json";
-	
-	NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:url]
-											  cachePolicy:NSURLRequestUseProtocolCachePolicy
-										  timeoutInterval:60.0];
-	
-	theConnection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+
+    // We don't want *all* the individual messages from the
+    // SBJsonStreamParser, just the top-level objects. The stream
+    // parser adapter exists for this purpose.
+    adapter = [[SBJsonStreamParserAdapter alloc] init];
+
+    // Set ourselves as the delegate, so we receive the messages
+    // from the adapter.
+    adapter.delegate = self;
+
+    // Create a new stream parser..
+    parser = [[SBJsonStreamParser alloc] init];
+
+    // .. and set our adapter as its delegate.
+    parser.delegate = adapter;
+
+    // Normally it's an error if JSON is followed by anything but
+    // whitespace. Setting this means that the parser will be
+    // expecting the stream to contain multiple whitespace-separated
+    // JSON documents.
+    parser.supportMultipleDocuments = YES;
+
+    NSURL *url = [NSURL URLWithString: @"https://stream.twitter.com/1.1/statuses/sample.json"];
+    SLRequest *request = [SLRequest requestForServiceType: SLServiceTypeTwitter
+                                            requestMethod: SLRequestMethodGET
+                                                      URL: url
+                                               parameters: nil];
+    request.account = self.accountStore.accounts[0];
+
+    theConnection = [[NSURLConnection alloc] initWithRequest: [request preparedURLRequest]
+                                                    delegate: self];
 }
 
 #pragma mark SBJsonStreamParserAdapterDelegate methods
@@ -83,7 +110,13 @@
 }
 
 - (void)parser:(SBJsonStreamParser *)parser foundObject:(NSDictionary *)dict {
-	tweet.text = [dict objectForKey:@"text"];
+
+    if ([dict[@"id"] longLongValue] != [dict[@"id_str"] longLongValue]) {
+
+        NSLog(@"id: %lld; id_str: %@", [dict[@"id"] longLongValue], dict[@"id_str"]);
+        NSLog(@"%@", dict);
+    }
+	tweet.text = dict[@"text"];
 }
 
 #pragma mark NSURLConnectionDelegate methods
@@ -94,12 +127,6 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
 	NSLog(@"Connection didReceiveAuthenticationChallenge: %@", challenge);
-	
-	NSURLCredential *credential = [NSURLCredential credentialWithUser:username.text
-															 password:password.text
-														  persistence:NSURLCredentialPersistenceForSession];
-	
-	[[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {

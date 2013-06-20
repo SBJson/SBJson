@@ -17,6 +17,11 @@
 		BC70BE67138C025600638110 /* TweetStreamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC70BE66138C025600638110 /* TweetStreamViewController.m */; };
 		BC70BE6A138C025600638110 /* TweetStreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC70BE68138C025600638110 /* TweetStreamViewController.xib */; };
 		BCA5BD7D13BE00CF00223625 /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCA5BD7813BE00A700223625 /* libsbjson-ios.a */; };
+		CE4337771772C55400C5C508 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4337761772C55400C5C508 /* Accounts.framework */; };
+		CE43377C1772C55D00C5C508 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE43377B1772C55D00C5C508 /* Social.framework */; };
+		CEBA8E9F177340D200376F33 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEBA8E9E177340D200376F33 /* Default-568h@2x.png */; };
+		CEBA8EA1177340D800376F33 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEBA8EA0177340D800376F33 /* Default@2x.png */; };
+		CEBA8EA3177340E900376F33 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CEBA8EA2177340E900376F33 /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +78,11 @@
 		BC70BE66138C025600638110 /* TweetStreamViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TweetStreamViewController.m; sourceTree = "<group>"; };
 		BC70BE69138C025600638110 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TweetStreamViewController.xib; sourceTree = "<group>"; };
 		BCA5BD6C13BE00A600223625 /* SBJson.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SBJson.xcodeproj; path = ../../SBJson.xcodeproj; sourceTree = "<group>"; };
+		CE4337761772C55400C5C508 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		CE43377B1772C55D00C5C508 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		CEBA8E9E177340D200376F33 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Images/Default-568h@2x.png"; sourceTree = "<group>"; };
+		CEBA8EA0177340D800376F33 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Images/Default@2x.png"; sourceTree = "<group>"; };
+		CEBA8EA2177340E900376F33 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE43377C1772C55D00C5C508 /* Social.framework in Frameworks */,
+				CE4337771772C55400C5C508 /* Accounts.framework in Frameworks */,
 				BCA5BD7D13BE00CF00223625 /* libsbjson-ios.a in Frameworks */,
 				BC70BE51138C025500638110 /* UIKit.framework in Frameworks */,
 				BC70BE53138C025500638110 /* Foundation.framework in Frameworks */,
@@ -111,9 +123,11 @@
 		BC70BE4F138C025500638110 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BC70BE50138C025500638110 /* UIKit.framework */,
-				BC70BE52138C025500638110 /* Foundation.framework */,
+				CE4337761772C55400C5C508 /* Accounts.framework */,
 				BC70BE54138C025500638110 /* CoreGraphics.framework */,
+				BC70BE52138C025500638110 /* Foundation.framework */,
+				CE43377B1772C55D00C5C508 /* Social.framework */,
+				BC70BE50138C025500638110 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -135,6 +149,7 @@
 		BC70BE57138C025500638110 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CEBA8EA4177341AB00376F33 /* Images */,
 				BC70BE58138C025500638110 /* TweetStream-Info.plist */,
 				BC70BE59138C025500638110 /* InfoPlist.strings */,
 				BC70BE5C138C025500638110 /* TweetStream-Prefix.pch */,
@@ -152,6 +167,16 @@
 				BCA5BD7A13BE00A700223625 /* sbjson-iosTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CEBA8EA4177341AB00376F33 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				CEBA8EA2177340E900376F33 /* Default.png */,
+				CEBA8EA0177340D800376F33 /* Default@2x.png */,
+				CEBA8E9E177340D200376F33 /* Default-568h@2x.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,6 +271,9 @@
 				BC70BE5B138C025500638110 /* InfoPlist.strings in Resources */,
 				BC70BE64138C025600638110 /* MainWindow.xib in Resources */,
 				BC70BE6A138C025600638110 /* TweetStreamViewController.xib in Resources */,
+				CEBA8E9F177340D200376F33 /* Default-568h@2x.png in Resources */,
+				CEBA8EA1177340D800376F33 /* Default@2x.png in Resources */,
+				CEBA8EA3177340E900376F33 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +378,7 @@
 				GCC_PREFIX_HEADER = "TweetStream/TweetStream-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TweetStream/TweetStream-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -375,6 +404,7 @@
 				GCC_PREFIX_HEADER = "TweetStream/TweetStream-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TweetStream/TweetStream-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
