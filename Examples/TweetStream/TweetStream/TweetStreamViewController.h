@@ -12,8 +12,8 @@
 @class SBJsonStreamParserAdapter;
 
 @interface TweetStreamViewController : UIViewController {
-    IBOutlet UITextField *username;
-    IBOutlet UITextField *password;
+    IBOutlet UILabel *username;
+    IBOutlet UIButton *goButton;
     IBOutlet UITextView *tweet;
     
     NSURLConnection *theConnection;
