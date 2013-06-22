@@ -247,8 +247,7 @@
                             // FALLTHROUGH
 
                         case sbjson_token_real: {
-                            NSString *string = [[NSString alloc] initWithBytes:token length:token_len encoding:NSUTF8StringEncoding];
-                            [delegate parser:self foundNumber:[NSDecimalNumber decimalNumberWithString:string]];
+                            [delegate parser:self foundNumber: @(strtod(token, NULL))];
                             [state parser:self shouldTransitionTo:tok];
                             break;
                         }

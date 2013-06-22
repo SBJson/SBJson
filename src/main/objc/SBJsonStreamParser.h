@@ -99,8 +99,7 @@ typedef enum {
  - object  -> NSMutableDictionary
  - true    -> NSNumber's -numberWithBool:YES
  - false   -> NSNumber's -numberWithBool:NO
- - integer up to 19 digits -> NSNumber's -numberWithLongLong:
- - all other numbers       -> NSDecimalNumber
+ - number -> NSNumber
 
  Since Objective-C doesn't have a dedicated class for boolean values,
  these turns into NSNumber instances. However, since these are
@@ -108,11 +107,11 @@ typedef enum {
  properly. In other words, they won't silently suddenly become 0 or 1;
  they'll be represented as 'true' and 'false' again.
 
- As an optimisation integers up to 19 digits in length (the max length
- for signed long long integers) turn into NSNumber instances, while
- complex ones turn into NSDecimalNumber instances. We can thus avoid any
- loss of precision as JSON allows ridiculously large numbers.
-
+ Integers are parsed into either a `long long` or `unsigned long long`
+ type if they fit, else a `double` is used. All real & exponential numbers
+ are represented using a `double`. Previous versions of this library used
+ an NSDecimalNumber in some cases, but this is no longer the case.
+ 
  See also SBJsonStreamParserAdapter for more information.
 
  */
