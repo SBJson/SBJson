@@ -51,7 +51,6 @@ static NSString *chomp(NSString *str) {
             continue;
 
         count++;
-        NSLog(@"Running test: %@", [fileName stringByDeletingPathExtension]);
         block(inpath, outpath);
     }
 }
