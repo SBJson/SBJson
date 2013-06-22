@@ -27,7 +27,7 @@ The simplest way to start using JSON in your application is to copy all
 the source files (the contents of the `src/main/objc` folder) into your own
 Xcode project.
 
-1. In the Finder, navigate into the `Classes` folder.
+1. In the Finder, navigate into the `src/main/objc` folder.
 2. Select all the files and drag-and-drop them into your Xcode project.
 3. Tick the **Copy items into destination group's folder** option.
 4. Use `#import "SBJson.h"` in  your source files.
