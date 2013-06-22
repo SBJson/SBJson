@@ -233,12 +233,18 @@
                             break;
 
                         case sbjson_token_integer: {
-                            NSString *string = [[NSString alloc] initWithBytes:token length:token_len encoding:NSUTF8StringEncoding];
-                            [delegate parser:self foundNumber: @(string.longLongValue)];
-//                            [delegate parser:self foundNumber:[NSDecimalNumber decimalNumberWithString:string]];
-                            [state parser:self shouldTransitionTo:tok];
-                            break;
+                            const int UNSIGNED_LONG_LONG_MAX_DIGITS = 20;
+                            if (token_len <= UNSIGNED_LONG_LONG_MAX_DIGITS) {
+                                if (*token == '-')
+                                    [delegate parser:self foundNumber: @(strtoll(token, NULL, 10))];
+                                else
+                                    [delegate parser:self foundNumber: @(strtoull(token, NULL, 10))];
+                                
+                                [state parser:self shouldTransitionTo:tok];
+                                break;
+                            }
                         }
+                            // FALLTHROUGH
 
                         case sbjson_token_real: {
                             NSString *string = [[NSString alloc] initWithBytes:token length:token_len encoding:NSUTF8StringEncoding];

@@ -63,10 +63,10 @@ static NSString *chomp(NSString *str) {
 
         NSString *output = [writer stringWithObject:value];
         STAssertNotNil(output, writer.error);
-        STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
+        STAssertEqualObjects(output, chomp(slurp(outpath)), [[inpath pathComponents] lastObject]);
     }];
     
-    STAssertEquals(count, (NSUInteger)40, nil);
+    STAssertEquals(count, (NSUInteger)41, nil);
 }
 
 - (void)IGNOREDtestReallyBrokenUTF8 {
@@ -91,7 +91,7 @@ static NSString *chomp(NSString *str) {
         STAssertEqualObjects(parser.error, chomp(slurp(outpath)), nil);
     }];
     
-    STAssertEquals(count, (NSUInteger)39, nil);
+    STAssertEquals(count, (NSUInteger)35, nil);
 
 }
 
