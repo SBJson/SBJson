@@ -20,10 +20,13 @@ mistakenly omitted anyone.)
 * Greg Bolsinga
 * Hager Hu
 * Hiroshi Saito
+* Ivan
 * Jakub Jelonek
 * Jens Alfke
+* Jeremy Agostino
 * Joerg Schwieder
 * John Engelhart
+* Kimmo Myllyoja
 * Konstantin Welke
 * Lloyd Hilaiel
 * Marc Lehmann
