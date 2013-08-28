@@ -809,6 +809,7 @@
 		BCC2628813920FC7003D9994 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/sbjson_ios.dst;
 				GCC_PREFIX_HEADER = "sbjson-ios/sbjson-ios-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -828,6 +829,7 @@
 		BCC2628913920FC7003D9994 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/sbjson_ios.dst;
 				GCC_PREFIX_HEADER = "sbjson-ios/sbjson-ios-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/include/";
@@ -843,6 +845,7 @@
 		BCC2628B13920FC7003D9994 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -864,6 +867,7 @@
 		BCC2628C13920FC7003D9994 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
