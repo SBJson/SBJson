@@ -4,7 +4,7 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 
-
+#import <Foundation/Foundation.h>
 
 typedef enum {
     sbjson_token_error = -1,
