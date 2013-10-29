@@ -53,10 +53,15 @@
 #pragma mark Housekeeping
 
 - (id)init {
+    return [self initWithProcessBlock:nil];
+}
+
+- (id)initWithProcessBlock:(id (^)(id))initialProcessBlock {
 	self = [super init];
 	if (self) {
 		keyStack = [[NSMutableArray alloc] initWithCapacity:32];
 		stack = [[NSMutableArray alloc] initWithCapacity:32];
+        processBlock = initialProcessBlock;
 		
 		currentType = SBJsonStreamParserAdapterNone;
 	}
@@ -84,8 +89,16 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser found:(id)obj {
+    [self parser:parser found:obj isValue:NO];
+}
+
+- (void)parser:(SBJsonStreamParser*)parser found:(id)obj isValue:(BOOL)isValue {
 	NSParameterAssert(obj);
 	
+    if(processBlock&&isValue) {
+        obj = processBlock(obj);
+    }
+    
 	switch (currentType) {
 		case SBJsonStreamParserAdapterArray:
 			[array addObject:obj];
@@ -150,19 +163,19 @@
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x {
-	[self parser:parser found:[NSNumber numberWithBool:x]];
+	[self parser:parser found:[NSNumber numberWithBool:x] isValue:YES];
 }
 
 - (void)parserFoundNull:(SBJsonStreamParser*)parser {
-	[self parser:parser found:[NSNull null]];
+    [self parser:parser found:[NSNull null] isValue:YES];
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundNumber:(NSNumber*)num {
-	[self parser:parser found:num];
+    [self parser:parser found:num isValue:YES];
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string {
-	[self parser:parser found:string];
+    [self parser:parser found:string isValue:YES];
 }
 
 @end

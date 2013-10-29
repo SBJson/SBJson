@@ -52,6 +52,10 @@
 #pragma mark Methods
 
 - (id)objectWithData:(NSData *)data {
+    return [self objectWithData:data processValuesWithBlock:nil];
+}
+
+- (id)objectWithData:(NSData *)data processValuesWithBlock:(id (^)(id))processBlock {
 
     if (!data) {
         self.error = @"Input was 'nil'";
@@ -60,7 +64,7 @@
 
 	SBJsonStreamParserAccumulator *accumulator = [[SBJsonStreamParserAccumulator alloc] init];
     
-    SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] init];
+    SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] initWithProcessBlock:processBlock];
     adapter.delegate = accumulator;
 	
 	SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
@@ -85,7 +89,11 @@
 }
 
 - (id)objectWithString:(NSString *)string {
-	return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding]];
+	return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] processValuesWithBlock:nil];
+}
+
+- (id)objectWithString:(NSString *)string processValuesWithBlock:(id (^)(id))processBlock {
+	return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] processValuesWithBlock:processBlock];
 }
 
 @end
