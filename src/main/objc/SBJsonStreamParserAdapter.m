@@ -56,17 +56,19 @@
     return [self initWithProcessBlock:nil];
 }
 
-- (id)initWithProcessBlock:(id (^)(id))initialProcessBlock {
+- (id)initWithProcessBlock:(id (^)(id, NSString*))initialProcessBlock {
 	self = [super init];
 	if (self) {
 		keyStack = [[NSMutableArray alloc] initWithCapacity:32];
 		stack = [[NSMutableArray alloc] initWithCapacity:32];
+        if(initialProcessBlock)
+            path = [[NSMutableArray alloc] initWithCapacity:32];
         processBlock = initialProcessBlock;
 		
 		currentType = SBJsonStreamParserAdapterNone;
 	}
 	return self;
-}	
+}
 
 
 #pragma mark Private methods
@@ -95,15 +97,20 @@
 - (void)parser:(SBJsonStreamParser*)parser found:(id)obj isValue:(BOOL)isValue {
 	NSParameterAssert(obj);
 	
-    if(processBlock&&isValue) {
-        obj = processBlock(obj);
+    if(processBlock&&path) {
+        if(isValue) {
+            obj = processBlock(obj,[NSString stringWithFormat:@"%@.%@",[self pathString],[keyStack lastObject]]);
+        }
+        else {
+            [path removeLastObject];
+        }
     }
     
 	switch (currentType) {
 		case SBJsonStreamParserAdapterArray:
 			[array addObject:obj];
 			break;
-
+            
 		case SBJsonStreamParserAdapterObject:
 			NSParameterAssert(keyStack.count);
 			[dict setObject:obj forKey:[keyStack lastObject]];
@@ -115,9 +122,9 @@
 				[delegate parser:parser foundArray:obj];
 			} else {
 				[delegate parser:parser foundObject:obj];
-			}				
+			}
 			break;
-
+            
 		default:
 			break;
 	}
@@ -127,19 +134,21 @@
 #pragma mark Delegate methods
 
 - (void)parserFoundObjectStart:(SBJsonStreamParser*)parser {
-	if (++depth > self.levelsToSkip) {
-		dict = [NSMutableDictionary new];
+    if (++depth > self.levelsToSkip) {
+        if(path)
+            [self addToPath];
+        dict = [NSMutableDictionary new];
 		[stack addObject:dict];
 		currentType = SBJsonStreamParserAdapterObject;
 	}
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key_ {
-	[keyStack addObject:key_];
+    [keyStack addObject:key_];
 }
 
 - (void)parserFoundObjectEnd:(SBJsonStreamParser*)parser {
-	if (depth-- > self.levelsToSkip) {
+    if (depth-- > self.levelsToSkip) {
 		id value = dict;
 		[self pop];
 		[self parser:parser found:value];
@@ -147,7 +156,9 @@
 }
 
 - (void)parserFoundArrayStart:(SBJsonStreamParser*)parser {
-	if (++depth > self.levelsToSkip) {
+    if (++depth > self.levelsToSkip) {
+        if(path)
+            [self addToPath];
 		array = [NSMutableArray new];
 		[stack addObject:array];
 		currentType = SBJsonStreamParserAdapterArray;
@@ -176,6 +187,26 @@
 
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string {
     [self parser:parser found:string isValue:YES];
+}
+
+- (void)addToPath {
+    if([path count]==0)
+        [path addObject:@"$"];
+    else if([[stack lastObject] isKindOfClass:[NSMutableArray class]])
+        [path addObject:[NSNumber numberWithInt:[[stack lastObject] count]]];
+    else
+        [path addObject:[keyStack lastObject]];
+}
+
+- (NSString *)pathString {
+    NSMutableString *pathString = [NSMutableString stringWithString:@"$"];
+    for(int i=1;i<[path count];i++) {
+        if([[path objectAtIndex:i] isKindOfClass:[NSNumber class]])
+            [pathString appendString:[NSString stringWithFormat:@"[%i]",[[path objectAtIndex:i] integerValue]]];
+        else
+            [pathString appendString:[NSString stringWithFormat:@".%@",[path objectAtIndex:i]]];
+    }
+    return pathString;
 }
 
 @end

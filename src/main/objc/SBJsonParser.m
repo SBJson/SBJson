@@ -55,7 +55,7 @@
     return [self objectWithData:data processValuesWithBlock:nil];
 }
 
-- (id)objectWithData:(NSData *)data processValuesWithBlock:(id (^)(id))processBlock {
+- (id)objectWithData:(NSData *)data processValuesWithBlock:(id (^)(id, NSString*))processBlock {
 
     if (!data) {
         self.error = @"Input was 'nil'";
@@ -92,7 +92,7 @@
 	return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] processValuesWithBlock:nil];
 }
 
-- (id)objectWithString:(NSString *)string processValuesWithBlock:(id (^)(id))processBlock {
+- (id)objectWithString:(NSString *)string processValuesWithBlock:(id (^)(id, NSString*))processBlock {
 	return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] processValuesWithBlock:processBlock];
 }
 

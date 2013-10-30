@@ -69,7 +69,7 @@
 
  */
 - (id)objectWithData:(NSData*)data;
-- (id)objectWithData:(NSData *)data processValuesWithBlock:(id (^)(id))processBlock;
+- (id)objectWithData:(NSData *)data processValuesWithBlock:(id (^)(id, NSString*))processBlock;
 
 /**
  Parse string and return the represented dictionary or array.
@@ -81,7 +81,7 @@
  @return The NSArray or NSDictionary represented by the object, or nil if an error occured.
  */
 - (id)objectWithString:(NSString *)string;
-- (id)objectWithString:(NSString *)string processValuesWithBlock:(id (^)(id))processBlock;
+- (id)objectWithString:(NSString *)string processValuesWithBlock:(id (^)(id, NSString*))processBlock;
 
 @end
 
