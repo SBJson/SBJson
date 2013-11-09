@@ -1,5 +1,3 @@
-auto: true
-server: true
 permalink: /news/:year/:title.html
 
 url: http://sbjson.org

@@ -18,9 +18,10 @@ Selected features:
 
 # API Documentation
 
+* [Version 4.0.0-alpha](api/4.0/) (Alpha)
 * [Version 3.2](api/3.2/) (Stable)
-* [Version 3.1](api/3.1/) (Previous stable)
-* [Version 3.0](api/3.0/) (Legacy *Please upgrade if you use this*)
+* [Version 3.1](api/3.1/) (Legacy *Please upgrade if you use this!*)
+* [Version 3.0](api/3.0/) (Legacy *Please upgrade if you use this!*)
 
 # Source
 
