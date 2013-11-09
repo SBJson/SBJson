@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/stig/json-framework.png?label=ready)](https://waffle.io/stig/json-framework)  
+[![Stories in Ready](https://badge.waffle.io/stig/json-framework.png?label=ready)](https://waffle.io/stig/json-framework)
 JSON (JavaScript Object Notation) is a light-weight data interchange
 format that's easy to read and write for humans and computers alike.
 This library implements strict JSON parsing and generation in
@@ -17,7 +17,7 @@ Links
 =====
 
 * [GitHub project page](http://github.com/stig/json-framework)
-* [Online API docs](http://sbjson.org/api/3.2)
+* [Online API docs](http://sbjson.org/api/4.0)
 * [SBJson tag on Stack Overflow](http://stackoverflow.com/questions/tagged/sbjson)
 
 

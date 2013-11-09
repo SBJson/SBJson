@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERS=3.2
+VERS=4.0
 OUTPUT=~/Dropbox/DocSets/SBJson
 
 appledoc \

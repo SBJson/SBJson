@@ -1,3 +1,18 @@
+4.0.0-alpha (November 9th, 2013)
+================================
+
+I'm delighted to announce SBJson 4.0.0-ALPHA. Notable changes since 3.2.0:
+
+* [#160](https://github.com/stig/json-framework/issues/160) & [#162](https://github.com/stig/json-framework/issues/162) - Remove category &  `...error:(NSError**)error` methods.
+* [#171](https://github.com/stig/json-framework/pull/171) - Support full range of `unsigned long long` as proper integer type.
+* [#128](https://github.com/stig/json-framework/issues/128) - Support full range of `double`. This also removes NSDecimalNumber support.
+* [#180](https://github.com/stig/json-framework/pull/180) - Add @rpath support to SBJson.framework build settings.
+* [#182](https://github.com/stig/json-framework/pull/182) - Add option to process values as they’re parsed.
+
+The main reason for a major version change is the removal of the some methods, to allow focus on streaming as explained in [this blog post](http://superloopy.io/articles/2013/what-now-for-sbjson.html). The change to support the full range of `double` was also significant enough that it might have warranted a major version release on its own.
+
+Several community members have contributed to this release.
+
 3.2.0 (January 19th, 2013)
 ==========================
 
