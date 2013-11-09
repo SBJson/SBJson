@@ -298,20 +298,19 @@
 }
 
 - (NSString*)decodeStringToken:(char*)bytes length:(NSUInteger)len {
-    NSMutableString *string = [NSMutableString stringWithCapacity:len];
-
+    NSMutableData *buf = [NSMutableData dataWithCapacity:len];
     for (NSUInteger i = 0; i < len;) {
-        switch (bytes[i]) {
+        switch ((unsigned char)bytes[i]) {
             case '\\': {
-                switch (bytes[++i]) {
-                    case '"': [string appendString:@"\""]; i++; break;
-                    case '/': [string appendString:@"/"]; i++; break;
-                    case '\\': [string appendString:@"\\"]; i++; break;
-                    case 'b': [string appendString:@"\b"]; i++; break;
-                    case 'f': [string appendString:@"\f"]; i++; break;
-                    case 'n': [string appendString:@"\n"]; i++; break;
-                    case 'r': [string appendString:@"\r"]; i++; break;
-                    case 't': [string appendString:@"\t"]; i++; break;
+                switch ((unsigned char)bytes[++i]) {
+                    case '"': [buf appendBytes:"\"" length:1]; i++; break;
+                    case '/': [buf appendBytes:"/" length:1]; i++; break;
+                    case '\\': [buf appendBytes:"\\" length:1]; i++; break;
+                    case 'b': [buf appendBytes:"\b" length:1]; i++; break;
+                    case 'f': [buf appendBytes:"\f" length:1]; i++; break;
+                    case 'n': [buf appendBytes:"\n" length:1]; i++; break;
+                    case 'r': [buf appendBytes:"\r" length:1]; i++; break;
+                    case 't': [buf appendBytes:"\t" length:1]; i++; break;
                     case 'u': {
                         unichar hi = [self decodeHexQuad:bytes + i + 1];
                         i += 5;
@@ -319,9 +318,9 @@
                             // Skip past \u that we know is there..
                             unichar lo = [self decodeHexQuad:bytes + i + 2];
                             i += 6;
-                            [string appendFormat:@"%C%C", hi, lo];
+                            [buf appendData:[[NSString stringWithFormat:@"%C%C", hi, lo] dataUsingEncoding:NSUTF8StringEncoding]];
                         } else {
-                            [string appendFormat:@"%C", hi];
+                            [buf appendData:[[NSString stringWithFormat:@"%C", hi] dataUsingEncoding:NSUTF8StringEncoding]];
                         }
                         break;
                     }
@@ -329,10 +328,13 @@
                 }
                 break;
             }
-            default: [string appendFormat:@"%c", bytes[i++]]; break;
+            default:
+                [buf appendBytes:bytes + i length:1];
+                i++;
+                break;
         }
     }
-    return string;
+    return [[NSString alloc] initWithData:buf encoding:NSUTF8StringEncoding];
 }
 
 @end

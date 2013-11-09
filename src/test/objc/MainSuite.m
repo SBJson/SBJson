@@ -29,7 +29,7 @@ static NSString *chomp(NSString *str) {
 }
 
 - (void)setUp {
-    parser = [[SBJsonParser alloc] init];    
+    parser = [[SBJsonParser alloc] init];
     writer = [[SBJsonWriter alloc] init];
     count = 0u;
 }
@@ -64,8 +64,8 @@ static NSString *chomp(NSString *str) {
         STAssertNotNil(output, writer.error);
         STAssertEqualObjects(output, chomp(slurp(outpath)), [[inpath pathComponents] lastObject]);
     }];
-    
-    STAssertEquals(count, (NSUInteger)37, nil);
+
+    STAssertEquals(count, (NSUInteger)38, nil);
 }
 
 - (void)IGNOREDtestReallyBrokenUTF8 {
@@ -89,7 +89,7 @@ static NSString *chomp(NSString *str) {
         STAssertNil([parser objectWithData:slurpd(inpath)], nil);
         STAssertEqualObjects(parser.error, chomp(slurp(outpath)), [[inpath pathComponents] lastObject]);
     }];
-    
+
     STAssertEquals(count, (NSUInteger)35, nil);
 
 }
@@ -101,7 +101,7 @@ static NSString *chomp(NSString *str) {
         STAssertNotNil(output, writer.error);
         STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
     }];
-    
+
     STAssertEquals(count, (NSUInteger)2, nil);
 
 }
@@ -114,7 +114,7 @@ static NSString *chomp(NSString *str) {
         STAssertNil([writer stringWithObject:value], nil);
         STAssertEqualObjects(writer.error, chomp(slurp(outpath)), nil);
     }];
-    
+
     STAssertEquals(count, (NSUInteger)5, nil);
 }
 
@@ -122,18 +122,18 @@ static NSString *chomp(NSString *str) {
 - (void)testFormat {
     writer.humanReadable = YES;
     writer.sortKeys = YES;
-    
+
     [self inExtForeachInSuite:@"format" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
         id value = [parser objectWithData:slurpd(inpath)];
         STAssertNotNil(value, parser.error);
 
         NSString *name = [[inpath pathComponents] lastObject];
-        
+
         NSString *output = [writer stringWithObject:value];
         STAssertNotNil(output, @"%@: %@", name, writer.error);
         STAssertEqualObjects(output, chomp(slurp(outpath)), name);
     }];
-    
+
     STAssertEquals(count, (NSUInteger)8, nil);
 }
 
@@ -147,12 +147,12 @@ static NSString *chomp(NSString *str) {
     [self inExtForeachInSuite:@"comparatorsort" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
         id value = [parser objectWithData:slurpd(inpath)];
         STAssertNotNil(value, parser.error);
-        
+
         NSString *output = [writer stringWithObject:value];
         STAssertNotNil(output, writer.error);
         STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
     }];
-    
+
     STAssertEquals(count, (NSUInteger)3, nil);
 }
 
