@@ -118,9 +118,13 @@ typedef enum {
 	NSMutableDictionary *dict;
 	NSMutableArray *keyStack;
 	NSMutableArray *stack;
+    NSMutableArray *path;
+    id (^processBlock)(id, NSString*);
 	
 	SBJsonStreamParserAdapterType currentType;
 }
+
+- (id)initWithProcessBlock:(id (^)(id, NSString*))processBlock;
 
 /**
  How many levels to skip
