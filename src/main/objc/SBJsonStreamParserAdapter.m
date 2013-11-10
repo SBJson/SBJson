@@ -200,7 +200,7 @@
 
 - (NSString *)pathString {
     NSMutableString *pathString = [NSMutableString stringWithString:@"$"];
-    for(int i=1;i<[path count];i++) {
+    for(NSUInteger i=1;i<[path count];i++) {
         if([[path objectAtIndex:i] isKindOfClass:[NSNumber class]])
             [pathString appendString:[NSString stringWithFormat:@"[%@]",[path objectAtIndex:i]]];
         else
