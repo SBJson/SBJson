@@ -192,8 +192,8 @@
 - (void)addToPath {
     if([path count]==0)
         [path addObject:@"$"];
-    else if([[stack lastObject] isKindOfClass:[NSMutableArray class]])
-        [path addObject:[NSNumber numberWithInt:[[stack lastObject] count]]];
+    else if([[stack lastObject] isKindOfClass:[NSArray class]])
+        [path addObject:@([[stack lastObject] count])];
     else
         [path addObject:[keyStack lastObject]];
 }
@@ -202,7 +202,7 @@
     NSMutableString *pathString = [NSMutableString stringWithString:@"$"];
     for(int i=1;i<[path count];i++) {
         if([[path objectAtIndex:i] isKindOfClass:[NSNumber class]])
-            [pathString appendString:[NSString stringWithFormat:@"[%i]",[[path objectAtIndex:i] integerValue]]];
+            [pathString appendString:[NSString stringWithFormat:@"[%@]",[path objectAtIndex:i]]];
         else
             [pathString appendString:[NSString stringWithFormat:@".%@",[path objectAtIndex:i]]];
     }
