@@ -48,7 +48,6 @@
 @implementation SBJsonStreamParserAdapter
 
 @synthesize delegate;
-@synthesize levelsToSkip;
 
 #pragma mark Housekeeping
 
@@ -130,13 +129,11 @@
 #pragma mark Delegate methods
 
 - (void)parserFoundObjectStart:(SBJsonStreamParser*)parser {
-    if (++depth > self.levelsToSkip) {
-        if(path)
-            [self addToPath];
-        dict = [NSMutableDictionary new];
-		[stack addObject:dict];
-		currentType = SBJsonStreamParserAdapterObject;
-	}
+    ++depth;
+    if(path) [self addToPath];
+    dict = [NSMutableDictionary new];
+	[stack addObject:dict];
+    currentType = SBJsonStreamParserAdapterObject;
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key_ {
@@ -144,29 +141,30 @@
 }
 
 - (void)parserFoundObjectEnd:(SBJsonStreamParser*)parser {
-    if (depth-- > self.levelsToSkip) {
-		id value = dict;
-		[self pop];
-		[self parser:parser found:value];
-	}
+    depth--;
+	id value = dict;
+	[self pop];
+    [self parser:parser found:value];
 }
 
 - (void)parserFoundArrayStart:(SBJsonStreamParser*)parser {
-    if (++depth > self.levelsToSkip) {
+    depth++;
+    if (depth > 1 || !self.supportPartialDocuments) {
         if(path)
             [self addToPath];
 		array = [NSMutableArray new];
 		[stack addObject:array];
 		currentType = SBJsonStreamParserAdapterArray;
-	}
+    }
 }
 
 - (void)parserFoundArrayEnd:(SBJsonStreamParser*)parser {
-	if (depth-- > self.levelsToSkip) {
+    depth--;
+    if (depth > 1 || !self.supportPartialDocuments) {
 		id value = array;
 		[self pop];
 		[self parser:parser found:value];
-	}
+    }
 }
 
 - (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x {

@@ -86,13 +86,12 @@ typedef enum {
  - -parser: found:@{}
 
  Often you won't have control over the input you're parsing, so can't make use of
- this feature. But, all is not lost: this class will let you get the same effect by
- allowing you to skip one or more of the outer enclosing objects. Thus, the next
- example results in the same sequence of -parser:found: being called on your delegate.
+ this feature. But, all is not lost: if you are parsing a long array you can get the same effect by
+ setting supportPartialDocuments to YES:
 
      SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] init];
      adapter.delegate = self;
-     adapter.levelsToSkip = 1;
+     adapter.supportPartialDocuments = YES;
 
      SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
      parser.delegate = adapter;
@@ -134,15 +133,15 @@ typedef enum {
 
 
 /**
- How many levels to skip
+ Support partial documents.
  
  This is useful for parsing huge JSON documents, or documents coming in over a very slow link.
  
- If you set this to N it will skip the outer N levels and call the -parser:found:
- method once for each of the inner objects.
+ If you set this to true the outer array will be ignored and -parser:found: is called once
+ for each item in it.
 
 */
-@property NSUInteger levelsToSkip;
+@property BOOL supportPartialDocuments;
 
 /**
  Your delegate object

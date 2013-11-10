@@ -45,8 +45,7 @@
 - (void)setUp {
 	adapter = [SBJsonStreamParserAdapter new];
 	adapter.delegate = self;
-    adapter.supportManyDocuments = YES;
-	
+
 	parser = [SBJsonStreamParser new];
 	parser.delegate = adapter;
 
@@ -87,6 +86,8 @@
  this data incrementally.
  */
 - (void)testMultipleDocuments {
+    adapter.supportManyDocuments = YES;
+
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     NSString *root = [[bundle resourcePath] stringByAppendingPathComponent:@"stream"];
 
@@ -126,17 +127,10 @@
 }
 
 - (void)testSkipArray {
-	adapter.levelsToSkip = 1;
+	adapter.supportPartialDocuments = YES;
 	[self parseArrayOfObjects];
 	STAssertEquals(arrayCount, (NSUInteger)0, nil);
 	STAssertEquals(objectCount, (NSUInteger)100, nil);	
-}
-
-- (void)testSkipArrayAndObject {
-	adapter.levelsToSkip = 2;
-	[self parseArrayOfObjects];
-	STAssertEquals(arrayCount, (NSUInteger)200, nil);
-	STAssertEquals(objectCount, (NSUInteger)0, nil);	
 }
 
 - (void)testWriteToStream {
