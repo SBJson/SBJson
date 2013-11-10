@@ -1,4 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/stig/json-framework.png?label=ready)](https://waffle.io/stig/json-framework)
 JSON (JavaScript Object Notation) is a light-weight data interchange
 format that's easy to read and write for humans and computers alike.
 This library implements strict JSON parsing and generation in
