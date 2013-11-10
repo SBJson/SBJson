@@ -11,6 +11,6 @@ grep -v '^*' CREDITS.md > $HEAD
 grep '^*' CREDITS.md > $TAIL
 git shortlog -s | sed 's/^......./* /' >> $TAIL
 
-(cat $HEAD; sort -u $TAIL) > CREDITS.md
+(cat $HEAD; sort -u $TAIL) | grep -v waffle > CREDITS.md
 
-git diff
+git diff CREDITS.md

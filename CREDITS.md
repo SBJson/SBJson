@@ -13,6 +13,7 @@ mistakenly omitted anyone.)
 * Antoine Perdaens
 * Ben Rimmington
 * Blake Seely
+* Bryce Pauken
 * Cary Yang
 * David Keegan
 * Gabriel Handford
@@ -34,14 +35,17 @@ mistakenly omitted anyone.)
 * Mike Monaco
 * Ole André Vadla Ravnås
 * Phill Baker
+* Rafaël Warnault
 * Robert McNally
 * Robin Lu
 * Ryan Smale
 * Sam Dean
 * Sam Soffes
 * Sean Scanlon
+* Sergey Vlasov
 * Stig Brautaset
 * The Adium Crew
+* Thomas Weisbach
 * Tobias Höhmann
 * Tod Karpinski
 * Ullrich Schäfer
