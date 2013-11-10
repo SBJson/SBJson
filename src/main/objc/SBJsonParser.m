@@ -34,12 +34,12 @@
 #import "SBJsonParser.h"
 #import "SBJsonStreamParser.h"
 #import "SBJsonStreamParserAdapter.h"
-#import "SBJsonStreamParserAccumulator.h"
+
+@interface SBJsonParser() < SBJsonStreamParserAdapterDelegate >
+    @property(nonatomic, strong) id value;
+@end
 
 @implementation SBJsonParser
-
-@synthesize maxDepth;
-@synthesize error;
 
 - (id)init {
     self = [super init];
@@ -62,10 +62,9 @@
         return nil;
     }
 
-	SBJsonStreamParserAccumulator *accumulator = [[SBJsonStreamParserAccumulator alloc] init];
-    
+
     SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] initWithProcessBlock:processBlock];
-    adapter.delegate = accumulator;
+    adapter.delegate = self;
 	
 	SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
 	parser.maxDepth = self.maxDepth;
@@ -73,7 +72,7 @@
 	
 	switch ([parser parse:data]) {
 		case SBJsonStreamParserComplete:
-            return accumulator.value;
+            return self.value;
 			break;
 			
 		case SBJsonStreamParserWaitingForData:
@@ -94,6 +93,17 @@
 
 - (id)objectWithString:(NSString *)string processValuesWithBlock:(id (^)(id, NSString*))processBlock {
 	return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] processValuesWithBlock:processBlock];
+}
+
+
+#pragma mark SBJsonStreamParserAdapterDelegate
+
+- (void)parser:(SBJsonStreamParser*)parser foundArray:(NSArray *)array {
+    self.value = array;
+}
+
+- (void)parser:(SBJsonStreamParser*)parser foundObject:(NSDictionary *)dict {
+    self.value = dict;
 }
 
 @end

@@ -33,11 +33,11 @@
 
 #import "SBJsonWriter.h"
 #import "SBJsonStreamWriter.h"
-#import "SBJsonStreamWriterAccumulator.h"
 
 
-@interface SBJsonWriter ()
+@interface SBJsonWriter () < SBJsonStreamWriterDelegate >
 @property (copy) NSString *error;
+@property (nonatomic, strong) NSMutableData *acc;
 @end
 
 @implementation SBJsonWriter
@@ -69,14 +69,14 @@
 - (NSData*)dataWithObject:(id)object {	
     self.error = nil;
 
-    SBJsonStreamWriterAccumulator *accumulator = [[SBJsonStreamWriterAccumulator alloc] init];
-    
-	SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] init];
+    self.acc = [[NSMutableData alloc] initWithCapacity:8096u];
+
+    SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] init];
 	streamWriter.sortKeys = self.sortKeys;
 	streamWriter.maxDepth = self.maxDepth;
 	streamWriter.sortKeysComparator = self.sortKeysComparator;
 	streamWriter.humanReadable = self.humanReadable;
-    streamWriter.delegate = accumulator;
+    streamWriter.delegate = self;
 	
 	BOOL ok = NO;
 	if ([object isKindOfClass:[NSDictionary class]])
@@ -93,11 +93,18 @@
 	}
 	
 	if (ok)
-		return accumulator.data;
+		return self.acc;
 	
 	self.error = streamWriter.error;
 	return nil;	
 }
+
+#pragma mark SBJsonStreamWriterDelegate
+
+- (void)writer:(SBJsonStreamWriter *)writer appendBytes:(const void *)bytes length:(NSUInteger)length {
+    [self.acc appendBytes:bytes length:length];
+}
+
 	
 	
 @end

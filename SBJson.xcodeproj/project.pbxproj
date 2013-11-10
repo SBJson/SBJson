@@ -19,16 +19,12 @@
 		BC8851431391D6CD00370E55 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851291391D6CD00370E55 /* SBJsonParser.m */; };
 		BC8851441391D6CD00370E55 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512A1391D6CD00370E55 /* SBJsonStreamParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC8851451391D6CD00370E55 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88512B1391D6CD00370E55 /* SBJsonStreamParser.m */; };
-		BC8851461391D6CD00370E55 /* SBJsonStreamParserAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512C1391D6CD00370E55 /* SBJsonStreamParserAccumulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BC8851471391D6CD00370E55 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88512D1391D6CD00370E55 /* SBJsonStreamParserAccumulator.m */; };
 		BC8851481391D6CD00370E55 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512E1391D6CD00370E55 /* SBJsonStreamParserAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC8851491391D6CD00370E55 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88512F1391D6CD00370E55 /* SBJsonStreamParserAdapter.m */; };
 		BC88514A1391D6CD00370E55 /* SBJsonStreamParserState.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851301391D6CD00370E55 /* SBJsonStreamParserState.h */; };
 		BC88514B1391D6CD00370E55 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851311391D6CD00370E55 /* SBJsonStreamParserState.m */; };
 		BC88514C1391D6CD00370E55 /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851321391D6CD00370E55 /* SBJsonStreamWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC88514D1391D6CD00370E55 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851331391D6CD00370E55 /* SBJsonStreamWriter.m */; };
-		BC88514E1391D6CD00370E55 /* SBJsonStreamWriterAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851341391D6CD00370E55 /* SBJsonStreamWriterAccumulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BC88514F1391D6CD00370E55 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851351391D6CD00370E55 /* SBJsonStreamWriterAccumulator.m */; };
 		BC8851501391D6CD00370E55 /* SBJsonStreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851361391D6CD00370E55 /* SBJsonStreamWriterState.h */; };
 		BC8851511391D6CD00370E55 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851371391D6CD00370E55 /* SBJsonStreamWriterState.m */; };
 		BC8851541391D6CD00370E55 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88513A1391D6CD00370E55 /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,11 +36,9 @@
 		BCADB7CE139210C90057A705 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851271391D6CD00370E55 /* SBJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7D0139210C90057A705 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851281391D6CD00370E55 /* SBJsonParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7D1139210C90057A705 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512A1391D6CD00370E55 /* SBJsonStreamParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BCADB7D2139210C90057A705 /* SBJsonStreamParserAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512C1391D6CD00370E55 /* SBJsonStreamParserAccumulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7D3139210C90057A705 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88512E1391D6CD00370E55 /* SBJsonStreamParserAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7D4139210C90057A705 /* SBJsonStreamParserState.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851301391D6CD00370E55 /* SBJsonStreamParserState.h */; };
 		BCADB7D5139210C90057A705 /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851321391D6CD00370E55 /* SBJsonStreamWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BCADB7D6139210C90057A705 /* SBJsonStreamWriterAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851341391D6CD00370E55 /* SBJsonStreamWriterAccumulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7D7139210C90057A705 /* SBJsonStreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851361391D6CD00370E55 /* SBJsonStreamWriterState.h */; };
 		BCADB7D9139210C90057A705 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88513A1391D6CD00370E55 /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCC2626313920EE8003D9994 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8853981391D74C00370E55 /* Foundation.framework */; };
@@ -55,11 +49,9 @@
 		BCC2628113920FC7003D9994 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BCC2627F13920FC7003D9994 /* InfoPlist.strings */; };
 		BCC2628E13921035003D9994 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851291391D6CD00370E55 /* SBJsonParser.m */; };
 		BCC2628F13921035003D9994 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88512B1391D6CD00370E55 /* SBJsonStreamParser.m */; };
-		BCC2629013921035003D9994 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88512D1391D6CD00370E55 /* SBJsonStreamParserAccumulator.m */; };
 		BCC2629113921035003D9994 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88512F1391D6CD00370E55 /* SBJsonStreamParserAdapter.m */; };
 		BCC2629213921035003D9994 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851311391D6CD00370E55 /* SBJsonStreamParserState.m */; };
 		BCC2629313921035003D9994 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851331391D6CD00370E55 /* SBJsonStreamWriter.m */; };
-		BCC2629413921035003D9994 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851351391D6CD00370E55 /* SBJsonStreamWriterAccumulator.m */; };
 		BCC2629513921035003D9994 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851371391D6CD00370E55 /* SBJsonStreamWriterState.m */; };
 		BCC2629713921035003D9994 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88513B1391D6CD00370E55 /* SBJsonWriter.m */; };
 		D7F64E60169262AE009DF12E /* jsonchecker in Resources */ = {isa = PBXBuildFile; fileRef = D7F64E5F169262AE009DF12E /* jsonchecker */; };
@@ -115,16 +107,12 @@
 		BC8851291391D6CD00370E55 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		BC88512A1391D6CD00370E55 /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
 		BC88512B1391D6CD00370E55 /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
-		BC88512C1391D6CD00370E55 /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAccumulator.h; sourceTree = "<group>"; };
-		BC88512D1391D6CD00370E55 /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAccumulator.m; sourceTree = "<group>"; };
 		BC88512E1391D6CD00370E55 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
 		BC88512F1391D6CD00370E55 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
 		BC8851301391D6CD00370E55 /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
 		BC8851311391D6CD00370E55 /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
 		BC8851321391D6CD00370E55 /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
 		BC8851331391D6CD00370E55 /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
-		BC8851341391D6CD00370E55 /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterAccumulator.h; sourceTree = "<group>"; };
-		BC8851351391D6CD00370E55 /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterAccumulator.m; sourceTree = "<group>"; };
 		BC8851361391D6CD00370E55 /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterState.h; sourceTree = "<group>"; };
 		BC8851371391D6CD00370E55 /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
 		BC88513A1391D6CD00370E55 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
@@ -316,20 +304,16 @@
 				BC8851371391D6CD00370E55 /* SBJsonStreamWriterState.m */,
 				BC8851361391D6CD00370E55 /* SBJsonStreamWriterState.h */,
 				BC8851301391D6CD00370E55 /* SBJsonStreamParserState.h */,
-				BC8851341391D6CD00370E55 /* SBJsonStreamWriterAccumulator.h */,
 				BC8851321391D6CD00370E55 /* SBJsonStreamWriter.h */,
 				BC8851291391D6CD00370E55 /* SBJsonParser.m */,
 				BC8851281391D6CD00370E55 /* SBJsonParser.h */,
 				BC8851331391D6CD00370E55 /* SBJsonStreamWriter.m */,
-				BC88512D1391D6CD00370E55 /* SBJsonStreamParserAccumulator.m */,
 				BC88512A1391D6CD00370E55 /* SBJsonStreamParser.h */,
 				BC88512E1391D6CD00370E55 /* SBJsonStreamParserAdapter.h */,
 				BC88512B1391D6CD00370E55 /* SBJsonStreamParser.m */,
 				BC88512F1391D6CD00370E55 /* SBJsonStreamParserAdapter.m */,
 				BC88513B1391D6CD00370E55 /* SBJsonWriter.m */,
-				BC8851351391D6CD00370E55 /* SBJsonStreamWriterAccumulator.m */,
 				BC88513A1391D6CD00370E55 /* SBJsonWriter.h */,
-				BC88512C1391D6CD00370E55 /* SBJsonStreamParserAccumulator.h */,
 				BC8851311391D6CD00370E55 /* SBJsonStreamParserState.m */,
 				F8D04518FD72EFA646581EAB /* SBJsonStreamTokeniser.m */,
 				F8D041B0DB689CC78ABDF64D /* SBJsonStreamTokeniser.h */,
@@ -381,10 +365,8 @@
 			files = (
 				BC8851421391D6CD00370E55 /* SBJsonParser.h in Headers */,
 				BC8851441391D6CD00370E55 /* SBJsonStreamParser.h in Headers */,
-				BC8851461391D6CD00370E55 /* SBJsonStreamParserAccumulator.h in Headers */,
 				BC8851481391D6CD00370E55 /* SBJsonStreamParserAdapter.h in Headers */,
 				BC88514C1391D6CD00370E55 /* SBJsonStreamWriter.h in Headers */,
-				BC88514E1391D6CD00370E55 /* SBJsonStreamWriterAccumulator.h in Headers */,
 				BC8851541391D6CD00370E55 /* SBJsonWriter.h in Headers */,
 				BC8851411391D6CD00370E55 /* SBJson.h in Headers */,
 				F8D04131C6B0E02EC6FB1D39 /* SBJsonStreamTokeniser.h in Headers */,
@@ -403,8 +385,6 @@
 				BCADB7D1139210C90057A705 /* SBJsonStreamParser.h in Headers */,
 				BCADB7D3139210C90057A705 /* SBJsonStreamParserAdapter.h in Headers */,
 				BCADB7D5139210C90057A705 /* SBJsonStreamWriter.h in Headers */,
-				BCADB7D2139210C90057A705 /* SBJsonStreamParserAccumulator.h in Headers */,
-				BCADB7D6139210C90057A705 /* SBJsonStreamWriterAccumulator.h in Headers */,
 				F8D046ED6DA44EDBA6FA50FC /* SBJsonStreamTokeniser.h in Headers */,
 				BCADB7D4139210C90057A705 /* SBJsonStreamParserState.h in Headers */,
 				BCADB7D7139210C90057A705 /* SBJsonStreamWriterState.h in Headers */,
@@ -591,11 +571,9 @@
 			files = (
 				BC8851431391D6CD00370E55 /* SBJsonParser.m in Sources */,
 				BC8851451391D6CD00370E55 /* SBJsonStreamParser.m in Sources */,
-				BC8851471391D6CD00370E55 /* SBJsonStreamParserAccumulator.m in Sources */,
 				BC8851491391D6CD00370E55 /* SBJsonStreamParserAdapter.m in Sources */,
 				BC88514B1391D6CD00370E55 /* SBJsonStreamParserState.m in Sources */,
 				BC88514D1391D6CD00370E55 /* SBJsonStreamWriter.m in Sources */,
-				BC88514F1391D6CD00370E55 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				BC8851511391D6CD00370E55 /* SBJsonStreamWriterState.m in Sources */,
 				BC8851551391D6CD00370E55 /* SBJsonWriter.m in Sources */,
 				F8D0434D37D8894CD87E4982 /* SBJsonStreamTokeniser.m in Sources */,
@@ -621,11 +599,9 @@
 			files = (
 				BCC2628E13921035003D9994 /* SBJsonParser.m in Sources */,
 				BCC2628F13921035003D9994 /* SBJsonStreamParser.m in Sources */,
-				BCC2629013921035003D9994 /* SBJsonStreamParserAccumulator.m in Sources */,
 				BCC2629113921035003D9994 /* SBJsonStreamParserAdapter.m in Sources */,
 				BCC2629213921035003D9994 /* SBJsonStreamParserState.m in Sources */,
 				BCC2629313921035003D9994 /* SBJsonStreamWriter.m in Sources */,
-				BCC2629413921035003D9994 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				BCC2629513921035003D9994 /* SBJsonStreamWriterState.m in Sources */,
 				BCC2629713921035003D9994 /* SBJsonWriter.m in Sources */,
 				F8D04C40AB8E50C09F7534AE /* SBJsonStreamTokeniser.m in Sources */,
