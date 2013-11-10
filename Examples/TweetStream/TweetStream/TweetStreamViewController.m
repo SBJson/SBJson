@@ -80,17 +80,17 @@
     // from the adapter.
     adapter.delegate = self;
 
+    // Normally it's an error if JSON is followed by anything but
+    // whitespace. Setting this means that the parser will be
+    // expecting the stream to contain multiple whitespace-separated
+    // JSON documents.
+    adapter.supportManyDocuments = YES;
+
     // Create a new stream parser..
     parser = [[SBJsonStreamParser alloc] init];
 
     // .. and set our adapter as its delegate.
     parser.delegate = adapter;
-
-    // Normally it's an error if JSON is followed by anything but
-    // whitespace. Setting this means that the parser will be
-    // expecting the stream to contain multiple whitespace-separated
-    // JSON documents.
-    parser.supportMultipleDocuments = YES;
 
     NSURL *url = [NSURL URLWithString: @"https://stream.twitter.com/1.1/statuses/sample.json"];
     SLRequest *request = [SLRequest requestForServiceType: SLServiceTypeTwitter
@@ -105,11 +105,7 @@
 
 #pragma mark SBJsonStreamParserAdapterDelegate methods
 
-- (void)parser:(SBJsonStreamParser *)parser foundArray:(NSArray *)array {
-    [NSException raise:@"unexpected" format:@"Should not get here"];
-}
-
-- (void)parser:(SBJsonStreamParser *)parser foundObject:(NSDictionary *)dict {
+- (void)parser:(SBJsonStreamParser *)parser found:(id)dict {
 
     if ([dict[@"id"] longLongValue] != [dict[@"id_str"] longLongValue]) {
 
