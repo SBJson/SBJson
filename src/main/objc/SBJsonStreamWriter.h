@@ -101,14 +101,14 @@
     NSMutableDictionary *cache;
 }
 
-@property (nonatomic, unsafe_unretained) SBJsonStreamWriterState *state; // Internal
+@property (nonatomic, weak) SBJsonStreamWriterState *state; // Internal
 @property (nonatomic, readonly, strong) NSMutableArray *stateStack; // Internal
 
 /**
  delegate to receive JSON output
  Delegate that will receive messages with output.
  */
-@property (unsafe_unretained) id<SBJsonStreamWriterDelegate> delegate;
+@property (weak) id<SBJsonStreamWriterDelegate> delegate;
 
 /**
  The maximum recursing depth.
