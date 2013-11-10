@@ -40,25 +40,16 @@ typedef enum {
 } SBJsonStreamParserAdapterType;
 
 /**
- Delegate for getting objects & arrays from the stream parser adapter
+ Delegate for getting items from the stream parser adapter
 
  */
 @protocol SBJsonStreamParserAdapterDelegate
 
 /**
- Called if a JSON array is found
- 
- This method is called if a JSON array is found.
- 
+ Called for each item parsed.
  */
-- (void)parser:(SBJsonStreamParser*)parser foundArray:(NSArray*)array;
+- (void)parser:(SBJsonStreamParser*)parser found:(id)value;
 
-/**
- Called when a JSON object is found
-
- This method is called if a JSON object is found.
- */
-- (void)parser:(SBJsonStreamParser*)parser foundObject:(NSDictionary*)dict;
 
 @end
 
@@ -89,16 +80,15 @@ typedef enum {
 
  In the above example self will have the following sequence of methods called on it:
 
- - -parser:foundArray:
- - -parser:foundObject:
- - -parser:foundArray:
- - -parser:foundObject:
+ - -parser: found:@[]
+ - -parser: found:@{}
+ - -parser: found:@[]
+ - -parser: found:@{}
 
  Often you won't have control over the input you're parsing, so can't make use of
  this feature. But, all is not lost: this class will let you get the same effect by
  allowing you to skip one or more of the outer enclosing objects. Thus, the next
- example results in the same sequence of -parser:foundArray: / -parser:foundObject:
- being called on your delegate.
+ example results in the same sequence of -parser:found: being called on your delegate.
 
      SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] init];
      adapter.delegate = self;
@@ -137,6 +127,8 @@ typedef enum {
  once an object is completed it will expect another object to immediately follow, separated
  only by (optional) whitespace.
 
+ If you set this to YES the -parser:found: delegate method will be called once for each document in your input.
+
  */
 @property BOOL supportManyDocuments;
 
@@ -146,8 +138,8 @@ typedef enum {
  
  This is useful for parsing huge JSON documents, or documents coming in over a very slow link.
  
- If you set this to N it will skip the outer N levels and call the -parser:foundArray:
- or -parser:foundObject: methods for each of the inner objects, as appropriate.
+ If you set this to N it will skip the outer N levels and call the -parser:found:
+ method once for each of the inner objects.
 
 */
 @property NSUInteger levelsToSkip;

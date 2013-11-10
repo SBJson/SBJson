@@ -98,12 +98,8 @@
 
 #pragma mark SBJsonStreamParserAdapterDelegate
 
-- (void)parser:(SBJsonStreamParser*)parser foundArray:(NSArray *)array {
-    self.value = array;
-}
-
-- (void)parser:(SBJsonStreamParser*)parser foundObject:(NSDictionary *)dict {
-    self.value = dict;
+- (void)parser:(SBJsonStreamParser*)parser found:(id)val {
+    self.value = val;
 }
 
 @end

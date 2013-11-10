@@ -53,12 +53,11 @@
 	arrayCount = objectCount = 0u;
 }
 
-- (void)parser:(SBJsonStreamParser *)parser foundArray:(NSArray *)array {
-	arrayCount++;
-}
-
-- (void)parser:(SBJsonStreamParser *)parser foundObject:(NSDictionary *)dict {
-	objectCount++;
+- (void)parser:(SBJsonStreamParser *)parser found:(id)obj {
+    if ([obj isKindOfClass:[NSArray class]])
+	    arrayCount++;
+    else if ([obj isKindOfClass:[NSDictionary class]])
+        objectCount++;
 }
 
 - (void) testParsingWithShortWorkBuffer{   

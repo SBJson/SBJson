@@ -118,11 +118,7 @@
 			break;
 			
 		case SBJsonStreamParserAdapterNone:
-			if ([obj isKindOfClass:[NSArray class]]) {
-				[delegate parser:parser foundArray:obj];
-			} else {
-				[delegate parser:parser foundObject:obj];
-			}
+            [delegate parser:parser found:obj];
 			break;
             
 		default:
