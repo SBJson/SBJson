@@ -75,10 +75,10 @@ typedef enum {
  documents and you set the parser's -supportMultipleDocuments property to YES
  you will get one call for each full method.
 
-     SBJsonStreamParserAdapter *adapter = [[[SBJsonStreamParserAdapter alloc] init] autorelease];
+     SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] init];
      adapter.delegate = self;
 
-     SBJsonStreamParser *parser = [[[SBJsonStreamParser alloc] init] autorelease];
+     SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
      parser.delegate = adapter;
      parser.supportMultipleDocuments = YES;
 
@@ -99,11 +99,11 @@ typedef enum {
  example results in the same sequence of -parser:foundArray: / -parser:foundObject:
  being called on your delegate.
 
-     SBJsonStreamParserAdapter *adapter = [[[SBJsonStreamParserAdapter alloc] init] autorelease];
+     SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] init];
      adapter.delegate = self;
      adapter.levelsToSkip = 1;
 
-     SBJsonStreamParser *parser = [[[SBJsonStreamParser alloc] init] autorelease];
+     SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
      parser.delegate = adapter;
 
      // Note that this input contains A SINGLE top-level document
