@@ -45,11 +45,11 @@
 - (void)setUp {
 	adapter = [SBJsonStreamParserAdapter new];
 	adapter.delegate = self;
+    adapter.supportManyDocuments = YES;
 	
 	parser = [SBJsonStreamParser new];
 	parser.delegate = adapter;
-	parser.supportMultipleDocuments = YES;
-	
+
 	arrayCount = objectCount = 0u;
 }
 
@@ -66,7 +66,8 @@
    "consectetur adipiscing elit. Donec ultrices ornare gravida. Vestibulum"\
    " ante ipsum primisin faucibus orci luctus et ultrices posuere\"}]";
 
-   parser.supportMultipleDocuments = NO;
+   adapter.supportManyDocuments = NO;
+
    SBJsonStreamParserStatus status = SBJsonStreamParserWaitingForData;
    NSData* data = nil;
    

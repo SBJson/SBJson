@@ -48,7 +48,7 @@ typedef enum {
  You will most likely find it much more convenient to implement the
  SBJsonStreamParserAdapterDelegate protocol instead.
  */
-@protocol SBJsonStreamParserDelegate
+@protocol SBJsonStreamParserDelegate < NSObject >
 
 /// Called when object start is found
 - (void)parserFoundObjectStart:(SBJsonStreamParser*)parser;
@@ -76,6 +76,11 @@ typedef enum {
 
 /// Called when a string is found
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string;
+
+@optional
+
+/// Called to determine whether to allow multiple whitespace-separated documents
+- (BOOL)parserShouldSupportManyDocuments:(SBJsonStreamParser*)parser;
 
 @end
 
@@ -119,19 +124,6 @@ typedef enum {
 
 @property (nonatomic, unsafe_unretained) SBJsonStreamParserState *state; // Private
 @property (nonatomic, readonly, strong) NSMutableArray *stateStack; // Private
-
-/**
- Expect multiple documents separated by whitespace
-
- Normally the -parse: method returns SBJsonStreamParserComplete when it's found a complete JSON document.
- Attempting to parse any more data at that point is considered an error. ("Garbage after JSON".)
-
- If you set this property to true the parser will never return SBJsonStreamParserComplete. Rather,
- once an object is completed it will expect another object to immediately follow, separated
- only by (optional) whitespace.
-
- */
-@property BOOL supportMultipleDocuments;
 
 /**
  Delegate to receive messages

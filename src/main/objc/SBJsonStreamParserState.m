@@ -99,7 +99,7 @@ SINGLETON
 
 		case sbjson_token_array_close:
 		case sbjson_token_object_close:
-			if (parser.supportMultipleDocuments)
+			if ([parser.delegate respondsToSelector:@selector(parserShouldSupportManyDocuments:)] && [parser.delegate parserShouldSupportManyDocuments:parser])
 				state = parser.state;
 			else
 				state = [SBJsonStreamParserStateComplete sharedInstance];

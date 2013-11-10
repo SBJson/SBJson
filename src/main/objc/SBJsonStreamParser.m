@@ -44,7 +44,6 @@
     SBJsonStreamTokeniser *tokeniser;
 }
 
-@synthesize supportMultipleDocuments;
 @synthesize error;
 @synthesize delegate;
 @synthesize maxDepth;

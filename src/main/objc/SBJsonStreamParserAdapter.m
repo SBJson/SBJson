@@ -209,4 +209,8 @@
     return pathString;
 }
 
+- (BOOL)parserShouldSupportManyDocuments:(SBJsonStreamParser *)parser {
+    return self.supportManyDocuments;
+}
+
 @end

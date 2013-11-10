@@ -71,16 +71,17 @@ typedef enum {
 
  The default behaviour is that the delegate only receives one call from
  either the -parser:foundArray: or -parser:foundObject: method when the
- document is fully parsed. However, if your inputs contains multiple JSON
- documents and you set the parser's -supportMultipleDocuments property to YES
- you will get one call for each full method.
+ document is fully parsed.
+
+ If your input contains multiple JSON documents you can set the adapter's
+ -supportManyDocuments property to YES and get called for each document:
 
      SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] init];
      adapter.delegate = self;
+     adapter.supportManyDocuments = YES;
 
      SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
      parser.delegate = adapter;
-     parser.supportMultipleDocuments = YES;
 
      // Note that this input contains multiple top-level JSON documents
      NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
@@ -125,6 +126,20 @@ typedef enum {
 }
 
 - (id)initWithProcessBlock:(id (^)(id, NSString*))processBlock;
+
+/**
+ Expect multiple documents separated by whitespace
+
+ Normally the -parse: method returns SBJsonStreamParserComplete when it's found a complete JSON document.
+ Attempting to parse any more data at that point is considered an error. ("Garbage after JSON".)
+
+ If you set this property to true the parser will never return SBJsonStreamParserComplete. Rather,
+ once an object is completed it will expect another object to immediately follow, separated
+ only by (optional) whitespace.
+
+ */
+@property BOOL supportManyDocuments;
+
 
 /**
  How many levels to skip
