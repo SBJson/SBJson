@@ -116,7 +116,7 @@ typedef enum {
  type if they fit, else a `double` is used. All real & exponential numbers
  are represented using a `double`. Previous versions of this library used
  an NSDecimalNumber in some cases, but this is no longer the case.
- 
+
  See also SBJsonStreamParserAdapter for more information.
 
  */
@@ -134,7 +134,7 @@ typedef enum {
  Usually this should be an instance of SBJsonStreamParserAdapter, but you can
  substitute your own implementation of the SBJsonStreamParserDelegate protocol if you need to.
  */
-@property (weak) id<SBJsonStreamParserDelegate> delegate;
+@property (nonatomic, weak) id<SBJsonStreamParserDelegate> delegate;
 
 /**
  The max parse depth
@@ -143,10 +143,10 @@ typedef enum {
 
  Defaults to 32.
  */
-@property NSUInteger maxDepth;
+@property(nonatomic) NSUInteger maxDepth;
 
 /// Holds the error after SBJsonStreamParserError was returned
-@property (copy) NSString *error;
+@property (nonatomic, copy) NSString *error;
 
 /**
  Parse some JSON

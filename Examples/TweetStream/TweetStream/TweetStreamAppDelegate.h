@@ -14,8 +14,8 @@
 
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, weak) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet TweetStreamViewController *viewController;
+@property (nonatomic, weak) IBOutlet TweetStreamViewController *viewController;
 
 @end

@@ -13,6 +13,6 @@
     NSWindow *window;
 }
 
-@property (assign) IBOutlet NSWindow *window;
+@property (nonatomic, weak) IBOutlet NSWindow *window;
 
 @end

@@ -1,22 +1,22 @@
 /*
  Copyright (c) 2010, Stig Brautaset.
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are
  met:
- 
+
    Redistributions of source code must retain the above copyright
    notice, this list of conditions and the following disclaimer.
-  
+
    Redistributions in binary form must reproduce the above copyright
    notice, this list of conditions and the following disclaimer in the
    documentation and/or other materials provided with the distribution.
- 
+
    Neither the name of the the author nor the names of its contributors
    may be used to endorse or promote products derived from this software
    without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
@@ -110,7 +110,7 @@ typedef enum {
 	NSMutableArray *stack;
     NSMutableArray *path;
     id (^processBlock)(id, NSString*);
-	
+
 	SBJsonStreamParserAdapterType currentType;
 }
 
@@ -129,24 +129,24 @@ typedef enum {
  If you set this to YES the -parser:found: delegate method will be called once for each document in your input.
 
  */
-@property BOOL supportManyDocuments;
+@property(nonatomic) BOOL supportManyDocuments;
 
 
 /**
  Support partial documents.
- 
+
  This is useful for parsing huge JSON documents, or documents coming in over a very slow link.
- 
+
  If you set this to true the outer array will be ignored and -parser:found: is called once
  for each item in it.
 
 */
-@property BOOL supportPartialDocuments;
+@property(nonatomic) BOOL supportPartialDocuments;
 
 /**
  Your delegate object
  Set this to the object you want to receive the SBJsonStreamParserAdapterDelegate messages.
  */
-@property (weak) id<SBJsonStreamParserAdapterDelegate> delegate;
+@property (nonatomic, weak) id<SBJsonStreamParserAdapterDelegate> delegate;
 
 @end

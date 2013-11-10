@@ -1,20 +1,20 @@
 /*
  Copyright (C) 2009 Stig Brautaset. All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
- 
+
  * Redistributions of source code must retain the above copyright notice, this
    list of conditions and the following disclaimer.
- 
+
  * Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
- 
+
  * Neither the name of the author nor the names of its contributors may be used
    to endorse or promote products derived from this software without specific
    prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -36,24 +36,16 @@
 
 
 @interface SBJsonWriter () < SBJsonStreamWriterDelegate >
-@property (copy) NSString *error;
+@property (nonatomic, copy) NSString *error;
 @property (nonatomic, strong) NSMutableData *acc;
 @end
 
 @implementation SBJsonWriter
 
-@synthesize sortKeys;
-@synthesize humanReadable;
-
-@synthesize error;
-@synthesize maxDepth;
-
-@synthesize sortKeysComparator;
-
 - (id)init {
     self = [super init];
     if (self) {
-        self.maxDepth = 32u;        
+        self.maxDepth = 32u;
     }
     return self;
 }
@@ -66,7 +58,7 @@
 	return nil;
 }
 
-- (NSData*)dataWithObject:(id)object {	
+- (NSData*)dataWithObject:(id)object {
     self.error = nil;
 
     self.acc = [[NSMutableData alloc] initWithCapacity:8096u];
@@ -77,26 +69,26 @@
 	streamWriter.sortKeysComparator = self.sortKeysComparator;
 	streamWriter.humanReadable = self.humanReadable;
     streamWriter.delegate = self;
-	
+
 	BOOL ok = NO;
 	if ([object isKindOfClass:[NSDictionary class]])
 		ok = [streamWriter writeObject:object];
-	
+
 	else if ([object isKindOfClass:[NSArray class]])
 		ok = [streamWriter writeArray:object];
-		
+
 	else if ([object respondsToSelector:@selector(proxyForJson)])
 		return [self dataWithObject:[object proxyForJson]];
 	else {
 		self.error = @"Not valid type for JSON";
 		return nil;
 	}
-	
+
 	if (ok)
 		return self.acc;
-	
+
 	self.error = streamWriter.error;
-	return nil;	
+	return nil;
 }
 
 #pragma mark SBJsonStreamWriterDelegate
@@ -105,6 +97,6 @@
     [self.acc appendBytes:bytes length:length];
 }
 
-	
-	
+
+
 @end

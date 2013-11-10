@@ -44,20 +44,14 @@
     SBJsonStreamTokeniser *tokeniser;
 }
 
-@synthesize error;
-@synthesize delegate;
-@synthesize maxDepth;
-@synthesize state;
-@synthesize stateStack;
-
 #pragma mark Housekeeping
 
 - (id)init {
 	self = [super init];
 	if (self) {
-		maxDepth = 32u;
-        stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
-        state = [SBJsonStreamParserStateStart sharedInstance];
+		_maxDepth = 32u;
+        _stateStack = [[NSMutableArray alloc] initWithCapacity:_maxDepth];
+        _state = [SBJsonStreamParserStateStart sharedInstance];
 		tokeniser = [[SBJsonStreamTokeniser alloc] init];
 	}
 	return self;
@@ -118,53 +112,53 @@
 	return @"<aaiiie!>";
 }
 
-- (void)maxDepthError {
-    self.error = [NSString stringWithFormat:@"Input depth exceeds max depth of %lu", (unsigned long)maxDepth];
-    self.state = [SBJsonStreamParserStateError sharedInstance];
+- (void)_maxDepthError {
+    self.error = [NSString stringWithFormat:@"Input depth exceeds max depth of %lu", (unsigned long)_maxDepth];
+    _state = [SBJsonStreamParserStateError sharedInstance];
 }
 
 - (void)handleObjectStart {
-	if (stateStack.count >= maxDepth) {
-        [self maxDepthError];
+	if (_stateStack.count >= _maxDepth) {
+        [self _maxDepthError];
         return;
 	}
 
-    [delegate parserFoundObjectStart:self];
-    [stateStack addObject:state];
-    self.state = [SBJsonStreamParserStateObjectStart sharedInstance];
+    [_delegate parserFoundObjectStart:self];
+    [_stateStack addObject:_state];
+    _state = [SBJsonStreamParserStateObjectStart sharedInstance];
 }
 
 - (void)handleObjectEnd: (sbjson_token_t) tok  {
-    self.state = [stateStack lastObject];
-    [stateStack removeLastObject];
-    [state parser:self shouldTransitionTo:tok];
-    [delegate parserFoundObjectEnd:self];
+    _state = [_stateStack lastObject];
+    [_stateStack removeLastObject];
+    [_state parser:self shouldTransitionTo:tok];
+    [_delegate parserFoundObjectEnd:self];
 }
 
 - (void)handleArrayStart {
-	if (stateStack.count >= maxDepth) {
-        [self maxDepthError];
+	if (_stateStack.count >= _maxDepth) {
+        [self _maxDepthError];
         return;
     }
 	
-	[delegate parserFoundArrayStart:self];
-    [stateStack addObject:state];
-    self.state = [SBJsonStreamParserStateArrayStart sharedInstance];
+	[_delegate parserFoundArrayStart:self];
+    [_stateStack addObject:_state];
+    _state = [SBJsonStreamParserStateArrayStart sharedInstance];
 }
 
 - (void)handleArrayEnd: (sbjson_token_t) tok  {
-    self.state = [stateStack lastObject];
-    [stateStack removeLastObject];
-    [state parser:self shouldTransitionTo:tok];
-    [delegate parserFoundArrayEnd:self];
+    _state = [_stateStack lastObject];
+    [_stateStack removeLastObject];
+    [_state parser:self shouldTransitionTo:tok];
+    [_delegate parserFoundArrayEnd:self];
 }
 
 - (void) handleTokenNotExpectedHere: (sbjson_token_t) tok  {
     NSString *tokenName = [self tokenName:tok];
-    NSString *stateName = [state name];
+    NSString *stateName = [_state name];
 
     self.error = [NSString stringWithFormat:@"Token '%@' not expected %@", tokenName, stateName];
-    self.state = [SBJsonStreamParserStateError sharedInstance];
+    _state = [SBJsonStreamParserStateError sharedInstance];
 }
 
 - (SBJsonStreamParserStatus)parse:(NSData *)data_ {
@@ -173,7 +167,7 @@
         
         for (;;) {
             
-            if ([state isError])
+            if ([_state isError])
                 return SBJsonStreamParserError;
             
             char *token;
@@ -182,18 +176,18 @@
             
             switch (tok) {
                 case sbjson_token_eof:
-                    return [state parserShouldReturn:self];
+                    return [_state parserShouldReturn:self];
                     break;
                     
                 case sbjson_token_error:
-                    self.state = [SBJsonStreamParserStateError sharedInstance];
+                    _state = [SBJsonStreamParserStateError sharedInstance];
                     self.error = tokeniser.error;
                     return SBJsonStreamParserError;
                     break;
                     
                 default:
                     
-                    if (![state parser:self shouldAcceptToken:tok]) {
+                    if (![_state parser:self shouldAcceptToken:tok]) {
                         [self handleTokenNotExpectedHere: tok];
                         return SBJsonStreamParserError;
                     }
@@ -217,57 +211,57 @@
                             
                         case sbjson_token_value_sep:
                         case sbjson_token_entry_sep:
-                            [state parser:self shouldTransitionTo:tok];
+                            [_state parser:self shouldTransitionTo:tok];
                             break;
                             
                         case sbjson_token_bool:
-                            [delegate parser:self foundBoolean:token[0] == 't'];
-                            [state parser:self shouldTransitionTo:tok];
+                            [_delegate parser:self foundBoolean:token[0] == 't'];
+                            [_state parser:self shouldTransitionTo:tok];
                             break;
                             
 
                         case sbjson_token_null:
-                            [delegate parserFoundNull:self];
-                            [state parser:self shouldTransitionTo:tok];
+                            [_delegate parserFoundNull:self];
+                            [_state parser:self shouldTransitionTo:tok];
                             break;
 
                         case sbjson_token_integer: {
                             const int UNSIGNED_LONG_LONG_MAX_DIGITS = 20;
                             if (token_len <= UNSIGNED_LONG_LONG_MAX_DIGITS) {
                                 if (*token == '-')
-                                    [delegate parser:self foundNumber: @(strtoll(token, NULL, 10))];
+                                    [_delegate parser:self foundNumber: @(strtoll(token, NULL, 10))];
                                 else
-                                    [delegate parser:self foundNumber: @(strtoull(token, NULL, 10))];
+                                    [_delegate parser:self foundNumber: @(strtoull(token, NULL, 10))];
                                 
-                                [state parser:self shouldTransitionTo:tok];
+                                [_state parser:self shouldTransitionTo:tok];
                                 break;
                             }
                         }
                             // FALLTHROUGH
 
                         case sbjson_token_real: {
-                            [delegate parser:self foundNumber: @(strtod(token, NULL))];
-                            [state parser:self shouldTransitionTo:tok];
+                            [_delegate parser:self foundNumber: @(strtod(token, NULL))];
+                            [_state parser:self shouldTransitionTo:tok];
                             break;
                         }
 
                         case sbjson_token_string: {
                             NSString *string = [[NSString alloc] initWithBytes:token length:token_len encoding:NSUTF8StringEncoding];
-                            if ([state needKey])
-                                [delegate parser:self foundObjectKey:string];
+                            if ([_state needKey])
+                                [_delegate parser:self foundObjectKey:string];
                             else
-                                [delegate parser:self foundString:string];
-                            [state parser:self shouldTransitionTo:tok];
+                                [_delegate parser:self foundString:string];
+                            [_state parser:self shouldTransitionTo:tok];
                             break;
                         }
 
                         case sbjson_token_encoded: {
                             NSString *string = [self decodeStringToken:token length:token_len];
-                            if ([state needKey])
-                                [delegate parser:self foundObjectKey:string];
+                            if ([_state needKey])
+                                [_delegate parser:self foundObjectKey:string];
                             else
-                                [delegate parser:self foundString:string];
-                            [state parser:self shouldTransitionTo:tok];
+                                [_delegate parser:self foundString:string];
+                            [_state parser:self shouldTransitionTo:tok];
                             break;
                         }
 

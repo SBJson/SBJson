@@ -45,7 +45,7 @@
  malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
  turn off this security feature by setting the maxDepth value to 0.
  */
-@property NSUInteger maxDepth;
+@property(nonatomic) NSUInteger maxDepth;
 
 /**
  Description of parse error
@@ -57,7 +57,7 @@
  @return A string describing the error encountered, or nil if no error occured.
 
  */
-@property(copy) NSString *error;
+@property(nonatomic, copy) NSString *error;
 
 /**
  Return the object represented by the given NSData object.

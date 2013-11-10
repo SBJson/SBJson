@@ -47,8 +47,6 @@
 
 @implementation SBJsonStreamParserAdapter
 
-@synthesize delegate;
-
 #pragma mark Housekeeping
 
 - (id)init {
@@ -117,7 +115,7 @@
 			break;
 			
 		case SBJsonStreamParserAdapterNone:
-            [delegate parser:parser found:obj];
+            [_delegate parser:parser found:obj];
 			break;
             
 		default:

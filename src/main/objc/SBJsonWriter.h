@@ -45,7 +45,7 @@
  malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
  turn off this security feature by setting the maxDepth value to 0.
  */
-@property NSUInteger maxDepth;
+@property(nonatomic) NSUInteger maxDepth;
 
 /**
  Return an error trace, or nil if there was no errors.
@@ -54,7 +54,7 @@
  You need to check the return value of the call you're making to figure out
  if the call actually failed, before you know call this method.
  */
-@property (readonly, copy) NSString *error;
+@property (nonatomic, readonly, copy) NSString *error;
 
 /**
  Whether we are generating human-readable (multiline) JSON.
@@ -64,7 +64,7 @@
  JSON with linebreaks after each array value and dictionary key/value pair, indented two
  spaces per nesting level.
  */
-@property BOOL humanReadable;
+@property(nonatomic) BOOL humanReadable;
 
 /**
  Whether or not to sort the dictionary keys in the output.
@@ -72,14 +72,14 @@
  If this is set to YES, the dictionary keys in the JSON output will be in sorted order.
  (This is useful if you need to compare two structures, for example.) The default is NO.
  */
-@property BOOL sortKeys;
+@property(nonatomic) BOOL sortKeys;
 
 /**
  An optional comparator to be used if sortKeys is YES.
 
  If this is nil, sorting will be done via @selector(compare:).
  */
-@property (copy) NSComparator sortKeysComparator;
+@property (nonatomic, copy) NSComparator sortKeysComparator;
 
 /**
  Generates string with JSON representation for the given object.
