@@ -45,7 +45,16 @@
 
 
 
-@implementation SBJsonStreamParserAdapter
+@implementation SBJsonStreamParserAdapter {
+    NSUInteger depth;
+    NSMutableArray *array;
+    NSMutableDictionary *dict;
+    NSMutableArray *keyStack;
+    NSMutableArray *stack;
+    NSMutableArray *path;
+    id (^processBlock)(id, NSString*);
+    SBJsonStreamParserAdapterType currentType;
+}
 
 #pragma mark Housekeeping
 

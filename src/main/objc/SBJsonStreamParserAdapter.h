@@ -101,18 +101,7 @@ typedef enum {
      [parser parse:data];
 
 */
-@interface SBJsonStreamParserAdapter : NSObject <SBJsonStreamParserDelegate> {
-@private
-	NSUInteger depth;
-    NSMutableArray *array;
-	NSMutableDictionary *dict;
-	NSMutableArray *keyStack;
-	NSMutableArray *stack;
-    NSMutableArray *path;
-    id (^processBlock)(id, NSString*);
-
-	SBJsonStreamParserAdapterType currentType;
-}
+@interface SBJsonStreamParserAdapter : NSObject <SBJsonStreamParserDelegate>
 
 - (id)initWithProcessBlock:(id (^)(id, NSString*))processBlock;
 
