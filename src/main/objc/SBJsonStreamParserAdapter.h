@@ -33,42 +33,25 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonStreamParser.h"
 
-typedef enum {
-	SBJsonStreamParserAdapterNone,
-	SBJsonStreamParserAdapterArray,
-	SBJsonStreamParserAdapterObject,
-} SBJsonStreamParserAdapterType;
+typedef void (^SBValueBlock)(id);
+typedef id (^SBProcessBlock)(id, NSString*);
 
-/**
- Delegate for getting items from the stream parser adapter
-
- */
-@protocol SBJsonStreamParserAdapterDelegate
-
-/**
- Called for each item parsed.
- */
-- (void)parser:(SBJsonStreamParser*)parser found:(id)value;
-
-
-@end
 
 /**
  SBJsonStreamParserDelegate protocol adapter
 
  Rather than implementing the SBJsonStreamParserDelegate protocol yourself you will
  most likely find it much more convenient to use an instance of this class and
- implement the SBJsonStreamParserAdapterDelegate protocol instead.
+ pass it a block instead.
 
- The default behaviour is that the delegate only receives one call from
- either the -parser:foundArray: or -parser:foundObject: method when the
- document is fully parsed.
+ The default behaviour is that your passed-in block is only called once the entire input is parsed.
 
- If your input contains multiple JSON documents you can set the adapter's
- -supportManyDocuments property to YES and get called for each document:
+ If you set supportManyDocuments to YES and your input contains multiple (whitespace limited)
+ JSON documents your block will be called for each document:
 
-     SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] init];
-     adapter.delegate = self;
+     SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] initWithBlock:^(id v) {
+        NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
+     }];
      adapter.supportManyDocuments = YES;
 
      SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
@@ -78,19 +61,20 @@ typedef enum {
      NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
      [parser parse:data];
 
- In the above example self will have the following sequence of methods called on it:
+ The above example will print:
 
- - -parser: found:@[]
- - -parser: found:@{}
- - -parser: found:@[]
- - -parser: found:@{}
+ - Found: YES
+ - Found: NO
+ - Found: YES
+ - Found: NO
 
  Often you won't have control over the input you're parsing, so can't make use of
  this feature. But, all is not lost: if you are parsing a long array you can get the same effect by
  setting supportPartialDocuments to YES:
 
-     SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] init];
-     adapter.delegate = self;
+     SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] initWithBlock:^(id v) {
+        NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
+     }];
      adapter.supportPartialDocuments = YES;
 
      SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
@@ -103,7 +87,8 @@ typedef enum {
 */
 @interface SBJsonStreamParserAdapter : NSObject <SBJsonStreamParserDelegate>
 
-- (id)initWithProcessBlock:(id (^)(id, NSString*))processBlock;
+- (id)initWithBlock:(SBValueBlock)block;
+- (id)initWithBlock:(SBValueBlock)block processBlock:(SBProcessBlock)processBlock;
 
 /**
  Expect multiple documents separated by whitespace
@@ -131,11 +116,5 @@ typedef enum {
 
 */
 @property(nonatomic) BOOL supportPartialDocuments;
-
-/**
- Your delegate object
- Set this to the object you want to receive the SBJsonStreamParserAdapterDelegate messages.
- */
-@property (nonatomic, weak) id<SBJsonStreamParserAdapterDelegate> delegate;
 
 @end

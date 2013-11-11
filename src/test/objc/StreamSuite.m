@@ -33,7 +33,7 @@
 
 #import "SBJson.h"
 
-@interface StreamSuite : SenTestCase < SBJsonStreamParserAdapterDelegate >
+@interface StreamSuite : SenTestCase
 @end
 
 @implementation StreamSuite {
@@ -43,21 +43,19 @@
 }
 
 - (void)setUp {
-	adapter = [SBJsonStreamParserAdapter new];
-	adapter.delegate = self;
+	adapter = [[SBJsonStreamParserAdapter alloc] initWithBlock:^(id obj) {
+        if ([obj isKindOfClass:[NSArray class]])
+            arrayCount++;
+        else if ([obj isKindOfClass:[NSDictionary class]])
+            objectCount++;
+    }];
 
-	parser = [SBJsonStreamParser new];
+    parser = [SBJsonStreamParser new];
 	parser.delegate = adapter;
 
 	arrayCount = objectCount = 0u;
 }
 
-- (void)parser:(SBJsonStreamParser *)parser found:(id)obj {
-    if ([obj isKindOfClass:[NSArray class]])
-	    arrayCount++;
-    else if ([obj isKindOfClass:[NSDictionary class]])
-        objectCount++;
-}
 
 - (void) testParsingWithShortWorkBuffer{   
    char* validjson = "[{\"description\": \"Lorem ipsum dolor sit amet, "\

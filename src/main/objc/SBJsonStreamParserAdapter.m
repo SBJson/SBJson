@@ -43,7 +43,11 @@
 
 @end
 
-
+typedef enum {
+    SBJsonStreamParserAdapterNone,
+    SBJsonStreamParserAdapterArray,
+    SBJsonStreamParserAdapterObject,
+} SBJsonStreamParserAdapterType;
 
 @implementation SBJsonStreamParserAdapter {
     NSUInteger depth;
@@ -52,19 +56,25 @@
     NSMutableArray *keyStack;
     NSMutableArray *stack;
     NSMutableArray *path;
-    id (^processBlock)(id, NSString*);
+    SBProcessBlock processBlock;
+    SBValueBlock valueBlock;
     SBJsonStreamParserAdapterType currentType;
 }
 
 #pragma mark Housekeeping
 
 - (id)init {
-    return [self initWithProcessBlock:nil];
+    @throw @"Use initWithBlock: instead";
 }
 
-- (id)initWithProcessBlock:(id (^)(id, NSString*))initialProcessBlock {
+- (id)initWithBlock:(SBValueBlock)block {
+    return [self initWithBlock:block processBlock:nil];
+}
+
+- (id)initWithBlock:(SBValueBlock)block processBlock:(SBProcessBlock)initialProcessBlock {
 	self = [super init];
 	if (self) {
+        valueBlock = block;
 		keyStack = [[NSMutableArray alloc] initWithCapacity:32];
 		stack = [[NSMutableArray alloc] initWithCapacity:32];
         if(initialProcessBlock)
@@ -124,7 +134,7 @@
 			break;
 			
 		case SBJsonStreamParserAdapterNone:
-            [_delegate parser:parser found:obj];
+            valueBlock(obj);
 			break;
             
 		default:

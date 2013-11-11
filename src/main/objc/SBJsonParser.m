@@ -35,10 +35,6 @@
 #import "SBJsonStreamParser.h"
 #import "SBJsonStreamParserAdapter.h"
 
-@interface SBJsonParser() < SBJsonStreamParserAdapterDelegate >
-    @property(nonatomic, strong) id value;
-@end
-
 @implementation SBJsonParser
 
 - (id)init {
@@ -55,7 +51,7 @@
     return [self objectWithData:data processValuesWithBlock:nil];
 }
 
-- (id)objectWithData:(NSData *)data processValuesWithBlock:(id (^)(id, NSString*))processBlock {
+- (id)objectWithData:(NSData *)data processValuesWithBlock:(SBProcessBlock)processBlock {
 
     if (!data) {
         self.error = @"Input was 'nil'";
@@ -63,16 +59,17 @@
     }
 
 
-    SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] initWithProcessBlock:processBlock];
-    adapter.delegate = self;
-	
+    __block id value = nil;
+    SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] initWithBlock:^(id v) { value = v; }
+                                                                             processBlock:processBlock];
+
 	SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
 	parser.maxDepth = self.maxDepth;
 	parser.delegate = adapter;
 	
 	switch ([parser parse:data]) {
 		case SBJsonStreamParserComplete:
-            return self.value;
+            return value;
 			break;
 			
 		case SBJsonStreamParserWaitingForData:
@@ -93,13 +90,6 @@
 
 - (id)objectWithString:(NSString *)string processValuesWithBlock:(id (^)(id, NSString*))processBlock {
 	return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] processValuesWithBlock:processBlock];
-}
-
-
-#pragma mark SBJsonStreamParserAdapterDelegate
-
-- (void)parser:(SBJsonStreamParser*)parser found:(id)val {
-    self.value = val;
 }
 
 @end
