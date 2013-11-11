@@ -8,10 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface DisplayPrettyAppDelegate : NSObject <NSApplicationDelegate> {
-@private
-    NSWindow *window;
-}
+@interface DisplayPrettyAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (nonatomic, weak) IBOutlet NSWindow *window;
 

@@ -9,7 +9,13 @@
 #import "DisplayPrettyController.h"
 #import <SBJson/SBJson.h>
 
-@implementation DisplayPrettyController
+@implementation DisplayPrettyController {
+    SBJsonParser *_parser;
+    SBJsonWriter *_writer;
+    
+    IBOutlet NSTextField *_source;
+    IBOutlet NSTextField *_formatted;
+}
 
 - (id)init
 {
@@ -23,12 +29,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [_parser release];
-    [_writer release];
-    [super dealloc];
-}
 
 - (IBAction)formatText:(id)sender {
     id object = [_parser objectWithString:[_source stringValue]];
