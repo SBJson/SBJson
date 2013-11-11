@@ -1,20 +1,20 @@
 /*
- Copyright (C) 2009,2010 Stig Brautaset. All rights reserved.
- 
+ Copyright (C) 2009-2013 Stig Brautaset. All rights reserved.
+
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
- 
+
  * Redistributions of source code must retain the above copyright notice, this
    list of conditions and the following disclaimer.
- 
+
  * Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
- 
+
  * Neither the name of the author nor the names of its contributors may be used
    to endorse or promote products derived from this software without specific
    prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -33,11 +33,7 @@
 
 #import "SBJsonParser.h"
 #import "SBJsonStreamParser.h"
-#import "SBJsonStreamParserAdapter.h"
-
-@interface SBJsonParser() < SBJsonStreamParserAdapterDelegate >
-    @property(nonatomic, strong) id value;
-@end
+#import "SBJsonChunkParser.h"
 
 @implementation SBJsonParser
 
@@ -55,7 +51,7 @@
     return [self objectWithData:data processValuesWithBlock:nil];
 }
 
-- (id)objectWithData:(NSData *)data processValuesWithBlock:(id (^)(id, NSString*))processBlock {
+- (id)objectWithData:(NSData *)data processValuesWithBlock:(SBProcessBlock)processBlock {
 
     if (!data) {
         self.error = @"Input was 'nil'";
@@ -63,43 +59,41 @@
     }
 
 
-    SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] initWithProcessBlock:processBlock];
-    adapter.delegate = self;
-	
-	SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
-	parser.maxDepth = self.maxDepth;
-	parser.delegate = adapter;
-	
-	switch ([parser parse:data]) {
-		case SBJsonStreamParserComplete:
-            return self.value;
-			break;
-			
-		case SBJsonStreamParserWaitingForData:
-		    self.error = @"Unexpected end of input";
-			break;
+    __block id value = nil;
+    SBJsonChunkParser *parser = [[SBJsonChunkParser alloc]
+            initWithBlock:^(id v) {
+                value = v;
+            }
+             processBlock:processBlock
+             errorHandler:^(NSError *err) {
+                 self.error = err.localizedDescription;
+             }];
 
-		case SBJsonStreamParserError:
-		    self.error = parser.error;
-			break;
-	}
-	
-	return nil;
+
+    parser.maxDepth = self.maxDepth;
+
+    switch ([parser parse:data]) {
+        case SBJsonParserComplete:
+            return value;
+            break;
+
+        case SBJsonParserWaitingForData:
+            self.error = @"Unexpected end of input";
+            break;
+
+        case SBJsonParserError:
+            break;
+    }
+
+    return nil;
 }
 
 - (id)objectWithString:(NSString *)string {
-	return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] processValuesWithBlock:nil];
+    return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] processValuesWithBlock:nil];
 }
 
-- (id)objectWithString:(NSString *)string processValuesWithBlock:(id (^)(id, NSString*))processBlock {
-	return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] processValuesWithBlock:processBlock];
-}
-
-
-#pragma mark SBJsonStreamParserAdapterDelegate
-
-- (void)parser:(SBJsonStreamParser*)parser found:(id)val {
-    self.value = val;
+- (id)objectWithString:(NSString *)string processValuesWithBlock:(id (^)(id, NSString *))processBlock {
+    return [self objectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] processValuesWithBlock:processBlock];
 }
 
 @end

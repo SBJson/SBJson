@@ -38,9 +38,9 @@
 @interface SBJsonStreamParserState : NSObject
 + (id)sharedInstance;
 
-- (BOOL)parser:(SBJsonStreamParser*)parser shouldAcceptToken:(sbjson_token_t)token;
-- (SBJsonStreamParserStatus)parserShouldReturn:(SBJsonStreamParser*)parser;
-- (void)parser:(SBJsonStreamParser*)parser shouldTransitionTo:(sbjson_token_t)tok;
+- (BOOL)parser:(SBJsonStreamParser *)parser shouldAcceptToken:(sbjson_token_t)token;
+- (SBJsonParserStatus)parserShouldReturn:(SBJsonStreamParser *)parser;
+- (void)parser:(SBJsonStreamParser *)parser shouldTransitionTo:(sbjson_token_t)tok;
 - (BOOL)needKey;
 - (BOOL)isError;
 
@@ -56,7 +56,6 @@
 
 @interface SBJsonStreamParserStateError : SBJsonStreamParserState
 @end
-
 
 @interface SBJsonStreamParserStateObjectStart : SBJsonStreamParserState
 @end

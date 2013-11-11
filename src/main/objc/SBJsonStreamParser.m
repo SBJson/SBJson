@@ -113,8 +113,9 @@
 }
 
 - (void)_maxDepthError {
-    self.error = [NSString stringWithFormat:@"Input depth exceeds max depth of %lu", (unsigned long)_maxDepth];
     _state = [SBJsonStreamParserStateError sharedInstance];
+    id ui = @{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Input depth exceeds max depth of %lu", (unsigned long)_maxDepth]};
+    [_delegate parser:self foundError:[NSError errorWithDomain:@"org.sbjson.parser" code:3 userInfo:ui]];
 }
 
 - (void)handleObjectStart {
@@ -157,19 +158,20 @@
     NSString *tokenName = [self tokenName:tok];
     NSString *stateName = [_state name];
 
-    self.error = [NSString stringWithFormat:@"Token '%@' not expected %@", tokenName, stateName];
     _state = [SBJsonStreamParserStateError sharedInstance];
+    id ui = @{ NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Token '%@' not expected %@", tokenName, stateName]};
+    [_delegate parser:self foundError:[NSError errorWithDomain:@"org.sbjson.parser" code:2 userInfo:ui]];
 }
 
-- (SBJsonStreamParserStatus)parse:(NSData *)data_ {
+- (SBJsonParserStatus)parse:(NSData *)data_ {
     @autoreleasepool {
         [tokeniser appendData:data_];
         
         for (;;) {
             
             if ([_state isError])
-                return SBJsonStreamParserError;
-            
+                return SBJsonParserError;
+
             char *token;
             NSUInteger token_len;
             sbjson_token_t tok = [tokeniser getToken:&token length:&token_len];
@@ -181,15 +183,15 @@
                     
                 case sbjson_token_error:
                     _state = [SBJsonStreamParserStateError sharedInstance];
-                    self.error = tokeniser.error;
-                    return SBJsonStreamParserError;
+                    [_delegate parser:self foundError:[NSError errorWithDomain:@"org.sbjson.parser" code:3 userInfo:@{ NSLocalizedDescriptionKey : tokeniser.error }]];
+                    return SBJsonParserError;
                     break;
                     
                 default:
                     
                     if (![_state parser:self shouldAcceptToken:tok]) {
                         [self handleTokenNotExpectedHere: tok];
-                        return SBJsonStreamParserError;
+                        return SBJsonParserError;
                     }
                     
                     switch (tok) {
@@ -271,7 +273,7 @@
                     break;
             }
         }
-        return SBJsonStreamParserComplete;
+        return SBJsonParserComplete;
     }
 }
 

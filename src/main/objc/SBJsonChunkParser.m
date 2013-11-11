@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2010, Stig Brautaset.
+ Copyright (c) 2010-2013, Stig Brautaset.
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -34,44 +34,59 @@
 #error "This source file must be compiled with ARC enabled!"
 #endif
 
-#import "SBJsonStreamParserAdapter.h"
+#import "SBJsonChunkParser.h"
 
-@interface SBJsonStreamParserAdapter ()
+@interface SBJsonChunkParser () <SBJsonStreamParserDelegate>
 
 - (void)pop;
-- (void)parser:(SBJsonStreamParser*)parser found:(id)obj;
+- (void)parser:(SBJsonStreamParser *)parser found:(id)obj;
 
 @end
 
+typedef enum {
+    SBJsonChunkNone,
+    SBJsonChunkArray,
+    SBJsonChunkObject,
+} SBJsonChunkType;
 
-
-@implementation SBJsonStreamParserAdapter {
+@implementation SBJsonChunkParser {
+    SBJsonStreamParser *_parser;
     NSUInteger depth;
     NSMutableArray *array;
     NSMutableDictionary *dict;
     NSMutableArray *keyStack;
     NSMutableArray *stack;
     NSMutableArray *path;
-    id (^processBlock)(id, NSString*);
-    SBJsonStreamParserAdapterType currentType;
+    SBProcessBlock processBlock;
+    SBErrorHandlerBlock errorHandler;
+    SBValueBlock valueBlock;
+    SBJsonChunkType currentType;
 }
 
 #pragma mark Housekeeping
 
 - (id)init {
-    return [self initWithProcessBlock:nil];
+    @throw @"Use initWithBlock: instead";
 }
 
-- (id)initWithProcessBlock:(id (^)(id, NSString*))initialProcessBlock {
+- (id)initWithBlock:(SBValueBlock)block errorHandler:(SBErrorHandlerBlock)eh {
+    return [self initWithBlock:block processBlock:nil errorHandler:eh];
+}
+
+- (id)initWithBlock:(SBValueBlock)block processBlock:(SBProcessBlock)initialProcessBlock errorHandler:(SBErrorHandlerBlock)eh {
 	self = [super init];
 	if (self) {
+        _parser = [[SBJsonStreamParser alloc] init];
+        _parser.delegate = self;
+
+        valueBlock = block;
 		keyStack = [[NSMutableArray alloc] initWithCapacity:32];
 		stack = [[NSMutableArray alloc] initWithCapacity:32];
-        if(initialProcessBlock)
+        if (initialProcessBlock)
             path = [[NSMutableArray alloc] initWithCapacity:32];
         processBlock = initialProcessBlock;
-		
-		currentType = SBJsonStreamParserAdapterNone;
+        errorHandler = eh ? eh : ^(NSError*err) { NSLog(@"%@", err); };
+		currentType = SBJsonChunkNone;
 	}
 	return self;
 }
@@ -83,24 +98,24 @@
 	[stack removeLastObject];
 	array = nil;
 	dict = nil;
-	currentType = SBJsonStreamParserAdapterNone;
+	currentType = SBJsonChunkNone;
 	
 	id value = [stack lastObject];
 	
 	if ([value isKindOfClass:[NSArray class]]) {
 		array = value;
-		currentType = SBJsonStreamParserAdapterArray;
+		currentType = SBJsonChunkArray;
 	} else if ([value isKindOfClass:[NSDictionary class]]) {
 		dict = value;
-		currentType = SBJsonStreamParserAdapterObject;
+		currentType = SBJsonChunkObject;
 	}
 }
 
-- (void)parser:(SBJsonStreamParser*)parser found:(id)obj {
+- (void)parser:(SBJsonStreamParser *)parser found:(id)obj {
     [self parser:parser found:obj isValue:NO];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser found:(id)obj isValue:(BOOL)isValue {
+- (void)parser:(SBJsonStreamParser *)parser found:(id)obj isValue:(BOOL)isValue {
 	NSParameterAssert(obj);
 	
     if(processBlock&&path) {
@@ -113,18 +128,18 @@
     }
     
 	switch (currentType) {
-		case SBJsonStreamParserAdapterArray:
+		case SBJsonChunkArray:
 			[array addObject:obj];
 			break;
             
-		case SBJsonStreamParserAdapterObject:
+		case SBJsonChunkObject:
 			NSParameterAssert(keyStack.count);
 			[dict setObject:obj forKey:[keyStack lastObject]];
 			[keyStack removeLastObject];
 			break;
 			
-		case SBJsonStreamParserAdapterNone:
-            [_delegate parser:parser found:obj];
+		case SBJsonChunkNone:
+            valueBlock(obj);
 			break;
             
 		default:
@@ -135,37 +150,37 @@
 
 #pragma mark Delegate methods
 
-- (void)parserFoundObjectStart:(SBJsonStreamParser*)parser {
+- (void)parserFoundObjectStart:(SBJsonStreamParser *)parser {
     ++depth;
     if(path) [self addToPath];
     dict = [NSMutableDictionary new];
 	[stack addObject:dict];
-    currentType = SBJsonStreamParserAdapterObject;
+    currentType = SBJsonChunkObject;
 }
 
-- (void)parser:(SBJsonStreamParser*)parser foundObjectKey:(NSString*)key_ {
+- (void)parser:(SBJsonStreamParser *)parser foundObjectKey:(NSString*)key_ {
     [keyStack addObject:key_];
 }
 
-- (void)parserFoundObjectEnd:(SBJsonStreamParser*)parser {
+- (void)parserFoundObjectEnd:(SBJsonStreamParser *)parser {
     depth--;
 	id value = dict;
 	[self pop];
     [self parser:parser found:value];
 }
 
-- (void)parserFoundArrayStart:(SBJsonStreamParser*)parser {
+- (void)parserFoundArrayStart:(SBJsonStreamParser *)parser {
     depth++;
     if (depth > 1 || !self.supportPartialDocuments) {
         if(path)
             [self addToPath];
 		array = [NSMutableArray new];
 		[stack addObject:array];
-		currentType = SBJsonStreamParserAdapterArray;
+		currentType = SBJsonChunkArray;
     }
 }
 
-- (void)parserFoundArrayEnd:(SBJsonStreamParser*)parser {
+- (void)parserFoundArrayEnd:(SBJsonStreamParser *)parser {
     depth--;
     if (depth > 1 || !self.supportPartialDocuments) {
 		id value = array;
@@ -174,20 +189,24 @@
     }
 }
 
-- (void)parser:(SBJsonStreamParser*)parser foundBoolean:(BOOL)x {
+- (void)parser:(SBJsonStreamParser *)parser foundBoolean:(BOOL)x {
 	[self parser:parser found:[NSNumber numberWithBool:x] isValue:YES];
 }
 
-- (void)parserFoundNull:(SBJsonStreamParser*)parser {
+- (void)parserFoundNull:(SBJsonStreamParser *)parser {
     [self parser:parser found:[NSNull null] isValue:YES];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser foundNumber:(NSNumber*)num {
+- (void)parser:(SBJsonStreamParser *)parser foundNumber:(NSNumber*)num {
     [self parser:parser found:num isValue:YES];
 }
 
-- (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string {
+- (void)parser:(SBJsonStreamParser *)parser foundString:(NSString*)string {
     [self parser:parser found:string isValue:YES];
+}
+
+- (void)parser:(SBJsonStreamParser *)parser foundError:(NSError *)err {
+    errorHandler(err);
 }
 
 - (void)addToPath {
@@ -213,5 +232,18 @@
 - (BOOL)parserShouldSupportManyDocuments:(SBJsonStreamParser *)parser {
     return self.supportManyDocuments;
 }
+
+- (SBJsonParserStatus)parse:(NSData *)data {
+    return [_parser parse:data];
+}
+
+- (void)setMaxDepth:(NSUInteger)maxDepth {
+    _parser.maxDepth = maxDepth;
+}
+
+- (NSUInteger)maxDepth {
+    return _parser.maxDepth;
+}
+
 
 @end
