@@ -6,7 +6,45 @@ Objective-C.
 Features
 ========
 
-* Streaming Support (see SBJsonStreamParser & SBJsonStreamWriter)
+SBJson's number one feature is chunk-based parsing. An example best sums it up:
+
+     SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
+        NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
+     } errorHandler: ^(NSError* err) {
+        NSLog(@"OOPS: %@", err);
+     }];
+     parser.supportManyDocuments = YES;
+
+     // Note that this input contains multiple top-level JSON documents
+     NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
+     [parser parse:data];
+
+ The above example will print:
+
+ - Found: YES
+ - Found: NO
+ - Found: YES
+ - Found: NO
+
+Sometimes you just get a single mammoth array containing lots of smaller
+documents. In that case you can get the same effect by setting
+supportPartialDocuments to YES:
+
+     SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
+        NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
+     } errorHandler: ^(NSError* err) {
+        NSLog(@"OOPS: %@", err);
+     }];
+     parser.supportPartialDocuments = YES;
+
+     // Note that this input contains A SINGLE top-level document
+     NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
+     [parser parse:data];
+
+This example prints the same output as the one above.
+
+Additional features:
+
 * Configurable recursion depth limit
 * Automatic Reference Counting (ARC)
 * Optionally sort dictionary keys in JSON output

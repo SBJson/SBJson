@@ -163,14 +163,14 @@
     [_delegate parser:self foundError:[NSError errorWithDomain:@"org.sbjson.parser" code:2 userInfo:ui]];
 }
 
-- (SBJsonStreamParserStatus)parse:(NSData *)data_ {
+- (SBJsonParserStatus)parse:(NSData *)data_ {
     @autoreleasepool {
         [tokeniser appendData:data_];
         
         for (;;) {
             
             if ([_state isError])
-                return SBJsonStreamParserError;
+                return SBJsonParserError;
 
             char *token;
             NSUInteger token_len;
@@ -184,14 +184,14 @@
                 case sbjson_token_error:
                     _state = [SBJsonStreamParserStateError sharedInstance];
                     [_delegate parser:self foundError:[NSError errorWithDomain:@"org.sbjson.parser" code:3 userInfo:@{ NSLocalizedDescriptionKey : tokeniser.error }]];
-                    return SBJsonStreamParserError;
+                    return SBJsonParserError;
                     break;
                     
                 default:
                     
                     if (![_state parser:self shouldAcceptToken:tok]) {
                         [self handleTokenNotExpectedHere: tok];
-                        return SBJsonStreamParserError;
+                        return SBJsonParserError;
                     }
                     
                     switch (tok) {
@@ -273,7 +273,7 @@
                     break;
             }
         }
-        return SBJsonStreamParserComplete;
+        return SBJsonParserComplete;
     }
 }
 

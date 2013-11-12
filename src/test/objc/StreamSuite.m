@@ -37,22 +37,18 @@
 @end
 
 @implementation StreamSuite {
-	SBJsonStreamParser *parser;
-	SBJsonStreamParserAdapter *adapter;
+	SBJsonChunkParser *parser;
 	NSUInteger arrayCount, objectCount;
     NSError *error;
 }
 
 - (void)setUp {
-	adapter = [[SBJsonStreamParserAdapter alloc] initWithBlock:^(id obj) {
+	parser = [[SBJsonChunkParser alloc] initWithBlock:^(id obj) {
         if ([obj isKindOfClass:[NSArray class]])
             arrayCount++;
         else if ([obj isKindOfClass:[NSDictionary class]])
             objectCount++;
     } errorHandler:^(NSError *e) { error = e; }];
-
-    parser = [SBJsonStreamParser new];
-	parser.delegate = adapter;
 
 	arrayCount = objectCount = 0u;
 }
@@ -63,19 +59,19 @@
    "consectetur adipiscing elit. Donec ultrices ornare gravida. Vestibulum"\
    " ante ipsum primisin faucibus orci luctus et ultrices posuere\"}]";
 
-   adapter.supportManyDocuments = NO;
+   parser.supportManyDocuments = NO;
 
-   SBJsonStreamParserStatus status = SBJsonStreamParserWaitingForData;
+   SBJsonParserStatus status = SBJsonParserWaitingForData;
    NSData* data = nil;
    
    for (int i=0, e=(int)strlen(validjson); i<e; ++i){
       data = [NSData dataWithBytes:validjson+i length:1];
       status = [parser parse:data];
-      if(status == SBJsonStreamParserError){
+      if(status == SBJsonParserError){
          break;
       }
    }
-   STAssertEquals(status, SBJsonStreamParserComplete, nil);
+   STAssertEquals(status, SBJsonParserComplete, nil);
 }
 
 /*
@@ -85,7 +81,7 @@
  this data incrementally.
  */
 - (void)testMultipleDocuments {
-    adapter.supportManyDocuments = YES;
+    parser.supportManyDocuments = YES;
 
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     NSString *root = [[bundle resourcePath] stringByAppendingPathComponent:@"stream"];
@@ -101,7 +97,7 @@
 		NSData *data = [NSData dataWithContentsOfMappedFile:file];
 		STAssertNotNil(data, nil);
 	
-		STAssertEquals([parser parse:data], SBJsonStreamParserWaitingForData, @"%@ - %@", file, error);
+		STAssertEquals([parser parse:data], SBJsonParserWaitingForData, @"%@ - %@", file, error);
 	}
 	STAssertEquals(arrayCount, (NSUInteger)0, nil);
 	STAssertEquals(objectCount, (NSUInteger)98, nil);
@@ -126,7 +122,7 @@
 }
 
 - (void)testSkipArray {
-	adapter.supportPartialDocuments = YES;
+	parser.supportPartialDocuments = YES;
 	[self parseArrayOfObjects];
 	STAssertEquals(arrayCount, (NSUInteger)0, nil);
 	STAssertEquals(objectCount, (NSUInteger)100, nil);	
