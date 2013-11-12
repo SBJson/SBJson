@@ -34,6 +34,7 @@
 #import "SBJsonStreamParser.h"
 
 typedef void (^SBValueBlock)(id);
+typedef void (^SBErrorHandlerBlock)(NSError*);
 typedef id (^SBProcessBlock)(id, NSString*);
 
 
@@ -51,7 +52,11 @@ typedef id (^SBProcessBlock)(id, NSString*);
 
      SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] initWithBlock:^(id v) {
         NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
+     }
+     errorHandler: ^(NSError* err) {
+        NSLog(@"OOPS: %@", err);
      }];
+
      adapter.supportManyDocuments = YES;
 
      SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
@@ -74,6 +79,9 @@ typedef id (^SBProcessBlock)(id, NSString*);
 
      SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] initWithBlock:^(id v) {
         NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
+     }
+     errorHandler: ^(NSError* err) {
+        NSLog(@"OOPS: %@", err);
      }];
      adapter.supportPartialDocuments = YES;
 
@@ -87,8 +95,8 @@ typedef id (^SBProcessBlock)(id, NSString*);
 */
 @interface SBJsonStreamParserAdapter : NSObject <SBJsonStreamParserDelegate>
 
-- (id)initWithBlock:(SBValueBlock)block;
-- (id)initWithBlock:(SBValueBlock)block processBlock:(SBProcessBlock)processBlock;
+- (id)initWithBlock:(SBValueBlock)block errorHandler:(SBErrorHandlerBlock)eh;
+- (id)initWithBlock:(SBValueBlock)block processBlock:(SBProcessBlock)processBlock errorHandler:(SBErrorHandlerBlock)eh;
 
 /**
  Expect multiple documents separated by whitespace

@@ -77,6 +77,9 @@ typedef enum {
 /// Called when a string is found
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string;
 
+/// Called when an error occurs
+- (void)parser:(SBJsonStreamParser*)parser foundError:(NSError*)err;
+
 @optional
 
 /// Called to determine whether to allow multiple whitespace-separated documents
@@ -145,9 +148,6 @@ typedef enum {
  */
 @property(nonatomic) NSUInteger maxDepth;
 
-/// Holds the error after SBJsonStreamParserError was returned
-@property (nonatomic, copy) NSString *error;
-
 /**
  Parse some JSON
 
@@ -158,7 +158,7 @@ typedef enum {
  @return
  - SBJsonStreamParserComplete if a full document was found
  - SBJsonStreamParserWaitingForData if a partial document was found and more data is required to complete it
- - SBJsonStreamParserError if an error occured. (See the error property for details in this case.)
+ - SBJsonStreamParserError if an error occured.
 
  */
 - (SBJsonStreamParserStatus)parse:(NSData*)data;

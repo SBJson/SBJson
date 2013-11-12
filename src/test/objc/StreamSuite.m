@@ -40,6 +40,7 @@
 	SBJsonStreamParser *parser;
 	SBJsonStreamParserAdapter *adapter;
 	NSUInteger arrayCount, objectCount;
+    NSError *error;
 }
 
 - (void)setUp {
@@ -48,7 +49,7 @@
             arrayCount++;
         else if ([obj isKindOfClass:[NSDictionary class]])
             objectCount++;
-    }];
+    } errorHandler:^(NSError *e) { error = e; }];
 
     parser = [SBJsonStreamParser new];
 	parser.delegate = adapter;
@@ -100,7 +101,7 @@
 		NSData *data = [NSData dataWithContentsOfMappedFile:file];
 		STAssertNotNil(data, nil);
 	
-		STAssertEquals([parser parse:data], SBJsonStreamParserWaitingForData, @"%@ - %@", file, parser.error);
+		STAssertEquals([parser parse:data], SBJsonStreamParserWaitingForData, @"%@ - %@", file, error);
 	}
 	STAssertEquals(arrayCount, (NSUInteger)0, nil);
 	STAssertEquals(objectCount, (NSUInteger)98, nil);

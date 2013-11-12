@@ -57,6 +57,7 @@ typedef enum {
     NSMutableArray *stack;
     NSMutableArray *path;
     SBProcessBlock processBlock;
+    SBErrorHandlerBlock errorHandler;
     SBValueBlock valueBlock;
     SBJsonStreamParserAdapterType currentType;
 }
@@ -67,20 +68,20 @@ typedef enum {
     @throw @"Use initWithBlock: instead";
 }
 
-- (id)initWithBlock:(SBValueBlock)block {
-    return [self initWithBlock:block processBlock:nil];
+- (id)initWithBlock:(SBValueBlock)block errorHandler:(SBErrorHandlerBlock)eh {
+    return [self initWithBlock:block processBlock:nil errorHandler:eh];
 }
 
-- (id)initWithBlock:(SBValueBlock)block processBlock:(SBProcessBlock)initialProcessBlock {
+- (id)initWithBlock:(SBValueBlock)block processBlock:(SBProcessBlock)initialProcessBlock errorHandler:(SBErrorHandlerBlock)eh {
 	self = [super init];
 	if (self) {
         valueBlock = block;
 		keyStack = [[NSMutableArray alloc] initWithCapacity:32];
 		stack = [[NSMutableArray alloc] initWithCapacity:32];
-        if(initialProcessBlock)
+        if (initialProcessBlock)
             path = [[NSMutableArray alloc] initWithCapacity:32];
         processBlock = initialProcessBlock;
-		
+        errorHandler = eh ? eh : ^(NSError*err) { NSLog(@"%@", err); };
 		currentType = SBJsonStreamParserAdapterNone;
 	}
 	return self;
@@ -198,6 +199,10 @@ typedef enum {
 
 - (void)parser:(SBJsonStreamParser*)parser foundString:(NSString*)string {
     [self parser:parser found:string isValue:YES];
+}
+
+- (void)parser:(SBJsonStreamParser *)parser foundError:(NSError *)err {
+    errorHandler(err);
 }
 
 - (void)addToPath {

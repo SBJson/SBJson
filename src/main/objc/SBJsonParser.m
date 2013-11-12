@@ -61,7 +61,9 @@
 
     __block id value = nil;
     SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] initWithBlock:^(id v) { value = v; }
-                                                                             processBlock:processBlock];
+                                                                             processBlock:processBlock
+                                                                             errorHandler:^(NSError *err) { self.error = err.localizedDescription; }
+    ];
 
 	SBJsonStreamParser *parser = [[SBJsonStreamParser alloc] init];
 	parser.maxDepth = self.maxDepth;
@@ -77,7 +79,6 @@
 			break;
 
 		case SBJsonStreamParserError:
-		    self.error = parser.error;
 			break;
 	}
 	
