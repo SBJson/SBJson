@@ -57,6 +57,8 @@
 	
 	<option value="//api/name/parse:">&nbsp;&nbsp;&nbsp;&nbsp;- parse:</option>
 	
+	<option value="//api/name/stop">&nbsp;&nbsp;&nbsp;&nbsp;- stop</option>
+	
 	
 	
 </select>
@@ -98,6 +100,8 @@
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/parse:">parse:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stop">stop</a></span></li>
 	
 </ul></li>
 
@@ -172,20 +176,27 @@ really need low-level access to tokens one-by-one you can use this class.</p>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
-		
+		<span class="tooltip"><p>Delegate to receive messages</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/maxDepth">&nbsp;&nbsp;maxDepth</a></code>
-		
+		<span class="tooltip"><p>The max parse depth</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/parse:">&ndash;&nbsp;parse:</a></code>
+		<span class="tooltip"><p>Parse some JSON</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/stop">&ndash;&nbsp;stop</a></code>
 		
 	</span>
 	
@@ -208,10 +219,44 @@ really need low-level access to tokens one-by-one you can use this class.</p>
 	<h3 class="subsubtitle method-title">delegate</h3>
 	
 	
+	
+	<div class="method-subsection brief-description">
+		<p>Delegate to receive messages</p>
+	</div>		
+	
+    
 
 	<div class="method-subsection method-declaration"><code>@property (nonatomic, weak) id&lt;&gt; delegate</code></div>
 
     
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The object set here receives a series of messages as the parser breaks down the JSON stream
+into valid tokens.</p>
+
+<p>Usually this should be an instance of <a href="../Classes/SBJsonChunkParser.html">SBJsonChunkParser</a>, but you can
+substitute your own implementation of the <a href="../Protocols/SBJsonStreamParserDelegate.html">SBJsonStreamParserDelegate</a> protocol if you need to.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">SBJsonStreamParser.h</code><br />
+	</div>				
+	
+	
 </div>
 						
 						<div class="section-method">
@@ -219,10 +264,42 @@ really need low-level access to tokens one-by-one you can use this class.</p>
 	<h3 class="subsubtitle method-title">maxDepth</h3>
 	
 	
+	
+	<div class="method-subsection brief-description">
+		<p>The max parse depth</p>
+	</div>		
+	
+    
 
 	<div class="method-subsection method-declaration"><code>@property (nonatomic) NSUInteger maxDepth</code></div>
 
     
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>If the input is nested deeper than this the parser will halt parsing and return an error.</p>
+
+<p>Defaults to 32.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">SBJsonStreamParser.h</code><br />
+	</div>				
+	
+	
 </div>
 						
 						<div class="section-method">
@@ -262,8 +339,64 @@ really need low-level access to tokens one-by-one you can use this class.</p>
 	<h3 class="subsubtitle method-title">parse:</h3>
 	
 	
+	
+	<div class="method-subsection brief-description">
+		<p>Parse some JSON</p>
+	</div>		
+	
+    
 
 	<div class="method-subsection method-declaration"><code>- (SBJsonParserStatus)parse:(NSData *)<em>data</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>data</em></dt>
+			<dd><p>An NSData object containing the next chunk of JSON</p>
+
+<p>@return
+&ndash; SBJsonParserComplete if a full document was found
+&ndash; SBJsonParserWaitingForData if a partial document was found and more data is required to complete it
+&ndash; SBJsonParserError if an error occured.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The JSON is assumed to be UTF8 encoded. This can be a full JSON document, or a part of one.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">SBJsonStreamParser.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/stop" title="stop"></a>
+	<h3 class="subsubtitle method-title">stop</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (void)stop</code></div>
 
     
 </div>
