@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>SBJsonStreamParser Class Reference</title>
+		<title>SBJsonChunkParser Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">SBJsonStreamParser Class Reference</h1>
+				<h1 class="hideInXcode">SBJsonChunkParser Class Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -40,17 +40,11 @@
 	
 	<option value="properties">Properties</option>
 	
-	<option value="//api/name/delegate">&nbsp;&nbsp;&nbsp;&nbsp;delegate</option>
-	
-	<option value="//api/name/error">&nbsp;&nbsp;&nbsp;&nbsp;error</option>
-	
 	<option value="//api/name/maxDepth">&nbsp;&nbsp;&nbsp;&nbsp;maxDepth</option>
 	
-	<option value="//api/name/state">&nbsp;&nbsp;&nbsp;&nbsp;state</option>
+	<option value="//api/name/supportManyDocuments">&nbsp;&nbsp;&nbsp;&nbsp;supportManyDocuments</option>
 	
-	<option value="//api/name/stateStack">&nbsp;&nbsp;&nbsp;&nbsp;stateStack</option>
-	
-	<option value="//api/name/supportMultipleDocuments">&nbsp;&nbsp;&nbsp;&nbsp;supportMultipleDocuments</option>
+	<option value="//api/name/supportPartialDocuments">&nbsp;&nbsp;&nbsp;&nbsp;supportPartialDocuments</option>
 	
 	
 	
@@ -58,6 +52,10 @@
 	
 	
 	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/initWithBlock:errorHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithBlock:errorHandler:</option>
+	
+	<option value="//api/name/initWithBlock:processBlock:errorHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithBlock:processBlock:errorHandler:</option>
 	
 	<option value="//api/name/parse:">&nbsp;&nbsp;&nbsp;&nbsp;- parse:</option>
 	
@@ -85,17 +83,11 @@
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/delegate">delegate</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/error">error</a></span></li>
-	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/maxDepth">maxDepth</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/state">state</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/supportManyDocuments">supportManyDocuments</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stateStack">stateStack</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/supportMultipleDocuments">supportMultipleDocuments</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/supportPartialDocuments">supportPartialDocuments</a></span></li>
 	
 </ul></li>
 
@@ -104,6 +96,10 @@
 
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithBlock:errorHandler:">initWithBlock:errorHandler:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithBlock:processBlock:errorHandler:">initWithBlock:processBlock:errorHandler:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/parse:">parse:</a></span></li>
 	
@@ -114,7 +110,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="SBJsonStreamParser Class Reference" name="top"></a>
+				<a title="SBJsonChunkParser Class Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -123,7 +119,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">SBJsonStreamParser Class Reference</h1>
+						<h1 class="title title-header">SBJsonChunkParser Class Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -134,7 +130,7 @@
 	<td class="specification-value">NSObject</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">SBJsonStreamParser.h</td>
+	<td class="specification-value">SBJsonChunkParser.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -144,7 +140,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>Parse a stream of JSON data.</p>
+						<p>Parse one or more chunks of JSON data.</p>
 
 <p>Using this class directly you can reduce the apparent latency for each
 download/parse cycle of documents over a slow connection. You can start
@@ -178,7 +174,50 @@ type if they fit, else a <code>double</code> is used. All real &amp; exponential
 are represented using a <code>double</code>. Previous versions of this library used
 an NSDecimalNumber in some cases, but this is no longer the case.</p>
 
-<p>See also <a href="../Classes/SBJsonStreamParserAdapter.html">SBJsonStreamParserAdapter</a> for more information.</p>
+<p>The default behaviour is that your passed-in block is only called once the entire input is parsed.
+If you set <a href="#//api/name/supportManyDocuments">supportManyDocuments</a> to YES and your input contains multiple (whitespace limited)
+JSON documents your block will be called for each document:</p>
+
+<pre><code> SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
+    NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
+ }
+ errorHandler: ^(NSError* err) {
+    NSLog(@"OOPS: %@", err);
+ }];
+
+ parser.supportManyDocuments = YES;
+
+ // Note that this input contains multiple top-level JSON documents
+ NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
+ [parser parse:data];
+</code></pre>
+
+<p>The above example will print:</p>
+
+<ul>
+<li>Found: YES</li>
+<li>Found: NO</li>
+<li>Found: YES</li>
+<li>Found: NO</li>
+</ul>
+
+
+<p>Often you won&rsquo;t have control over the input you&rsquo;re parsing, so can&rsquo;t make use of
+this feature. But, all is not lost: if you are parsing a long array you can get the same effect by
+setting <a href="#//api/name/supportPartialDocuments">supportPartialDocuments</a> to YES:</p>
+
+<pre><code> SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
+    NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
+ }
+ errorHandler: ^(NSError* err) {
+    NSLog(@"OOPS: %@", err);
+ }];
+ parser.supportPartialDocuments = YES;
+
+ // Note that this input contains A SINGLE top-level document
+ NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
+ [parser parse:data];
+</code></pre>
 					</div>
 					
 					
@@ -196,29 +235,29 @@ an NSDecimalNumber in some cases, but this is no longer the case.</p>
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/state">&nbsp;&nbsp;state</a></code>
+		<code><a href="#//api/name/initWithBlock:errorHandler:">&ndash;&nbsp;initWithBlock:errorHandler:</a></code>
 		
 	</span>
-	<span class="task-item-suffix">property</span>
+	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/stateStack">&nbsp;&nbsp;stateStack</a></code>
+		<code><a href="#//api/name/initWithBlock:processBlock:errorHandler:">&ndash;&nbsp;initWithBlock:processBlock:errorHandler:</a></code>
 		
 	</span>
-	<span class="task-item-suffix">property</span>
+	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/supportMultipleDocuments">&nbsp;&nbsp;supportMultipleDocuments</a></code>
+		<code><a href="#//api/name/supportManyDocuments">&nbsp;&nbsp;supportManyDocuments</a></code>
 		<span class="tooltip"><p>Expect multiple documents separated by whitespace</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
-		<span class="tooltip"><p>Delegate to receive messages</p></span>
+		<code><a href="#//api/name/supportPartialDocuments">&nbsp;&nbsp;supportPartialDocuments</a></code>
+		<span class="tooltip"><p>Support partial documents.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -226,13 +265,6 @@ an NSDecimalNumber in some cases, but this is no longer the case.</p>
 	<span class="tooltip">
 		<code><a href="#//api/name/maxDepth">&nbsp;&nbsp;maxDepth</a></code>
 		<span class="tooltip"><p>The max parse depth</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/error">&nbsp;&nbsp;error</a></code>
-		<span class="tooltip"><p>Holds the error after SBJsonStreamParserError was returned</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -257,87 +289,6 @@ an NSDecimalNumber in some cases, but this is no longer the case.</p>
 						<h2 class="subtitle subtitle-methods">Properties</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/delegate" title="delegate"></a>
-	<h3 class="subsubtitle method-title">delegate</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Delegate to receive messages</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (unsafe_unretained) id&lt;&gt; delegate</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>The object set here receives a series of messages as the parser breaks down the JSON stream
-into valid tokens.</p>
-
-<p>Usually this should be an instance of <a href="../Classes/SBJsonStreamParserAdapter.html">SBJsonStreamParserAdapter</a>, but you can
-substitute your own implementation of the <a href="../Protocols/SBJsonStreamParserDelegate.html">SBJsonStreamParserDelegate</a> protocol if you need to.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">SBJsonStreamParser.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/error" title="error"></a>
-	<h3 class="subsubtitle method-title">error</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Holds the error after SBJsonStreamParserError was returned</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (copy) NSString *error</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">SBJsonStreamParser.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
 	<a name="//api/name/maxDepth" title="maxDepth"></a>
 	<h3 class="subsubtitle method-title">maxDepth</h3>
 	
@@ -349,7 +300,7 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property NSUInteger maxDepth</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic) NSUInteger maxDepth</code></div>
 
     
 	
@@ -361,7 +312,7 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>If the input is nested deeper than this the parser will halt parsing and return an <a href="#//api/name/error">error</a>.</p>
+		<p>If the input is nested deeper than this the parser will halt parsing and return an error.</p>
 
 <p>Defaults to 32.</p>
 	</div>
@@ -374,37 +325,15 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">SBJsonStreamParser.h</code><br />
+		<code class="declared-in-ref">SBJsonChunkParser.h</code><br />
 	</div>				
 	
 	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/state" title="state"></a>
-	<h3 class="subsubtitle method-title">state</h3>
-	
-	
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, unsafe_unretained) SBJsonStreamParserState *state</code></div>
-
-    
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/stateStack" title="stateStack"></a>
-	<h3 class="subsubtitle method-title">stateStack</h3>
-	
-	
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly, strong) NSMutableArray *stateStack</code></div>
-
-    
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/supportMultipleDocuments" title="supportMultipleDocuments"></a>
-	<h3 class="subsubtitle method-title">supportMultipleDocuments</h3>
+	<a name="//api/name/supportManyDocuments" title="supportManyDocuments"></a>
+	<h3 class="subsubtitle method-title">supportManyDocuments</h3>
 	
 	
 	
@@ -414,7 +343,7 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 	
     
 
-	<div class="method-subsection method-declaration"><code>@property BOOL supportMultipleDocuments</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic) BOOL supportManyDocuments</code></div>
 
     
 	
@@ -426,12 +355,14 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Normally the <a href="#//api/name/parse:">parse:</a> method returns SBJsonStreamParserComplete when it&rsquo;s found a complete JSON document.
-Attempting to parse any more data at that point is considered an <a href="#//api/name/error">error</a>. (&ldquo;Garbage after JSON&rdquo;.)</p>
+		<p>Normally the <a href="#//api/name/parse:">parse:</a> method returns SBJsonParserComplete when it&rsquo;s found a complete JSON document.
+Attempting to parse any more data at that point is considered an error. (&ldquo;Garbage after JSON&rdquo;.)</p>
 
-<p>If you set this property to true the parser will never return SBJsonStreamParserComplete. Rather,
+<p>If you set this property to true the parser will never return SBJsonParserComplete. Rather,
 once an object is completed it will expect another object to immediately follow, separated
 only by (optional) whitespace.</p>
+
+<p>If you set this to YES the -parser:found: delegate method will be called once for each document in your input.</p>
 	</div>
 	
 	
@@ -442,7 +373,51 @@ only by (optional) whitespace.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">SBJsonStreamParser.h</code><br />
+		<code class="declared-in-ref">SBJsonChunkParser.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/supportPartialDocuments" title="supportPartialDocuments"></a>
+	<h3 class="subsubtitle method-title">supportPartialDocuments</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Support partial documents.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic) BOOL supportPartialDocuments</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This is useful for parsing huge JSON documents, or documents coming in over a very slow link.</p>
+
+<p>If you set this to true the outer array will be ignored and -parser:found: is called once
+for each item in it.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">SBJsonChunkParser.h</code><br />
 	</div>				
 	
 	
@@ -459,6 +434,28 @@ only by (optional) whitespace.</p>
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
+	<a name="//api/name/initWithBlock:errorHandler:" title="initWithBlock:errorHandler:"></a>
+	<h3 class="subsubtitle method-title">initWithBlock:errorHandler:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithBlock:(SBValueBlock)<em>block</em> errorHandler:(SBErrorHandlerBlock)<em>eh</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initWithBlock:processBlock:errorHandler:" title="initWithBlock:processBlock:errorHandler:"></a>
+	<h3 class="subsubtitle method-title">initWithBlock:processBlock:errorHandler:</h3>
+	
+	
+
+	<div class="method-subsection method-declaration"><code>- (id)initWithBlock:(SBValueBlock)<em>block</em> processBlock:(SBProcessBlock)<em>processBlock</em> errorHandler:(SBErrorHandlerBlock)<em>eh</em></code></div>
+
+    
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/parse:" title="parse:"></a>
 	<h3 class="subsubtitle method-title">parse:</h3>
 	
@@ -470,7 +467,7 @@ only by (optional) whitespace.</p>
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (SBJsonStreamParserStatus)parse:(NSData *)<em>data</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (SBJsonParserStatus)parse:(NSData *)<em>data</em></code></div>
 
     
 	
@@ -482,9 +479,9 @@ only by (optional) whitespace.</p>
 			<dd><p>An NSData object containing the next chunk of JSON</p>
 
 <p>@return
-&ndash; SBJsonStreamParserComplete if a full document was found
-&ndash; SBJsonStreamParserWaitingForData if a partial document was found and more data is required to complete it
-&ndash; SBJsonStreamParserError if an <a href="#//api/name/error">error</a> occured. (See the <a href="#//api/name/error">error</a> property for details in this case.)</p></dd>
+&ndash; SBJsonParserComplete if a full document was found
+&ndash; SBJsonParserWaitingForData if a partial document was found and more data is required to complete it
+&ndash; SBJsonParserError if an error occured.</p></dd>
 		</dl>
 		
 	</div>
@@ -508,7 +505,7 @@ only by (optional) whitespace.</p>
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">SBJsonStreamParser.h</code><br />
+		<code class="declared-in-ref">SBJsonChunkParser.h</code><br />
 	</div>				
 	
 	
@@ -527,7 +524,7 @@ only by (optional) whitespace.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Stig Brautaset. All rights reserved. (Last updated: 2013-11-09)</span><br />
+						<p><span class="copyright">&copy; 2013 Stig Brautaset. All rights reserved. (Last updated: 2013-11-13)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						
