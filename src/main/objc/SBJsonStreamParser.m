@@ -42,6 +42,7 @@
 
 @implementation SBJsonStreamParser {
     SBJsonStreamTokeniser *tokeniser;
+    BOOL stopped;
 }
 
 #pragma mark Housekeeping
@@ -168,6 +169,9 @@
         [tokeniser appendData:data_];
         
         for (;;) {
+
+            if (stopped)
+                return SBJsonParserStopped;
             
             if ([_state isError])
                 return SBJsonParserError;
@@ -330,6 +334,10 @@
         }
     }
     return [[NSString alloc] initWithData:buf encoding:NSUTF8StringEncoding];
+}
+
+- (void)stop {
+    stopped = YES;
 }
 
 @end

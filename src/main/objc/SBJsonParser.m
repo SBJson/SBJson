@@ -61,7 +61,7 @@
 
     __block id value = nil;
     SBJsonChunkParser *parser = [[SBJsonChunkParser alloc]
-            initWithBlock:^(id v) {
+            initWithBlock:^(id v, BOOL *stop) {
                 value = v;
             }
              processBlock:processBlock
@@ -75,7 +75,9 @@
     switch ([parser parse:data]) {
         case SBJsonParserComplete:
             return value;
-            break;
+
+        case SBJsonParserStopped:
+            @throw @"Impossible condition";
 
         case SBJsonParserWaitingForData:
             self.error = @"Unexpected end of input";

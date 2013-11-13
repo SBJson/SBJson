@@ -126,22 +126,25 @@ typedef enum {
             [path removeLastObject];
         }
     }
-    
+
 	switch (currentType) {
 		case SBJsonChunkArray:
 			[array addObject:obj];
 			break;
-            
+
 		case SBJsonChunkObject:
 			NSParameterAssert(keyStack.count);
 			[dict setObject:obj forKey:[keyStack lastObject]];
 			[keyStack removeLastObject];
 			break;
-			
-		case SBJsonChunkNone:
-            valueBlock(obj);
+
+		case SBJsonChunkNone: {
+            __block BOOL stop = NO;
+            valueBlock(obj, &stop);
+            if (stop) [_parser stop];
+        }
 			break;
-            
+
 		default:
 			break;
 	}
