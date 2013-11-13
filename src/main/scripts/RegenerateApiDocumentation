@@ -6,6 +6,7 @@ OUTPUT=~/Dropbox/DocSets/SBJson
 appledoc \
 --project-version $VERS \
 --output $OUTPUT \
+--no-keep-undocumented-objects \
 src/main/resources/AppledocSettings.plist
 
 TARGET=../json-framework-pages/api
