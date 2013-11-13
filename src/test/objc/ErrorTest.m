@@ -71,10 +71,6 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
     for (NSUInteger i = 0; i < [fragments count]; i++) {
         NSString *fragment = [fragments objectAtIndex:i];
 
-        // We don't check the convenience category here, like we do for parsing,
-        // because the category is explicitly on the NSArray and NSDictionary objects.
-        // STAssertNil([fragment JSONRepresentation], nil);
-
         STAssertNil([writer stringWithObject:fragment], @"%@", fragment);
         SBAssertStringContains(writer.error, @"Not valid type for JSON");
     }

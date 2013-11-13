@@ -66,7 +66,7 @@ typedef enum {
 #pragma mark Housekeeping
 
 - (id)init {
-    @throw @"Use initWithBlock: instead";
+    @throw @"Use -initWithBlock:errorHandler: instead";
 }
 
 - (id)initWithBlock:(SBValueBlock)block errorHandler:(SBErrorHandlerBlock)eh {
