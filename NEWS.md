@@ -1,3 +1,22 @@
+4.0.0-alpha2 (November 13th, 2013)
+==================================
+
+Notable changes since 4.0.0-alpha:
+
+* [d13a5a8](https://github.com/stig/json-framework/commit/d13a5a8f2e60545b06dc038051cab0bd89d43b35) Support stopping of parsing after a certain number of partial documents
+* [cbdd83c](https://github.com/stig/json-framework/commit/cbdd83cc0de6a4e99ff84079d83b9c14c448db70) Replace SBJsonStreamParserAdapter with SBJsonChunkParser
+* [a52fefa](https://github.com/stig/json-framework/commit/a52fefa1aaf190f8088e257164e8db7deaa3eb73) Update DisplayPretty example to use ARC
+* [885c1d2](https://github.com/stig/json-framework/commit/885c1d202e6095eb4bb9c39cc7e5b3a170df2af4) Update Credits with contributors
+* [9bedeec](https://github.com/stig/json-framework/commit/9bedeecb1bf504e3384af6660316461095b9a272) Turn on most sensible warnings
+* [641f506](https://github.com/stig/json-framework/commit/641f5064c92973111980586147827aaaca721302) Move properties to be nonatomic, and remove explicit @synthesize declarations
+* [b41acb1](https://github.com/stig/json-framework/commit/b41acb10e3f7371a5b2e1c2d2e31d919910122d6) Use weak rather than unsafe_unretained (no longer support iOS < 5)
+* [c3f7db0](https://github.com/stig/json-framework/commit/c3f7db04d438e17d41277c6da90de2e8b0777a3c) Make the "skip outer array" option of the stream parser easier to understand.
+* [f342770](https://github.com/stig/json-framework/commit/f342770a02f2585cd34c1b6943ca45b6ed622710) Move multi-document support chosing to the parser delegate, so decision can be done in the adapter
+* [28a7c73](https://github.com/stig/json-framework/commit/28a7c736042d5efa03d6948028c68c56392e4945) Update documentation to remove reference to -autorelease method
+* [ab11d2b](https://github.com/stig/json-framework/commit/ab11d2b657798251ba4e0b3605ce0747152eed16) Remove the silly parser/writer Accumulators
+* [b02a095](https://github.com/stig/json-framework/commit/b02a095175b38002e128b611c24ffa8e8720ecdb) Avoid warning for Mac OS X build
+
+
 4.0.0-alpha (November 9th, 2013)
 ================================
 
