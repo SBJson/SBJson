@@ -10,8 +10,7 @@
 #import <SBJson/SBJson.h>
 
 @implementation DisplayPrettyController {
-    SBJsonParser *_parser;
-    SBJsonWriter *_writer;
+    SBJsonWriter *writer;
     
     IBOutlet NSTextField *_source;
     IBOutlet NSTextField *_formatted;
@@ -21,23 +20,22 @@
 {
     self = [super init];
     if (self) {
-        _parser = [[SBJsonParser alloc] init];
-        _writer = [[SBJsonWriter alloc] init];
-        _writer.humanReadable = YES;
-        _writer.sortKeys = YES;
+        writer = [[SBJsonWriter alloc] init];
+        writer.humanReadable = YES;
+        writer.sortKeys = YES;
     }    
     return self;
 }
 
 
 - (IBAction)formatText:(id)sender {
-    id object = [_parser objectWithString:[_source stringValue]];
-    if (object) {
-        [_formatted setStringValue:[_writer stringWithObject:object]];
-    } else {
-        [_formatted setStringValue:[NSString stringWithFormat:@"An error occurred: %@", _parser.error]];
-    }
+    id parser = [[SBJsonChunkParser alloc] initWithBlock:^(id o, BOOL *stop) {
+        _formatted.stringValue = [writer stringWithObject:o];
+    } errorHandler:^(NSError*err) {
+        _formatted.stringValue = [err localizedDescription];
+    }];
     
+    [parser parse:[_source.stringValue dataUsingEncoding:NSUTF8StringEncoding]];    
 }
 
 @end
