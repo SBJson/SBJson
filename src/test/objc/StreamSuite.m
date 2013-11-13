@@ -43,7 +43,7 @@
 }
 
 - (void)setUp {
-	parser = [[SBJsonChunkParser alloc] initWithBlock:^(id obj) {
+	parser = [[SBJsonChunkParser alloc] initWithBlock:^(id obj, BOOL *stop) {
         if ([obj isKindOfClass:[NSArray class]])
             arrayCount++;
         else if ([obj isKindOfClass:[NSDictionary class]])
@@ -126,6 +126,20 @@
 	[self parseArrayOfObjects];
 	STAssertEquals(arrayCount, (NSUInteger)0, nil);
 	STAssertEquals(objectCount, (NSUInteger)100, nil);	
+}
+
+- (void)testStop {
+    __block int count = 0;
+    __block NSMutableArray *ary = [NSMutableArray array];
+
+    parser = [[SBJsonChunkParser alloc] initWithBlock:^(id obj, BOOL *stop) {
+        [ary addObject:obj];
+        *stop = ++count >= 23;
+    } errorHandler:^(NSError *e) { error = e; }];
+    parser.supportPartialDocuments = YES;
+
+    [self parseArrayOfObjects];
+    STAssertEquals(ary.count, (NSUInteger)23, nil);
 }
 
 - (void)testWriteToStream {

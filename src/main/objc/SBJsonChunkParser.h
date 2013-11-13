@@ -33,7 +33,7 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonStreamParser.h"
 
-typedef void (^SBValueBlock)(id);
+typedef void (^SBValueBlock)(id, BOOL*);
 typedef void (^SBErrorHandlerBlock)(NSError*);
 typedef id (^SBProcessBlock)(id, NSString*);
 
