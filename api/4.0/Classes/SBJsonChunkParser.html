@@ -180,8 +180,7 @@ JSON documents your block will be called for each document:</p>
 
 <pre><code> SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
     NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
- }
- errorHandler: ^(NSError* err) {
+ } errorHandler: ^(NSError* err) {
     NSLog(@"OOPS: %@", err);
  }];
 
@@ -208,8 +207,7 @@ setting <a href="#//api/name/supportPartialDocuments">supportPartialDocuments</a
 
 <pre><code> SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
     NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
- }
- errorHandler: ^(NSError* err) {
+ } errorHandler: ^(NSError* err) {
     NSLog(@"OOPS: %@", err);
  }];
  parser.supportPartialDocuments = YES;

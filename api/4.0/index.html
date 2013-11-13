@@ -41,8 +41,51 @@ Objective-C.</p>
 
 <h1>Features</h1>
 
+<p>SBJson&rsquo;s number one feature is chunk-based parsing. An example best sums it up:</p>
+
+<pre><code> SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
+    NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
+ } errorHandler: ^(NSError* err) {
+    NSLog(@"OOPS: %@", err);
+ }];
+ parser.supportManyDocuments = YES;
+
+ // Note that this input contains multiple top-level JSON documents
+ NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
+ [parser parse:data];
+</code></pre>
+
+<p> The above example will print:</p>
+
 <ul>
-<li>Streaming Support (see SBJsonStreamParser &amp; <a href="Classes/SBJsonStreamWriter.html">SBJsonStreamWriter</a>)</li>
+<li>Found: YES</li>
+<li>Found: NO</li>
+<li>Found: YES</li>
+<li>Found: NO</li>
+</ul>
+
+
+<p>Sometimes you just get a single mammoth array containing lots of smaller
+documents. In that case you can get the same effect by setting
+supportPartialDocuments to YES:</p>
+
+<pre><code> SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
+    NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
+ } errorHandler: ^(NSError* err) {
+    NSLog(@"OOPS: %@", err);
+ }];
+ parser.supportPartialDocuments = YES;
+
+ // Note that this input contains A SINGLE top-level document
+ NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
+ [parser parse:data];
+</code></pre>
+
+<p>This example prints the same output as the one above.</p>
+
+<p>Additional features:</p>
+
+<ul>
 <li>Configurable recursion depth limit</li>
 <li>Automatic Reference Counting (ARC)</li>
 <li>Optionally sort dictionary keys in JSON output</li>
@@ -135,6 +178,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 							
 							<li><a href="Classes/SBJsonParser.html">SBJsonParser</a></li>
 							
+							<li><a href="Classes/SBJsonStreamParser.html">SBJsonStreamParser</a></li>
+							
 							<li><a href="Classes/SBJsonStreamWriter.html">SBJsonStreamWriter</a></li>
 							
 							<li><a href="Classes/SBJsonWriter.html">SBJsonWriter</a></li>
@@ -145,6 +190,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 					
 						
 					<div class="index-column">
+						
+						<h2 class="index-title">Protocol References</h2>
+						<ul>
+							
+							<li><a href="Protocols/SBJsonStreamParserDelegate.html">SBJsonStreamParserDelegate</a></li>
+							
+						</ul>
 						
 						
 						<h2 class="index-title">Category References</h2>
