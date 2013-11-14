@@ -63,6 +63,7 @@ typedef enum {
     SBJsonChunkType currentType;
     BOOL supportManyDocuments;
     BOOL supportPartialDocuments;
+    NSUInteger _maxDepth;
 }
 
 #pragma mark Housekeeping
@@ -90,7 +91,6 @@ typedef enum {
 	if (self) {
         _parser = [[SBJsonStreamParser alloc] init];
         _parser.delegate = self;
-        _parser.maxDepth = maxDepth;
 
         supportManyDocuments = manyDocs;
         supportPartialDocuments = arrayItems;
@@ -103,6 +103,7 @@ typedef enum {
         processBlock = initialProcessBlock;
         errorHandler = eh ? eh : ^(NSError*err) { NSLog(@"%@", err); };
 		currentType = SBJsonChunkNone;
+        _maxDepth = maxDepth;
 	}
 	return self;
 }
@@ -171,7 +172,11 @@ typedef enum {
 
 - (void)parserFoundObjectStart:(SBJsonStreamParser *)parser {
     ++depth;
-    if(path) [self addToPath];
+    if (depth > _maxDepth)
+        [self maxDepthError];
+
+    if (path)
+        [self addToPath];
     dict = [NSMutableDictionary new];
 	[stack addObject:dict];
     currentType = SBJsonChunkObject;
@@ -190,6 +195,9 @@ typedef enum {
 
 - (void)parserFoundArrayStart:(SBJsonStreamParser *)parser {
     depth++;
+    if (depth > _maxDepth)
+        [self maxDepthError];
+
     if (depth > 1 || !supportPartialDocuments) {
         if(path)
             [self addToPath];
@@ -206,6 +214,12 @@ typedef enum {
 		[self pop];
 		[self parser:parser found:value];
     }
+}
+
+- (void)maxDepthError {
+    id ui = @{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Input depth exceeds max depth of %lu", (unsigned long)_maxDepth]};
+    errorHandler([NSError errorWithDomain:@"org.sbjson.parser" code:3 userInfo:ui]);
+    [_parser stop];
 }
 
 - (void)parser:(SBJsonStreamParser *)parser foundBoolean:(BOOL)x {
@@ -255,14 +269,5 @@ typedef enum {
 - (SBJsonParserStatus)parse:(NSData *)data {
     return [_parser parse:data];
 }
-
-- (void)setMaxDepth:(NSUInteger)maxDepth {
-    _parser.maxDepth = maxDepth;
-}
-
-- (NSUInteger)maxDepth {
-    return _parser.maxDepth;
-}
-
 
 @end

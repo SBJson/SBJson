@@ -50,8 +50,7 @@
 - (id)init {
 	self = [super init];
 	if (self) {
-		_maxDepth = 32u;
-        _stateStack = [[NSMutableArray alloc] initWithCapacity:_maxDepth];
+        _stateStack = [[NSMutableArray alloc] initWithCapacity:32];
         _state = [SBJsonStreamParserStateStart sharedInstance];
 		tokeniser = [[SBJsonStreamTokeniser alloc] init];
 	}
@@ -113,18 +112,7 @@
 	return @"<aaiiie!>";
 }
 
-- (void)_maxDepthError {
-    _state = [SBJsonStreamParserStateError sharedInstance];
-    id ui = @{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Input depth exceeds max depth of %lu", (unsigned long)_maxDepth]};
-    [_delegate parser:self foundError:[NSError errorWithDomain:@"org.sbjson.parser" code:3 userInfo:ui]];
-}
-
 - (void)handleObjectStart {
-	if (_stateStack.count >= _maxDepth) {
-        [self _maxDepthError];
-        return;
-	}
-
     [_delegate parserFoundObjectStart:self];
     [_stateStack addObject:_state];
     _state = [SBJsonStreamParserStateObjectStart sharedInstance];
@@ -138,11 +126,6 @@
 }
 
 - (void)handleArrayStart {
-	if (_stateStack.count >= _maxDepth) {
-        [self _maxDepthError];
-        return;
-    }
-	
 	[_delegate parserFoundArrayStart:self];
     [_stateStack addObject:_state];
     _state = [SBJsonStreamParserStateArrayStart sharedInstance];

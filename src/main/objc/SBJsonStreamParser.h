@@ -110,15 +110,6 @@ typedef enum {
 @property (nonatomic, weak) id<SBJsonStreamParserDelegate> delegate;
 
 /**
- The max parse depth
-
- If the input is nested deeper than this the parser will halt parsing and return an error.
-
- Defaults to 32.
- */
-@property(nonatomic) NSUInteger maxDepth;
-
-/**
  Parse some JSON
 
  The JSON is assumed to be UTF8 encoded. This can be a full JSON document, or a part of one.
@@ -132,7 +123,6 @@ typedef enum {
 
  */
 - (SBJsonParserStatus)parse:(NSData*)data;
-
 
 /*
  Call this to cause parsing to stop.

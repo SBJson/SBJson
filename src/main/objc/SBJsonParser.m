@@ -74,13 +74,11 @@
         case SBJsonParserComplete:
             return value;
 
-        case SBJsonParserStopped:
-            @throw @"Impossible condition";
-
         case SBJsonParserWaitingForData:
             self.error = @"Unexpected end of input";
             break;
 
+        case SBJsonParserStopped: // max-depth error
         case SBJsonParserError:
             break;
     }
