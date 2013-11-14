@@ -72,7 +72,7 @@ id parser = [[SBJsonChunkParser alloc] initWithBlock:block
 
 <p>Sometimes you just get a single mammoth array containing lots of smaller
 documents. In that case you can get the same effect by setting
-supportPartialDocuments to YES:</p>
+arrayItems to YES:</p>
 
 <pre><code>id parser = [[SBJsonChunkParser alloc] initWithBlock:block
                                        manyDocuments:NO
