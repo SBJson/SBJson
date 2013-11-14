@@ -33,7 +33,7 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonStreamParser.h"
 
-typedef void (^SBValueBlock)(id, BOOL*);
+typedef void (^SBEnumeratorBlock)(id, BOOL*);
 typedef void (^SBErrorHandlerBlock)(NSError*);
 typedef id (^SBProcessBlock)(id, NSString*);
 
@@ -112,8 +112,8 @@ typedef id (^SBProcessBlock)(id, NSString*);
 */
 @interface SBJsonChunkParser : NSObject
 
-- (id)initWithBlock:(SBValueBlock)block errorHandler:(SBErrorHandlerBlock)eh;
-- (id)initWithBlock:(SBValueBlock)block processBlock:(SBProcessBlock)processBlock errorHandler:(SBErrorHandlerBlock)eh;
+- (id)initWithBlock:(SBEnumeratorBlock)block errorHandler:(SBErrorHandlerBlock)eh;
+- (id)initWithBlock:(SBEnumeratorBlock)block processBlock:(SBProcessBlock)processBlock errorHandler:(SBErrorHandlerBlock)eh;
 
 /**
  Expect multiple documents separated by whitespace

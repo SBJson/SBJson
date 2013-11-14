@@ -59,7 +59,7 @@ typedef enum {
     NSMutableArray *path;
     SBProcessBlock processBlock;
     SBErrorHandlerBlock errorHandler;
-    SBValueBlock valueBlock;
+    SBEnumeratorBlock valueBlock;
     SBJsonChunkType currentType;
 }
 
@@ -69,11 +69,11 @@ typedef enum {
     @throw @"Use -initWithBlock:errorHandler: instead";
 }
 
-- (id)initWithBlock:(SBValueBlock)block errorHandler:(SBErrorHandlerBlock)eh {
+- (id)initWithBlock:(SBEnumeratorBlock)block errorHandler:(SBErrorHandlerBlock)eh {
     return [self initWithBlock:block processBlock:nil errorHandler:eh];
 }
 
-- (id)initWithBlock:(SBValueBlock)block processBlock:(SBProcessBlock)initialProcessBlock errorHandler:(SBErrorHandlerBlock)eh {
+- (id)initWithBlock:(SBEnumeratorBlock)block processBlock:(SBProcessBlock)initialProcessBlock errorHandler:(SBErrorHandlerBlock)eh {
 	self = [super init];
 	if (self) {
         _parser = [[SBJsonStreamParser alloc] init];
