@@ -75,7 +75,7 @@ typedef id (^SBProcessBlock)(id, NSString*);
  If you set supportManyDocuments to YES and your input contains multiple (whitespace limited)
  JSON documents your block will be called for each document:
 
-     SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
+     SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v, BOOL *stop) {
         NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
      } errorHandler: ^(NSError* err) {
         NSLog(@"OOPS: %@", err);
@@ -98,7 +98,7 @@ typedef id (^SBProcessBlock)(id, NSString*);
  this feature. But, all is not lost: if you are parsing a long array you can get the same effect by
  setting supportPartialDocuments to YES:
 
-     SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
+     SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v, BOOL *stop) {
         NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
      } errorHandler: ^(NSError* err) {
         NSLog(@"OOPS: %@", err);
