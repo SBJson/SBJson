@@ -85,7 +85,7 @@ typedef id (^SBProcessBlock)(id, NSString*);
 
     id parser = [[SBJsonChunkParser alloc] initWithBlock:block
                                            manyDocuments:YES
-                                        partialDocuments:NO
+                                              arrayItems:NO
                                             errorHandler:eh];
 
      // Note that this input contains multiple top-level JSON documents
@@ -101,11 +101,11 @@ typedef id (^SBProcessBlock)(id, NSString*);
 
  Often you won't have control over the input you're parsing, so can't make use
  of this feature. But, all is not lost: if you are parsing a long array you can
- get the same effect by setting supportPartialDocuments to YES:
+ get the same effect by setting arrayItems to YES:
 
 id parser = [[SBJsonChunkParser alloc] initWithBlock:block
                                            manyDocuments:NO
-                                        partialDocuments:YES
+                                              arrayItems:YES
                                             errorHandler:eh];
 
      // Note that this input contains A SINGLE top-level document

@@ -33,7 +33,7 @@ SBJson's number one feature is chunk-based parsing. An example best sums it up:
 
 Sometimes you just get a single mammoth array containing lots of smaller
 documents. In that case you can get the same effect by setting
-supportPartialDocuments to YES:
+arrayItems to YES:
 
     id parser = [[SBJsonChunkParser alloc] initWithBlock:block
                                            manyDocuments:NO
