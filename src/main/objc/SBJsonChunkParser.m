@@ -129,10 +129,10 @@ typedef enum {
 }
 
 - (void)parser:(SBJsonStreamParser *)parser found:(id)obj {
-    [self parser:parser found:obj isValue:NO];
+    [self parserFound:obj isValue:NO ];
 }
 
-- (void)parser:(SBJsonStreamParser *)parser found:(id)obj isValue:(BOOL)isValue {
+- (void)parserFound:(id)obj isValue:(BOOL)isValue {
 	NSParameterAssert(obj);
 	
     if(processBlock&&path) {
@@ -170,7 +170,7 @@ typedef enum {
 
 #pragma mark Delegate methods
 
-- (void)parserFoundObjectStart:(SBJsonStreamParser *)parser {
+- (void)parserFoundObjectStart {
     ++depth;
     if (depth > _maxDepth)
         [self maxDepthError];
@@ -182,18 +182,18 @@ typedef enum {
     currentType = SBJsonChunkObject;
 }
 
-- (void)parser:(SBJsonStreamParser *)parser foundObjectKey:(NSString*)key_ {
+- (void)parserFoundObjectKey:(NSString *)key_ {
     [keyStack addObject:key_];
 }
 
-- (void)parserFoundObjectEnd:(SBJsonStreamParser *)parser {
+- (void)parserFoundObjectEnd {
     depth--;
 	id value = dict;
 	[self pop];
-    [self parser:parser found:value];
+    [self parser:_parser found:value];
 }
 
-- (void)parserFoundArrayStart:(SBJsonStreamParser *)parser {
+- (void)parserFoundArrayStart {
     depth++;
     if (depth > _maxDepth)
         [self maxDepthError];
@@ -207,12 +207,12 @@ typedef enum {
     }
 }
 
-- (void)parserFoundArrayEnd:(SBJsonStreamParser *)parser {
+- (void)parserFoundArrayEnd {
     depth--;
     if (depth > 1 || !supportPartialDocuments) {
 		id value = array;
 		[self pop];
-		[self parser:parser found:value];
+		[self parser:_parser found:value];
     }
 }
 
@@ -222,23 +222,23 @@ typedef enum {
     [_parser stop];
 }
 
-- (void)parser:(SBJsonStreamParser *)parser foundBoolean:(BOOL)x {
-	[self parser:parser found:[NSNumber numberWithBool:x] isValue:YES];
+- (void)parserFoundBoolean:(BOOL)x {
+	[self parserFound:[NSNumber numberWithBool:x] isValue:YES ];
 }
 
-- (void)parserFoundNull:(SBJsonStreamParser *)parser {
-    [self parser:parser found:[NSNull null] isValue:YES];
+- (void)parserFoundNull {
+    [self parserFound:[NSNull null] isValue:YES ];
 }
 
-- (void)parser:(SBJsonStreamParser *)parser foundNumber:(NSNumber*)num {
-    [self parser:parser found:num isValue:YES];
+- (void)parserFoundNumber:(NSNumber *)num {
+    [self parserFound:num isValue:YES ];
 }
 
-- (void)parser:(SBJsonStreamParser *)parser foundString:(NSString*)string {
-    [self parser:parser found:string isValue:YES];
+- (void)parserFoundString:(NSString *)string {
+    [self parserFound:string isValue:YES ];
 }
 
-- (void)parser:(SBJsonStreamParser *)parser foundError:(NSError *)err {
+- (void)parserFoundError:(NSError *)err {
     errorHandler(err);
 }
 
@@ -262,7 +262,7 @@ typedef enum {
     return pathString;
 }
 
-- (BOOL)parserShouldSupportManyDocuments:(SBJsonStreamParser *)parser {
+- (BOOL)parserShouldSupportManyDocuments {
     return supportManyDocuments;
 }
 

@@ -51,39 +51,39 @@ typedef enum {
 @protocol SBJsonStreamParserDelegate < NSObject >
 
 /// Called when object start is found
-- (void)parserFoundObjectStart:(SBJsonStreamParser *)parser;
+- (void)parserFoundObjectStart;
 
 /// Called when object key is found
-- (void)parser:(SBJsonStreamParser *)parser foundObjectKey:(NSString*)key;
+- (void)parserFoundObjectKey:(NSString *)key;
 
 /// Called when object end is found
-- (void)parserFoundObjectEnd:(SBJsonStreamParser *)parser;
+- (void)parserFoundObjectEnd;
 
 /// Called when array start is found
-- (void)parserFoundArrayStart:(SBJsonStreamParser *)parser;
+- (void)parserFoundArrayStart;
 
 /// Called when array end is found
-- (void)parserFoundArrayEnd:(SBJsonStreamParser *)parser;
+- (void)parserFoundArrayEnd;
 
 /// Called when a boolean value is found
-- (void)parser:(SBJsonStreamParser *)parser foundBoolean:(BOOL)x;
+- (void)parserFoundBoolean:(BOOL)x;
 
 /// Called when a null value is found
-- (void)parserFoundNull:(SBJsonStreamParser *)parser;
+- (void)parserFoundNull;
 
 /// Called when a number is found
-- (void)parser:(SBJsonStreamParser *)parser foundNumber:(NSNumber*)num;
+- (void)parserFoundNumber:(NSNumber *)num;
 
 /// Called when a string is found
-- (void)parser:(SBJsonStreamParser *)parser foundString:(NSString*)string;
+- (void)parserFoundString:(NSString *)string;
 
 /// Called when an error occurs
-- (void)parser:(SBJsonStreamParser *)parser foundError:(NSError*)err;
+- (void)parserFoundError:(NSError *)err;
 
 @optional
 
 /// Called to determine whether to allow multiple whitespace-separated documents
-- (BOOL)parserShouldSupportManyDocuments:(SBJsonStreamParser *)parser;
+- (BOOL)parserShouldSupportManyDocuments;
 
 @end
 
