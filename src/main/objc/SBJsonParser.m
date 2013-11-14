@@ -58,19 +58,17 @@
         return nil;
     }
 
-
     __block id value = nil;
-    SBJsonChunkParser *parser = [[SBJsonChunkParser alloc]
-            initWithBlock:^(id v, BOOL *stop) {
-                value = v;
-            }
-             processBlock:processBlock
-             errorHandler:^(NSError *err) {
-                 self.error = err.localizedDescription;
-             }];
-
-
-    parser.maxDepth = self.maxDepth;
+    SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v, BOOL *stop) {
+        value = v;
+    }
+                                                            processBlock:processBlock
+                                                           manyDocuments:NO
+                                                              arrayItems:NO
+                                                                maxDepth:self.maxDepth
+                                                            errorHandler:^(NSError *err) {
+                                                                self.error = err.localizedDescription;
+                                                            }];
 
     switch ([parser parse:data]) {
         case SBJsonParserComplete:

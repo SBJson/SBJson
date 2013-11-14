@@ -37,18 +37,21 @@
 @end
 
 @implementation StreamSuite {
-	SBJsonChunkParser *parser;
+    SBEnumeratorBlock block;
+    SBErrorHandlerBlock eh;
 	NSUInteger arrayCount, objectCount;
     NSError *error;
 }
 
 - (void)setUp {
-	parser = [[SBJsonChunkParser alloc] initWithBlock:^(id obj, BOOL *stop) {
+    block = ^(id obj, BOOL *stop) {
         if ([obj isKindOfClass:[NSArray class]])
             arrayCount++;
         else if ([obj isKindOfClass:[NSDictionary class]])
             objectCount++;
-    } errorHandler:^(NSError *e) { error = e; }];
+    };
+
+    eh = ^(NSError *e) { error = e; };
 
 	arrayCount = objectCount = 0u;
 }
@@ -59,7 +62,10 @@
    "consectetur adipiscing elit. Donec ultrices ornare gravida. Vestibulum"\
    " ante ipsum primisin faucibus orci luctus et ultrices posuere\"}]";
 
-   parser.supportManyDocuments = NO;
+   id parser = [[SBJsonChunkParser alloc] initWithBlock:block
+                                          manyDocuments:NO
+                                             arrayItems:NO
+                                           errorHandler:eh];
 
    SBJsonParserStatus status = SBJsonParserWaitingForData;
    NSData* data = nil;
@@ -81,7 +87,10 @@
  this data incrementally.
  */
 - (void)testMultipleDocuments {
-    parser.supportManyDocuments = YES;
+    id parser = [[SBJsonChunkParser alloc] initWithBlock:block
+                                           manyDocuments:YES
+                                              arrayItems:NO
+                                            errorHandler:eh];
 
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     NSString *root = [[bundle resourcePath] stringByAppendingPathComponent:@"stream"];
@@ -103,7 +112,7 @@
 	STAssertEquals(objectCount, (NSUInteger)98, nil);
 }
 
-- (void)parseArrayOfObjects {
+- (void)parseArrayOfObjects:(SBJsonChunkParser *)parser {
 	[parser parse:[NSData dataWithBytes:"[" length:1]];
 	for (int i = 1;; i++) {
 		char *utf8 = "{\"foo\":[],\"bar\":[]}";
@@ -116,14 +125,23 @@
 }
 
 - (void)testSingleArray {
-	[self parseArrayOfObjects];
+    id parser = [[SBJsonChunkParser alloc] initWithBlock:block
+                                           manyDocuments:NO
+                                              arrayItems:NO
+                                            errorHandler:eh];
+
+    [self parseArrayOfObjects:parser];
 	STAssertEquals(arrayCount, (NSUInteger)1, nil);
 	STAssertEquals(objectCount, (NSUInteger)0, nil);
 }
 
 - (void)testSkipArray {
-	parser.supportPartialDocuments = YES;
-	[self parseArrayOfObjects];
+    id parser = [[SBJsonChunkParser alloc] initWithBlock:block
+                                           manyDocuments:NO
+                                              arrayItems:YES
+                                            errorHandler:eh];
+
+	[self parseArrayOfObjects:parser];
 	STAssertEquals(arrayCount, (NSUInteger)0, nil);
 	STAssertEquals(objectCount, (NSUInteger)100, nil);	
 }
@@ -131,14 +149,17 @@
 - (void)testStop {
     __block int count = 0;
     __block NSMutableArray *ary = [NSMutableArray array];
-
-    parser = [[SBJsonChunkParser alloc] initWithBlock:^(id obj, BOOL *stop) {
+    SBEnumeratorBlock block2 = ^(id obj, BOOL *stop) {
         [ary addObject:obj];
         *stop = ++count >= 23;
-    } errorHandler:^(NSError *e) { error = e; }];
-    parser.supportPartialDocuments = YES;
+    };
 
-    [self parseArrayOfObjects];
+    id parser = [[SBJsonChunkParser alloc] initWithBlock:block2
+                                           manyDocuments:NO
+                                              arrayItems:YES
+                                            errorHandler:eh];
+
+    [self parseArrayOfObjects:parser];
     STAssertEquals(ary.count, (NSUInteger)23, nil);
 }
 

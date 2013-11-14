@@ -71,17 +71,22 @@ typedef id (^SBProcessBlock)(id, NSString*);
  are represented using a `double`. Previous versions of this library used
  an NSDecimalNumber in some cases, but this is no longer the case.
 
- The default behaviour is that your passed-in block is only called once the entire input is parsed.
- If you set supportManyDocuments to YES and your input contains multiple (whitespace limited)
- JSON documents your block will be called for each document:
+ The default behaviour is that your passed-in block is only called once the
+ entire input is parsed. If you set supportManyDocuments to YES and your input
+ contains multiple (whitespace limited) JSON documents your block will be called
+ for each document:
 
-     SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v, BOOL *stop) {
+    SBEnumeratorBlock block = ^(id v, BOOL *stop) {
         NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
-     } errorHandler: ^(NSError* err) {
+    };
+    SBErrorHandlerBlock eh = ^(NSError* err) {
         NSLog(@"OOPS: %@", err);
-     }];
+     }
 
-     parser.supportManyDocuments = YES;
+    id parser = [[SBJsonChunkParser alloc] initWithBlock:block
+                                           manyDocuments:YES
+                                        partialDocuments:NO
+                                            errorHandler:eh];
 
      // Note that this input contains multiple top-level JSON documents
      NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
@@ -94,16 +99,14 @@ typedef id (^SBProcessBlock)(id, NSString*);
  - Found: YES
  - Found: NO
 
- Often you won't have control over the input you're parsing, so can't make use of
- this feature. But, all is not lost: if you are parsing a long array you can get the same effect by
- setting supportPartialDocuments to YES:
+ Often you won't have control over the input you're parsing, so can't make use
+ of this feature. But, all is not lost: if you are parsing a long array you can
+ get the same effect by setting supportPartialDocuments to YES:
 
-     SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v, BOOL *stop) {
-        NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
-     } errorHandler: ^(NSError* err) {
-        NSLog(@"OOPS: %@", err);
-     }];
-     parser.supportPartialDocuments = YES;
+id parser = [[SBJsonChunkParser alloc] initWithBlock:block
+                                           manyDocuments:NO
+                                        partialDocuments:YES
+                                            errorHandler:eh];
 
      // Note that this input contains A SINGLE top-level document
      NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
@@ -112,44 +115,55 @@ typedef id (^SBProcessBlock)(id, NSString*);
 */
 @interface SBJsonChunkParser : NSObject
 
-- (id)initWithBlock:(SBEnumeratorBlock)block errorHandler:(SBErrorHandlerBlock)eh;
-- (id)initWithBlock:(SBEnumeratorBlock)block processBlock:(SBProcessBlock)processBlock errorHandler:(SBErrorHandlerBlock)eh;
-
 /**
- Expect multiple documents separated by whitespace
+ Create a JSON Chunk Parser.
 
- Normally the -parse: method returns SBJsonParserComplete when it's found a complete JSON document.
- Attempting to parse any more data at that point is considered an error. ("Garbage after JSON".)
+ @param block Called for each element. Set *stop to `YES` if you have seen
+ enough and would like to skip the rest of the elements.
 
- If you set this property to true the parser will never return SBJsonParserComplete. Rather,
- once an object is completed it will expect another object to immediately follow, separated
- only by (optional) whitespace.
+ @param manyDocs Indicate that you are expecting multiple whitespace-separated
+ JSON documents, similar to what Twitter uses.
 
- If you set this to YES the -parser:found: delegate method will be called once for each document in your input.
+ @param arrayItems If set the parser will pretend an root array does not exist
+ and the enumerator block will be called once for each item in it. This option
+ does nothing if the the JSON has an object at its root.
+
+ @param eh Called if the parser encounters an error.
 
  */
-@property(nonatomic) BOOL supportManyDocuments;
+- (id)initWithBlock:(SBEnumeratorBlock)block
+      manyDocuments:(BOOL)manyDocs
+         arrayItems:(BOOL)arrayItems
+       errorHandler:(SBErrorHandlerBlock)eh;
 
 
 /**
- Support partial documents.
+ Designated initialiser.
 
- This is useful for parsing huge JSON documents, or documents coming in over a very slow link.
+ @param block Called for each element. Set *stop to `YES` if you have seen
+ enough and would like to skip the rest of the elements.
 
- If you set this to true the outer array will be ignored and -parser:found: is called once
- for each item in it.
+ @param processBlock A block that allows you to process individual values before being
+ returned.
 
-*/
-@property(nonatomic) BOOL supportPartialDocuments;
+ @param manyDocs Indicate that you are expecting multiple whitespace-separated
+ JSON documents, similar to what Twitter uses.
 
-/**
- The max parse depth
+ @param arrayItems If set the parser will pretend an root array does not exist
+ and the enumerator block will be called once for each item in it. This option
+ does nothing if the the JSON has an object at its root.
 
- If the input is nested deeper than this the parser will halt parsing and return an error.
+ @param maxDepth The max recursion depth of the parser. Defaults to 32.
 
- Defaults to 32.
+ @param eh Called if the parser encounters an error.
+
  */
-@property(nonatomic) NSUInteger maxDepth;
+- (id)initWithBlock:(SBEnumeratorBlock)block
+       processBlock:(SBProcessBlock)processBlock
+      manyDocuments:(BOOL)manyDocs
+         arrayItems:(BOOL)arrayItems
+           maxDepth:(NSUInteger)maxDepth
+       errorHandler:(SBErrorHandlerBlock)eh;
 
 /**
  Parse some JSON

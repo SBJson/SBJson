@@ -61,23 +61,39 @@ typedef enum {
     SBErrorHandlerBlock errorHandler;
     SBEnumeratorBlock valueBlock;
     SBJsonChunkType currentType;
+    BOOL supportManyDocuments;
+    BOOL supportPartialDocuments;
 }
 
 #pragma mark Housekeeping
 
 - (id)init {
-    @throw @"Use -initWithBlock:errorHandler: instead";
+    @throw @"Not Implemented";
 }
 
-- (id)initWithBlock:(SBEnumeratorBlock)block errorHandler:(SBErrorHandlerBlock)eh {
-    return [self initWithBlock:block processBlock:nil errorHandler:eh];
+- (id)initWithBlock:(SBEnumeratorBlock)block
+      manyDocuments:(BOOL)manyDocs
+         arrayItems:(BOOL)arrayItems
+       errorHandler:(SBErrorHandlerBlock)eh {
+    return [self initWithBlock:block processBlock:nil manyDocuments:manyDocs arrayItems:arrayItems maxDepth:32
+                  errorHandler:eh];
 }
 
-- (id)initWithBlock:(SBEnumeratorBlock)block processBlock:(SBProcessBlock)initialProcessBlock errorHandler:(SBErrorHandlerBlock)eh {
+- (id)initWithBlock:(SBEnumeratorBlock)block
+       processBlock:(SBProcessBlock)initialProcessBlock
+      manyDocuments:(BOOL)manyDocs
+         arrayItems:(BOOL)arrayItems
+           maxDepth:(NSUInteger)maxDepth
+       errorHandler:(SBErrorHandlerBlock)eh {
+
 	self = [super init];
 	if (self) {
         _parser = [[SBJsonStreamParser alloc] init];
         _parser.delegate = self;
+        _parser.maxDepth = maxDepth;
+
+        supportManyDocuments = manyDocs;
+        supportPartialDocuments = arrayItems;
 
         valueBlock = block;
 		keyStack = [[NSMutableArray alloc] initWithCapacity:32];
@@ -174,7 +190,7 @@ typedef enum {
 
 - (void)parserFoundArrayStart:(SBJsonStreamParser *)parser {
     depth++;
-    if (depth > 1 || !self.supportPartialDocuments) {
+    if (depth > 1 || !supportPartialDocuments) {
         if(path)
             [self addToPath];
 		array = [NSMutableArray new];
@@ -185,7 +201,7 @@ typedef enum {
 
 - (void)parserFoundArrayEnd:(SBJsonStreamParser *)parser {
     depth--;
-    if (depth > 1 || !self.supportPartialDocuments) {
+    if (depth > 1 || !supportPartialDocuments) {
 		id value = array;
 		[self pop];
 		[self parser:parser found:value];
@@ -233,7 +249,7 @@ typedef enum {
 }
 
 - (BOOL)parserShouldSupportManyDocuments:(SBJsonStreamParser *)parser {
-    return self.supportManyDocuments;
+    return supportManyDocuments;
 }
 
 - (SBJsonParserStatus)parse:(NSData *)data {

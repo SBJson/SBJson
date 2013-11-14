@@ -8,12 +8,17 @@ Features
 
 SBJson's number one feature is chunk-based parsing. An example best sums it up:
 
-     SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v, BOOL *stop) {
+    SBEnumeratorBlock block = ^(id v, BOOL *stop) {
         NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
-     } errorHandler: ^(NSError* err) {
+    };
+    SBErrorHandlerBlock eh = ^(NSError* err) {
         NSLog(@"OOPS: %@", err);
-     }];
-     parser.supportManyDocuments = YES;
+     }
+
+    id parser = [[SBJsonChunkParser alloc] initWithBlock:block
+                                           manyDocuments:YES
+                                              arrayItems:NO
+                                            errorHandler:eh];
 
      // Note that this input contains multiple top-level JSON documents
      NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
@@ -30,12 +35,10 @@ Sometimes you just get a single mammoth array containing lots of smaller
 documents. In that case you can get the same effect by setting
 supportPartialDocuments to YES:
 
-     SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v, BOOL *stop) {
-        NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
-     } errorHandler: ^(NSError* err) {
-        NSLog(@"OOPS: %@", err);
-     }];
-     parser.supportPartialDocuments = YES;
+    id parser = [[SBJsonChunkParser alloc] initWithBlock:block
+                                           manyDocuments:NO
+                                              arrayItems:YES
+                                            errorHandler:eh];
 
      // Note that this input contains A SINGLE top-level document
      NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
