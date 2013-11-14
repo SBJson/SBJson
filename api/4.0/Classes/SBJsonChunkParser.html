@@ -38,24 +38,15 @@
 	
 	
 	
-	<option value="properties">Properties</option>
-	
-	<option value="//api/name/maxDepth">&nbsp;&nbsp;&nbsp;&nbsp;maxDepth</option>
-	
-	<option value="//api/name/supportManyDocuments">&nbsp;&nbsp;&nbsp;&nbsp;supportManyDocuments</option>
-	
-	<option value="//api/name/supportPartialDocuments">&nbsp;&nbsp;&nbsp;&nbsp;supportPartialDocuments</option>
-	
-	
 	
 	
 	
 	
 	<option value="instance_methods">Instance Methods</option>
 	
-	<option value="//api/name/initWithBlock:errorHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithBlock:errorHandler:</option>
+	<option value="//api/name/initWithBlock:manyDocuments:arrayItems:errorHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithBlock:manyDocuments:arrayItems:errorHandler:</option>
 	
-	<option value="//api/name/initWithBlock:processBlock:errorHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithBlock:processBlock:errorHandler:</option>
+	<option value="//api/name/initWithBlock:processBlock:manyDocuments:arrayItems:maxDepth:errorHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithBlock:processBlock:manyDocuments:arrayItems:maxDepth:errorHandler:</option>
 	
 	<option value="//api/name/parse:">&nbsp;&nbsp;&nbsp;&nbsp;- parse:</option>
 	
@@ -81,25 +72,15 @@
 
 
 
-<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/maxDepth">maxDepth</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/supportManyDocuments">supportManyDocuments</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/supportPartialDocuments">supportPartialDocuments</a></span></li>
-	
-</ul></li>
-
 
 
 
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithBlock:errorHandler:">initWithBlock:errorHandler:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithBlock:manyDocuments:arrayItems:errorHandler:">initWithBlock:manyDocuments:arrayItems:errorHandler:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithBlock:processBlock:errorHandler:">initWithBlock:processBlock:errorHandler:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithBlock:processBlock:manyDocuments:arrayItems:maxDepth:errorHandler:">initWithBlock:processBlock:manyDocuments:arrayItems:maxDepth:errorHandler:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/parse:">parse:</a></span></li>
 	
@@ -174,17 +155,22 @@ type if they fit, else a <code>double</code> is used. All real &amp; exponential
 are represented using a <code>double</code>. Previous versions of this library used
 an NSDecimalNumber in some cases, but this is no longer the case.</p>
 
-<p>The default behaviour is that your passed-in block is only called once the entire input is parsed.
-If you set <a href="#//api/name/supportManyDocuments">supportManyDocuments</a> to YES and your input contains multiple (whitespace limited)
-JSON documents your block will be called for each document:</p>
+<p>The default behaviour is that your passed-in block is only called once the
+entire input is parsed. If you set supportManyDocuments to YES and your input
+contains multiple (whitespace limited) JSON documents your block will be called
+for each document:</p>
 
-<pre><code> SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
+<pre><code>SBEnumeratorBlock block = ^(id v, BOOL *stop) {
     NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
- } errorHandler: ^(NSError* err) {
+};
+SBErrorHandlerBlock eh = ^(NSError* err) {
     NSLog(@"OOPS: %@", err);
- }];
+ }
 
- parser.supportManyDocuments = YES;
+id parser = [[SBJsonChunkParser alloc] initWithBlock:block
+                                       manyDocuments:YES
+                                    partialDocuments:NO
+                                        errorHandler:eh];
 
  // Note that this input contains multiple top-level JSON documents
  NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
@@ -201,16 +187,15 @@ JSON documents your block will be called for each document:</p>
 </ul>
 
 
-<p>Often you won&rsquo;t have control over the input you&rsquo;re parsing, so can&rsquo;t make use of
-this feature. But, all is not lost: if you are parsing a long array you can get the same effect by
-setting <a href="#//api/name/supportPartialDocuments">supportPartialDocuments</a> to YES:</p>
+<p>Often you won&rsquo;t have control over the input you&rsquo;re parsing, so can&rsquo;t make use
+of this feature. But, all is not lost: if you are parsing a long array you can
+get the same effect by setting supportPartialDocuments to YES:</p>
 
-<pre><code> SBJsonChunkParser *parser = [[SBJsonChunkParser alloc] initWithBlock:^(id v) {
-    NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
- } errorHandler: ^(NSError* err) {
-    NSLog(@"OOPS: %@", err);
- }];
- parser.supportPartialDocuments = YES;
+<p>id parser = [[SBJsonChunkParser alloc] initWithBlock:block</p>
+
+<pre><code>                                       manyDocuments:NO
+                                    partialDocuments:YES
+                                        errorHandler:eh];
 
  // Note that this input contains A SINGLE top-level document
  NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
@@ -233,38 +218,17 @@ setting <a href="#//api/name/supportPartialDocuments">supportPartialDocuments</a
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/initWithBlock:errorHandler:">&ndash;&nbsp;initWithBlock:errorHandler:</a></code>
-		
+		<code><a href="#//api/name/initWithBlock:manyDocuments:arrayItems:errorHandler:">&ndash;&nbsp;initWithBlock:manyDocuments:arrayItems:errorHandler:</a></code>
+		<span class="tooltip"><p>Create a JSON Chunk Parser.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/initWithBlock:processBlock:errorHandler:">&ndash;&nbsp;initWithBlock:processBlock:errorHandler:</a></code>
-		
+		<code><a href="#//api/name/initWithBlock:processBlock:manyDocuments:arrayItems:maxDepth:errorHandler:">&ndash;&nbsp;initWithBlock:processBlock:manyDocuments:arrayItems:maxDepth:errorHandler:</a></code>
+		<span class="tooltip"><p>Designated initialiser.</p></span>
 	</span>
 	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/supportManyDocuments">&nbsp;&nbsp;supportManyDocuments</a></code>
-		<span class="tooltip"><p>Expect multiple documents separated by whitespace</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/supportPartialDocuments">&nbsp;&nbsp;supportPartialDocuments</a></code>
-		<span class="tooltip"><p>Support partial documents.</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/maxDepth">&nbsp;&nbsp;maxDepth</a></code>
-		<span class="tooltip"><p>The max parse depth</p></span>
-	</span>
-	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
@@ -282,147 +246,6 @@ setting <a href="#//api/name/supportPartialDocuments">supportPartialDocuments</a
 					
 					
 					
-					<div class="section section-methods">
-						<a title="Properties" name="properties"></a>
-						<h2 class="subtitle subtitle-methods">Properties</h2>
-						
-						<div class="section-method">
-	<a name="//api/name/maxDepth" title="maxDepth"></a>
-	<h3 class="subsubtitle method-title">maxDepth</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>The max parse depth</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic) NSUInteger maxDepth</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>If the input is nested deeper than this the parser will halt parsing and return an error.</p>
-
-<p>Defaults to 32.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">SBJsonChunkParser.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/supportManyDocuments" title="supportManyDocuments"></a>
-	<h3 class="subsubtitle method-title">supportManyDocuments</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Expect multiple documents separated by whitespace</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic) BOOL supportManyDocuments</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Normally the <a href="#//api/name/parse:">parse:</a> method returns SBJsonParserComplete when it&rsquo;s found a complete JSON document.
-Attempting to parse any more data at that point is considered an error. (&ldquo;Garbage after JSON&rdquo;.)</p>
-
-<p>If you set this property to true the parser will never return SBJsonParserComplete. Rather,
-once an object is completed it will expect another object to immediately follow, separated
-only by (optional) whitespace.</p>
-
-<p>If you set this to YES the -parser:found: delegate method will be called once for each document in your input.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">SBJsonChunkParser.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/supportPartialDocuments" title="supportPartialDocuments"></a>
-	<h3 class="subsubtitle method-title">supportPartialDocuments</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Support partial documents.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>@property (nonatomic) BOOL supportPartialDocuments</code></div>
-
-    
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>This is useful for parsing huge JSON documents, or documents coming in over a very slow link.</p>
-
-<p>If you set this to true the outer array will be ignored and -parser:found: is called once
-for each item in it.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">SBJsonChunkParser.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-					</div>
-					
 					
 					
 					
@@ -432,25 +255,144 @@ for each item in it.</p>
 						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/initWithBlock:errorHandler:" title="initWithBlock:errorHandler:"></a>
-	<h3 class="subsubtitle method-title">initWithBlock:errorHandler:</h3>
+	<a name="//api/name/initWithBlock:manyDocuments:arrayItems:errorHandler:" title="initWithBlock:manyDocuments:arrayItems:errorHandler:"></a>
+	<h3 class="subsubtitle method-title">initWithBlock:manyDocuments:arrayItems:errorHandler:</h3>
 	
 	
+	
+	<div class="method-subsection brief-description">
+		<p>Create a JSON Chunk Parser.</p>
+	</div>		
+	
+    
 
-	<div class="method-subsection method-declaration"><code>- (id)initWithBlock:(SBValueBlock)<em>block</em> errorHandler:(SBErrorHandlerBlock)<em>eh</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (id)initWithBlock:(SBEnumeratorBlock)<em>block</em> manyDocuments:(BOOL)<em>manyDocs</em> arrayItems:(BOOL)<em>arrayItems</em> errorHandler:(SBErrorHandlerBlock)<em>eh</em></code></div>
 
     
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>Called for each element. Set *stop to <code>YES</code> if you have seen
+enough and would like to skip the rest of the elements.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>manyDocs</em></dt>
+			<dd><p>Indicate that you are expecting multiple whitespace-separated
+JSON documents, similar to what Twitter uses.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>arrayItems</em></dt>
+			<dd><p>If set the parser will pretend an root array does not exist
+and the enumerator block will be called once for each item in it. This option
+does nothing if the the JSON has an object at its root.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>eh</em></dt>
+			<dd><p>Called if the parser encounters an error.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">SBJsonChunkParser.h</code><br />
+	</div>				
+	
+	
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/initWithBlock:processBlock:errorHandler:" title="initWithBlock:processBlock:errorHandler:"></a>
-	<h3 class="subsubtitle method-title">initWithBlock:processBlock:errorHandler:</h3>
+	<a name="//api/name/initWithBlock:processBlock:manyDocuments:arrayItems:maxDepth:errorHandler:" title="initWithBlock:processBlock:manyDocuments:arrayItems:maxDepth:errorHandler:"></a>
+	<h3 class="subsubtitle method-title">initWithBlock:processBlock:manyDocuments:arrayItems:maxDepth:errorHandler:</h3>
 	
 	
+	
+	<div class="method-subsection brief-description">
+		<p>Designated initialiser.</p>
+	</div>		
+	
+    
 
-	<div class="method-subsection method-declaration"><code>- (id)initWithBlock:(SBValueBlock)<em>block</em> processBlock:(SBProcessBlock)<em>processBlock</em> errorHandler:(SBErrorHandlerBlock)<em>eh</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (id)initWithBlock:(SBEnumeratorBlock)<em>block</em> processBlock:(SBProcessBlock)<em>processBlock</em> manyDocuments:(BOOL)<em>manyDocs</em> arrayItems:(BOOL)<em>arrayItems</em> maxDepth:(NSUInteger)<em>maxDepth</em> errorHandler:(SBErrorHandlerBlock)<em>eh</em></code></div>
 
     
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>block</em></dt>
+			<dd><p>Called for each element. Set *stop to <code>YES</code> if you have seen
+enough and would like to skip the rest of the elements.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>processBlock</em></dt>
+			<dd><p>A block that allows you to process individual values before being
+returned.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>manyDocs</em></dt>
+			<dd><p>Indicate that you are expecting multiple whitespace-separated
+JSON documents, similar to what Twitter uses.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>arrayItems</em></dt>
+			<dd><p>If set the parser will pretend an root array does not exist
+and the enumerator block will be called once for each item in it. This option
+does nothing if the the JSON has an object at its root.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>maxDepth</em></dt>
+			<dd><p>The max recursion depth of the parser. Defaults to 32.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>eh</em></dt>
+			<dd><p>Called if the parser encounters an error.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">SBJsonChunkParser.h</code><br />
+	</div>				
+	
+	
 </div>
 						
 						<div class="section-method">
@@ -522,7 +464,7 @@ for each item in it.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Stig Brautaset. All rights reserved. (Last updated: 2013-11-13)</span><br />
+						<p><span class="copyright">&copy; 2013 Stig Brautaset. All rights reserved. (Last updated: 2013-11-14)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						
