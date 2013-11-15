@@ -48,10 +48,6 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
     writer = [SBJsonWriter new];
 }
 
-- (NSString*)otherFileName {
-    return @"error";
-}
-
 - (void)testNonStringDictionaryKey {
     NSArray *keys = [NSArray arrayWithObjects:[NSNull null],
                      [NSNumber numberWithInt:1],
