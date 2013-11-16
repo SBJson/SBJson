@@ -72,12 +72,17 @@ typedef enum {
     @throw @"Not Implemented";
 }
 
-- (id)initWithBlock:(SBEnumeratorBlock)block
-      manyDocuments:(BOOL)manyDocs
-         arrayItems:(BOOL)arrayItems
-       errorHandler:(SBErrorHandlerBlock)eh {
-    return [self initWithBlock:block processBlock:nil manyDocuments:manyDocs arrayItems:arrayItems maxDepth:32
-                  errorHandler:eh];
++ (id)parserWithBlock:(SBEnumeratorBlock)block
+        manyDocuments:(BOOL)manyDocs
+           arrayItems:(BOOL)arrayItems
+         errorHandler:(SBErrorHandlerBlock)eh {
+
+    return [[self alloc] initWithBlock:block
+                          processBlock:nil
+                         manyDocuments:manyDocs
+                            arrayItems:arrayItems
+                              maxDepth:32
+                          errorHandler:eh];
 }
 
 - (id)initWithBlock:(SBEnumeratorBlock)block

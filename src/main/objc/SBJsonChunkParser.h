@@ -83,10 +83,10 @@ typedef id (^SBProcessBlock)(id, NSString*);
         NSLog(@"OOPS: %@", err);
      }
 
-    id parser = [[SBJsonChunkParser alloc] initWithBlock:block
-                                           manyDocuments:YES
-                                              arrayItems:NO
-                                            errorHandler:eh];
+     id parser = [SBJsonChunkParser parserWithBlock:block
+                                      manyDocuments:YES
+                                         arrayItems:NO
+                                       errorHandler:eh];
 
      // Note that this input contains multiple top-level JSON documents
      NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
@@ -103,14 +103,22 @@ typedef id (^SBProcessBlock)(id, NSString*);
  of this feature. But, all is not lost: if you are parsing a long array you can
  get the same effect by setting arrayItems to YES:
 
-id parser = [[SBJsonChunkParser alloc] initWithBlock:block
-                                           manyDocuments:NO
-                                              arrayItems:YES
-                                            errorHandler:eh];
+     id parser = [SBJsonChunkParser parserWithBlock:block
+                                      manyDocuments:NO
+                                         arrayItems:YES
+                                       errorHandler:eh];
 
      // Note that this input contains A SINGLE top-level document
      NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
      [parser parse:data];
+
+ @note Stream based parsing does mean that you lose some of the correctness
+ verification you would have with a parser that considered the entire input
+ before returning an answer. It is technically possible to have some parts
+ of a document returned *as if they were correct* but then encounter an error
+ in a later part of the document. You should keep this in mind when
+ considering whether it would suit your application.
+
 
 */
 @interface SBJsonChunkParser : NSObject
@@ -131,14 +139,14 @@ id parser = [[SBJsonChunkParser alloc] initWithBlock:block
  @param eh Called if the parser encounters an error.
 
  */
-- (id)initWithBlock:(SBEnumeratorBlock)block
-      manyDocuments:(BOOL)manyDocs
-         arrayItems:(BOOL)arrayItems
-       errorHandler:(SBErrorHandlerBlock)eh;
++ (id)parserWithBlock:(SBEnumeratorBlock)block
+        manyDocuments:(BOOL)manyDocs
+           arrayItems:(BOOL)arrayItems
+         errorHandler:(SBErrorHandlerBlock)eh;
 
 
 /**
- Designated initialiser.
+ Create a JSON Chunk Parser.
 
  @param block Called for each element. Set *stop to `YES` if you have seen
  enough and would like to skip the rest of the elements.

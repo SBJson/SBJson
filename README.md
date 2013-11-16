@@ -15,10 +15,10 @@ SBJson's number one feature is chunk-based parsing. An example best sums it up:
         NSLog(@"OOPS: %@", err);
      }
 
-    id parser = [[SBJsonChunkParser alloc] initWithBlock:block
-                                           manyDocuments:YES
-                                              arrayItems:NO
-                                            errorHandler:eh];
+     id parser = [SBJsonChunkParser parserWithBlock:block
+                                      manyDocuments:YES
+                                         arrayItems:NO
+                                       errorHandler:eh];
 
      // Note that this input contains multiple top-level JSON documents
      NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
@@ -35,10 +35,10 @@ Sometimes you just get a single mammoth array containing lots of smaller
 documents. In that case you can get the same effect by setting
 arrayItems to YES:
 
-    id parser = [[SBJsonChunkParser alloc] initWithBlock:block
-                                           manyDocuments:NO
-                                              arrayItems:YES
-                                            errorHandler:eh];
+     id parser = [SBJsonChunkParser parserWithBlock:block
+                                      manyDocuments:NO
+                                         arrayItems:YES
+                                       errorHandler:eh];
 
      // Note that this input contains A SINGLE top-level document
      NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
