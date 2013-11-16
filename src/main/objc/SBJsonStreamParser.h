@@ -46,7 +46,7 @@ typedef enum {
 /**
  Delegate for interacting directly with the low-level parser
 
- You will most likely find it much more convenient to use the SBJsonChunkParser instead.
+ You will most likely find it much more convenient to use the SBJsonParser instead.
  */
 @protocol SBJsonStreamParserDelegate < NSObject >
 
@@ -90,7 +90,7 @@ typedef enum {
 /**
  Low-level Stream parser
 
- You most likely want to use the SBJsonChunkParser instead, but if you
+ You most likely want to use the SBJsonParser instead, but if you
  really need low-level access to tokens one-by-one you can use this class.
  */
 @interface SBJsonStreamParser : NSObject
@@ -104,7 +104,7 @@ typedef enum {
  The object set here receives a series of messages as the parser breaks down the JSON stream
  into valid tokens.
 
- Usually this should be an instance of SBJsonChunkParser, but you can
+ Usually this should be an instance of SBJsonParser, but you can
  substitute your own implementation of the SBJsonStreamParserDelegate protocol if you need to.
  */
 @property (nonatomic, weak) id<SBJsonStreamParserDelegate> delegate;
