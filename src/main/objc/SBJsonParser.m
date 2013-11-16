@@ -64,7 +64,7 @@
     }
                                                             processBlock:processBlock
                                                            manyDocuments:NO
-                                                              arrayItems:NO
+                                                         outerArrayItems:NO
                                                                 maxDepth:self.maxDepth
                                                             errorHandler:^(NSError *err) {
                                                                 self.error = err.localizedDescription;

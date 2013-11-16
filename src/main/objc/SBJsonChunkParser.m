@@ -74,13 +74,13 @@ typedef enum {
 
 + (id)parserWithBlock:(SBEnumeratorBlock)block
         manyDocuments:(BOOL)manyDocs
-           arrayItems:(BOOL)arrayItems
+      outerArrayItems:(BOOL)outerArrayItems
          errorHandler:(SBErrorHandlerBlock)eh {
 
     return [[self alloc] initWithBlock:block
                           processBlock:nil
                          manyDocuments:manyDocs
-                            arrayItems:arrayItems
+                       outerArrayItems:outerArrayItems
                               maxDepth:32
                           errorHandler:eh];
 }
@@ -88,7 +88,7 @@ typedef enum {
 - (id)initWithBlock:(SBEnumeratorBlock)block
        processBlock:(SBProcessBlock)initialProcessBlock
       manyDocuments:(BOOL)manyDocs
-         arrayItems:(BOOL)arrayItems
+    outerArrayItems:(BOOL)outerArrayItems
            maxDepth:(NSUInteger)maxDepth
        errorHandler:(SBErrorHandlerBlock)eh {
 
@@ -98,7 +98,7 @@ typedef enum {
         _parser.delegate = self;
 
         supportManyDocuments = manyDocs;
-        supportPartialDocuments = arrayItems;
+        supportPartialDocuments = outerArrayItems;
 
         valueBlock = block;
 		keyStack = [[NSMutableArray alloc] initWithCapacity:32];

@@ -85,7 +85,7 @@ typedef id (^SBProcessBlock)(id, NSString*);
 
      id parser = [SBJsonChunkParser parserWithBlock:block
                                       manyDocuments:YES
-                                         arrayItems:NO
+                                    outerArrayItems:NO
                                        errorHandler:eh];
 
      // Note that this input contains multiple top-level JSON documents
@@ -101,11 +101,11 @@ typedef id (^SBProcessBlock)(id, NSString*);
 
  Often you won't have control over the input you're parsing, so can't make use
  of this feature. But, all is not lost: if you are parsing a long array you can
- get the same effect by setting arrayItems to YES:
+ get the same effect by setting outerArrayItems to YES:
 
      id parser = [SBJsonChunkParser parserWithBlock:block
                                       manyDocuments:NO
-                                         arrayItems:YES
+                                    outerArrayItems:YES
                                        errorHandler:eh];
 
      // Note that this input contains A SINGLE top-level document
@@ -132,7 +132,7 @@ typedef id (^SBProcessBlock)(id, NSString*);
  @param manyDocs Indicate that you are expecting multiple whitespace-separated
  JSON documents, similar to what Twitter uses.
 
- @param arrayItems If set the parser will pretend an root array does not exist
+ @param outerArrayItems If set the parser will pretend an root array does not exist
  and the enumerator block will be called once for each item in it. This option
  does nothing if the the JSON has an object at its root.
 
@@ -141,7 +141,7 @@ typedef id (^SBProcessBlock)(id, NSString*);
  */
 + (id)parserWithBlock:(SBEnumeratorBlock)block
         manyDocuments:(BOOL)manyDocs
-           arrayItems:(BOOL)arrayItems
+      outerArrayItems:(BOOL)outerArrayItems
          errorHandler:(SBErrorHandlerBlock)eh;
 
 
@@ -157,7 +157,7 @@ typedef id (^SBProcessBlock)(id, NSString*);
  @param manyDocs Indicate that you are expecting multiple whitespace-separated
  JSON documents, similar to what Twitter uses.
 
- @param arrayItems If set the parser will pretend an root array does not exist
+ @param outerArrayItems If set the parser will pretend an root array does not exist
  and the enumerator block will be called once for each item in it. This option
  does nothing if the the JSON has an object at its root.
 
@@ -169,7 +169,7 @@ typedef id (^SBProcessBlock)(id, NSString*);
 - (id)initWithBlock:(SBEnumeratorBlock)block
        processBlock:(SBProcessBlock)processBlock
       manyDocuments:(BOOL)manyDocs
-         arrayItems:(BOOL)arrayItems
+    outerArrayItems:(BOOL)outerArrayItems
            maxDepth:(NSUInteger)maxDepth
        errorHandler:(SBErrorHandlerBlock)eh;
 

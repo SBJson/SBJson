@@ -64,7 +64,7 @@
 
    id parser = [SBJsonChunkParser parserWithBlock:block
                                     manyDocuments:NO
-                                       arrayItems:NO
+                                  outerArrayItems:NO
                                      errorHandler:eh];
 
    SBJsonParserStatus status = SBJsonParserWaitingForData;
@@ -89,7 +89,7 @@
 - (void)testMultipleDocuments {
     id parser = [SBJsonChunkParser parserWithBlock:block
                                      manyDocuments:YES
-                                        arrayItems:NO
+                                   outerArrayItems:NO
                                       errorHandler:eh];
 
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
@@ -127,7 +127,7 @@
 - (void)testSingleArray {
     id parser = [SBJsonChunkParser parserWithBlock:block
                                      manyDocuments:NO
-                                        arrayItems:NO
+                                   outerArrayItems:NO
                                       errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
@@ -138,7 +138,7 @@
 - (void)testSkipArray {
     id parser = [SBJsonChunkParser parserWithBlock:block
                                      manyDocuments:NO
-                                        arrayItems:YES
+                                   outerArrayItems:YES
                                       errorHandler:eh];
 
 	[self parseArrayOfObjects:parser];
@@ -156,7 +156,7 @@
 
     id parser = [SBJsonChunkParser parserWithBlock:block2
                                      manyDocuments:NO
-                                        arrayItems:YES
+                                   outerArrayItems:YES
                                       errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
