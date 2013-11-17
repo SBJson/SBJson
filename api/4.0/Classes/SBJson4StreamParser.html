@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
-		<title>SBJsonStreamParser Class Reference</title>
+		<title>SBJson4StreamParser Class Reference</title>
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<meta name="viewport" content="width=550" />
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
@@ -17,7 +17,7 @@
 			</div>
 			
 			<div id="title" role="banner">
-				<h1 class="hideInXcode">SBJsonStreamParser Class Reference</h1>
+				<h1 class="hideInXcode">SBJson4StreamParser Class Reference</h1>
 			</div>
 			<ul id="headerButtons" role="toolbar">
 				<li id="toc_button">
@@ -106,7 +106,7 @@
 		</nav>
 		<article>
 			<div id="contents" class="isShowingTOC" role="main">
-				<a title="SBJsonStreamParser Class Reference" name="top"></a>
+				<a title="SBJson4StreamParser Class Reference" name="top"></a>
 				<div class="main-navigation navigation-top">
 					<ul>
 	<li><a href="../index.html">Index</a></li>
@@ -115,7 +115,7 @@
 				</div>
 				<div id="header">
 					<div class="section-header">
-						<h1 class="title title-header">SBJsonStreamParser Class Reference</h1>
+						<h1 class="title title-header">SBJson4StreamParser Class Reference</h1>
 					</div>		
 				</div>
 				<div id="container">	
@@ -126,7 +126,7 @@
 	<td class="specification-value">NSObject</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">SBJsonStreamParser.h</td>
+	<td class="specification-value">SBJson4StreamParser.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -138,7 +138,7 @@
 						<h2 class="subtitle subtitle-overview">Overview</h2>
 						<p>Low-level Stream parser</p>
 
-<p>You most likely want to use the <a href="../Classes/SBJsonChunkParser.html">SBJsonChunkParser</a> instead, but if you
+<p>You most likely want to use the <a href="../Classes/SBJson4Parser.html">SBJson4Parser</a> instead, but if you
 really need low-level access to tokens one-by-one you can use this class.</p>
 					</div>
 					
@@ -186,7 +186,7 @@ really need low-level access to tokens one-by-one you can use this class.</p>
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/stop">&ndash;&nbsp;stop</a></code>
-		
+		<span class="tooltip"><p>Call this to cause parsing to stop.</p></span>
 	</span>
 	
 	
@@ -230,8 +230,8 @@ really need low-level access to tokens one-by-one you can use this class.</p>
 		<p>The object set here receives a series of messages as the parser breaks down the JSON stream
 into valid tokens.</p>
 
-<p>Usually this should be an instance of <a href="../Classes/SBJsonChunkParser.html">SBJsonChunkParser</a>, but you can
-substitute your own implementation of the <a href="../Protocols/SBJsonStreamParserDelegate.html">SBJsonStreamParserDelegate</a> protocol if you need to.</p>
+<p>Usually this should be an instance of <a href="../Classes/SBJson4Parser.html">SBJson4Parser</a>, but you can
+substitute your own implementation of the <a href="../Protocols/SBJson4StreamParserDelegate.html">SBJson4StreamParserDelegate</a> protocol if you need to.</p>
 	</div>
 	
 	
@@ -242,7 +242,7 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">SBJsonStreamParser.h</code><br />
+		<code class="declared-in-ref">SBJson4StreamParser.h</code><br />
 	</div>				
 	
 	
@@ -254,7 +254,7 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 	
 	
 
-	<div class="method-subsection method-declaration"><code>@property (nonatomic, weak) SBJsonStreamParserState *state</code></div>
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, weak) SBJson4StreamParserState *state</code></div>
 
     
 </div>
@@ -292,7 +292,7 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (SBJsonParserStatus)parse:(NSData *)<em>data</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (SBJson4ParserStatus)parse:(NSData *)<em>data</em></code></div>
 
     
 	
@@ -304,9 +304,9 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 			<dd><p>An NSData object containing the next chunk of JSON</p>
 
 <p>@return
-&ndash; SBJsonParserComplete if a full document was found
-&ndash; SBJsonParserWaitingForData if a partial document was found and more data is required to complete it
-&ndash; SBJsonParserError if an error occured.</p></dd>
+&ndash; SBJson4ParserComplete if a full document was found
+&ndash; SBJson4ParserWaitingForData if a partial document was found and more data is required to complete it
+&ndash; SBJson4ParserError if an error occured.</p></dd>
 		</dl>
 		
 	</div>
@@ -330,7 +330,7 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">SBJsonStreamParser.h</code><br />
+		<code class="declared-in-ref">SBJson4StreamParser.h</code><br />
 	</div>				
 	
 	
@@ -341,10 +341,35 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 	<h3 class="subsubtitle method-title">stop</h3>
 	
 	
+	
+	<div class="method-subsection brief-description">
+		<p>Call this to cause parsing to stop.</p>
+	</div>		
+	
+    
 
 	<div class="method-subsection method-declaration"><code>- (void)stop</code></div>
 
     
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">SBJson4StreamParser.h</code><br />
+	</div>				
+	
+	
 </div>
 						
 					</div>
@@ -360,7 +385,7 @@ substitute your own implementation of the <a href="../Protocols/SBJsonStreamPars
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Stig Brautaset. All rights reserved. (Last updated: 2013-11-14)</span><br />
+						<p><span class="copyright">&copy; 2013 Stig Brautaset. All rights reserved. (Last updated: 2013-11-17)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						
