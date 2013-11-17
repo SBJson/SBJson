@@ -1,20 +1,24 @@
 ---
 title: SBJson for Objective-C
 layout: default
-current_api: 3.2
 ---
 
-A strict JSON parser and generator for Objective-C.
+JSON (JavaScript Object Notation) is a light-weight data interchange format
+that's easy to read and write for humans and computers. This library implements
+chunk-based JSON parsing and generation in Objective-C.
 
-Selected features:
+SBJson's number one feature is chunk-based operation. Feed the parser one or
+more chunks of UTF8-encoded data and it will call a block you provide with each
+root-level document or array. Or, optionally, for each top-level entry in each
+root-level array. See more in the [Version 4 API
+docs](http://sbjson.org/api/4.0/Classes/SBJson4Parser.html).
 
-* Easy-to-use API.
-* Streaming Support.
-* Pretty-printing.
-* Sorted dictionary keys.
-* Configurable max recursion depth.
-* Pure Objective-C.
-* No external dependencies.
+Other features:
+
+* Configurable recursion limit. For safety SBJson defaults to a max nesting
+  level of 32 for all input. This can be configured if necessary.
+* The writer can optionally sort dictionary keys so output is consistent across writes.
+* The writer can optionally create human-readable (indented) output.
 
 # API Documentation
 
