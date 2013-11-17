@@ -6,42 +6,18 @@ Objective-C.
 Features
 ========
 
-SBJson's number one feature is chunk-based parsing. An example best sums it up:
+SBJson's number one feature is chunk-based operation. Feed the parser one or
+more chunks of UTF8-encoded data and it will call a block you provide with each
+root-level document or array; or optionally for each top-level entry in one (or
+more) root-level array. See more in the [Version 4 API
+docs](http://sbjson.org/api/4.0/Classes/SBJson4Parser.html).
 
-    SBEnumeratorBlock block = ^(id v, BOOL *stop) {
-        NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
-    };
-    SBErrorHandlerBlock eh = ^(NSError* err) {
-        NSLog(@"OOPS: %@", err);
-    }
+Other features:
 
-    id parser = [SBJson4Parser multiRootParserWithBlock:block
-                                           errorHandler:eh];
-
-    // Note that this input contains multiple top-level JSON documents
-    NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
-    [parser parse:data];
-
- The above example will print:
-
- - Found: YES
- - Found: NO
- - Found: YES
- - Found: NO
-
-Sometimes you just get a single mammoth array containing lots of smaller
-documents. In that case you can get the same effect by setting
-rootArrayItems to YES:
-
-    id parser = [SBJson4Parser unwrapRootArrayParserWithBlock:block
-                                                 errorHandler:eh];
-
-    // Note that this input contains A SINGLE top-level document
-    NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
-    [parser parse:data];
-
-This example prints the same output as the one above.
-
+* Configurable recursion limit. For safety SBJson defaults to a max nesting
+  level of 32 for all input. This can be configured if necessary.
+* The writer can optionally sort dictionary keys so output is consistent across writes.
+* The writer can optionally create human-readable (indented) output.
 
 Links
 =====
