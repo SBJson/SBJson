@@ -40,11 +40,9 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
 
 @implementation ErrorTest {
     SBJsonWriter * writer;
-    SBJsonParser * parser;
 }
 
 - (void)setUp {
-    parser = [SBJsonParser new];
     writer = [SBJsonWriter new];
 }
 
@@ -72,10 +70,19 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
     }
 }
 
-- (void)testNil {
-    STAssertNil([parser objectWithString:nil], nil);
-    STAssertEqualObjects(parser.error, @"Input was 'nil'", nil);
+- (void)testParseNil {
+    id parser = [SBJsonParser parserWithBlock:^(id o, BOOL *string) {
+        STFail(@"");
+    }
+                               allowMultiRoot:NO
+                              unwrapRootArray:NO
+                                 errorHandler:^(NSError *error) {
+                                     STAssertEqualObjects(error, @"Input was 'nil'", nil);
+                                 }];
+    [parser parse:nil];
+}
 
+- (void)testWriteNil {
     STAssertNil([writer stringWithObject:nil], nil);
     SBAssertStringContains(writer.error, @"Not valid type for JSON");
 

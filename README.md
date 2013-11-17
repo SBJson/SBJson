@@ -1,6 +1,6 @@
 JSON (JavaScript Object Notation) is a light-weight data interchange
 format that's easy to read and write for humans and computers alike.
-This library implements strict JSON parsing and generation in
+This library implements chunk-based JSON parsing and generation in
 Objective-C.
 
 Features
@@ -13,16 +13,14 @@ SBJson's number one feature is chunk-based parsing. An example best sums it up:
     };
     SBErrorHandlerBlock eh = ^(NSError* err) {
         NSLog(@"OOPS: %@", err);
-     }
+    }
 
-     id parser = [SBJsonChunkParser parserWithBlock:block
-                                      manyDocuments:YES
-                                    outerArrayItems:NO
-                                       errorHandler:eh];
+    id parser = [SBJsonParser multiRootParserWithBlock:block
+                                          errorHandler:eh];
 
-     // Note that this input contains multiple top-level JSON documents
-     NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
-     [parser parse:data];
+    // Note that this input contains multiple top-level JSON documents
+    NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
+    [parser parse:data];
 
  The above example will print:
 
@@ -33,16 +31,14 @@ SBJson's number one feature is chunk-based parsing. An example best sums it up:
 
 Sometimes you just get a single mammoth array containing lots of smaller
 documents. In that case you can get the same effect by setting
-outerArrayItems to YES:
+rootArrayItems to YES:
 
-     id parser = [SBJsonChunkParser parserWithBlock:block
-                                      manyDocuments:NO
-                                    outerArrayItems:YES
-                                       errorHandler:eh];
+    id parser = [SBJsonParser unwrapRootArrayParserWithBlock:block
+                                                errorHandler:eh];
 
-     // Note that this input contains A SINGLE top-level document
-     NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
-     [parser parse:data];
+    // Note that this input contains A SINGLE top-level document
+    NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
+    [parser parse:data];
 
 This example prints the same output as the one above.
 

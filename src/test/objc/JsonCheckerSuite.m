@@ -37,14 +37,11 @@
 @end
 
 @implementation JsonCheckerSuite {
-    SBJsonParser *parser;
     NSUInteger count;
 }
 
 - (void)setUp {
     count = 0;
-    parser = [[SBJsonParser alloc] init];
-    parser.maxDepth = 19;
 }
 
 - (void)foreachFilePrefixedBy:(NSString*)prefix apply:(void(^)(NSString*))block {
@@ -64,27 +61,52 @@
 }
 
 - (void)testPass {
-    [self foreachFilePrefixedBy:@"pass" apply:^(NSString* path) {
-        NSError *error = nil;
-        NSString *input = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-        STAssertNotNil(input, @"%@ - %@", path, error);
+    SBErrorHandlerBlock eh = ^(NSError *err) {
+        STFail(@"%@", err);
+    };
 
-        id object = [parser objectWithString:input];
-        STAssertNotNil(object, path);
-        STAssertNil(parser.error, path);
+    [self foreachFilePrefixedBy:@"pass" apply:^(NSString* path) {
+        __block BOOL success = NO;
+        SBItemBlock block = ^(id obj, BOOL *stop) {
+            STAssertNotNil(obj, path);
+            success = YES;
+        };
+
+        SBJsonParser *parser = [[SBJsonParser alloc] initWithBlock:block
+                                                      processBlock:nil
+                                                     manyDocuments:NO
+                                                    rootArrayItems:NO
+                                                          maxDepth:19
+                                                      errorHandler:eh];
+        SBJsonParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
+
+        STAssertTrue(success && status == SBJsonParserComplete, @"Success block was called & parsing complete");
 
     }];
     STAssertEquals(count, (NSUInteger)3, nil);
 }
 
 - (void)testFail {
+    SBItemBlock block = ^(id obj, BOOL *stop) {};
     [self foreachFilePrefixedBy:@"fail" apply:^(NSString* path) {
-        NSError *error = nil;
-        NSString *input = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-        STAssertNotNil(input, @"%@ - %@", path, error);
 
-        STAssertNil([parser objectWithString:input], @"%@ - %@", input, path);
-        STAssertNotNil(parser.error, @"%@ at %@", input, path);
+        __block BOOL success = NO;
+        SBErrorHandlerBlock eh = ^(NSError *err) {
+            STAssertNotNil(err, path);
+            success = YES;
+        };
+
+        SBJsonParser *parser = [[SBJsonParser alloc] initWithBlock:block
+                                                      processBlock:nil
+                                                     manyDocuments:NO
+                                                    rootArrayItems:NO
+                                                          maxDepth:19
+                                                      errorHandler:eh];
+
+        SBJsonParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
+
+        if (status != SBJsonParserWaitingForData)
+            STAssertTrue(success, @"ErrorHandler block was called: %@", [path lastPathComponent]);
     }];
 
     STAssertEquals(count, (NSUInteger)33, nil);
