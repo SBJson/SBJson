@@ -56,15 +56,15 @@
 
 @end
 
-@class SBJsonStreamWriter;
+@class SBJson4StreamWriter;
 
-@protocol SBJsonStreamWriterDelegate
+@protocol SBJson4StreamWriterDelegate
 
-- (void)writer:(SBJsonStreamWriter*)writer appendBytes:(const void *)bytes length:(NSUInteger)length;
+- (void)writer:(SBJson4StreamWriter *)writer appendBytes:(const void *)bytes length:(NSUInteger)length;
 
 @end
 
-@class SBJsonStreamWriterState;
+@class SBJson4StreamWriterState;
 
 /**
  The Stream Writer class.
@@ -97,18 +97,18 @@
 
  */
 
-@interface SBJsonStreamWriter : NSObject {
+@interface SBJson4StreamWriter : NSObject {
     NSMutableDictionary *cache;
 }
 
-@property (nonatomic, weak) SBJsonStreamWriterState *state; // Internal
+@property (nonatomic, weak) SBJson4StreamWriterState *state; // Internal
 @property (nonatomic, readonly, strong) NSMutableArray *stateStack; // Internal
 
 /**
  delegate to receive JSON output
  Delegate that will receive messages with output.
  */
-@property (nonatomic, weak) id<SBJsonStreamWriterDelegate> delegate;
+@property (nonatomic, weak) id<SBJson4StreamWriterDelegate> delegate;
 
 /**
  The maximum recursing depth.
@@ -203,7 +203,7 @@
 
 @end
 
-@interface SBJsonStreamWriter (Private)
+@interface SBJson4StreamWriter (Private)
 - (BOOL)writeValue:(id)v;
 - (void)appendBytes:(const void *)bytes length:(NSUInteger)length;
 @end

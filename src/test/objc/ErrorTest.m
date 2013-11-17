@@ -30,7 +30,7 @@
 
  */
 
-#import "SBJson.h"
+#import "SBJson4.h"
 
 #define SBAssertStringContains(e, s) \
 STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
@@ -39,11 +39,11 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
 @end
 
 @implementation ErrorTest {
-    SBJsonWriter * writer;
+    SBJson4Writer * writer;
 }
 
 - (void)setUp {
-    writer = [SBJsonWriter new];
+    writer = [SBJson4Writer new];
 }
 
 - (void)testNonStringDictionaryKey {
@@ -71,14 +71,14 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
 }
 
 - (void)testParseNil {
-    id parser = [SBJsonParser parserWithBlock:^(id o, BOOL *string) {
+    id parser = [SBJson4Parser parserWithBlock:^(id o, BOOL *string) {
         STFail(@"");
     }
-                               allowMultiRoot:NO
-                              unwrapRootArray:NO
-                                 errorHandler:^(NSError *error) {
-                                     STAssertEqualObjects(error, @"Input was 'nil'", nil);
-                                 }];
+                                allowMultiRoot:NO
+                               unwrapRootArray:NO
+                                  errorHandler:^(NSError *error) {
+                                      STAssertEqualObjects(error, @"Input was 'nil'", nil);
+                                  }];
     [parser parse:nil];
 }
 

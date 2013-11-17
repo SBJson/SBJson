@@ -27,9 +27,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "SBJsonWriter.h"
-#import "SBJsonStreamParser.h"
-#import "SBJsonParser.h"
-#import "SBJsonStreamWriter.h"
-#import "SBJsonStreamTokeniser.h"
+#import "SBJson4Writer.h"
+#import "SBJson4StreamParser.h"
+#import "SBJson4Parser.h"
+#import "SBJson4StreamWriter.h"
+#import "SBJson4StreamTokeniser.h"
 

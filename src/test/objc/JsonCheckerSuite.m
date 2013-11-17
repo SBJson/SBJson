@@ -31,7 +31,7 @@
  */
 
 
-#import "SBJson.h"
+#import "SBJson4.h"
 
 @interface JsonCheckerSuite : SenTestCase
 @end
@@ -61,51 +61,51 @@
 }
 
 - (void)testPass {
-    SBErrorHandlerBlock eh = ^(NSError *err) {
+    SBJson4ErrorBlock eh = ^(NSError *err) {
         STFail(@"%@", err);
     };
 
     [self foreachFilePrefixedBy:@"pass" apply:^(NSString* path) {
         __block BOOL success = NO;
-        SBItemBlock block = ^(id obj, BOOL *stop) {
+        SBJson4ValueBlock block = ^(id obj, BOOL *stop) {
             STAssertNotNil(obj, path);
             success = YES;
         };
 
-        SBJsonParser *parser = [[SBJsonParser alloc] initWithBlock:block
+        SBJson4Parser *parser = [[SBJson4Parser alloc] initWithBlock:block
                                                       processBlock:nil
                                                      manyDocuments:NO
                                                     rootArrayItems:NO
                                                           maxDepth:19
                                                       errorHandler:eh];
-        SBJsonParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
+        SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 
-        STAssertTrue(success && status == SBJsonParserComplete, @"Success block was called & parsing complete");
+        STAssertTrue(success && status == SBJson4ParserComplete, @"Success block was called & parsing complete");
 
     }];
     STAssertEquals(count, (NSUInteger)3, nil);
 }
 
 - (void)testFail {
-    SBItemBlock block = ^(id obj, BOOL *stop) {};
+    SBJson4ValueBlock block = ^(id obj, BOOL *stop) {};
     [self foreachFilePrefixedBy:@"fail" apply:^(NSString* path) {
 
         __block BOOL success = NO;
-        SBErrorHandlerBlock eh = ^(NSError *err) {
+        SBJson4ErrorBlock eh = ^(NSError *err) {
             STAssertNotNil(err, path);
             success = YES;
         };
 
-        SBJsonParser *parser = [[SBJsonParser alloc] initWithBlock:block
+        SBJson4Parser *parser = [[SBJson4Parser alloc] initWithBlock:block
                                                       processBlock:nil
                                                      manyDocuments:NO
                                                     rootArrayItems:NO
                                                           maxDepth:19
                                                       errorHandler:eh];
 
-        SBJsonParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
+        SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 
-        if (status != SBJsonParserWaitingForData)
+        if (status != SBJson4ParserWaitingForData)
             STAssertTrue(success, @"ErrorHandler block was called: %@", [path lastPathComponent]);
     }];
 

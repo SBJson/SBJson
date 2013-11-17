@@ -32,51 +32,38 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SBJsonStreamTokeniser.h"
-#import "SBJsonStreamParser.h"
+@class SBJson4StreamWriter;
 
-@interface SBJsonStreamParserState : NSObject
+@interface SBJson4StreamWriterState : NSObject
 + (id)sharedInstance;
-
-- (BOOL)parser:(SBJsonStreamParser *)parser shouldAcceptToken:(sbjson_token_t)token;
-- (SBJsonParserStatus)parserShouldReturn:(SBJsonStreamParser *)parser;
-- (void)parser:(SBJsonStreamParser *)parser shouldTransitionTo:(sbjson_token_t)tok;
-- (BOOL)needKey;
-- (BOOL)isError;
-
-- (NSString*)name;
-
+- (BOOL)isInvalidState:(SBJson4StreamWriter *)writer;
+- (void)appendSeparator:(SBJson4StreamWriter *)writer;
+- (BOOL)expectingKey:(SBJson4StreamWriter *)writer;
+- (void)transitionState:(SBJson4StreamWriter *)writer;
+- (void)appendWhitespace:(SBJson4StreamWriter *)writer;
 @end
 
-@interface SBJsonStreamParserStateStart : SBJsonStreamParserState
+@interface SBJson4StreamWriterStateObjectStart : SBJson4StreamWriterState
 @end
 
-@interface SBJsonStreamParserStateComplete : SBJsonStreamParserState
+@interface SBJson4StreamWriterStateObjectKey : SBJson4StreamWriterStateObjectStart
 @end
 
-@interface SBJsonStreamParserStateError : SBJsonStreamParserState
+@interface SBJson4StreamWriterStateObjectValue : SBJson4StreamWriterState
 @end
 
-@interface SBJsonStreamParserStateObjectStart : SBJsonStreamParserState
+@interface SBJson4StreamWriterStateArrayStart : SBJson4StreamWriterState
 @end
 
-@interface SBJsonStreamParserStateObjectGotKey : SBJsonStreamParserState
+@interface SBJson4StreamWriterStateArrayValue : SBJson4StreamWriterState
 @end
 
-@interface SBJsonStreamParserStateObjectSeparator : SBJsonStreamParserState
+@interface SBJson4StreamWriterStateStart : SBJson4StreamWriterState
 @end
 
-@interface SBJsonStreamParserStateObjectGotValue : SBJsonStreamParserState
+@interface SBJson4StreamWriterStateComplete : SBJson4StreamWriterState
 @end
 
-@interface SBJsonStreamParserStateObjectNeedKey : SBJsonStreamParserState
+@interface SBJson4StreamWriterStateError : SBJson4StreamWriterState
 @end
 
-@interface SBJsonStreamParserStateArrayStart : SBJsonStreamParserState
-@end
-
-@interface SBJsonStreamParserStateArrayGotValue : SBJsonStreamParserState
-@end
-
-@interface SBJsonStreamParserStateArrayNeedValue : SBJsonStreamParserState
-@end

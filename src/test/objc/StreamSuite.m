@@ -31,14 +31,14 @@
  */
 
 
-#import "SBJson.h"
+#import "SBJson4.h"
 
 @interface StreamSuite : SenTestCase
 @end
 
 @implementation StreamSuite {
-    SBItemBlock block;
-    SBErrorHandlerBlock eh;
+    SBJson4ValueBlock block;
+    SBJson4ErrorBlock eh;
 	NSUInteger arrayCount, objectCount;
     NSError *error;
 }
@@ -62,22 +62,22 @@
    "consectetur adipiscing elit. Donec ultrices ornare gravida. Vestibulum"\
    " ante ipsum primisin faucibus orci luctus et ultrices posuere\"}]";
 
-   id parser = [SBJsonParser parserWithBlock:block
-                              allowMultiRoot:NO
-                             unwrapRootArray:NO
-                                errorHandler:eh];
+   id parser = [SBJson4Parser parserWithBlock:block
+                               allowMultiRoot:NO
+                              unwrapRootArray:NO
+                                 errorHandler:eh];
 
-   SBJsonParserStatus status = SBJsonParserWaitingForData;
+   SBJson4ParserStatus status = SBJson4ParserWaitingForData;
    NSData* data = nil;
    
    for (int i=0, e=(int)strlen(validjson); i<e; ++i){
       data = [NSData dataWithBytes:validjson+i length:1];
       status = [parser parse:data];
-      if(status == SBJsonParserError){
+      if(status == SBJson4ParserError){
          break;
       }
    }
-   STAssertEquals(status, SBJsonParserComplete, nil);
+   STAssertEquals(status, SBJson4ParserComplete, nil);
 }
 
 /*
@@ -87,7 +87,7 @@
  this data incrementally.
  */
 - (void)testMultipleDocuments {
-    id parser = [SBJsonParser multiRootParserWithBlock:block errorHandler:eh];
+    id parser = [SBJson4Parser multiRootParserWithBlock:block errorHandler:eh];
 
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     NSString *root = [[bundle resourcePath] stringByAppendingPathComponent:@"stream"];
@@ -103,13 +103,13 @@
 		NSData *data = [NSData dataWithContentsOfMappedFile:file];
 		STAssertNotNil(data, nil);
 	
-		STAssertEquals([parser parse:data], SBJsonParserWaitingForData, @"%@ - %@", file, error);
+		STAssertEquals([parser parse:data], SBJson4ParserWaitingForData, @"%@ - %@", file, error);
 	}
 	STAssertEquals(arrayCount, (NSUInteger)0, nil);
 	STAssertEquals(objectCount, (NSUInteger)98, nil);
 }
 
-- (void)parseArrayOfObjects:(SBJsonParser *)parser {
+- (void)parseArrayOfObjects:(SBJson4Parser *)parser {
 	[parser parse:[NSData dataWithBytes:"[" length:1]];
 	for (int i = 1;; i++) {
 		char *utf8 = "{\"foo\":[],\"bar\":[]}";
@@ -122,10 +122,10 @@
 }
 
 - (void)testSingleArray {
-    id parser = [SBJsonParser parserWithBlock:block
-                               allowMultiRoot:NO
-                              unwrapRootArray:NO
-                                 errorHandler:eh];
+    id parser = [SBJson4Parser parserWithBlock:block
+                                allowMultiRoot:NO
+                               unwrapRootArray:NO
+                                  errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
 	STAssertEquals(arrayCount, (NSUInteger)1, nil);
@@ -133,8 +133,8 @@
 }
 
 - (void)testSkipArray {
-    id parser = [SBJsonParser unwrapRootArrayParserWithBlock:block
-                                                errorHandler:eh];
+    id parser = [SBJson4Parser unwrapRootArrayParserWithBlock:block
+                                                 errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
 	STAssertEquals(arrayCount, (NSUInteger)0, nil);
@@ -144,20 +144,20 @@
 - (void)testStop {
     __block int count = 0;
     __block NSMutableArray *ary = [NSMutableArray array];
-    SBItemBlock block2 = ^(id obj, BOOL *stop) {
+    SBJson4ValueBlock block2 = ^(id obj, BOOL *stop) {
         [ary addObject:obj];
         *stop = ++count >= 23;
     };
 
-    id parser = [SBJsonParser unwrapRootArrayParserWithBlock:block2
-                                                errorHandler:eh];
+    id parser = [SBJson4Parser unwrapRootArrayParserWithBlock:block2
+                                                 errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
     STAssertEquals(ary.count, (NSUInteger)23, nil);
 }
 
 - (void)testWriteToStream {
-    SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] init];
+    SBJson4StreamWriter *streamWriter = [[SBJson4StreamWriter alloc] init];
 
     STAssertTrue([streamWriter writeArray:[NSArray array]], nil);
 

@@ -28,7 +28,7 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "SBJson.h"
+#import "SBJson4.h"
 
 #pragma mark Helper objects
 
@@ -68,7 +68,7 @@
 #pragma mark Tests
 
 @interface ProxyTest : SenTestCase {
-	SBJsonWriter * writer;
+	SBJson4Writer * writer;
 }
 @end
 
@@ -76,7 +76,7 @@
 @implementation ProxyTest
 
 - (void)setUp {
-    writer = [SBJsonWriter new];
+    writer = [SBJson4Writer new];
 }
 
 - (void)testUnsupportedWithoutProxy {

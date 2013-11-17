@@ -5,7 +5,7 @@
 //
 
 
-#import "SBJson.h"
+#import "SBJson4.h"
 
 static NSData *slurpd(NSString *path) {
     return [NSData dataWithContentsOfFile:path];
@@ -23,12 +23,12 @@ static NSString *chomp(NSString *str) {
 @end
 
 @implementation MainSuite {
-    SBJsonWriter *writer;
+    SBJson4Writer *writer;
     NSUInteger count;
 }
 
 - (void)setUp {
-    writer = [[SBJsonWriter alloc] init];
+    writer = [[SBJson4Writer alloc] init];
     count = 0u;
 }
 
@@ -55,17 +55,17 @@ static NSString *chomp(NSString *str) {
 
 - (void)testRoundtrip {
     [self inExtForeachInSuite:@"main" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
-        id parser = [SBJsonParser parserWithBlock:^(id value, BOOL *string) {
+        id parser = [SBJson4Parser parserWithBlock:^(id value, BOOL *string) {
             STAssertNotNil(value, nil);
             NSString *output = [writer stringWithObject:value];
             STAssertNotNil(output, writer.error);
             STAssertEqualObjects(output, chomp(slurp(outpath)), [[inpath pathComponents] lastObject]);
         }
-                                   allowMultiRoot:NO
-                                  unwrapRootArray:NO
-                                     errorHandler:^(NSError *error) {
-                                         STFail(@"%@", error);
-                                     }];
+                                    allowMultiRoot:NO
+                                   unwrapRootArray:NO
+                                      errorHandler:^(NSError *error) {
+                                          STFail(@"%@", error);
+                                      }];
         [parser parse:slurpd(inpath)];
     }];
 
@@ -88,7 +88,7 @@ static NSString *chomp(NSString *str) {
 
 - (void)testParseError {
     [self inExtForeachInSuite:@"main" inext:@"in" outExt:@"err" block:^(NSString *inpath, NSString *outpath) {
-        id parser = [[SBJsonParser alloc]
+        id parser = [[SBJson4Parser alloc]
                 initWithBlock:^(id o, BOOL *string) {
                     STFail(@"%@", o);
                 } processBlock:nil
@@ -137,16 +137,16 @@ static NSString *chomp(NSString *str) {
     writer.sortKeys = YES;
 
     [self inExtForeachInSuite:@"format" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
-        id parser = [SBJsonParser parserWithBlock:^(id value, BOOL *string) {
+        id parser = [SBJson4Parser parserWithBlock:^(id value, BOOL *string) {
             NSString *output = [writer stringWithObject:value];
             STAssertNotNil(output, writer.error);
             STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
         }
-                                   allowMultiRoot:NO
-                                  unwrapRootArray:NO
-                                     errorHandler:^(NSError *error) {
-                                         STFail(@"%@", error);
-                                     }];
+                                    allowMultiRoot:NO
+                                   unwrapRootArray:NO
+                                      errorHandler:^(NSError *error) {
+                                          STFail(@"%@", error);
+                                      }];
         [parser parse:slurpd(inpath)];
     }];
 
@@ -161,16 +161,16 @@ static NSString *chomp(NSString *str) {
 	};
 
     [self inExtForeachInSuite:@"comparatorsort" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
-        id parser = [SBJsonParser parserWithBlock:^(id value, BOOL *string) {
+        id parser = [SBJson4Parser parserWithBlock:^(id value, BOOL *string) {
             NSString *output = [writer stringWithObject:value];
             STAssertNotNil(output, writer.error);
             STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
         }
-                                   allowMultiRoot:NO
-                                  unwrapRootArray:NO
-                                     errorHandler:^(NSError *error) {
-                                         STFail(@"%@", error);
-                                     }];
+                                    allowMultiRoot:NO
+                                   unwrapRootArray:NO
+                                      errorHandler:^(NSError *error) {
+                                          STFail(@"%@", error);
+                                      }];
         [parser parse:slurpd(inpath)];
     }];
 

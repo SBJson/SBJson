@@ -15,8 +15,8 @@ SBJson's number one feature is chunk-based parsing. An example best sums it up:
         NSLog(@"OOPS: %@", err);
     }
 
-    id parser = [SBJsonParser multiRootParserWithBlock:block
-                                          errorHandler:eh];
+    id parser = [SBJson4Parser multiRootParserWithBlock:block
+                                           errorHandler:eh];
 
     // Note that this input contains multiple top-level JSON documents
     NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
@@ -33,8 +33,8 @@ Sometimes you just get a single mammoth array containing lots of smaller
 documents. In that case you can get the same effect by setting
 rootArrayItems to YES:
 
-    id parser = [SBJsonParser unwrapRootArrayParserWithBlock:block
-                                                errorHandler:eh];
+    id parser = [SBJson4Parser unwrapRootArrayParserWithBlock:block
+                                                 errorHandler:eh];
 
     // Note that this input contains A SINGLE top-level document
     NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
@@ -42,12 +42,6 @@ rootArrayItems to YES:
 
 This example prints the same output as the one above.
 
-Additional features:
-
-* Configurable recursion depth limit
-* Automatic Reference Counting (ARC)
-* Optionally sort dictionary keys in JSON output
-* Optional pretty-printing of JSON output
 
 Links
 =====

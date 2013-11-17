@@ -31,16 +31,16 @@
 #error "This source file must be compiled with ARC enabled!"
 #endif
 
-#import "SBJsonWriter.h"
-#import "SBJsonStreamWriter.h"
+#import "SBJson4Writer.h"
+#import "SBJson4StreamWriter.h"
 
 
-@interface SBJsonWriter () < SBJsonStreamWriterDelegate >
+@interface SBJson4Writer () < SBJson4StreamWriterDelegate >
 @property (nonatomic, copy) NSString *error;
 @property (nonatomic, strong) NSMutableData *acc;
 @end
 
-@implementation SBJsonWriter
+@implementation SBJson4Writer
 
 - (id)init {
     self = [super init];
@@ -63,7 +63,7 @@
 
     self.acc = [[NSMutableData alloc] initWithCapacity:8096u];
 
-    SBJsonStreamWriter *streamWriter = [[SBJsonStreamWriter alloc] init];
+    SBJson4StreamWriter *streamWriter = [[SBJson4StreamWriter alloc] init];
 	streamWriter.sortKeys = self.sortKeys;
 	streamWriter.maxDepth = self.maxDepth;
 	streamWriter.sortKeysComparator = self.sortKeysComparator;
@@ -91,9 +91,9 @@
 	return nil;
 }
 
-#pragma mark SBJsonStreamWriterDelegate
+#pragma mark SBJson4StreamWriterDelegate
 
-- (void)writer:(SBJsonStreamWriter *)writer appendBytes:(const void *)bytes length:(NSUInteger)length {
+- (void)writer:(SBJson4StreamWriter *)writer appendBytes:(const void *)bytes length:(NSUInteger)length {
     [self.acc appendBytes:bytes length:length];
 }
 

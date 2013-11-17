@@ -31,7 +31,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "SBJsonStreamParser.h"
+#import "SBJson4StreamParser.h"
 
 /**
  Block called when the parser has parsed an item. This could be once
@@ -40,13 +40,13 @@
  @param item contains the parsed item.
  @param stop set to YES if you want the parser to stop
  */
-typedef void (^SBItemBlock)(id item, BOOL* stop);
+typedef void (^SBJson4ValueBlock)(id item, BOOL* stop);
 
 /**
  Block called if an error occurs.
  @param error the error.
  */
-typedef void (^SBErrorHandlerBlock)(NSError* error);
+typedef void (^SBJson4ErrorBlock)(NSError* error);
 
 /**
  Block used to process parsed tokens as they are encountered. You can use this
@@ -54,7 +54,7 @@ typedef void (^SBErrorHandlerBlock)(NSError* error);
  @param item the parsed token
  @param path the JSON Path of the token
  */
-typedef id (^SBProcessBlock)(id item, NSString* path);
+typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
 
 
 /**
@@ -94,14 +94,14 @@ typedef id (^SBProcessBlock)(id item, NSString* path);
  contains multiple (whitespace limited) JSON documents your block will be called
  for each document:
 
-    SBItemBlock block = ^(id v, BOOL *stop) {
+    SBJson4ValueBlock block = ^(id v, BOOL *stop) {
         NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
     };
-    SBErrorHandlerBlock eh = ^(NSError* err) {
+    SBJson4ErrorBlock eh = ^(NSError* err) {
         NSLog(@"OOPS: %@", err);
      }
 
-     id parser = [SBJsonParser parserWithBlock:block
+     id parser = [SBJson4Parser parserWithBlock:block
                                  manyDocuments:YES
                                 rootArrayItems:NO
                                   errorHandler:eh];
@@ -121,7 +121,7 @@ typedef id (^SBProcessBlock)(id item, NSString* path);
  of this feature. But, all is not lost: if you are parsing a long array you can
  get the same effect by setting  rootArrayItems to YES:
 
-     id parser = [SBJsonParser parserWithBlock:block
+     id parser = [SBJson4Parser parserWithBlock:block
                                  manyDocuments:NO
                                 rootArrayItems:YES
                                   errorHandler:eh];
@@ -139,7 +139,7 @@ typedef id (^SBProcessBlock)(id item, NSString* path);
 
 
 */
-@interface SBJsonParser : NSObject
+@interface SBJson4Parser : NSObject
 
 /**
  Create a JSON Parser.
@@ -157,17 +157,17 @@ typedef id (^SBProcessBlock)(id item, NSString* path);
  @param eh Called if the parser encounters an error.
 
  */
-+ (id)parserWithBlock:(SBItemBlock)block
++ (id)parserWithBlock:(SBJson4ValueBlock)block
        allowMultiRoot:(BOOL)allowMultiRoot
       unwrapRootArray:(BOOL)unwrapRootArray
-         errorHandler:(SBErrorHandlerBlock)eh;
+         errorHandler:(SBJson4ErrorBlock)eh;
 
 
-+ (id)multiRootParserWithBlock:(SBItemBlock)block
-                  errorHandler:(SBErrorHandlerBlock)eh;
++ (id)multiRootParserWithBlock:(SBJson4ValueBlock)block
+                  errorHandler:(SBJson4ErrorBlock)eh;
 
-+ (id)unwrapRootArrayParserWithBlock:(SBItemBlock)block
-                        errorHandler:(SBErrorHandlerBlock)eh;
++ (id)unwrapRootArrayParserWithBlock:(SBJson4ValueBlock)block
+                        errorHandler:(SBJson4ErrorBlock)eh;
 
 /**
  Create a JSON Parser.
@@ -190,12 +190,12 @@ typedef id (^SBProcessBlock)(id item, NSString* path);
  @param eh Called if the parser encounters an error.
 
  */
-- (id)initWithBlock:(SBItemBlock)block
-       processBlock:(SBProcessBlock)processBlock
+- (id)initWithBlock:(SBJson4ValueBlock)block
+       processBlock:(SBJson4ProcessBlock)processBlock
       manyDocuments:(BOOL)manyDocs
      rootArrayItems:(BOOL)rootArrayItems
            maxDepth:(NSUInteger)maxDepth
-       errorHandler:(SBErrorHandlerBlock)eh;
+       errorHandler:(SBJson4ErrorBlock)eh;
 
 /**
  Parse some JSON
@@ -205,11 +205,11 @@ typedef id (^SBProcessBlock)(id item, NSString* path);
  @param data An NSData object containing the next chunk of JSON
 
  @return
- - SBJsonParserComplete if a full document was found
- - SBJsonParserWaitingForData if a partial document was found and more data is required to complete it
- - SBJsonParserError if an error occured.
+ - SBJson4ParserComplete if a full document was found
+ - SBJson4ParserWaitingForData if a partial document was found and more data is required to complete it
+ - SBJson4ParserError if an error occured.
 
  */
-- (SBJsonParserStatus)parse:(NSData*)data;
+- (SBJson4ParserStatus)parse:(NSData*)data;
 
 @end
