@@ -1,3 +1,17 @@
+4.0.0-alpha3 (November 17th, 2013)
+==================================
+
+Notable changes since 4.0.0-alpha2:
+
+* [`f7ef205`](https://github.com/stig/json-framework/commit/f7ef2055e7dbd0e6399f6d0e1f56b8c1666d1ba8) Add documentation for more convenience constructors
+* [`49bcff0`](https://github.com/stig/json-framework/commit/49bcff013f06f32662f295b5101c3623cd1bfaa9) Rename classes, constants & enums to add major version number (4)
+* [`fda671c`](https://github.com/stig/json-framework/commit/fda671c9b20e9e2e316585f0d592b9a787f9deaf) Remove old SBJsonParser and rename SBJsonChunkParser to SBJsonParser
+* [`c053beb`](https://github.com/stig/json-framework/commit/c053beb35378819b04e982a217149857d0ef9f52) Changed secondary init method to be a class method instead
+* [`faaa654`](https://github.com/stig/json-framework/commit/faaa65484b0db1e9d6f5e43132ec19637b50dbae) Remove parser as argument to all its delegate methods
+* [`e8a1444`](https://github.com/stig/json-framework/commit/e8a14447fb5892e2a67983c25a3da0ec91c0c1a4) Move max-depth error handling from stream parser to chunk-parser
+* [`4ef698e`](https://github.com/stig/json-framework/commit/4ef698ec25be25f45de03769c1b0d36327bcf30a) Make SBJsonChunkParser "immutable" by removing properties
+* [`d6342f6`](https://github.com/stig/json-framework/commit/d6342f687df42245a298d08bc2a459ce707ba57a) Use the ChunkParser in the DisplayPretty example
+
 4.0.0-alpha2 (November 13th, 2013)
 ==================================
 
