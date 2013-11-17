@@ -33,10 +33,28 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonStreamParser.h"
 
-typedef void (^SBItemBlock)(id, BOOL*);
-typedef void (^SBErrorHandlerBlock)(NSError*);
-typedef id (^SBProcessBlock)(id, NSString*);
+/**
+ Block called when the parser has parsed an item. This could be once
+ for each root document parsed, or once for each unwrapped root array element.
 
+ @param item contains the parsed item.
+ @param stop set to YES if you want the parser to stop
+ */
+typedef void (^SBItemBlock)(id item, BOOL* stop);
+
+/**
+ Block called if an error occurs.
+ @param error the error.
+ */
+typedef void (^SBErrorHandlerBlock)(NSError* error);
+
+/**
+ Block used to process parsed tokens as they are encountered. You can use this
+ to transform strings containing dates into NSDate, for example.
+ @param item the parsed token
+ @param path the JSON Path of the token
+ */
+typedef id (^SBProcessBlock)(id item, NSString* path);
 
 
 /**
