@@ -144,6 +144,9 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
 /**
  Create a JSON Parser.
 
+ This can be used to create a parser that accepts only one document, or one that parses
+ many documents any
+
  @param block Called for each element. Set *stop to `YES` if you have seen
  enough and would like to skip the rest of the elements.
 
@@ -156,6 +159,10 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
 
  @param eh Called if the parser encounters an error.
 
+ @see -unwrapRootArrayParserWithBlock:errorHandler:
+ @see -multiRootParserWithBlock:errorHandler:
+ @see -initWithBlock:processBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
+
  */
 + (id)parserWithBlock:(SBJson4ValueBlock)block
        allowMultiRoot:(BOOL)allowMultiRoot
@@ -163,9 +170,36 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
          errorHandler:(SBJson4ErrorBlock)eh;
 
 
+/**
+ Create a JSON Parser that parses multiple whitespace separated documents.
+ This is useful for something like twitter's feed, which gives you one JSON
+ document per line.
+
+ @param block Called for each element. Set *stop to `YES` if you have seen
+ enough and would like to skip the rest of the elements.
+
+ @param eh Called if the parser encounters an error.
+
+ @see +unwrapRootArrayParserWithBlock:errorHandler:
+ @see +parserWithBlock:allowMultiRoot:unwrapRootArray:errorHandler:
+ @see -initWithBlock:processBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
+ */
 + (id)multiRootParserWithBlock:(SBJson4ValueBlock)block
                   errorHandler:(SBJson4ErrorBlock)eh;
 
+/**
+ Create a JSON Parser that parses a huge array and calls for the value block for
+ each element in the outermost array.
+
+ @param block Called for each element. Set *stop to `YES` if you have seen
+ enough and would like to skip the rest of the elements.
+
+ @param eh Called if the parser encounters an error.
+
+ @see +multiRootParserWithBlock:errorHandler:
+ @see +parserWithBlock:allowMultiRoot:unwrapRootArray:errorHandler:
+ @see -initWithBlock:processBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
+ */
 + (id)unwrapRootArrayParserWithBlock:(SBJson4ValueBlock)block
                         errorHandler:(SBJson4ErrorBlock)eh;
 
@@ -178,10 +212,10 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  @param processBlock A block that allows you to process individual values before being
  returned.
 
- @param manyDocs Indicate that you are expecting multiple whitespace-separated
+ @param multiRoot Indicate that you are expecting multiple whitespace-separated
  JSON documents, similar to what Twitter uses.
 
- @param rootArrayItems If set the parser will pretend an root array does not exist
+ @param unwrapRootArray If set the parser will pretend an root array does not exist
  and the enumerator block will be called once for each item in it. This option
  does nothing if the the JSON has an object at its root.
 
@@ -192,8 +226,8 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  */
 - (id)initWithBlock:(SBJson4ValueBlock)block
        processBlock:(SBJson4ProcessBlock)processBlock
-      manyDocuments:(BOOL)manyDocs
-     rootArrayItems:(BOOL)rootArrayItems
+          multiRoot:(BOOL)multiRoot
+    unwrapRootArray:(BOOL)unwrapRootArray
            maxDepth:(NSUInteger)maxDepth
        errorHandler:(SBJson4ErrorBlock)eh;
 

@@ -73,11 +73,11 @@
         };
 
         SBJson4Parser *parser = [[SBJson4Parser alloc] initWithBlock:block
-                                                      processBlock:nil
-                                                     manyDocuments:NO
-                                                    rootArrayItems:NO
-                                                          maxDepth:19
-                                                      errorHandler:eh];
+                                                        processBlock:nil
+                                                           multiRoot:NO
+                                                     unwrapRootArray:NO
+                                                            maxDepth:19
+                                                        errorHandler:eh];
         SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 
         STAssertTrue(success && status == SBJson4ParserComplete, @"Success block was called & parsing complete");
@@ -97,11 +97,11 @@
         };
 
         SBJson4Parser *parser = [[SBJson4Parser alloc] initWithBlock:block
-                                                      processBlock:nil
-                                                     manyDocuments:NO
-                                                    rootArrayItems:NO
-                                                          maxDepth:19
-                                                      errorHandler:eh];
+                                                        processBlock:nil
+                                                           multiRoot:NO
+                                                     unwrapRootArray:NO
+                                                            maxDepth:19
+                                                        errorHandler:eh];
 
         SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 

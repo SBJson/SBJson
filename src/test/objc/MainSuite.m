@@ -92,12 +92,13 @@ static NSString *chomp(NSString *str) {
                 initWithBlock:^(id o, BOOL *string) {
                     STFail(@"%@", o);
                 } processBlock:nil
-                manyDocuments:NO
-               rootArrayItems:NO
+                    multiRoot:NO
+              unwrapRootArray:NO
                      maxDepth:3
                  errorHandler:^(NSError *error) {
                      STAssertNotNil(error, inpath);
-                     STAssertEqualObjects([error localizedDescription], chomp(slurp(outpath)), [[inpath pathComponents] lastObject]);
+                     STAssertEqualObjects([error localizedDescription], chomp(slurp(outpath)), [[inpath pathComponents]
+                             lastObject]);
                  }];
         [parser parse:slurpd(inpath)];
 

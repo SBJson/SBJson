@@ -124,7 +124,7 @@ typedef enum {
  */
 - (SBJson4ParserStatus)parse:(NSData*)data;
 
-/*
+/**
  Call this to cause parsing to stop.
  */
 - (void)stop;

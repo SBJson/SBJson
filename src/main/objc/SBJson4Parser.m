@@ -93,16 +93,16 @@ typedef enum {
 
     return [[self alloc] initWithBlock:block
                           processBlock:nil
-                         manyDocuments:allowMultiRoot
-                        rootArrayItems:unwrapRootArray
+                             multiRoot:allowMultiRoot
+                       unwrapRootArray:unwrapRootArray
                               maxDepth:32
                           errorHandler:eh];
 }
 
 - (id)initWithBlock:(SBJson4ValueBlock)block
        processBlock:(SBJson4ProcessBlock)initialProcessBlock
-      manyDocuments:(BOOL)manyDocs
-     rootArrayItems:(BOOL)rootArrayItems
+          multiRoot:(BOOL)multiRoot
+    unwrapRootArray:(BOOL)unwrapRootArray
            maxDepth:(NSUInteger)maxDepth
        errorHandler:(SBJson4ErrorBlock)eh {
 
@@ -111,8 +111,8 @@ typedef enum {
         _parser = [[SBJson4StreamParser alloc] init];
         _parser.delegate = self;
 
-        supportManyDocuments = manyDocs;
-        supportPartialDocuments =  rootArrayItems;
+        supportManyDocuments = multiRoot;
+        supportPartialDocuments = unwrapRootArray;
 
         valueBlock = block;
 		keyStack = [[NSMutableArray alloc] initWithCapacity:32];
