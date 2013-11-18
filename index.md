@@ -32,7 +32,7 @@ Other features:
 The source code is available on GitHub. You can:
 
 * [Browse the source](http://github.com/stig/json-framework).
-* [Download a tagged release](https://github.com/stig/json-framework/tags). (ZIP or TAR archives.)
+* [Download a tagged release](https://github.com/stig/json-framework/releases).
 * Fork it: <pre>
 $ git clone git://github.com/stig/json-framework
 </pre>
