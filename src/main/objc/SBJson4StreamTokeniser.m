@@ -39,7 +39,7 @@
 
     }
     else {
-       [data appendData:data_];       
+       [data appendData:data_];
     }
 
     bytes = [data bytes];
