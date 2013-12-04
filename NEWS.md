@@ -1,3 +1,10 @@
+4.0.0-rc1 (December 4th, 2013)
+==============================
+
+Notable changes since alpha3:
+
+* [`b7bf069`](https://github.com/stig/json-framework/commit/b7bf069e9ddc8eec4feab51fc6c6e5ead367a5ae) Add newline at end of file. Fixes #188.
+
 4.0.0-alpha3 (November 17th, 2013)
 ==================================
 
