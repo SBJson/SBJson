@@ -101,10 +101,8 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
         NSLog(@"OOPS: %@", err);
      }
 
-     id parser = [SBJson4Parser parserWithBlock:block
-                                 manyDocuments:YES
-                                rootArrayItems:NO
-                                  errorHandler:eh];
+     id parser = [SBJson4Parser multiRootParserWithBlock:block
+                                            errorHandler:eh];
 
      // Note that this input contains multiple top-level JSON documents
      NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
@@ -121,10 +119,8 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  of this feature. But, all is not lost: if you are parsing a long array you can
  get the same effect by setting  rootArrayItems to YES:
 
-     id parser = [SBJson4Parser parserWithBlock:block
-                                 manyDocuments:NO
-                                rootArrayItems:YES
-                                  errorHandler:eh];
+     id parser = [SBJson4Parser unwrapRootArrayParserWithBlock:block
+                                                  errorHandler:eh];
 
      // Note that this input contains A SINGLE top-level document
      NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
