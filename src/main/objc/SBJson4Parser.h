@@ -95,36 +95,39 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  for each document:
 
     SBJson4ValueBlock block = ^(id v, BOOL *stop) {
-        NSLog(@"Found: %@", @([v isKindOfClass:[NSArray class]]));
-    };
+        BOOL isArray = [v isKindOfClass:[NSArray class]];
+        NSLog(@"Found: %@", isArray ? @"Array" : @"Object");
+    }
+
     SBJson4ErrorBlock eh = ^(NSError* err) {
         NSLog(@"OOPS: %@", err);
-     }
+    }
 
-     id parser = [SBJson4Parser multiRootParserWithBlock:block
-                                            errorHandler:eh];
+    id parser = [SBJson4Parser multiRootParserWithBlock:block
+                                           errorHandler:eh];
 
-     // Note that this input contains multiple top-level JSON documents
-     NSData *json = [@"[]{}[]{}" dataWithEncoding:NSUTF8StringEncoding];
-     [parser parse:data];
+    // Note that this input contains multiple top-level JSON documents
+    id data = [@"[]{}" dataWithEncoding:NSUTF8StringEncoding];
+    [parser parse:data];
+    [parser parse:data];
 
  The above example will print:
 
- - Found: YES
- - Found: NO
- - Found: YES
- - Found: NO
+ - Found: Array
+ - Found: Object
+ - Found: Array
+ - Found: Object
 
  Often you won't have control over the input you're parsing, so can't make use
  of this feature. But, all is not lost: if you are parsing a long array you can
  get the same effect by setting  rootArrayItems to YES:
 
-     id parser = [SBJson4Parser unwrapRootArrayParserWithBlock:block
-                                                  errorHandler:eh];
+    id parser = [SBJson4Parser unwrapRootArrayParserWithBlock:block
+                                                 errorHandler:eh];
 
-     // Note that this input contains A SINGLE top-level document
-     NSData *json = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
-     [parser parse:data];
+    // Note that this input contains A SINGLE top-level document
+    id data = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
+    [parser parse:data];
 
  @note Stream based parsing does mean that you lose some of the correctness
  verification you would have with a parser that considered the entire input
