@@ -1,18 +1,18 @@
 <?xml version="1.0" standalone="no"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:docset="http://developer.apple.com/rss/docset_extensions" xml:lang="en">
-    <id>http://sbjson.org/api/SBJson.atom/20140103231213</id>
+    <id>http://sbjson.org/api/SBJson.atom/20140108005503</id>
     <title type="text">SBJson Documentation</title>
     <rights>Copyright © 2014 Stig Brautaset. All rights reserved.</rights>
     <link rel="self" href="http://sbjson.org/api/SBJson.atom"></link>
     <docset:publisherName>Stig Brautaset</docset:publisherName>
     <docset:publisherID>org.brautaset.documentation</docset:publisherID>
-    <updated>2014-01-03T23:12:13+00:00</updated>
+    <updated>2014-01-08T00:55:03+00:00</updated>
     <entry>
-        <id>tag:sbjson.org,2014-01-03:org.brautaset.SBJson/4.0.0</id>
+        <id>tag:sbjson.org,2014-01-08:org.brautaset.SBJson/4.0.0</id>
         <title type="text">SBJson Documentation</title>
-        <updated>2014-01-03T23:12:13+00:00</updated>
+        <updated>2014-01-08T00:55:03+00:00</updated>
         <content type="text">SBJson Documentation (v4.0.0)</content>
-        <link rel="enclosure" type="application/octet-stream" href="http://sbjson.org/api/org.brautaset.SBJson-4.0.xar" length="107081"></link>
+        <link rel="enclosure" type="application/octet-stream" href="http://sbjson.org/api/org.brautaset.SBJson-4.0.xar" length="108226"></link>
         <docset:identifier>org.brautaset.SBJson</docset:identifier>
         <docset:version>4.0.0</docset:version>
         <docset:minimumXcodeVersion>3.0.0</docset:minimumXcodeVersion>
