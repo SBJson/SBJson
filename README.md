@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/stig/json-framework.png?branch=master)](https://travis-ci.org/stig/json-framework)
+
 JSON (JavaScript Object Notation) is a light-weight data interchange
 format that's easy to read and write for humans and computers alike.
 This library implements chunk-based JSON parsing and generation in
