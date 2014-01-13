@@ -1,0 +1,4 @@
+language: objective-c
+xcode_project: SBJson.xcodeproj
+xcode_sdk: iphonesimulator
+xcode_scheme: 'SBJsonIOS Tests'
