@@ -36,11 +36,12 @@
 @interface StreamSuite : SenTestCase
 @end
 
+static NSUInteger arrayCount, objectCount;
+static NSError *error;
+
 @implementation StreamSuite {
     SBJson4ValueBlock block;
     SBJson4ErrorBlock eh;
-	NSUInteger arrayCount, objectCount;
-    NSError *error;
 }
 
 - (void)setUp {
