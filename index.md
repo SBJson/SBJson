@@ -3,10 +3,6 @@ title: SBJson for Objective-C
 layout: default
 ---
 
-JSON (JavaScript Object Notation) is a light-weight data interchange format
-that's easy to read and write for humans and computers. This library implements
-chunk-based JSON parsing and generation in Objective-C.
-
 SBJson's number one feature is chunk-based operation. Feed the parser one or
 more chunks of UTF8-encoded data and it will call a block you provide with each
 root-level document or array. Or, optionally, for each top-level entry in each
@@ -20,7 +16,13 @@ Other features:
 * The writer can optionally sort dictionary keys so output is consistent across writes.
 * The writer can optionally create human-readable (indented) output.
 
-# Installation
+API Documentation
+=================
+
+Please see the [API Documentation](http://cocoadocs.org/docsets/SBJson) for more details.
+
+Installation
+============
 
 The preferred way to use SBJson is by using
 [CocoaPods](http://cocoapods.org/?q=sbjson). In your Podfile use:
@@ -36,29 +38,16 @@ transition---you can instead use:
 An alternative that I no longer recommend is to copy all the source files (the
 contents of the `src/main/objc` folder) into your own Xcode project.
 
-# API Documentation
-
-Please see [SBJson on CocoaDocs](http://cocoadocs.org/docsets/SBJson/).
-
-# Source
-
-The source code is available on GitHub. You can:
-
-* [Browse the source](http://github.com/stig/json-framework).
-* [Download a tagged release](https://github.com/stig/json-framework/releases).
-* Fork it:<br/>
-`$ git clone git://github.com/stig/json-framework`
-
-# Support
+Support
+=======
 
 * Check [StackOverflow questions tagged with SBJson](http://stackoverflow.com/questions/tagged/sbjson) if you have questions about how to use the library. I eventually read all questions with this tag.
 * Use the [issue tracker](http://github.com/stig/json-framework/issues) if you have found a bug.
 
-Please *do not* use my personal email address for support requests.
+License
+=======
 
-# License
-
-Copyright (C) 2007-2013 Stig Brautaset. All rights reserved.
+Copyright (C) 2007-2014 Stig Brautaset. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
