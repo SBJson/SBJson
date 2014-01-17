@@ -11,7 +11,7 @@ SBJson's number one feature is chunk-based operation. Feed the parser one or
 more chunks of UTF8-encoded data and it will call a block you provide with each
 root-level document or array. Or, optionally, for each top-level entry in each
 root-level array. See more in the [Version 4 API
-docs](http://sbjson.org/api/4.0/Classes/SBJson4Parser.html).
+docs](http://cocoadocs.org/docsets/SBJson/4.0.0/Classes/SBJson4Parser.html).
 
 Other features:
 
@@ -20,12 +20,25 @@ Other features:
 * The writer can optionally sort dictionary keys so output is consistent across writes.
 * The writer can optionally create human-readable (indented) output.
 
+# Installation
+
+The preferred way to use SBJson is by using
+[CocoaPods](http://cocoapods.org/?q=sbjson). In your Podfile use:
+
+    pod 'SBJson', '~> 4.0.0'
+
+If you depend on a third-party library that requires an earlier version of
+SBJson---or want to install both version 3 and 4 in the same app to do a gradual
+transition---you can instead use:
+
+    pod 'SBJson4', '~> 4.0.0'
+
+An alternative that I no longer recommend is to copy all the source files (the
+contents of the `src/main/objc` folder) into your own Xcode project.
+
 # API Documentation
 
-* [Version 4.0.0](api/4.0/) (Stable)
-* [Version 3.2](api/3.2/) (Old Stable)
-* [Version 3.1](api/3.1/) (Legacy *Please upgrade if you use this!*)
-* [Version 3.0](api/3.0/) (Legacy *Please upgrade if you use this!*)
+Please see [SBJson on CocoaDocs](http://cocoadocs.org/docsets/SBJson/).
 
 # Source
 
