@@ -32,33 +32,22 @@ Links
 Installation
 ============
 
-The simplest way to start using JSON in your application is to copy all
-the source files (the contents of the `src/main/objc` folder) into your own
-Xcode project.
+The preferred way to use SBJson is by using
+[CocoaPods](http://cocoapods.org/?q=sbjson). *Note that there are 2 specs for
+version 4.* In your Podfile use:
 
-1. In the Finder, navigate into the `src/main/objc` folder.
-2. Select all the files and drag-and-drop them into your Xcode project.
-3. Tick the **Copy items into destination group's folder** option.
-4. Use `#import "SBJson.h"` in  your source files.
+    pod 'SBJson', '~> 4.0.0'
+
+If you depend on a third-party library that requires an earlier version of
+SBJson, or want to install both version 3 and 4 in the same app to do a gradual
+transition you can instead use:
+
+    pod 'SBJson4', '~> 4.0.0'
+
+An alternative (that I no longer recommend) is to copy all the source files (the
+contents of the `src/main/objc` folder) into your own Xcode project.
 
 That should be it. Now create that Twitter client!
-
-*If you're upgrading from a previous version, make sure you're deleting the
-old SBJson classes first, moving all the files to Trash.*
-
-
-Alternative Installation Instructions
-=====================================
-
-* With Xcode 4's workspaces it has become much simpler to link to dependant
-projects. The examples in the distribution link to the iOS library and Mac
-framework, respectively. Des Hartman wrote [a blog post with step-by-step
-instructions for iOS][link-ios]. This is the recommended way if you need to
-make local changes to SBJson.
-* You can also install SBJson using [CocoaPods](http://cocoapods.org).
-
-[link-ios]: http://deshartman.wordpress.com/2011/09/02/configuring-sbjson-framework-for-xcode-4-2/
-
 
 License
 =======
