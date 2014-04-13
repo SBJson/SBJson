@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BCC2627213920FC7003D9994"
-               BuildableName = "sbjson-iosTests.octest"
+               BuildableName = "sbjson-iosTests.xctest"
                BlueprintName = "sbjson-iosTests"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>

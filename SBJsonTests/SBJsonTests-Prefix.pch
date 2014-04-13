@@ -3,6 +3,6 @@
 //
 
 #ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-    #import <SenTestingKit/SenTestingKit.h>
+    #import <Foundation/Foundation.h>
+    #import <XCTest/XCTest.h>
 #endif

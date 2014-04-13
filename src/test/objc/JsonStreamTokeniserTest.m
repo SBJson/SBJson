@@ -14,7 +14,7 @@ static NSString *str(char *b, NSUInteger l) {
     return [[NSString alloc] initWithBytes:b length:l encoding:NSUTF8StringEncoding];
 }
 
-@interface JsonStreamTokeniserTest : SenTestCase
+@interface JsonStreamTokeniserTest : XCTestCase
 @end
 
 @implementation JsonStreamTokeniserTest {
@@ -30,57 +30,57 @@ static NSString *str(char *b, NSUInteger l) {
 - (void)testBasics {
     [tokeniser appendData:data(@"[true,false,null]")];
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_array_open, tokeniser.error);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_array_open, @"%@", tokeniser.error);
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_bool, tokeniser.error);
-    STAssertTrue(!strncmp(bytes, "true", 4), nil);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_bool, @"%@", tokeniser.error);
+    XCTAssertTrue(!strncmp(bytes, "true", 4));
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_value_sep, tokeniser.error);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_value_sep, @"%@", tokeniser.error);
+    
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_bool, @"%@", tokeniser.error);
+    XCTAssertTrue(!strncmp(bytes, "false", 5));
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_bool, tokeniser.error);
-    STAssertTrue(!strncmp(bytes, "false", 5), nil);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_value_sep, @"%@", tokeniser.error);
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_value_sep, tokeniser.error);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_null, @"%@", tokeniser.error);
+    XCTAssertTrue(!strncmp(bytes, "null", 4));
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_null, tokeniser.error);
-    STAssertTrue(!strncmp(bytes, "null", 4), nil);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_array_close, @"%@", tokeniser.error);
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_array_close, tokeniser.error);
-
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_eof, tokeniser.error);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_eof, @"%@", tokeniser.error);
 }
 
 - (void)testNumber {
     [tokeniser appendData:data(@"123 45.6 7.8e9 ")];
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_integer, tokeniser.error);
-    STAssertEqualObjects(str(bytes, length), @"123", nil);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_integer, @"%@", tokeniser.error);
+    XCTAssertEqualObjects(str(bytes, length), @"123");
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_real, tokeniser.error);
-    STAssertEqualObjects(str(bytes, length), @"45.6", nil);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_real, @"%@", tokeniser.error);
+    XCTAssertEqualObjects(str(bytes, length), @"45.6");
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_real, tokeniser.error);
-    STAssertEqualObjects(str(bytes, length), @"7.8e9", nil);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_real, @"%@", tokeniser.error);
+    XCTAssertEqualObjects(str(bytes, length), @"7.8e9");
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_eof, tokeniser.error);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_eof, @"%@", tokeniser.error);
 }
 
 - (void)testString {
     [tokeniser appendData:data(@"\"foo\" \"bar\"")];
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_string, tokeniser.error);
-    STAssertEqualObjects(str(bytes, length), @"foo", nil);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_string, @"%@", tokeniser.error);
+    XCTAssertEqualObjects(str(bytes, length), @"foo");
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_string, tokeniser.error);
-    STAssertEqualObjects(str(bytes, length), @"bar", nil);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_string, @"%@", tokeniser.error);
+    XCTAssertEqualObjects(str(bytes, length), @"bar");
 }
 
 - (void)testEncoded {
     [tokeniser appendData:data(@"\"\\u1234\\u5678\" \"\\n\\r\\b\\t\\f\"")];
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_encoded, tokeniser.error);
-    STAssertEqualObjects(str(bytes, length), @"\\u1234\\u5678", nil);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_encoded, @"%@", tokeniser.error);
+    XCTAssertEqualObjects(str(bytes, length), @"\\u1234\\u5678");
 
-    STAssertEquals([tokeniser getToken:&bytes length:&length], sbjson4_token_encoded, tokeniser.error);
-    STAssertEqualObjects(str(bytes, length), @"\\n\\r\\b\\t\\f", nil);
+    XCTAssertEqual([tokeniser getToken:&bytes length:&length], sbjson4_token_encoded, @"%@", tokeniser.error);
+    XCTAssertEqualObjects(str(bytes, length), @"\\n\\r\\b\\t\\f");
 
 }
 

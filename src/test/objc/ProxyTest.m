@@ -27,7 +27,6 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
 #import "SBJson4.h"
 
 #pragma mark Helper objects
@@ -67,7 +66,7 @@
 
 #pragma mark Tests
 
-@interface ProxyTest : SenTestCase {
+@interface ProxyTest : XCTestCase {
 	SBJson4Writer * writer;
 }
 @end
@@ -80,28 +79,28 @@
 }
 
 - (void)testUnsupportedWithoutProxy {
-    STAssertNil([writer stringWithObject:[NSArray arrayWithObject:[NSObject new]]], nil);
-	STAssertEqualObjects(writer.error, @"JSON serialisation not supported for NSObject", nil);
+    XCTAssertNil([writer stringWithObject:[NSArray arrayWithObject:[NSObject new]]]);
+	XCTAssertEqualObjects(writer.error, @"JSON serialisation not supported for NSObject");
 }
 
 - (void)testUnsupportedWithProxy {
-    STAssertEqualObjects([writer stringWithObject:[NSArray arrayWithObject:[True new]]], @"[true]", nil);
+    XCTAssertEqualObjects([writer stringWithObject:[NSArray arrayWithObject:[True new]]], @"[true]");
 }
 
 - (void)testUnsupportedWithProxyWithoutWrapper {
-    STAssertNil([writer stringWithObject:[True new]], nil);
+    XCTAssertNil([writer stringWithObject:[True new]]);
 }
 
 - (void)testUnsupportedWithNestedProxy {
-    STAssertEqualObjects([writer stringWithObject:[NSArray arrayWithObject:[Bool new]]], @"[[true,false]]", nil);
+    XCTAssertEqualObjects([writer stringWithObject:[NSArray arrayWithObject:[Bool new]]], @"[[true,false]]");
 }
 
 - (void)testUnsupportedWithProxyAsCategory {
-    STAssertNotNil([writer stringWithObject:[NSArray arrayWithObject:[NSDate date]]], nil);
+    XCTAssertNotNil([writer stringWithObject:[NSArray arrayWithObject:[NSDate date]]]);
 }
 
 - (void)testUnsupportedWithProxyAsCategoryWithoutWrapper {
-    STAssertNotNil([writer stringWithObject:[NSDate date]], nil);
+    XCTAssertNotNil([writer stringWithObject:[NSDate date]]);
 }
 
 

@@ -33,9 +33,9 @@
 #import "SBJson4.h"
 
 #define SBAssertStringContains(e, s) \
-STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
+XCTAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
 
-@interface ErrorTest : SenTestCase
+@interface ErrorTest : XCTestCase
 @end
 
 @implementation ErrorTest {
@@ -55,8 +55,8 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
     
     for (id key in keys) {
         NSDictionary *object = [NSDictionary dictionaryWithObject:@"1" forKey:key];
-        STAssertEqualObjects([writer stringWithObject:object], nil, nil);
-        STAssertNotNil(writer.error, nil);
+        XCTAssertEqualObjects([writer stringWithObject:object], nil);
+        XCTAssertNotNil(writer.error);
     }
 }
 
@@ -65,25 +65,25 @@ STAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
     for (NSUInteger i = 0; i < [fragments count]; i++) {
         NSString *fragment = [fragments objectAtIndex:i];
 
-        STAssertNil([writer stringWithObject:fragment], @"%@", fragment);
+        XCTAssertNil([writer stringWithObject:fragment], @"%@", fragment);
         SBAssertStringContains(writer.error, @"Not valid type for JSON");
     }
 }
 
 - (void)testParseNil {
     id parser = [SBJson4Parser parserWithBlock:^(id o, BOOL *string) {
-        STFail(@"");
+        XCTFail(@"");
     }
                                 allowMultiRoot:NO
                                unwrapRootArray:NO
                                   errorHandler:^(NSError *error) {
-                                      STAssertEqualObjects(error, @"Input was 'nil'", nil);
+                                      XCTAssertEqualObjects(error, @"Input was 'nil'");
                                   }];
     [parser parse:nil];
 }
 
 - (void)testWriteNil {
-    STAssertNil([writer stringWithObject:nil], nil);
+    XCTAssertNil([writer stringWithObject:nil]);
     SBAssertStringContains(writer.error, @"Not valid type for JSON");
 
 }

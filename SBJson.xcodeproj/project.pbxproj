@@ -46,6 +46,8 @@
 		BCC2629313921035003D9994 /* SBJson4StreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851331391D6CD00370E55 /* SBJson4StreamWriter.m */; };
 		BCC2629513921035003D9994 /* SBJson4StreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851371391D6CD00370E55 /* SBJson4StreamWriterState.m */; };
 		BCC2629713921035003D9994 /* SBJson4Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88513B1391D6CD00370E55 /* SBJson4Writer.m */; };
+		D762B23918FB3DA700470E1A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D762B23818FB3DA700470E1A /* XCTest.framework */; };
+		D762B23A18FB3DAF00470E1A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D762B23818FB3DA700470E1A /* XCTest.framework */; };
 		D7F64E60169262AE009DF12E /* jsonchecker in Resources */ = {isa = PBXBuildFile; fileRef = D7F64E5F169262AE009DF12E /* jsonchecker */; };
 		D7F64E61169262AE009DF12E /* jsonchecker in Resources */ = {isa = PBXBuildFile; fileRef = D7F64E5F169262AE009DF12E /* jsonchecker */; };
 		D7F64E661692697D009DF12E /* stream in Resources */ = {isa = PBXBuildFile; fileRef = D7F64E651692697D009DF12E /* stream */; };
@@ -90,7 +92,7 @@
 		BC1232481391D5CC00131607 /* SBJson-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SBJson-Info.plist"; sourceTree = "<group>"; };
 		BC12324A1391D5CC00131607 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BC12324C1391D5CC00131607 /* SBJson-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBJson-Prefix.pch"; sourceTree = "<group>"; };
-		BC1232521391D5CC00131607 /* SBJsonTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBJsonTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC1232521391D5CC00131607 /* SBJsonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBJsonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1232591391D5CC00131607 /* SBJsonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SBJsonTests-Info.plist"; sourceTree = "<group>"; };
 		BC12325B1391D5CC00131607 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BC12325D1391D5CC00131607 /* SBJsonTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBJsonTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -113,10 +115,11 @@
 		BC8852971391D6DE00370E55 /* StreamSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamSuite.m; sourceTree = "<group>"; };
 		BCC2626913920FC7003D9994 /* libsbjson-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libsbjson-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC2626D13920FC7003D9994 /* sbjson-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sbjson-ios-Prefix.pch"; sourceTree = "<group>"; };
-		BCC2627313920FC7003D9994 /* sbjson-iosTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "sbjson-iosTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCC2627313920FC7003D9994 /* sbjson-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "sbjson-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC2627E13920FC7003D9994 /* sbjson-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sbjson-iosTests-Info.plist"; sourceTree = "<group>"; };
 		BCC2628013920FC7003D9994 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCC2628213920FC7003D9994 /* sbjson-iosTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sbjson-iosTests-Prefix.pch"; sourceTree = "<group>"; };
+		D762B23818FB3DA700470E1A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D7F64E5F169262AE009DF12E /* jsonchecker */ = {isa = PBXFileReference; lastKnownFileType = folder; path = jsonchecker; sourceTree = "<group>"; };
 		D7F64E651692697D009DF12E /* stream */ = {isa = PBXFileReference; lastKnownFileType = folder; path = stream; sourceTree = "<group>"; };
 		D7F64E7C1692D24D009DF12E /* main */ = {isa = PBXFileReference; lastKnownFileType = folder; path = main; sourceTree = "<group>"; };
@@ -141,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D762B23A18FB3DAF00470E1A /* XCTest.framework in Frameworks */,
 				BC1232561391D5CC00131607 /* SBJson.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D762B23918FB3DA700470E1A /* XCTest.framework in Frameworks */,
 				BCC2627B13920FC7003D9994 /* libsbjson-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,6 +171,7 @@
 		BC1232311391D5CC00131607 = {
 			isa = PBXGroup;
 			children = (
+				D762B23818FB3DA700470E1A /* XCTest.framework */,
 				D7F64E201692549E009DF12E /* src */,
 				BC1232461391D5CC00131607 /* SBJson */,
 				BC1232571391D5CC00131607 /* SBJsonTests */,
@@ -179,9 +185,9 @@
 			isa = PBXGroup;
 			children = (
 				BC12323D1391D5CC00131607 /* SBJson.framework */,
-				BC1232521391D5CC00131607 /* SBJsonTests.octest */,
+				BC1232521391D5CC00131607 /* SBJsonTests.xctest */,
 				BCC2626913920FC7003D9994 /* libsbjson-ios.a */,
-				BCC2627313920FC7003D9994 /* sbjson-iosTests.octest */,
+				BCC2627313920FC7003D9994 /* sbjson-iosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -391,7 +397,6 @@
 				BC12324D1391D5CC00131607 /* Sources */,
 				BC12324E1391D5CC00131607 /* Frameworks */,
 				BC12324F1391D5CC00131607 /* Resources */,
-				BC1232501391D5CC00131607 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -400,8 +405,8 @@
 			);
 			name = SBJsonTests;
 			productName = SBJsonTests;
-			productReference = BC1232521391D5CC00131607 /* SBJsonTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = BC1232521391D5CC00131607 /* SBJsonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		BCC2626813920FC7003D9994 /* sbjson-ios */ = {
 			isa = PBXNativeTarget;
@@ -427,7 +432,6 @@
 				BCC2626E13920FC7003D9994 /* Sources */,
 				BCC2626F13920FC7003D9994 /* Frameworks */,
 				BCC2627013920FC7003D9994 /* Resources */,
-				BCC2627113920FC7003D9994 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -436,8 +440,8 @@
 			);
 			name = "sbjson-iosTests";
 			productName = "sbjson-iosTests";
-			productReference = BCC2627313920FC7003D9994 /* sbjson-iosTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = BCC2627313920FC7003D9994 /* sbjson-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -506,35 +510,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		BC1232501391D5CC00131607 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		BCC2627113920FC7003D9994 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BC1232381391D5CC00131607 /* Sources */ = {
@@ -709,14 +684,13 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				GCC_PREFIX_HEADER = "SBJsonTests/SBJsonTests-Prefix.pch";
 				INFOPLIST_FILE = "SBJsonTests/SBJsonTests-Info.plist";
-				OTHER_LDFLAGS = (
-					"-framework",
-					SenTestingKit,
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -726,14 +700,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				GCC_PREFIX_HEADER = "SBJsonTests/SBJsonTests-Prefix.pch";
 				INFOPLIST_FILE = "SBJsonTests/SBJsonTests-Info.plist";
-				OTHER_LDFLAGS = (
-					"-framework",
-					SenTestingKit,
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -774,19 +747,15 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PREFIX_HEADER = "sbjson-iosTests/sbjson-iosTests-Prefix.pch";
 				INFOPLIST_FILE = "sbjson-iosTests/sbjson-iosTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SenTestingKit,
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -795,19 +764,15 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PREFIX_HEADER = "sbjson-iosTests/sbjson-iosTests-Prefix.pch";
 				INFOPLIST_FILE = "sbjson-iosTests/sbjson-iosTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SenTestingKit,
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
