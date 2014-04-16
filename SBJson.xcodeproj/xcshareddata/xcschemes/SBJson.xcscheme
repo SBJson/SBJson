@@ -20,6 +20,20 @@
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BC1232511391D5CC00131607"
+               BuildableName = "SBJsonTests.xctest"
+               BlueprintName = "SBJsonTests"
+               ReferencedContainer = "container:SBJson.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
