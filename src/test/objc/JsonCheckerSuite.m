@@ -33,7 +33,7 @@
 
 #import "SBJson4.h"
 
-@interface JsonCheckerSuite : SenTestCase
+@interface JsonCheckerSuite : XCTestCase
 @end
 
 @implementation JsonCheckerSuite {
@@ -62,13 +62,13 @@
 
 - (void)testPass {
     SBJson4ErrorBlock eh = ^(NSError *err) {
-        STFail(@"%@", err);
+        XCTFail(@"%@", err);
     };
 
     [self foreachFilePrefixedBy:@"pass" apply:^(NSString* path) {
         __block BOOL success = NO;
         SBJson4ValueBlock block = ^(id obj, BOOL *stop) {
-            STAssertNotNil(obj, path);
+            XCTAssertNotNil(obj, @"%@", path);
             success = YES;
         };
 
@@ -80,10 +80,10 @@
                                                         errorHandler:eh];
         SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 
-        STAssertTrue(success && status == SBJson4ParserComplete, @"Success block was called & parsing complete");
+        XCTAssertTrue(success && status == SBJson4ParserComplete, @"Success block was called & parsing complete");
 
     }];
-    STAssertEquals(count, (NSUInteger)3, nil);
+    XCTAssertEqual(count, (NSUInteger)3);
 }
 
 - (void)testFail {
@@ -92,7 +92,7 @@
 
         __block BOOL success = NO;
         SBJson4ErrorBlock eh = ^(NSError *err) {
-            STAssertNotNil(err, path);
+            XCTAssertNotNil(err, @"%@", path);
             success = YES;
         };
 
@@ -106,10 +106,10 @@
         SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 
         if (status != SBJson4ParserWaitingForData)
-            STAssertTrue(success, @"ErrorHandler block was called: %@", [path lastPathComponent]);
+            XCTAssertTrue(success, @"ErrorHandler block was called: %@", [path lastPathComponent]);
     }];
 
-    STAssertEquals(count, (NSUInteger)33, nil);
+    XCTAssertEqual(count, (NSUInteger)33);
 }
 
 @end

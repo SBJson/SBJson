@@ -33,7 +33,7 @@
 
 #import "SBJson4.h"
 
-@interface StreamSuite : SenTestCase
+@interface StreamSuite : XCTestCase
 @end
 
 static NSUInteger arrayCount, objectCount;
@@ -78,7 +78,7 @@ static NSError *error;
          break;
       }
    }
-   STAssertEquals(status, SBJson4ParserComplete, nil);
+   XCTAssertEqual(status, SBJson4ParserComplete);
 }
 
 /*
@@ -102,12 +102,12 @@ static NSError *error;
             continue;
 
 		NSData *data = [NSData dataWithContentsOfMappedFile:file];
-		STAssertNotNil(data, nil);
+		XCTAssertNotNil(data);
 	
-		STAssertEquals([parser parse:data], SBJson4ParserWaitingForData, @"%@ - %@", file, error);
+		XCTAssertEqual([parser parse:data], SBJson4ParserWaitingForData, @"%@ - %@", file, error);
 	}
-	STAssertEquals(arrayCount, (NSUInteger)0, nil);
-	STAssertEquals(objectCount, (NSUInteger)98, nil);
+	XCTAssertEqual(arrayCount, (NSUInteger)0);
+	XCTAssertEqual(objectCount, (NSUInteger)98);
 }
 
 - (void)parseArrayOfObjects:(SBJson4Parser *)parser {
@@ -129,8 +129,8 @@ static NSError *error;
                                   errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
-	STAssertEquals(arrayCount, (NSUInteger)1, nil);
-	STAssertEquals(objectCount, (NSUInteger)0, nil);
+	XCTAssertEqual(arrayCount, (NSUInteger)1);
+	XCTAssertEqual(objectCount, (NSUInteger)0);
 }
 
 - (void)testSkipArray {
@@ -138,8 +138,8 @@ static NSError *error;
                                                  errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
-	STAssertEquals(arrayCount, (NSUInteger)0, nil);
-	STAssertEquals(objectCount, (NSUInteger)100, nil);	
+	XCTAssertEqual(arrayCount, (NSUInteger)0);
+	XCTAssertEqual(objectCount, (NSUInteger)100);	
 }
 
 - (void)testStop {
@@ -154,16 +154,16 @@ static NSError *error;
                                                  errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
-    STAssertEquals(ary.count, (NSUInteger)23, nil);
+    XCTAssertEqual(ary.count, (NSUInteger)23);
 }
 
 - (void)testWriteToStream {
     SBJson4StreamWriter *streamWriter = [[SBJson4StreamWriter alloc] init];
 
-    STAssertTrue([streamWriter writeArray:[NSArray array]], nil);
+    XCTAssertTrue([streamWriter writeArray:[NSArray array]]);
 
-    STAssertFalse([streamWriter writeArray:[NSArray array]], nil);
-    STAssertEqualObjects(streamWriter.error, @"Stream is closed", nil);
+    XCTAssertFalse([streamWriter writeArray:[NSArray array]]);
+    XCTAssertEqualObjects(streamWriter.error, @"Stream is closed");
 }
 
 @end

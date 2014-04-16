@@ -19,7 +19,7 @@ static NSString *chomp(NSString *str) {
     return [str substringToIndex:str.length - 1];
 }
 
-@interface MainSuite : SenTestCase
+@interface MainSuite : XCTestCase
 @end
 
 @implementation MainSuite {
@@ -56,20 +56,20 @@ static NSString *chomp(NSString *str) {
 - (void)testRoundtrip {
     [self inExtForeachInSuite:@"main" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
         id parser = [SBJson4Parser parserWithBlock:^(id value, BOOL *string) {
-            STAssertNotNil(value, nil);
+            XCTAssertNotNil(value);
             NSString *output = [writer stringWithObject:value];
-            STAssertNotNil(output, writer.error);
-            STAssertEqualObjects(output, chomp(slurp(outpath)), [[inpath pathComponents] lastObject]);
+            XCTAssertNotNil(output, @"%@", writer.error);
+            XCTAssertEqualObjects(output, chomp(slurp(outpath)), @"%@", [[inpath pathComponents] lastObject]);
         }
                                     allowMultiRoot:NO
                                    unwrapRootArray:NO
                                       errorHandler:^(NSError *error) {
-                                          STFail(@"%@", error);
+                                          XCTFail(@"%@", error);
                                       }];
         [parser parse:slurpd(inpath)];
     }];
 
-    STAssertEquals(count, (NSUInteger)38, nil);
+    XCTAssertEqual(count, (NSUInteger)38);
 }
 
 /*
@@ -90,21 +90,21 @@ static NSString *chomp(NSString *str) {
     [self inExtForeachInSuite:@"main" inext:@"in" outExt:@"err" block:^(NSString *inpath, NSString *outpath) {
         id parser = [[SBJson4Parser alloc]
                 initWithBlock:^(id o, BOOL *string) {
-                    STFail(@"%@", o);
+                    XCTFail(@"%@", o);
                 } processBlock:nil
                     multiRoot:NO
               unwrapRootArray:NO
                      maxDepth:3
                  errorHandler:^(NSError *error) {
-                     STAssertNotNil(error, inpath);
-                     STAssertEqualObjects([error localizedDescription], chomp(slurp(outpath)), [[inpath pathComponents]
+                     XCTAssertNotNil(error, @"%@", inpath);
+                     XCTAssertEqualObjects([error localizedDescription], chomp(slurp(outpath)), @"%@", [[inpath pathComponents]
                              lastObject]);
                  }];
         [parser parse:slurpd(inpath)];
 
     }];
 
-    STAssertEquals(count, (NSUInteger)35, nil);
+    XCTAssertEqual(count, (NSUInteger)35);
 
 }
 
@@ -112,11 +112,11 @@ static NSString *chomp(NSString *str) {
     [self inExtForeachInSuite:@"main" inext:@"plist" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
         id value = [NSArray arrayWithContentsOfFile:inpath];
         NSString *output = [writer stringWithObject:value];
-        STAssertNotNil(output, writer.error);
-        STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
+        XCTAssertNotNil(output, @"%@", writer.error);
+        XCTAssertEqualObjects(output, chomp(slurp(outpath)));
     }];
 
-    STAssertEquals(count, (NSUInteger)2, nil);
+    XCTAssertEqual(count, (NSUInteger)2);
 
 }
 
@@ -125,11 +125,11 @@ static NSString *chomp(NSString *str) {
 
     [self inExtForeachInSuite:@"main" inext:@"plist" outExt:@"err" block:^(NSString *inpath, NSString *outpath) {
         id value = [NSArray arrayWithContentsOfFile:inpath];
-        STAssertNil([writer stringWithObject:value], nil);
-        STAssertEqualObjects(writer.error, chomp(slurp(outpath)), nil);
+        XCTAssertNil([writer stringWithObject:value]);
+        XCTAssertEqualObjects(writer.error, chomp(slurp(outpath)));
     }];
 
-    STAssertEquals(count, (NSUInteger)5, nil);
+    XCTAssertEqual(count, (NSUInteger)5);
 }
 
 
@@ -140,18 +140,18 @@ static NSString *chomp(NSString *str) {
     [self inExtForeachInSuite:@"format" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
         id parser = [SBJson4Parser parserWithBlock:^(id value, BOOL *string) {
             NSString *output = [writer stringWithObject:value];
-            STAssertNotNil(output, writer.error);
-            STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
+            XCTAssertNotNil(output, @"%@", writer.error);
+            XCTAssertEqualObjects(output, chomp(slurp(outpath)));
         }
                                     allowMultiRoot:NO
                                    unwrapRootArray:NO
                                       errorHandler:^(NSError *error) {
-                                          STFail(@"%@", error);
+                                          XCTFail(@"%@", error);
                                       }];
         [parser parse:slurpd(inpath)];
     }];
 
-    STAssertEquals(count, (NSUInteger)8, nil);
+    XCTAssertEqual(count, (NSUInteger)8);
 }
 
 - (void)testComparatorSort {
@@ -164,18 +164,18 @@ static NSString *chomp(NSString *str) {
     [self inExtForeachInSuite:@"comparatorsort" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
         id parser = [SBJson4Parser parserWithBlock:^(id value, BOOL *string) {
             NSString *output = [writer stringWithObject:value];
-            STAssertNotNil(output, writer.error);
-            STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
+            XCTAssertNotNil(output, @"%@", writer.error);
+            XCTAssertEqualObjects(output, chomp(slurp(outpath)));
         }
                                     allowMultiRoot:NO
                                    unwrapRootArray:NO
                                       errorHandler:^(NSError *error) {
-                                          STFail(@"%@", error);
+                                          XCTFail(@"%@", error);
                                       }];
         [parser parse:slurpd(inpath)];
     }];
 
-    STAssertEquals(count, (NSUInteger)3, nil);
+    XCTAssertEqual(count, (NSUInteger)3);
 }
 
 @end
