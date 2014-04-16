@@ -1,3 +1,41 @@
+4.0.1 (April 17h, 2014)
+=======================
+
+Change installation instructions to recommend use of CocoaPods.
+
+Started using http://travis-ci.org to ensure builds are good. This now runs tests for both iOS and OSX build of the library.
+
+Fix method names in API documentation examples.
+
+Modernise and tidy up a bit by:
+- Convert tests to use XCTest rather than OCUnit.
+- Remove unnecessary schemes.
+- Turn on analyze for tests too.
+- Enable modules & drop explicit dependency on Foundation.
+- Make precompiled headers use Foundation/Foundation.h rather than UIKit / Cocoa headers.
+- Upgrade to latest Xcode5.1 recommended settings.
+- Remove annoying (but harmless) warning about ARC retain cycle in tests.
+
+Full list of commits:
+
+* [`6e28701`](https://github.com/stig/json-framework/commit/6e287015c1f8a5d1dbb052ef9d7abef0339b3cf5) Run tests for both iOS and OSX
+* [`b93a64b`](https://github.com/stig/json-framework/commit/b93a64bc723453534bb3ba891476739791dacf61) Turn on analyze for tests too
+* [`816cca4`](https://github.com/stig/json-framework/commit/816cca44834e8ab6cf275a8779ac6330502c6cdd) Convert OCUnit to XCTest
+* [`0546997`](https://github.com/stig/json-framework/commit/0546997fe2d03f8c3a8c51cca879c66a7338e7f7) Remove unnecessary schemes
+* [`eca32c2`](https://github.com/stig/json-framework/commit/eca32c2b89fda7b6e7d8920952842ff81836638a) Enable Modules
+* [`91be3a7`](https://github.com/stig/json-framework/commit/91be3a760bb19aedc40408817909137121a4ba8b) Upgrade to latest Xcode settings
+* [`f17611c`](https://github.com/stig/json-framework/commit/f17611c31eb8ea14d7d1df215814bec87d2abed0) README updates
+* [`1b60dd1`](https://github.com/stig/json-framework/commit/1b60dd11c1215b608f9731ede6669edba40844e0) Make Podfile documentation a bit clearer
+* [`79c814b`](https://github.com/stig/json-framework/commit/79c814b733e18cc53064a1ef10252c8ab9086b31) Update copyright year
+* [`e1c770c`](https://github.com/stig/json-framework/commit/e1c770c3e1ae9c944b67fb2a3a1fe906c84dbf88) Update README
+* [`0a60393`](https://github.com/stig/json-framework/commit/0a60393fab7f83d1a8be1eed777881e848431dca) Remove annoying (but harmless) warning about ARC retain cycle in tests
+* [`d23adbc`](https://github.com/stig/json-framework/commit/d23adbcd84811688d07911ec75fe70f07168322a) Update README.md
+* [`259fa96`](https://github.com/stig/json-framework/commit/259fa964c5c87a2ed923c7945576cec1dc237a0f) Build-status information from Travis
+* [`8651019`](https://github.com/stig/json-framework/commit/8651019efac64adeaeabcb9b96e46906d382edff) Add shared Xcode schemes for Travis
+* [`f0f1d61`](https://github.com/stig/json-framework/commit/f0f1d61f95ad61427c9e2768aa7c02ea8a4f1ddb) Add .travis.yml to integrate with travis-ci.org
+* [`fb05d7d`](https://github.com/stig/json-framework/commit/fb05d7dc4dc8eb74e19b1d0bde9298b4857a2b50) Clarify example in documentation
+* [`928a69d`](https://github.com/stig/json-framework/commit/928a69d6c2222b1f8f976242720cba2551d3b5f4) Fix documentation
+
 4.0.0 (December 16th, 2013)
 ===========================
 
