@@ -1,7 +1,6 @@
 language: objective-c
-before_script:
-    - brew update
-    - brew upgrade xctool
-script:
-    - xctool -project SBJson.xcodeproj -sdk iphonesimulator -scheme sbjson-ios test
-    - xctool -project SBJson.xcodeproj -sdk macosx -scheme SBJson test
+xcode_project: SBJson.xcodeproj
+env:
+  - SCHEME="-sdk iphonesimulator -scheme sbjson-ios"
+  - SCHEME="-scheme SBJson"
+script: "xctool $SCHEME test"
