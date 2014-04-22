@@ -42,6 +42,11 @@ transition---you can instead use:
 An alternative that I no longer recommend is to copy all the source files (the
 contents of the `src/main/objc` folder) into your own Xcode project.
 
+Examples
+========
+
+* https://github.com/stig/DisplayPretty - a very brief example using SBJson 4 to reflow JSON on OS X.
+
 Support
 =======
 
