@@ -96,7 +96,7 @@
     unichar tmp = 0;
 
     for (int i = 0; i < 4; i++, index++) {
-        unichar c = bytes[index];
+        unichar c = (unichar)bytes[index];
         tmp *= 16;
         switch (c) {
             case '0' ... '9':
