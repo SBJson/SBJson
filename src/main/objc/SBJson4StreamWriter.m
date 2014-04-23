@@ -266,8 +266,8 @@ static const char *strForChar(int c) {
 		case 31: return "\\u001f";
 		case 34: return "\\\"";
 		case 92: return "\\\\";
-        default:
-            [NSException raise:@"Illegal escape char" format:@"-->%c<-- is not a legal escape character", c];
+		default:
+			[NSException raise:@"Illegal escape char" format:@"-->%c<-- is not a legal escape character", c];
 	}
 }
 
