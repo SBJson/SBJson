@@ -64,45 +64,35 @@
 	switch (token) {
 		case sbjson4_token_array_open:
 			return @"start of array";
-			break;
 
 		case sbjson4_token_array_close:
 			return @"end of array";
-			break;
 
         case sbjson4_token_integer:
         case sbjson4_token_real:
 			return @"number";
-			break;
 
         case sbjson4_token_string:
         case sbjson4_token_encoded:
 			return @"string";
-			break;
 
         case sbjson4_token_bool:
 			return @"boolean";
-			break;
 
 		case sbjson4_token_null:
 			return @"null";
-			break;
 
         case sbjson4_token_entry_sep:
 			return @"key-value separator";
-			break;
 
         case sbjson4_token_value_sep:
 			return @"value separator";
-			break;
 
 		case sbjson4_token_object_open:
 			return @"start of object";
-			break;
 
 		case sbjson4_token_object_close:
 			return @"end of object";
-			break;
 
 		case sbjson4_token_eof:
 		case sbjson4_token_error:
@@ -166,15 +156,13 @@
             switch (tok) {
                 case sbjson4_token_eof:
                     return [_state parserShouldReturn:self];
-                    break;
-                    
+
                 case sbjson4_token_error:
                     _state = [SBJson4StreamParserStateError sharedInstance];
                     [_delegate parserFoundError:[NSError errorWithDomain:@"org.sbjson.parser" code:3
                                                                 userInfo:@{NSLocalizedDescriptionKey : tokeniser.error}]];
                     return SBJson4ParserError;
-                    break;
-                    
+
                 default:
                     
                     if (![_state parser:self shouldAcceptToken:tok]) {

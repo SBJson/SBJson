@@ -167,10 +167,8 @@ SINGLETON
 		case sbjson4_token_string:
         case sbjson4_token_encoded:
 			return YES;
-			break;
 		default:
 			return NO;
-			break;
 	}
 }
 
@@ -221,11 +219,9 @@ SINGLETON
         case sbjson4_token_string:
         case sbjson4_token_encoded:
 			return YES;
-			break;
 
 		default:
 			return NO;
-			break;
 	}
 }
 
@@ -248,10 +244,9 @@ SINGLETON
 		case sbjson4_token_object_close:
         case sbjson4_token_value_sep:
 			return YES;
-			break;
+
 		default:
 			return NO;
-			break;
 	}
 }
 
@@ -298,11 +293,9 @@ SINGLETON
         case sbjson4_token_entry_sep:
         case sbjson4_token_value_sep:
 			return NO;
-			break;
 
 		default:
 			return YES;
-			break;
 	}
 }
 
@@ -348,11 +341,9 @@ SINGLETON
 		case sbjson4_token_object_close:
 		case sbjson4_token_value_sep:
 			return NO;
-			break;
 
 		default:
 			return YES;
-			break;
 	}
 }
 
