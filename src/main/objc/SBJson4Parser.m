@@ -39,7 +39,6 @@
 @interface SBJson4Parser () <SBJson4StreamParserDelegate>
 
 - (void)pop;
-- (void)parser:(SBJson4StreamParser *)parser found:(id)obj;
 
 @end
 
@@ -147,10 +146,6 @@ typedef enum {
 	}
 }
 
-- (void)parser:(SBJson4StreamParser *)parser found:(id)obj {
-    [self parserFound:obj isValue:NO ];
-}
-
 - (void)parserFound:(id)obj isValue:(BOOL)isValue {
 	NSParameterAssert(obj);
 	
@@ -209,7 +204,7 @@ typedef enum {
     depth--;
 	id value = dict;
 	[self pop];
-    [self parser:_parser found:value];
+    [self parserFound:value isValue:NO ];
 }
 
 - (void)parserFoundArrayStart {
@@ -231,7 +226,7 @@ typedef enum {
     if (depth > 1 || !supportPartialDocuments) {
 		id value = array;
 		[self pop];
-		[self parser:_parser found:value];
+        [self parserFound:value isValue:NO ];
     }
 }
 
