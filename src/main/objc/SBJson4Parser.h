@@ -171,7 +171,7 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
 
 /**
  Create a JSON Parser that parses multiple whitespace separated documents.
- This is useful for something like twitter's feed, which gives you one JSON
+ This is useful for something like Twitter's feed, which gives you one JSON
  document per line.
 
  @param block Called for each element. Set *stop to `YES` if you have seen
@@ -240,7 +240,7 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  @return
  - SBJson4ParserComplete if a full document was found
  - SBJson4ParserWaitingForData if a partial document was found and more data is required to complete it
- - SBJson4ParserError if an error occured.
+ - SBJson4ParserError if an error occurred.
 
  */
 - (SBJson4ParserStatus)parse:(NSData*)data;
