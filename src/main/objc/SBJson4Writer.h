@@ -39,7 +39,7 @@
 @interface SBJson4Writer : NSObject
 
 /**
- The maximum recursing depth.
+ The maximum depth.
 
  Defaults to 32. If the input is nested deeper than this the input will be deemed to be
  malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
@@ -57,11 +57,11 @@
 @property (nonatomic, readonly, copy) NSString *error;
 
 /**
- Whether we are generating human-readable (multiline) JSON.
+ Whether we are generating human-readable (multi line) JSON.
 
  Set whether or not to generate human-readable JSON. The default is NO, which produces
  JSON without any whitespace. (Except inside strings.) If set to YES, generates human-readable
- JSON with linebreaks after each array value and dictionary key/value pair, indented two
+ JSON with line breaks after each array value and dictionary key/value pair, indented two
  spaces per nesting level.
  */
 @property(nonatomic) BOOL humanReadable;

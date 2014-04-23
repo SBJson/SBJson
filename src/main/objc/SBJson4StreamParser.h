@@ -119,7 +119,7 @@ typedef enum {
  @return
  - SBJson4ParserComplete if a full document was found
  - SBJson4ParserWaitingForData if a partial document was found and more data is required to complete it
- - SBJson4ParserError if an error occured.
+ - SBJson4ParserError if an error occurred.
 
  */
 - (SBJson4ParserStatus)parse:(NSData*)data;

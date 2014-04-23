@@ -215,7 +215,7 @@
                                 break;
                             }
                         }
-                            // FALLTHROUGH
+                            // FALL THROUGH
 
                         case sbjson4_token_real: {
                             [_delegate parserFoundNumber:@(strtod(token, NULL))];

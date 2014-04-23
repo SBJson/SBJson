@@ -250,14 +250,14 @@
         if (![self haveOneMoreCharacter])
             return sbjson4_token_eof;
 
-        NSUInteger frac_start = index;
+        NSUInteger fraction_start = index;
         while (isdigit(bytes[index])) {
             index++;
             if (![self haveOneMoreCharacter])
                 return sbjson4_token_eof;
         }
 
-        if (frac_start == index) {
+        if (fraction_start == index) {
             [self setError:@"No digits after decimal point"];
             return sbjson4_token_error;
         }
