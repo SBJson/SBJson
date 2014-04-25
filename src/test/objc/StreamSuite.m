@@ -98,7 +98,7 @@ static NSError *error;
 
         // Don't accidentally test directories. That would be bad.
         BOOL isDir = NO;
-        if (NO == [[NSFileManager defaultManager] fileExistsAtPath:file isDirectory:&isDir] || YES == isDir)
+        if (![[NSFileManager defaultManager] fileExistsAtPath:file isDirectory:&isDir] || isDir)
             continue;
 
 		NSData *data = [NSData dataWithContentsOfMappedFile:file];
