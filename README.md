@@ -45,6 +45,7 @@ contents of the `src/main/objc` folder) into your own Xcode project.
 Examples
 ========
 
+* https://github.com/stig/ChunkedDelivery - a toy example showing how one can use `NSURLSessionDataDelegate` to do chunked delivery.
 * https://github.com/stig/DisplayPretty - a very brief example using SBJson 4 to reflow JSON on OS X.
 
 Support
