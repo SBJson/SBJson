@@ -268,6 +268,7 @@ static const char *strForChar(int c) {
 		case 92: return "\\\\";
 		default:
 			[NSException raise:@"Illegal escape char" format:@"-->%c<-- is not a legal escape character", c];
+			return NULL;
 	}
 }
 
