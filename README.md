@@ -31,13 +31,13 @@ Installation
 The preferred way to use SBJson is by using
 [CocoaPods](http://cocoapods.org/?q=sbjson). In your Podfile use:
 
-    pod 'SBJson', '~> 4.0.0'
+    pod 'SBJson', '~> 4.0.1'
 
 If you depend on a third-party library that requires an earlier version of
 SBJson---or want to install both version 3 and 4 in the same app to do a gradual
 transition---you can instead use:
 
-    pod 'SBJson4', '~> 4.0.0'
+    pod 'SBJson4', '~> 4.0.1'
 
 An alternative that I no longer recommend is to copy all the source files (the
 contents of the `src/main/objc` folder) into your own Xcode project.
