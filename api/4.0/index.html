@@ -34,17 +34,18 @@
 					<div class="section section-overview index-overview">
 						
 						
-						<p>JSON (JavaScript Object Notation) is a light-weight data interchange
-format that&rsquo;s easy to read and write for humans and computers alike.
-This library implements chunk-based JSON parsing and generation in
-Objective-C.</p>
+						<p>JSON (JavaScript Object Notation) is a light-weight data interchange format
+that&rsquo;s easy to read and write for humans and computers alike. This library
+implements chunk-based JSON parsing and generation in Objective-C.</p>
+
+<p><a href="https://travis-ci.org/stig/json-framework"><img src="https://travis-ci.org/stig/json-framework.png?branch=master" alt="Build Status" /></a></p>
 
 <h1>Features</h1>
 
 <p>SBJson&rsquo;s number one feature is chunk-based operation. Feed the parser one or
 more chunks of UTF8-encoded data and it will call a block you provide with each
-root-level document or array; or optionally for each top-level entry in one (or
-more) root-level array. See more in the ~!@<a href="http://sbjson.org/api/4.0/Classes/SBJson4Parser.html">Version 4 API
+root-level document or array. Or, optionally, for each top-level entry in each
+root-level array. See more in the ~!@<a href="http://cocoadocs.org/docsets/SBJson/4.0.0/Classes/SBJson4Parser.html">Version 4 API
 docs</a>@!~.</p>
 
 <p>Other features:</p>
@@ -57,75 +58,35 @@ level of 32 for all input. This can be configured if necessary.</li>
 </ul>
 
 
-<h1>Links</h1>
+<h1>API Documentation</h1>
 
-<ul>
-<li><a href="http://github.com/stig/json-framework">GitHub project page</a></li>
-<li><a href="http://sbjson.org/api/4.0">Online API docs</a></li>
-<li><a href="http://stackoverflow.com/questions/tagged/sbjson">SBJson tag on Stack Overflow</a></li>
-</ul>
-
+<p>Please see the <a href="http://cocoadocs.org/docsets/SBJson">API Documentation</a> for more details.</p>
 
 <h1>Installation</h1>
 
-<p>The simplest way to start using JSON in your application is to copy all
-the source files (the contents of the <code>src/main/objc</code> folder) into your own
-Xcode project.</p>
+<p>The preferred way to use SBJson is by using
+<a href="http://cocoapods.org/?q=sbjson">CocoaPods</a>. In your Podfile use:</p>
 
-<ol>
-<li>In the Finder, navigate into the <code>src/main/objc</code> folder.</li>
-<li>Select all the files and drag-and-drop them into your Xcode project.</li>
-<li>Tick the <strong>Copy items into destination group&rsquo;s folder</strong> option.</li>
-<li>Use <code>#import "SBJson.h"</code> in  your source files.</li>
-</ol>
+<pre><code>pod 'SBJson', '~&gt; 4.0.0'
+</code></pre>
 
+<p>If you depend on a third-party library that requires an earlier version of
+SBJson&mdash;-or want to install both version 3 and 4 in the same app to do a gradual
+transition&mdash;-you can instead use:</p>
 
-<p>That should be it. Now create that Twitter client!</p>
+<pre><code>pod 'SBJson4', '~&gt; 4.0.0'
+</code></pre>
 
-<p><em>If you&rsquo;re upgrading from a previous version, make sure you&rsquo;re deleting the
-old SBJson classes first, moving all the files to Trash.</em></p>
+<p>An alternative that I no longer recommend is to copy all the source files (the
+contents of the <code>src/main/objc</code> folder) into your own Xcode project.</p>
 
-<h1>Alternative Installation Instructions</h1>
-
-<ul>
-<li>With Xcode 4&rsquo;s workspaces it has become much simpler to link to dependant
-projects. The examples in the distribution link to the iOS library and Mac
-framework, respectively. Des Hartman wrote <a href="[http://deshartman.wordpress.com/2011/09/02/configuring-sbjson-framework-for-xcode-4-2/](http://deshartman.wordpress.com/2011/09/02/configuring-sbjson-framework-for-xcode-4-2/)">a blog post with step-by-step
-instructions for iOS</a>. This is the recommended way if you need to
-make local changes to SBJson.</li>
-<li>You can also install SBJson using <a href="http://cocoapods.org">CocoaPods</a>.</li>
-</ul>
-
-
-<h1>License</h1>
-
-<p>Copyright &copy; 2007-2013 Stig Brautaset. All rights reserved.</p>
-
-<p>Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:</p>
+<h1>Support</h1>
 
 <ul>
-<li>Redistributions of source code must retain the above copyright notice, this
-list of conditions and the following disclaimer.</li>
-<li>Redistributions in binary form must reproduce the above copyright notice,
-this list of conditions and the following disclaimer in the documentation
-and/or other materials provided with the distribution.</li>
-<li>Neither the name of the author nor the names of its contributors may be used
-to endorse or promote products derived from this software without specific
-prior written permission.</li>
+<li>Check <a href="http://stackoverflow.com/questions/tagged/sbjson">StackOverflow questions tagged with SBJson</a> if you have questions about how to use the library. I eventually read all questions with this tag.</li>
+<li>Use the <a href="http://github.com/stig/json-framework/issues">issue tracker</a> if you have found a bug.</li>
 </ul>
 
-
-<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &ldquo;AS IS&rdquo;
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 						
 						
 					</div>
@@ -177,7 +138,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2014 Stig Brautaset. All rights reserved. (Last updated: 2014-01-08)</span><br />
+						<p><span class="copyright">&copy; 2014 Stig Brautaset. All rights reserved. (Last updated: 2014-04-21)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						
