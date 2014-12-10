@@ -97,11 +97,11 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
     SBJson4ValueBlock block = ^(id v, BOOL *stop) {
         BOOL isArray = [v isKindOfClass:[NSArray class]];
         NSLog(@"Found: %@", isArray ? @"Array" : @"Object");
-    }
+    };
 
     SBJson4ErrorBlock eh = ^(NSError* err) {
         NSLog(@"OOPS: %@", err);
-    }
+    };
 
     id parser = [SBJson4Parser multiRootParserWithBlock:block
                                            errorHandler:eh];
