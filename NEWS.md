@@ -1,5 +1,29 @@
-4.0.1 (April 17h, 2014)
+4.0.2 (June 24th, 2015)
 =======================
+
+A few patches to address warnings submitted by various people.
+
+* [`a34295f`](https://github.com/stig/json-framework/commit/a34295f7ff0f26b6fa4c337edeab3581915bd41b) Merge pull request #201 from isimpson/patch-1
+* [`6069c12`](https://github.com/stig/json-framework/commit/6069c1266fc37823540577b565f0dc47b51782f4) Fix semantic issue Xcode warning
+* [`ceaa84a`](https://github.com/stig/json-framework/commit/ceaa84a3d4b23fbb8ca3451dbb494601e8df3e26) Update travis-ci to use a build matrix rather than explicit script
+* [`647ff7e`](https://github.com/stig/json-framework/commit/647ff7e355c3cab39ad6555a50a5299085e6006d) Add semicolons after block - fixes #198
+* [`34b2d47`](https://github.com/stig/json-framework/commit/34b2d47d138195ca5c560dcafecb33cafb9b4100) Update README.md
+* [`f4933c9`](https://github.com/stig/json-framework/commit/f4933c9190d0f7a5bbc4850a15ac3c802cc14df0) Merge pull request #194 from karelia/master
+* [`beed41a`](https://github.com/stig/json-framework/commit/beed41a78921a6ece7fcfa4f642224d8c6269917) Return NULL for invalid chars
+* [`64ea007`](https://github.com/stig/json-framework/commit/64ea007c331318f726d9a32cc807e7838e2e0cf6) Readme update
+* [`e628af0`](https://github.com/stig/json-framework/commit/e628af028549bd11bc3b538392c8fb45e181912b) Slightly saner error handling (thanks AppCode!)
+* [`852f607`](https://github.com/stig/json-framework/commit/852f60714804224cee7d6e5e70f5c4c3d0ef9330) Inline method (thanks AppCode!)
+* [`20a2ece`](https://github.com/stig/json-framework/commit/20a2ecea8deede68d2bebcdfcc49e6b8d9047f14) Add cast to correct unmatched type issue (thanks AppCode!)
+* [`18cbb6c`](https://github.com/stig/json-framework/commit/18cbb6cb5b690130a79ffc4c9ba36cd3b38ac2cb) Fix typos in comments and variable names (thanks AppCode!)
+* [`a90dddf`](https://github.com/stig/json-framework/commit/a90dddf634c45840e97f924b578fb43fcfcf3659) Killed 58 lines of unreachable code (thanks AppCode!)
+* [`024672c`](https://github.com/stig/json-framework/commit/024672c52c9dcac656f3762fa87a27fc8ac57c3e) Simplify expression as suggested by AppCode
+* [`f999088`](https://github.com/stig/json-framework/commit/f99908817d0a4b4828606cc0cf43f6a24b6547bc) Remove broken example (twitter no longer support basic auth)
+* [`dba2719`](https://github.com/stig/json-framework/commit/dba2719a1a60f1aabf93811baff426a9bce552ba) Create a new (external) DisplayPretty project and link to it rather than embed it
+* [`f7ee521`](https://github.com/stig/json-framework/commit/f7ee521bb2db5d77ff41e2db44113c04acde9130) fixup! Extract LICENSE from README again (I changed my mind...)
+* [`59d3810`](https://github.com/stig/json-framework/commit/59d38108e0856d364956274adb8c81a62563464d) Extract LICENSE from README again (I changed my mind...)
+
+4.0.1 (April 17th, 2014)
+========================
 
 Change installation instructions to recommend use of CocoaPods.
 
