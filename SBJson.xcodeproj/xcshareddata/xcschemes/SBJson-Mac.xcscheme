@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BC12323C1391D5CC00131607"
                BuildableName = "SBJson.framework"
-               BlueprintName = "SBJson"
+               BlueprintName = "SBJson-Mac"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -25,12 +25,12 @@
             buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BC1232511391D5CC00131607"
-               BuildableName = "SBJsonTests.xctest"
-               BlueprintName = "SBJsonTests"
+               BuildableName = "SBJson-MacTests.xctest"
+               BlueprintName = "SBJson-MacTests"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,12 +47,21 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BC1232511391D5CC00131607"
-               BuildableName = "SBJsonTests.xctest"
-               BlueprintName = "SBJsonTests"
+               BuildableName = "SBJson-MacTests.xctest"
+               BlueprintName = "SBJson-MacTests"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "BC12323C1391D5CC00131607"
+            BuildableName = "SBJson.framework"
+            BlueprintName = "SBJson-Mac"
+            ReferencedContainer = "container:SBJson.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -68,7 +77,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BC12323C1391D5CC00131607"
             BuildableName = "SBJson.framework"
-            BlueprintName = "SBJson"
+            BlueprintName = "SBJson-Mac"
             ReferencedContainer = "container:SBJson.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -81,6 +90,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "BC12323C1391D5CC00131607"
+            BuildableName = "SBJson.framework"
+            BlueprintName = "SBJson-Mac"
+            ReferencedContainer = "container:SBJson.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

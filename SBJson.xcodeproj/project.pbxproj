@@ -477,9 +477,9 @@
 			productReference = 5439E5061B458B1F0027CBE2 /* SBJson-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		BC12323C1391D5CC00131607 /* SBJson */ = {
+		BC12323C1391D5CC00131607 /* SBJson-Mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC1232641391D5CC00131607 /* Build configuration list for PBXNativeTarget "SBJson" */;
+			buildConfigurationList = BC1232641391D5CC00131607 /* Build configuration list for PBXNativeTarget "SBJson-Mac" */;
 			buildPhases = (
 				BC1232381391D5CC00131607 /* Sources */,
 				BC1232391391D5CC00131607 /* Frameworks */,
@@ -490,14 +490,14 @@
 			);
 			dependencies = (
 			);
-			name = SBJson;
+			name = "SBJson-Mac";
 			productName = SBJson;
 			productReference = BC12323D1391D5CC00131607 /* SBJson.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		BC1232511391D5CC00131607 /* SBJsonTests */ = {
+		BC1232511391D5CC00131607 /* SBJson-MacTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC1232671391D5CC00131607 /* Build configuration list for PBXNativeTarget "SBJsonTests" */;
+			buildConfigurationList = BC1232671391D5CC00131607 /* Build configuration list for PBXNativeTarget "SBJson-MacTests" */;
 			buildPhases = (
 				BC12324D1391D5CC00131607 /* Sources */,
 				BC12324E1391D5CC00131607 /* Frameworks */,
@@ -508,7 +508,7 @@
 			dependencies = (
 				BC1232551391D5CC00131607 /* PBXTargetDependency */,
 			);
-			name = SBJsonTests;
+			name = "SBJson-MacTests";
 			productName = SBJsonTests;
 			productReference = BC1232521391D5CC00131607 /* SBJsonTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -577,12 +577,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BC12323C1391D5CC00131607 /* SBJson */,
-				BC1232511391D5CC00131607 /* SBJsonTests */,
-				BCC2626813920FC7003D9994 /* sbjson-ios */,
-				BCC2627213920FC7003D9994 /* sbjson-iosTests */,
+				BC12323C1391D5CC00131607 /* SBJson-Mac */,
+				BC1232511391D5CC00131607 /* SBJson-MacTests */,
 				5439E4FB1B458B1F0027CBE2 /* SBJson-iOS */,
 				5439E5051B458B1F0027CBE2 /* SBJson-iOSTests */,
+				BCC2626813920FC7003D9994 /* sbjson-ios */,
+				BCC2627213920FC7003D9994 /* sbjson-iosTests */,
 			);
 		};
 /* End PBXProject section */
@@ -738,7 +738,7 @@
 		};
 		BC1232551391D5CC00131607 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BC12323C1391D5CC00131607 /* SBJson */;
+			target = BC12323C1391D5CC00131607 /* SBJson-Mac */;
 			targetProxy = BC1232541391D5CC00131607 /* PBXContainerItemProxy */;
 		};
 		BCC2627A13920FC7003D9994 /* PBXTargetDependency */ = {
@@ -979,6 +979,7 @@
 		BC1232621391D5CC00131607 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_VERSION = "";
@@ -995,6 +996,7 @@
 		BC1232631391D5CC00131607 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_VERSION = "";
@@ -1014,13 +1016,14 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 39;
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 39;
 				FRAMEWORK_VERSION = A;
 				GCC_PREFIX_HEADER = "SBJson/SBJson-Prefix.pch";
 				INFOPLIST_FILE = "SBJson/SBJson-Info.plist";
 				INSTALL_PATH = "@rpath";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SBJson;
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1034,13 +1037,14 @@
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 39;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 39;
 				FRAMEWORK_VERSION = A;
 				GCC_PREFIX_HEADER = "SBJson/SBJson-Prefix.pch";
 				INFOPLIST_FILE = "SBJson/SBJson-Info.plist";
 				INSTALL_PATH = "@rpath";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SBJson;
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -1171,7 +1175,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC1232641391D5CC00131607 /* Build configuration list for PBXNativeTarget "SBJson" */ = {
+		BC1232641391D5CC00131607 /* Build configuration list for PBXNativeTarget "SBJson-Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC1232651391D5CC00131607 /* Debug */,
@@ -1180,7 +1184,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC1232671391D5CC00131607 /* Build configuration list for PBXNativeTarget "SBJsonTests" */ = {
+		BC1232671391D5CC00131607 /* Build configuration list for PBXNativeTarget "SBJson-MacTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC1232681391D5CC00131607 /* Debug */,

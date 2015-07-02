@@ -31,7 +31,7 @@
  */
 
 
-#import "SBJson4.h"
+@import SBJson;
 
 @interface JsonCheckerSuite : XCTestCase
 @end

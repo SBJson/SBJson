@@ -4,7 +4,7 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 
-#import "SBJson4.h"
+@import SBJson;
 
 static NSData *data(NSString *str) {
     return [str dataUsingEncoding:NSUTF8StringEncoding];

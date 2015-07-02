@@ -5,7 +5,7 @@
 //
 
 
-#import "SBJson4.h"
+@import SBJson;
 
 static NSData *slurpd(NSString *path) {
     return [NSData dataWithContentsOfFile:path];
