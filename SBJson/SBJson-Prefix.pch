@@ -3,5 +3,9 @@
 //
 
 #ifdef __OBJC__
+#ifdef TARGET_OS_MAC
     #import <Cocoa/Cocoa.h>
+#else 
+    #import <Foundation/Foundation.h>
+#endif
 #endif

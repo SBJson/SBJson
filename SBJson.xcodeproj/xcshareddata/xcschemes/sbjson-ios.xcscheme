@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BCC2626813920FC7003D9994"
-               BuildableName = "libsbjson-ios.a"
-               BlueprintName = "sbjson-ios"
+               BlueprintIdentifier = "5439E4FB1B458B1F0027CBE2"
+               BuildableName = "SBJson-iOS.framework"
+               BlueprintName = "SBJson-iOS"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -25,12 +25,12 @@
             buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BCC2627213920FC7003D9994"
-               BuildableName = "sbjson-iosTests.xctest"
-               BlueprintName = "sbjson-iosTests"
+               BlueprintIdentifier = "5439E5051B458B1F0027CBE2"
+               BuildableName = "SBJson-iOSTests.xctest"
+               BlueprintName = "SBJson-iOSTests"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,13 +46,22 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BCC2627213920FC7003D9994"
-               BuildableName = "sbjson-iosTests.xctest"
-               BlueprintName = "sbjson-iosTests"
+               BlueprintIdentifier = "5439E5051B458B1F0027CBE2"
+               BuildableName = "SBJson-iOSTests.xctest"
+               BlueprintName = "SBJson-iOSTests"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "5439E4FB1B458B1F0027CBE2"
+            BuildableName = "SBJson-iOS.framework"
+            BlueprintName = "SBJson-iOS"
+            ReferencedContainer = "container:SBJson.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -63,6 +72,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "5439E4FB1B458B1F0027CBE2"
+            BuildableName = "SBJson-iOS.framework"
+            BlueprintName = "SBJson-iOS"
+            ReferencedContainer = "container:SBJson.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -72,6 +90,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "5439E4FB1B458B1F0027CBE2"
+            BuildableName = "SBJson-iOS.framework"
+            BlueprintName = "SBJson-iOS"
+            ReferencedContainer = "container:SBJson.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
