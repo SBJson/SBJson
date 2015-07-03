@@ -128,7 +128,7 @@
 		BC12323D1391D5CC00131607 /* SBJson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SBJson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1232481391D5CC00131607 /* SBJson-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SBJson-Info.plist"; sourceTree = "<group>"; };
 		BC12324A1391D5CC00131607 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BC1232521391D5CC00131607 /* SBJsonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBJsonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC1232521391D5CC00131607 /* SBJsonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = SBJsonTests.xctest; path = "SBJson-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1232591391D5CC00131607 /* SBJsonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SBJsonTests-Info.plist"; sourceTree = "<group>"; };
 		BC12325B1391D5CC00131607 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BC12325D1391D5CC00131607 /* SBJsonTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBJsonTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -800,6 +800,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "$(SRCROOT)/SBJson/module.map";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = SBJson;
 				SDKROOT = iphoneos;
@@ -848,6 +849,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "$(SRCROOT)/SBJson/module.map";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = SBJson;
 				SDKROOT = iphoneos;
@@ -1000,6 +1002,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "SBJson/SBJson-Info.plist";
 				INSTALL_PATH = "@rpath";
+				MODULEMAP_FILE = "$(SRCROOT)/SBJson/module.map";
 				PRODUCT_NAME = SBJson;
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = framework;
@@ -1020,6 +1023,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "SBJson/SBJson-Info.plist";
 				INSTALL_PATH = "@rpath";
+				MODULEMAP_FILE = "$(SRCROOT)/SBJson/module.map";
 				PRODUCT_NAME = SBJson;
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = framework;
@@ -1131,6 +1135,7 @@
 				5439E5101B458B1F0027CBE2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5439E5141B458B1F0027CBE2 /* Build configuration list for PBXNativeTarget "SBJson-iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -1139,6 +1144,7 @@
 				5439E5121B458B1F0027CBE2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BC1232361391D5CC00131607 /* Build configuration list for PBXProject "SBJson" */ = {
 			isa = XCConfigurationList;
