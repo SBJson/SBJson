@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BCC2626813920FC7003D9994"
-               BuildableName = "libsbjson-ios.a"
-               BlueprintName = "sbjson-ios"
+               BuildableName = "libSBJson.a.a"
+               BlueprintName = "SBJson.a"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BCC2627213920FC7003D9994"
-               BuildableName = "sbjson-iosTests.xctest"
-               BlueprintName = "sbjson-iosTests"
+               BuildableName = "SBJson.aTests.xctest"
+               BlueprintName = "SBJson.aTests"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BCC2627213920FC7003D9994"
-               BuildableName = "sbjson-iosTests.xctest"
-               BlueprintName = "sbjson-iosTests"
+               BuildableName = "SBJson.aTests.xctest"
+               BlueprintName = "SBJson.aTests"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -57,8 +57,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BCC2626813920FC7003D9994"
-            BuildableName = "libsbjson-ios.a"
-            BlueprintName = "sbjson-ios"
+            BuildableName = "libSBJson.a.a"
+            BlueprintName = "SBJson.a"
             ReferencedContainer = "container:SBJson.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -76,8 +76,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BCC2626813920FC7003D9994"
-            BuildableName = "libsbjson-ios.a"
-            BlueprintName = "sbjson-ios"
+            BuildableName = "libSBJson.a.a"
+            BlueprintName = "SBJson.a"
             ReferencedContainer = "container:SBJson.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -94,8 +94,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BCC2626813920FC7003D9994"
-            BuildableName = "libsbjson-ios.a"
-            BlueprintName = "sbjson-ios"
+            BuildableName = "libSBJson.a.a"
+            BlueprintName = "SBJson.a"
             ReferencedContainer = "container:SBJson.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

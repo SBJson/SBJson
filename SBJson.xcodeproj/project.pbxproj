@@ -440,9 +440,9 @@
 			productReference = BC1232521391D5CC00131607 /* SBJsonTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		BCC2626813920FC7003D9994 /* sbjson-ios */ = {
+		BCC2626813920FC7003D9994 /* SBJson.a */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BCC2628713920FC7003D9994 /* Build configuration list for PBXNativeTarget "sbjson-ios" */;
+			buildConfigurationList = BCC2628713920FC7003D9994 /* Build configuration list for PBXNativeTarget "SBJson.a" */;
 			buildPhases = (
 				BCC2626513920FC7003D9994 /* Sources */,
 				BCC2626613920FC7003D9994 /* Frameworks */,
@@ -452,14 +452,14 @@
 			);
 			dependencies = (
 			);
-			name = "sbjson-ios";
+			name = SBJson.a;
 			productName = "sbjson-ios";
 			productReference = BCC2626913920FC7003D9994 /* libsbjson-ios.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		BCC2627213920FC7003D9994 /* sbjson-iosTests */ = {
+		BCC2627213920FC7003D9994 /* SBJson.aTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BCC2628A13920FC7003D9994 /* Build configuration list for PBXNativeTarget "sbjson-iosTests" */;
+			buildConfigurationList = BCC2628A13920FC7003D9994 /* Build configuration list for PBXNativeTarget "SBJson.aTests" */;
 			buildPhases = (
 				BCC2626E13920FC7003D9994 /* Sources */,
 				BCC2626F13920FC7003D9994 /* Frameworks */,
@@ -470,7 +470,7 @@
 			dependencies = (
 				BCC2627A13920FC7003D9994 /* PBXTargetDependency */,
 			);
-			name = "sbjson-iosTests";
+			name = SBJson.aTests;
 			productName = "sbjson-iosTests";
 			productReference = BCC2627313920FC7003D9994 /* sbjson-iosTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -508,8 +508,8 @@
 				BC1232511391D5CC00131607 /* SBJson-MacTests */,
 				5439E4FB1B458B1F0027CBE2 /* SBJson-iOS */,
 				5439E5051B458B1F0027CBE2 /* SBJson-iOSTests */,
-				BCC2626813920FC7003D9994 /* sbjson-ios */,
-				BCC2627213920FC7003D9994 /* sbjson-iosTests */,
+				BCC2626813920FC7003D9994 /* SBJson.a */,
+				BCC2627213920FC7003D9994 /* SBJson.aTests */,
 			);
 		};
 /* End PBXProject section */
@@ -669,7 +669,7 @@
 		};
 		BCC2627A13920FC7003D9994 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BCC2626813920FC7003D9994 /* sbjson-ios */;
+			target = BCC2626813920FC7003D9994 /* SBJson.a */;
 			targetProxy = BCC2627913920FC7003D9994 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1111,7 +1111,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCC2628713920FC7003D9994 /* Build configuration list for PBXNativeTarget "sbjson-ios" */ = {
+		BCC2628713920FC7003D9994 /* Build configuration list for PBXNativeTarget "SBJson.a" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCC2628813920FC7003D9994 /* Debug */,
@@ -1120,7 +1120,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCC2628A13920FC7003D9994 /* Build configuration list for PBXNativeTarget "sbjson-iosTests" */ = {
+		BCC2628A13920FC7003D9994 /* Build configuration list for PBXNativeTarget "SBJson.aTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCC2628B13920FC7003D9994 /* Debug */,
