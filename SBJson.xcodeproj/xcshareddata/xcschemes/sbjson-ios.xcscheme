@@ -14,23 +14,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5439E4FB1B458B1F0027CBE2"
-               BuildableName = "SBJson.framework"
-               BlueprintName = "SBJson-iOS"
+               BlueprintIdentifier = "BCC2626813920FC7003D9994"
+               BuildableName = "libsbjson-ios.a"
+               BlueprintName = "sbjson-ios"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "NO"
+            buildForRunning = "YES"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5439E5051B458B1F0027CBE2"
-               BuildableName = "SBJson-iOSTests.xctest"
-               BlueprintName = "SBJson-iOSTests"
+               BlueprintIdentifier = "BCC2627213920FC7003D9994"
+               BuildableName = "sbjson-iosTests.xctest"
+               BlueprintName = "sbjson-iosTests"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +46,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5439E5051B458B1F0027CBE2"
-               BuildableName = "SBJson-iOSTests.xctest"
-               BlueprintName = "SBJson-iOSTests"
+               BlueprintIdentifier = "BCC2627213920FC7003D9994"
+               BuildableName = "sbjson-iosTests.xctest"
+               BlueprintName = "sbjson-iosTests"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,9 +56,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5439E4FB1B458B1F0027CBE2"
-            BuildableName = "SBJson.framework"
-            BlueprintName = "SBJson-iOS"
+            BlueprintIdentifier = "BCC2626813920FC7003D9994"
+            BuildableName = "libsbjson-ios.a"
+            BlueprintName = "sbjson-ios"
             ReferencedContainer = "container:SBJson.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -75,9 +75,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5439E4FB1B458B1F0027CBE2"
-            BuildableName = "SBJson.framework"
-            BlueprintName = "SBJson-iOS"
+            BlueprintIdentifier = "BCC2626813920FC7003D9994"
+            BuildableName = "libsbjson-ios.a"
+            BlueprintName = "sbjson-ios"
             ReferencedContainer = "container:SBJson.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -93,9 +93,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5439E4FB1B458B1F0027CBE2"
-            BuildableName = "SBJson.framework"
-            BlueprintName = "SBJson-iOS"
+            BlueprintIdentifier = "BCC2626813920FC7003D9994"
+            BuildableName = "libsbjson-ios.a"
+            BlueprintName = "sbjson-ios"
             ReferencedContainer = "container:SBJson.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
