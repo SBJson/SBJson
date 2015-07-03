@@ -79,7 +79,7 @@
 		BCADB7D5139210C90057A705 /* SBJson4StreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851321391D6CD00370E55 /* SBJson4StreamWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCADB7D7139210C90057A705 /* SBJson4StreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = BC8851361391D6CD00370E55 /* SBJson4StreamWriterState.h */; };
 		BCADB7D9139210C90057A705 /* SBJson4Writer.h in Headers */ = {isa = PBXBuildFile; fileRef = BC88513A1391D6CD00370E55 /* SBJson4Writer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BCC2627B13920FC7003D9994 /* libSBJson.a.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC2626913920FC7003D9994 /* libSBJson.a.a */; };
+		BCC2627B13920FC7003D9994 /* libSBJson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC2626913920FC7003D9994 /* libSBJson.a */; };
 		BCC2628F13921035003D9994 /* SBJson4StreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88512B1391D6CD00370E55 /* SBJson4StreamParser.m */; };
 		BCC2629113921035003D9994 /* SBJson4Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88512F1391D6CD00370E55 /* SBJson4Parser.m */; };
 		BCC2629213921035003D9994 /* SBJson4StreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8851311391D6CD00370E55 /* SBJson4StreamParserState.m */; };
@@ -155,7 +155,7 @@
 		BC88522D1391D6DD00370E55 /* JsonCheckerSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonCheckerSuite.m; sourceTree = "<group>"; };
 		BC8852301391D6DD00370E55 /* ProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyTest.m; sourceTree = "<group>"; };
 		BC8852971391D6DE00370E55 /* StreamSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamSuite.m; sourceTree = "<group>"; };
-		BCC2626913920FC7003D9994 /* libSBJson.a.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSBJson.a.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCC2626913920FC7003D9994 /* libSBJson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSBJson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC2627313920FC7003D9994 /* SBJson.aTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBJson.aTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D762B23818FB3DA700470E1A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		F8D041B0DB689CC78ABDF64D /* SBJson4StreamTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson4StreamTokeniser.h; sourceTree = "<group>"; };
@@ -209,7 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D762B23918FB3DA700470E1A /* XCTest.framework in Frameworks */,
-				BCC2627B13920FC7003D9994 /* libSBJson.a.a in Frameworks */,
+				BCC2627B13920FC7003D9994 /* libSBJson.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +252,7 @@
 			children = (
 				BC12323D1391D5CC00131607 /* SBJson.framework */,
 				BC1232521391D5CC00131607 /* SBJson-MacTests.xctest */,
-				BCC2626913920FC7003D9994 /* libSBJson.a.a */,
+				BCC2626913920FC7003D9994 /* libSBJson.a */,
 				BCC2627313920FC7003D9994 /* SBJson.aTests.xctest */,
 				5439E4FC1B458B1F0027CBE2 /* SBJson.framework */,
 				5439E5061B458B1F0027CBE2 /* SBJson-iOSTests.xctest */,
@@ -440,9 +440,9 @@
 			productReference = BC1232521391D5CC00131607 /* SBJson-MacTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		BCC2626813920FC7003D9994 /* SBJson.a */ = {
+		BCC2626813920FC7003D9994 /* libSBJson.a */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BCC2628713920FC7003D9994 /* Build configuration list for PBXNativeTarget "SBJson.a" */;
+			buildConfigurationList = BCC2628713920FC7003D9994 /* Build configuration list for PBXNativeTarget "libSBJson.a" */;
 			buildPhases = (
 				BCC2626513920FC7003D9994 /* Sources */,
 				BCC2626613920FC7003D9994 /* Frameworks */,
@@ -452,14 +452,14 @@
 			);
 			dependencies = (
 			);
-			name = SBJson.a;
+			name = libSBJson.a;
 			productName = "sbjson-ios";
-			productReference = BCC2626913920FC7003D9994 /* libSBJson.a.a */;
+			productReference = BCC2626913920FC7003D9994 /* libSBJson.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		BCC2627213920FC7003D9994 /* SBJson.aTests */ = {
+		BCC2627213920FC7003D9994 /* libSBJson.aTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BCC2628A13920FC7003D9994 /* Build configuration list for PBXNativeTarget "SBJson.aTests" */;
+			buildConfigurationList = BCC2628A13920FC7003D9994 /* Build configuration list for PBXNativeTarget "libSBJson.aTests" */;
 			buildPhases = (
 				BCC2626E13920FC7003D9994 /* Sources */,
 				BCC2626F13920FC7003D9994 /* Frameworks */,
@@ -470,7 +470,7 @@
 			dependencies = (
 				BCC2627A13920FC7003D9994 /* PBXTargetDependency */,
 			);
-			name = SBJson.aTests;
+			name = libSBJson.aTests;
 			productName = "sbjson-iosTests";
 			productReference = BCC2627313920FC7003D9994 /* SBJson.aTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -508,8 +508,8 @@
 				BC1232511391D5CC00131607 /* SBJson-MacTests */,
 				5439E4FB1B458B1F0027CBE2 /* SBJson-iOS */,
 				5439E5051B458B1F0027CBE2 /* SBJson-iOSTests */,
-				BCC2626813920FC7003D9994 /* SBJson.a */,
-				BCC2627213920FC7003D9994 /* SBJson.aTests */,
+				BCC2626813920FC7003D9994 /* libSBJson.a */,
+				BCC2627213920FC7003D9994 /* libSBJson.aTests */,
 			);
 		};
 /* End PBXProject section */
@@ -669,7 +669,7 @@
 		};
 		BCC2627A13920FC7003D9994 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BCC2626813920FC7003D9994 /* SBJson.a */;
+			target = BCC2626813920FC7003D9994 /* libSBJson.a */;
 			targetProxy = BCC2627913920FC7003D9994 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1009,7 +1009,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SBJson;
 				PUBLIC_HEADERS_FOLDER_PATH = include/SBJson/;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1022,7 +1022,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/include/";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SBJson;
 				PUBLIC_HEADERS_FOLDER_PATH = include/SBJson/;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1109,7 +1109,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCC2628713920FC7003D9994 /* Build configuration list for PBXNativeTarget "SBJson.a" */ = {
+		BCC2628713920FC7003D9994 /* Build configuration list for PBXNativeTarget "libSBJson.a" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCC2628813920FC7003D9994 /* Debug */,
@@ -1118,7 +1118,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCC2628A13920FC7003D9994 /* Build configuration list for PBXNativeTarget "SBJson.aTests" */ = {
+		BCC2628A13920FC7003D9994 /* Build configuration list for PBXNativeTarget "libSBJson.aTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BCC2628B13920FC7003D9994 /* Debug */,
