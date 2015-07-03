@@ -1,9 +1,7 @@
 language: objective-c
 xcode_project: SBJson.xcodeproj
-before_install:
-  - brew update
-  - brew install carthage || brew outdated carthage || brew upgrade carthage
+env:
+  - SCHEME="SBJson-iOS"
+  - SCHEME="SBJson-Mac"
 script:
-  - xcodebuild -scheme SBJson-iOS test
-  - xcodebuild -scheme SBJson-Mac test
-  - carthage build --no-skip-current
+  - xcodebuild -scheme $SCHEME test
