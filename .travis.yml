@@ -1,6 +1,7 @@
 language: objective-c
 xcode_project: SBJson.xcodeproj
 env:
-  - SCHEME="-sdk iphonesimulator -scheme sbjson-ios"
-  - SCHEME="-scheme SBJson"
-script: "xctool $SCHEME test"
+  - SCHEME="SBJson-iOS"
+  - SCHEME="SBJson-Mac"
+script:
+  - xcodebuild -scheme $SCHEME test
