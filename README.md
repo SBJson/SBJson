@@ -1,3 +1,6 @@
+SBJson 4
+========
+
 JSON (JavaScript Object Notation) is a light-weight data interchange format
 that's easy to read and write for humans and computers alike. This library
 implements chunk-based JSON parsing and generation in Objective-C.
@@ -7,7 +10,7 @@ implements chunk-based JSON parsing and generation in Objective-C.
 [![Join the chat at https://gitter.im/stig/json-framework](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/stig/json-framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Features
-========
+--------
 
 SBJson's number one feature is chunk-based operation. Feed the parser one or
 more chunks of UTF8-encoded data and it will call a block you provide with each
@@ -19,16 +22,18 @@ Other features:
 
 * Configurable recursion limit. For safety SBJson defaults to a max nesting
   level of 32 for all input. This can be configured if necessary.
-* The writer can optionally sort dictionary keys so output is consistent across writes.
+* The writer can optionally sort dictionary keys so output is consistent
+  across writes.
 * The writer can optionally create human-readable (indented) output.
 
 API Documentation
-=================
+-----------------
 
-Please see the [API Documentation](http://cocoadocs.org/docsets/SBJson) for more details.
+Please see the [API Documentation](http://cocoadocs.org/docsets/SBJson) for
+more details.
 
 Installation
-============
+------------
 
 The preferred way to use SBJson is by using
 [CocoaPods](http://cocoapods.org/?q=sbjson). In your Podfile use:
@@ -45,18 +50,24 @@ An alternative that I no longer recommend is to copy all the source files (the
 contents of the `src/main/objc` folder) into your own Xcode project.
 
 Examples
-========
+--------
 
-* https://github.com/stig/ChunkedDelivery - a toy example showing how one can use `NSURLSessionDataDelegate` to do chunked delivery.
-* https://github.com/stig/DisplayPretty - a very brief example using SBJson 4 to reflow JSON on OS X.
+* https://github.com/stig/ChunkedDelivery - a toy example showing how one can
+  use `NSURLSessionDataDelegate` to do chunked delivery.
+* https://github.com/stig/DisplayPretty - a very brief example using SBJson 4
+  to reflow JSON on OS X.
 
 Support
-=======
+-------
 
-* Check [StackOverflow questions tagged with SBJson](http://stackoverflow.com/questions/tagged/sbjson) if you have questions about how to use the library. I eventually read all questions with this tag.
-* Use the [issue tracker](http://github.com/stig/json-framework/issues) if you have found a bug.
+* Check StackOverflow questions
+  [tagged with SBJson](http://stackoverflow.com/questions/tagged/sbjson) if
+  you have questions about how to use the library. I try to read all questions
+  with this tag.
+* Use the [issue tracker](http://github.com/stig/json-framework/issues) if you
+  have found a bug.
 
 License
-=======
+-------
 
 BSD. See LICENSE for details.
