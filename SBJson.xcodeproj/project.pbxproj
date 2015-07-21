@@ -91,7 +91,6 @@
 		BC12323D1391D5CC00131607 /* SBJson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SBJson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1232481391D5CC00131607 /* SBJson-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SBJson-Info.plist"; sourceTree = "<group>"; };
 		BC12324A1391D5CC00131607 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BC12324C1391D5CC00131607 /* SBJson-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBJson-Prefix.pch"; sourceTree = "<group>"; };
 		BC1232521391D5CC00131607 /* SBJsonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBJsonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1232591391D5CC00131607 /* SBJsonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SBJsonTests-Info.plist"; sourceTree = "<group>"; };
 		BC12325B1391D5CC00131607 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -114,7 +113,6 @@
 		BC8852301391D6DD00370E55 /* ProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyTest.m; sourceTree = "<group>"; };
 		BC8852971391D6DE00370E55 /* StreamSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamSuite.m; sourceTree = "<group>"; };
 		BCC2626913920FC7003D9994 /* libsbjson-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libsbjson-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BCC2626D13920FC7003D9994 /* sbjson-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sbjson-ios-Prefix.pch"; sourceTree = "<group>"; };
 		BCC2627313920FC7003D9994 /* sbjson-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "sbjson-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCC2627E13920FC7003D9994 /* sbjson-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sbjson-iosTests-Info.plist"; sourceTree = "<group>"; };
 		BCC2628013920FC7003D9994 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -175,7 +173,6 @@
 				D7F64E201692549E009DF12E /* src */,
 				BC1232461391D5CC00131607 /* SBJson */,
 				BC1232571391D5CC00131607 /* SBJsonTests */,
-				BCC2626B13920FC7003D9994 /* sbjson-ios */,
 				BCC2627C13920FC7003D9994 /* sbjson-iosTests */,
 				BC12323E1391D5CC00131607 /* Products */,
 			);
@@ -205,7 +202,6 @@
 			children = (
 				BC1232481391D5CC00131607 /* SBJson-Info.plist */,
 				BC1232491391D5CC00131607 /* InfoPlist.strings */,
-				BC12324C1391D5CC00131607 /* SBJson-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -224,22 +220,6 @@
 				BC1232591391D5CC00131607 /* SBJsonTests-Info.plist */,
 				BC12325A1391D5CC00131607 /* InfoPlist.strings */,
 				BC12325D1391D5CC00131607 /* SBJsonTests-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		BCC2626B13920FC7003D9994 /* sbjson-ios */ = {
-			isa = PBXGroup;
-			children = (
-				BCC2626C13920FC7003D9994 /* Supporting Files */,
-			);
-			path = "sbjson-ios";
-			sourceTree = "<group>";
-		};
-		BCC2626C13920FC7003D9994 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				BCC2626D13920FC7003D9994 /* sbjson-ios-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -650,7 +630,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 39;
 				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "SBJson/SBJson-Prefix.pch";
 				INFOPLIST_FILE = "SBJson/SBJson-Info.plist";
 				INSTALL_PATH = "@rpath";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -670,7 +649,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 39;
 				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "SBJson/SBJson-Prefix.pch";
 				INFOPLIST_FILE = "SBJson/SBJson-Info.plist";
 				INSTALL_PATH = "@rpath";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -714,7 +692,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				GCC_PREFIX_HEADER = "sbjson-ios/sbjson-ios-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					include/,
 					"$(BUILT_PRODUCTS_DIR)/usr/local/lib/include/",
@@ -732,7 +709,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				GCC_PREFIX_HEADER = "sbjson-ios/sbjson-ios-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/include/";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
