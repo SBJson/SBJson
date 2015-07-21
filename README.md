@@ -70,4 +70,4 @@ Support
 License
 -------
 
-BSD. See LICENSE for details.
+BSD. See [LICENSE](LICENSE) for details.
