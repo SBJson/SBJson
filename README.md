@@ -7,6 +7,8 @@ implements chunk-based JSON parsing and generation in Objective-C.
 
 [![Build Status](https://travis-ci.org/stig/json-framework.png?branch=master)](https://travis-ci.org/stig/json-framework)
 
+[![codecov.io](http://codecov.io/github/stig/json-framework/coverage.svg?branch=master)](http://codecov.io/github/stig/json-framework?branch=master)
+
 [![Join the chat at https://gitter.im/stig/json-framework](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/stig/json-framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Features
