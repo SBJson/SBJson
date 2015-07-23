@@ -41,8 +41,10 @@
 #define SBStringIsSurrogateHighCharacter(character) ((character >= 0xD800UL) && (character <= 0xDBFFUL))
 
 @implementation SBJson4StreamParser {
-    SBJson4StreamTokeniser *tokeniser;
-    BOOL stopped;
+@private
+  SBJson4StreamTokeniser *tokeniser;
+  BOOL stopped;
+  NSMutableArray *_stateStack;
 }
 
 #pragma mark Housekeeping

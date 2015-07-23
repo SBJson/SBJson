@@ -96,7 +96,6 @@ typedef enum {
 @interface SBJson4StreamParser : NSObject
 
 @property (nonatomic, weak) SBJson4StreamParserState *state; // Private
-@property (nonatomic, readonly, strong) NSMutableArray *stateStack; // Private
 
 /**
  Delegate to receive messages
