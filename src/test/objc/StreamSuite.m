@@ -101,7 +101,7 @@ static NSError *error;
         if (![[NSFileManager defaultManager] fileExistsAtPath:file isDirectory:&isDir] || isDir)
             continue;
 
-		NSData *data = [NSData dataWithContentsOfMappedFile:file];
+		NSData *data = [NSData dataWithContentsOfFile:file];
 		XCTAssertNotNil(data);
 	
 		XCTAssertEqual([parser parse:data], SBJson4ParserWaitingForData, @"%@ - %@", file, error);
