@@ -16,3 +16,9 @@ profile
 DerivedData
 .idea/
 .DS_Store
+
+# Buck
+/buck-out
+/buck-cache
+/.buckconfig.local
+/.buckd

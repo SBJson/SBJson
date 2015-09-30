@@ -1,0 +1,51 @@
+[cache]
+  mode = dir
+
+[cxx]
+  default_platform = iphonesimulator-x86_64
+  cflags = -g -std=c11
+  cxxflags = -g -std=c++14
+  combined_preprocess_and_compile = true
+
+[alias]
+  sbjson_ios = //ios:SBJson-iOS
+  sbjson_mac = //mac:SBJson-iOS
+
+[project]
+  ide = xcode
+  ignore = .buckd, \
+           .hg, \
+           .git, \
+           buck-cache, \
+           buck-out, \
+
+apple_library(
+  name = 'SBJson-iOS',
+  deps = [],
+  preprocessor_flags = ['-fobjc-arc'],
+  header_path_prefix = 'SBJson',
+  exported_headers = [
+    'src/main/objc/SBJson4.h',
+  ],
+  headers = [
+    'src/main/objc/SBJson4Parser.h',
+    'src/main/objc/SBJson4StreamParser.h',
+    'src/main/objc/SBJson4StreamParserState.h',
+    'src/main/objc/SBJson4StreamTokeniser.h',
+    'src/main/objc/SBJson4StreamWriter.h',
+    'src/main/objc/SBJson4StreamWriterState.h',
+    'src/main/objc/SBJson4Writer.h',
+  ],
+  srcs = [
+    'src/main/objc/SBJson4Parser.m',
+    'src/main/objc/SBJson4StreamParser.m',
+    'src/main/objc/SBJson4StreamParserState.m',
+    'src/main/objc/SBJson4StreamTokeniser.m',
+    'src/main/objc/SBJson4StreamWriter.m',
+    'src/main/objc/SBJson4StreamWriterState.m',
+    'src/main/objc/SBJson4Writer.m',
+  ],
+  frameworks = [
+    '$SDKROOT/System/Library/Frameworks/Foundation.framework',
+  ],
+)
