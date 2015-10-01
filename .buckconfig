@@ -10,6 +10,13 @@
 [alias]
   sbjson-ios = //:SBJson-iOS#default,static
 
+[apple]
+  iphonesimulator_target_sdk_version = 7.0
+  iphoneos_target_sdk_version = 7.0
+  macosx_target_sdk_version = 10.9
+  xctool_path = /usr/local/bin/xctool
+  xctool_default_destination_specifier = platform=iOS Simulator
+
 [project]
   ide = xcode
   ignore = .buckd, \
