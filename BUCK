@@ -29,3 +29,24 @@ apple_library(
   ],
 )
 
+apple_resource(
+  name = 'TestData',
+  files = glob(['*.in', '*.out']),
+  dirs = glob(['src/test/resources/*']),
+)
+
+apple_test(
+  name = 'Test',
+  extension = 'xctest',
+  info_plist = 'SBJsonTests/SBJsonTests-Info.plist',
+  preprocessor_flags = ['-fobjc-arc'],
+  srcs = glob(['src/test/objc/*.m']),
+  deps = [
+    ':SBJson-iOS',
+    ':TestData',
+  ],
+  frameworks = [
+    '$SDKROOT/System/Library/Frameworks/Foundation.framework',
+    '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
+  ],
+)
