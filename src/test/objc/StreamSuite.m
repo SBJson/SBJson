@@ -30,6 +30,9 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
+
 #import <SBJson/SBJson4.h>
 
 @interface StreamSuite : XCTestCase

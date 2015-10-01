@@ -30,6 +30,8 @@
 
  */
 
+#import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
 
 #import <SBJson/SBJson4.h>
 

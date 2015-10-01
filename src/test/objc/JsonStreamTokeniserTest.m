@@ -4,6 +4,9 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 
+#import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
+
 #import <SBJson/SBJson4.h>
 
 static NSData *data(NSString *str) {
