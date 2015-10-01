@@ -30,8 +30,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-#import "SBJson4.h"
+#import <SBJson/SBJson4.h>
 
 @interface StreamSuite : XCTestCase
 @end

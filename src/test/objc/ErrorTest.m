@@ -30,7 +30,7 @@
 
  */
 
-#import "SBJson4.h"
+#import <SBJson/SBJson4.h>
 
 #define SBAssertStringContains(e, s) \
 XCTAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
