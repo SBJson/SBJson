@@ -39,6 +39,7 @@ apple_test(
   name = 'Test',
   extension = 'xctest',
   info_plist = 'SBJsonTests/SBJsonTests-Info.plist',
+  info_plist_substitutions = { 'CURRENT_PROJECT_VERSION': '38' },
   preprocessor_flags = ['-fobjc-arc'],
   srcs = glob(['src/test/objc/*.m']),
   deps = [
