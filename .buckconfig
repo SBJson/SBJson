@@ -8,7 +8,7 @@
   combined_preprocess_and_compile = true
 
 [alias]
-  sbjson-ios = //:SBJson-iOS#default,static
+  sbjson-ios = //:SBJson#default,static
 
 [apple]
   iphonesimulator_target_sdk_version = 7.0

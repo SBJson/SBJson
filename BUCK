@@ -1,5 +1,5 @@
 apple_library(
-  name = 'SBJson-iOS',
+  name = 'SBJson',
   deps = [],
   preprocessor_flags = ['-fobjc-arc'],
   header_path_prefix = 'SBJson',
@@ -42,7 +42,7 @@ apple_test(
   preprocessor_flags = ['-fobjc-arc'],
   srcs = glob(['src/test/objc/*.m']),
   deps = [
-    ':SBJson-iOS',
+    ':SBJson',
     ':TestData',
   ],
   frameworks = [
