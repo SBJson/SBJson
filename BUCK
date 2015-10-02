@@ -36,15 +36,101 @@ apple_resource(
 )
 
 apple_test(
-  name = 'Test',
+  name = 'ErrorTest',
   extension = 'xctest',
   info_plist = 'SBJsonTests/SBJsonTests-Info.plist',
   info_plist_substitutions = { 'CURRENT_PROJECT_VERSION': '38' },
   preprocessor_flags = ['-fobjc-arc'],
-  srcs = glob(['src/test/objc/*.m']),
+  srcs = ['src/test/objc/ErrorTest.m'],
+  deps = [
+    ':SBJson',
+  ],
+  frameworks = [
+    '$SDKROOT/System/Library/Frameworks/Foundation.framework',
+    '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
+  ],
+)
+
+
+apple_test(
+  name = 'JsonCheckerSuite',
+  extension = 'xctest',
+  info_plist = 'SBJsonTests/SBJsonTests-Info.plist',
+  info_plist_substitutions = { 'CURRENT_PROJECT_VERSION': '38' },
+  preprocessor_flags = ['-fobjc-arc'],
+  srcs = ['src/test/objc/JsonCheckerSuite.m'],
   deps = [
     ':SBJson',
     ':TestData',
+  ],
+  frameworks = [
+    '$SDKROOT/System/Library/Frameworks/Foundation.framework',
+    '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
+  ],
+)
+
+
+apple_test(
+  name = 'JsonStreamTokeniserTest',
+  extension = 'xctest',
+  info_plist = 'SBJsonTests/SBJsonTests-Info.plist',
+  info_plist_substitutions = { 'CURRENT_PROJECT_VERSION': '38' },
+  preprocessor_flags = ['-fobjc-arc'],
+  srcs = ['src/test/objc/JsonStreamTokeniserTest.m'],
+  deps = [
+    ':SBJson',
+  ],
+  frameworks = [
+    '$SDKROOT/System/Library/Frameworks/Foundation.framework',
+    '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
+  ],
+)
+
+apple_test(
+  name = 'MainSuite',
+  extension = 'xctest',
+  info_plist = 'SBJsonTests/SBJsonTests-Info.plist',
+  info_plist_substitutions = { 'CURRENT_PROJECT_VERSION': '38' },
+  preprocessor_flags = ['-fobjc-arc'],
+  srcs = ['src/test/objc/MainSuite.m'],
+  deps = [
+    ':SBJson',
+    ':TestData',
+  ],
+  frameworks = [
+    '$SDKROOT/System/Library/Frameworks/Foundation.framework',
+    '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
+  ],
+)
+
+
+apple_test(
+  name = 'StreamSuite',
+  extension = 'xctest',
+  info_plist = 'SBJsonTests/SBJsonTests-Info.plist',
+  info_plist_substitutions = { 'CURRENT_PROJECT_VERSION': '38' },
+  preprocessor_flags = ['-fobjc-arc'],
+  srcs = ['src/test/objc/StreamSuite.m'],
+  deps = [
+    ':SBJson',
+    ':TestData',
+  ],
+  frameworks = [
+    '$SDKROOT/System/Library/Frameworks/Foundation.framework',
+    '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
+  ],
+)
+
+
+apple_test(
+  name = 'ProxyTest',
+  extension = 'xctest',
+  info_plist = 'SBJsonTests/SBJsonTests-Info.plist',
+  info_plist_substitutions = { 'CURRENT_PROJECT_VERSION': '38' },
+  preprocessor_flags = ['-fobjc-arc'],
+  srcs = ['src/test/objc/ProxyTest.m'],
+  deps = [
+    ':SBJson',
   ],
   frameworks = [
     '$SDKROOT/System/Library/Frameworks/Foundation.framework',
