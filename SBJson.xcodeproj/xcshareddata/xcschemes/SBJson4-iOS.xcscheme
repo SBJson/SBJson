@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D9B035321D269C1D00F3EDA9"
-               BuildableName = "SBJson4-iOS.framework"
+               BuildableName = "SBJson4.framework"
                BlueprintName = "SBJson4-iOS"
                ReferencedContainer = "container:SBJson.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D9B035321D269C1D00F3EDA9"
-            BuildableName = "SBJson4-iOS.framework"
+            BuildableName = "SBJson4.framework"
             BlueprintName = "SBJson4-iOS"
             ReferencedContainer = "container:SBJson.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D9B035321D269C1D00F3EDA9"
-            BuildableName = "SBJson4-iOS.framework"
+            BuildableName = "SBJson4.framework"
             BlueprintName = "SBJson4-iOS"
             ReferencedContainer = "container:SBJson.xcodeproj">
          </BuildableReference>
