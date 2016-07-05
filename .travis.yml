@@ -1,9 +1,5 @@
 language: objective-c
 xcode_project: SBJson.xcodeproj
-env:
-  - SCHEME="sbjson-ios"
-  - SCHEME="SBJson"
-script:
-  - xcodebuild -scheme $SCHEME test GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+xcode_scheme: SBJsonTests
 after_success:
   - bash <(curl -s https://codecov.io/bash)
