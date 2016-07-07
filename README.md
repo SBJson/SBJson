@@ -13,6 +13,8 @@ implements chunk-based JSON parsing and generation in Objective-C.
 
 [![Project Status: Inactive - The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/0.1.0/inactive.svg)](http://www.repostatus.org/#inactive)
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 Features
 --------
 
@@ -39,6 +41,7 @@ more details.
 Installation
 ------------
 
+### CocoaPods
 The preferred way to use SBJson is by using
 [CocoaPods](http://cocoapods.org/?q=sbjson). In your Podfile use:
 
@@ -50,8 +53,13 @@ transition---you can instead use:
 
     pod 'SBJson4', '~> 4.0.1'
 
-An alternative that I no longer recommend is to copy all the source files (the
-contents of the `src/main/objc` folder) into your own Xcode project.
+### Carthage
+SBJson is compatible with _Carthage_. Follow the [Getting Started Guide for iOS](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos).
+
+	github "stig/json-framework" == 4.0.3
+
+### Copy source files
+An alternative that I no longer recommend is to copy all the source files (the contents of the `src/main/objc` folder) into your own Xcode project.
 
 Examples
 --------

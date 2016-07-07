@@ -2,7 +2,7 @@ language: objective-c
 xcode_project: SBJson.xcodeproj
 env:
   - SCHEME="sbjson-ios"
-  - SCHEME="SBJson"
+  - SCHEME="SBJson4-Mac"
 script:
   - xcodebuild -scheme $SCHEME test GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 after_success:
