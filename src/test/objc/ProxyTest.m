@@ -27,7 +27,10 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "SBJson4.h"
+#import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
+
+#import <SBJson/SBJson4.h>
 
 #pragma mark Helper objects
 

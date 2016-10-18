@@ -16,3 +16,7 @@ profile
 DerivedData
 .idea/
 .DS_Store
+.buckd
+.nobuckcheck
+buck-cache
+buck-out

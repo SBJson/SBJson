@@ -4,7 +4,10 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 
-#import "SBJson4.h"
+#import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
+
+#import <SBJson/SBJson4.h>
 
 static NSData *data(NSString *str) {
     return [str dataUsingEncoding:NSUTF8StringEncoding];
