@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BCC2627213920FC7003D9994"
+               BuildableName = "sbjson-iosTests.xctest"
+               BlueprintName = "sbjson-iosTests"
+               ReferencedContainer = "container:SBJson.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D9B035321D269C1D00F3EDA9"
+            BuildableName = "SBJson4.framework"
+            BlueprintName = "SBJson4-iOS"
+            ReferencedContainer = "container:SBJson.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
