@@ -2,9 +2,9 @@ language: objective-c
 xcode_project: SBJson.xcodeproj
 osx_image: xcode8
 env:
-  - ENV="-scheme sbjson-ios -destination platform='iOS Simulator',name='ipad Air'"
-  - ENV="-scheme SBJson4-Mac"
+  - SCHEME="sbjson-ios" DESTINATION="platform=iOS Simulator,name=iPad Air"
+  - SCHEME="SBJson4-Mac" DESTINATION="platform:macOS,arch:x86_64"
 script:
-  - xcodebuild $ENV test GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+  - xcodebuild -scheme $SCHEME -destination "$DESTINATION" test GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 after_success:
   - bash <(curl -s https://codecov.io/bash)
