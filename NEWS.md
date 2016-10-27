@@ -1,3 +1,22 @@
+4.0.3 (July 7th, 2016)
+======================
+
+* [`207dfa3`](https://github.com/stig/json-framework/commit/207dfa39913644629407028b27386905e39c1698) Adjust Travis CI configuration (#1)
+* [`191b0ad`](https://github.com/stig/json-framework/commit/191b0ad920e2f3e72d806b6dcbd32664c26ea5d3) Rename Carthage Mac target
+* [`23e47df`](https://github.com/stig/json-framework/commit/23e47df2f4f9b95758e910bd2b83abe91551071b) Update README.md
+* [`ed536b5`](https://github.com/stig/json-framework/commit/ed536b56b72c6af27ae339f4bbcc721f47764b33) Add Carthage iOS target
+* [`d53dfe4`](https://github.com/stig/json-framework/commit/d53dfe4242febb8f8e3d18b6401ef283587bcb90) Add repo status to README
+* [`4ca1d84`](https://github.com/stig/json-framework/commit/4ca1d8488576fed943d842c91a69bb4520f2070a) Replace deprecated method with alternative
+* [`d088bd1`](https://github.com/stig/json-framework/commit/d088bd155f26bd875bfd2236ccc6f08f8960e439) Add codecov badge to README
+* [`4e7df93`](https://github.com/stig/json-framework/commit/4e7df93c0226fb0afb2702669103f94c3a6cc438) Make variable private
+* [`2983d71`](https://github.com/stig/json-framework/commit/2983d71f82282af64a9e08c3356c200d388d6f76) Attempt at adding code test coverage metrics
+* [`959f5bd`](https://github.com/stig/json-framework/commit/959f5bd8e08739571913fa25ef0a3b3617e109c8) Make link (hopefully) to LICENCE
+* [`52ab522`](https://github.com/stig/json-framework/commit/52ab522ab8f6c5365e67f2c9066534eae8e3777d) Add a top-level heading to README
+* [`abe079d`](https://github.com/stig/json-framework/commit/abe079d50e3045ee4c2729a2ee9461f6d901a2ab) Update to-date on license
+* [`bff9599`](https://github.com/stig/json-framework/commit/bff9599770e825d8923bd0e732cd8df68aafc4a3) Remove prefix headers
+* [`2fbe784`](https://github.com/stig/json-framework/commit/2fbe7843fe6f921bcf1b91c6db5873b6e909e814) Use Xcodebuild rather than xctool
+* [`5f63aa0`](https://github.com/stig/json-framework/commit/5f63aa035acd3efa6a8e6f2f5251a5816b39516e) Add Gitter URL to README
+
 4.0.2 (June 24th, 2015)
 =======================
 
