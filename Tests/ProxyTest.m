@@ -28,6 +28,8 @@
  */
 
 #import "SBJson4.h"
+#import <XCTest/XCTest.h>
+
 
 #pragma mark Helper objects
 

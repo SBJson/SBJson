@@ -5,6 +5,8 @@
 //
 
 #import "SBJson4.h"
+#import <XCTest/XCTest.h>
+
 
 static NSData *data(NSString *str) {
     return [str dataUsingEncoding:NSUTF8StringEncoding];

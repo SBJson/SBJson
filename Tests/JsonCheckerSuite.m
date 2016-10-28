@@ -32,6 +32,7 @@
 
 
 #import "SBJson4.h"
+#import <XCTest/XCTest.h>
 
 @interface JsonCheckerSuite : XCTestCase
 @end
@@ -46,7 +47,7 @@
 
 - (void)foreachFilePrefixedBy:(NSString*)prefix apply:(void(^)(NSString*))block {
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString *rootPath = [[bundle resourcePath] stringByAppendingPathComponent:@"jsonchecker"];
+    NSString *rootPath = [[bundle resourcePath] stringByAppendingPathComponent:@"TestData/jsonchecker"];
     
     for (NSString *file in [[NSFileManager defaultManager] enumeratorAtPath:rootPath]) {
         if (![file hasPrefix:prefix])

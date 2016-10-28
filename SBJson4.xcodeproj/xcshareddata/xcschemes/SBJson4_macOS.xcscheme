@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0810"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D9B035321D269C1D00F3EDA9"
-               BuildableName = "SBJson4.framework"
-               BlueprintName = "SBJson4-iOS"
-               ReferencedContainer = "container:SBJson.xcodeproj">
+               BlueprintIdentifier = "538ED85E1DC408EB00F14B4F"
+               BuildableName = "SBJson4_macOS.framework"
+               BlueprintName = "SBJson4_macOS"
+               ReferencedContainer = "container:SBJson4.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,20 +32,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BCC2627213920FC7003D9994"
-               BuildableName = "sbjson-iosTests.xctest"
-               BlueprintName = "sbjson-iosTests"
-               ReferencedContainer = "container:SBJson.xcodeproj">
+               BlueprintIdentifier = "538ED8661DC408EB00F14B4F"
+               BuildableName = "SBJson4_macOSTests.xctest"
+               BlueprintName = "SBJson4_macOSTests"
+               ReferencedContainer = "container:SBJson4.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D9B035321D269C1D00F3EDA9"
-            BuildableName = "SBJson4.framework"
-            BlueprintName = "SBJson4-iOS"
-            ReferencedContainer = "container:SBJson.xcodeproj">
+            BlueprintIdentifier = "538ED85E1DC408EB00F14B4F"
+            BuildableName = "SBJson4_macOS.framework"
+            BlueprintName = "SBJson4_macOS"
+            ReferencedContainer = "container:SBJson4.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -64,10 +64,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D9B035321D269C1D00F3EDA9"
-            BuildableName = "SBJson4.framework"
-            BlueprintName = "SBJson4-iOS"
-            ReferencedContainer = "container:SBJson.xcodeproj">
+            BlueprintIdentifier = "538ED85E1DC408EB00F14B4F"
+            BuildableName = "SBJson4_macOS.framework"
+            BlueprintName = "SBJson4_macOS"
+            ReferencedContainer = "container:SBJson4.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -82,10 +82,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D9B035321D269C1D00F3EDA9"
-            BuildableName = "SBJson4.framework"
-            BlueprintName = "SBJson4-iOS"
-            ReferencedContainer = "container:SBJson.xcodeproj">
+            BlueprintIdentifier = "538ED85E1DC408EB00F14B4F"
+            BuildableName = "SBJson4_macOS.framework"
+            BlueprintName = "SBJson4_macOS"
+            ReferencedContainer = "container:SBJson4.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
