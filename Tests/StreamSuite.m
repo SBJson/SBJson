@@ -32,6 +32,8 @@
 
 
 #import "SBJson4.h"
+#import <XCTest/XCTest.h>
+
 
 @interface StreamSuite : XCTestCase
 @end
@@ -91,7 +93,7 @@ static NSError *error;
     id parser = [SBJson4Parser multiRootParserWithBlock:block errorHandler:eh];
 
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString *root = [[bundle resourcePath] stringByAppendingPathComponent:@"stream"];
+    NSString *root = [[bundle resourcePath] stringByAppendingPathComponent:@"TestData/stream"];
 
     for (NSString *fileName in [[NSFileManager defaultManager] enumeratorAtPath:root]) {
 		NSString *file = [root stringByAppendingPathComponent:fileName];

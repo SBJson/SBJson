@@ -6,6 +6,8 @@
 
 
 #import "SBJson4.h"
+#import <XCTest/XCTest.h>
+
 
 static NSData *slurpd(NSString *path) {
     return [NSData dataWithContentsOfFile:path];
@@ -34,7 +36,8 @@ static NSString *chomp(NSString *str) {
 
 - (NSString*)suitePath:(NSString*)suite {
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    return [[bundle resourcePath] stringByAppendingPathComponent:suite];
+    return [[[bundle resourcePath] stringByAppendingPathComponent:@"TestData"]
+            stringByAppendingPathComponent:suite];
 }
 
 - (void)inExtForeachInSuite:(NSString *)suite inext:(NSString *)inext outExt:(NSString *)outext block:(void (^)(NSString *, NSString *))block {

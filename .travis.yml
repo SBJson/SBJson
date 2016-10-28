@@ -1,10 +1,9 @@
 language: objective-c
-xcode_project: SBJson.xcodeproj
+xcode_project: SBJson4.xcodeproj
 osx_image: xcode8
 env:
-  - SCHEME="sbjson-ios" DESTINATION="platform=iOS Simulator,name=iPad Air"
-  - SCHEME="SBJson4-iOS" DESTINATION="platform=iOS Simulator,name=iPhone SE"
-  - SCHEME="SBJson4-Mac" DESTINATION="platform=macOS,arch=x86_64"
+  - SCHEME="SBJson4_iOS" DESTINATION="platform=iOS Simulator,name=iPhone SE"
+  - SCHEME="SBJson4_macOS" DESTINATION="platform=macOS,arch=x86_64"
 script:
   - xcodebuild -scheme $SCHEME -destination "$DESTINATION" test GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 after_success:
