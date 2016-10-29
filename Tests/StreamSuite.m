@@ -56,39 +56,39 @@ static NSError *error;
 
     eh = ^(NSError *e) { error = e; };
 
-	arrayCount = objectCount = 0u;
+    arrayCount = objectCount = 0u;
 }
 
 
 - (void) testParsingWithShortWorkBuffer{   
-   char* validjson = "[{\"description\": \"Lorem ipsum dolor sit amet, "\
-   "consectetur adipiscing elit. Donec ultrices ornare gravida. Vestibulum"\
-   " ante ipsum primisin faucibus orci luctus et ultrices posuere\"}]";
+    char* validjson = "[{\"description\": \"Lorem ipsum dolor sit amet, "\
+        "consectetur adipiscing elit. Donec ultrices ornare gravida. Vestibulum"\
+        " ante ipsum primisin faucibus orci luctus et ultrices posuere\"}]";
 
-   id parser = [SBJson4Parser parserWithBlock:block
-                               allowMultiRoot:NO
-                              unwrapRootArray:NO
-                                 errorHandler:eh];
+    id parser = [SBJson4Parser parserWithBlock:block
+                                allowMultiRoot:NO
+                               unwrapRootArray:NO
+                                  errorHandler:eh];
 
-   SBJson4ParserStatus status = SBJson4ParserWaitingForData;
-   NSData* data = nil;
+    SBJson4ParserStatus status = SBJson4ParserWaitingForData;
+    NSData* data = nil;
    
-   for (int i=0, e=(int)strlen(validjson); i<e; ++i){
-      data = [NSData dataWithBytes:validjson+i length:1];
-      status = [parser parse:data];
-      if(status == SBJson4ParserError){
-         break;
-      }
-   }
-   XCTAssertEqual(status, SBJson4ParserComplete);
+    for (int i=0, e=(int)strlen(validjson); i<e; ++i){
+        data = [NSData dataWithBytes:validjson+i length:1];
+        status = [parser parse:data];
+        if(status == SBJson4ParserError){
+            break;
+        }
+    }
+    XCTAssertEqual(status, SBJson4ParserComplete);
 }
 
 /*
- This test reads a 100k chunk of data downloaded from 
- http://stream.twitter.com/1/statuses/sample.json 
- and split into 1k files. It simulates streaming by parsing
- this data incrementally.
- */
+  This test reads a 100k chunk of data downloaded from 
+  http://stream.twitter.com/1/statuses/sample.json 
+  and split into 1k files. It simulates streaming by parsing
+  this data incrementally.
+*/
 - (void)testMultipleDocuments {
     id parser = [SBJson4Parser multiRootParserWithBlock:block errorHandler:eh];
 
@@ -96,32 +96,32 @@ static NSError *error;
     NSString *root = [[bundle resourcePath] stringByAppendingPathComponent:@"TestData/stream"];
 
     for (NSString *fileName in [[NSFileManager defaultManager] enumeratorAtPath:root]) {
-		NSString *file = [root stringByAppendingPathComponent:fileName];
+        NSString *file = [root stringByAppendingPathComponent:fileName];
 
         // Don't accidentally test directories. That would be bad.
         BOOL isDir = NO;
         if (![[NSFileManager defaultManager] fileExistsAtPath:file isDirectory:&isDir] || isDir)
             continue;
 
-		NSData *data = [NSData dataWithContentsOfFile:file];
-		XCTAssertNotNil(data);
+        NSData *data = [NSData dataWithContentsOfFile:file];
+        XCTAssertNotNil(data);
 	
-		XCTAssertEqual([parser parse:data], SBJson4ParserWaitingForData, @"%@ - %@", file, error);
-	}
-	XCTAssertEqual(arrayCount, (NSUInteger)0);
-	XCTAssertEqual(objectCount, (NSUInteger)98);
+        XCTAssertEqual([parser parse:data], SBJson4ParserWaitingForData, @"%@ - %@", file, error);
+    }
+    XCTAssertEqual(arrayCount, (NSUInteger)0);
+    XCTAssertEqual(objectCount, (NSUInteger)98);
 }
 
 - (void)parseArrayOfObjects:(SBJson4Parser *)parser {
-	[parser parse:[NSData dataWithBytes:"[" length:1]];
-	for (int i = 1;; i++) {
-		char *utf8 = "{\"foo\":[],\"bar\":[]}";
-		[parser parse:[NSData dataWithBytes:utf8 length:strlen(utf8)]];
-		if (i == 100)
-			break;
-		[parser parse:[NSData dataWithBytes:"," length:1]];
-	}
-	[parser parse:[NSData dataWithBytes:"]" length:1]];
+    [parser parse:[NSData dataWithBytes:"[" length:1]];
+    for (int i = 1;; i++) {
+        char *utf8 = "{\"foo\":[],\"bar\":[]}";
+        [parser parse:[NSData dataWithBytes:utf8 length:strlen(utf8)]];
+        if (i == 100)
+            break;
+        [parser parse:[NSData dataWithBytes:"," length:1]];
+    }
+    [parser parse:[NSData dataWithBytes:"]" length:1]];
 }
 
 - (void)testSingleArray {
@@ -131,8 +131,8 @@ static NSError *error;
                                   errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
-	XCTAssertEqual(arrayCount, (NSUInteger)1);
-	XCTAssertEqual(objectCount, (NSUInteger)0);
+    XCTAssertEqual(arrayCount, (NSUInteger)1);
+    XCTAssertEqual(objectCount, (NSUInteger)0);
 }
 
 - (void)testSkipArray {
@@ -140,8 +140,8 @@ static NSError *error;
                                                  errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
-	XCTAssertEqual(arrayCount, (NSUInteger)0);
-	XCTAssertEqual(objectCount, (NSUInteger)100);	
+    XCTAssertEqual(arrayCount, (NSUInteger)0);
+    XCTAssertEqual(objectCount, (NSUInteger)100);	
 }
 
 - (void)testStop {

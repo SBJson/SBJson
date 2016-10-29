@@ -67,23 +67,23 @@
     };
 
     [self foreachFilePrefixedBy:@"pass" apply:^(NSString* path) {
-        __block BOOL success = NO;
-        SBJson4ValueBlock block = ^(id obj, BOOL *stop) {
-            XCTAssertNotNil(obj, @"%@", path);
-            success = YES;
-        };
+            __block BOOL success = NO;
+            SBJson4ValueBlock block = ^(id obj, BOOL *stop) {
+                XCTAssertNotNil(obj, @"%@", path);
+                success = YES;
+            };
 
-        SBJson4Parser *parser = [[SBJson4Parser alloc] initWithBlock:block
-                                                        processBlock:nil
-                                                           multiRoot:NO
-                                                     unwrapRootArray:NO
-                                                            maxDepth:19
-                                                        errorHandler:eh];
-        SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
+            SBJson4Parser *parser = [[SBJson4Parser alloc] initWithBlock:block
+                                                            processBlock:nil
+                                                               multiRoot:NO
+                                                         unwrapRootArray:NO
+                                                                maxDepth:19
+                                                            errorHandler:eh];
+            SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 
-        XCTAssertTrue(success && status == SBJson4ParserComplete, @"Success block was called & parsing complete");
+            XCTAssertTrue(success && status == SBJson4ParserComplete, @"Success block was called & parsing complete");
 
-    }];
+        }];
     XCTAssertEqual(count, (NSUInteger)3);
 }
 
@@ -91,24 +91,24 @@
     SBJson4ValueBlock block = ^(id obj, BOOL *stop) {};
     [self foreachFilePrefixedBy:@"fail" apply:^(NSString* path) {
 
-        __block BOOL success = NO;
-        SBJson4ErrorBlock eh = ^(NSError *err) {
-            XCTAssertNotNil(err, @"%@", path);
-            success = YES;
-        };
+            __block BOOL success = NO;
+            SBJson4ErrorBlock eh = ^(NSError *err) {
+                XCTAssertNotNil(err, @"%@", path);
+                success = YES;
+            };
 
-        SBJson4Parser *parser = [[SBJson4Parser alloc] initWithBlock:block
-                                                        processBlock:nil
-                                                           multiRoot:NO
-                                                     unwrapRootArray:NO
-                                                            maxDepth:19
-                                                        errorHandler:eh];
+            SBJson4Parser *parser = [[SBJson4Parser alloc] initWithBlock:block
+                                                            processBlock:nil
+                                                               multiRoot:NO
+                                                         unwrapRootArray:NO
+                                                                maxDepth:19
+                                                            errorHandler:eh];
 
-        SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
+            SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 
-        if (status != SBJson4ParserWaitingForData)
-            XCTAssertTrue(success, @"ErrorHandler block was called: %@", [path lastPathComponent]);
-    }];
+            if (status != SBJson4ParserWaitingForData)
+                XCTAssertTrue(success, @"ErrorHandler block was called: %@", [path lastPathComponent]);
+        }];
 
     XCTAssertEqual(count, (NSUInteger)33);
 }
