@@ -131,7 +131,7 @@
         if (![self haveOneMoreByte])
             return sbjson4_token_eof;
 
-        switch (bytes[index]) {
+        switch ((uint8_t)bytes[index]) {
             case 0 ... 0x1F:
                 [self setError:[NSString stringWithFormat:@"Unescaped control character [0x%0.2X] in string", bytes[index]]];
                 return sbjson4_token_error;
@@ -200,6 +200,14 @@
                     }
                 }
 
+                break;
+
+            case 0xC0 ... 0xC1:
+            case 0xF5 ... 0xFF:
+                // Flat out illegal UTF-8 bytes, see
+                // https://en.wikipedia.org/wiki/UTF-8#Codepage_layout
+                [self setError:[NSString stringWithFormat: @"Illegal UTF-8 byte [%x]", (uint8_t)bytes[index]]];
+                return sbjson4_token_error;
                 break;
 
             default:
