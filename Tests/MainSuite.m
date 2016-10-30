@@ -116,7 +116,7 @@ static NSString *chomp(NSString *str) {
 
         }];
 
-    XCTAssertEqual(count, (NSUInteger)35);
+    XCTAssertEqual(count, (NSUInteger)36);
 }
 
 - (void)testWriteSuccess {
