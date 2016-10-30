@@ -36,37 +36,37 @@
 
 #import "SBJson4StreamParserState.h"
 
-#define SINGLETON \
-+ (id)sharedInstance { \
-    static id state = nil; \
-    if (!state) { \
-        @synchronized(self) { \
-            if (!state) state = [[self alloc] init]; \
-        } \
-    } \
-    return state; \
-}
+#define SINGLETON                                           \
+    + (id)sharedInstance {                                  \
+        static id state = nil;                              \
+        if (!state) {                                       \
+            @synchronized(self) {                           \
+                if (!state) state = [[self alloc] init];    \
+            }                                               \
+        }                                                   \
+        return state;                                       \
+    }
 
 @implementation SBJson4StreamParserState
 
 + (id)sharedInstance { return nil; }
 
 - (BOOL)parser:(SBJson4StreamParser *)parser shouldAcceptToken:(sbjson4_token_t)token {
-	return NO;
+    return NO;
 }
 
 - (SBJson4ParserStatus)parserShouldReturn:(SBJson4StreamParser *)parser {
-	return SBJson4ParserWaitingForData;
+    return SBJson4ParserWaitingForData;
 }
 
 - (void)parser:(SBJson4StreamParser *)parser shouldTransitionTo:(sbjson4_token_t)tok {}
 
 - (BOOL)needKey {
-	return NO;
+    return NO;
 }
 
 - (NSString*)name {
-	return @"<aaiie!>";
+    return @"<aaiie!>";
 }
 
 - (BOOL)isError {
@@ -82,36 +82,36 @@
 SINGLETON
 
 - (BOOL)parser:(SBJson4StreamParser *)parser shouldAcceptToken:(sbjson4_token_t)token {
-	return token == sbjson4_token_array_open || token == sbjson4_token_object_open;
+    return token == sbjson4_token_array_open || token == sbjson4_token_object_open;
 }
 
 - (void)parser:(SBJson4StreamParser *)parser shouldTransitionTo:(sbjson4_token_t)tok {
 
-	SBJson4StreamParserState *state = nil;
-	switch (tok) {
-		case sbjson4_token_array_open:
-			state = [SBJson4StreamParserStateArrayStart sharedInstance];
-			break;
+    SBJson4StreamParserState *state = nil;
+    switch (tok) {
+    case sbjson4_token_array_open:
+        state = [SBJson4StreamParserStateArrayStart sharedInstance];
+        break;
 
-		case sbjson4_token_object_open:
-			state = [SBJson4StreamParserStateObjectStart sharedInstance];
-			break;
+    case sbjson4_token_object_open:
+        state = [SBJson4StreamParserStateObjectStart sharedInstance];
+        break;
 
-		case sbjson4_token_array_close:
-		case sbjson4_token_object_close:
-			if ([parser.delegate respondsToSelector:@selector(parserShouldSupportManyDocuments)] && [parser.delegate parserShouldSupportManyDocuments])
-				state = parser.state;
-			else
-				state = [SBJson4StreamParserStateComplete sharedInstance];
-			break;
+    case sbjson4_token_array_close:
+    case sbjson4_token_object_close:
+        if ([parser.delegate respondsToSelector:@selector(parserShouldSupportManyDocuments)] && [parser.delegate parserShouldSupportManyDocuments])
+            state = parser.state;
+        else
+            state = [SBJson4StreamParserStateComplete sharedInstance];
+        break;
 
-		case sbjson4_token_eof:
-			return;
+    case sbjson4_token_eof:
+        return;
 
-		default:
-			state = [SBJson4StreamParserStateError sharedInstance];
-			break;
-	}
+    default:
+        state = [SBJson4StreamParserStateError sharedInstance];
+        break;
+    }
 
 
 	parser.state = state;

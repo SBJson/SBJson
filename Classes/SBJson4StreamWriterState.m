@@ -37,16 +37,16 @@
 #import "SBJson4StreamWriterState.h"
 #import "SBJson4StreamWriter.h"
 
-#define SINGLETON \
-+ (id)sharedInstance { \
-    static id state = nil; \
-    if (!state) { \
-        @synchronized(self) { \
-            if (!state) state = [[self alloc] init]; \
-        } \
-    } \
-    return state; \
-}
+#define SINGLETON                                           \
+    + (id)sharedInstance {                                  \
+        static id state = nil;                              \
+        if (!state) {                                       \
+            @synchronized(self) {                           \
+                if (!state) state = [[self alloc] init];    \
+            }                                               \
+        }                                                   \
+        return state;                                       \
+    }
 
 
 @implementation SBJson4StreamWriterState
@@ -56,9 +56,9 @@
 - (BOOL)expectingKey:(SBJson4StreamWriter *)writer { return NO; }
 - (void)transitionState:(SBJson4StreamWriter *)writer {}
 - (void)appendWhitespace:(SBJson4StreamWriter *)writer {
-	[writer appendBytes:"\n" length:1];
-	for (NSUInteger i = 0; i < writer.stateStack.count; i++)
-	    [writer appendBytes:"  " length:2];
+    [writer appendBytes:"\n" length:1];
+    for (NSUInteger i = 0; i < writer.stateStack.count; i++)
+        [writer appendBytes:"  " length:2];
 }
 @end
 
@@ -67,11 +67,11 @@
 SINGLETON
 
 - (void)transitionState:(SBJson4StreamWriter *)writer {
-	writer.state = [SBJson4StreamWriterStateObjectValue sharedInstance];
+    writer.state = [SBJson4StreamWriterStateObjectValue sharedInstance];
 }
 - (BOOL)expectingKey:(SBJson4StreamWriter *)writer {
-	writer.error = @"JSON object key must be string";
-	return YES;
+    writer.error = @"JSON object key must be string";
+    return YES;
 }
 @end
 
@@ -80,7 +80,7 @@ SINGLETON
 SINGLETON
 
 - (void)appendSeparator:(SBJson4StreamWriter *)writer {
-	[writer appendBytes:"," length:1];
+    [writer appendBytes:"," length:1];
 }
 @end
 
@@ -89,13 +89,13 @@ SINGLETON
 SINGLETON
 
 - (void)appendSeparator:(SBJson4StreamWriter *)writer {
-	[writer appendBytes:":" length:1];
+    [writer appendBytes:":" length:1];
 }
 - (void)transitionState:(SBJson4StreamWriter *)writer {
     writer.state = [SBJson4StreamWriterStateObjectKey sharedInstance];
 }
 - (void)appendWhitespace:(SBJson4StreamWriter *)writer {
-	[writer appendBytes:" " length:1];
+    [writer appendBytes:" " length:1];
 }
 @end
 
@@ -113,7 +113,7 @@ SINGLETON
 SINGLETON
 
 - (void)appendSeparator:(SBJson4StreamWriter *)writer {
-	[writer appendBytes:"," length:1];
+    [writer appendBytes:"," length:1];
 }
 @end
 

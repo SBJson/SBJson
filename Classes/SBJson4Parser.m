@@ -147,7 +147,7 @@ typedef enum {
 }
 
 - (void)parserFound:(id)obj isValue:(BOOL)isValue {
-	NSParameterAssert(obj);
+    NSParameterAssert(obj);
 	
     if(processBlock&&path) {
         if(isValue) {
@@ -158,27 +158,27 @@ typedef enum {
         }
     }
 
-	switch (currentType) {
-		case SBJson4ChunkArray:
-			[array addObject:obj];
-			break;
+    switch (currentType) {
+    case SBJson4ChunkArray:
+        [array addObject:obj];
+        break;
 
-		case SBJson4ChunkObject:
-			NSParameterAssert(keyStack.count);
-			[dict setObject:obj forKey:[keyStack lastObject]];
-			[keyStack removeLastObject];
-			break;
+    case SBJson4ChunkObject:
+        NSParameterAssert(keyStack.count);
+        [dict setObject:obj forKey:[keyStack lastObject]];
+        [keyStack removeLastObject];
+        break;
 
-		case SBJson4ChunkNone: {
-            __block BOOL stop = NO;
-            valueBlock(obj, &stop);
-            if (stop) [_parser stop];
-        }
-			break;
+    case SBJson4ChunkNone: {
+        __block BOOL stop = NO;
+        valueBlock(obj, &stop);
+        if (stop) [_parser stop];
+    }
+        break;
 
-		default:
-			break;
-	}
+    default:
+        break;
+    }
 }
 
 
