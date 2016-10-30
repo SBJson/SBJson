@@ -210,11 +210,47 @@
                 return sbjson4_token_error;
                 break;
 
+            case 0xC2 ... 0xDF:
+                // Expecting 1 continuation byte
+                index++;
+                if (![self haveOneMoreByte]) return sbjson4_token_eof;
+                if (![self isContinuationByte]) return sbjson4_token_error;
+                index++;
+                break;
+
+            case 0xE0 ... 0xEF:
+                // Expecting 2 continuation bytes
+                index++;
+                for (NSUInteger i = 0; i < 2; i++) {
+                    if (![self haveOneMoreByte]) return sbjson4_token_eof;
+                    if (![self isContinuationByte]) return sbjson4_token_error;
+                    index++;
+                }
+                break;
+
+            case 0xF0 ... 0xF4:
+                // Expecting 3 continuation bytes
+                index++;
+                for (NSUInteger i = 0; i < 3; i++) {
+                    if (![self haveOneMoreByte]) return sbjson4_token_eof;
+                    if (![self isContinuationByte]) return sbjson4_token_error;
+                    index++;
+                }
+                break;
+
             default:
                 index++;
                 break;
         }
     }
+}
+
+- (BOOL)isContinuationByte {
+    if ((bytes[index] & 0b11000000) != 0b10000000) {
+        [self setError:[NSString stringWithFormat:@"Missing UTF-8 continuation byte; found [0x%X]", (uint8_t)bytes[index]]];
+        return NO;
+    }
+    return YES;
 }
 
 - (sbjson4_token_t)getNumberToken:(char **)token length:(NSUInteger *)length {
