@@ -61,24 +61,24 @@
 }
 
 - (BOOL)getUnichar:(unichar *)ch {
-    if ([self haveRemainingCharacters:1]) {
+    if ([self haveRemainingBytes:1]) {
         *ch = (unichar) bytes[index];
         return YES;
     }
     return NO;
 }
 
-- (BOOL)haveOneMoreCharacter {
-    return [self haveRemainingCharacters:1];
+- (BOOL)haveOneMoreByte {
+    return [self haveRemainingBytes:1];
 }
 
-- (BOOL)haveRemainingCharacters:(NSUInteger)length {
+- (BOOL)haveRemainingBytes:(NSUInteger)length {
     return data.length - index >= length;
 }
 
 - (sbjson4_token_t)match:(char *)str retval:(sbjson4_token_t)tok token:(char **)token length:(NSUInteger *)length {
     NSUInteger len = strlen(str);
-    if ([self haveRemainingCharacters:len]) {
+    if ([self haveRemainingBytes:len]) {
         if (!memcmp(bytes + index, str, len)) {
             *token = str;
             *length = len;
@@ -128,7 +128,7 @@
     sbjson4_token_t tok = sbjson4_token_string;
 
     for (;;) {
-        if (![self haveOneMoreCharacter])
+        if (![self haveOneMoreByte])
             return sbjson4_token_eof;
 
         switch (bytes[index]) {
@@ -145,12 +145,12 @@
             case '\\':
                 tok = sbjson4_token_encoded;
                 index++;
-                if (![self haveOneMoreCharacter])
+                if (![self haveOneMoreByte])
                     return sbjson4_token_eof;
 
                 if (bytes[index] == 'u') {
                     index++;
-                    if (![self haveRemainingCharacters:4])
+                    if (![self haveRemainingBytes:4])
                         return sbjson4_token_eof;
 
                     unichar hi;
@@ -160,7 +160,7 @@
                     }
 
                     if (SBStringIsSurrogateHighCharacter(hi)) {
-                        if (![self haveRemainingCharacters:6])
+                        if (![self haveRemainingBytes:6])
                             return sbjson4_token_eof;
 
                         unichar lo;
@@ -214,7 +214,7 @@
     if (bytes[index] == '-') {
         index++;
 
-        if (![self haveOneMoreCharacter])
+        if (![self haveOneMoreByte])
             return sbjson4_token_eof;
     }
 
@@ -222,7 +222,7 @@
     if (bytes[index] == '0') {
         index++;
 
-        if (![self haveOneMoreCharacter])
+        if (![self haveOneMoreByte])
             return sbjson4_token_eof;
 
         if (isdigit(bytes[index])) {
@@ -233,11 +233,11 @@
 
     while (isdigit(bytes[index])) {
         index++;
-        if (![self haveOneMoreCharacter])
+        if (![self haveOneMoreByte])
             return sbjson4_token_eof;
     }
 
-    if (![self haveOneMoreCharacter])
+    if (![self haveOneMoreByte])
         return sbjson4_token_eof;
 
 
@@ -245,13 +245,13 @@
         index++;
         tok = sbjson4_token_real;
 
-        if (![self haveOneMoreCharacter])
+        if (![self haveOneMoreByte])
             return sbjson4_token_eof;
 
         NSUInteger fraction_start = index;
         while (isdigit(bytes[index])) {
             index++;
-            if (![self haveOneMoreCharacter])
+            if (![self haveOneMoreByte])
                 return sbjson4_token_eof;
         }
 
@@ -265,19 +265,19 @@
         index++;
         tok = sbjson4_token_real;
 
-        if (![self haveOneMoreCharacter])
+        if (![self haveOneMoreByte])
             return sbjson4_token_eof;
 
         if (bytes[index] == '-' || bytes[index] == '+') {
             index++;
-            if (![self haveOneMoreCharacter])
+            if (![self haveOneMoreByte])
                 return sbjson4_token_eof;
         }
 
         NSUInteger exp_start = index;
         while (isdigit(bytes[index])) {
             index++;
-            if (![self haveOneMoreCharacter])
+            if (![self haveOneMoreByte])
                 return sbjson4_token_eof;
         }
 
