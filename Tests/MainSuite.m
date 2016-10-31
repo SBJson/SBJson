@@ -109,7 +109,13 @@ static NSString *chomp(NSString *str) {
                     XCTAssertEqualObjects([error localizedDescription], chomp(slurp(outpath)), @"%@", [[inpath pathComponents]
                                                                                                           lastObject]);
                 }];
-            [parser parse:slurpd(inpath)];
+
+            @try {
+                [parser parse:slurpd(inpath)];
+            }
+            @catch(NSException *e) {
+                XCTFail(@"%@", [[inpath pathComponents] lastObject]);
+            }
 
         }];
 }
