@@ -202,6 +202,10 @@
 
                 break;
 
+            case 0x80 ... 0xBF:
+                [self setError:[NSString stringWithFormat: @"Unexpected UTF-8 continuation byte [0x%X]", (uint8_t)bytes[index]]];
+                return sbjson4_token_error;
+
             case 0xC0 ... 0xC1:
             case 0xF5 ... 0xFF:
                 // Flat out illegal UTF-8 bytes, see
