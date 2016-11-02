@@ -98,7 +98,7 @@ static NSString *chomp(NSString *str) {
                        outExt:@"err"
                         block:^(NSString *inpath, NSString *outpath) {
             id parser = [[SBJson4Parser alloc] initWithBlock:^(id o, BOOL *string) {
-                    XCTFail(@"%@", o);
+                XCTFail(@"%@ - %@", o, [[inpath pathComponents] lastObject]);
                 }
                                                 processBlock:nil
                                                    multiRoot:NO
