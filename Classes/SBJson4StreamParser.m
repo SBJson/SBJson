@@ -118,7 +118,7 @@
 }
 
 - (void)handleArrayStart {
-	[_delegate parserFoundArrayStart];
+    [_delegate parserFoundArrayStart];
     [_stateStack addObject:_state];
     _state = [SBJson4StreamParserStateArrayStart sharedInstance];
 }
