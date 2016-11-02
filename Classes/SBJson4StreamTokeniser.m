@@ -195,7 +195,7 @@
                             break;
 
                         default:
-                            [self setError:[NSString stringWithFormat:@"Illegal escape character [%x]", bytes[index]]];
+                            [self setError:[NSString stringWithFormat:@"Illegal escape character [0x%0.2hhX]", bytes[index]]];
                             return sbjson4_token_error;
                     }
                 }
