@@ -239,6 +239,9 @@
                     return sbjson4_token_error;
                 }
 
+                if ([self isInvalidCodePoint:cp])
+                    return sbjson4_token_error;
+
                 break;
             }
 
@@ -259,6 +262,9 @@
                     return sbjson4_token_error;
                 }
 
+                if ([self isInvalidCodePoint:cp])
+                    return sbjson4_token_error;
+
                 break;
             }
 
@@ -267,6 +273,14 @@
                 break;
         }
     }
+}
+
+- (BOOL)isInvalidCodePoint:(long)cp {
+    if (cp > 0x10FFFF || SBStringIsSurrogateLowCharacter(cp) || SBStringIsSurrogateHighCharacter(cp)) {
+        [self setError:[NSString stringWithFormat:@"Illegal Unicode code point [0x%lX]", cp]];
+        return YES;
+    }
+    return NO;
 }
 
 - (BOOL)isContinuationByte {
