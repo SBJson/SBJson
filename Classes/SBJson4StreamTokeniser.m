@@ -222,25 +222,45 @@
                 index++;
                 break;
 
-            case 0xE0 ... 0xEF:
+            case 0xE0 ... 0xEF: {
                 // Expecting 2 continuation bytes
+                long cp = bytes[index] & 0x0F;
                 index++;
                 for (NSUInteger i = 0; i < 2; i++) {
                     if (![self haveOneMoreByte]) return sbjson4_token_eof;
                     if (![self isContinuationByte]) return sbjson4_token_error;
+                    cp = cp << 6 | (bytes[index] & 0x3F);
                     index++;
                 }
-                break;
 
-            case 0xF0 ... 0xF4:
+                if (!(cp & 0b1111100000000000)) {
+                    [self setError:[NSString stringWithFormat:@"Illegal overlong encoding [0x%X %X %X]",
+                                    (uint8_t)bytes[index-3], (uint8_t)bytes[index-2], (uint8_t)bytes[index-1]]];
+                    return sbjson4_token_error;
+                }
+
+                break;
+            }
+
+            case 0xF0 ... 0xF4: {
                 // Expecting 3 continuation bytes
+                long cp = bytes[index] & 0x07;
                 index++;
                 for (NSUInteger i = 0; i < 3; i++) {
                     if (![self haveOneMoreByte]) return sbjson4_token_eof;
                     if (![self isContinuationByte]) return sbjson4_token_error;
+                    cp = cp << 6 | (bytes[index] & 0x3F);
                     index++;
                 }
+
+                if (!(cp & 0b111110000000000000000)) {
+                    [self setError:[NSString stringWithFormat:@"Illegal overlong encoding [0x%X %X %X %X]",
+                                    (uint8_t)bytes[index-4], (uint8_t)bytes[index-3], (uint8_t)bytes[index-2], (uint8_t)bytes[index-1]]];
+                    return sbjson4_token_error;
+                }
+
                 break;
+            }
 
             default:
                 index++;
