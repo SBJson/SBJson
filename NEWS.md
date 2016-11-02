@@ -1,3 +1,33 @@
+# 4.0.4: No Crashes On Invalid UTF-8 Found 
+
+(November 3rd, 2016)
+
+Oh, er, well, this is a bit embarrassing. It turns out my tests were
+insufficently devious, and did not guard against invalid UTF-8 encodings. I
+thought I could punt on UTF-8 validation and rely on `[NSString
+initWithBytes:length:encoding]` to do it, but then Nicolas Seriot reported
+otherwise ([issue #219][issue-219]). The upshoot of this is that this version
+won't crash on a whole range invalid UTF-8 byte sequences where previous
+versions crashed did:
+
+* Flat-out illegal UTF-8 byte values
+* Missing continuation bytes
+* Unexpected continuation bytes
+* Overlong encodings
+* Invalid Unicode code points
+
+After 9 years of calling SBJson a strict JSON parser I've finally implemented
+UTF-8 validation. Thank you for the learning opportunity Nicolas!
+
+[issue-219]: https://github.com/stig/json-framework/issues/219
+
+Also in this release:
+
+* Recreate the project file and targets using Xcode 8.
+* Re-organising the frankly bonkers repo layout to hopefully make it easier
+  for casual contributors to find their way around.
+* Fix the Travis build; this had broken due to bit rot.
+
 4.0.3 (July 7th, 2016)
 ======================
 
