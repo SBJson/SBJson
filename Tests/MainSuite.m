@@ -77,8 +77,6 @@ static NSString *chomp(NSString *str) {
                 }];
             [parser parse:slurpd(inpath)];
         }];
-
-    XCTAssertEqual(count, (NSUInteger)38);
 }
 
 /*
@@ -91,7 +89,6 @@ static NSString *chomp(NSString *str) {
   STAssertNotNil(output, writer.error);
   STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
   }];
-
   STAssertEquals(count, (NSUInteger)1, nil);
   }*/
 
@@ -115,8 +112,6 @@ static NSString *chomp(NSString *str) {
             [parser parse:slurpd(inpath)];
 
         }];
-
-    XCTAssertEqual(count, (NSUInteger)37);
 }
 
 - (void)testWriteSuccess {
@@ -129,9 +124,6 @@ static NSString *chomp(NSString *str) {
             XCTAssertNotNil(output, @"%@", writer.error);
             XCTAssertEqualObjects(output, chomp(slurp(outpath)));
         }];
-
-    XCTAssertEqual(count, (NSUInteger)2);
-
 }
 
 - (void)testWriteError {
@@ -145,8 +137,6 @@ static NSString *chomp(NSString *str) {
             XCTAssertNil([writer stringWithObject:value]);
             XCTAssertEqualObjects(writer.error, chomp(slurp(outpath)));
         }];
-
-    XCTAssertEqual(count, (NSUInteger)5);
 }
 
 
@@ -170,8 +160,6 @@ static NSString *chomp(NSString *str) {
                 }];
             [parser parse:slurpd(inpath)];
         }];
-
-    XCTAssertEqual(count, (NSUInteger)8);
 }
 
 - (void)testComparatorSort {
@@ -197,8 +185,6 @@ static NSString *chomp(NSString *str) {
                 }];
             [parser parse:slurpd(inpath)];
         }];
-
-    XCTAssertEqual(count, (NSUInteger)3);
 }
 
 @end
