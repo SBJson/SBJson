@@ -133,7 +133,7 @@
 
         switch ((uint8_t)bytes[index]) {
             case 0 ... 0x1F:
-                [self setError:[NSString stringWithFormat:@"Unescaped control character [0x%0.2X] in string", bytes[index]]];
+                [self setError:[NSString stringWithFormat:@"Unescaped control character [0x%0.2hhX] in string", bytes[index]]];
                 return sbjson4_token_error;
 
             case '"':
@@ -203,14 +203,14 @@
                 break;
 
             case 0x80 ... 0xBF:
-                [self setError:[NSString stringWithFormat: @"Unexpected UTF-8 continuation byte [0x%X]", (uint8_t)bytes[index]]];
+                [self setError:[NSString stringWithFormat: @"Unexpected UTF-8 continuation byte [0x%0.2hhX]", bytes[index]]];
                 return sbjson4_token_error;
 
             case 0xC0 ... 0xC1:
             case 0xF5 ... 0xFF:
                 // Flat out illegal UTF-8 bytes, see
                 // https://en.wikipedia.org/wiki/UTF-8#Codepage_layout
-                [self setError:[NSString stringWithFormat: @"Illegal UTF-8 byte [%x]", (uint8_t)bytes[index]]];
+                [self setError:[NSString stringWithFormat: @"Illegal UTF-8 byte [0x%0.2hhX]", bytes[index]]];
                 return sbjson4_token_error;
                 break;
 
@@ -234,8 +234,8 @@
                 }
 
                 if (!(cp & 0b1111100000000000)) {
-                    [self setError:[NSString stringWithFormat:@"Illegal overlong encoding [0x%X %X %X]",
-                                    (uint8_t)bytes[index-3], (uint8_t)bytes[index-2], (uint8_t)bytes[index-1]]];
+                    [self setError:[NSString stringWithFormat:@"Illegal overlong encoding [0x%0.2hhX %0.2hhX %0.2hhX]",
+                                    bytes[index-3], bytes[index-2], bytes[index-1]]];
                     return sbjson4_token_error;
                 }
 
@@ -257,8 +257,8 @@
                 }
 
                 if (!(cp & 0b111110000000000000000)) {
-                    [self setError:[NSString stringWithFormat:@"Illegal overlong encoding [0x%X %X %X %X]",
-                                    (uint8_t)bytes[index-4], (uint8_t)bytes[index-3], (uint8_t)bytes[index-2], (uint8_t)bytes[index-1]]];
+                    [self setError:[NSString stringWithFormat:@"Illegal overlong encoding [0x%0.2hhX %0.2hhX %0.2hhX %0.2hhX]",
+                                    bytes[index-4], bytes[index-3], bytes[index-2], bytes[index-1]]];
                     return sbjson4_token_error;
                 }
 
@@ -285,7 +285,7 @@
 
 - (BOOL)isContinuationByte {
     if ((bytes[index] & 0b11000000) != 0b10000000) {
-        [self setError:[NSString stringWithFormat:@"Missing UTF-8 continuation byte; found [0x%X]", (uint8_t)bytes[index]]];
+        [self setError:[NSString stringWithFormat:@"Missing UTF-8 continuation byte; found [0x%0.2hhX]", bytes[index]]];
         return NO;
     }
     return YES;
