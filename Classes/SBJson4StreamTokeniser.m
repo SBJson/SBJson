@@ -131,9 +131,9 @@
         if (![self haveOneMoreByte])
             return sbjson4_token_eof;
 
-        switch (bytes[index]) {
+        switch ((uint8_t)bytes[index]) {
             case 0 ... 0x1F:
-                [self setError:[NSString stringWithFormat:@"Unescaped control character [0x%0.2X] in string", bytes[index]]];
+                [self setError:[NSString stringWithFormat:@"Unescaped control character [0x%0.2hhX] in string", bytes[index]]];
                 return sbjson4_token_error;
 
             case '"':
@@ -202,11 +202,93 @@
 
                 break;
 
+            case 0x80 ... 0xBF:
+                [self setError:[NSString stringWithFormat: @"Unexpected UTF-8 continuation byte [0x%0.2hhX]", bytes[index]]];
+                return sbjson4_token_error;
+
+            case 0xC0 ... 0xC1:
+            case 0xF5 ... 0xFF:
+                // Flat out illegal UTF-8 bytes, see
+                // https://en.wikipedia.org/wiki/UTF-8#Codepage_layout
+                [self setError:[NSString stringWithFormat: @"Illegal UTF-8 byte [0x%0.2hhX]", bytes[index]]];
+                return sbjson4_token_error;
+                break;
+
+            case 0xC2 ... 0xDF:
+                // Expecting 1 continuation byte
+                index++;
+                if (![self haveOneMoreByte]) return sbjson4_token_eof;
+                if (![self isContinuationByte]) return sbjson4_token_error;
+                index++;
+                break;
+
+            case 0xE0 ... 0xEF: {
+                // Expecting 2 continuation bytes
+                long cp = bytes[index] & 0x0F;
+                index++;
+                for (NSUInteger i = 0; i < 2; i++) {
+                    if (![self haveOneMoreByte]) return sbjson4_token_eof;
+                    if (![self isContinuationByte]) return sbjson4_token_error;
+                    cp = cp << 6 | (bytes[index] & 0x3F);
+                    index++;
+                }
+
+                if (!(cp & 0b1111100000000000)) {
+                    [self setError:[NSString stringWithFormat:@"Illegal overlong encoding [0x%0.2hhX %0.2hhX %0.2hhX]",
+                                    bytes[index-3], bytes[index-2], bytes[index-1]]];
+                    return sbjson4_token_error;
+                }
+
+                if ([self isInvalidCodePoint:cp])
+                    return sbjson4_token_error;
+
+                break;
+            }
+
+            case 0xF0 ... 0xF4: {
+                // Expecting 3 continuation bytes
+                long cp = bytes[index] & 0x07;
+                index++;
+                for (NSUInteger i = 0; i < 3; i++) {
+                    if (![self haveOneMoreByte]) return sbjson4_token_eof;
+                    if (![self isContinuationByte]) return sbjson4_token_error;
+                    cp = cp << 6 | (bytes[index] & 0x3F);
+                    index++;
+                }
+
+                if (!(cp & 0b111110000000000000000)) {
+                    [self setError:[NSString stringWithFormat:@"Illegal overlong encoding [0x%0.2hhX %0.2hhX %0.2hhX %0.2hhX]",
+                                    bytes[index-4], bytes[index-3], bytes[index-2], bytes[index-1]]];
+                    return sbjson4_token_error;
+                }
+
+                if ([self isInvalidCodePoint:cp])
+                    return sbjson4_token_error;
+
+                break;
+            }
+
             default:
                 index++;
                 break;
         }
     }
+}
+
+- (BOOL)isInvalidCodePoint:(long)cp {
+    if (cp > 0x10FFFF || SBStringIsSurrogateLowCharacter(cp) || SBStringIsSurrogateHighCharacter(cp)) {
+        [self setError:[NSString stringWithFormat:@"Illegal Unicode code point [0x%lX]", cp]];
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)isContinuationByte {
+    if ((bytes[index] & 0b11000000) != 0b10000000) {
+        [self setError:[NSString stringWithFormat:@"Missing UTF-8 continuation byte; found [0x%0.2hhX]", bytes[index]]];
+        return NO;
+    }
+    return YES;
 }
 
 - (sbjson4_token_t)getNumberToken:(char **)token length:(NSUInteger *)length {

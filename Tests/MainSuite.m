@@ -79,6 +79,23 @@ static NSString *chomp(NSString *str) {
         }];
 }
 
+- (void)testParseUntilEOF {
+    [self inExtForeachInSuite:@"main"
+                        inext:@"in"
+                       outExt:@"eof"
+                        block:^(NSString *inpath, NSString *outpath) {
+                            id parser = [SBJson4Parser parserWithBlock:^(id value, BOOL *string) {}
+                                                        allowMultiRoot:NO
+                                                       unwrapRootArray:NO
+                                                          errorHandler:^(NSError *error) {
+                                                              XCTFail(@"%@", error);
+                                                          }];
+                            XCTAssertEqual([parser parse:slurpd(inpath)], SBJson4ParserWaitingForData);
+                        }];
+
+    XCTAssertEqual(count, (NSUInteger)3);
+}
+
 /*
   - (void)IGNOREDtestReallyBrokenUTF8 {
   [self inExtForeachInSuite:@"kuhn" inext:@"in" outExt:@"out" block:^(NSString *inpath, NSString *outpath) {
@@ -109,13 +126,7 @@ static NSString *chomp(NSString *str) {
                     XCTAssertEqualObjects([error localizedDescription], chomp(slurp(outpath)), @"%@", [[inpath pathComponents]
                                                                                                           lastObject]);
                 }];
-
-            @try {
-                [parser parse:slurpd(inpath)];
-            }
-            @catch(NSException *e) {
-                XCTFail(@"%@", [[inpath pathComponents] lastObject]);
-            }
+            [parser parse:slurpd(inpath)];
 
         }];
 }
