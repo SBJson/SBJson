@@ -14,7 +14,7 @@ implements chunk-based JSON parsing and generation in Objective-C.
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Features
---------
+========
 
 SBJson's number one feature is chunk-based operation. Feed the parser one or
 more chunks of UTF8-encoded data and it will call a block you provide with each
@@ -31,15 +31,17 @@ Other features:
 * The writer can optionally create human-readable (indented) output.
 
 API Documentation
------------------
+=================
 
 Please see the [API Documentation](http://cocoadocs.org/docsets/SBJson) for
 more details.
 
 Installation
-------------
+============
 
-### CocoaPods
+CocoaPods
+---------
+
 The preferred way to use SBJson is by using
 [CocoaPods](http://cocoapods.org/?q=sbjson). In your Podfile use:
 
@@ -51,16 +53,20 @@ transition---you can instead use:
 
     pod 'SBJson4', '~> 4.0.4'
 
-### Carthage
+Carthage
+--------
+
 SBJson is compatible with _Carthage_. Follow the [Getting Started Guide for iOS](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos).
 
 	github "stig/json-framework" == 4.0.4
 
-### Copy source files
+Copy source files
+-----------------
+
 An alternative that I no longer recommend is to copy all the source files (the contents of the `Classes` folder) into your own Xcode project.
 
 Examples
---------
+========
 
 * https://github.com/stig/ChunkedDelivery - a toy example showing how one can
   use `NSURLSessionDataDelegate` to do chunked delivery.
@@ -68,7 +74,7 @@ Examples
   to reflow JSON on OS X.
 
 Support
--------
+=======
 
 * Check StackOverflow questions
   [tagged with SBJson](http://stackoverflow.com/questions/tagged/sbjson) if
@@ -78,6 +84,6 @@ Support
   have found a bug.
 
 License
--------
+=======
 
 BSD. See [LICENSE](LICENSE) for details.
