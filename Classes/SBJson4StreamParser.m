@@ -219,31 +219,20 @@
                 }
                     // FALL THROUGH
 
-                case sbjson4_token_real: {
+                case sbjson4_token_real:
                     [_delegate parserFoundNumber:@(strtod(token, NULL))];
                     [_state parser:self shouldTransitionTo:tok];
                     break;
-                }
 
-                case sbjson4_token_string: {
-                    NSString *string = [[NSString alloc] initWithBytes:token length:token_len encoding:NSUTF8StringEncoding];
-                    if ([_state needKey])
-                        [_delegate parserFoundObjectKey:string];
-                    else
-                        [_delegate parserFoundString:string];
-                    [_state parser:self shouldTransitionTo:tok];
+                case sbjson4_token_string:
+                    [self parserFoundString:[[NSString alloc] initWithBytes:token length:token_len encoding:NSUTF8StringEncoding]
+                                   forToken:tok];
                     break;
-                }
 
-                case sbjson4_token_encoded: {
-                    NSString *string = [self decodeStringToken:token length:token_len];
-                    if ([_state needKey])
-                        [_delegate parserFoundObjectKey:string];
-                    else
-                        [_delegate parserFoundString:string];
-                    [_state parser:self shouldTransitionTo:tok];
+                case sbjson4_token_encoded:
+                    [self parserFoundString:[self decodeStringToken:token length:token_len]
+                                   forToken:tok];
                     break;
-                }
 
                 default:
                     break;
@@ -253,6 +242,14 @@
         }
         return SBJson4ParserComplete;
     }
+}
+
+- (void)parserFoundString:(NSString*)string forToken:(sbjson4_token_t)tok {
+    if ([_state needKey])
+        [_delegate parserFoundObjectKey:string];
+    else
+        [_delegate parserFoundString:string];
+    [_state parser:self shouldTransitionTo:tok];
 }
 
 - (unichar)decodeHexQuad:(char *)quad {
