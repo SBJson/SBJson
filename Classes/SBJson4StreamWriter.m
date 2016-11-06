@@ -212,8 +212,7 @@ static NSNumber *kNegativeInfinity;
 		return [self writeArray:o];
 
 	} else if ([o isKindOfClass:[NSString class]]) {
-		[self writeString:o];
-		return YES;
+		return [self writeString:o];
 
 	} else if ([o isKindOfClass:[NSNumber class]]) {
 		return [self writeNumber:o];
@@ -223,7 +222,6 @@ static NSNumber *kNegativeInfinity;
 
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		return [self writeValue:[o proxyForJson]];
-
 	}
 
 	self.error = [NSString stringWithFormat:@"JSON serialisation not supported for %@", [o class]];

@@ -82,7 +82,20 @@
 SINGLETON
 
 - (BOOL)parser:(SBJson4StreamParser *)parser shouldAcceptToken:(sbjson4_token_t)token {
-    return token == sbjson4_token_array_open || token == sbjson4_token_object_open;
+    switch (token) {
+    case sbjson4_token_object_open:
+    case sbjson4_token_array_open:
+    case sbjson4_token_bool:
+    case sbjson4_token_null:
+    case sbjson4_token_integer:
+    case sbjson4_token_real:
+    case sbjson4_token_string:
+    case sbjson4_token_encoded:
+        return YES;
+
+    default:
+        return NO;
+	}
 }
 
 - (void)parser:(SBJson4StreamParser *)parser shouldTransitionTo:(sbjson4_token_t)tok {
@@ -109,15 +122,11 @@ SINGLETON
         return;
 
     default:
-        state = [SBJson4StreamParserStateError sharedInstance];
         break;
     }
 
-
 	parser.state = state;
 }
-
-- (NSString*)name { return @"before outer-most array or object"; }
 
 @end
 
@@ -127,7 +136,7 @@ SINGLETON
 
 SINGLETON
 
-- (NSString*)name { return @"after outer-most array or object"; }
+- (NSString*)name { return @"after complete json"; }
 
 - (SBJson4ParserStatus)parserShouldReturn:(SBJson4StreamParser *)parser {
 	return SBJson4ParserComplete;
