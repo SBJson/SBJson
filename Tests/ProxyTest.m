@@ -89,8 +89,8 @@
     XCTAssertEqualObjects([writer stringWithObject:[NSArray arrayWithObject:[True new]]], @"[true]");
 }
 
-- (void)testUnsupportedWithProxyWithoutWrapper {
-    XCTAssertNil([writer stringWithObject:[True new]]);
+- (void)testProxyWithoutWrapper {
+    XCTAssertEqualObjects([writer stringWithObject:[True new]], @"true");
 }
 
 - (void)testUnsupportedWithNestedProxy {

@@ -70,21 +70,7 @@
 	streamWriter.humanReadable = self.humanReadable;
     streamWriter.delegate = self;
 
-	BOOL ok = NO;
-	if ([object isKindOfClass:[NSDictionary class]])
-		ok = [streamWriter writeObject:object];
-
-	else if ([object isKindOfClass:[NSArray class]])
-		ok = [streamWriter writeArray:object];
-
-	else if ([object respondsToSelector:@selector(proxyForJson)])
-		return [self dataWithObject:[object proxyForJson]];
-	else {
-		self.error = @"Not valid type for JSON";
-		return nil;
-	}
-
-	if (ok)
+	if ([streamWriter writeValue:object])
 		return self.acc;
 
 	self.error = streamWriter.error;

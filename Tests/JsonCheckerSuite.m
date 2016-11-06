@@ -84,7 +84,6 @@
             XCTAssertTrue(success && status == SBJson4ParserComplete, @"Success block was called & parsing complete");
 
         }];
-    XCTAssertEqual(count, (NSUInteger)3);
 }
 
 - (void)testFail {
@@ -109,8 +108,6 @@
             if (status != SBJson4ParserWaitingForData)
                 XCTAssertTrue(success, @"ErrorHandler block was called: %@", [path lastPathComponent]);
         }];
-
-    XCTAssertEqual(count, (NSUInteger)33);
 }
 
 @end

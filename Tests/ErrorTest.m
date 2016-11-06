@@ -54,21 +54,11 @@ XCTAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
                      [NSArray array],
                      [NSDictionary dictionary],
                      nil];
-    
+
     for (id key in keys) {
         NSDictionary *object = [NSDictionary dictionaryWithObject:@"1" forKey:key];
         XCTAssertEqualObjects([writer stringWithObject:object], nil);
         XCTAssertNotNil(writer.error);
-    }
-}
-
-- (void)testScalar {
-    NSArray *fragments = [NSArray arrayWithObjects:@"foo", @"", [NSNull null], [NSNumber numberWithInt:1], [NSNumber numberWithBool:YES], nil];
-    for (NSUInteger i = 0; i < [fragments count]; i++) {
-        NSString *fragment = [fragments objectAtIndex:i];
-
-        XCTAssertNil([writer stringWithObject:fragment], @"%@", fragment);
-        SBAssertStringContains(writer.error, @"Not valid type for JSON");
     }
 }
 
@@ -86,7 +76,7 @@ XCTAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
 
 - (void)testWriteNil {
     XCTAssertNil([writer stringWithObject:nil]);
-    SBAssertStringContains(writer.error, @"Not valid type for JSON");
+    SBAssertStringContains(writer.error, @"JSON serialisation not supported for (null)");
 
 }
 

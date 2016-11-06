@@ -204,4 +204,19 @@ static NSString *chomp(NSString *str) {
         }];
 }
 
+- (void)testScalar {
+    NSDictionary *data = @{
+        @"foo"        : @"\"foo\"",
+        @""           : @"\"\"",
+        [NSNull null] : @"null",
+        @1            : @ "1",
+        @(YES)        : @"true"
+    };
+
+    for (id key in data) {
+        NSString *expect = [data objectForKey:key];
+        XCTAssertEqualObjects([writer stringWithObject:key], expect, @"%@", key);
+    }
+}
+
 @end
