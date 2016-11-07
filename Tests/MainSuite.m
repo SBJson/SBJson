@@ -75,7 +75,7 @@ static NSString *chomp(NSString *str) {
                                           errorHandler:^(NSError *error) {
                     XCTFail(@"%@", error);
                 }];
-            [parser parse:slurpd(inpath)];
+            XCTAssertEqual([parser parse:slurpd(inpath)], SBJson4ParserComplete);
         }];
 }
 
@@ -127,7 +127,6 @@ static NSString *chomp(NSString *str) {
                                                                                                           lastObject]);
                 }];
             [parser parse:slurpd(inpath)];
-
         }];
 }
 
