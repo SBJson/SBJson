@@ -1,3 +1,33 @@
+# 5.0.0: Target RFC 7159 over 4627
+
+(XXX, 2016)
+
+This is part two of addressing issues highlighted by Nicholas
+Seriot's [Parsing JSON is a Minefield][minefield] post. This
+release [allows scalar values at the top level][pr-238]; as recommended by RFC
+7159, which obsoletes the original RFC 4627. Since it is a change in behaviour
+I chose to bump the major version.
+
+Because the class names contains the major version number (so different
+major-version numbers of the framework can be included in the same app) a
+major-version bump necessitates renaming all the classes.
+
+**Please note**: There is an important *GOTCHA* regarding parsing of numeric
+scalars at the top-level. There is *no way* to differentiate `42` on its own
+from the first two digits of `4200`. This problem affects SBJson 5 because it
+expects to receive input bit-by-bit. When SBJson 5 sees "42" on its own it
+returns "SBJson5WaitingForData", since cannot be sure it has seen the full
+token yet, and needs more data to make sure. A workaround for this issue could
+be to append a space or newline to your input if you intend to give SBJson 5
+the whole input in one go.
+
+This is not an issue with any of the other JSON datatypes because they are
+either fixed length (true, false, null) or have unambigous delimiters at both
+ends ([], {}, "").
+
+[minefield]: http://seriot.ch/parsing_json.php
+[pr-238]: https://github.com/stig/json-framework/pull/238
+
 # 4.0.4: No Crashes On Invalid UTF-8 Found 
 
 (November 3rd, 2016)
