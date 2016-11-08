@@ -34,15 +34,15 @@
 #error "This source file must be compiled with ARC enabled!"
 #endif
 
-#import "SBJson4StreamParser.h"
-#import "SBJson4StreamTokeniser.h"
-#import "SBJson4StreamParserState.h"
+#import "SBJson5StreamParser.h"
+#import "SBJson5StreamTokeniser.h"
+#import "SBJson5StreamParserState.h"
 
 #define SBStringIsSurrogateHighCharacter(character) ((character >= 0xD800UL) && (character <= 0xDBFFUL))
 
-@implementation SBJson4StreamParser {
+@implementation SBJson5StreamParser {
 @private
-    SBJson4StreamTokeniser *tokeniser;
+    SBJson5StreamTokeniser *tokeniser;
     BOOL stopped;
     NSMutableArray *_stateStack;
 }
@@ -53,8 +53,8 @@
     self = [super init];
     if (self) {
         _stateStack = [[NSMutableArray alloc] initWithCapacity:32];
-        _state = [SBJson4StreamParserStateStart sharedInstance];
-        tokeniser = [[SBJson4StreamTokeniser alloc] init];
+        _state = [SBJson5StreamParserStateStart sharedInstance];
+        tokeniser = [[SBJson5StreamTokeniser alloc] init];
     }
     return self;
 }
@@ -62,42 +62,42 @@
 
 #pragma mark Methods
 
-- (NSString*)tokenName:(sbjson4_token_t)token {
+- (NSString*)tokenName:(sbjson5_token_t)token {
 	switch (token) {
-    case sbjson4_token_array_open:
+    case sbjson5_token_array_open:
         return @"start of array";
 
-    case sbjson4_token_array_close:
+    case sbjson5_token_array_close:
         return @"end of array";
 
-    case sbjson4_token_integer:
-    case sbjson4_token_real:
+    case sbjson5_token_integer:
+    case sbjson5_token_real:
         return @"number";
 
-    case sbjson4_token_string:
-    case sbjson4_token_encoded:
+    case sbjson5_token_string:
+    case sbjson5_token_encoded:
         return @"string";
 
-    case sbjson4_token_bool:
+    case sbjson5_token_bool:
         return @"boolean";
 
-    case sbjson4_token_null:
+    case sbjson5_token_null:
         return @"null";
 
-    case sbjson4_token_entry_sep:
+    case sbjson5_token_entry_sep:
         return @"key-value separator";
 
-    case sbjson4_token_value_sep:
+    case sbjson5_token_value_sep:
         return @"value separator";
 
-    case sbjson4_token_object_open:
+    case sbjson5_token_object_open:
         return @"start of object";
 
-    case sbjson4_token_object_close:
+    case sbjson5_token_object_close:
         return @"end of object";
 
-    case sbjson4_token_eof:
-    case sbjson4_token_error:
+    case sbjson5_token_eof:
+    case sbjson5_token_error:
         break;
 	}
 	NSAssert(NO, @"Should not get here");
@@ -107,10 +107,10 @@
 - (void)handleObjectStart {
     [_delegate parserFoundObjectStart];
     [_stateStack addObject:_state];
-    _state = [SBJson4StreamParserStateObjectStart sharedInstance];
+    _state = [SBJson5StreamParserStateObjectStart sharedInstance];
 }
 
-- (void)handleObjectEnd: (sbjson4_token_t) tok  {
+- (void)handleObjectEnd: (sbjson5_token_t) tok  {
     _state = [_stateStack lastObject];
     [_stateStack removeLastObject];
     [_state parser:self shouldTransitionTo:tok];
@@ -120,92 +120,92 @@
 - (void)handleArrayStart {
     [_delegate parserFoundArrayStart];
     [_stateStack addObject:_state];
-    _state = [SBJson4StreamParserStateArrayStart sharedInstance];
+    _state = [SBJson5StreamParserStateArrayStart sharedInstance];
 }
 
-- (void)handleArrayEnd: (sbjson4_token_t) tok  {
+- (void)handleArrayEnd: (sbjson5_token_t) tok  {
     _state = [_stateStack lastObject];
     [_stateStack removeLastObject];
     [_state parser:self shouldTransitionTo:tok];
     [_delegate parserFoundArrayEnd];
 }
 
-- (void) handleTokenNotExpectedHere: (sbjson4_token_t) tok  {
+- (void) handleTokenNotExpectedHere: (sbjson5_token_t) tok  {
     NSString *tokenName = [self tokenName:tok];
     NSString *stateName = [_state name];
 
-    _state = [SBJson4StreamParserStateError sharedInstance];
+    _state = [SBJson5StreamParserStateError sharedInstance];
     id ui = @{ NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Token '%@' not expected %@", tokenName, stateName]};
     [_delegate parserFoundError:[NSError errorWithDomain:@"org.sbjson.parser" code:2 userInfo:ui]];
 }
 
-- (SBJson4ParserStatus)parse:(NSData *)data_ {
+- (SBJson5ParserStatus)parse:(NSData *)data_ {
     @autoreleasepool {
         [tokeniser appendData:data_];
         
         for (;;) {
 
             if (stopped)
-                return SBJson4ParserStopped;
+                return SBJson5ParserStopped;
             
             if ([_state isError])
-                return SBJson4ParserError;
+                return SBJson5ParserError;
 
             char *token;
             NSUInteger token_len;
-            sbjson4_token_t tok = [tokeniser getToken:&token length:&token_len];
+            sbjson5_token_t tok = [tokeniser getToken:&token length:&token_len];
             
             switch (tok) {
-            case sbjson4_token_eof:
+            case sbjson5_token_eof:
                 return [_state parserShouldReturn:self];
 
-            case sbjson4_token_error:
-                _state = [SBJson4StreamParserStateError sharedInstance];
+            case sbjson5_token_error:
+                _state = [SBJson5StreamParserStateError sharedInstance];
                 [_delegate parserFoundError:[NSError errorWithDomain:@"org.sbjson.parser" code:3
                                                             userInfo:@{NSLocalizedDescriptionKey : tokeniser.error}]];
-                return SBJson4ParserError;
+                return SBJson5ParserError;
 
             default:
                     
                 if (![_state parser:self shouldAcceptToken:tok]) {
                     [self handleTokenNotExpectedHere: tok];
-                    return SBJson4ParserError;
+                    return SBJson5ParserError;
                 }
                     
                 switch (tok) {
-                case sbjson4_token_object_open:
+                case sbjson5_token_object_open:
                     [self handleObjectStart];
                     break;
                             
-                case sbjson4_token_object_close:
+                case sbjson5_token_object_close:
                     [self handleObjectEnd: tok];
                     break;
                             
-                case sbjson4_token_array_open:
+                case sbjson5_token_array_open:
                     [self handleArrayStart];
                     break;
                             
-                case sbjson4_token_array_close:
+                case sbjson5_token_array_close:
                     [self handleArrayEnd: tok];
                     break;
                             
-                case sbjson4_token_value_sep:
-                case sbjson4_token_entry_sep:
+                case sbjson5_token_value_sep:
+                case sbjson5_token_entry_sep:
                     [_state parser:self shouldTransitionTo:tok];
                     break;
                             
-                case sbjson4_token_bool:
+                case sbjson5_token_bool:
                     [_delegate parserFoundBoolean:token[0] == 't'];
                     [_state parser:self shouldTransitionTo:tok];
                     break;
                             
 
-                case sbjson4_token_null:
+                case sbjson5_token_null:
                     [_delegate parserFoundNull];
                     [_state parser:self shouldTransitionTo:tok];
                     break;
 
-                case sbjson4_token_integer: {
+                case sbjson5_token_integer: {
                     const int UNSIGNED_LONG_LONG_MAX_DIGITS = 20;
                     if (token_len <= UNSIGNED_LONG_LONG_MAX_DIGITS) {
                         if (*token == '-')
@@ -219,17 +219,17 @@
                 }
                     // FALL THROUGH
 
-                case sbjson4_token_real:
+                case sbjson5_token_real:
                     [_delegate parserFoundNumber:@(strtod(token, NULL))];
                     [_state parser:self shouldTransitionTo:tok];
                     break;
 
-                case sbjson4_token_string:
+                case sbjson5_token_string:
                     [self parserFoundString:[[NSString alloc] initWithBytes:token length:token_len encoding:NSUTF8StringEncoding]
                                    forToken:tok];
                     break;
 
-                case sbjson4_token_encoded:
+                case sbjson5_token_encoded:
                     [self parserFoundString:[self decodeStringToken:token length:token_len]
                                    forToken:tok];
                     break;
@@ -240,11 +240,11 @@
                 break;
             }
         }
-        return SBJson4ParserComplete;
+        return SBJson5ParserComplete;
     }
 }
 
-- (void)parserFoundString:(NSString*)string forToken:(sbjson4_token_t)tok {
+- (void)parserFoundString:(NSString*)string forToken:(sbjson5_token_t)tok {
     if ([_state needKey])
         [_delegate parserFoundObjectKey:string];
     else

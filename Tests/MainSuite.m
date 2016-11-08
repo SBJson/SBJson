@@ -5,7 +5,7 @@
 //
 
 
-#import "SBJson4.h"
+#import "SBJson5.h"
 #import <XCTest/XCTest.h>
 
 
@@ -25,12 +25,12 @@ static NSString *chomp(NSString *str) {
 @end
 
 @implementation MainSuite {
-    SBJson4Writer *writer;
+    SBJson5Writer *writer;
     NSUInteger count;
 }
 
 - (void)setUp {
-    writer = [[SBJson4Writer alloc] init];
+    writer = [[SBJson5Writer alloc] init];
     count = 0u;
 }
 
@@ -64,7 +64,7 @@ static NSString *chomp(NSString *str) {
                         inext:@"in"
                        outExt:@"out"
                         block:^(NSString *inpath, NSString *outpath) {
-            id parser = [SBJson4Parser parserWithBlock:^(id value, BOOL *string) {
+            id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *string) {
                     XCTAssertNotNil(value);
                     NSString *output = [writer stringWithObject:value];
                     XCTAssertNotNil(output, @"%@", writer.error);
@@ -75,7 +75,7 @@ static NSString *chomp(NSString *str) {
                                           errorHandler:^(NSError *error) {
                     XCTFail(@"%@", error);
                 }];
-            XCTAssertEqual([parser parse:slurpd(inpath)], SBJson4ParserComplete);
+            XCTAssertEqual([parser parse:slurpd(inpath)], SBJson5ParserComplete);
         }];
 }
 
@@ -84,13 +84,13 @@ static NSString *chomp(NSString *str) {
                         inext:@"in"
                        outExt:@"eof"
                         block:^(NSString *inpath, NSString *outpath) {
-                            id parser = [SBJson4Parser parserWithBlock:^(id value, BOOL *string) {}
+                            id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *string) {}
                                                         allowMultiRoot:NO
                                                        unwrapRootArray:NO
                                                           errorHandler:^(NSError *error) {
                                                               XCTFail(@"%@", error);
                                                           }];
-                            XCTAssertEqual([parser parse:slurpd(inpath)], SBJson4ParserWaitingForData);
+                            XCTAssertEqual([parser parse:slurpd(inpath)], SBJson5ParserWaitingForData);
                         }];
 
     XCTAssertEqual(count, (NSUInteger)3);
@@ -114,7 +114,7 @@ static NSString *chomp(NSString *str) {
                         inext:@"in"
                        outExt:@"err"
                         block:^(NSString *inpath, NSString *outpath) {
-            id parser = [[SBJson4Parser alloc] initWithBlock:^(id o, BOOL *string) {
+            id parser = [[SBJson5Parser alloc] initWithBlock:^(id o, BOOL *string) {
                 XCTFail(@"%@ - %@", o, [[inpath pathComponents] lastObject]);
                 }
                                                 processBlock:nil
@@ -164,7 +164,7 @@ static NSString *chomp(NSString *str) {
                         inext:@"in"
                        outExt:@"out"
                         block:^(NSString *inpath, NSString *outpath) {
-            id parser = [SBJson4Parser parserWithBlock:^(id value, BOOL *string) {
+            id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *string) {
                     NSString *output = [writer stringWithObject:value];
                     XCTAssertNotNil(output, @"%@", writer.error);
                     XCTAssertEqualObjects(output, chomp(slurp(outpath)));
@@ -189,7 +189,7 @@ static NSString *chomp(NSString *str) {
                         inext:@"in"
                        outExt:@"out"
                         block:^(NSString *inpath, NSString *outpath) {
-            id parser = [SBJson4Parser parserWithBlock:^(id value, BOOL *string) {
+            id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *string) {
                     NSString *output = [writer stringWithObject:value];
                     XCTAssertNotNil(output, @"%@", writer.error);
                     XCTAssertEqualObjects(output, chomp(slurp(outpath)));

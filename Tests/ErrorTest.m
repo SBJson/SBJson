@@ -30,7 +30,7 @@
 
  */
 
-#import "SBJson4.h"
+#import "SBJson5.h"
 #import <XCTest/XCTest.h>
 
 
@@ -41,11 +41,11 @@ XCTAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
 @end
 
 @implementation ErrorTest {
-    SBJson4Writer * writer;
+    SBJson5Writer * writer;
 }
 
 - (void)setUp {
-    writer = [SBJson4Writer new];
+    writer = [SBJson5Writer new];
 }
 
 - (void)testNonStringDictionaryKey {
@@ -63,7 +63,7 @@ XCTAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
 }
 
 - (void)testParseNil {
-    id parser = [SBJson4Parser parserWithBlock:^(id o, BOOL *string) {
+    id parser = [SBJson5Parser parserWithBlock:^(id o, BOOL *string) {
         XCTFail(@"");
     }
                                 allowMultiRoot:NO

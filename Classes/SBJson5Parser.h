@@ -31,7 +31,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "SBJson4StreamParser.h"
+#import "SBJson5StreamParser.h"
 
 /**
  Block called when the parser has parsed an item. This could be once
@@ -40,13 +40,13 @@
  @param item contains the parsed item.
  @param stop set to YES if you want the parser to stop
  */
-typedef void (^SBJson4ValueBlock)(id item, BOOL* stop);
+typedef void (^SBJson5ValueBlock)(id item, BOOL* stop);
 
 /**
  Block called if an error occurs.
  @param error the error.
  */
-typedef void (^SBJson4ErrorBlock)(NSError* error);
+typedef void (^SBJson5ErrorBlock)(NSError* error);
 
 /**
  Block used to process parsed tokens as they are encountered. You can use this
@@ -54,7 +54,7 @@ typedef void (^SBJson4ErrorBlock)(NSError* error);
  @param item the parsed token
  @param path the JSON Path of the token
  */
-typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
+typedef id (^SBJson5ProcessBlock)(id item, NSString* path);
 
 
 /**
@@ -94,16 +94,16 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  contains multiple (whitespace limited) JSON documents your block will be called
  for each document:
 
-    SBJson4ValueBlock block = ^(id v, BOOL *stop) {
+    SBJson5ValueBlock block = ^(id v, BOOL *stop) {
         BOOL isArray = [v isKindOfClass:[NSArray class]];
         NSLog(@"Found: %@", isArray ? @"Array" : @"Object");
     };
 
-    SBJson4ErrorBlock eh = ^(NSError* err) {
+    SBJson5ErrorBlock eh = ^(NSError* err) {
         NSLog(@"OOPS: %@", err);
     };
 
-    id parser = [SBJson4Parser multiRootParserWithBlock:block
+    id parser = [SBJson5Parser multiRootParserWithBlock:block
                                            errorHandler:eh];
 
     // Note that this input contains multiple top-level JSON documents
@@ -122,7 +122,7 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  of this feature. But, all is not lost: if you are parsing a long array you can
  get the same effect by setting  rootArrayItems to YES:
 
-    id parser = [SBJson4Parser unwrapRootArrayParserWithBlock:block
+    id parser = [SBJson5Parser unwrapRootArrayParserWithBlock:block
                                                  errorHandler:eh];
 
     // Note that this input contains A SINGLE top-level document
@@ -138,7 +138,7 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
 
 
 */
-@interface SBJson4Parser : NSObject
+@interface SBJson5Parser : NSObject
 
 /**
  Create a JSON Parser.
@@ -163,10 +163,10 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  @see -initWithBlock:processBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
 
  */
-+ (id)parserWithBlock:(SBJson4ValueBlock)block
++ (id)parserWithBlock:(SBJson5ValueBlock)block
        allowMultiRoot:(BOOL)allowMultiRoot
       unwrapRootArray:(BOOL)unwrapRootArray
-         errorHandler:(SBJson4ErrorBlock)eh;
+         errorHandler:(SBJson5ErrorBlock)eh;
 
 
 /**
@@ -183,8 +183,8 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  @see +parserWithBlock:allowMultiRoot:unwrapRootArray:errorHandler:
  @see -initWithBlock:processBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
  */
-+ (id)multiRootParserWithBlock:(SBJson4ValueBlock)block
-                  errorHandler:(SBJson4ErrorBlock)eh;
++ (id)multiRootParserWithBlock:(SBJson5ValueBlock)block
+                  errorHandler:(SBJson5ErrorBlock)eh;
 
 /**
  Create a JSON Parser that parses a huge array and calls for the value block for
@@ -199,8 +199,8 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  @see +parserWithBlock:allowMultiRoot:unwrapRootArray:errorHandler:
  @see -initWithBlock:processBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
  */
-+ (id)unwrapRootArrayParserWithBlock:(SBJson4ValueBlock)block
-                        errorHandler:(SBJson4ErrorBlock)eh;
++ (id)unwrapRootArrayParserWithBlock:(SBJson5ValueBlock)block
+                        errorHandler:(SBJson5ErrorBlock)eh;
 
 /**
  Create a JSON Parser.
@@ -223,12 +223,12 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  @param eh Called if the parser encounters an error.
 
  */
-- (id)initWithBlock:(SBJson4ValueBlock)block
-       processBlock:(SBJson4ProcessBlock)processBlock
+- (id)initWithBlock:(SBJson5ValueBlock)block
+       processBlock:(SBJson5ProcessBlock)processBlock
           multiRoot:(BOOL)multiRoot
     unwrapRootArray:(BOOL)unwrapRootArray
            maxDepth:(NSUInteger)maxDepth
-       errorHandler:(SBJson4ErrorBlock)eh;
+       errorHandler:(SBJson5ErrorBlock)eh;
 
 /**
  Parse some JSON
@@ -238,11 +238,11 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
  @param data An NSData object containing the next chunk of JSON
 
  @return
- - SBJson4ParserComplete if a full document was found
- - SBJson4ParserWaitingForData if a partial document was found and more data is required to complete it
- - SBJson4ParserError if an error occurred.
+ - SBJson5ParserComplete if a full document was found
+ - SBJson5ParserWaitingForData if a partial document was found and more data is required to complete it
+ - SBJson5ParserError if an error occurred.
 
  */
-- (SBJson4ParserStatus)parse:(NSData*)data;
+- (SBJson5ParserStatus)parse:(NSData*)data;
 
 @end

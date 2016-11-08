@@ -27,7 +27,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "SBJson4.h"
+#import "SBJson5.h"
 #import <XCTest/XCTest.h>
 
 
@@ -69,7 +69,7 @@
 #pragma mark Tests
 
 @interface ProxyTest : XCTestCase {
-	SBJson4Writer * writer;
+	SBJson5Writer * writer;
 }
 @end
 
@@ -77,7 +77,7 @@
 @implementation ProxyTest
 
 - (void)setUp {
-    writer = [SBJson4Writer new];
+    writer = [SBJson5Writer new];
 }
 
 - (void)testUnsupportedWithoutProxy {

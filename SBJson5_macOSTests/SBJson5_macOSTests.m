@@ -1,6 +1,6 @@
 //
-//  SBJson4_macOSTests.m
-//  SBJson4_macOSTests
+//  SBJson5_macOSTests.m
+//  SBJson5_macOSTests
 //
 //  Created by Stig Brautaset on 28/10/2016.
 //
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface SBJson4_macOSTests : XCTestCase
+@interface SBJson5_macOSTests : XCTestCase
 
 @end
 
-@implementation SBJson4_macOSTests
+@implementation SBJson5_macOSTests
 
 - (void)setUp {
     [super setUp];

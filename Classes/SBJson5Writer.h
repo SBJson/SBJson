@@ -32,11 +32,11 @@
 /**
  The JSON writer class.
 
- This uses SBJson4StreamWriter internally.
+ This uses SBJson5StreamWriter internally.
 
  */
 
-@interface SBJson4Writer : NSObject
+@interface SBJson5Writer : NSObject
 
 /**
  The maximum depth.

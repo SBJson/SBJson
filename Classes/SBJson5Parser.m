@@ -34,32 +34,32 @@
 #error "This source file must be compiled with ARC enabled!"
 #endif
 
-#import "SBJson4Parser.h"
+#import "SBJson5Parser.h"
 
-@interface SBJson4Parser () <SBJson4StreamParserDelegate>
+@interface SBJson5Parser () <SBJson5StreamParserDelegate>
 
 - (void)pop;
 
 @end
 
 typedef enum {
-    SBJson4ChunkNone,
-    SBJson4ChunkArray,
-    SBJson4ChunkObject,
-} SBJson4ChunkType;
+    SBJson5ChunkNone,
+    SBJson5ChunkArray,
+    SBJson5ChunkObject,
+} SBJson5ChunkType;
 
-@implementation SBJson4Parser {
-    SBJson4StreamParser *_parser;
+@implementation SBJson5Parser {
+    SBJson5StreamParser *_parser;
     NSUInteger depth;
     NSMutableArray *array;
     NSMutableDictionary *dict;
     NSMutableArray *keyStack;
     NSMutableArray *stack;
     NSMutableArray *path;
-    SBJson4ProcessBlock processBlock;
-    SBJson4ErrorBlock errorHandler;
-    SBJson4ValueBlock valueBlock;
-    SBJson4ChunkType currentType;
+    SBJson5ProcessBlock processBlock;
+    SBJson5ErrorBlock errorHandler;
+    SBJson5ValueBlock valueBlock;
+    SBJson5ChunkType currentType;
     BOOL supportManyDocuments;
     BOOL supportPartialDocuments;
     NSUInteger _maxDepth;
@@ -71,24 +71,24 @@ typedef enum {
     @throw @"Not Implemented";
 }
 
-+ (id)multiRootParserWithBlock:(SBJson4ValueBlock)block errorHandler:(SBJson4ErrorBlock)eh {
++ (id)multiRootParserWithBlock:(SBJson5ValueBlock)block errorHandler:(SBJson5ErrorBlock)eh {
     return [self parserWithBlock:block
                   allowMultiRoot:YES
                  unwrapRootArray:NO
                     errorHandler:eh];
 }
 
-+ (id)unwrapRootArrayParserWithBlock:(SBJson4ValueBlock)block errorHandler:(SBJson4ErrorBlock)eh {
++ (id)unwrapRootArrayParserWithBlock:(SBJson5ValueBlock)block errorHandler:(SBJson5ErrorBlock)eh {
     return [self parserWithBlock:block
                   allowMultiRoot:NO
                  unwrapRootArray:YES
                     errorHandler:eh];
 }
 
-+ (id)parserWithBlock:(SBJson4ValueBlock)block
++ (id)parserWithBlock:(SBJson5ValueBlock)block
        allowMultiRoot:(BOOL)allowMultiRoot
       unwrapRootArray:(BOOL)unwrapRootArray
-         errorHandler:(SBJson4ErrorBlock)eh {
+         errorHandler:(SBJson5ErrorBlock)eh {
 
     return [[self alloc] initWithBlock:block
                           processBlock:nil
@@ -98,16 +98,16 @@ typedef enum {
                           errorHandler:eh];
 }
 
-- (id)initWithBlock:(SBJson4ValueBlock)block
-       processBlock:(SBJson4ProcessBlock)initialProcessBlock
+- (id)initWithBlock:(SBJson5ValueBlock)block
+       processBlock:(SBJson5ProcessBlock)initialProcessBlock
           multiRoot:(BOOL)multiRoot
     unwrapRootArray:(BOOL)unwrapRootArray
            maxDepth:(NSUInteger)maxDepth
-       errorHandler:(SBJson4ErrorBlock)eh {
+       errorHandler:(SBJson5ErrorBlock)eh {
 
 	self = [super init];
 	if (self) {
-        _parser = [[SBJson4StreamParser alloc] init];
+        _parser = [[SBJson5StreamParser alloc] init];
         _parser.delegate = self;
 
         supportManyDocuments = multiRoot;
@@ -120,7 +120,7 @@ typedef enum {
             path = [[NSMutableArray alloc] initWithCapacity:32];
         processBlock = initialProcessBlock;
         errorHandler = eh ? eh : ^(NSError*err) { NSLog(@"%@", err); };
-		currentType = SBJson4ChunkNone;
+		currentType = SBJson5ChunkNone;
         _maxDepth = maxDepth;
 	}
 	return self;
@@ -133,16 +133,16 @@ typedef enum {
 	[stack removeLastObject];
 	array = nil;
 	dict = nil;
-	currentType = SBJson4ChunkNone;
+	currentType = SBJson5ChunkNone;
 	
 	id value = [stack lastObject];
 	
 	if ([value isKindOfClass:[NSArray class]]) {
 		array = value;
-		currentType = SBJson4ChunkArray;
+		currentType = SBJson5ChunkArray;
 	} else if ([value isKindOfClass:[NSDictionary class]]) {
 		dict = value;
-		currentType = SBJson4ChunkObject;
+		currentType = SBJson5ChunkObject;
 	}
 }
 
@@ -159,17 +159,17 @@ typedef enum {
     }
 
     switch (currentType) {
-    case SBJson4ChunkArray:
+    case SBJson5ChunkArray:
         [array addObject:obj];
         break;
 
-    case SBJson4ChunkObject:
+    case SBJson5ChunkObject:
         NSParameterAssert(keyStack.count);
         [dict setObject:obj forKey:[keyStack lastObject]];
         [keyStack removeLastObject];
         break;
 
-    case SBJson4ChunkNone: {
+    case SBJson5ChunkNone: {
         __block BOOL stop = NO;
         valueBlock(obj, &stop);
         if (stop) [_parser stop];
@@ -193,7 +193,7 @@ typedef enum {
         [self addToPath];
     dict = [NSMutableDictionary new];
 	[stack addObject:dict];
-    currentType = SBJson4ChunkObject;
+    currentType = SBJson5ChunkObject;
 }
 
 - (void)parserFoundObjectKey:(NSString *)key_ {
@@ -217,7 +217,7 @@ typedef enum {
             [self addToPath];
 		array = [NSMutableArray new];
 		[stack addObject:array];
-		currentType = SBJson4ChunkArray;
+		currentType = SBJson5ChunkArray;
     }
 }
 
@@ -280,7 +280,7 @@ typedef enum {
     return supportManyDocuments;
 }
 
-- (SBJson4ParserStatus)parse:(NSData *)data {
+- (SBJson5ParserStatus)parse:(NSData *)data {
     return [_parser parse:data];
 }
 

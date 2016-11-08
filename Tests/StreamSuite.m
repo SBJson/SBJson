@@ -31,7 +31,7 @@
  */
 
 
-#import "SBJson4.h"
+#import "SBJson5.h"
 #import <XCTest/XCTest.h>
 
 
@@ -42,8 +42,8 @@ static NSUInteger arrayCount, objectCount;
 static NSError *error;
 
 @implementation StreamSuite {
-    SBJson4ValueBlock block;
-    SBJson4ErrorBlock eh;
+    SBJson5ValueBlock block;
+    SBJson5ErrorBlock eh;
 }
 
 - (void)setUp {
@@ -65,22 +65,22 @@ static NSError *error;
         "consectetur adipiscing elit. Donec ultrices ornare gravida. Vestibulum"\
         " ante ipsum primisin faucibus orci luctus et ultrices posuere\"}]";
 
-    id parser = [SBJson4Parser parserWithBlock:block
+    id parser = [SBJson5Parser parserWithBlock:block
                                 allowMultiRoot:NO
                                unwrapRootArray:NO
                                   errorHandler:eh];
 
-    SBJson4ParserStatus status = SBJson4ParserWaitingForData;
+    SBJson5ParserStatus status = SBJson5ParserWaitingForData;
     NSData* data = nil;
    
     for (int i=0, e=(int)strlen(validjson); i<e; ++i){
         data = [NSData dataWithBytes:validjson+i length:1];
         status = [parser parse:data];
-        if(status == SBJson4ParserError){
+        if(status == SBJson5ParserError){
             break;
         }
     }
-    XCTAssertEqual(status, SBJson4ParserComplete);
+    XCTAssertEqual(status, SBJson5ParserComplete);
 }
 
 /*
@@ -90,7 +90,7 @@ static NSError *error;
   this data incrementally.
 */
 - (void)testMultipleDocuments {
-    id parser = [SBJson4Parser multiRootParserWithBlock:block errorHandler:eh];
+    id parser = [SBJson5Parser multiRootParserWithBlock:block errorHandler:eh];
 
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     NSString *root = [[bundle resourcePath] stringByAppendingPathComponent:@"TestData/stream"];
@@ -106,13 +106,13 @@ static NSError *error;
         NSData *data = [NSData dataWithContentsOfFile:file];
         XCTAssertNotNil(data);
 	
-        XCTAssertEqual([parser parse:data], SBJson4ParserWaitingForData, @"%@ - %@", file, error);
+        XCTAssertEqual([parser parse:data], SBJson5ParserWaitingForData, @"%@ - %@", file, error);
     }
     XCTAssertEqual(arrayCount, (NSUInteger)0);
     XCTAssertEqual(objectCount, (NSUInteger)98);
 }
 
-- (void)parseArrayOfObjects:(SBJson4Parser *)parser {
+- (void)parseArrayOfObjects:(SBJson5Parser *)parser {
     [parser parse:[NSData dataWithBytes:"[" length:1]];
     for (int i = 1;; i++) {
         char *utf8 = "{\"foo\":[],\"bar\":[]}";
@@ -125,7 +125,7 @@ static NSError *error;
 }
 
 - (void)testSingleArray {
-    id parser = [SBJson4Parser parserWithBlock:block
+    id parser = [SBJson5Parser parserWithBlock:block
                                 allowMultiRoot:NO
                                unwrapRootArray:NO
                                   errorHandler:eh];
@@ -136,7 +136,7 @@ static NSError *error;
 }
 
 - (void)testSkipArray {
-    id parser = [SBJson4Parser unwrapRootArrayParserWithBlock:block
+    id parser = [SBJson5Parser unwrapRootArrayParserWithBlock:block
                                                  errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
@@ -147,12 +147,12 @@ static NSError *error;
 - (void)testStop {
     __block int count = 0;
     __block NSMutableArray *ary = [NSMutableArray array];
-    SBJson4ValueBlock block2 = ^(id obj, BOOL *stop) {
+    SBJson5ValueBlock block2 = ^(id obj, BOOL *stop) {
         [ary addObject:obj];
         *stop = ++count >= 23;
     };
 
-    id parser = [SBJson4Parser unwrapRootArrayParserWithBlock:block2
+    id parser = [SBJson5Parser unwrapRootArrayParserWithBlock:block2
                                                  errorHandler:eh];
 
     [self parseArrayOfObjects:parser];
@@ -160,7 +160,7 @@ static NSError *error;
 }
 
 - (void)testWriteToStream {
-    SBJson4StreamWriter *streamWriter = [[SBJson4StreamWriter alloc] init];
+    SBJson5StreamWriter *streamWriter = [[SBJson5StreamWriter alloc] init];
 
     XCTAssertTrue([streamWriter writeArray:[NSArray array]]);
 

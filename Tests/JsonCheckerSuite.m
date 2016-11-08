@@ -31,7 +31,7 @@
  */
 
 
-#import "SBJson4.h"
+#import "SBJson5.h"
 #import <XCTest/XCTest.h>
 
 @interface JsonCheckerSuite : XCTestCase
@@ -62,50 +62,50 @@
 }
 
 - (void)testPass {
-    SBJson4ErrorBlock eh = ^(NSError *err) {
+    SBJson5ErrorBlock eh = ^(NSError *err) {
         XCTFail(@"%@", err);
     };
 
     [self foreachFilePrefixedBy:@"pass" apply:^(NSString* path) {
             __block BOOL success = NO;
-            SBJson4ValueBlock block = ^(id obj, BOOL *stop) {
+            SBJson5ValueBlock block = ^(id obj, BOOL *stop) {
                 XCTAssertNotNil(obj, @"%@", path);
                 success = YES;
             };
 
-            SBJson4Parser *parser = [[SBJson4Parser alloc] initWithBlock:block
+            SBJson5Parser *parser = [[SBJson5Parser alloc] initWithBlock:block
                                                             processBlock:nil
                                                                multiRoot:NO
                                                          unwrapRootArray:NO
                                                                 maxDepth:19
                                                             errorHandler:eh];
-            SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
+            SBJson5ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 
-            XCTAssertTrue(success && status == SBJson4ParserComplete, @"Success block was called & parsing complete");
+            XCTAssertTrue(success && status == SBJson5ParserComplete, @"Success block was called & parsing complete");
 
         }];
 }
 
 - (void)testFail {
-    SBJson4ValueBlock block = ^(id obj, BOOL *stop) {};
+    SBJson5ValueBlock block = ^(id obj, BOOL *stop) {};
     [self foreachFilePrefixedBy:@"fail" apply:^(NSString* path) {
 
             __block BOOL success = NO;
-            SBJson4ErrorBlock eh = ^(NSError *err) {
+            SBJson5ErrorBlock eh = ^(NSError *err) {
                 XCTAssertNotNil(err, @"%@", path);
                 success = YES;
             };
 
-            SBJson4Parser *parser = [[SBJson4Parser alloc] initWithBlock:block
+            SBJson5Parser *parser = [[SBJson5Parser alloc] initWithBlock:block
                                                             processBlock:nil
                                                                multiRoot:NO
                                                          unwrapRootArray:NO
                                                                 maxDepth:19
                                                             errorHandler:eh];
 
-            SBJson4ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
+            SBJson5ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 
-            if (status != SBJson4ParserWaitingForData)
+            if (status != SBJson5ParserWaitingForData)
                 XCTAssertTrue(success, @"ErrorHandler block was called: %@", [path lastPathComponent]);
         }];
 }

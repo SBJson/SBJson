@@ -1,6 +1,6 @@
 //
-//  SBJson4_iOSTests.m
-//  SBJson4_iOSTests
+//  SBJson5_iOSTests.m
+//  SBJson5_iOSTests
 //
 //  Created by Stig Brautaset on 28/10/2016.
 //
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface SBJson4_iOSTests : XCTestCase
+@interface SBJson5_iOSTests : XCTestCase
 
 @end
 
-@implementation SBJson4_iOSTests
+@implementation SBJson5_iOSTests
 
 - (void)setUp {
     [super setUp];
