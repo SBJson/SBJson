@@ -13,6 +13,7 @@ mistakenly omitted anyone.)
 * Antoine Perdaens
 * Ben Rimmington
 * Blake Seely
+* Bott Sebastian
 * Bryce Pauken
 * Cary Yang
 * David Keegan
@@ -21,6 +22,7 @@ mistakenly omitted anyone.)
 * Greg Bolsinga
 * Hager Hu
 * Hiroshi Saito
+* Iain Simpson
 * Ivan
 * Jakub Jelonek
 * Jens Alfke
@@ -32,10 +34,12 @@ mistakenly omitted anyone.)
 * Lloyd Hilaiel
 * Marc Lehmann
 * Michael Papp
+* Mike Abdullah
 * Mike Monaco
 * Ole André Vadla Ravnås
 * Phill Baker
 * Rafaël Warnault
+* Robert Böhnke
 * Robert McNally
 * Robin Lu
 * Ryan Smale
@@ -54,6 +58,7 @@ mistakenly omitted anyone.)
 * boredzo
 * dewvinci
 * dmaclach
+* hotbott
 * jinksys
 * jonkean
 * lukef
