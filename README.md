@@ -68,7 +68,8 @@ Then create a parser and add data to it:
 
 ```objc
 id parser = [SBJson5Parser parserWithBlock:block
-                              errorHandler:eh];
+                              errorHandler:eh
+                                   options:nil];
 
 id data = [@"[true," dataWithEncoding:NSUTF8StringEncoding];
 [parser parse:data]; // returns SBJson5ParserWaitingForData
@@ -88,10 +89,10 @@ Alright! Now let's look at something slightly more interesting.
 Handling multiple documents
 ---------------------------
 
-The default behaviour is that your passed-in block is only called once for a
-complete document. If your input contains multiple (whitespace limited) JSON
-documents you can use a multiRootParser, which will call your block once for
-each document:
+
+This is useful for something like Twitter's feed, which gives you one JSON
+document per line. Here is an example of parsing many consequtive JSON
+documents, where your block will be called once for each document:
 
 ```objc
 id parser = [SBJson5Parser multiRootParserWithBlock:block
@@ -139,8 +140,8 @@ Other features
   (This is possible because all classes & public symbols contains the major
   version number.)
 
-A gentle warning
-----------------
+A word of warning
+-----------------
 
 Stream based parsing does mean that you lose some of the correctness
 verification you would have with a parser that considered the entire input
