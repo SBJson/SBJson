@@ -19,7 +19,7 @@ Overview
 SBJson's number one feature is chunk-based operation. Feed the parser one or
 more chunks of UTF8-encoded data and it will call a block you provide with each
 root-level document or array. Or, optionally, for each top-level entry in each
-root-level array. 
+root-level array.
 
 With chunk-based parsing you can reduce the apparent latency for each
 download/parse cycle of documents over a slow connection. You can start
@@ -45,13 +45,12 @@ turns into NSNumber instances. However, because they are initialised with the
 Integers are parsed into either a `long long` or `unsigned long long` type if
 they fit, else a `double` is used.
 
-Support for multiple documents
-------------------------------
+"Plain" Chunk Based Parsing
+---------------------------
 
-The default behaviour is that your passed-in block is only called once a
-complete token has been parsed. If you set supportManyDocuments to YES and
-your input contains multiple (whitespace limited) JSON documents your block
-will be called for each document:
+First define a simple block & an error handler. (These are just minimal
+examples. You should strive to do something better that makes sense in your
+application!)
 
 ```objc
 SBJson5ValueBlock block = ^(id v, BOOL *stop) {
@@ -61,8 +60,40 @@ SBJson5ValueBlock block = ^(id v, BOOL *stop) {
 
 SBJson5ErrorBlock eh = ^(NSError* err) {
     NSLog(@"OOPS: %@", err);
+    exit(1);
 };
+```
 
+Then create a parser and add data to it:
+
+```objc
+id parser = [SBJson5Parser parserWithBlock:block
+                              errorHandler:eh];
+
+id data = [@"[true," dataWithEncoding:NSUTF8StringEncoding];
+[parser parse:data]; // returns SBJson5ParserWaitingForData
+
+// block is not called yet...
+
+// ok, now we add another value and close the array
+
+data = [@"false]" dataWithEncoding:NSUTF8StringEncoding];
+[parser parse:data]; // returns SBJson5ParserComplete
+
+// the above -parse: method calls your block before returning.
+```
+
+Alright! Now let's look at something slightly more interesting.
+
+Handling multiple documents
+---------------------------
+
+The default behaviour is that your passed-in block is only called once for a
+complete document. If your input contains multiple (whitespace limited) JSON
+documents you can use a multiRootParser, which will call your block once for
+each document:
+
+```objc
 id parser = [SBJson5Parser multiRootParserWithBlock:block
                                        errorHandler:eh];
 
@@ -81,8 +112,8 @@ Found: Array
 Found: Object
 ```
 
-Unwrapping a top-level array
-----------------------------
+Unwrapping a gigantic top-level array
+-------------------------------------
 
 Often you won't have control over the input you're parsing, so can't use a
 multiRootParser. But, all is not lost: if you are parsing a long array you can
@@ -90,7 +121,7 @@ get the same effect by using an unwrapRootArrayParser:
 
 ```objc
 id parser = [SBJson5Parser unwrapRootArrayParserWithBlock:block
-                                                 errorHandler:eh];
+                                             errorHandler:eh];
 
 // Note that this input contains A SINGLE top-level document
 id data = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
