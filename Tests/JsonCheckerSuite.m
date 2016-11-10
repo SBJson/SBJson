@@ -74,7 +74,6 @@
             };
 
             SBJson5Parser *parser = [[SBJson5Parser alloc] initWithBlock:block
-                                                            processBlock:nil
                                                                multiRoot:NO
                                                          unwrapRootArray:NO
                                                                 maxDepth:19
@@ -97,7 +96,6 @@
             };
 
             SBJson5Parser *parser = [[SBJson5Parser alloc] initWithBlock:block
-                                                            processBlock:nil
                                                                multiRoot:NO
                                                          unwrapRootArray:NO
                                                                 maxDepth:19

@@ -55,8 +55,6 @@ typedef enum {
     NSMutableDictionary *dict;
     NSMutableArray *keyStack;
     NSMutableArray *stack;
-    NSMutableArray *path;
-    SBJson5ProcessBlock processBlock;
     SBJson5ErrorBlock errorHandler;
     SBJson5ValueBlock valueBlock;
     SBJson5ChunkType currentType;
@@ -91,7 +89,6 @@ typedef enum {
          errorHandler:(SBJson5ErrorBlock)eh {
 
     return [[self alloc] initWithBlock:block
-                          processBlock:nil
                              multiRoot:allowMultiRoot
                        unwrapRootArray:unwrapRootArray
                               maxDepth:32
@@ -99,7 +96,6 @@ typedef enum {
 }
 
 - (id)initWithBlock:(SBJson5ValueBlock)block
-       processBlock:(SBJson5ProcessBlock)initialProcessBlock
           multiRoot:(BOOL)multiRoot
     unwrapRootArray:(BOOL)unwrapRootArray
            maxDepth:(NSUInteger)maxDepth
@@ -116,9 +112,6 @@ typedef enum {
         valueBlock = block;
 		keyStack = [[NSMutableArray alloc] initWithCapacity:32];
 		stack = [[NSMutableArray alloc] initWithCapacity:32];
-        if (initialProcessBlock)
-            path = [[NSMutableArray alloc] initWithCapacity:32];
-        processBlock = initialProcessBlock;
         errorHandler = eh ? eh : ^(NSError*err) { NSLog(@"%@", err); };
 		currentType = SBJson5ChunkNone;
         _maxDepth = maxDepth;
@@ -149,15 +142,6 @@ typedef enum {
 - (void)parserFound:(id)obj isValue:(BOOL)isValue {
     NSParameterAssert(obj);
 	
-    if(processBlock&&path) {
-        if(isValue) {
-            obj = processBlock(obj,[NSString stringWithFormat:@"%@.%@",[self pathString],[keyStack lastObject]]);
-        }
-        else {
-            [path removeLastObject];
-        }
-    }
-
     switch (currentType) {
     case SBJson5ChunkArray:
         [array addObject:obj];
@@ -189,8 +173,6 @@ typedef enum {
     if (depth > _maxDepth)
         [self maxDepthError];
 
-    if (path)
-        [self addToPath];
     dict = [NSMutableDictionary new];
 	[stack addObject:dict];
     currentType = SBJson5ChunkObject;
@@ -213,8 +195,6 @@ typedef enum {
         [self maxDepthError];
 
     if (depth > 1 || !supportPartialDocuments) {
-        if(path)
-            [self addToPath];
 		array = [NSMutableArray new];
 		[stack addObject:array];
 		currentType = SBJson5ChunkArray;
@@ -254,26 +234,6 @@ typedef enum {
 
 - (void)parserFoundError:(NSError *)err {
     errorHandler(err);
-}
-
-- (void)addToPath {
-    if([path count]==0)
-        [path addObject:@"$"];
-    else if([[stack lastObject] isKindOfClass:[NSArray class]])
-        [path addObject:@([[stack lastObject] count])];
-    else
-        [path addObject:[keyStack lastObject]];
-}
-
-- (NSString *)pathString {
-    NSMutableString *pathString = [NSMutableString stringWithString:@"$"];
-    for(NSUInteger i=1;i<[path count];i++) {
-        if([[path objectAtIndex:i] isKindOfClass:[NSNumber class]])
-            [pathString appendString:[NSString stringWithFormat:@"[%@]",[path objectAtIndex:i]]];
-        else
-            [pathString appendString:[NSString stringWithFormat:@".%@",[path objectAtIndex:i]]];
-    }
-    return pathString;
 }
 
 - (BOOL)parserShouldSupportManyDocuments {

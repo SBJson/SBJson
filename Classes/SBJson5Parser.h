@@ -48,14 +48,6 @@ typedef void (^SBJson5ValueBlock)(id item, BOOL* stop);
  */
 typedef void (^SBJson5ErrorBlock)(NSError* error);
 
-/**
- Block used to process parsed tokens as they are encountered. You can use this
- to transform strings containing dates into NSDate, for example.
- @param item the parsed token
- @param path the JSON Path of the token
- */
-typedef id (^SBJson5ProcessBlock)(id item, NSString* path);
-
 
 /**
  Parse one or more chunks of JSON data.
@@ -160,7 +152,7 @@ typedef id (^SBJson5ProcessBlock)(id item, NSString* path);
 
  @see -unwrapRootArrayParserWithBlock:errorHandler:
  @see -multiRootParserWithBlock:errorHandler:
- @see -initWithBlock:processBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
+ @see -initWithBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
 
  */
 + (id)parserWithBlock:(SBJson5ValueBlock)block
@@ -181,7 +173,7 @@ typedef id (^SBJson5ProcessBlock)(id item, NSString* path);
 
  @see +unwrapRootArrayParserWithBlock:errorHandler:
  @see +parserWithBlock:allowMultiRoot:unwrapRootArray:errorHandler:
- @see -initWithBlock:processBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
+ @see -initWithBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
  */
 + (id)multiRootParserWithBlock:(SBJson5ValueBlock)block
                   errorHandler:(SBJson5ErrorBlock)eh;
@@ -197,7 +189,7 @@ typedef id (^SBJson5ProcessBlock)(id item, NSString* path);
 
  @see +multiRootParserWithBlock:errorHandler:
  @see +parserWithBlock:allowMultiRoot:unwrapRootArray:errorHandler:
- @see -initWithBlock:processBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
+ @see -initWithBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
  */
 + (id)unwrapRootArrayParserWithBlock:(SBJson5ValueBlock)block
                         errorHandler:(SBJson5ErrorBlock)eh;
@@ -207,9 +199,6 @@ typedef id (^SBJson5ProcessBlock)(id item, NSString* path);
 
  @param block Called for each element. Set *stop to `YES` if you have seen
  enough and would like to skip the rest of the elements.
-
- @param processBlock A block that allows you to process individual values before being
- returned.
 
  @param multiRoot Indicate that you are expecting multiple whitespace-separated
  JSON documents, similar to what Twitter uses.
@@ -224,7 +213,6 @@ typedef id (^SBJson5ProcessBlock)(id item, NSString* path);
 
  */
 - (id)initWithBlock:(SBJson5ValueBlock)block
-       processBlock:(SBJson5ProcessBlock)processBlock
           multiRoot:(BOOL)multiRoot
     unwrapRootArray:(BOOL)unwrapRootArray
            maxDepth:(NSUInteger)maxDepth

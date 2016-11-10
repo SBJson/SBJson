@@ -117,7 +117,6 @@ static NSString *chomp(NSString *str) {
             id parser = [[SBJson5Parser alloc] initWithBlock:^(id o, BOOL *string) {
                 XCTFail(@"%@ - %@", o, [[inpath pathComponents] lastObject]);
                 }
-                                                processBlock:nil
                                                    multiRoot:NO
                                              unwrapRootArray:NO
                                                     maxDepth:3
