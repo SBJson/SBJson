@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		530182EE1DC51754009B6892 /* TestData in Resources */ = {isa = PBXBuildFile; fileRef = 530182EC1DC51749009B6892 /* TestData */; };
 		530182EF1DC51755009B6892 /* TestData in Resources */ = {isa = PBXBuildFile; fileRef = 530182EC1DC51749009B6892 /* TestData */; };
+		535CFBE01DD78276004D67E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 535CFBDF1DD78276004D67E0 /* main.m */; };
+		535CFBE91DD79A08004D67E0 /* SBJson5Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8A71DC40B4D00F14B4F /* SBJson5Parser.m */; };
+		535CFBEB1DD79A08004D67E0 /* SBJson5StreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8A91DC40B4D00F14B4F /* SBJson5StreamParser.m */; };
+		535CFBED1DD79A08004D67E0 /* SBJson5StreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8AB1DC40B4D00F14B4F /* SBJson5StreamParserState.m */; };
+		535CFBEF1DD79A08004D67E0 /* SBJson5StreamTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8AD1DC40B4D00F14B4F /* SBJson5StreamTokeniser.m */; };
+		535CFBF11DD79A08004D67E0 /* SBJson5StreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8AF1DC40B4D00F14B4F /* SBJson5StreamWriter.m */; };
+		535CFBF31DD79A08004D67E0 /* SBJson5StreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8B11DC40B4D00F14B4F /* SBJson5StreamWriterState.m */; };
+		535CFBF51DD79A08004D67E0 /* SBJson5Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8B31DC40B4D00F14B4F /* SBJson5Writer.m */; };
 		538ED84C1DC408C100F14B4F /* SBJson5_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 538ED8421DC408C100F14B4F /* SBJson5_iOS.framework */; };
 		538ED8681DC408EB00F14B4F /* SBJson5_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 538ED85F1DC408EB00F14B4F /* SBJson5_macOS.framework */; };
 		538ED8B51DC40B4D00F14B4F /* SBJson5Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8A61DC40B4D00F14B4F /* SBJson5Parser.h */; };
@@ -74,8 +82,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		535CFBDB1DD78276004D67E0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		530182EC1DC51749009B6892 /* TestData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestData; sourceTree = "<group>"; };
+		535CFBDD1DD78276004D67E0 /* sbjson */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sbjson; sourceTree = BUILT_PRODUCTS_DIR; };
+		535CFBDF1DD78276004D67E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		538ED8421DC408C100F14B4F /* SBJson5_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SBJson5_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		538ED8461DC408C100F14B4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		538ED84B1DC408C100F14B4F /* SBJson5_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBJson5_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +137,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		535CFBDA1DD78276004D67E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		538ED83E1DC408C100F14B4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -150,6 +179,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		535CFBDE1DD78276004D67E0 /* sbjson */ = {
+			isa = PBXGroup;
+			children = (
+				535CFBDF1DD78276004D67E0 /* main.m */,
+			);
+			path = sbjson;
+			sourceTree = "<group>";
+		};
 		538ED8361DC4088400F14B4F = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +202,7 @@
 				538ED84F1DC408C100F14B4F /* SBJson5_iOSTests */,
 				538ED8601DC408EB00F14B4F /* SBJson5_macOS */,
 				538ED86B1DC408EB00F14B4F /* SBJson5_macOSTests */,
+				535CFBDE1DD78276004D67E0 /* sbjson */,
 				538ED8431DC408C100F14B4F /* Products */,
 				538ED9211DC40F8B00F14B4F /* Frameworks */,
 			);
@@ -177,6 +215,7 @@
 				538ED84B1DC408C100F14B4F /* SBJson5_iOSTests.xctest */,
 				538ED85F1DC408EB00F14B4F /* SBJson5_macOS.framework */,
 				538ED8671DC408EB00F14B4F /* SBJson5_macOSTests.xctest */,
+				535CFBDD1DD78276004D67E0 /* sbjson */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -293,6 +332,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		535CFBDC1DD78276004D67E0 /* sbjson */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 535CFBE31DD78276004D67E0 /* Build configuration list for PBXNativeTarget "sbjson" */;
+			buildPhases = (
+				535CFBD91DD78276004D67E0 /* Sources */,
+				535CFBDA1DD78276004D67E0 /* Frameworks */,
+				535CFBDB1DD78276004D67E0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sbjson;
+			productName = sbjson;
+			productReference = 535CFBDD1DD78276004D67E0 /* sbjson */;
+			productType = "com.apple.product-type.tool";
+		};
 		538ED8411DC408C100F14B4F /* SBJson5_iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 538ED8581DC408C100F14B4F /* Build configuration list for PBXNativeTarget "SBJson5_iOS" */;
@@ -373,6 +429,10 @@
 			attributes = {
 				LastUpgradeCheck = 0810;
 				TargetAttributes = {
+					535CFBDC1DD78276004D67E0 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
 					538ED8411DC408C100F14B4F = {
 						CreatedOnToolsVersion = 8.0;
 						ProvisioningStyle = Automatic;
@@ -407,6 +467,7 @@
 				538ED84A1DC408C100F14B4F /* SBJson5_iOSTests */,
 				538ED85E1DC408EB00F14B4F /* SBJson5_macOS */,
 				538ED8661DC408EB00F14B4F /* SBJson5_macOSTests */,
+				535CFBDC1DD78276004D67E0 /* sbjson */,
 			);
 		};
 /* End PBXProject section */
@@ -445,6 +506,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		535CFBD91DD78276004D67E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				535CFBE91DD79A08004D67E0 /* SBJson5Parser.m in Sources */,
+				535CFBEB1DD79A08004D67E0 /* SBJson5StreamParser.m in Sources */,
+				535CFBED1DD79A08004D67E0 /* SBJson5StreamParserState.m in Sources */,
+				535CFBEF1DD79A08004D67E0 /* SBJson5StreamTokeniser.m in Sources */,
+				535CFBF11DD79A08004D67E0 /* SBJson5StreamWriter.m in Sources */,
+				535CFBF31DD79A08004D67E0 /* SBJson5StreamWriterState.m in Sources */,
+				535CFBF51DD79A08004D67E0 /* SBJson5Writer.m in Sources */,
+				535CFBE01DD78276004D67E0 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		538ED83D1DC408C100F14B4F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -515,6 +591,65 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		535CFBE11DD78276004D67E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		535CFBE21DD78276004D67E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		538ED83B1DC4088400F14B4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -994,6 +1129,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		535CFBE31DD78276004D67E0 /* Build configuration list for PBXNativeTarget "sbjson" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				535CFBE11DD78276004D67E0 /* Debug */,
+				535CFBE21DD78276004D67E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		538ED83A1DC4088400F14B4F /* Build configuration list for PBXProject "SBJson5" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
