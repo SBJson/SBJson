@@ -66,8 +66,6 @@ static NSError *error;
         " ante ipsum primisin faucibus orci luctus et ultrices posuere\"}]";
 
     id parser = [SBJson5Parser parserWithBlock:block
-                                allowMultiRoot:NO
-                               unwrapRootArray:NO
                                   errorHandler:eh];
 
     SBJson5ParserStatus status = SBJson5ParserWaitingForData;
@@ -126,8 +124,6 @@ static NSError *error;
 
 - (void)testSingleArray {
     id parser = [SBJson5Parser parserWithBlock:block
-                                allowMultiRoot:NO
-                               unwrapRootArray:NO
                                   errorHandler:eh];
 
     [self parseArrayOfObjects:parser];

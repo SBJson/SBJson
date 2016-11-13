@@ -73,11 +73,11 @@
                 success = YES;
             };
 
-            SBJson5Parser *parser = [[SBJson5Parser alloc] initWithBlock:block
-                                                               multiRoot:NO
-                                                         unwrapRootArray:NO
-                                                                maxDepth:19
-                                                            errorHandler:eh];
+            SBJson5Parser *parser = [SBJson5Parser parserWithBlock:block
+                                                    allowMultiRoot:NO
+                                                   unwrapRootArray:NO
+                                                          maxDepth:19
+                                                      errorHandler:eh];
             SBJson5ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 
             XCTAssertTrue(success && status == SBJson5ParserComplete, @"Success block was called & parsing complete");
@@ -95,11 +95,11 @@
                 success = YES;
             };
 
-            SBJson5Parser *parser = [[SBJson5Parser alloc] initWithBlock:block
-                                                               multiRoot:NO
-                                                         unwrapRootArray:NO
-                                                                maxDepth:19
-                                                            errorHandler:eh];
+            SBJson5Parser *parser = [SBJson5Parser parserWithBlock:block
+                                                    allowMultiRoot:NO
+                                                   unwrapRootArray:NO
+                                                          maxDepth:19
+                                                      errorHandler:eh];
 
             SBJson5ParserStatus status = [parser parse:[NSData dataWithContentsOfFile:path]];
 

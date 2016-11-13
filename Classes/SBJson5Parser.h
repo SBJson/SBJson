@@ -95,7 +95,7 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
 */
 @interface SBJson5Parser : NSObject
 
-/** 
+/**
  Create a JSON Parser
 
  This can be used to create a parser that accepts only one document, or one
@@ -112,20 +112,31 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
  and the enumerator block will be called once for each item in it. This option
  does nothing if the the JSON has an object at its root.
 
- @param eh Called if the parser encounters an error.
+ @param maxDepth The max recursion depth.
 
- @see -unwrapRootArrayParserWithBlock:errorHandler:
- @see -multiRootParserWithBlock:errorHandler:
- @see -initWithBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
+ @param eh Called if the parser encounters an error.
 
  */
 + (id)parserWithBlock:(SBJson5ValueBlock)block
        allowMultiRoot:(BOOL)allowMultiRoot
       unwrapRootArray:(BOOL)unwrapRootArray
+             maxDepth:(NSUInteger)maxDepth
+         errorHandler:(SBJson5ErrorBlock)eh;
+
+/**
+ Create a JSON Parser to parse a single document
+
+ @param block Called for each element. Set *stop to `YES` if you have seen
+ enough and would like to skip the rest of the elements.
+
+ @param eh Called if the parser encounters an error.
+
+ */
++ (id)parserWithBlock:(SBJson5ValueBlock)block
          errorHandler:(SBJson5ErrorBlock)eh;
 
 
-/** 
+/**
   Create a JSON Parser that parses multiple consequtive documents
 
  This is useful for something like Twitter's feed, which gives you one JSON
@@ -162,8 +173,7 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
  @param eh Called if the parser encounters an error.
 
  @see +unwrapRootArrayParserWithBlock:errorHandler:
- @see +parserWithBlock:allowMultiRoot:unwrapRootArray:errorHandler:
- @see -initWithBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
+ @see +parserWithBlock:allowMultiRoot:unwrapRootArray:maxDepth:errorHandler:
  */
 + (id)multiRootParserWithBlock:(SBJson5ValueBlock)block
                   errorHandler:(SBJson5ErrorBlock)eh;
@@ -204,8 +214,7 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
  @param eh Called if the parser encounters an error.
 
  @see +multiRootParserWithBlock:errorHandler:
- @see +parserWithBlock:allowMultiRoot:unwrapRootArray:errorHandler:
- @see -initWithBlock:multiRoot:unwrapRootArray:maxDepth:errorHandler:
+ @see +parserWithBlock:allowMultiRoot:unwrapRootArray:maxDepth:errorHandler:
  */
 + (id)unwrapRootArrayParserWithBlock:(SBJson5ValueBlock)block
                         errorHandler:(SBJson5ErrorBlock)eh;
@@ -229,12 +238,12 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
 
  */
 - (id)initWithBlock:(SBJson5ValueBlock)block
-          multiRoot:(BOOL)multiRoot
+     allowMultiRoot:(BOOL)multiRoot
     unwrapRootArray:(BOOL)unwrapRootArray
            maxDepth:(NSUInteger)maxDepth
        errorHandler:(SBJson5ErrorBlock)eh;
 
-/** 
+/**
  Feed data to parser
 
  The JSON is assumed to be UTF8 encoded. This can be a full JSON document, or

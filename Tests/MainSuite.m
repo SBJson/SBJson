@@ -70,8 +70,6 @@ static NSString *chomp(NSString *str) {
                     XCTAssertNotNil(output, @"%@", writer.error);
                     XCTAssertEqualObjects(output, chomp(slurp(outpath)), @"%@", [[inpath pathComponents] lastObject]);
                 }
-                                        allowMultiRoot:NO
-                                       unwrapRootArray:NO
                                           errorHandler:^(NSError *error) {
                     XCTFail(@"%@", error);
                 }];
@@ -85,8 +83,6 @@ static NSString *chomp(NSString *str) {
                        outExt:@"eof"
                         block:^(NSString *inpath, NSString *outpath) {
                             id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *string) {}
-                                                        allowMultiRoot:NO
-                                                       unwrapRootArray:NO
                                                           errorHandler:^(NSError *error) {
                                                               XCTFail(@"%@", error);
                                                           }];
@@ -114,19 +110,18 @@ static NSString *chomp(NSString *str) {
                         inext:@"in"
                        outExt:@"err"
                         block:^(NSString *inpath, NSString *outpath) {
-            id parser = [[SBJson5Parser alloc] initWithBlock:^(id o, BOOL *string) {
-                XCTFail(@"%@ - %@", o, [[inpath pathComponents] lastObject]);
-                }
-                                                   multiRoot:NO
-                                             unwrapRootArray:NO
-                                                    maxDepth:3
-                                                errorHandler:^(NSError *error) {
-                    XCTAssertNotNil(error, @"%@", inpath);
-                    XCTAssertEqualObjects([error localizedDescription], chomp(slurp(outpath)), @"%@", [[inpath pathComponents]
-                                                                                                          lastObject]);
-                }];
-            [parser parse:slurpd(inpath)];
-        }];
+                            id parser = [SBJson5Parser parserWithBlock:^(id o, BOOL *string) {
+                                XCTFail(@"%@ - %@", o, [[inpath pathComponents] lastObject]);
+                            }
+                                                        allowMultiRoot:NO
+                                                       unwrapRootArray:NO
+                                                              maxDepth:3
+                                                          errorHandler:^(NSError *error) {
+                                                              XCTAssertNotNil(error, @"%@", inpath);
+                                                              XCTAssertEqualObjects([error localizedDescription], chomp(slurp(outpath)), @"%@", [[inpath pathComponents] lastObject]);
+                                                          }];
+                            [parser parse:slurpd(inpath)];
+                        }];
 }
 
 - (void)testWriteSuccess {
@@ -168,8 +163,6 @@ static NSString *chomp(NSString *str) {
                     XCTAssertNotNil(output, @"%@", writer.error);
                     XCTAssertEqualObjects(output, chomp(slurp(outpath)));
                 }
-                                        allowMultiRoot:NO
-                                       unwrapRootArray:NO
                                           errorHandler:^(NSError *error) {
                     XCTFail(@"%@", error);
                 }];
@@ -193,8 +186,6 @@ static NSString *chomp(NSString *str) {
                     XCTAssertNotNil(output, @"%@", writer.error);
                     XCTAssertEqualObjects(output, chomp(slurp(outpath)));
                 }
-                                        allowMultiRoot:NO
-                                       unwrapRootArray:NO
                                           errorHandler:^(NSError *error) {
                     XCTFail(@"%@", error);
                 }];

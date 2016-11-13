@@ -69,34 +69,47 @@ typedef enum {
     @throw @"Not Implemented";
 }
 
-+ (id)multiRootParserWithBlock:(SBJson5ValueBlock)block errorHandler:(SBJson5ErrorBlock)eh {
++ (id)parserWithBlock:(SBJson5ValueBlock)block
+         errorHandler:(SBJson5ErrorBlock)eh {
     return [self parserWithBlock:block
-                  allowMultiRoot:YES
+                  allowMultiRoot:NO
                  unwrapRootArray:NO
+                        maxDepth:32
                     errorHandler:eh];
 }
 
-+ (id)unwrapRootArrayParserWithBlock:(SBJson5ValueBlock)block errorHandler:(SBJson5ErrorBlock)eh {
++ (id)multiRootParserWithBlock:(SBJson5ValueBlock)block
+                  errorHandler:(SBJson5ErrorBlock)eh {
+    return [self parserWithBlock:block
+                  allowMultiRoot:YES
+                 unwrapRootArray:NO
+                        maxDepth:32
+                    errorHandler:eh];
+}
+
++ (id)unwrapRootArrayParserWithBlock:(SBJson5ValueBlock)block
+                        errorHandler:(SBJson5ErrorBlock)eh {
     return [self parserWithBlock:block
                   allowMultiRoot:NO
                  unwrapRootArray:YES
+                        maxDepth:32
                     errorHandler:eh];
 }
 
 + (id)parserWithBlock:(SBJson5ValueBlock)block
        allowMultiRoot:(BOOL)allowMultiRoot
       unwrapRootArray:(BOOL)unwrapRootArray
+             maxDepth:(NSUInteger)maxDepth
          errorHandler:(SBJson5ErrorBlock)eh {
-
     return [[self alloc] initWithBlock:block
-                             multiRoot:allowMultiRoot
+                        allowMultiRoot:allowMultiRoot
                        unwrapRootArray:unwrapRootArray
-                              maxDepth:32
+                              maxDepth:maxDepth
                           errorHandler:eh];
 }
 
 - (id)initWithBlock:(SBJson5ValueBlock)block
-          multiRoot:(BOOL)multiRoot
+     allowMultiRoot:(BOOL)multiRoot
     unwrapRootArray:(BOOL)unwrapRootArray
            maxDepth:(NSUInteger)maxDepth
        errorHandler:(SBJson5ErrorBlock)eh {
@@ -127,9 +140,9 @@ typedef enum {
 	array = nil;
 	dict = nil;
 	currentType = SBJson5ChunkNone;
-	
+
 	id value = [stack lastObject];
-	
+
 	if ([value isKindOfClass:[NSArray class]]) {
 		array = value;
 		currentType = SBJson5ChunkArray;
@@ -141,7 +154,7 @@ typedef enum {
 
 - (void)parserFound:(id)obj isValue:(BOOL)isValue {
     NSParameterAssert(obj);
-	
+
     switch (currentType) {
     case SBJson5ChunkArray:
         [array addObject:obj];
