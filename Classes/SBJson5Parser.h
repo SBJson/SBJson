@@ -83,25 +83,6 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
  are represented using a `double`. Previous versions of this library used
  an NSDecimalNumber in some cases, but this is no longer the case.
 
- ## Parser options
-
- - `SBJson5OptionMultiRoot`: Indicate that you are expecting multiple
-   whitespace-separated JSON documents, similar to what Twitter uses.
-
- - `SBJson5OptionsUnwrapRootArray`: If set the parser will pretend an root
-   array does not exist and the enumerator block will be called once for each
-   item in it. This option does nothing if the the JSON has an object at its
-   root.
-
- - `SBJson5OptionsMaxDepth`: The max recursion depth of the parser. Defaults
-   to 32.
-
- You can pass options to the parser like so:
-
-    id parser = [SBJson5Parser parserWithBlock: block
-                                  errorHandler: eh
-                                       options: @{SBJson5OptionMultiRoot: @YES}];
-
  ## A word of warning
 
  Stream based parsing does mean that you lose some of the correctness
