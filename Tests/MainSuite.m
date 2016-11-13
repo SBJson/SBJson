@@ -46,12 +46,12 @@ static NSString *chomp(NSString *str) {
                       block:(void (^)(NSString *, NSString *))block {
     NSString *root = [self suitePath:suite];
     for (NSString *fileName in [[NSFileManager defaultManager] enumeratorAtPath:root]) {
-        if (![inext isEqualToString:[fileName pathExtension]])
+        if (![outext isEqualToString:[fileName pathExtension]])
             continue;
 
-        NSString *inpath = [root stringByAppendingPathComponent:fileName];
-        NSString *outpath = [[inpath stringByDeletingPathExtension] stringByAppendingPathExtension:outext];
-        if (![[NSFileManager defaultManager] isReadableFileAtPath:outpath])
+        NSString *outpath = [root stringByAppendingPathComponent:fileName];
+        NSString *inpath = [[outpath stringByDeletingPathExtension] stringByAppendingPathExtension:inext];
+        if (![[NSFileManager defaultManager] isReadableFileAtPath:inpath])
             continue;
 
         count++;
