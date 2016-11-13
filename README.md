@@ -150,6 +150,45 @@ document returned *as if they were correct* but then encounter an error in a
 later part of the document. You should keep this in mind when considering
 whether it would suit your application.
 
+American Fuzzy Lop
+==================
+
+I've run [AFL][] on the sbjson binary for over 24 hours, with no crashes
+found. (I cannot reproduce the hangs reported when attempting to parse them
+manually.)
+
+[AFL]: http://lcamtuf.coredump.cx/afl/
+
+```
+                       american fuzzy lop 2.35b (sbjson)
+
+┌─ process timing ─────────────────────────────────────┬─ overall results ─────┐
+│        run time : 1 days, 0 hrs, 45 min, 26 sec      │  cycles done : 2      │
+│   last new path : 0 days, 0 hrs, 5 min, 24 sec       │  total paths : 555    │
+│ last uniq crash : none seen yet                      │ uniq crashes : 0      │
+│  last uniq hang : 0 days, 2 hrs, 11 min, 43 sec      │   uniq hangs : 19     │
+├─ cycle progress ────────────────────┬─ map coverage ─┴───────────────────────┤
+│  now processing : 250* (45.05%)     │    map density : 0.70% / 1.77%         │
+│ paths timed out : 0 (0.00%)         │ count coverage : 3.40 bits/tuple       │
+├─ stage progress ────────────────────┼─ findings in depth ────────────────────┤
+│  now trying : auto extras (over)    │ favored paths : 99 (17.84%)            │
+│ stage execs : 603/35.6k (1.70%)     │  new edges on : 116 (20.90%)           │
+│ total execs : 20.4M                 │ total crashes : 0 (0 unique)           │
+│  exec speed : 481.9/sec             │   total hangs : 44 (19 unique)         │
+├─ fuzzing strategy yields ───────────┴───────────────┬─ path geometry ────────┤
+│   bit flips : 320/900k, 58/900k, 5/899k             │    levels : 8          │
+│  byte flips : 0/112k, 4/112k, 3/112k                │   pending : 385        │
+│ arithmetics : 66/6.24M, 0/412k, 0/35                │  pend fav : 1          │
+│  known ints : 5/544k, 0/3.08M, 0/4.93M              │ own finds : 554        │
+│  dictionary : 0/0, 0/0, 29/1.83M                    │  imported : n/a        │
+│       havoc : 64/300k, 0/0                          │ stability : 100.00%    │
+│        trim : 45.19%/56.5k, 0.00%                   ├────────────────────────┘
+^C────────────────────────────────────────────────────┘             [cpu: 74%]
+
++++ Testing aborted by user +++
+[+] We're done here. Have a nice day!
+```
+
 API Documentation
 =================
 
