@@ -59,6 +59,36 @@ static NSString *chomp(NSString *str) {
     }
 }
 
+- (void)testRoundtripUnwrapped {
+    [self inExtForeachInSuite:@"main"
+                        inext:@"in"
+                       outExt:@"unwrapped"
+                        block:^(NSString *inpath, NSString *outpath) {
+                            NSLog(@"%@", outpath);
+
+                            NSMutableArray *output = [NSMutableArray array];
+                            SBJson5ValueBlock block = ^(id value, BOOL *stop) {
+                                XCTAssertNotNil(value);
+                                [output addObject:value];
+                            };
+
+                            SBJson5ErrorBlock eh = ^(NSError *error) {
+                                XCTFail(@"%@", error);
+                            };
+
+                            id parser = [SBJson5Parser unwrapRootArrayParserWithBlock:block
+                                                                         errorHandler:eh];
+
+                            XCTAssertEqual([parser parse:slurpd(inpath)], SBJson5ParserComplete);
+
+                            NSMutableString *str = [NSMutableString string];
+                            for (id out in output)
+                                [str appendString:[writer stringWithObject:out]];
+                            XCTAssertEqualObjects(str, chomp(slurp(outpath)), @"%@",
+                                                  [[inpath pathComponents] lastObject]);
+        }];
+}
+
 - (void)testRoundtrip {
     [self inExtForeachInSuite:@"main"
                         inext:@"in"
