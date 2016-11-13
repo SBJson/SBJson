@@ -223,7 +223,7 @@ typedef enum {
 
 - (void)parserFoundArrayEnd {
     depth--;
-    if (depth > 1 || !supportPartialDocuments) {
+    if (depth > 0 || !supportPartialDocuments) {
 		id value = array;
 		[self pop];
         [self parserFound:value isValue:NO ];
