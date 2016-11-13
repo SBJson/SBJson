@@ -66,8 +66,6 @@ XCTAssertTrue([e rangeOfString:s].location != NSNotFound, @"%@ vs %@", e, s)
     id parser = [SBJson5Parser parserWithBlock:^(id o, BOOL *string) {
         XCTFail(@"");
     }
-                                allowMultiRoot:NO
-                               unwrapRootArray:NO
                                   errorHandler:^(NSError *error) {
                                       XCTAssertEqualObjects(error, @"Input was 'nil'");
                                   }];
