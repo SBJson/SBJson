@@ -96,17 +96,17 @@ typedef enum {
 @interface SBJson5StreamParser : NSObject
 
 @property (nonatomic, weak) SBJson5StreamParserState *state; // Private
+@property (readonly) id<SBJson5StreamParserDelegate> delegate; // Private
 
 /**
- Delegate to receive messages
+ Create a streaming parser.
 
- The object set here receives a series of messages as the parser breaks down the JSON stream
- into valid tokens.
-
- Usually this should be an instance of SBJson5Parser, but you can
- substitute your own implementation of the SBJson5StreamParserDelegate protocol if you need to.
- */
-@property (nonatomic, weak) id<SBJson5StreamParserDelegate> delegate;
+ @param delegate Receives a series of messages as the parser breaks down
+ the JSON stream into valid tokens. Usually this would be an instance of
+ SBJson5Parser, but you can substitute your own implementation of the
+ SBJson5StreamParserDelegate protocol if you need to.
+*/
++ (id)parserWithDelegate:(id<SBJson5StreamParserDelegate>)delegate;
 
 /**
  Parse some JSON
