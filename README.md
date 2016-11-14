@@ -130,8 +130,8 @@ id data = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
 Other features
 --------------
 
-* For safety there is a max nesting level of 32 for all input. This is
-  configurable.
+* For safety there is a max nesting level for all input. This defaults to 32,
+  but is configurable.
 * The writer can sort dictionary keys so output is consistent across writes.
 * The writer can create human-readable output, with newlines and indents.
 * You can install SBJson v3, v4 and v5 side-by-side in the same application.
