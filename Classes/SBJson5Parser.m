@@ -116,8 +116,7 @@ typedef enum {
 
 	self = [super init];
 	if (self) {
-        _parser = [[SBJson5StreamParser alloc] init];
-        _parser.delegate = self;
+        _parser = [SBJson5StreamParser parserWithDelegate:self];
 
         supportManyDocuments = multiRoot;
         supportPartialDocuments = unwrapRootArray;

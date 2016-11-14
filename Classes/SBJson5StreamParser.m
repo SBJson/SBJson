@@ -41,17 +41,26 @@
 #define SBStringIsSurrogateHighCharacter(character) ((character >= 0xD800UL) && (character <= 0xDBFFUL))
 
 @implementation SBJson5StreamParser {
-@private
     SBJson5StreamTokeniser *tokeniser;
     BOOL stopped;
     NSMutableArray *_stateStack;
+    __weak id<SBJson5StreamParserDelegate> _delegate;
 }
 
 #pragma mark Housekeeping
 
 - (id)init {
+    return [self initWithDelegate:nil];
+}
+
++ (id)parserWithDelegate:(id<SBJson5StreamParserDelegate>)delegate {
+    return [[self alloc] initWithDelegate:delegate];
+}
+
+- (id)initWithDelegate:(id<SBJson5StreamParserDelegate>)delegate {
     self = [super init];
     if (self) {
+        _delegate = delegate;
         _stateStack = [[NSMutableArray alloc] initWithCapacity:32];
         _state = [SBJson5StreamParserStateStart sharedInstance];
         tokeniser = [[SBJson5StreamTokeniser alloc] init];
