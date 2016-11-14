@@ -68,8 +68,7 @@ Then create a parser and add data to it:
 
 ```objc
 id parser = [SBJson5Parser parserWithBlock:block
-                              errorHandler:eh
-                                   options:nil];
+                              errorHandler:eh];
 
 id data = [@"[true," dataWithEncoding:NSUTF8StringEncoding];
 [parser parse:data]; // returns SBJson5ParserWaitingForData
@@ -88,7 +87,6 @@ Alright! Now let's look at something slightly more interesting.
 
 Handling multiple documents
 ---------------------------
-
 
 This is useful for something like Twitter's feed, which gives you one JSON
 document per line. Here is an example of parsing many consequtive JSON
