@@ -40,16 +40,51 @@
 @property (nonatomic, strong) NSMutableData *acc;
 @end
 
-@implementation SBJson5Writer
+@implementation SBJson5Writer {
+    NSUInteger _maxDepth;
+    BOOL _sortKeys;
+    NSComparator _sortKeysComparator;
+    BOOL _humanReadable;
+}
 
 - (id)init {
+    return [self initWithMaxDepth:32
+                    humanReadable:NO
+                         sortKeys:NO
+               sortKeysComparator:nil];
+}
+
+- (id)initWithMaxDepth:(NSUInteger)maxDepth
+         humanReadable:(BOOL)humanReadable
+              sortKeys:(BOOL)sortKeys
+    sortKeysComparator:(NSComparator)sortKeysComparator {
     self = [super init];
     if (self) {
-        self.maxDepth = 32u;
+        _maxDepth = maxDepth;
+        _humanReadable = humanReadable;
+        _sortKeys = sortKeys;
+        _sortKeysComparator = sortKeysComparator;
     }
     return self;
 }
 
++ (id)writerWithMaxDepth:(NSUInteger)maxDepth
+           humanReadable:(BOOL)humanReadable
+                sortKeys:(BOOL)sortKeys {
+    return [[self alloc] initWithMaxDepth:maxDepth
+                            humanReadable:humanReadable
+                                 sortKeys:sortKeys
+                       sortKeysComparator:nil];
+}
+
++ (id)writerWithMaxDepth:(NSUInteger)maxDepth
+           humanReadable:(BOOL)humanReadable
+      sortKeysComparator:(NSComparator)keyComparator {
+    return [[self alloc] initWithMaxDepth:maxDepth
+                            humanReadable:humanReadable
+                                 sortKeys:YES
+                       sortKeysComparator:keyComparator];
+}
 
 - (NSString*)stringWithObject:(id)value {
 	NSData *data = [self dataWithObject:value];
@@ -63,12 +98,11 @@
 
     self.acc = [[NSMutableData alloc] initWithCapacity:8096u];
 
-    SBJson5StreamWriter *streamWriter = [[SBJson5StreamWriter alloc] init];
-	streamWriter.sortKeys = self.sortKeys;
-	streamWriter.maxDepth = self.maxDepth;
-	streamWriter.sortKeysComparator = self.sortKeysComparator;
-	streamWriter.humanReadable = self.humanReadable;
-    streamWriter.delegate = self;
+    SBJson5StreamWriter *streamWriter = [SBJson5StreamWriter writerWithDelegate:self
+                                                                       maxDepth:_maxDepth
+                                                                  humanReadable:_humanReadable
+                                                                       sortKeys:_sortKeys
+                                                             sortKeysComparator:_sortKeysComparator];
 
 	if ([streamWriter writeValue:object])
 		return self.acc;

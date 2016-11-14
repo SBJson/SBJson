@@ -39,13 +39,53 @@
 @interface SBJson5Writer : NSObject
 
 /**
- The maximum depth.
+ Create a JSON Writer instance.
 
- Defaults to 32. If the input is nested deeper than this the input will be deemed to be
- malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
- turn off this security feature by setting the maxDepth value to 0.
+ @param maxDepth If the input is nested deeper than this the input will be
+ deemed to be malicious and the parser returns nil, signalling an error.
+ ("Nested too deep".) You can turn off this security feature by setting the
+ maxDepth value to 0. Defaults to 32.
+
+ @param humanReadable Whether we are generating human-readable (multi line)
+ JSON. If set to YES, generates human-readable JSON with line breaks after
+ each array value and dictionary key/value pair, indented two spaces per
+ nesting level. The default is NO, which produces JSON without any whitespace.
+ (Except inside strings.)
+
+ @param sortKeys Whether to sort the dictionary keys in the output.
+ The default is to not sort the keys.
+
+ @see -writerWithMaxDepth:humanReadable:customSortKeysComparator:
  */
-@property(nonatomic) NSUInteger maxDepth;
++ (id)writerWithMaxDepth:(NSUInteger)maxDepth
+           humanReadable:(BOOL)humanReadable
+                sortKeys:(BOOL)sortKeys;
+
+
+/**
+ Create a JSON Writer instance.
+
+ @param maxDepth If the input is nested deeper than this the input will be
+ deemed to be malicious and the parser returns nil, signalling an error.
+ ("Nested too deep".) You can turn off this security feature by setting the
+ maxDepth value to 0. Defaults to 32.
+
+ @param humanReadable Whether we are generating human-readable (multi line)
+ JSON. If set to YES, generates human-readable JSON with line breaks after
+ each array value and dictionary key/value pair, indented two spaces per
+ nesting level. The default is NO, which produces JSON without any whitespace.
+ (Except inside strings.)
+
+ @param sortKeysComparator Use this if you want a custom sort order for your
+ dictionary keys.
+
+ @see -writerWithMaxDepth:humanReadable:sortKeys: if you just care about sort
+ order being stable.
+
+ */
++ (id)writerWithMaxDepth:(NSUInteger)maxDepth
+           humanReadable:(BOOL)humanReadable
+      sortKeysComparator:(NSComparator)sortKeysComparator;
 
 /**
  Return an error trace, or nil if there was no errors.
@@ -55,31 +95,6 @@
  if the call actually failed, before you know call this method.
  */
 @property (nonatomic, readonly, copy) NSString *error;
-
-/**
- Whether we are generating human-readable (multi line) JSON.
-
- Set whether or not to generate human-readable JSON. The default is NO, which produces
- JSON without any whitespace. (Except inside strings.) If set to YES, generates human-readable
- JSON with line breaks after each array value and dictionary key/value pair, indented two
- spaces per nesting level.
- */
-@property(nonatomic) BOOL humanReadable;
-
-/**
- Whether or not to sort the dictionary keys in the output.
-
- If this is set to YES, the dictionary keys in the JSON output will be in sorted order.
- (This is useful if you need to compare two structures, for example.) The default is NO.
- */
-@property(nonatomic) BOOL sortKeys;
-
-/**
- An optional comparator to be used if sortKeys is YES.
-
- If this is nil, sorting will be done via @selector(compare:).
- */
-@property (nonatomic, copy) NSComparator sortKeysComparator;
 
 /**
  Generates string with JSON representation for the given object.

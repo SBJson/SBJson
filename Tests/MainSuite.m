@@ -30,7 +30,7 @@ static NSString *chomp(NSString *str) {
 }
 
 - (void)setUp {
-    writer = [[SBJson5Writer alloc] init];
+    writer = [SBJson5Writer new];
     count = 0u;
 }
 
@@ -167,7 +167,7 @@ static NSString *chomp(NSString *str) {
 }
 
 - (void)testWriteError {
-    writer.maxDepth = 4u;
+    writer = [SBJson5Writer writerWithMaxDepth:4 humanReadable:NO sortKeys:NO];
 
     [self inExtForeachInSuite:@"main"
                         inext:@"plist"
@@ -181,8 +181,7 @@ static NSString *chomp(NSString *str) {
 
 
 - (void)testFormat {
-    writer.humanReadable = YES;
-    writer.sortKeys = YES;
+    writer = [SBJson5Writer writerWithMaxDepth:32 humanReadable:YES sortKeys:YES];
 
     [self inExtForeachInSuite:@"format"
                         inext:@"in"
@@ -201,11 +200,11 @@ static NSString *chomp(NSString *str) {
 }
 
 - (void)testComparatorSort {
-    writer.humanReadable = YES;
-    writer.sortKeys = YES;
-    writer.sortKeysComparator = ^(id obj1, id obj2) {
-        return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSLiteralSearch];
-    };
+    writer = [SBJson5Writer writerWithMaxDepth:32
+                                 humanReadable:YES
+                            sortKeysComparator:^(id obj1, id obj2) {
+                          return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSLiteralSearch];
+                      }];
 
     [self inExtForeachInSuite:@"comparatorsort"
                         inext:@"in"
