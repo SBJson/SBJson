@@ -156,7 +156,11 @@ static NSError *error;
 }
 
 - (void)testWriteToStream {
-    SBJson5StreamWriter *streamWriter = [[SBJson5StreamWriter alloc] init];
+    SBJson5StreamWriter *streamWriter = [SBJson5StreamWriter writerWithDelegate:nil
+                                                                       maxDepth:32
+                                                                  humanReadable:NO
+                                                                       sortKeys:NO
+                                                             sortKeysComparator:nil];
 
     XCTAssertTrue([streamWriter writeArray:[NSArray array]]);
 

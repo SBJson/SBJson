@@ -43,7 +43,12 @@ static NSNumber *kPositiveInfinity;
 static NSNumber *kNegativeInfinity;
 
 
-@implementation SBJson5StreamWriter
+@implementation SBJson5StreamWriter {
+    BOOL _sortKeys, _humanReadable;
+    NSUInteger _maxDepth;
+    __weak id<SBJson5StreamWriterDelegate> _delegate;
+    NSComparator _sortKeysComparator;
+}
 
 + (void)initialize {
     kPositiveInfinity = [NSNumber numberWithDouble:+HUGE_VAL];
@@ -55,10 +60,34 @@ static NSNumber *kNegativeInfinity;
 #pragma mark Housekeeping
 
 - (id)init {
+    @throw @"Not Implemented";
+}
+
++ (id)writerWithDelegate:(id<SBJson5StreamWriterDelegate>)delegate
+                maxDepth:(NSUInteger)maxDepth
+           humanReadable:(BOOL)humanReadable
+                sortKeys:(BOOL)sortKeys
+      sortKeysComparator:(NSComparator)sortKeysComparator {
+    return [[self alloc] initWithDelegate:delegate
+                                 maxDepth:maxDepth
+                            humanReadable:humanReadable
+                                 sortKeys:sortKeys
+                       sortKeysComparator:sortKeysComparator];
+}
+
+- (id)initWithDelegate:(id<SBJson5StreamWriterDelegate>)delegate
+              maxDepth:(NSUInteger)maxDepth
+         humanReadable:(BOOL)humanReadable
+              sortKeys:(BOOL)sortKeys
+    sortKeysComparator:(NSComparator)sortKeysComparator {
 	self = [super init];
 	if (self) {
-		_maxDepth = 32u;
-        _stateStack = [[NSMutableArray alloc] initWithCapacity:_maxDepth];
+        _delegate = delegate;
+		_maxDepth = maxDepth;
+        _sortKeys = sortKeys;
+        _humanReadable = humanReadable;
+        _sortKeysComparator = sortKeysComparator;
+        _stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
         _state = [SBJson5StreamWriterStateStart sharedInstance];
         cache = [[NSMutableDictionary alloc] initWithCapacity:32];
     }
