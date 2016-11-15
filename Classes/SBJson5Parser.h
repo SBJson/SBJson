@@ -220,30 +220,6 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
                         errorHandler:(SBJson5ErrorBlock)eh;
 
 /**
- Create a JSON Parser
-
- @param block Called for each element. Set *stop to `YES` if you have seen
- enough and would like to skip the rest of the elements.
-
- @param multiRoot Indicate that you are expecting multiple whitespace-separated
- JSON documents, similar to what Twitter uses.
-
- @param unwrapRootArray If set the parser will pretend an root array does not exist
- and the enumerator block will be called once for each item in it. This option
- does nothing if the the JSON has an object at its root.
-
- @param maxDepth The max recursion depth of the parser. Defaults to 32.
-
- @param eh Called if the parser encounters an error.
-
- */
-- (id)initWithBlock:(SBJson5ValueBlock)block
-     allowMultiRoot:(BOOL)multiRoot
-    unwrapRootArray:(BOOL)unwrapRootArray
-           maxDepth:(NSUInteger)maxDepth
-       errorHandler:(SBJson5ErrorBlock)eh;
-
-/**
  Feed data to parser
 
  The JSON is assumed to be UTF8 encoded. This can be a full JSON document, or
