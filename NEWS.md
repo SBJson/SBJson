@@ -1,3 +1,12 @@
+# 4.0.5 (November 15, 2016)
+
+Fixes an embarrassing bug in the unwrapRootArrayParser that made the parser
+ignore any output after an array entry at depth 1. (I.e. a direct child of the
+root array.)
+
+*This fix exists in the v4.0.5 tag, and the v4.0.x branch, but not on master as
+that has moved on too much.*
+
 # 4.0.4: No Crashes On Invalid UTF-8 Found 
 
 (November 3rd, 2016)
