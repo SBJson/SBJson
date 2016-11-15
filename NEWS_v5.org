@@ -1,0 +1,40 @@
+* 5.0.0: Target RFC 7159 over 4627
+
+*** TODO Decide on Release Date Released XXX, 2016
+
+  This is the second release motivated by Nicholas Seriot's [[http://seriot.ch/parsing_json.php][Parsing JSON is a
+  Minefield]] post.
+
+** Targetting RFC 7159
+
+   This release [[https://github.com/stig/json-framework/pull/238][allow scalar values at the top level]]; as recommended by RFC
+   7159, which obsoletes the original RFC 4627. Since it is a change in
+   behaviour I chose to bump the major version.
+
+   *Please note*: When parsing numbers at the top level there is /no way/ to
+   differentiate =42= on its own from =4200= truncated to just the first two
+   digits. This problem affects SBJson 5 because it expects to receive input
+   bit-by-bit. When SBJson 5 sees "42" on its own it returns
+   =SBJson5WaitingForData=, since cannot be sure it has seen the full token
+   yet, and needs more data to make sure. A workaround for this issue could be
+   to append a space or newline to your input if you intend to give SBJson 5
+   the whole input in one go. This is not an issue with any of the other JSON
+   datatypes because they are either fixed length (~true~, ~false~, ~null~) or
+   have unambigous delimiters at both ends (~[]~, ~{}~, ~""~).
+
+** Rename all classes & public symbols
+
+   Because the class names contains the major version number a major-version
+   bump necessitates renaming all the classes. The upshoot of this is that you
+   can include both SBJson 3, 4 *and* 5 in the same application without
+   problems.
+
+** TODO Constructor changes for parsers + writers
+
+** TODO Remove untested processBlock API
+
+** TODO Add a "What would SBJson do?" =sbjson= binary & run it under Americal Fuzzy Lop
+
+** TODO Attempt to improve documentation, both of README and in headers (so API documentation)
+
+** TODO Fix bug in unwrapper code that caused arrays to be skipped
