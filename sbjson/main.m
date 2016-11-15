@@ -68,10 +68,9 @@ int main(int argc, const char * argv[]) {
 
         SBJson5ValueBlock block = ^(id item, BOOL *stop) {
             // Let's try to generate JSON from what we just parsed, but not write anything as it will probably be noisy.
-            SBJson5Writer *writer = [SBJson5Writer new];
-            writer.sortKeys = sortKeys;
-            writer.humanReadable = humanReadable;
-            writer.maxDepth = maxDepth;
+            SBJson5Writer *writer = [SBJson5Writer writerWithMaxDepth:maxDepth
+                                                        humanReadable:humanReadable
+                                                             sortKeys:sortKeys];
             [output writeData:[writer dataWithObject:item]];
             [output writeData:[NSData dataWithBytes:"\n" length:1]];
         };
