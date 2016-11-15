@@ -39,8 +39,6 @@ int main(int argc, const char * argv[]) {
         NSInteger maxDepth = 32;
         NSMutableArray *paths = [NSMutableArray array];
 
-        NSMutableDictionary *parserOptions = [NSMutableDictionary dictionary];
-
         NSArray *arguments = [[NSProcessInfo processInfo] arguments];
         NSEnumerator *enumerator = [arguments objectEnumerator];
         (void)[enumerator nextObject]; // skip program name
