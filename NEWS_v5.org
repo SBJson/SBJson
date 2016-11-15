@@ -1,3 +1,5 @@
+#+title: SBJson v5.x
+#+startup: contents
 * 5.0.0: Target RFC 7159 over 4627
 
 *** TODO Decide on Release Date Released XXX, 2016
@@ -7,9 +9,9 @@
 
 ** Targetting RFC 7159
 
-   This release [[https://github.com/stig/json-framework/pull/238][allow scalar values at the top level]]; as recommended by RFC
+   This release allows scalar values at the top level; as recommended by RFC
    7159, which obsoletes the original RFC 4627. Since it is a change in
-   behaviour I chose to bump the major version.
+   behaviour I chose to bump the major version to 5.
 
    *Please note*: When parsing numbers at the top level there is /no way/ to
    differentiate =42= on its own from =4200= truncated to just the first two
@@ -22,19 +24,91 @@
    datatypes because they are either fixed length (~true~, ~false~, ~null~) or
    have unambigous delimiters at both ends (~[]~, ~{}~, ~""~).
 
+   - https://github.com/stig/json-framework/pull/238
+   - https://github.com/stig/json-framework/pull/239
+
 ** Rename all classes & public symbols
 
    Because the class names contains the major version number a major-version
-   bump necessitates renaming all the classes. The upshoot of this is that you
-   can include both SBJson 3, 4 *and* 5 in the same application without
-   problems.
+   bump necessitates renaming all the classes & enums. The upshoot of this is
+   that you can use SBJson 3, 4 *and* 5 in the same application without
+   problems. (Though why you would want to I cannot even begin to guess at.)
 
-** TODO Constructor changes for parsers + writers
+   - https://github.com/stig/json-framework/commit/736dbb1c3fe9dfa85e2c89a4a020479ee2a37619
 
-** TODO Remove untested processBlock API
+** Remove the processBlock: API
 
-** TODO Add a "What would SBJson do?" =sbjson= binary & run it under Americal Fuzzy Lop
+   This release removes the untested ~processBlock:~ interface. I believe it
+   was a distraction from SBJson's core purpose: to parse & generate JSON.
+   Additionally this API had no tests, and the code had a lot of special case
+   hooks all over the SBJson*Parser class to do its work.
 
-** TODO Attempt to improve documentation, both of README and in headers (so API documentation)
+   SBJson actually has two parsers: the low-level SBJson5StreamParser and the
+   higher-level SBJson5Parser providing a block interface. I believe it's
+   better to just do what the processBlock interface did in SBJson5Parser's
+   value block. However, you could also use the stream parser to implement the
+   processBlock interface yourself.
 
-** TODO Fix bug in unwrapper code that caused arrays to be skipped
+   - https://github.com/stig/json-framework/pull/242
+
+** Constructor changes for parsers + writers
+
+   Since I decided to bump the major version number anyway, I took the
+   opportunity to iron out some UI niggles that's been bothering me for a
+   while. Now we take options as constructor parameters rather than as
+   properties for boh the parsers and writers, to avoid the impression that
+   you can (and that it might make sense!) to change these settings during
+   parse/generation. It is absolutely not supported, and that should be more
+   clear now.
+
+   - https://github.com/stig/json-framework/pull/243
+   - https://github.com/stig/json-framework/pull/247
+
+** Add a =sbjson= binary for reformatting JSON
+
+   This can be useful from a sort of /what would SBJson do?/ point of view. It
+   takes some options. Here's the result of invoking it with =--help=:
+
+   #+BEGIN_EXAMPLE
+     Usage: sbjson [OPTIONS] [FILES]
+
+     Options:
+       --help, -h
+         This message.
+       --verbose, -v
+         Be verbose about which arguments are used
+       --multi-root, -m
+         Accept multiple top-level JSON inputs
+       --unwrap-root, -u
+         Unwrap top-level arrays
+       --max-depth INT, -m INT
+         Change the max recursion limit to INT (default: 32)
+       --sort-keys, -s
+         Sort dictionary keys in output
+       --human-readable, -r
+         Format the JSON output with linebreaks and indents
+
+     If no FILES are provided, the program reads standard input.
+   #+END_EXAMPLE
+
+** Run =sbjson= under American Fuzzy Lop
+
+   To try and shake out any new crashes, I've run the =sbjson= binary alluded
+   to above under [[http://lcamtuf.coredump.cx/afl/][American Fuzzy Lop]]. I didn't find any more crashes in the
+   parser after fixing the bugs that went into v4.0.4, but wanted to share
+   this with you to show I /tried/ to find more bugs before releasing v5.
+
+   - https://github.com/stig/json-framework/pull/246
+
+** Fix bug in unwrapper code that caused arrays to be skipped
+
+   Whilst playing with AFL I accidentally found (and fixed) a bug where the
+   unwrapRootArray parser would break on any arrays at the next-to-outermost
+   level.
+
+   - https://github.com/stig/json-framework/pull/244
+
+** Improved documentation
+
+   I've tried to improve the documentation a little, both in README and the API
+   documentation in the header files.
