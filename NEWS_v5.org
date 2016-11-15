@@ -23,8 +23,8 @@
    yet, and needs more data to make sure. A workaround for this issue could be
    to append a space or newline to your input if you intend to give SBJson 5
    the whole input in one go. This is not an issue with any of the other JSON
-   datatypes because they are either fixed length (~true~, ~false~, ~null~) or
-   have unambigous delimiters at both ends (~[]~, ~{}~, ~""~).
+   datatypes because they are either fixed length (=true=, =false=, =null=) or
+   have unambigous delimiters at both ends (=[]=, ={}=, =""=).
 
    - https://github.com/stig/json-framework/pull/238
    - https://github.com/stig/json-framework/pull/239
@@ -40,7 +40,7 @@
 
 ** Remove the processBlock: API
 
-   This release removes the untested ~processBlock:~ interface. I believe it
+   This release removes the untested =processBlock:= interface. I believe it
    was a distraction from SBJson's core purpose: to parse & generate JSON.
    Additionally this API had no tests, and the code had a lot of special case
    hooks all over the SBJson*Parser class to do its work.
