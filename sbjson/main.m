@@ -10,7 +10,7 @@
 #import "SBJson5.h"
 
 void usage() {
-    puts("Usage: sbjson [OPTIONS] FILE [FILES]");
+    puts("Usage: sbjson [OPTIONS] [FILES]");
     puts("");
     puts("Options:");
     puts("  --help, -h");
