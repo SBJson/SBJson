@@ -100,6 +100,39 @@
    parser after fixing the bugs that went into v4.0.4, but wanted to share
    this with you to show I /tried/ to find more bugs before releasing v5.
 
+   Here's a snapshot of the latest session I've run:
+
+   #+BEGIN_EXAMPLE
+                            american fuzzy lop 2.35b (master)
+
+     ┌─ process timing ─────────────────────────────────────┬─ overall results ─────┐
+     │        run time : 1 days, 12 hrs, 36 min, 22 sec     │  cycles done : 11     │
+     │   last new path : 0 days, 0 hrs, 34 min, 26 sec      │  total paths : 583    │
+     │ last uniq crash : none seen yet                      │ uniq crashes : 0      │
+     │  last uniq hang : 0 days, 2 hrs, 10 min, 54 sec      │   uniq hangs : 47     │
+     ├─ cycle progress ────────────────────┬─ map coverage ─┴───────────────────────┤
+     │  now processing : 170 (29.16%)      │    map density : 0.39% / 1.49%         │
+     │ paths timed out : 0 (0.00%)         │ count coverage : 5.02 bits/tuple       │
+     ├─ stage progress ────────────────────┼─ findings in depth ────────────────────┤
+     │  now trying : splice 7              │ favored paths : 93 (15.95%)            │
+     │ stage execs : 5/32 (15.62%)         │  new edges on : 142 (24.36%)           │
+     │ total execs : 18.1M                 │ total crashes : 0 (0 unique)           │
+     │  exec speed : 282.7/sec             │   total hangs : 297 (47 unique)        │
+     ├─ fuzzing strategy yields ───────────┴───────────────┬─ path geometry ────────┤
+     │   bit flips : 0/678k, 4/677k, 0/677k                │    levels : 15         │
+     │  byte flips : 0/84.8k, 0/84.5k, 0/83.9k             │   pending : 31         │
+     │ arithmetics : 0/4.72M, 0/16.6k, 0/307               │  pend fav : 0          │
+     │  known ints : 0/480k, 0/2.35M, 0/3.69M              │ own finds : 40         │
+     │  dictionary : 0/0, 0/0, 2/2.49M                     │  imported : 3          │
+     │       havoc : 29/1.25M, 5/753k                      │ stability : 100.00%    │
+     │        trim : 11.02%/43.6k, 0.00%                   ├────────────────────────┘
+     ^C────────────────────────────────────────────────────┘             [cpu: 69%]
+
+     +++ Testing aborted by user +++
+     [+] We're done here. Have a nice day!
+   #+END_EXAMPLE
+
+
    - https://github.com/stig/json-framework/pull/246
 
 ** Fix bug in unwrapper code that caused arrays to be skipped
