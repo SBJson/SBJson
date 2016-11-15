@@ -1,6 +1,8 @@
 #+title: SBJson v5.x
 #+startup: contents
-* 5.0.0: Target RFC 7159 over 4627
+* 5.0.0: I bet you didn't see this coming!
+
+  /I/ certainly didn't a month ago!
 
 *** TODO Decide on Release Date Released XXX, 2016
 
