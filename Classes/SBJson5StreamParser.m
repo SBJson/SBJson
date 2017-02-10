@@ -33,6 +33,7 @@
 #if !__has_feature(objc_arc)
 #error "This source file must be compiled with ARC enabled!"
 #endif
+#pragma clang diagnostic ignored "-Warc-repeated-use-of-weak"
 
 #import "SBJson5StreamParser.h"
 #import "SBJson5StreamTokeniser.h"
