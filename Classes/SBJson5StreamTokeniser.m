@@ -275,7 +275,7 @@
     }
 }
 
-- (BOOL)isInvalidCodePoint:(long)cp {
+- (BOOL)isInvalidCodePoint:(unsigned long)cp {
     if (cp > 0x10FFFF || SBStringIsSurrogateLowCharacter(cp) || SBStringIsSurrogateHighCharacter(cp)) {
         [self setError:[NSString stringWithFormat:@"Illegal Unicode code point [0x%lX]", cp]];
         return YES;
