@@ -7,14 +7,18 @@ layout: default
 
 Not going to lie: this site is *woefully* out of date, and unless
 someone steps in to update it it's going to stay that way. Your best
-bet is heading to https://github.com/stig/json-framework rather than
-relying on this site.
+bet is heading to
+[github.com/stig/json-framework](https://github.com/stig/json-framework)
+rather than relying on this site.
 
 PS: I'm no longer going to pay for the sbjson.org domain, so I've done
 a minimal change to host this site from
-https://stig.github.io/json-framework instead.
+[stig.github.io/json-framework](https://stig.github.io/json-framework)
+instead.
 
 *Update Ends.*
+
+-------------------------------------------------------------------------------
 
 
 SBJson's number one feature is chunk-based operation. Feed the parser one or
