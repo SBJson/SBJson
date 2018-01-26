@@ -3,6 +3,20 @@ title: SBJson for Objective-C
 layout: default
 ---
 
+**Update <2018-01-26 Fri>**
+
+Not going to lie: this site is *woefully* out of date, and unless
+someone steps in to update it it's going to stay that way. Your best
+bet is heading to https://github.com/stig/json-framework rather than
+relying on this site.
+
+PS: I'm no longer going to pay for the sbjson.org domain, so I've done
+a minimal change to host this site from
+https://stig.github.io/json-framework instead.
+
+*Update Ends.*
+
+
 SBJson's number one feature is chunk-based operation. Feed the parser one or
 more chunks of UTF8-encoded data and it will call a block you provide with each
 root-level document or array. Or, optionally, for each top-level entry in each
