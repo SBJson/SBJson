@@ -64,28 +64,28 @@ static NSString *chomp(NSString *str) {
                         inext:@"in"
                        outExt:@"unwrapped"
                         block:^(NSString *inpath, NSString *outpath) {
-                            NSLog(@"%@", outpath);
+            NSLog(@"%@", outpath);
 
-                            NSMutableArray *output = [NSMutableArray array];
-                            SBJson5ValueBlock block = ^(id value, BOOL *stop) {
-                                XCTAssertNotNil(value);
-                                [output addObject:value];
-                            };
+            NSMutableArray *output = [NSMutableArray array];
+            SBJson5ValueBlock block = ^(id value, BOOL *stop) {
+                                                               XCTAssertNotNil(value);
+                                                               [output addObject:value];
+            };
 
-                            SBJson5ErrorBlock eh = ^(NSError *error) {
-                                XCTFail(@"%@", error);
-                            };
+            SBJson5ErrorBlock eh = ^(NSError *error) {
+                                                      XCTFail(@"%@", error);
+            };
 
-                            id parser = [SBJson5Parser unwrapRootArrayParserWithBlock:block
-                                                                         errorHandler:eh];
+            id parser = [SBJson5Parser unwrapRootArrayParserWithBlock:block
+                                                         errorHandler:eh];
 
-                            XCTAssertEqual([parser parse:slurpd(inpath)], SBJson5ParserComplete);
+            XCTAssertEqual([parser parse:slurpd(inpath)], SBJson5ParserComplete);
 
-                            NSMutableString *str = [NSMutableString string];
-                            for (id out in output)
-                                [str appendString:[writer stringWithObject:out]];
-                            XCTAssertEqualObjects(str, chomp(slurp(outpath)), @"%@",
-                                                  [[inpath pathComponents] lastObject]);
+            NSMutableString *str = [NSMutableString string];
+            for (id out in output)
+                [str appendString:[self->writer stringWithObject:out]];
+            XCTAssertEqualObjects(str, chomp(slurp(outpath)), @"%@",
+                                  [[inpath pathComponents] lastObject]);
         }];
 }
 
@@ -96,11 +96,11 @@ static NSString *chomp(NSString *str) {
                         block:^(NSString *inpath, NSString *outpath) {
             id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *string) {
                     XCTAssertNotNil(value);
-                    NSString *output = [writer stringWithObject:value];
-                    XCTAssertNotNil(output, @"%@", writer.error);
+                    NSString *output = [self->writer stringWithObject:value];
+                    XCTAssertNotNil(output, @"%@", self->writer.error);
                     XCTAssertEqualObjects(output, chomp(slurp(outpath)), @"%@", [[inpath pathComponents] lastObject]);
                 }
-                                          errorHandler:^(NSError *error) {
+            errorHandler:^(NSError *error) {
                     XCTFail(@"%@", error);
                 }];
             XCTAssertEqual([parser parse:slurpd(inpath)], SBJson5ParserComplete);
@@ -112,12 +112,12 @@ static NSString *chomp(NSString *str) {
                         inext:@"in"
                        outExt:@"eof"
                         block:^(NSString *inpath, NSString *outpath) {
-                            id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *string) {}
-                                                          errorHandler:^(NSError *error) {
-                                                              XCTFail(@"%@", error);
-                                                          }];
-                            XCTAssertEqual([parser parse:slurpd(inpath)], SBJson5ParserWaitingForData);
-                        }];
+            id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *string) {}
+            errorHandler:^(NSError *error) {
+                    XCTFail(@"%@", error);
+                }];
+            XCTAssertEqual([parser parse:slurpd(inpath)], SBJson5ParserWaitingForData);
+        }];
 
     XCTAssertEqual(count, (NSUInteger)3);
 }
@@ -140,18 +140,18 @@ static NSString *chomp(NSString *str) {
                         inext:@"in"
                        outExt:@"err"
                         block:^(NSString *inpath, NSString *outpath) {
-                            id parser = [SBJson5Parser parserWithBlock:^(id o, BOOL *string) {
-                                XCTFail(@"%@ - %@", o, [[inpath pathComponents] lastObject]);
-                            }
-                                                        allowMultiRoot:NO
-                                                       unwrapRootArray:NO
-                                                              maxDepth:3
-                                                          errorHandler:^(NSError *error) {
-                                                              XCTAssertNotNil(error, @"%@", inpath);
-                                                              XCTAssertEqualObjects([error localizedDescription], chomp(slurp(outpath)), @"%@", [[inpath pathComponents] lastObject]);
-                                                          }];
-                            [parser parse:slurpd(inpath)];
-                        }];
+            id parser = [SBJson5Parser parserWithBlock:^(id o, BOOL *string) {
+                    XCTFail(@"%@ - %@", o, [[inpath pathComponents] lastObject]);
+                }
+            allowMultiRoot:NO
+                                       unwrapRootArray:NO
+                                              maxDepth:3
+                                          errorHandler:^(NSError *error) {
+                    XCTAssertNotNil(error, @"%@", inpath);
+                    XCTAssertEqualObjects([error localizedDescription], chomp(slurp(outpath)), @"%@", [[inpath pathComponents] lastObject]);
+                }];
+            [parser parse:slurpd(inpath)];
+        }];
 }
 
 - (void)testWriteSuccess {
@@ -160,8 +160,8 @@ static NSString *chomp(NSString *str) {
                        outExt:@"out"
                         block:^(NSString *inpath, NSString *outpath) {
             id value = [NSArray arrayWithContentsOfFile:inpath];
-            NSString *output = [writer stringWithObject:value];
-            XCTAssertNotNil(output, @"%@", writer.error);
+            NSString *output = [self->writer stringWithObject:value];
+            XCTAssertNotNil(output, @"%@", self->writer.error);
             XCTAssertEqualObjects(output, chomp(slurp(outpath)));
         }];
 }
@@ -174,8 +174,8 @@ static NSString *chomp(NSString *str) {
                        outExt:@"err"
                         block:^(NSString *inpath, NSString *outpath) {
             id value = [NSArray arrayWithContentsOfFile:inpath];
-            XCTAssertNil([writer stringWithObject:value]);
-            XCTAssertEqualObjects(writer.error, chomp(slurp(outpath)));
+            XCTAssertNil([self->writer stringWithObject:value]);
+            XCTAssertEqualObjects(self->writer.error, chomp(slurp(outpath)));
         }];
 }
 
@@ -188,11 +188,11 @@ static NSString *chomp(NSString *str) {
                        outExt:@"out"
                         block:^(NSString *inpath, NSString *outpath) {
             id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *string) {
-                    NSString *output = [writer stringWithObject:value];
-                    XCTAssertNotNil(output, @"%@", writer.error);
+                    NSString *output = [self->writer stringWithObject:value];
+                    XCTAssertNotNil(output, @"%@", self->writer.error);
                     XCTAssertEqualObjects(output, chomp(slurp(outpath)));
                 }
-                                          errorHandler:^(NSError *error) {
+            errorHandler:^(NSError *error) {
                     XCTFail(@"%@", error);
                 }];
             [parser parse:slurpd(inpath)];
@@ -203,19 +203,19 @@ static NSString *chomp(NSString *str) {
     writer = [SBJson5Writer writerWithMaxDepth:32
                                  humanReadable:YES
                             sortKeysComparator:^(id obj1, id obj2) {
-                          return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSLiteralSearch];
-                      }];
+            return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSLiteralSearch];
+        }];
 
     [self inExtForeachInSuite:@"comparatorsort"
                         inext:@"in"
                        outExt:@"out"
                         block:^(NSString *inpath, NSString *outpath) {
             id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *string) {
-                    NSString *output = [writer stringWithObject:value];
-                    XCTAssertNotNil(output, @"%@", writer.error);
+                    NSString *output = [self->writer stringWithObject:value];
+                    XCTAssertNotNil(output, @"%@", self->writer.error);
                     XCTAssertEqualObjects(output, chomp(slurp(outpath)));
                 }
-                                          errorHandler:^(NSError *error) {
+            errorHandler:^(NSError *error) {
                     XCTFail(@"%@", error);
                 }];
             [parser parse:slurpd(inpath)];
@@ -224,13 +224,13 @@ static NSString *chomp(NSString *str) {
 
 - (void)testScalar {
     NSDictionary *data = @{
-        @"foo"        : @"\"foo\"",
-        @""           : @"\"\"",
-        [NSNull null] : @"null",
-        @1            : @ "1",
-        @42           : @"42",
-        @-0.1         : @"-0.10000000000000001",
-        @(YES)        : @"true"
+                           @"foo"        : @"\"foo\"",
+                           @""           : @"\"\"",
+                           [NSNull null] : @"null",
+                           @1            : @ "1",
+                           @42           : @"42",
+                           @-0.1         : @"-0.10000000000000001",
+                           @(YES)        : @"true"
     };
 
     for (id key in data) {
