@@ -5,7 +5,7 @@ workflows:
         jobs:
             - build:
                 scheme: SBJson5_iOS
-                destination: platform=iOS Simulator,name=iPhone SE
+                destination: platform=iOS Simulator,name=iPhone 11
 
     macOS:
         jobs:
