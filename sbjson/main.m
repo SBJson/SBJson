@@ -36,7 +36,7 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
         BOOL multiRoot = NO, unwrapRoot = NO, verbose = NO, sortKeys = NO, humanReadable = NO;
-        NSInteger maxDepth = 32;
+        NSUInteger maxDepth = 32;
         NSMutableArray *paths = [NSMutableArray array];
 
         NSArray *arguments = [[NSProcessInfo processInfo] arguments];
@@ -52,7 +52,7 @@ int main(int argc, const char * argv[]) {
             } else if ([arg isEqualToString:@"--unwrap-root"] || [arg isEqualToString:@"-u"]) {
                 unwrapRoot = YES;
             } else if ([arg isEqualToString:@"--max-depth"] || [arg isEqualToString:@"-d"]) {
-                maxDepth = [[enumerator nextObject] integerValue];
+                maxDepth = [[enumerator nextObject] unsignedIntegerValue];
             } else if ([arg isEqualToString:@"--sort-keys"] || [arg isEqualToString:@"-s"]) {
                 sortKeys = YES;
             } else if ([arg isEqualToString:@"--human-readable"] || [arg isEqualToString:@"-r"]) {
