@@ -93,14 +93,23 @@ static NSError *error;
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     NSString *root = [[bundle resourcePath] stringByAppendingPathComponent:@"TestData/stream"];
 
-    for (NSString *fileName in [[NSFileManager defaultManager] enumeratorAtPath:root]) {
-        NSString *file = [root stringByAppendingPathComponent:fileName];
-
-        // Don't accidentally test directories. That would be bad.
-        BOOL isDir = NO;
-        if (![[NSFileManager defaultManager] fileExistsAtPath:file isDirectory:&isDir] || isDir)
-            continue;
-
+    NSArray *components = @[
+        @"xaa", @"xab", @"xac", @"xad", @"xae", @"xaf", @"xag", @"xah",
+        @"xai", @"xaj", @"xak", @"xal", @"xam", @"xan", @"xao", @"xap",
+        @"xaq", @"xar", @"xas", @"xat", @"xau", @"xav", @"xaw", @"xax",
+        @"xay", @"xaz", @"xba", @"xbb", @"xbc", @"xbd", @"xbe", @"xbf",
+        @"xbg", @"xbh", @"xbi", @"xbj", @"xbk", @"xbl", @"xbm", @"xbn",
+        @"xbo", @"xbp", @"xbq", @"xbr", @"xbs", @"xbt", @"xbu", @"xbv",
+        @"xbw", @"xbx", @"xby", @"xbz", @"xca", @"xcb", @"xcc", @"xcd",
+        @"xce", @"xcf", @"xcg", @"xch", @"xci", @"xcj", @"xck", @"xcl",
+        @"xcm", @"xcn", @"xco", @"xcp", @"xcq", @"xcr", @"xcs", @"xct",
+        @"xcu", @"xcv", @"xcw", @"xcx", @"xcy", @"xcz", @"xda", @"xdb",
+        @"xdc", @"xdd", @"xde", @"xdf", @"xdg", @"xdh", @"xdi", @"xdj",
+        @"xdk", @"xdl", @"xdm", @"xdn", @"xdo", @"xdp", @"xdq", @"xdr",
+        @"xds", @"xdt", @"xdu", @"xxx"];
+    
+    for (id component in components) {
+        NSString *file = [root stringByAppendingPathComponent:component];
         NSData *data = [NSData dataWithContentsOfFile:file];
         XCTAssertNotNil(data);
 	
