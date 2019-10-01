@@ -3,31 +3,28 @@ SBJson 5
 
 JSON (JavaScript Object Notation) is a light-weight data interchange format
 that's easy to read and write for humans and computers alike. This library
-implements chunk-based JSON parsing and generation in Objective-C.
+implements stream/chunk-based JSON parsing and generation in Objective-C.
 
 [![CircleCI](https://circleci.com/gh/stig/json-framework.svg?style=svg)](https://circleci.com/gh/stig/json-framework)
-
 [![codecov.io](http://codecov.io/github/stig/json-framework/coverage.svg?branch=master)](http://codecov.io/github/stig/json-framework?branch=master)
-
 [![Project Status: Inactive - The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/0.1.0/inactive.svg)](http://www.repostatus.org/#inactive)
-
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Overview
 ========
 
-SBJson's number one feature is chunk-based operation. Feed the parser one or
+SBJson's number one feature is stream/chunk-based operation. Feed the parser one or
 more chunks of UTF8-encoded data and it will call a block you provide with each
 root-level document or array. Or, optionally, for each top-level entry in each
 root-level array.
 
-With chunk-based parsing you can reduce the apparent latency for each
+With this you can reduce the apparent latency for each
 download/parse cycle of documents over a slow connection. You can start
-parsing *and return chunks of the parsed document* before the entire document
-is even downloaded. You can also parse massive documents bit by bit so you
+parsing *and return chunks of the parsed document* before the full document
+has downloaded. You can also parse massive documents bit by bit so you
 don't have to keep them all in memory.
 
-JSON is mapped to Objective-C types in the following way:
+SBJson maps JSON types to Objective-C types in the following way:
 
 | JSON Type | Objective-C Type                |
 |-----------|---------------------------------|
@@ -39,11 +36,11 @@ JSON is mapped to Objective-C types in the following way:
 | false     | -[NSNumber numberWithBool: NO]  |
 | number    | NSNumber                        |
 
-Since Objective-C doesn't have a dedicated class for boolean values, these
-turns into NSNumber instances. However, because they are initialised with the
--initWithBool: method they round-trip back to JSON true and false properly.
-Integers are parsed into either a `long long` or `unsigned long long` type if
-they fit, else a `double` is used.
+- Booleans roundtrip properly even though Objective-C doesn't have a
+  dedicated class for boolean values.
+- Integers use either `long long` or `unsigned long long` if they fit,
+  to avoid rounding errors.  For all other numbers we use the `double`
+  type, with all the potential rounding errors that entails.
 
 "Plain" Chunk Based Parsing
 ---------------------------
