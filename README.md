@@ -5,7 +5,7 @@ JSON (JavaScript Object Notation) is a light-weight data interchange format
 that's easy to read and write for humans and computers alike. This library
 implements stream/chunk-based JSON parsing and generation in Objective-C.
 
-[![Build Status](https://travis-ci.org/stig/json-framework.png?branch=master)](https://travis-ci.org/stig/json-framework)
+[![CircleCI](https://circleci.com/gh/stig/json-framework.svg?style=svg)](https://circleci.com/gh/stig/json-framework)
 [![codecov.io](http://codecov.io/github/stig/json-framework/coverage.svg?branch=master)](http://codecov.io/github/stig/json-framework?branch=master)
 [![Project Status: Inactive - The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/0.1.0/inactive.svg)](http://www.repostatus.org/#inactive)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
