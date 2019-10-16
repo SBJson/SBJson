@@ -11,25 +11,32 @@
 * Update CocoaPods
 
   These are further steps to release to CocoaPods because I always forget.
-  First install the CocoaPods gem:
 
-  : gem install cocoapods
+  1. First install the CocoaPods gem:
 
-  Then update our repo to make sure we have the latest version:
+     #+begin_src sh
+     gem install --user cocoapods
+     #+end_src
 
-  : pod repo update --verbose
+  2. Add pod dir to path:
 
-  Get latest version of our pod:
+     #+begin_src sh
+     export PATH=$HOME/.gem/ruby/2.6.0/bin:$PATH
+     #+end_src
 
-  : pod spec cat SBJson > SBJson.podspec.json
+  3. Bump version number in [[file:SBJson.podspec][SBJson.podspec]]
 
-  Update version numbers in that, and make any other required changes. Then test
-  the changes:
+  4. Test the changes:
 
-  : pod spec lint SBJson.podspec.json --verbose
+     #+begin_src sh
+     pod spec lint SBJson.podspec --verbose
+     #+end_src
 
-  Once happy, push to trunk:
+     #+RESULTS:
 
-  : pod trunk push SBJson.podspec.json --verbose
+  5. Once happy, push to trunk:
 
-  Repeat for SBJson4/SBJson5 as required.
+     #+begin_src sh
+     pod trunk push SBJson.podspec --verbose
+     #+end_src
+
