@@ -37,12 +37,14 @@ mistakenly omitted anyone.)
 * Mike Abdullah
 * Mike Monaco
 * Ole André Vadla Ravnås
+* Philip Hofstetter
 * Phill Baker
 * Rafaël Warnault
 * Robert Böhnke
 * Robert McNally
 * Robin Lu
 * Ryan Smale
+* Sabade Amrut
 * Sam Dean
 * Sam Soffes
 * Sean Scanlon
