@@ -2,11 +2,12 @@
 
 * TL;DR
 
-  - [ ] Check that tests pass on master
-  - [ ] Run AFL for at least 24 hours if changes to the parser
-  - [ ] Add release notes
-  - [ ] Create tag & fill in github release notes from NEWS file
-  - [ ] Update CocoaPods with new release(s)
+  1. Check that tests pass on master
+  2. Run AFL for at least 24 hours if changes to the parser
+  3. Add release notes
+  3. Run [[file:RegenerateCredits][RegenerateCredits]] script
+  4. Create tag & fill in github release notes from NEWS file
+  5. Update CocoaPods with new release(s)
 
 * Update CocoaPods
 
