@@ -95,7 +95,7 @@ typedef enum {
  */
 @interface SBJson5StreamParser : NSObject
 
-@property (nonatomic, weak) SBJson5StreamParserState *state; // Private
+@property (nonatomic, strong) SBJson5StreamParserState *state; // Private
 @property (readonly) id<SBJson5StreamParserDelegate> delegate; // Private
 
 /**

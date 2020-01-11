@@ -62,7 +62,7 @@
     if (self) {
         _delegate = delegate;
         _stateStack = [[NSMutableArray alloc] initWithCapacity:32];
-        _state = [SBJson5StreamParserStateStart sharedInstance];
+        _state = [SBJson5StreamParserStateStart new];
         tokeniser = [[SBJson5StreamTokeniser alloc] init];
     }
     return self;
@@ -116,7 +116,7 @@
 - (void)handleObjectStart {
     [_delegate parserFoundObjectStart];
     [_stateStack addObject:_state];
-    _state = [SBJson5StreamParserStateObjectStart sharedInstance];
+    _state = [SBJson5StreamParserStateObjectStart new];
 }
 
 - (void)handleObjectEnd: (sbjson5_token_t) tok  {
@@ -129,7 +129,7 @@
 - (void)handleArrayStart {
     [_delegate parserFoundArrayStart];
     [_stateStack addObject:_state];
-    _state = [SBJson5StreamParserStateArrayStart sharedInstance];
+    _state = [SBJson5StreamParserStateArrayStart new];
 }
 
 - (void)handleArrayEnd: (sbjson5_token_t) tok  {
@@ -143,7 +143,7 @@
     NSString *tokenName = [self tokenName:tok];
     NSString *stateName = [_state name];
 
-    _state = [SBJson5StreamParserStateError sharedInstance];
+    _state = [SBJson5StreamParserStateError new];
     id ui = @{ NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Token '%@' not expected %@", tokenName, stateName]};
     [_delegate parserFoundError:[NSError errorWithDomain:@"org.sbjson.parser" code:2 userInfo:ui]];
 }
@@ -169,7 +169,7 @@
                 return [_state parserShouldReturn:self];
 
             case sbjson5_token_error:
-                _state = [SBJson5StreamParserStateError sharedInstance];
+                _state = [SBJson5StreamParserStateError new];
                 [_delegate parserFoundError:[NSError errorWithDomain:@"org.sbjson.parser" code:3
                                                             userInfo:@{NSLocalizedDescriptionKey : tokeniser.error}]];
                 return SBJson5ParserError;

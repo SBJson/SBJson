@@ -101,7 +101,7 @@
     NSMutableDictionary *cache;
 }
 
-@property (nonatomic, weak) SBJson5StreamWriterState *state; // Internal
+@property (nonatomic, strong) SBJson5StreamWriterState *state; // Internal
 @property (nonatomic, readonly, strong) NSMutableArray *stateStack; // Internal
 
 /**

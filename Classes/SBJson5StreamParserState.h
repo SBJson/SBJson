@@ -36,16 +36,12 @@
 #import "SBJson5StreamParser.h"
 
 @interface SBJson5StreamParserState : NSObject
-+ (id)sharedInstance;
-
 - (BOOL)parser:(SBJson5StreamParser *)parser shouldAcceptToken:(sbjson5_token_t)token;
 - (SBJson5ParserStatus)parserShouldReturn:(SBJson5StreamParser *)parser;
 - (void)parser:(SBJson5StreamParser *)parser shouldTransitionTo:(sbjson5_token_t)tok;
 - (BOOL)needKey;
 - (BOOL)isError;
-
 - (NSString*)name;
-
 @end
 
 @interface SBJson5StreamParserStateStart : SBJson5StreamParserState
