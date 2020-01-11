@@ -36,6 +36,21 @@
 
 #import "SBJson5StreamWriter.h"
 
+@class SBJson5StreamWriterState;
+
+@interface SBJson5StreamWriter ()
+@property (nonatomic, strong) SBJson5StreamWriterState *stateStart,
+  *stateComplete,
+  *stateError,
+  *stateObjectStart,
+  *stateObjectKey,
+  *stateObjectValue,
+  *stateArrayStart,
+  *stateArrayValue;
+@end
+
+#pragma mark -
+
 @interface SBJson5StreamWriterState : NSObject
 - (BOOL)isInvalidState:(SBJson5StreamWriter *)writer;
 - (void)appendSeparator:(SBJson5StreamWriter *)writer;
@@ -84,7 +99,7 @@
 
 @implementation SBJson5StreamWriterStateObjectStart
 - (void)transitionState:(SBJson5StreamWriter *)writer {
-  writer.state = [SBJson5StreamWriterStateObjectValue new];
+    writer.state = writer.stateObjectValue;
 }
 - (BOOL)expectingKey:(SBJson5StreamWriter *)writer {
   writer.error = @"JSON object key must be string";
@@ -103,7 +118,7 @@
   [writer appendBytes:":" length:1];
 }
 - (void)transitionState:(SBJson5StreamWriter *)writer {
-  writer.state = [SBJson5StreamWriterStateObjectKey new];
+    writer.state = writer.stateObjectKey;
 }
 - (void)appendWhitespace:(SBJson5StreamWriter *)writer {
   [writer appendBytes:" " length:1];
@@ -112,7 +127,7 @@
 
 @implementation SBJson5StreamWriterStateArrayStart
 - (void)transitionState:(SBJson5StreamWriter *)writer {
-  writer.state = [SBJson5StreamWriterStateArrayValue new];
+    writer.state = writer.stateArrayValue;
 }
 @end
 
@@ -124,7 +139,7 @@
 
 @implementation SBJson5StreamWriterStateStart
 - (void)transitionState:(SBJson5StreamWriter *)writer {
-  writer.state = [SBJson5StreamWriterStateComplete new];
+    writer.state = writer.stateComplete;
 }
 - (void)appendSeparator:(SBJson5StreamWriter *)writer {
 }
