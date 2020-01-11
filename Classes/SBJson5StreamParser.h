@@ -94,8 +94,6 @@ typedef enum {
  */
 @interface SBJson5StreamParser : NSObject
 
-@property (readonly) id<SBJson5StreamParserDelegate> delegate; // Private
-
 /**
  Create a streaming parser.
 

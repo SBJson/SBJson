@@ -52,6 +52,8 @@
   *stateArrayGotValue,
   *stateArrayNeedValue,
   *state;
+
+@property (readonly) id<SBJson5StreamParserDelegate> delegate;
 @end
 
 #pragma mark -
