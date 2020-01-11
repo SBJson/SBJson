@@ -5,8 +5,8 @@ JSON (JavaScript Object Notation) is a light-weight data interchange format
 that's easy to read and write for humans and computers alike. This library
 implements stream/chunk-based JSON parsing and generation in Objective-C.
 
-[![CircleCI](https://circleci.com/gh/stig/json-framework.svg?style=svg)](https://circleci.com/gh/stig/json-framework)
-[![codecov.io](http://codecov.io/github/stig/json-framework/coverage.svg?branch=master)](http://codecov.io/github/stig/json-framework?branch=master)
+[![CircleCI](https://circleci.com/gh/SBJson/SBJson.svg?style=svg)](https://circleci.com/gh/SBJson/SBJson)
+[![codecov.io](http://codecov.io/github/SBJson/SBJson/coverage.svg?branch=master)](http://codecov.io/github/SBJson/SBJson?branch=master)
 [![Project Status: Inactive - The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/0.1.0/inactive.svg)](http://www.repostatus.org/#inactive)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
@@ -207,7 +207,7 @@ Carthage
 
 SBJson is compatible with _Carthage_. Follow the [Getting Started Guide for iOS](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos).
 
-	github "stig/json-framework" == 5.0.0
+	github "SBJson/SBJson" == 5.0.0
 
 Bundle the source files
 -----------------------
@@ -218,9 +218,9 @@ contents of the `Classes` folder) into your own Xcode project.
 Examples
 ========
 
-* https://github.com/stig/ChunkedDelivery - a toy example showing how one can
+* https://github.com/SBJson/ChunkedDelivery - a toy example showing how one can
   use `NSURLSessionDataDelegate` to do chunked delivery.
-* https://github.com/stig/DisplayPretty - a very brief example using SBJson 4
+* https://github.com/SBJson/DisplayPretty - a very brief example using SBJson 4
   to reflow JSON on OS X.
 
 Support
@@ -230,7 +230,7 @@ Support
   [tagged with SBJson](http://stackoverflow.com/questions/tagged/sbjson) if
   you have questions about how to use the library. I try to read all questions
   with this tag.
-* Use the [issue tracker](http://github.com/stig/json-framework/issues) if you
+* Use the [issue tracker](http://github.com/SBJson/SBJson/issues) if you
   have found a bug.
 
 License
