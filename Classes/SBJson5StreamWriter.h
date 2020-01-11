@@ -98,7 +98,6 @@
 @interface SBJson5StreamWriter : NSObject {
     NSMutableDictionary *cache;
 }
-@property (nonatomic, readonly, strong) NSMutableArray *stateStack; // Internal
 
 /**
  Create a JSON stream writer
