@@ -453,11 +453,11 @@
 			};
 			buildConfigurationList = 538ED83A1DC4088400F14B4F /* Build configuration list for PBXProject "SBJson5" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 538ED8361DC4088400F14B4F;
 			productRefGroup = 538ED8431DC408C100F14B4F /* Products */;
