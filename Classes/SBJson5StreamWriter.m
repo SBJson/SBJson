@@ -36,6 +36,21 @@
 
 #import "SBJson5StreamWriter.h"
 
+@class SBJson5StreamWriterState;
+
+@interface SBJson5StreamWriter ()
+@property (nonatomic, strong) SBJson5StreamWriterState *stateStart,
+  *stateComplete,
+  *stateError,
+  *stateObjectStart,
+  *stateObjectKey,
+  *stateObjectValue,
+  *stateArrayStart,
+  *stateArrayValue;
+@end
+
+#pragma mark -
+
 @interface SBJson5StreamWriterState : NSObject
 - (BOOL)isInvalidState:(SBJson5StreamWriter *)writer;
 - (void)appendSeparator:(SBJson5StreamWriter *)writer;
@@ -84,7 +99,7 @@
 
 @implementation SBJson5StreamWriterStateObjectStart
 - (void)transitionState:(SBJson5StreamWriter *)writer {
-  writer.state = [SBJson5StreamWriterStateObjectValue new];
+    writer.state = writer.stateObjectValue;
 }
 - (BOOL)expectingKey:(SBJson5StreamWriter *)writer {
   writer.error = @"JSON object key must be string";
@@ -103,7 +118,7 @@
   [writer appendBytes:":" length:1];
 }
 - (void)transitionState:(SBJson5StreamWriter *)writer {
-  writer.state = [SBJson5StreamWriterStateObjectKey new];
+    writer.state = writer.stateObjectKey;
 }
 - (void)appendWhitespace:(SBJson5StreamWriter *)writer {
   [writer appendBytes:" " length:1];
@@ -112,7 +127,7 @@
 
 @implementation SBJson5StreamWriterStateArrayStart
 - (void)transitionState:(SBJson5StreamWriter *)writer {
-  writer.state = [SBJson5StreamWriterStateArrayValue new];
+    writer.state = writer.stateArrayValue;
 }
 @end
 
@@ -124,7 +139,7 @@
 
 @implementation SBJson5StreamWriterStateStart
 - (void)transitionState:(SBJson5StreamWriter *)writer {
-  writer.state = [SBJson5StreamWriterStateComplete new];
+    writer.state = writer.stateComplete;
 }
 - (void)appendSeparator:(SBJson5StreamWriter *)writer {
 }
@@ -161,7 +176,7 @@
            humanReadable:(BOOL)humanReadable
                 sortKeys:(BOOL)sortKeys
       sortKeysComparator:(NSComparator)sortKeysComparator {
-    return [[self alloc] initWithDelegate:delegate
+  return [[self alloc] initWithDelegate:delegate
                                  maxDepth:maxDepth
                             humanReadable:humanReadable
                                  sortKeys:sortKeys
@@ -180,13 +195,22 @@
         kTrue = [NSNumber numberWithBool:YES];
         kFalse = [NSNumber numberWithBool:NO];
 
+        _stateStart = [[SBJson5StreamWriterStateStart alloc] init];
+        _stateComplete = [[SBJson5StreamWriterStateComplete alloc] init];
+        _stateError = [[SBJson5StreamWriterStateError alloc] init];
+        _stateObjectStart = [[SBJson5StreamWriterStateObjectStart alloc] init];
+        _stateObjectKey = [[SBJson5StreamWriterStateObjectKey alloc] init];
+        _stateObjectValue = [[SBJson5StreamWriterStateObjectValue alloc] init];
+        _stateArrayStart = [[SBJson5StreamWriterStateArrayStart alloc] init];
+        _stateArrayValue = [[SBJson5StreamWriterStateArrayValue alloc] init];
+	
         _delegate = delegate;
 		_maxDepth = maxDepth;
         _sortKeys = sortKeys;
         _humanReadable = humanReadable;
         _sortKeysComparator = sortKeysComparator;
         _stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
-        _state = [SBJson5StreamWriterStateStart new];
+        _state = _stateStart;
         cache = [[NSMutableDictionary alloc] initWithCapacity:32];
     }
 	return self;
@@ -245,7 +269,7 @@
 	if (_humanReadable && _stateStack.count) [_state appendWhitespace:self];
 
     [_stateStack addObject:_state];
-    self.state = [SBJson5StreamWriterStateObjectStart new];
+    self.state = self.stateObjectStart;
 
 	if (_maxDepth && _stateStack.count > _maxDepth) {
 		self.error = @"Nested too deep";
@@ -278,7 +302,7 @@
 	if (_humanReadable && _stateStack.count) [_state appendWhitespace:self];
 
     [_stateStack addObject:_state];
-	self.state = [SBJson5StreamWriterStateArrayStart new];
+    self.state = self.stateArrayStart;
 
 	if (_maxDepth && _stateStack.count > _maxDepth) {
 		self.error = @"Nested too deep";
