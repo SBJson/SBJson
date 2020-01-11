@@ -37,24 +37,12 @@
 #import "SBJson5StreamWriter.h"
 #import "SBJson5StreamWriterState.h"
 
-static NSNumber *kTrue;
-static NSNumber *kFalse;
-static NSNumber *kPositiveInfinity;
-static NSNumber *kNegativeInfinity;
-
-
 @implementation SBJson5StreamWriter {
     BOOL _sortKeys, _humanReadable;
+    NSNumber *kTrue, *kFalse, *kPositiveInfinity, *kNegativeInfinity;
     NSUInteger _maxDepth;
     __weak id<SBJson5StreamWriterDelegate> _delegate;
     NSComparator _sortKeysComparator;
-}
-
-+ (void)initialize {
-    kPositiveInfinity = [NSNumber numberWithDouble:+HUGE_VAL];
-    kNegativeInfinity = [NSNumber numberWithDouble:-HUGE_VAL];
-    kTrue = [NSNumber numberWithBool:YES];
-    kFalse = [NSNumber numberWithBool:NO];
 }
 
 #pragma mark Housekeeping
@@ -82,6 +70,11 @@ static NSNumber *kNegativeInfinity;
     sortKeysComparator:(NSComparator)sortKeysComparator {
 	self = [super init];
 	if (self) {
+        kPositiveInfinity = [NSNumber numberWithDouble:+HUGE_VAL];
+        kNegativeInfinity = [NSNumber numberWithDouble:-HUGE_VAL];
+        kTrue = [NSNumber numberWithBool:YES];
+        kFalse = [NSNumber numberWithBool:NO];
+
         _delegate = delegate;
 		_maxDepth = maxDepth;
         _sortKeys = sortKeys;
@@ -340,7 +333,7 @@ static const char *strForChar(int c) {
 }
 
 - (BOOL)writeNumber:(NSNumber*)number {
-	if (number == kTrue || number == kFalse)
+    if (number == kTrue || number == kFalse)
 		return [self writeBool:[number boolValue]];
 
 	if ([_state isInvalidState:self]) return NO;
@@ -348,7 +341,7 @@ static const char *strForChar(int c) {
 	[_state appendSeparator:self];
 	if (_humanReadable) [_state appendWhitespace:self];
 
-	if ([kPositiveInfinity isEqualToNumber:number]) {
+    if ([kPositiveInfinity isEqualToNumber:number]) {
 		self.error = @"+Infinity is not a valid number in JSON";
 		return NO;
 
