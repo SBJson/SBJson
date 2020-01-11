@@ -43,7 +43,9 @@
   *stateObjectKey,
   *stateObjectValue,
   *stateArrayStart,
-  *stateArrayValue;
+  *stateArrayValue,
+  *state;
+@property (nonatomic, readonly, strong) NSMutableArray *stateStack;
 @end
 
 #pragma mark -
