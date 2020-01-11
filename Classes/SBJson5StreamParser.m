@@ -37,6 +37,8 @@
 #import "SBJson5StreamParser.h"
 #import "SBJson5StreamTokeniser.h"
 
+@class SBJson5StreamParserState;
+
 @interface SBJson5StreamParser ()
 @property (nonatomic, strong) SBJson5StreamParserState *stateStart,
   *stateComplete,
@@ -48,7 +50,8 @@
   *stateObjectNeedKey,
   *stateArrayStart,
   *stateArrayGotValue,
-  *stateArrayNeedValue;
+  *stateArrayNeedValue,
+  *state;
 @end
 
 #pragma mark -
