@@ -14,7 +14,6 @@
 		535CFBEB1DD79A08004D67E0 /* SBJson5StreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8A91DC40B4D00F14B4F /* SBJson5StreamParser.m */; };
 		535CFBEF1DD79A08004D67E0 /* SBJson5StreamTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8AD1DC40B4D00F14B4F /* SBJson5StreamTokeniser.m */; };
 		535CFBF11DD79A08004D67E0 /* SBJson5StreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8AF1DC40B4D00F14B4F /* SBJson5StreamWriter.m */; };
-		535CFBF31DD79A08004D67E0 /* SBJson5StreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8B11DC40B4D00F14B4F /* SBJson5StreamWriterState.m */; };
 		535CFBF51DD79A08004D67E0 /* SBJson5Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8B31DC40B4D00F14B4F /* SBJson5Writer.m */; };
 		538ED84C1DC408C100F14B4F /* SBJson5_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 538ED8421DC408C100F14B4F /* SBJson5_iOS.framework */; };
 		538ED8681DC408EB00F14B4F /* SBJson5_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 538ED85F1DC408EB00F14B4F /* SBJson5_macOS.framework */; };
@@ -22,14 +21,12 @@
 		538ED8B71DC40B4D00F14B4F /* SBJson5StreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8A81DC40B4D00F14B4F /* SBJson5StreamParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED8BB1DC40B4D00F14B4F /* SBJson5StreamTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8AC1DC40B4D00F14B4F /* SBJson5StreamTokeniser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED8BD1DC40B4D00F14B4F /* SBJson5StreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8AE1DC40B4D00F14B4F /* SBJson5StreamWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		538ED8BF1DC40B4D00F14B4F /* SBJson5StreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8B01DC40B4D00F14B4F /* SBJson5StreamWriterState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED8C11DC40B4D00F14B4F /* SBJson5Writer.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8B21DC40B4D00F14B4F /* SBJson5Writer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED8C31DC40B4D00F14B4F /* SBJson5.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8B41DC40B4D00F14B4F /* SBJson5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED8F61DC40CF800F14B4F /* SBJson5Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8A71DC40B4D00F14B4F /* SBJson5Parser.m */; };
 		538ED8F81DC40CF800F14B4F /* SBJson5StreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8A91DC40B4D00F14B4F /* SBJson5StreamParser.m */; };
 		538ED8FC1DC40CF800F14B4F /* SBJson5StreamTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8AD1DC40B4D00F14B4F /* SBJson5StreamTokeniser.m */; };
 		538ED8FE1DC40CF800F14B4F /* SBJson5StreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8AF1DC40B4D00F14B4F /* SBJson5StreamWriter.m */; };
-		538ED9001DC40CF800F14B4F /* SBJson5StreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8B11DC40B4D00F14B4F /* SBJson5StreamWriterState.m */; };
 		538ED9021DC40CF800F14B4F /* SBJson5Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8B31DC40B4D00F14B4F /* SBJson5Writer.m */; };
 		538ED9041DC40D0C00F14B4F /* ErrorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8E81DC40CD900F14B4F /* ErrorTest.m */; };
 		538ED9051DC40D0C00F14B4F /* JsonCheckerSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8E91DC40CD900F14B4F /* JsonCheckerSuite.m */; };
@@ -47,13 +44,11 @@
 		538ED9111DC40E0200F14B4F /* SBJson5StreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8A91DC40B4D00F14B4F /* SBJson5StreamParser.m */; };
 		538ED9131DC40E0200F14B4F /* SBJson5StreamTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8AD1DC40B4D00F14B4F /* SBJson5StreamTokeniser.m */; };
 		538ED9141DC40E0200F14B4F /* SBJson5StreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8AF1DC40B4D00F14B4F /* SBJson5StreamWriter.m */; };
-		538ED9151DC40E0200F14B4F /* SBJson5StreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8B11DC40B4D00F14B4F /* SBJson5StreamWriterState.m */; };
 		538ED9161DC40E0200F14B4F /* SBJson5Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 538ED8B31DC40B4D00F14B4F /* SBJson5Writer.m */; };
 		538ED9171DC40E2300F14B4F /* SBJson5Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8A61DC40B4D00F14B4F /* SBJson5Parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED9181DC40E2300F14B4F /* SBJson5StreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8A81DC40B4D00F14B4F /* SBJson5StreamParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED91A1DC40E2300F14B4F /* SBJson5StreamTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8AC1DC40B4D00F14B4F /* SBJson5StreamTokeniser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED91B1DC40E2300F14B4F /* SBJson5StreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8AE1DC40B4D00F14B4F /* SBJson5StreamWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		538ED91C1DC40E2300F14B4F /* SBJson5StreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8B01DC40B4D00F14B4F /* SBJson5StreamWriterState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED91D1DC40E2300F14B4F /* SBJson5Writer.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8B21DC40B4D00F14B4F /* SBJson5Writer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED91E1DC40E2300F14B4F /* SBJson5.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8B41DC40B4D00F14B4F /* SBJson5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED9231DC40F8B00F14B4F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 538ED9221DC40F8B00F14B4F /* XCTest.framework */; };
@@ -114,8 +109,6 @@
 		538ED8AD1DC40B4D00F14B4F /* SBJson5StreamTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJson5StreamTokeniser.m; path = Classes/SBJson5StreamTokeniser.m; sourceTree = "<group>"; };
 		538ED8AE1DC40B4D00F14B4F /* SBJson5StreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson5StreamWriter.h; path = Classes/SBJson5StreamWriter.h; sourceTree = "<group>"; };
 		538ED8AF1DC40B4D00F14B4F /* SBJson5StreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJson5StreamWriter.m; path = Classes/SBJson5StreamWriter.m; sourceTree = "<group>"; };
-		538ED8B01DC40B4D00F14B4F /* SBJson5StreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson5StreamWriterState.h; path = Classes/SBJson5StreamWriterState.h; sourceTree = "<group>"; };
-		538ED8B11DC40B4D00F14B4F /* SBJson5StreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJson5StreamWriterState.m; path = Classes/SBJson5StreamWriterState.m; sourceTree = "<group>"; };
 		538ED8B21DC40B4D00F14B4F /* SBJson5Writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson5Writer.h; path = Classes/SBJson5Writer.h; sourceTree = "<group>"; };
 		538ED8B31DC40B4D00F14B4F /* SBJson5Writer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJson5Writer.m; path = Classes/SBJson5Writer.m; sourceTree = "<group>"; };
 		538ED8B41DC40B4D00F14B4F /* SBJson5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson5.h; path = Classes/SBJson5.h; sourceTree = "<group>"; };
@@ -256,8 +249,6 @@
 				538ED8AD1DC40B4D00F14B4F /* SBJson5StreamTokeniser.m */,
 				538ED8AE1DC40B4D00F14B4F /* SBJson5StreamWriter.h */,
 				538ED8AF1DC40B4D00F14B4F /* SBJson5StreamWriter.m */,
-				538ED8B01DC40B4D00F14B4F /* SBJson5StreamWriterState.h */,
-				538ED8B11DC40B4D00F14B4F /* SBJson5StreamWriterState.m */,
 				538ED8B21DC40B4D00F14B4F /* SBJson5Writer.h */,
 				538ED8B31DC40B4D00F14B4F /* SBJson5Writer.m */,
 				538ED8B41DC40B4D00F14B4F /* SBJson5.h */,
@@ -300,7 +291,6 @@
 				538ED8B71DC40B4D00F14B4F /* SBJson5StreamParser.h in Headers */,
 				538ED8C11DC40B4D00F14B4F /* SBJson5Writer.h in Headers */,
 				538ED8BD1DC40B4D00F14B4F /* SBJson5StreamWriter.h in Headers */,
-				538ED8BF1DC40B4D00F14B4F /* SBJson5StreamWriterState.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,7 +303,6 @@
 				538ED9181DC40E2300F14B4F /* SBJson5StreamParser.h in Headers */,
 				538ED91A1DC40E2300F14B4F /* SBJson5StreamTokeniser.h in Headers */,
 				538ED91B1DC40E2300F14B4F /* SBJson5StreamWriter.h in Headers */,
-				538ED91C1DC40E2300F14B4F /* SBJson5StreamWriterState.h in Headers */,
 				538ED91D1DC40E2300F14B4F /* SBJson5Writer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,7 +493,6 @@
 				535CFBEB1DD79A08004D67E0 /* SBJson5StreamParser.m in Sources */,
 				535CFBEF1DD79A08004D67E0 /* SBJson5StreamTokeniser.m in Sources */,
 				535CFBF11DD79A08004D67E0 /* SBJson5StreamWriter.m in Sources */,
-				535CFBF31DD79A08004D67E0 /* SBJson5StreamWriterState.m in Sources */,
 				535CFBF51DD79A08004D67E0 /* SBJson5Writer.m in Sources */,
 				535CFBE01DD78276004D67E0 /* main.m in Sources */,
 			);
@@ -518,7 +506,6 @@
 				538ED9111DC40E0200F14B4F /* SBJson5StreamParser.m in Sources */,
 				538ED9131DC40E0200F14B4F /* SBJson5StreamTokeniser.m in Sources */,
 				538ED9141DC40E0200F14B4F /* SBJson5StreamWriter.m in Sources */,
-				538ED9151DC40E0200F14B4F /* SBJson5StreamWriterState.m in Sources */,
 				538ED9161DC40E0200F14B4F /* SBJson5Writer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -544,7 +531,6 @@
 				538ED8F81DC40CF800F14B4F /* SBJson5StreamParser.m in Sources */,
 				538ED8FC1DC40CF800F14B4F /* SBJson5StreamTokeniser.m in Sources */,
 				538ED8FE1DC40CF800F14B4F /* SBJson5StreamWriter.m in Sources */,
-				538ED9001DC40CF800F14B4F /* SBJson5StreamWriterState.m in Sources */,
 				538ED9021DC40CF800F14B4F /* SBJson5Writer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
