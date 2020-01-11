@@ -36,7 +36,111 @@
 
 #import "SBJson5StreamWriter.h"
 
-@class SBJson5StreamWriterState;
+@interface SBJson5StreamWriterState : NSObject
+- (BOOL)isInvalidState:(SBJson5StreamWriter *)writer;
+- (void)appendSeparator:(SBJson5StreamWriter *)writer;
+- (BOOL)expectingKey:(SBJson5StreamWriter *)writer;
+- (void)transitionState:(SBJson5StreamWriter *)writer;
+- (void)appendWhitespace:(SBJson5StreamWriter *)writer;
+@end
+
+@interface SBJson5StreamWriterStateObjectStart : SBJson5StreamWriterState
+@end
+
+@interface SBJson5StreamWriterStateObjectKey : SBJson5StreamWriterStateObjectStart
+@end
+
+@interface SBJson5StreamWriterStateObjectValue : SBJson5StreamWriterState
+@end
+
+@interface SBJson5StreamWriterStateArrayStart : SBJson5StreamWriterState
+@end
+
+@interface SBJson5StreamWriterStateArrayValue : SBJson5StreamWriterState
+@end
+
+@interface SBJson5StreamWriterStateStart : SBJson5StreamWriterState
+@end
+
+@interface SBJson5StreamWriterStateComplete : SBJson5StreamWriterState
+@end
+
+@interface SBJson5StreamWriterStateError : SBJson5StreamWriterState
+@end
+
+#pragma mark -
+
+@implementation SBJson5StreamWriterState
+- (BOOL)isInvalidState:(SBJson5StreamWriter *)writer { return NO; }
+- (void)appendSeparator:(SBJson5StreamWriter *)writer {}
+- (BOOL)expectingKey:(SBJson5StreamWriter *)writer { return NO; }
+- (void)transitionState:(SBJson5StreamWriter *)writer {}
+- (void)appendWhitespace:(SBJson5StreamWriter *)writer {
+  [writer appendBytes:"\n" length:1];
+  for (NSUInteger i = 0; i < writer.stateStack.count; i++)
+    [writer appendBytes:"  " length:2];
+}
+@end
+
+@implementation SBJson5StreamWriterStateObjectStart
+- (void)transitionState:(SBJson5StreamWriter *)writer {
+  writer.state = [SBJson5StreamWriterStateObjectValue new];
+}
+- (BOOL)expectingKey:(SBJson5StreamWriter *)writer {
+  writer.error = @"JSON object key must be string";
+  return YES;
+}
+@end
+
+@implementation SBJson5StreamWriterStateObjectKey
+- (void)appendSeparator:(SBJson5StreamWriter *)writer {
+  [writer appendBytes:"," length:1];
+}
+@end
+
+@implementation SBJson5StreamWriterStateObjectValue
+- (void)appendSeparator:(SBJson5StreamWriter *)writer {
+  [writer appendBytes:":" length:1];
+}
+- (void)transitionState:(SBJson5StreamWriter *)writer {
+  writer.state = [SBJson5StreamWriterStateObjectKey new];
+}
+- (void)appendWhitespace:(SBJson5StreamWriter *)writer {
+  [writer appendBytes:" " length:1];
+}
+@end
+
+@implementation SBJson5StreamWriterStateArrayStart
+- (void)transitionState:(SBJson5StreamWriter *)writer {
+  writer.state = [SBJson5StreamWriterStateArrayValue new];
+}
+@end
+
+@implementation SBJson5StreamWriterStateArrayValue
+- (void)appendSeparator:(SBJson5StreamWriter *)writer {
+  [writer appendBytes:"," length:1];
+}
+@end
+
+@implementation SBJson5StreamWriterStateStart
+- (void)transitionState:(SBJson5StreamWriter *)writer {
+  writer.state = [SBJson5StreamWriterStateComplete new];
+}
+- (void)appendSeparator:(SBJson5StreamWriter *)writer {
+}
+@end
+
+@implementation SBJson5StreamWriterStateComplete
+- (BOOL)isInvalidState:(SBJson5StreamWriter *)writer {
+  writer.error = @"Stream is closed";
+  return YES;
+}
+@end
+
+@implementation SBJson5StreamWriterStateError
+@end
+
+#pragma mark -
 
 @interface SBJson5StreamWriter ()
 @property (nonatomic, strong) SBJson5StreamWriterState *stateStart,
