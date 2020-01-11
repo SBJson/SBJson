@@ -32,8 +32,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class SBJson5StreamParser;
-
 typedef enum {
     SBJson5ParserComplete,
     SBJson5ParserStopped,
