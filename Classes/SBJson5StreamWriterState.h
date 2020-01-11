@@ -35,7 +35,6 @@
 @class SBJson5StreamWriter;
 
 @interface SBJson5StreamWriterState : NSObject
-+ (id)sharedInstance;
 - (BOOL)isInvalidState:(SBJson5StreamWriter *)writer;
 - (void)appendSeparator:(SBJson5StreamWriter *)writer;
 - (BOOL)expectingKey:(SBJson5StreamWriter *)writer;

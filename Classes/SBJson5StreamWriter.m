@@ -81,7 +81,7 @@
         _humanReadable = humanReadable;
         _sortKeysComparator = sortKeysComparator;
         _stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
-        _state = [SBJson5StreamWriterStateStart sharedInstance];
+        _state = [SBJson5StreamWriterStateStart new];
         cache = [[NSMutableDictionary alloc] initWithCapacity:32];
     }
 	return self;
@@ -140,7 +140,7 @@
 	if (_humanReadable && _stateStack.count) [_state appendWhitespace:self];
 
     [_stateStack addObject:_state];
-    self.state = [SBJson5StreamWriterStateObjectStart sharedInstance];
+    self.state = [SBJson5StreamWriterStateObjectStart new];
 
 	if (_maxDepth && _stateStack.count > _maxDepth) {
 		self.error = @"Nested too deep";
@@ -173,7 +173,7 @@
 	if (_humanReadable && _stateStack.count) [_state appendWhitespace:self];
 
     [_stateStack addObject:_state];
-	self.state = [SBJson5StreamWriterStateArrayStart sharedInstance];
+	self.state = [SBJson5StreamWriterStateArrayStart new];
 
 	if (_maxDepth && _stateStack.count > _maxDepth) {
 		self.error = @"Nested too deep";
