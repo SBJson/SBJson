@@ -46,7 +46,8 @@
   *stateObjectKey,
   *stateObjectValue,
   *stateArrayStart,
-  *stateArrayValue;
+  *stateArrayValue,
+  *state;
 @end
 
 #pragma mark -
