@@ -37,6 +37,22 @@
 #import "SBJson5StreamParser.h"
 #import "SBJson5StreamTokeniser.h"
 
+@interface SBJson5StreamParser ()
+@property (nonatomic, strong) SBJson5StreamParserState *stateStart,
+  *stateComplete,
+  *stateError,
+  *stateObjectStart,
+  *stateObjectGotKey,
+  *stateObjectSeparator,
+  *stateObjectGotValue,
+  *stateObjectNeedKey,
+  *stateArrayStart,
+  *stateArrayGotValue,
+  *stateArrayNeedValue;
+@end
+
+#pragma mark -
+
 @interface SBJson5StreamParserState : NSObject
 - (BOOL)parser:(SBJson5StreamParser *)parser shouldAcceptToken:(sbjson5_token_t)token;
 - (SBJson5ParserStatus)parserShouldReturn:(SBJson5StreamParser *)parser;
@@ -131,11 +147,11 @@
   SBJson5StreamParserState *state = nil;
   switch (tok) {
   case sbjson5_token_array_open:
-    state = [SBJson5StreamParserStateArrayStart new];
+    state = parser.stateArrayStart;
     break;
 
   case sbjson5_token_object_open:
-    state = [SBJson5StreamParserStateObjectStart new];
+    state = parser.stateObjectStart;
     break;
 
   case sbjson5_token_array_close:
@@ -143,7 +159,7 @@
     if ([parser.delegate respondsToSelector:@selector(parserShouldSupportManyDocuments)] && [parser.delegate parserShouldSupportManyDocuments])
       state = parser.state;
     else
-      state = [SBJson5StreamParserStateComplete new];
+      state = parser.stateComplete;
     break;
 
   case sbjson5_token_eof:
@@ -201,7 +217,7 @@
 }
 
 - (void)parser:(SBJson5StreamParser *)parser shouldTransitionTo:(sbjson5_token_t)tok {
-  parser.state = [SBJson5StreamParserStateObjectGotKey new];
+  parser.state = parser.stateObjectGotKey;
 }
 
 - (BOOL)needKey {
@@ -220,7 +236,7 @@
 }
 
 - (void)parser:(SBJson5StreamParser *)parser shouldTransitionTo:(sbjson5_token_t)tok {
-  parser.state = [SBJson5StreamParserStateObjectSeparator new];
+  parser.state = parser.stateObjectSeparator;
 }
 
 @end
@@ -249,7 +265,7 @@
 }
 
 - (void)parser:(SBJson5StreamParser *)parser shouldTransitionTo:(sbjson5_token_t)tok {
-  parser.state = [SBJson5StreamParserStateObjectGotValue new];
+  parser.state = parser.stateObjectGotValue;
 }
 
 @end
@@ -272,7 +288,7 @@
 }
 
 - (void)parser:(SBJson5StreamParser *)parser shouldTransitionTo:(sbjson5_token_t)tok {
-  parser.state = [SBJson5StreamParserStateObjectNeedKey new];
+    parser.state = parser.stateObjectNeedKey;
 }
 
 
@@ -289,7 +305,7 @@
 }
 
 - (void)parser:(SBJson5StreamParser *)parser shouldTransitionTo:(sbjson5_token_t)tok {
-  parser.state = [SBJson5StreamParserStateObjectGotKey new];
+    parser.state = parser.stateObjectGotKey;
 }
 
 - (BOOL)needKey {
@@ -317,7 +333,7 @@
 }
 
 - (void)parser:(SBJson5StreamParser *)parser shouldTransitionTo:(sbjson5_token_t)tok {
-  parser.state = [SBJson5StreamParserStateArrayGotValue new];
+    parser.state = parser.stateArrayGotValue;
 }
 
 @end
@@ -335,7 +351,7 @@
 
 - (void)parser:(SBJson5StreamParser *)parser shouldTransitionTo:(sbjson5_token_t)tok {
   if (tok == sbjson5_token_value_sep)
-    parser.state = [SBJson5StreamParserStateArrayNeedValue new];
+      parser.state = parser.stateArrayNeedValue;
 }
 
 @end
@@ -360,7 +376,7 @@
 }
 
 - (void)parser:(SBJson5StreamParser *)parser shouldTransitionTo:(sbjson5_token_t)tok {
-  parser.state = [SBJson5StreamParserStateArrayGotValue new];
+    parser.state = parser.stateArrayGotValue;
 }
 
 @end
@@ -390,9 +406,20 @@
 - (id)initWithDelegate:(id<SBJson5StreamParserDelegate>)delegate {
     self = [super init];
     if (self) {
+        _stateStart = [[SBJson5StreamParserStateStart alloc] init];
+        _stateComplete = [[SBJson5StreamParserStateComplete alloc] init];
+        _stateError = [[SBJson5StreamParserStateError alloc] init];
+        _stateObjectStart = [[SBJson5StreamParserStateObjectStart alloc] init];
+        _stateObjectGotKey = [[SBJson5StreamParserStateObjectGotKey alloc] init];
+        _stateObjectNeedKey = [[SBJson5StreamParserStateObjectNeedKey alloc] init];
+        _stateObjectGotValue = [[SBJson5StreamParserStateObjectGotValue alloc] init];
+        _stateObjectSeparator = [[SBJson5StreamParserStateObjectSeparator alloc] init];
+        _stateArrayStart = [[SBJson5StreamParserStateArrayStart alloc] init];
+        _stateArrayGotValue = [[SBJson5StreamParserStateArrayGotValue alloc] init];
+        _stateArrayNeedValue = [[SBJson5StreamParserStateArrayNeedValue alloc] init];
+        _state = _stateStart;
         _delegate = delegate;
         _stateStack = [[NSMutableArray alloc] initWithCapacity:32];
-        _state = [SBJson5StreamParserStateStart new];
         tokeniser = [[SBJson5StreamTokeniser alloc] init];
     }
     return self;
