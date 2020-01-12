@@ -1,9 +1,7 @@
 SBJson 5
 ========
 
-JSON (JavaScript Object Notation) is a light-weight data interchange format
-that's easy to read and write for humans and computers alike. This library
-implements stream/chunk-based JSON parsing and generation in Objective-C.
+Chunk-based JSON parsing and generation in Objective-C. 
 
 [![CircleCI](https://circleci.com/gh/SBJson/SBJson.svg?style=svg)](https://circleci.com/gh/SBJson/SBJson)
 [![codecov.io](http://codecov.io/github/SBJson/SBJson/coverage.svg?branch=master)](http://codecov.io/github/SBJson/SBJson?branch=master)
