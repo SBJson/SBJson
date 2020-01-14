@@ -1,15 +1,15 @@
 version: 2.1
 
 workflows:
-    ios:
+    build:
         jobs:
             - build:
+                name: build-ios
                 scheme: SBJson5_iOS
                 destination: platform=iOS Simulator,name=iPhone 11
 
-    macOS:
-        jobs:
             - build:
+                name: build-mac
                 scheme: SBJson5_macOS
                 destination: platform=macOS,arch=x86_64
 
