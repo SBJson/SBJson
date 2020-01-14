@@ -114,14 +114,14 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
 
  @param maxDepth The max recursion depth.
 
- @param eh Called if the parser encounters an error.
+ @param errorHandler Called if the parser encounters an error.
 
  */
 + (id)parserWithBlock:(SBJson5ValueBlock)block
        allowMultiRoot:(BOOL)allowMultiRoot
       unwrapRootArray:(BOOL)unwrapRootArray
              maxDepth:(NSUInteger)maxDepth
-         errorHandler:(SBJson5ErrorBlock)eh;
+         errorHandler:(SBJson5ErrorBlock)errorHandler;
 
 /**
  Create a JSON Parser to parse a single document
@@ -129,11 +129,11 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
  @param block Called for each element. Set *stop to `YES` if you have seen
  enough and would like to skip the rest of the elements.
 
- @param eh Called if the parser encounters an error.
+ @param errorHandler Called if the parser encounters an error.
 
  */
 + (id)parserWithBlock:(SBJson5ValueBlock)block
-         errorHandler:(SBJson5ErrorBlock)eh;
+         errorHandler:(SBJson5ErrorBlock)errorHandler;
 
 
 /**
@@ -148,12 +148,12 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
         NSLog(@"Found: %@", isArray ? @"Array" : @"Object");
     };
 
-    SBJson5ErrorBlock eh = ^(NSError* err) {
+    SBJson5ErrorBlock errorHandler = ^(NSError* err) {
         NSLog(@"OOPS: %@", err);
     };
 
     id parser = [SBJson5Parser multiRootParserWithBlock:block
-                                           errorHandler:eh];
+                                           errorHandler:errorHandler];
 
     // Note that this input contains multiple top-level JSON documents
     id data = [@"[]{}" dataWithEncoding:NSUTF8StringEncoding];
@@ -170,13 +170,13 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
  @param block Called for each element. Set *stop to `YES` if you have seen
  enough and would like to skip the rest of the elements.
 
- @param eh Called if the parser encounters an error.
+ @param errorHandler Called if the parser encounters an error.
 
  @see +unwrapRootArrayParserWithBlock:errorHandler:
  @see +parserWithBlock:allowMultiRoot:unwrapRootArray:maxDepth:errorHandler:
  */
 + (id)multiRootParserWithBlock:(SBJson5ValueBlock)block
-                  errorHandler:(SBJson5ErrorBlock)eh;
+                  errorHandler:(SBJson5ErrorBlock)errorHandler;
 
 /**
  Create a parser that "unwraps" a top-level array.
@@ -190,12 +190,12 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
         NSLog(@"Found: %@", isArray ? @"Array" : @"Object");
     };
 
-    SBJson5ErrorBlock eh = ^(NSError* err) {
+    SBJson5ErrorBlock errorHandler = ^(NSError* err) {
         NSLog(@"OOPS: %@", err);
     };
 
     id parser = [SBJson5Parser unwrapRootArrayParserWithBlock:block
-                                                 errorHandler:eh];
+                                                 errorHandler:errorHandler];
 
     // Note that this input contains A SINGLE top-level document
     id data = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
@@ -211,13 +211,13 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
  @param block Called for each element. Set *stop to `YES` if you have seen
  enough and would like to skip the rest of the elements.
 
- @param eh Called if the parser encounters an error.
+ @param errorHandler Called if the parser encounters an error.
 
  @see +multiRootParserWithBlock:errorHandler:
  @see +parserWithBlock:allowMultiRoot:unwrapRootArray:maxDepth:errorHandler:
  */
 + (id)unwrapRootArrayParserWithBlock:(SBJson5ValueBlock)block
-                        errorHandler:(SBJson5ErrorBlock)eh;
+                        errorHandler:(SBJson5ErrorBlock)errorHandler;
 
 /**
  Feed data to parser
