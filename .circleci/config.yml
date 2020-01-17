@@ -13,6 +13,8 @@ workflows:
                 scheme: SBJson5_macOS
                 destination: platform=macOS,arch=x86_64
 
+            - podspec-lint
+
 jobs:
     build:
         macos:
@@ -34,3 +36,10 @@ jobs:
                     GCC_INSTRUMENT_PROGRAM_FLOW_ARCS: YES
                     GCC_GENERATE_TEST_COVERAGE_FILES: YES
             - run: bash <(curl -s https://codecov.io/bash)
+
+    podspec-lint:
+        macos:
+            xcode: 11.1.0
+        steps:
+            - checkout
+            - run: pod lib lint
