@@ -1,3 +1,33 @@
+# 5.0.3-alpha1 (January 19th, 2020)
+
+This is the first release after migrating the Git repo from
+[stig/json-framework](https://github.com/stig/json-framework) to its
+new home at [SBJson/SBJson](https://github.com/SBJson/SBJson).
+
+Changes include:
+
+- Migrating CI from Travis to CircleCI
+- Migrated Emacs Org files to Markdown for ease of contribution
+- Add Carthage CI test job to avoid breaking it in the future
+- Added template Cocoapods podspec
+- Add Cocoapods `pod lib lint` CI step to catch problems early
+- Add Cocoapods job to run `pod trunk push` for releases
+- Fixed a test that broke due to filesystem traversal no longer being
+  in alphabetical order
+- Fixed a signedness issue in the `sbjson` cli tool
+- Swapped NEWS files around so the current one has no version number
+- Updated CREDITS
+- Updated/automated release procedures
+- Removed static NSNumber instances in the writer
+
+# 5.0.2 (August 19th, 2019)
+
+Fix header accessbility for macOS Target.
+
+# 5.0.1 (July 25th, 2019)
+
+In addition to the "headline" item, this patch release also quashes some warnings.
+
 # 5.0.0 (November 15th, 2016)
 
 I bet you didn't see this coming! *I* certainly didn't a month ago.
@@ -69,7 +99,7 @@ This can be useful from a sort of *what would SBJson do?* point of view. It
 takes some options. Here's the result of invoking it with `--help`:
 
     Usage: sbjson [OPTIONS] [FILES]
-    
+
     Options:
       --help, -h
         This message.
@@ -85,7 +115,7 @@ takes some options. Here's the result of invoking it with `--help`:
         Sort dictionary keys in output
       --human-readable, -r
         Format the JSON output with linebreaks and indents
-    
+
     If no FILES are provided, the program reads standard input.
 
 ## Run `sbjson` under American Fuzzy Lop
@@ -98,7 +128,7 @@ this with you to show I *tried* to find more bugs before releasing v5.
 Here's a snapshot of the latest session I've run:
 
                            american fuzzy lop 2.35b (master)
-    
+
     ┌─ process timing ─────────────────────────────────────┬─ overall results ─────┐
     │        run time : 1 days, 12 hrs, 36 min, 22 sec     │  cycles done : 11     │
     │   last new path : 0 days, 0 hrs, 34 min, 26 sec      │  total paths : 583    │
@@ -121,7 +151,7 @@ Here's a snapshot of the latest session I've run:
     │       havoc : 29/1.25M, 5/753k                      │ stability : 100.00%    │
     │        trim : 11.02%/43.6k, 0.00%                   ├────────────────────────┘
     ^C────────────────────────────────────────────────────┘             [cpu: 69%]
-    
+
     +++ Testing aborted by user +++
     [+] We're done here. Have a nice day!
 
@@ -139,4 +169,3 @@ level.
 
 I've tried to improve the documentation a little, both in README and the API
 documentation in the header files.
-
