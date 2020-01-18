@@ -1,5 +1,10 @@
 version: 2.1
 
+executors:
+    default:
+        macos:
+            xcode: 11.3.1
+
 workflows:
     build:
         jobs:
@@ -13,12 +18,11 @@ workflows:
                 scheme: SBJson5_macOS
                 destination: platform=macOS,arch=x86_64
 
-            - podspec-lint
+            - pod-lib-lint
 
 jobs:
     build:
-        macos:
-            xcode: 11.1.0
+        executor: default
         parameters:
             scheme:
                 type: string
@@ -38,9 +42,8 @@ jobs:
                     GCC_GENERATE_TEST_COVERAGE_FILES: YES
             - run: bash <(curl -s https://codecov.io/bash)
 
-    podspec-lint:
-        macos:
-            xcode: 11.1.0
+    pod-lib-lint:
+        executor: default
         steps:
             - checkout
             - run: pod lib lint
