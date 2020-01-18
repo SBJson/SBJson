@@ -1,7 +1,7 @@
 # coding: utf-8
 Pod::Spec.new do |spec|
     spec.name         = "SBJson"
-    spec.version      = "5.0.2"
+    spec.version      = "%VERSION%"
 
     spec.homepage     = "https://github.com/SBJson/SBJson"
     spec.license      = { :type => "BSD", :file => "LICENSE" }
