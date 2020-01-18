@@ -20,6 +20,8 @@ workflows:
 
             - pod-lib-lint
 
+            - carthage-build
+
 jobs:
     build:
         executor: default
@@ -47,3 +49,9 @@ jobs:
         steps:
             - checkout
             - run: pod lib lint
+
+    carthage-build:
+        executor: default
+        steps:
+            - checkout
+            - run: carthage build --no-skip-current
