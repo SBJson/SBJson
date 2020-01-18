@@ -32,6 +32,7 @@ jobs:
                     xcodebuild test
                     -scheme <<parameters.scheme>>
                     -destination "<<parameters.destination>>"
+                    | xcpretty
                 environment:
                     GCC_INSTRUMENT_PROGRAM_FLOW_ARCS: YES
                     GCC_GENERATE_TEST_COVERAGE_FILES: YES
