@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2010, Stig Brautaset.
+ Copyright (c) 2010-2020, Stig Brautaset.
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -64,8 +64,6 @@
 
 @end
 
-@class SBJson5StreamWriterState;
-
 /**
  The Stream Writer class.
 
@@ -100,9 +98,6 @@
 @interface SBJson5StreamWriter : NSObject {
     NSMutableDictionary *cache;
 }
-
-@property (nonatomic, weak) SBJson5StreamWriterState *state; // Internal
-@property (nonatomic, readonly, strong) NSMutableArray *stateStack; // Internal
 
 /**
  Create a JSON stream writer

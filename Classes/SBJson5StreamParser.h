@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2010-2013, Stig Brautaset.
+ Copyright (c) 2010-2020, Stig Brautaset.
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -31,9 +31,6 @@
  */
 
 #import <Foundation/Foundation.h>
-
-@class SBJson5StreamParser;
-@class SBJson5StreamParserState;
 
 typedef enum {
     SBJson5ParserComplete,
@@ -94,9 +91,6 @@ typedef enum {
  really need low-level access to tokens one-by-one you can use this class.
  */
 @interface SBJson5StreamParser : NSObject
-
-@property (nonatomic, weak) SBJson5StreamParserState *state; // Private
-@property (readonly) id<SBJson5StreamParserDelegate> delegate; // Private
 
 /**
  Create a streaming parser.

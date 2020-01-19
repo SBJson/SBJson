@@ -1,3 +1,10 @@
+# 5.0.3-alpha2 (January 19th, 2020)
+
+- Removed the `SBJson5Stream{Parser,Writer}State` singletons and use
+  per parser/writer instances instead.
+- Properly hid the `SBJson5Stream{Parser,Writer}State` helper classes
+  from the public interface.
+
 # 5.0.3-alpha1 (January 19th, 2020)
 
 This is the first release after migrating the Git repo from
