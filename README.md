@@ -198,7 +198,7 @@ CocoaPods
 The preferred way to use SBJson is by using
 [CocoaPods](http://cocoapods.org/?q=sbjson). In your Podfile use:
 
-    pod 'SBJson5', '~> 5.0.2'
+    pod 'SBJson', '~> 5.0.0'
 
 Carthage
 --------
