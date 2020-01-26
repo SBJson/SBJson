@@ -5,6 +5,7 @@
 - Change header syntax in README for easier maintenance
 - Added note on backwards compatibility to README
 - Updated Support notes in README
+- Added [contributor guidelines](CONTRIBUTING.md)
 
 # 5.0.3-alpha2 (January 19th, 2020)
 
