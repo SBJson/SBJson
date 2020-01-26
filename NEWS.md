@@ -1,3 +1,8 @@
+# 5.0.3 (TBD)
+
+- Added [Code of Conduct](CODE_OF_CONDUCT.md), based on the
+  [Contributor Covenant v2](https://www.contributor-covenant.org/).
+
 # 5.0.3-alpha2 (January 19th, 2020)
 
 - Removed the `SBJson5Stream{Parser,Writer}State` singletons and use
