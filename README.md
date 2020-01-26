@@ -209,13 +209,12 @@ contents of the `Classes` folder) into your own Xcode project.
 
 # Support
 
-* Check StackOverflow questions
-  [tagged with SBJson](http://stackoverflow.com/questions/tagged/sbjson) if
-  you have questions about how to use the library. I try to read all questions
-  with this tag.
+* Review (or create) StackOverflow questions [tagged with
+  `SBJson`](http://stackoverflow.com/questions/tagged/sbjson) if you
+  have questions about how to use the library.
 * Use the [issue tracker](http://github.com/SBJson/SBJson/issues) if you
   have found a bug.
-
+* I regret I'm only able to support the current major release.
 
 ## Philosophy on backwards compatibility
 
