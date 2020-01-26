@@ -3,6 +3,7 @@
 - Added [Code of Conduct](CODE_OF_CONDUCT.md), based on the
   [Contributor Covenant v2](https://www.contributor-covenant.org/).
 - Change header syntax in README for easier maintenance
+- Added note on backwards compatibility to README
 
 # 5.0.3-alpha2 (January 19th, 2020)
 

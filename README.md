@@ -216,6 +216,22 @@ contents of the `Classes` folder) into your own Xcode project.
 * Use the [issue tracker](http://github.com/SBJson/SBJson/issues) if you
   have found a bug.
 
+
+## Philosophy on backwards compatibility
+
+SBJson practice [Semantic Versioning](https://semver.org/), which
+means we do not break the API in major releases. If something requires
+a backwards-incompatible change, we release a new major version.
+(Hence why a library of less than 1k lines has more major versions
+than Emacs.)
+
+I also try support a gradual migration from one major version to the
+other by allowing the last three major versions to co-exist in the
+same app without conflicts. The way to do this is putting the major
+version number in all the library's symbols and file names. So if v6
+ever comes out, the `SBJson5Parser` class would become
+`SBJson6Parser`, etc.
+
 # License
 
 BSD. See [LICENSE](LICENSE) for details.
