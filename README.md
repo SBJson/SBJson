@@ -1,5 +1,4 @@
-SBJson 5
-========
+# SBJson 5
 
 Chunk-based JSON parsing and generation in Objective-C. 
 
@@ -8,8 +7,7 @@ Chunk-based JSON parsing and generation in Objective-C.
 [![Project Status: Inactive - The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/0.1.0/inactive.svg)](http://www.repostatus.org/#inactive)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-Overview
-========
+# Overview
 
 SBJson's number one feature is stream/chunk-based operation. Feed the parser one or
 more chunks of UTF8-encoded data and it will call a block you provide with each
@@ -40,8 +38,7 @@ SBJson maps JSON types to Objective-C types in the following way:
   to avoid rounding errors.  For all other numbers we use the `double`
   type, with all the potential rounding errors that entails.
 
-"Plain" Chunk Based Parsing
----------------------------
+## "Plain" Chunk Based Parsing
 
 First define a simple block & an error handler. (These are just minimal
 examples. You should strive to do something better that makes sense in your
@@ -80,8 +77,7 @@ data = [@"false]" dataWithEncoding:NSUTF8StringEncoding];
 
 Alright! Now let's look at something slightly more interesting.
 
-Handling multiple documents
----------------------------
+## Handling multiple documents
 
 This is useful for something like Twitter's feed, which gives you one JSON
 document per line. Here is an example of parsing many consequtive JSON
@@ -106,8 +102,7 @@ Found: Array
 Found: Object
 ```
 
-Unwrapping a gigantic top-level array
--------------------------------------
+## Unwrapping a gigantic top-level array
 
 Often you won't have control over the input you're parsing, so can't use a
 multiRootParser. But, all is not lost: if you are parsing a long array you can
@@ -122,8 +117,7 @@ id data = [@"[[],{},[],{}]" dataWithEncoding:NSUTF8StringEncoding];
 [parser parse:data];
 ```
 
-Other features
---------------
+## Other features
 
 * For safety there is a max nesting level for all input. This defaults to 32,
   but is configurable.
@@ -133,8 +127,7 @@ Other features
   (This is possible because all classes & public symbols contains the major
   version number.)
 
-A word of warning
------------------
+## A word of warning
 
 Stream based parsing does mean that you lose some of the correctness
 verification you would have with a parser that considered the entire input
@@ -143,8 +136,7 @@ document returned *as if they were correct* but then encounter an error in a
 later part of the document. You should keep this in mind when considering
 whether it would suit your application.
 
-American Fuzzy Lop
-==================
+# American Fuzzy Lop
 
 I've run [AFL][] on the sbjson binary for over 24 hours, with no crashes
 found. (I cannot reproduce the hangs reported when attempting to parse them
@@ -182,56 +174,63 @@ manually.)
 [+] We're done here. Have a nice day!
 ```
 
-API Documentation
-=================
+# API Documentation
 
 Please see the [API Documentation](http://cocoadocs.org/docsets/SBJson) for
 more details.
 
 
-Installation
-============
+# Installation
 
-CocoaPods
----------
+## CocoaPods
 
 The preferred way to use SBJson is by using
 [CocoaPods](http://cocoapods.org/?q=sbjson). In your Podfile use:
 
     pod 'SBJson', '~> 5.0.0'
 
-Carthage
---------
+## Carthage
 
 SBJson is compatible with _Carthage_. Follow the [Getting Started Guide for iOS](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos).
 
 	github "SBJson/SBJson" == 5.0.2
 
-Bundle the source files
------------------------
+## Bundle the source files
 
 An alternative that I no longer recommend is to copy all the source files (the
 contents of the `Classes` folder) into your own Xcode project.
 
-Examples
-========
+# Examples
 
 * https://github.com/SBJson/ChunkedDelivery - a toy example showing how one can
   use `NSURLSessionDataDelegate` to do chunked delivery.
 * https://github.com/SBJson/DisplayPretty - a very brief example using SBJson 4
   to reflow JSON on OS X.
 
-Support
-=======
+# Support
 
-* Check StackOverflow questions
-  [tagged with SBJson](http://stackoverflow.com/questions/tagged/sbjson) if
-  you have questions about how to use the library. I try to read all questions
-  with this tag.
+* Review (or create) StackOverflow questions [tagged with
+  `SBJson`](http://stackoverflow.com/questions/tagged/sbjson) if you
+  have questions about how to use the library.
 * Use the [issue tracker](http://github.com/SBJson/SBJson/issues) if you
   have found a bug.
+* I regret I'm only able to support the current major release.
 
-License
-=======
+## Philosophy on backwards compatibility
+
+SBJson practice [Semantic Versioning](https://semver.org/), which
+means we do not break the API in major releases. If something requires
+a backwards-incompatible change, we release a new major version.
+(Hence why a library of less than 1k lines has more major versions
+than Emacs.)
+
+I also try support a gradual migration from one major version to the
+other by allowing the last three major versions to co-exist in the
+same app without conflicts. The way to do this is putting the major
+version number in all the library's symbols and file names. So if v6
+ever comes out, the `SBJson5Parser` class would become
+`SBJson6Parser`, etc.
+
+# License
 
 BSD. See [LICENSE](LICENSE) for details.
