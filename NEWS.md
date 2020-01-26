@@ -1,4 +1,4 @@
-# 5.0.3 (TBD)
+# 5.0.3-rc1 (January 26th, 2020)
 
 - Added [Code of Conduct](CODE_OF_CONDUCT.md), based on the
   [Contributor Covenant v2](https://www.contributor-covenant.org/).
