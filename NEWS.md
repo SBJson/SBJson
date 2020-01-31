@@ -1,3 +1,7 @@
+# 5.0.3 (January 31st, 2020)
+
+- No change from rc1.
+
 # 5.0.3-rc1 (January 26th, 2020)
 
 - Added [Code of Conduct](CODE_OF_CONDUCT.md), based on the
