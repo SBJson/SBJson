@@ -73,8 +73,8 @@ the whole input in one go. This is not an issue with any of the other JSON
 datatypes because they are either fixed length (`true`, `false`, `null`) or
 have unambigous delimiters at both ends (`[]`, `{}`, `""`).
 
--   <https://github.com/stig/json-framework/pull/238>
--   <https://github.com/stig/json-framework/pull/239>
+-   <https://github.com/SBJson/SBJson/pull/238>
+-   <https://github.com/SBJson/SBJson/pull/239>
 
 ## Rename all classes & public symbols
 
@@ -83,7 +83,7 @@ bump necessitates renaming all the classes & enums. The upshoot of this is
 that you can use SBJson 3, 4 **and** 5 in the same application without
 problems. (Though why you would want to I cannot even begin to guess at.)
 
--   <https://github.com/stig/json-framework/commit/736dbb1c3fe9dfa85e2c89a4a020479ee2a37619>
+-   <https://github.com/SBJson/SBJson/commit/736dbb1c3fe9dfa85e2c89a4a020479ee2a37619>
 
 ## Remove the processBlock: API
 
@@ -98,7 +98,7 @@ better to just do what the processBlock interface did in SBJson5Parser's
 value block. However, you could also use the stream parser to implement the
 processBlock interface yourself.
 
--   <https://github.com/stig/json-framework/pull/242>
+-   <https://github.com/SBJson/SBJson/pull/242>
 
 ## Constructor changes for parsers + writers
 
@@ -110,8 +110,8 @@ you can (and that it might make sense!) to change these settings during
 parse/generation. It is absolutely not supported, and that should be more
 clear now.
 
--   <https://github.com/stig/json-framework/pull/243>
--   <https://github.com/stig/json-framework/pull/247>
+-   <https://github.com/SBJson/SBJson/pull/243>
+-   <https://github.com/SBJson/SBJson/pull/247>
 
 ## Add a `sbjson` binary for reformatting JSON
 
@@ -175,7 +175,7 @@ Here's a snapshot of the latest session I've run:
     +++ Testing aborted by user +++
     [+] We're done here. Have a nice day!
 
--   <https://github.com/stig/json-framework/pull/246>
+-   <https://github.com/SBJson/SBJson/pull/246>
 
 ## Fix bug in unwrapper code that caused arrays to be skipped
 
@@ -183,7 +183,7 @@ Whilst playing with AFL I accidentally found (and fixed) a bug where the
 unwrapRootArray parser would break on any arrays at the next-to-outermost
 level.
 
--   <https://github.com/stig/json-framework/pull/244>
+-   <https://github.com/SBJson/SBJson/pull/244>
 
 ## Improved documentation
 
