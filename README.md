@@ -3,7 +3,7 @@
 Chunk-based JSON parsing and generation in Objective-C. 
 
 [![CircleCI](https://circleci.com/gh/SBJson/SBJson.svg?style=svg)](https://circleci.com/gh/SBJson/SBJson)
-[![codecov.io](http://codecov.io/github/SBJson/SBJson/coverage.svg?branch=master)](http://codecov.io/github/SBJson/SBJson?branch=master)
+[![codecov.io](http://codecov.io/github/SBJson/SBJson/coverage.svg?branch=trunk)](http://codecov.io/github/SBJson/SBJson?branch=trunk)
 [![Project Status: Inactive - The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/0.1.0/inactive.svg)](http://www.repostatus.org/#inactive)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 

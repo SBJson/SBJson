@@ -1,6 +1,6 @@
 # Release Checklist
 
-1. Check that tests pass on master
+1. Check that tests pass on trunk
 2. Run AFL for at least 24 hours if changes to the parser
 3. Add release notes
 4. Run [RegenerateCredits](RegenerateCredits) script
