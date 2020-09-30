@@ -93,7 +93,7 @@ id data = [@"[]{}" dataWithEncoding:NSUTF8StringEncoding];
 [parser parse:data];
 ```
 
-The above example will print:
+The above example will print outpout:
 
 ```
 Found: Array
