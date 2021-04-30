@@ -45,10 +45,6 @@ jobs:
                     -scheme <<parameters.scheme>>
                     -destination "<<parameters.destination>>"
                     | xcpretty
-                environment:
-                    GCC_INSTRUMENT_PROGRAM_FLOW_ARCS: YES
-                    GCC_GENERATE_TEST_COVERAGE_FILES: YES
-            - run: bash <(curl -s https://codecov.io/bash)
 
     pod-lib-lint:
         executor: default
