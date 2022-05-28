@@ -490,9 +490,11 @@ static const char *strForChar(int c) {
         }
 	}
 
-    // It is always safe to cast `len` to NSUInteger here, because
-    // snprintf above guarantees its range is in the range 0 to 128
-    // (the length of the `num` buffer).
+	if ((NSUInteger)len >= sizeof num) {
+		self.error = @"Number-string overflow";
+		return NO;
+	}
+
 	[_delegate writer:self appendBytes:num length: (NSUInteger)len];
 	[_state transitionState:self];
 	return YES;
