@@ -6,15 +6,6 @@ executors:
             xcode: 11.7.0
 
 workflows:
-    publish:
-        jobs:
-            - pod-trunk-push:
-                filters:
-                    tags:
-                        only: /v\d+\.\d+\.\d+([-+].+)?/
-                    branches:
-                        ignore: /.*/
-
     build-and-test:
         jobs:
             - build:
@@ -52,20 +43,6 @@ jobs:
             - checkout
             - run: sed "s/%VERSION%/$CIRCLE_BUILD_NUM/" RELEASING/SBJson.template.podspec > SBJson.podspec
             - run: pod lib lint
-
-    pod-trunk-push:
-        executor: default
-        steps:
-            - checkout
-            - run: sed "s/%VERSION%/${CIRCLE_TAG##v}/" RELEASING/SBJson.template.podspec > SBJson.podspec
-            - restore_cache:
-                key: v1-auth
-            - run: test -f ~/.netrc || pod trunk register stig@brautaset.org --description=cci
-            - save_cache:
-                key: v1-auth
-                paths:
-                    - ~/.netrc
-            - run: pod trunk push
 
     carthage-build:
         executor: default
