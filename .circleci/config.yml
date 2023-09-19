@@ -3,7 +3,8 @@ version: 2.1
 executors:
     default:
         macos:
-            xcode: 11.7.0
+            # https://circleci.com/docs/using-macos/#supported-xcode-versions-intel
+            xcode: 12.5.1
 
 workflows:
     build-and-test:
@@ -48,4 +49,4 @@ jobs:
         executor: default
         steps:
             - checkout
-            - run: carthage build --no-skip-current
+            - run: carthage build --use-xcframeworks --no-skip-current
