@@ -36,7 +36,6 @@ jobs:
                     xcodebuild test
                     -scheme <<parameters.scheme>>
                     -destination "<<parameters.destination>>"
-                    | xcpretty
 
     pod-lib-lint:
         executor: default
