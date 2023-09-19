@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SBJson5.h"
 
-void usage() {
+void usage(void) {
     puts("Usage: sbjson [OPTIONS] [FILES]");
     puts("");
     puts("Options:");
