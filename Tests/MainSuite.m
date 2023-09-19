@@ -227,7 +227,7 @@ static NSString *chomp(NSString *str) {
                            @"foo"        : @"\"foo\"",
                            @""           : @"\"\"",
                            [NSNull null] : @"null",
-                           @1            : @ "1",
+                           @-1            : @ "-1",
                            @42           : @"42",
                            @-0.1         : @"-0.10000000000000001",
                            @(YES)        : @"true"
