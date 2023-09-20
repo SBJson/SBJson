@@ -4,7 +4,7 @@ executors:
     default:
         macos:
             # https://circleci.com/docs/using-macos/#supported-xcode-versions-intel
-            xcode: 12.5.1
+            xcode: 13.4.1
 
 workflows:
     build-and-test:
