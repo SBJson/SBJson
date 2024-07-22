@@ -28,10 +28,10 @@ Pod::Spec.new do |spec|
         all in memory.
     DESC
 
-    spec.ios.deployment_target     = "5.0"
-    spec.osx.deployment_target     = "10.7"
-    spec.watchos.deployment_target = "2.0"
-    spec.tvos.deployment_target    = "9.0"
+    spec.ios.deployment_target     = "16.4"
+    spec.osx.deployment_target     = "14.3"
+    spec.watchos.deployment_target = "9.4"
+    spec.tvos.deployment_target    = "16.4"
 
     spec.source       = { :git => "https://github.com/SBJson/SBJson.git", :tag => "v#{spec.version}" }
     spec.source_files = "Classes/*"
