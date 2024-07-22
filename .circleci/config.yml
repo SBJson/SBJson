@@ -16,7 +16,7 @@ workflows:
             - build:
                 name: build-mac
                 scheme: SBJson5_macOS
-                destination: platform=macOS,arch=x86_64
+                destination: platform=macOS,arch=arm64
             - pod-lib-lint
             - carthage-build
 
