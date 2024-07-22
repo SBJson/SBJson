@@ -223,19 +223,20 @@ static NSString *chomp(NSString *str) {
 }
 
 - (void)testScalar {
-    NSDictionary *data = @{
-                           @"foo"        : @"\"foo\"",
-                           @""           : @"\"\"",
-                           [NSNull null] : @"null",
-                           @1            : @ "1",
-                           @42           : @"42",
-                           @-0.1         : @"-0.10000000000000001",
-                           @(YES)        : @"true"
-    };
+    NSArray *data = @[
+        @[ @"foo", @"\"foo\""],
+        @[ @"", @"\"\""],
+        @[ [NSNull null], @"null"],
+        @[ @0, @"0"],
+        @[ @42, @"42"],
+        @[ @-0.1, @"-0.10000000000000001"],
+        @[ @(YES), @"true"]];
 
-    for (id key in data) {
-        NSString *expect = [data objectForKey:key];
-        XCTAssertEqualObjects([writer stringWithObject:key], expect, @"%@", key);
+    for (NSArray *arr in data) {
+        id x = [arr firstObject];
+        XCTAssertEqualObjects([writer stringWithObject:x],
+                              [arr lastObject],
+                              @"%@", x);
     }
 }
 
