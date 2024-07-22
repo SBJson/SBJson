@@ -100,7 +100,6 @@
 		538ED8971DC409B800F14B4F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		538ED8981DC409B800F14B4F /* CREDITS.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CREDITS.md; sourceTree = "<group>"; };
 		538ED8991DC409B800F14B4F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		538ED89B1DC409B800F14B4F /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
 		538ED8A61DC40B4D00F14B4F /* SBJson5Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson5Parser.h; path = Classes/SBJson5Parser.h; sourceTree = "<group>"; };
 		538ED8A71DC40B4D00F14B4F /* SBJson5Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJson5Parser.m; path = Classes/SBJson5Parser.m; sourceTree = "<group>"; };
 		538ED8A81DC40B4D00F14B4F /* SBJson5StreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson5StreamParser.h; path = Classes/SBJson5StreamParser.h; sourceTree = "<group>"; };
@@ -183,7 +182,6 @@
 				538ED8971DC409B800F14B4F /* README.md */,
 				538ED8981DC409B800F14B4F /* CREDITS.md */,
 				538ED8991DC409B800F14B4F /* LICENSE */,
-				538ED89B1DC409B800F14B4F /* Scripts */,
 				538ED8441DC408C100F14B4F /* SBJson5_iOS */,
 				538ED84F1DC408C100F14B4F /* SBJson5_iOSTests */,
 				538ED8601DC408EB00F14B4F /* SBJson5_macOS */,
