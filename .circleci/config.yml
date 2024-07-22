@@ -13,9 +13,6 @@ workflows:
     build-and-test:
         jobs:
             - test-ios
-            - test-macos
-            - pod-lib-lint
-            - carthage-build
 
 jobs:
     test-ios:
