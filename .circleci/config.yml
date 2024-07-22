@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+    macos: circleci/macos@2
+
 executors:
     default:
         macos:
@@ -9,33 +12,38 @@ executors:
 workflows:
     build-and-test:
         jobs:
-            - build:
-                name: build-ios
-                scheme: SBJson5_iOS
-                destination: platform=iOS Simulator,name=iPhone 15 Pro
-            - build:
-                name: build-mac
-                scheme: SBJson5_macOS
-                destination: platform=macOS,arch=arm64
+            - test-ios
+            - test-macos
             - pod-lib-lint
             - carthage-build
 
 jobs:
-    build:
+    test-ios:
         executor: default
-        parameters:
-            scheme:
-                type: string
-            destination:
-                type: string
+        steps:
+            - macos/preboot-simulator:
+                    version: "15.0"
+                    platform: "iOS"
+                    device: "iPhone 15 Pro"
+            - checkout
+            - run:
+                name: Run tests
+                command: >
+                    xcodebuild test
+                    -scheme SBJson5_iOS
+                    -destination "platform=iOS Simulator,name=iPhone 15 Pro"
+                    | xcpretty
+
+    test-macos:
+        executor: default
         steps:
             - checkout
             - run:
                 name: Run tests
                 command: >
                     xcodebuild test
-                    -scheme <<parameters.scheme>>
-                    -destination "<<parameters.destination>>"
+                    -scheme SBJson5_macOS
+                    -destination "platform=macOS,arch=arm64"
                     | xcpretty
 
     pod-lib-lint:
