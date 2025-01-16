@@ -60,6 +60,7 @@ typedef enum {
     SBJson5ChunkType currentType;
     BOOL supportManyDocuments;
     BOOL supportPartialDocuments;
+    BOOL useNSDecimalNumber;
     NSUInteger _maxDepth;
 }
 
@@ -101,10 +102,25 @@ typedef enum {
       unwrapRootArray:(BOOL)unwrapRootArray
              maxDepth:(NSUInteger)maxDepth
          errorHandler:(SBJson5ErrorBlock)eh {
+    return [self parserWithBlock:block
+                        allowMultiRoot:allowMultiRoot
+                       unwrapRootArray:unwrapRootArray
+                              maxDepth:maxDepth
+                    useNSDecimalNumber:NO
+                          errorHandler:eh];
+}
+
++ (id)parserWithBlock:(SBJson5ValueBlock)block
+       allowMultiRoot:(BOOL)allowMultiRoot
+      unwrapRootArray:(BOOL)unwrapRootArray
+             maxDepth:(NSUInteger)maxDepth
+   useNSDecimalNumber:(BOOL)useDecimal
+         errorHandler:(SBJson5ErrorBlock)eh {
     return [[self alloc] initWithBlock:block
                         allowMultiRoot:allowMultiRoot
                        unwrapRootArray:unwrapRootArray
                               maxDepth:maxDepth
+                    useNSDecimalNumber:useDecimal
                           errorHandler:eh];
 }
 
@@ -112,6 +128,7 @@ typedef enum {
      allowMultiRoot:(BOOL)multiRoot
     unwrapRootArray:(BOOL)unwrapRootArray
            maxDepth:(NSUInteger)maxDepth
+ useNSDecimalNumber:(BOOL)useDecimal
        errorHandler:(SBJson5ErrorBlock)eh {
 
 	self = [super init];
@@ -120,6 +137,7 @@ typedef enum {
 
         supportManyDocuments = multiRoot;
         supportPartialDocuments = unwrapRootArray;
+        useNSDecimalNumber = useDecimal;
 
         valueBlock = block;
 		keyStack = [[NSMutableArray alloc] initWithCapacity:32];
@@ -250,6 +268,10 @@ typedef enum {
 
 - (BOOL)parserShouldSupportManyDocuments {
     return supportManyDocuments;
+}
+
+- (BOOL)parserShouldUseNSDecimalNumber {
+    return useNSDecimalNumber;
 }
 
 - (SBJson5ParserStatus)parse:(NSData *)data {

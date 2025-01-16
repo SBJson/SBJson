@@ -82,6 +82,9 @@ typedef enum {
 /// Called to determine whether to allow multiple whitespace-separated documents
 - (BOOL)parserShouldSupportManyDocuments;
 
+/// Called to determine whether to use NSDecimalNumber for numbers
+- (BOOL)parserShouldUseNSDecimalNumber;
+
 @end
 
 /**
