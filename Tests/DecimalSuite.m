@@ -74,4 +74,19 @@ static NSString *chomp(NSString *str) {
     }];
 }
 
+- (void)testNSDecimalParsing {
+    NSString *jsonString = @"[0.1, 1.2]";
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *string) {
+        XCTAssertNotNil(value);
+        for (id item in value) {
+            XCTAssertTrue([item isKindOfClass:[NSDecimalNumber class]], @"Parsed value should be of type NSDecimalNumber");
+        }
+    } allowMultiRoot:NO unwrapRootArray:NO maxDepth:32 useNSDecimalNumber:YES errorHandler:^(NSError *error) {
+        XCTFail(@"%@", error);
+    }];
+    XCTAssertEqual([parser parse:jsonData], SBJson5ParserComplete);
+}
+
 @end
