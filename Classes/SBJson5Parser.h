@@ -114,6 +114,38 @@ typedef void (^SBJson5ErrorBlock)(NSError* error);
 
  @param maxDepth The max recursion depth.
 
+ @param useNSDecimalNumber If set, NSDecimalNumber will be used to parse numbers.
+ 
+ @param errorHandler Called if the parser encounters an error.
+
+ */
+
++ (id)parserWithBlock:(SBJson5ValueBlock)block
+       allowMultiRoot:(BOOL)allowMultiRoot
+      unwrapRootArray:(BOOL)unwrapRootArray
+             maxDepth:(NSUInteger)maxDepth
+   useNSDecimalNumber:(BOOL)useNSDecimalNumber
+         errorHandler:(SBJson5ErrorBlock)errorHandler;
+
+/**
+ Create a JSON Parser
+
+ This can be used to create a parser that accepts only one document, or one
+ that parses many documents, or both! You can also use this if you need to
+ parse documents with nesting depth deeper than 32.
+
+ @param block Called for each element. Set *stop to `YES` if you have seen
+ enough and would like to skip the rest of the elements.
+
+ @param allowMultiRoot Indicate that you are expecting multiple whitespace-separated
+ JSON documents, similar to what Twitter uses.
+
+ @param unwrapRootArray If set the parser will pretend an root array does not exist
+ and the enumerator block will be called once for each item in it. This option
+ does nothing if the the JSON has an object at its root.
+
+ @param maxDepth The max recursion depth.
+
  @param errorHandler Called if the parser encounters an error.
 
  */

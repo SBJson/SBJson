@@ -585,8 +585,14 @@
                     // FALL THROUGH
 
                 case sbjson5_token_real:
-                    [_delegate parserFoundNumber:@(strtod(token, NULL))];
-                    [_state parser:self shouldTransitionTo:tok];
+                        if ([_delegate respondsToSelector:@selector(parserShouldUseNSDecimalNumber)] && [_delegate parserShouldUseNSDecimalNumber]){
+                            NSString *str = [[NSString alloc] initWithBytes:token length:token_len encoding:NSUTF8StringEncoding];
+                            NSDecimalNumber *num = [[NSDecimalNumber alloc] initWithString:str];
+                            [_delegate parserFoundNumber:num];
+                        } else {
+                            [_delegate parserFoundNumber:@(strtod(token, NULL))];
+                        }
+                        [_state parser:self shouldTransitionTo:tok];
                     break;
 
                 case sbjson5_token_string:
