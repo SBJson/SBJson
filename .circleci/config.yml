@@ -3,8 +3,8 @@ version: 2.1
 executors:
     default:
         macos:
-            # https://circleci.com/docs/using-macos/#supported-xcode-versions
-            xcode: 15.4.0
+            # https://circleci.com/docs/guides/execution-managed/using-macos/#supported-xcode-versions
+            xcode: 26.4.0
 
 workflows:
     build-and-test:
@@ -12,7 +12,7 @@ workflows:
             - build:
                 name: build-ios
                 scheme: SBJson5_iOS
-                destination: platform=iOS Simulator,name=iPhone 15 Pro
+                destination: platform=iOS Simulator,name=iPhone 17 Pro
             - build:
                 name: build-mac
                 scheme: SBJson5_macOS
