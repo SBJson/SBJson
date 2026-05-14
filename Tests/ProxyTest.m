@@ -60,6 +60,15 @@
 }
 @end
 
+@interface Cyclic : NSObject
+@end
+
+@implementation Cyclic
+- (id)proxyForJson {
+    return self;
+}
+@end
+
 @implementation NSDate (Private)
 - (id)proxyForJson {
     return [NSArray arrayWithObject:[self description]];
@@ -105,5 +114,12 @@
     XCTAssertNotNil([writer stringWithObject:[NSDate date]]);
 }
 
+- (void)testCyclicProxyForJsonReturnsErrorNotCrash {
+    SBJson5Writer *w = [SBJson5Writer writerWithMaxDepth:4
+                                           humanReadable:NO
+                                                sortKeys:NO];
+    XCTAssertNil([w stringWithObject:[Cyclic new]]);
+    XCTAssertEqualObjects(w.error, @"proxyForJson nested too deep");
+}
 
 @end
