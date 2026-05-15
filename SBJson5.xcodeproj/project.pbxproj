@@ -53,6 +53,8 @@
 		538ED91E1DC40E2300F14B4F /* SBJson5.h in Headers */ = {isa = PBXBuildFile; fileRef = 538ED8B41DC40B4D00F14B4F /* SBJson5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		538ED9231DC40F8B00F14B4F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 538ED9221DC40F8B00F14B4F /* XCTest.framework */; };
 		538ED9251DC40FB300F14B4F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 538ED9241DC40FB300F14B4F /* XCTest.framework */; };
+		53D1D7A62FB73799000A7181 /* DecimalSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D1D7A52FB73799000A7181 /* DecimalSuite.m */; };
+		53D1D7A72FB73799000A7181 /* DecimalSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D1D7A52FB73799000A7181 /* DecimalSuite.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +121,7 @@
 		538ED8ED1DC40CD900F14B4F /* StreamSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StreamSuite.m; path = Tests/StreamSuite.m; sourceTree = "<group>"; };
 		538ED9221DC40F8B00F14B4F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		538ED9241DC40FB300F14B4F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		53D1D7A52FB73799000A7181 /* DecimalSuite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DecimalSuite.m; path = Tests/DecimalSuite.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +260,7 @@
 		538ED8F41DC40CDE00F14B4F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				53D1D7A52FB73799000A7181 /* DecimalSuite.m */,
 				538ED8E81DC40CD900F14B4F /* ErrorTest.m */,
 				538ED8E91DC40CD900F14B4F /* JsonCheckerSuite.m */,
 				538ED8EA1DC40CD900F14B4F /* JsonStreamTokeniserTest.m */,
@@ -514,6 +518,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				538ED90A1DC40DE300F14B4F /* ErrorTest.m in Sources */,
+				53D1D7A72FB73799000A7181 /* DecimalSuite.m in Sources */,
 				538ED90B1DC40DE300F14B4F /* JsonCheckerSuite.m in Sources */,
 				538ED90C1DC40DE300F14B4F /* JsonStreamTokeniserTest.m in Sources */,
 				538ED90D1DC40DE300F14B4F /* MainSuite.m in Sources */,
@@ -539,6 +544,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				538ED9041DC40D0C00F14B4F /* ErrorTest.m in Sources */,
+				53D1D7A62FB73799000A7181 /* DecimalSuite.m in Sources */,
 				538ED9051DC40D0C00F14B4F /* JsonCheckerSuite.m in Sources */,
 				538ED9061DC40D0C00F14B4F /* JsonStreamTokeniserTest.m in Sources */,
 				538ED9071DC40D0C00F14B4F /* MainSuite.m in Sources */,
