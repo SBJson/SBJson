@@ -1,3 +1,21 @@
+# 5.0.4 (2026-05-15)
+
+## Security
+
+- Guard proxyForJson recursion against stack overflow. A self-referencing or cyclic proxy chain now produces an error instead of crashing. (PR #304)
+- Cap the writer string cache at 1024 entries using NSCache, replacing the unbounded NSMutableDictionary. NSCache auto-evicts under memory pressure. Benchmarked against twitter.json and citm_catalog.json, with neglible performance impact. (PR #310)
+- Detect integer overflow in strtoll/strtoull during number parsing. Numbers that exceed 64-bit range now fall through to strtod instead of silently saturating to ±LLONG_MAX/ULLONG_MAX. (PR #307)
+- Replace bare-string @throw with NSAssert in unreachable dispatch paths for cleaner failure mode if a programming bug ever reaches them. (PR #308)
+
+## Bug fixes
+
+- Fix duplicate `-m` short flag in sbjson CLI help text: --max-depth uses `-d`, not `-m`. Validate the argument is present and a positive integer. (PR #305)
+- Add DecimalSuite.m to both iOS and macOS test targets. The file existed in the repository but was never wired into the Xcode project, so its tests were never compiled or run. (PR #306)
+
+## Other
+
+- Add --benchmark mode to the sbjson CLI for measuring parse and write performance, with statistical reporting (median, mean, σ, CV) across 50 iterations after warm-up. (PR #310)
+
 # 5.0.3 (January 31st, 2020)
 
 - No change from rc1.
