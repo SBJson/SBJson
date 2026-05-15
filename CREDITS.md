@@ -5,6 +5,7 @@ My thanks to the following people and organisations, without whom this
 library wouldn't be what it is today. (Please let me know if I've
 mistakenly omitted anyone.)
 
+* aethereal
 * Alen Zhou
 * Andrew Hannon
 * Andrew W. Donoho
@@ -13,25 +14,32 @@ mistakenly omitted anyone.)
 * Antoine Perdaens
 * Ben Rimmington
 * Blake Seely
+* boredzo
 * Bott Sebastian
 * Bryce Pauken
 * Cary Yang
 * David Keegan
+* dewvinci
+* dmaclach
 * Gabriel Handford
 * George MacKerron
 * Greg Bolsinga
 * Hager Hu
 * Hiroshi Saito
+* hotbott
 * Iain Simpson
 * Ivan
 * Jakub Jelonek
 * Jens Alfke
 * Jeremy Agostino
+* jinksys
 * Joerg Schwieder
 * John Engelhart
+* jonkean
 * Kimmo Myllyoja
 * Konstantin Welke
 * Lloyd Hilaiel
+* lukef
 * Marc Lehmann
 * Michael Papp
 * Mike Abdullah
@@ -40,6 +48,7 @@ mistakenly omitted anyone.)
 * Philip Hofstetter
 * Phill Baker
 * Rafaël Warnault
+* renerattur
 * Robert Böhnke
 * Robert McNally
 * Robin Lu
@@ -55,14 +64,6 @@ mistakenly omitted anyone.)
 * Tobias Höhmann
 * Tod Karpinski
 * Ullrich Schäfer
-* Wolfgang Sourdeau
-* aethereal
-* boredzo
-* dewvinci
-* dmaclach
-* hotbott
-* jinksys
-* jonkean
-* lukef
-* renerattur
 * upsuper
+* voshill
+* Wolfgang Sourdeau
