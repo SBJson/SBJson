@@ -573,13 +573,22 @@
                 case sbjson5_token_integer: {
                     const int UNSIGNED_LONG_LONG_MAX_DIGITS = 20;
                     if (token_len <= UNSIGNED_LONG_LONG_MAX_DIGITS) {
-                        if (*token == '-')
-                            [_delegate parserFoundNumber:@(strtoll(token, NULL, 10))];
-                        else
-                            [_delegate parserFoundNumber:@(strtoull(token, NULL, 10))];
-                                
-                        [_state parser:self shouldTransitionTo:tok];
-                        break;
+                        errno = 0;
+                        if (*token == '-') {
+                            long long val = strtoll(token, NULL, 10);
+                            if (errno != ERANGE) {
+                                [_delegate parserFoundNumber:@(val)];
+                                [_state parser:self shouldTransitionTo:tok];
+                                break;
+                            }
+                        } else {
+                            unsigned long long val = strtoull(token, NULL, 10);
+                            if (errno != ERANGE) {
+                                [_delegate parserFoundNumber:@(val)];
+                                [_state parser:self shouldTransitionTo:tok];
+                                break;
+                            }
+                        }
                     }
                 }
                     // FALL THROUGH
