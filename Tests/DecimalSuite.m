@@ -89,4 +89,57 @@ static NSString *chomp(NSString *str) {
     XCTAssertEqual([parser parse:jsonData], SBJson5ParserComplete);
 }
 
+- (void)testIntegerOverflowFallsThroughToDouble {
+    // 20-digit number larger than ULLONG_MAX (18446744073709551615).
+    // Without fix: strtoull silently saturates to ULLONG_MAX.
+    // With fix: errno checked, falls through to strtod.
+    NSString *json = @"[99999999999999999999]";
+    id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *stop) {
+        NSNumber *num = value[0];
+        XCTAssertNotEqual([num unsignedLongLongValue], ULLONG_MAX);
+        XCTAssertEqual([num objCType][0], 'd');
+    } errorHandler:^(NSError *error) {
+        XCTFail(@"%@", error);
+    }];
+    XCTAssertEqual([parser parse:[json dataUsingEncoding:NSUTF8StringEncoding]], SBJson5ParserComplete);
+}
+
+- (void)testNegativeIntegerOverflowFallsThroughToDouble {
+    // Number that exceeds the 20-digit guard to verify negative
+    // fallthrough to strtod works at all.
+    NSString *json = @"[-123456789012345678901]";
+    id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *stop) {
+        NSNumber *num = value[0];
+        XCTAssertEqual([num objCType][0], 'd');
+    } errorHandler:^(NSError *error) {
+        XCTFail(@"%@", error);
+    }];
+    XCTAssertEqual([parser parse:[json dataUsingEncoding:NSUTF8StringEncoding]], SBJson5ParserComplete);
+}
+
+- (void)testLargeIntegerWithinRangeUsesFastPath {
+    // 20-digit number that fits within ULLONG_MAX range.
+    NSString *json = @"[10000000000000000000]";
+    id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *stop) {
+        NSNumber *num = value[0];
+        XCTAssertEqual([num unsignedLongLongValue], 10000000000000000000ULL);
+        XCTAssertEqual([num objCType][0], 'Q');
+    } errorHandler:^(NSError *error) {
+        XCTFail(@"%@", error);
+    }];
+    XCTAssertEqual([parser parse:[json dataUsingEncoding:NSUTF8StringEncoding]], SBJson5ParserComplete);
+}
+
+- (void)testSmallIntegerStillUsesFastPath {
+    NSString *json = @"[42]";
+    id parser = [SBJson5Parser parserWithBlock:^(id value, BOOL *stop) {
+        NSNumber *num = value[0];
+        XCTAssertEqual([num longLongValue], 42);
+        XCTAssertNotEqual([num objCType][0], 'd');
+    } errorHandler:^(NSError *error) {
+        XCTFail(@"%@", error);
+    }];
+    XCTAssertEqual([parser parse:[json dataUsingEncoding:NSUTF8StringEncoding]], SBJson5ParserComplete);
+}
+
 @end
