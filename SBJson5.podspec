@@ -1,7 +1,7 @@
 # coding: utf-8
 Pod::Spec.new do |spec|
-    spec.name         = "SBJson"
-    spec.version      = "%VERSION%"
+    spec.name         = "SBJson5"
+    spec.version      = "5.0.4"
 
     spec.homepage     = "https://github.com/SBJson/SBJson"
     spec.license      = { :type => "BSD", :file => "LICENSE" }
@@ -28,10 +28,10 @@ Pod::Spec.new do |spec|
         all in memory.
     DESC
 
-    spec.ios.deployment_target     = "16.4"
-    spec.osx.deployment_target     = "14.3"
-    spec.watchos.deployment_target = "9.4"
-    spec.tvos.deployment_target    = "16.4"
+    spec.ios.deployment_target     = "26.2"
+    spec.osx.deployment_target     = "26.2"
+    spec.tvos.deployment_target    = "26.2"
+    spec.watchos.deployment_target = "26.2"
 
     spec.source       = { :git => "https://github.com/SBJson/SBJson.git", :tag => "v#{spec.version}" }
     spec.source_files = "Classes/*"
