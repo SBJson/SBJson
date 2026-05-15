@@ -154,6 +154,7 @@
     BOOL _sortKeys, _humanReadable;
     NSNumber *kTrue, *kFalse, *kPositiveInfinity, *kNegativeInfinity;
     NSUInteger _maxDepth;
+    NSUInteger _proxyDepth;
     __weak id<SBJson5StreamWriterDelegate> _delegate;
     NSComparator _sortKeysComparator;
 }
@@ -197,6 +198,7 @@
 
         _delegate = delegate;
 		_maxDepth = maxDepth;
+        _proxyDepth = 0;
         _sortKeys = sortKeys;
         _humanReadable = humanReadable;
         _sortKeysComparator = sortKeysComparator;
@@ -362,8 +364,15 @@
 		return [self writeNull];
 
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
-		return [self writeValue:[o proxyForJson]];
-	}
+        if (_maxDepth && _proxyDepth > _maxDepth) {
+            self.error = @"proxyForJson nested too deep";
+            return NO;
+        }
+        _proxyDepth++;
+        BOOL result = [self writeValue:[o proxyForJson]];
+        _proxyDepth--;
+        return result;
+    }
 
 	self.error = [NSString stringWithFormat:@"JSON serialisation not supported for %@", [o class]];
 	return NO;
