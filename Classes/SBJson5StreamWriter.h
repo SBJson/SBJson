@@ -96,7 +96,7 @@
  */
 
 @interface SBJson5StreamWriter : NSObject {
-    NSMutableDictionary *cache;
+    NSCache *cache;
 }
 
 /**

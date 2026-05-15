@@ -203,7 +203,8 @@
         _humanReadable = humanReadable;
         _sortKeysComparator = sortKeysComparator;
         _stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
-        cache = [[NSMutableDictionary alloc] initWithCapacity:32];
+        cache = [[NSCache alloc] init];
+        cache.countLimit = 1024;
     }
 	return self;
 }
