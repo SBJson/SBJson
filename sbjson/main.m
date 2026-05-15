@@ -21,7 +21,7 @@ void usage() {
     puts("    Accept multiple top-level JSON inputs");
     puts("  --unwrap-root, -u");
     puts("    Unwrap top-level arrays");
-    puts("  --max-depth INT, -m INT");
+    puts("  --max-depth INT, -d INT");
     puts("    Change the max recursion limit to INT (default: 32)");
     puts("  --sort-keys, -s");
     puts("    Sort dictionary keys in output");
@@ -52,7 +52,17 @@ int main(int argc, const char * argv[]) {
             } else if ([arg isEqualToString:@"--unwrap-root"] || [arg isEqualToString:@"-u"]) {
                 unwrapRoot = YES;
             } else if ([arg isEqualToString:@"--max-depth"] || [arg isEqualToString:@"-d"]) {
-                maxDepth = [[enumerator nextObject] unsignedIntegerValue];
+                id depthArg = [enumerator nextObject];
+                if (!depthArg) {
+                    fprintf(stderr, "Error: --max-depth requires a numeric argument\n");
+                    exit(1);
+                }
+                NSInteger val = [depthArg integerValue];
+                if (val < 1) {
+                    fprintf(stderr, "Error: --max-depth must be a positive integer, got '%s'\n", [depthArg UTF8String]);
+                    exit(1);
+                }
+                maxDepth = (NSUInteger)val;
             } else if ([arg isEqualToString:@"--sort-keys"] || [arg isEqualToString:@"-s"]) {
                 sortKeys = YES;
             } else if ([arg isEqualToString:@"--human-readable"] || [arg isEqualToString:@"-r"]) {
