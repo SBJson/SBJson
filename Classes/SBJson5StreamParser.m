@@ -641,7 +641,7 @@
         case '0' ... '9': ch += c - '0'; break;
         case 'a' ... 'f': ch += 10 + c - 'a'; break;
         case 'A' ... 'F': ch += 10 + c - 'A'; break;
-        default: @throw @"FUT FUT FUT";
+        default: NSAssert(0, @"Unexpected hex digit");
         }
     }
     return ch;
@@ -674,7 +674,7 @@
                 }
                 break;
             }
-            default: @throw @"FUT FUT FUT";
+            default: NSAssert(0, @"Unexpected escape character");
             }
             break;
         }
