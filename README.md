@@ -186,13 +186,13 @@ more details.
 The preferred way to use SBJson is by using
 [CocoaPods](http://cocoapods.org/?q=sbjson). In your Podfile use:
 
-    pod 'SBJson', '~> 5.0.0'
+    pod 'SBJson', '~> 5.0.4'
 
 ## Carthage
 
 SBJson is compatible with _Carthage_. Follow the [Getting Started Guide for iOS](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos).
 
-	github "SBJson/SBJson" == 5.0.2
+	github "SBJson/SBJson" == 5.0.4
 
 ## Bundle the source files
 
