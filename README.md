@@ -135,42 +135,54 @@ document returned *as if they were correct* but then encounter an error in a
 later part of the document. You should keep this in mind when considering
 whether it would suit your application.
 
-# American Fuzzy Lop
+# Fuzzing
 
-I've run [AFL][] on the sbjson binary for over 24 hours, with no crashes
+I've run [AFL++][] on the sbjson binary for over 24 hours, with no crashes
 found. (I cannot reproduce the hangs reported when attempting to parse them
 manually.)
 
-[AFL]: http://lcamtuf.coredump.cx/afl/
+[AFL++]: https://aflplus.plus
+
+To reproduce, make sure you have Nix installed, then:
+
+```bash
+git checkout fuzz
+nix-shell --command ./fuzz.sh
+```
+
+The `shell.nix` builds AFL++ 4.34c from source, configured to use
+POSIX shared memory (`shm_open` + `mmap`) so it runs on macOS without
+the System V IPC issues the packaged version has. The `fuzz.sh` script
+builds an instrumented sbjson binary and starts afl-fuzz seeded with
+the jsonchecker test data.
+
+Here's the output after about 24 hours of fuzzing:
 
 ```
-                       american fuzzy lop 2.35b (sbjson)
-
-┌─ process timing ─────────────────────────────────────┬─ overall results ─────┐
-│        run time : 1 days, 0 hrs, 45 min, 26 sec      │  cycles done : 2      │
-│   last new path : 0 days, 0 hrs, 5 min, 24 sec       │  total paths : 555    │
-│ last uniq crash : none seen yet                      │ uniq crashes : 0      │
-│  last uniq hang : 0 days, 2 hrs, 11 min, 43 sec      │   uniq hangs : 19     │
-├─ cycle progress ────────────────────┬─ map coverage ─┴───────────────────────┤
-│  now processing : 250* (45.05%)     │    map density : 0.70% / 1.77%         │
-│ paths timed out : 0 (0.00%)         │ count coverage : 3.40 bits/tuple       │
-├─ stage progress ────────────────────┼─ findings in depth ────────────────────┤
-│  now trying : auto extras (over)    │ favored paths : 99 (17.84%)            │
-│ stage execs : 603/35.6k (1.70%)     │  new edges on : 116 (20.90%)           │
-│ total execs : 20.4M                 │ total crashes : 0 (0 unique)           │
-│  exec speed : 481.9/sec             │   total hangs : 44 (19 unique)         │
-├─ fuzzing strategy yields ───────────┴───────────────┬─ path geometry ────────┤
-│   bit flips : 320/900k, 58/900k, 5/899k             │    levels : 8          │
-│  byte flips : 0/112k, 4/112k, 3/112k                │   pending : 385        │
-│ arithmetics : 66/6.24M, 0/412k, 0/35                │  pend fav : 1          │
-│  known ints : 5/544k, 0/3.08M, 0/4.93M              │ own finds : 554        │
-│  dictionary : 0/0, 0/0, 29/1.83M                    │  imported : n/a        │
-│       havoc : 64/300k, 0/0                          │ stability : 100.00%    │
-│        trim : 45.19%/56.5k, 0.00%                   ├────────────────────────┘
-^C────────────────────────────────────────────────────┘             [cpu: 74%]
-
-+++ Testing aborted by user +++
-[+] We're done here. Have a nice day!
+american fuzzy lop ++4.34c {default} (/tmp/sbjson-afl/sbjson) [explore]
+┌─ process timing ────────────────────────────────────┬─ overall results ────┐
+│        run time : 1 days, 0 hrs, 26 min, 51 sec     │  cycles done : 57    │
+│   last new find : 0 days, 0 hrs, 30 min, 9 sec      │ corpus count : 1089  │
+│last saved crash : none seen yet                     │saved crashes : 0     │
+│ last saved hang : none seen yet                     │  saved hangs : 0     │
+├─ cycle progress ─────────────────────┬─ map coverage┴──────────────────────┤
+│  now processing : 1055.224 (96.9%)   │    map density : 8.85% / 76.96%     │
+│  runs timed out : 0 (0.00%)          │ count coverage : 4.76 bits/tuple    │
+├─ stage progress ─────────────────────┼─ findings in depth ─────────────────┤
+│  now trying : havoc                  │ favored items : 113 (10.38%)        │
+│ stage execs : 102/300 (34.00%)       │  new edges on : 31 (2.85%)          │
+│ total execs : 14.1M                  │ total crashes : 0 (0 saved)         │
+│  exec speed : 236.0/sec              │  total tmouts : 3449 (0 saved)      │
+├─ fuzzing strategy yields ────────────┴─────────────┬─ item geometry ───────┤
+│   bit flips : 2/10.5k, 2/10.5k, 0/10.5k            │    levels : 38        │
+│  byte flips : 0/1315, 0/1314, 0/1312               │   pending : 0         │
+│ arithmetics : 4/92.0k, 0/183k, 0/183k              │  pend fav : 0         │
+│  known ints : 0/11.8k, 0/49.9k, 0/73.5k            │ own finds : 1052      │
+│  dictionary : 0/0, 0/0, 0/0, 0/0                   │  imported : 0         │
+│havoc/splice : 237/12.4M, 0/0                       │ stability : 100.00%   │
+│py/custom/rq : unused, unused, unused, unused       ├───────────────────────┤
+│    trim/eff : 4.22%/397k, 99.92%                   │             [cpu: 23%]│
+└─ strategy: exploit ────────── state: in progress ──┘
 ```
 
 # API Documentation
