@@ -42,7 +42,6 @@ jobs:
         executor: default
         steps:
             - checkout
-            - run: sed "s/%VERSION%/$CIRCLE_BUILD_NUM/" RELEASING/SBJson.template.podspec > SBJson.podspec
             - run: pod lib lint
 
     carthage-build:
